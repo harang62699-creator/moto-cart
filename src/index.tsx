@@ -77,24 +77,57 @@ app.get('/', (c) => {
     </div>
   </div>
 
-  <!-- 신청 유형 카드 -->
-  <h2 class="text-lg font-bold text-gray-800 mb-4"><i class="fas fa-th-large text-green-600 mr-2"></i>신청 유형 선택</h2>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+  <!-- 인증 유형 카드 -->
+  <h2 class="text-lg font-bold text-gray-800 mb-4"><i class="fas fa-th-large text-green-600 mr-2"></i>인증 유형 선택</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
 
-    <div class="card-hover bg-white rounded-xl border-2 border-green-200 p-5 cursor-pointer" onclick="showTab('tab-docs-cert')">
+    <div class="card-hover bg-white rounded-xl border-2 border-green-200 p-5 cursor-pointer" onclick="showDocType('basic')">
       <div class="flex items-center gap-3 mb-3">
         <div class="bg-green-100 rounded-lg p-3">
           <i class="fas fa-certificate text-green-600 text-2xl"></i>
         </div>
         <div>
-          <h3 class="font-bold text-gray-800">배출가스 인증신청</h3>
+          <h3 class="font-bold text-gray-800">기본인증</h3>
           <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">처리기간 15일</span>
         </div>
       </div>
-      <p class="text-sm text-gray-600">신규 수입자동차의 배출가스 기준 적합 여부를 인증받는 절차입니다.</p>
+      <p class="text-sm text-gray-600">신규 수입자동차의 배출가스·소음 기준 적합 여부를 최초로 인증받는 절차입니다.</p>
       <div class="mt-3 text-green-600 text-sm font-medium">서류 확인하기 →</div>
     </div>
 
+    <div class="card-hover bg-white rounded-xl border-2 border-blue-200 p-5 cursor-pointer" onclick="showDocType('change')">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="bg-blue-100 rounded-lg p-3">
+          <i class="fas fa-sync-alt text-blue-600 text-2xl"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-gray-800">변경인증</h3>
+          <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">처리기간 15일</span>
+        </div>
+      </div>
+      <p class="text-sm text-gray-600">인증받은 내용 중 배출가스·소음에 영향을 미치는 중요 사항이 변경된 경우 신청합니다.</p>
+      <div class="mt-3 text-blue-600 text-sm font-medium">서류 확인하기 →</div>
+    </div>
+
+    <div class="card-hover bg-white rounded-xl border-2 border-orange-200 p-5 cursor-pointer" onclick="showDocType('report')">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="bg-orange-100 rounded-lg p-3">
+          <i class="fas fa-file-signature text-orange-600 text-2xl"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-gray-800">변경보고</h3>
+          <span class="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">처리기간 7일</span>
+        </div>
+      </div>
+      <p class="text-sm text-gray-600">배출가스·소음에 영향이 없는 경미한 사항 변경 시 인증기관에 보고하는 절차입니다.</p>
+      <div class="mt-3 text-orange-600 text-sm font-medium">서류 확인하기 →</div>
+    </div>
+
+  </div>
+
+  <!-- 도구 카드 -->
+  <h2 class="text-lg font-bold text-gray-800 mb-4"><i class="fas fa-tools text-gray-600 mr-2"></i>작성 도구</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
     <div class="card-hover bg-white rounded-xl border-2 border-purple-200 p-5 cursor-pointer" onclick="showTab('tab-form')">
       <div class="flex items-center gap-3 mb-3">
         <div class="bg-purple-100 rounded-lg p-3">
@@ -109,18 +142,18 @@ app.get('/', (c) => {
       <div class="mt-3 text-purple-600 text-sm font-medium">작성 시작하기 →</div>
     </div>
 
-    <div class="card-hover bg-white rounded-xl border-2 border-orange-200 p-5 cursor-pointer" onclick="showTab('tab-checklist')">
+    <div class="card-hover bg-white rounded-xl border-2 border-teal-200 p-5 cursor-pointer" onclick="showTab('tab-checklist')">
       <div class="flex items-center gap-3 mb-3">
-        <div class="bg-orange-100 rounded-lg p-3">
-          <i class="fas fa-clipboard-check text-orange-600 text-2xl"></i>
+        <div class="bg-teal-100 rounded-lg p-3">
+          <i class="fas fa-clipboard-check text-teal-600 text-2xl"></i>
         </div>
         <div>
           <h3 class="font-bold text-gray-800">서류 체크리스트</h3>
-          <span class="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">진행률 확인</span>
+          <span class="text-xs bg-teal-100 text-teal-700 px-2 py-0.5 rounded-full">진행률 확인</span>
         </div>
       </div>
       <p class="text-sm text-gray-600">제출 서류 준비 현황을 체크하고 진행률을 관리합니다.</p>
-      <div class="mt-3 text-orange-600 text-sm font-medium">체크리스트 열기 →</div>
+      <div class="mt-3 text-teal-600 text-sm font-medium">체크리스트 열기 →</div>
     </div>
 
     <div class="card-hover bg-white rounded-xl border-2 border-red-200 p-5 cursor-pointer" onclick="showTab('tab-fee')">
@@ -135,20 +168,6 @@ app.get('/', (c) => {
       </div>
       <p class="text-sm text-gray-600">인증 유형별 수수료를 확인하고 자동 계산합니다.</p>
       <div class="mt-3 text-red-600 text-sm font-medium">수수료 계산하기 →</div>
-    </div>
-
-    <div class="card-hover bg-white rounded-xl border-2 border-gray-200 p-5 cursor-pointer" onclick="showTab('tab-guide')">
-      <div class="flex items-center gap-3 mb-3">
-        <div class="bg-gray-100 rounded-lg p-3">
-          <i class="fas fa-route text-gray-600 text-2xl"></i>
-        </div>
-        <div>
-          <h3 class="font-bold text-gray-800">인증 절차 안내</h3>
-          <span class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full">단계별 가이드</span>
-        </div>
-      </div>
-      <p class="text-sm text-gray-600">인증 신청부터 발급까지 전체 절차를 안내합니다.</p>
-      <div class="mt-3 text-gray-600 text-sm font-medium">절차 보기 →</div>
     </div>
   </div>
 
@@ -190,19 +209,34 @@ app.get('/', (c) => {
 
 <!-- ===== TAB: 인증 안내 ===== -->
 <section id="tab-guide" class="tab-section hidden">
-  <div class="bg-white rounded-xl border border-gray-200 p-6 mb-6">
-    <h2 class="text-lg font-bold text-gray-800 mb-4"><i class="fas fa-route text-green-600 mr-2"></i>인증 업무 절차</h2>
-    
-    <!-- 인증 절차 -->
-    <div class="mb-6">
-      <h3 class="font-semibold text-gray-700 mb-3 flex items-center gap-2">
-        <span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full">인증신청</span> 처리기간: 15일
-      </h3>
+
+  <!-- 인증 유형 서브탭 -->
+  <div class="flex gap-2 mb-6 border-b border-gray-200 overflow-x-auto">
+    <button onclick="showGuideType('guide-basic')" id="guide-btn-basic" class="guide-sub-btn active-guide-sub px-4 py-2.5 text-sm font-medium border-b-2 whitespace-nowrap">
+      <i class="fas fa-certificate mr-1"></i> 기본인증
+    </button>
+    <button onclick="showGuideType('guide-change')" id="guide-btn-change" class="guide-sub-btn px-4 py-2.5 text-sm font-medium border-b-2 border-transparent whitespace-nowrap text-gray-500 hover:text-gray-700">
+      <i class="fas fa-sync-alt mr-1"></i> 변경인증
+    </button>
+    <button onclick="showGuideType('guide-report')" id="guide-btn-report" class="guide-sub-btn px-4 py-2.5 text-sm font-medium border-b-2 border-transparent whitespace-nowrap text-gray-500 hover:text-gray-700">
+      <i class="fas fa-file-signature mr-1"></i> 변경보고
+    </button>
+  </div>
+
+  <!-- 기본인증 절차 -->
+  <div id="guide-basic" class="guide-sub-section">
+    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-1"><i class="fas fa-certificate text-green-600 mr-2"></i>기본인증 절차</h2>
+      <p class="text-sm text-gray-500 mb-4">신규 수입자동차 최초 인증 | 처리기간: 15일</p>
+      <div class="p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-green-800 mb-4">
+        <i class="fas fa-info-circle mr-1"></i>
+        <strong>대상:</strong> 국내에 처음 수입되는 차량으로 기존 인증이 없는 모든 수입자동차 (대기환경보전법 제48조 제1항)
+      </div>
       <div class="flex flex-col md:flex-row gap-2 items-center">
         <div class="step-box bg-green-50 border border-green-200 rounded-lg p-3 text-center flex-1">
           <div class="text-2xl mb-1">📋</div>
           <div class="font-semibold text-sm text-green-800">1. 신청서 작성</div>
-          <div class="text-xs text-gray-500 mt-1">KENCIS 시스템 또는<br/>방문/우편</div>
+          <div class="text-xs text-gray-500 mt-1">KENCIS 또는<br/>방문·우편</div>
         </div>
         <div class="text-gray-400 text-xl font-bold hidden md:block">→</div>
         <div class="step-box bg-green-50 border border-green-200 rounded-lg p-3 text-center flex-1">
@@ -214,7 +248,7 @@ app.get('/', (c) => {
         <div class="step-box bg-green-50 border border-green-200 rounded-lg p-3 text-center flex-1">
           <div class="text-2xl mb-1">🔬</div>
           <div class="font-semibold text-sm text-green-800">3. 시험 의뢰</div>
-          <div class="text-xs text-gray-500 mt-1">국립환경과학원<br/>배출가스 시험</div>
+          <div class="text-xs text-gray-500 mt-1">국립환경과학원<br/>배출가스·소음 시험</div>
         </div>
         <div class="text-gray-400 text-xl font-bold hidden md:block">→</div>
         <div class="step-box bg-green-50 border border-green-200 rounded-lg p-3 text-center flex-1">
@@ -232,7 +266,107 @@ app.get('/', (c) => {
     </div>
   </div>
 
-  <!-- 제출처 안내 -->
+  <!-- 변경인증 절차 -->
+  <div id="guide-change" class="guide-sub-section hidden">
+    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-1"><i class="fas fa-sync-alt text-blue-600 mr-2"></i>변경인증 절차</h2>
+      <p class="text-sm text-gray-500 mb-4">기존 인증사항 중요 변경 | 처리기간: 15일</p>
+      <div class="p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-800 mb-4">
+        <i class="fas fa-info-circle mr-1"></i>
+        <strong>대상:</strong> 이미 인증받은 자동차에서 엔진, 배기계통, 배출가스 저감장치 등 배출가스·소음에 영향을 미치는 사항이 변경된 경우
+      </div>
+      <div class="mb-4 bg-blue-50 rounded-lg p-4">
+        <h4 class="font-semibold text-blue-800 mb-2 text-sm">변경인증 대상 주요 항목</h4>
+        <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+          <li>원동기(엔진) 형식 변경</li>
+          <li>배출가스 저감장치(촉매, DPF 등) 변경</li>
+          <li>연료공급장치 변경</li>
+          <li>배기계통(머플러, 배기관 등) 소음에 영향 미치는 변경</li>
+          <li>OBD(자가진단장치) 소프트웨어 변경</li>
+        </ul>
+      </div>
+      <div class="flex flex-col md:flex-row gap-2 items-center">
+        <div class="step-box bg-blue-50 border border-blue-200 rounded-lg p-3 text-center flex-1">
+          <div class="text-2xl mb-1">📋</div>
+          <div class="font-semibold text-sm text-blue-800">1. 변경인증 신청</div>
+          <div class="text-xs text-gray-500 mt-1">변경 내용 기술 후<br/>KENCIS 또는 방문</div>
+        </div>
+        <div class="text-gray-400 text-xl font-bold hidden md:block">→</div>
+        <div class="step-box bg-blue-50 border border-blue-200 rounded-lg p-3 text-center flex-1">
+          <div class="text-2xl mb-1">📁</div>
+          <div class="font-semibold text-sm text-blue-800">2. 변경 서류 제출</div>
+          <div class="text-xs text-gray-500 mt-1">기존 인증서 사본 +<br/>변경 관련 서류</div>
+        </div>
+        <div class="text-gray-400 text-xl font-bold hidden md:block">→</div>
+        <div class="step-box bg-blue-50 border border-blue-200 rounded-lg p-3 text-center flex-1">
+          <div class="text-2xl mb-1">🔬</div>
+          <div class="font-semibold text-sm text-blue-800">3. 추가 시험</div>
+          <div class="text-xs text-gray-500 mt-1">변경된 항목에 대한<br/>추가 시험 (필요 시)</div>
+        </div>
+        <div class="text-gray-400 text-xl font-bold hidden md:block">→</div>
+        <div class="step-box bg-blue-50 border border-blue-200 rounded-lg p-3 text-center flex-1">
+          <div class="text-2xl mb-1">✅</div>
+          <div class="font-semibold text-sm text-blue-800">4. 변경 심사</div>
+          <div class="text-xs text-gray-500 mt-1">변경 사항 검토<br/>적합성 판정</div>
+        </div>
+        <div class="text-gray-400 text-xl font-bold hidden md:block">→</div>
+        <div class="step-box bg-blue-50 border border-blue-200 rounded-lg p-3 text-center flex-1">
+          <div class="text-2xl mb-1">📄</div>
+          <div class="font-semibold text-sm text-blue-800">5. 변경인증서 발급</div>
+          <div class="text-xs text-gray-500 mt-1">변경된 인증서 수령</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 변경보고 절차 -->
+  <div id="guide-report" class="guide-sub-section hidden">
+    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-1"><i class="fas fa-file-signature text-orange-600 mr-2"></i>변경보고 절차</h2>
+      <p class="text-sm text-gray-500 mb-4">경미한 사항 변경 보고 | 처리기간: 7일</p>
+      <div class="p-3 bg-orange-50 border border-orange-200 rounded-lg text-sm text-orange-800 mb-4">
+        <i class="fas fa-info-circle mr-1"></i>
+        <strong>대상:</strong> 배출가스·소음에 직접 영향을 미치지 않는 경미한 사항(차량 외관, 편의장치 등)이 변경된 경우. 변경인증 수준의 시험 불필요.
+      </div>
+      <div class="mb-4 bg-orange-50 rounded-lg p-4">
+        <h4 class="font-semibold text-orange-800 mb-2 text-sm">변경보고 대상 주요 항목</h4>
+        <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+          <li>차량 외관(색상, 형상) 변경으로 배출가스·소음에 무관한 경우</li>
+          <li>편의장치(오디오, 내장재 등) 추가·변경</li>
+          <li>인증 후 수입자 정보(상호, 주소) 변경</li>
+          <li>차량 제원 중 경미한 사항(공차중량 소폭 변경 등)</li>
+          <li>인증기관이 변경보고로 인정하는 기타 경미한 사항</li>
+        </ul>
+      </div>
+      <div class="flex flex-col md:flex-row gap-2 items-center">
+        <div class="step-box bg-orange-50 border border-orange-200 rounded-lg p-3 text-center flex-1">
+          <div class="text-2xl mb-1">📋</div>
+          <div class="font-semibold text-sm text-orange-800">1. 변경보고서 작성</div>
+          <div class="text-xs text-gray-500 mt-1">변경 사항 기술 후<br/>KENCIS 또는 방문</div>
+        </div>
+        <div class="text-gray-400 text-xl font-bold hidden md:block">→</div>
+        <div class="step-box bg-orange-50 border border-orange-200 rounded-lg p-3 text-center flex-1">
+          <div class="text-2xl mb-1">📁</div>
+          <div class="font-semibold text-sm text-orange-800">2. 서류 제출</div>
+          <div class="text-xs text-gray-500 mt-1">기존 인증서 사본 +<br/>변경 증빙 서류</div>
+        </div>
+        <div class="text-gray-400 text-xl font-bold hidden md:block">→</div>
+        <div class="step-box bg-orange-50 border border-orange-200 rounded-lg p-3 text-center flex-1">
+          <div class="text-2xl mb-1">🔍</div>
+          <div class="font-semibold text-sm text-orange-800">3. 서류 검토</div>
+          <div class="text-xs text-gray-500 mt-1">인증기관 서류 검토<br/>(시험 없음)</div>
+        </div>
+        <div class="text-gray-400 text-xl font-bold hidden md:block">→</div>
+        <div class="step-box bg-orange-50 border border-orange-200 rounded-lg p-3 text-center flex-1">
+          <div class="text-2xl mb-1">✅</div>
+          <div class="font-semibold text-sm text-orange-800">4. 보고 수리</div>
+          <div class="text-xs text-gray-500 mt-1">인증기관 수리 확인</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 제출처 안내 (공통) -->
   <div class="bg-white rounded-xl border border-gray-200 p-6">
     <h2 class="text-lg font-bold text-gray-800 mb-4"><i class="fas fa-map-marker-alt text-red-500 mr-2"></i>제출처 안내</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -244,7 +378,7 @@ app.get('/', (c) => {
       </div>
       <div class="bg-blue-50 rounded-lg p-4">
         <h4 class="font-semibold text-blue-800 mb-2"><i class="fas fa-flask mr-1"></i>국립환경과학원</h4>
-        <p class="text-sm text-gray-600 mb-1">배출가스 시험 실시 기관</p>
+        <p class="text-sm text-gray-600 mb-1">배출가스·소음 시험 실시 기관</p>
         <p class="text-sm font-medium text-gray-700">📞 032-560-7114</p>
         <p class="text-sm text-gray-500">인천광역시 서구 환경로 42</p>
       </div>
@@ -257,169 +391,404 @@ app.get('/', (c) => {
 
 <!-- ===== TAB: 인증신청 서류 ===== -->
 <section id="tab-docs-cert" class="tab-section hidden">
-  <div class="bg-white rounded-xl border border-gray-200 p-6 mb-6">
-    <h2 class="text-lg font-bold text-gray-800 mb-2"><i class="fas fa-file-alt text-green-600 mr-2"></i>배출가스·소음 인증신청 첨부서류</h2>
-    <p class="text-sm text-gray-500 mb-4">대기환경보전법 시행규칙 제64조 제1항 근거</p>
-    
-    <div class="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-green-800">
-      <i class="fas fa-info-circle mr-1"></i>
-      <strong>배출가스 인증신청 대상:</strong> 신규 수입자동차 (제작차 인증이 없는 차량). 시험기관에서 배출가스 시험 필요.
+
+  <!-- 인증 유형 서브탭 -->
+  <div class="flex gap-2 mb-6 border-b border-gray-200 overflow-x-auto">
+    <button onclick="showDocType('basic')" id="doc-btn-basic" class="doc-sub-btn active-doc-sub px-4 py-2.5 text-sm font-medium border-b-2 whitespace-nowrap">
+      <i class="fas fa-certificate mr-1"></i> 기본인증
+    </button>
+    <button onclick="showDocType('change')" id="doc-btn-change" class="doc-sub-btn px-4 py-2.5 text-sm font-medium border-b-2 border-transparent whitespace-nowrap text-gray-500 hover:text-gray-700">
+      <i class="fas fa-sync-alt mr-1"></i> 변경인증
+    </button>
+    <button onclick="showDocType('report')" id="doc-btn-report" class="doc-sub-btn px-4 py-2.5 text-sm font-medium border-b-2 border-transparent whitespace-nowrap text-gray-500 hover:text-gray-700">
+      <i class="fas fa-file-signature mr-1"></i> 변경보고
+    </button>
+  </div>
+
+  <!-- ---- 기본인증 서류 ---- -->
+  <div id="doc-basic" class="doc-sub-section">
+    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-1"><i class="fas fa-file-alt text-green-600 mr-2"></i>기본인증 첨부서류</h2>
+      <p class="text-sm text-gray-500 mb-4">대기환경보전법 시행규칙 제64조 제1항 근거 | 별지 제30호 서식</p>
+      <div class="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-green-800">
+        <i class="fas fa-info-circle mr-1"></i>
+        <strong>신규 수입자동차:</strong> 국내에 처음 수입되는 차량으로, 국립환경과학원(또는 공인 시험기관)의 배출가스·소음 시험이 필요합니다.
+      </div>
+      <div class="space-y-3">
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">1</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">배출가스 감지·저감장치 등의 구성에 관한 서류</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">엔진 배출가스 저감 시스템, 촉매장치, EGR 등 관련 기술 문서</p>
+              <div class="mt-2 bg-gray-50 rounded p-2 text-xs text-gray-500">
+                <i class="fas fa-file-pdf text-red-400 mr-1"></i>원동기 구조 설명서, 배출가스 감지장치 다이어그램, 저감장치 사양서
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">2</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">연료효율 관련 장치 등의 구성에 관한 서류</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">연료분사 시스템, 연비 관련 제어장치 기술 문서</p>
+              <div class="mt-2 bg-gray-50 rounded p-2 text-xs text-gray-500">
+                <i class="fas fa-file-pdf text-red-400 mr-1"></i>연료계통 구성도, 연료효율 측정 방식, 에너지소비효율 관련 데이터
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">3</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">인증에 필요한 세부계획에 관한 서류</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">인증 시험 세부 계획, 차량 기술 사양, 제작사 정보 등</p>
+              <div class="mt-2 bg-gray-50 rounded p-2 text-xs text-gray-500">
+                <i class="fas fa-file-pdf text-red-400 mr-1"></i>별지 제4호 서식 또는 별지 제4의2호 서식(전기차) 사용
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">4</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">자동차배출가스 시험결과 보고에 관한 서류</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">배출가스 시험성적서, 인증시험 결과값 등</p>
+              <div class="mt-2 bg-gray-50 rounded p-2 text-xs text-gray-500">
+                <i class="fas fa-file-pdf text-red-400 mr-1"></i>국립환경과학원 또는 공인시험기관 발급 시험성적서 포함
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">5</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">배출가스 보증에 관한 제작자 확인서 또는 계약서</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">자동차제작자가 아닌 자로부터 수입하는 경우, 기후에너지환경부장관이 고시하는 서류로 갈음 가능</p>
+              <div class="mt-2 bg-gray-50 rounded p-2 text-xs text-gray-500">
+                <i class="fas fa-file-pdf text-red-400 mr-1"></i>제작자-수입자간 배출가스 보증 계약서 또는 제작자 확인서
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">6</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">제작차 배출허용기준에 관한 사항</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">저공해자동차 등의 배출허용기준 포함, 해당 차량이 충족하는 배출 기준값</p>
+            </div>
+          </div>
+        </div>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-yellow-100 rounded-full w-7 h-7 flex items-center justify-center text-yellow-700 font-bold text-sm flex-shrink-0 mt-0.5">7</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">배출가스 자가진단장치(OBD) 구성에 관한 서류</h4>
+                <span class="badge-conditional">조건부 필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">기후에너지환경부장관이 정하여 고시하는 자동차의 경우에만 제출</p>
+              <div class="mt-2 bg-yellow-50 rounded p-2 text-xs text-yellow-700">
+                <i class="fas fa-exclamation-triangle mr-1"></i>OBD 장착 대상 차량 확인 후 제출 여부 결정
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-yellow-100 rounded-full w-7 h-7 flex items-center justify-center text-yellow-700 font-bold text-sm flex-shrink-0 mt-0.5">8</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">축전지·모터·제너레이터 부품 보증에 관한 사항</h4>
+                <span class="badge-conditional">전기차/수소차 한정</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">전기자동차, 수소전기자동차에 사용되는 원동기의 경우에만 제출</p>
+            </div>
+          </div>
+        </div>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-yellow-100 rounded-full w-7 h-7 flex items-center justify-center text-yellow-700 font-bold text-sm flex-shrink-0 mt-0.5">9</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">충전기 보증에 관한 사항</h4>
+                <span class="badge-conditional">전기차 한정</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">전기자동차에 사용되는 원동기의 경우에만 제출</p>
+            </div>
+          </div>
+        </div>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">10</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">배출가스 이행 보증보험증권</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">인증 이행을 보증하는 보험증권 (개별수입자 해당)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 소음 인증 추가 서류 -->
+      <div class="mt-6 p-4 bg-purple-50 border border-purple-200 rounded-lg">
+        <h3 class="font-semibold text-purple-800 mb-3"><i class="fas fa-volume-off mr-1"></i>소음 인증신청 추가 서류</h3>
+        <div class="space-y-2">
+          <div class="flex items-start gap-2">
+            <span class="badge-required text-xs mt-0.5">필수</span>
+            <div>
+              <p class="text-sm font-medium text-gray-800">자동차 소음저감에 관한 서류</p>
+              <p class="text-xs text-gray-500">소음저감장치(머플러, 흡음재 등) 구성 및 소음시험 결과 포함</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="badge-required text-xs mt-0.5">필수</span>
+            <div>
+              <p class="text-sm font-medium text-gray-800">소음시험 결과보고서</p>
+              <p class="text-xs text-gray-500">주행소음, 정지소음 등 각 항목별 시험 결과치</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- 필수 서류 목록 -->
-    <div class="space-y-3">
-      <div class="doc-item border border-gray-200 rounded-lg p-4">
-        <div class="flex items-start gap-3">
-          <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">1</div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <h4 class="font-semibold text-gray-800">배출가스 감지·저감장치 등의 구성에 관한 서류</h4>
-              <span class="badge-required">필수</span>
-            </div>
-            <p class="text-sm text-gray-600 mt-1">엔진 배출가스 저감 시스템, 촉매장치, EGR 등 관련 기술 문서</p>
-            <div class="mt-2 bg-gray-50 rounded p-2 text-xs text-gray-500">
-              <i class="fas fa-file-pdf text-red-400 mr-1"></i>포함 내용: 원동기 구조 설명서, 배출가스 감지장치 다이어그램, 저감장치 사양서
+  <!-- ---- 변경인증 서류 ---- -->
+  <div id="doc-change" class="doc-sub-section hidden">
+    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-1"><i class="fas fa-sync-alt text-blue-600 mr-2"></i>변경인증 첨부서류</h2>
+      <p class="text-sm text-gray-500 mb-4">대기환경보전법 시행규칙 제64조 근거 | 처리기간: 15일</p>
+      <div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-800">
+        <i class="fas fa-info-circle mr-1"></i>
+        <strong>변경인증 대상:</strong> 기인증 차량의 엔진·배출가스저감장치·연료공급장치·배기계통 등 배출가스·소음에 영향을 미치는 중요 사항 변경 시
+      </div>
+      <div class="space-y-3">
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">1</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">기존 인증서 사본</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">변경 전 유효한 배출가스·소음 인증서 사본 1부</p>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="doc-item border border-gray-200 rounded-lg p-4">
-        <div class="flex items-start gap-3">
-          <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">2</div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <h4 class="font-semibold text-gray-800">연료효율 관련 장치 등의 구성에 관한 서류</h4>
-              <span class="badge-required">필수</span>
-            </div>
-            <p class="text-sm text-gray-600 mt-1">연료분사 시스템, 연비 관련 제어장치 기술 문서</p>
-            <div class="mt-2 bg-gray-50 rounded p-2 text-xs text-gray-500">
-              <i class="fas fa-file-pdf text-red-400 mr-1"></i>포함 내용: 연료계통 구성도, 연료효율 측정 방식, 에너지소비효율 관련 데이터
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="doc-item border border-gray-200 rounded-lg p-4">
-        <div class="flex items-start gap-3">
-          <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">3</div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <h4 class="font-semibold text-gray-800">인증에 필요한 세부계획에 관한 서류</h4>
-              <span class="badge-required">필수</span>
-            </div>
-            <p class="text-sm text-gray-600 mt-1">인증 시험 세부 계획, 차량 기술 사양, 제작사 정보 등</p>
-            <div class="mt-2 bg-gray-50 rounded p-2 text-xs text-gray-500">
-              <i class="fas fa-file-pdf text-red-400 mr-1"></i>별지 제4호 서식 또는 별지 제4의2호 서식(전기차) 사용
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">2</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">변경 전·후 비교표</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">변경된 항목에 대한 변경 전·후 내용을 비교한 표</p>
+              <div class="mt-2 bg-gray-50 rounded p-2 text-xs text-gray-500">
+                <i class="fas fa-file-alt text-blue-400 mr-1"></i>변경 항목, 변경 전 사양, 변경 후 사양, 변경 사유 포함
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="doc-item border border-gray-200 rounded-lg p-4">
-        <div class="flex items-start gap-3">
-          <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">4</div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <h4 class="font-semibold text-gray-800">자동차배출가스 시험결과 보고에 관한 서류</h4>
-              <span class="badge-required">필수</span>
-            </div>
-            <p class="text-sm text-gray-600 mt-1">배출가스 시험성적서, 인증시험 결과값 등</p>
-            <div class="mt-2 bg-gray-50 rounded p-2 text-xs text-gray-500">
-              <i class="fas fa-file-pdf text-red-400 mr-1"></i>국립환경과학원 또는 공인시험기관 발급 시험성적서 포함
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="doc-item border border-gray-200 rounded-lg p-4">
-        <div class="flex items-start gap-3">
-          <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">5</div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <h4 class="font-semibold text-gray-800">배출가스 보증에 관한 제작자 확인서 또는 계약서</h4>
-              <span class="badge-required">필수</span>
-            </div>
-            <p class="text-sm text-gray-600 mt-1">자동차제작자가 아닌 자로부터 수입하는 경우, 기후에너지환경부장관이 고시하는 서류로 갈음 가능</p>
-            <div class="mt-2 bg-gray-50 rounded p-2 text-xs text-gray-500">
-              <i class="fas fa-file-pdf text-red-400 mr-1"></i>제작자-수입자간 배출가스 보증 계약서 또는 제작자 확인서
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">3</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">변경된 배출가스 관련 장치 기술 서류</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">변경된 엔진·배출가스 저감장치·연료공급장치 등의 기술 사양서</p>
+              <div class="mt-2 bg-gray-50 rounded p-2 text-xs text-gray-500">
+                <i class="fas fa-file-pdf text-red-400 mr-1"></i>변경된 부품의 도면, 사양서, 제작사 기술 자료
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="doc-item border border-gray-200 rounded-lg p-4">
-        <div class="flex items-start gap-3">
-          <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">6</div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <h4 class="font-semibold text-gray-800">제작차 배출허용기준에 관한 사항</h4>
-              <span class="badge-required">필수</span>
-            </div>
-            <p class="text-sm text-gray-600 mt-1">저공해자동차 등의 배출허용기준 포함, 해당 차량이 충족하는 배출 기준값</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="doc-item border border-gray-200 rounded-lg p-4">
-        <div class="flex items-start gap-3">
-          <div class="bg-yellow-100 rounded-full w-7 h-7 flex items-center justify-center text-yellow-700 font-bold text-sm flex-shrink-0 mt-0.5">7</div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <h4 class="font-semibold text-gray-800">배출가스 자가진단장치(OBD) 구성에 관한 서류</h4>
-              <span class="badge-conditional">조건부 필수</span>
-            </div>
-            <p class="text-sm text-gray-600 mt-1">기후에너지환경부장관이 정하여 고시하는 자동차의 경우에만 제출 (일반적으로 승용차, 소형 화물차 등)</p>
-            <div class="mt-2 bg-yellow-50 rounded p-2 text-xs text-yellow-700">
-              <i class="fas fa-exclamation-triangle mr-1"></i>OBD 장착 대상 차량 확인 후 제출 여부 결정
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">4</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">변경 후 배출가스·소음 시험결과 보고서</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">변경 항목에 대한 추가 시험 성적서 (해당 시험기관 발급)</p>
+              <div class="mt-2 bg-yellow-50 rounded p-2 text-xs text-yellow-700">
+                <i class="fas fa-exclamation-triangle mr-1"></i>배출가스·소음에 영향을 주는 변경이면 반드시 시험 후 제출
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="doc-item border border-gray-200 rounded-lg p-4">
-        <div class="flex items-start gap-3">
-          <div class="bg-yellow-100 rounded-full w-7 h-7 flex items-center justify-center text-yellow-700 font-bold text-sm flex-shrink-0 mt-0.5">8</div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <h4 class="font-semibold text-gray-800">축전지·모터·제너레이터 부품 보증에 관한 사항</h4>
-              <span class="badge-conditional">전기차/수소차 한정</span>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">5</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">인증에 필요한 세부계획 서류 (변경분)</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">변경 항목에 해당하는 세부 계획 서류</p>
+              <div class="mt-2 bg-gray-50 rounded p-2 text-xs text-gray-500">
+                <i class="fas fa-file-pdf text-red-400 mr-1"></i>별지 제4호 서식 (변경 항목 위주 작성)
+              </div>
             </div>
-            <p class="text-sm text-gray-600 mt-1">전기자동차, 수소전기자동차, 전기건설기계, 수소전기건설기계에 사용될 원동기의 경우에만 제출</p>
           </div>
         </div>
-      </div>
-
-      <div class="doc-item border border-gray-200 rounded-lg p-4">
-        <div class="flex items-start gap-3">
-          <div class="bg-yellow-100 rounded-full w-7 h-7 flex items-center justify-center text-yellow-700 font-bold text-sm flex-shrink-0 mt-0.5">9</div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <h4 class="font-semibold text-gray-800">충전기 보증에 관한 사항</h4>
-              <span class="badge-conditional">전기차 한정</span>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">6</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">배출가스 보증에 관한 제작자 확인서 또는 계약서 (변경분)</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">변경된 사항에 대한 제작자의 배출가스 보증 확인서</p>
             </div>
-            <p class="text-sm text-gray-600 mt-1">전기자동차, 전기건설기계에 사용될 원동기의 경우에만 제출</p>
+          </div>
+        </div>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-yellow-100 rounded-full w-7 h-7 flex items-center justify-center text-yellow-700 font-bold text-sm flex-shrink-0 mt-0.5">7</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">OBD 소프트웨어 변경 관련 기술 자료</h4>
+                <span class="badge-conditional">OBD 변경 시</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">OBD 소프트웨어가 변경된 경우 제출 (변경 전·후 비교 자료 포함)</p>
+            </div>
+          </div>
+        </div>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-yellow-100 rounded-full w-7 h-7 flex items-center justify-center text-yellow-700 font-bold text-sm flex-shrink-0 mt-0.5">8</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">소음 변경 관련 서류</h4>
+                <span class="badge-conditional">소음 인증 포함 시</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">소음에 영향을 미치는 변경(배기계통, 흡기계통 등) 시 소음저감장치 사양서 및 소음시험 성적서</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- 소음 인증 서류 -->
-    <div class="mt-6 p-4 bg-purple-50 border border-purple-200 rounded-lg">
-      <h3 class="font-semibold text-purple-800 mb-3"><i class="fas fa-volume-off mr-1"></i>소음 인증신청 추가 서류</h3>
-      <div class="space-y-2">
-        <div class="flex items-start gap-2">
-          <span class="badge-required text-xs mt-0.5">필수</span>
-          <div>
-            <p class="text-sm font-medium text-gray-800">자동차 소음저감에 관한 서류</p>
-            <p class="text-xs text-gray-500">소음저감장치(머플러, 흡음재 등) 구성 및 소음시험 결과 포함</p>
+  <!-- ---- 변경보고 서류 ---- -->
+  <div id="doc-report" class="doc-sub-section hidden">
+    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-1"><i class="fas fa-file-signature text-orange-600 mr-2"></i>변경보고 첨부서류</h2>
+      <p class="text-sm text-gray-500 mb-4">경미한 사항 변경 보고 | 처리기간: 7일</p>
+      <div class="mb-4 p-3 bg-orange-50 border border-orange-200 rounded-lg text-sm text-orange-800">
+        <i class="fas fa-info-circle mr-1"></i>
+        <strong>변경보고 대상:</strong> 배출가스·소음에 직접 영향을 미치지 않는 경미한 사항 변경. 별도 시험 없이 서류 검토로 처리됩니다.
+      </div>
+      <div class="space-y-3">
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">1</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">기존 인증서 사본</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">현재 유효한 배출가스·소음 인증서 사본 1부</p>
+            </div>
           </div>
         </div>
-        <div class="flex items-start gap-2">
-          <span class="badge-required text-xs mt-0.5">필수</span>
-          <div>
-            <p class="text-sm font-medium text-gray-800">소음시험 결과보고서</p>
-            <p class="text-xs text-gray-500">주행소음, 정지소음 등 각 항목별 시험 결과치</p>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">2</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">변경 내용 기술서</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">변경된 사항의 내용·사유·일시를 구체적으로 기술한 서류</p>
+              <div class="mt-2 bg-gray-50 rounded p-2 text-xs text-gray-500">
+                <i class="fas fa-file-alt text-orange-400 mr-1"></i>변경 항목, 변경 사유, 변경 일시, 배출가스·소음 영향 없음 확인
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">3</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">변경 증빙 서류</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">변경 사실을 증명하는 서류 (사진, 카탈로그, 설계도면 등)</p>
+              <div class="mt-2 bg-gray-50 rounded p-2 text-xs text-gray-500">
+                <i class="fas fa-image text-green-400 mr-1"></i>변경 전·후 비교 사진 또는 관련 도면·카탈로그
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 rounded-full w-7 h-7 flex items-center justify-center text-red-700 font-bold text-sm flex-shrink-0 mt-0.5">4</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">변경보고서 (별지 서식)</h4>
+                <span class="badge-required">필수</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">변경보고 신청 서식 작성 (KENCIS 온라인 또는 서면)</p>
+              <div class="mt-2 bg-gray-50 rounded p-2 text-xs text-gray-500">
+                <i class="fas fa-file-pdf text-red-400 mr-1"></i>해당 법령 별지 서식에 따라 작성
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-yellow-100 rounded-full w-7 h-7 flex items-center justify-center text-yellow-700 font-bold text-sm flex-shrink-0 mt-0.5">5</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">수입자 정보 변경 증빙</h4>
+                <span class="badge-conditional">수입자 정보 변경 시</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">상호, 대표자, 주소 변경의 경우 사업자등록증 사본 등 관련 서류</p>
+            </div>
+          </div>
+        </div>
+        <div class="doc-item border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="bg-yellow-100 rounded-full w-7 h-7 flex items-center justify-center text-yellow-700 font-bold text-sm flex-shrink-0 mt-0.5">6</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-semibold text-gray-800">차량 제원 변경 관련 서류</h4>
+                <span class="badge-conditional">제원 변경 시</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">공차중량 등 경미한 제원 변경의 경우 관련 기술 자료</p>
+            </div>
           </div>
         </div>
       </div>
@@ -480,11 +849,17 @@ app.get('/', (c) => {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">신청 유형 <span class="text-red-500">*</span></label>
-          <select id="f-cert-type" class="form-input w-full">
+          <select id="f-cert-type" class="form-input w-full" onchange="onCertTypeChange()">
             <option value="">선택하세요</option>
-            <option value="cert">배출가스·소음 인증신청</option>
-
+            <option value="basic">기본인증 (신규 수입자동차)</option>
+            <option value="change">변경인증 (인증사항 중요 변경)</option>
+            <option value="report">변경보고 (경미한 사항 변경)</option>
           </select>
+        </div>
+        <!-- 변경인증/변경보고 시 기존 인증번호 표시 -->
+        <div id="f-prev-cert-wrap" class="hidden">
+          <label class="block text-sm font-medium text-gray-700 mb-1">기존 인증번호 <span class="text-red-500">*</span></label>
+          <input type="text" id="f-prev-cert" class="form-input w-full" placeholder="기존 인증서 번호 입력" />
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">수입자(신청인) 상호 <span class="text-red-500">*</span></label>
@@ -559,7 +934,7 @@ app.get('/', (c) => {
           </select>
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">배기량(cc) </label>
+          <label class="block text-sm font-medium text-gray-700 mb-1">배기량(cc)</label>
           <input type="number" id="f-disp" class="form-input w-full" placeholder="예: 1998 (전기차는 0)" />
         </div>
         <div>
@@ -581,6 +956,29 @@ app.get('/', (c) => {
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">원산지 국가 <span class="text-red-500">*</span></label>
           <input type="text" id="f-origin" class="form-input w-full" placeholder="예: 독일, 미국, 일본" />
+        </div>
+      </div>
+
+      <!-- 변경인증/변경보고 전용: 변경 사항 -->
+      <div id="f-change-section" class="hidden mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <h4 class="font-semibold text-blue-800 mb-3"><i class="fas fa-exchange-alt mr-1"></i>변경 관련 정보</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-1">변경 항목 <span class="text-red-500">*</span></label>
+            <input type="text" id="f-change-item" class="form-input w-full" placeholder="예: 엔진 교체, 배출가스 저감장치 변경, 수입자 상호 변경 등" />
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-1">변경 사유 <span class="text-red-500">*</span></label>
+            <textarea id="f-change-reason" class="form-input w-full h-20" placeholder="변경 사유를 구체적으로 입력하세요"></textarea>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">변경 전 내용</label>
+            <input type="text" id="f-change-before" class="form-input w-full" placeholder="변경 전 사양/내용" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">변경 후 내용</label>
+            <input type="text" id="f-change-after" class="form-input w-full" placeholder="변경 후 사양/내용" />
+          </div>
         </div>
       </div>
     </div>
@@ -681,11 +1079,18 @@ app.get('/', (c) => {
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
       <div>
         <h2 class="text-lg font-bold text-gray-800"><i class="fas fa-tasks text-orange-600 mr-2"></i>서류 준비 체크리스트</h2>
-        <p class="text-sm text-gray-500">준비된 서류를 체크하여 진행 현황을 관리하세요</p>
+        <p class="text-sm text-gray-500">인증 유형을 선택하고 준비된 서류를 체크하세요</p>
       </div>
-      <div class="flex gap-2">
-        <button onclick="setChecklistType('cert')" id="cl-btn-cert" class="cl-btn active-cl px-3 py-2 rounded-lg text-sm border font-medium">배출가스 인증</button>
-
+      <div class="flex gap-2 flex-wrap">
+        <button onclick="setChecklistType('basic')" id="cl-btn-basic" class="cl-btn active-cl px-3 py-2 rounded-lg text-sm border font-medium">
+          <i class="fas fa-certificate mr-1"></i>기본인증
+        </button>
+        <button onclick="setChecklistType('change')" id="cl-btn-change" class="cl-btn px-3 py-2 rounded-lg text-sm border font-medium">
+          <i class="fas fa-sync-alt mr-1"></i>변경인증
+        </button>
+        <button onclick="setChecklistType('report')" id="cl-btn-report" class="cl-btn px-3 py-2 rounded-lg text-sm border font-medium">
+          <i class="fas fa-file-signature mr-1"></i>변경보고
+        </button>
       </div>
     </div>
 
@@ -728,30 +1133,43 @@ app.get('/', (c) => {
     <h2 class="text-lg font-bold text-gray-800 mb-4"><i class="fas fa-calculator text-red-600 mr-2"></i>수수료 안내 및 계산기</h2>
     <p class="text-xs text-gray-500 mb-4">※ 2013년 3월 1일부터 부가세 10% 포함 금액</p>
 
-    <!-- 수수료 테이블 -->
+    <!-- 인증 수수료 테이블 -->
     <div class="mb-6 overflow-x-auto">
-      <h3 class="font-semibold text-gray-700 mb-3">인증 수수료 (제작차/개별수입자)</h3>
+      <h3 class="font-semibold text-gray-700 mb-3">인증 수수료 (제작차·개별수입자)</h3>
       <table class="w-full border-collapse text-sm">
         <thead>
           <tr class="bg-green-50">
             <th class="border border-gray-200 px-4 py-2 text-left text-gray-700">신청 종류</th>
             <th class="border border-gray-200 px-4 py-2 text-center text-gray-700">수수료</th>
+            <th class="border border-gray-200 px-4 py-2 text-left text-gray-700">비고</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="border border-gray-200 px-4 py-2">인증 (자동차 제작자)</td>
+            <td class="border border-gray-200 px-4 py-2">기본인증 (자동차 제작자)</td>
             <td class="border border-gray-200 px-4 py-2 text-center font-medium">30만원</td>
+            <td class="border border-gray-200 px-4 py-2 text-xs text-gray-500">이륜차 제작자: 10만원</td>
           </tr>
           <tr class="bg-gray-50">
-            <td class="border border-gray-200 px-4 py-2">인증 (이륜자동차 제작자)</td>
-            <td class="border border-gray-200 px-4 py-2 text-center font-medium">10만원</td>
+            <td class="border border-gray-200 px-4 py-2">기본인증 (개별수입자)</td>
+            <td class="border border-gray-200 px-4 py-2 text-center font-medium text-green-700">1만원</td>
+            <td class="border border-gray-200 px-4 py-2 text-xs text-gray-500">개별 수입자동차</td>
           </tr>
           <tr>
-            <td class="border border-gray-200 px-4 py-2">인증 (개별자동차 수입자)</td>
-            <td class="border border-gray-200 px-4 py-2 text-center font-medium text-green-700">1만원</td>
+            <td class="border border-gray-200 px-4 py-2">변경인증 (자동차 제작자)</td>
+            <td class="border border-gray-200 px-4 py-2 text-center font-medium">30만원</td>
+            <td class="border border-gray-200 px-4 py-2 text-xs text-gray-500">이륜차 제작자: 10만원</td>
           </tr>
-
+          <tr class="bg-gray-50">
+            <td class="border border-gray-200 px-4 py-2">변경인증 (개별수입자)</td>
+            <td class="border border-gray-200 px-4 py-2 text-center font-medium text-blue-700">1만원</td>
+            <td class="border border-gray-200 px-4 py-2 text-xs text-gray-500">개별 수입자동차</td>
+          </tr>
+          <tr>
+            <td class="border border-gray-200 px-4 py-2">변경보고</td>
+            <td class="border border-gray-200 px-4 py-2 text-center font-medium text-orange-700">무료</td>
+            <td class="border border-gray-200 px-4 py-2 text-xs text-gray-500">경미한 사항 변경 보고</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -764,11 +1182,14 @@ app.get('/', (c) => {
           <label class="block text-sm font-medium text-gray-700 mb-1">신청 유형</label>
           <select id="fee-type" class="form-input w-full" onchange="calcFee()">
             <option value="">선택하세요</option>
-            <option value="cert-individual">인증신청 (개별수입자)</option>
-            <option value="cert-maker">인증신청 (자동차 제작자)</option>
+            <option value="basic-individual">기본인증 (개별수입자)</option>
+            <option value="basic-maker">기본인증 (자동차 제작자)</option>
+            <option value="change-individual">변경인증 (개별수입자)</option>
+            <option value="change-maker">변경인증 (자동차 제작자)</option>
+            <option value="report">변경보고</option>
           </select>
         </div>
-        <div>
+        <div id="fee-vehicle-wrap">
           <label class="block text-sm font-medium text-gray-700 mb-1">차량 유형</label>
           <select id="fee-vehicle" class="form-input w-full" onchange="calcFee()">
             <option value="car">자동차</option>
@@ -782,7 +1203,6 @@ app.get('/', (c) => {
             <option value="no">아니오 (배출가스만)</option>
           </select>
         </div>
-
       </div>
 
       <!-- 계산 결과 -->

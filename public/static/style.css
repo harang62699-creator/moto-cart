@@ -112,7 +112,27 @@ body {
   color: white !important;
 }
 
-/* ===== 인증생략 탭 버튼 ===== */
+/* ===== 서브탭 (인증 유형 서브탭: 인증 안내, 인증신청 서류) ===== */
+.doc-sub-btn,
+.guide-sub-btn {
+  background: transparent;
+  color: #6b7280;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  padding-bottom: 10px;
+}
+.doc-sub-btn:hover,
+.guide-sub-btn:hover {
+  color: #374151;
+}
+.active-doc-sub,
+.active-guide-sub {
+  color: #16a34a !important;
+  border-bottom: 2px solid #16a34a !important;
+  font-weight: 600;
+}
+
+/* ===== 인증생략 탭 버튼 (레거시, 미사용) ===== */
 .omit-tab {
   background: white;
   color: #374151;

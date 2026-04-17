@@ -12,7 +12,6 @@ function showTab(tabId) {
     'tab-home': 'nav-home',
     'tab-guide': 'nav-guide',
     'tab-docs-cert': 'nav-docs-cert',
-    'tab-docs-omit': 'nav-docs-omit',
     'tab-form': 'nav-form',
     'tab-checklist': 'nav-checklist',
     'tab-fee': 'nav-fee'
@@ -25,15 +24,6 @@ function showTab(tabId) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ===== 인증생략 차종 탭 =====
-function showOmitType(type) {
-  document.querySelectorAll('.omit-docs-section').forEach(s => s.classList.add('hidden'));
-  document.querySelectorAll('.omit-tab').forEach(b => b.classList.remove('active-omit'));
-  const section = document.getElementById('omit-docs-' + type);
-  if (section) section.classList.remove('hidden');
-  const btn = document.getElementById('omit-' + type);
-  if (btn) btn.classList.add('active-omit');
-}
 
 // ===== 신청서 작성 (다단계 폼) =====
 let currentStep = 1;
@@ -131,7 +121,7 @@ function getVal(id) {
 }
 
 function buildPreview() {
-  const certTypeMap = { cert: '배출가스·소음 인증신청', omit: '배출가스·소음 인증생략 신청' };
+  const certTypeMap = { cert: '배출가스·소음 인증신청' };
   const vtypeMap = { passenger: '승용차', van: '승합차', truck: '화물차', special: '특수차', ev: '전기자동차', hydrogen: '수소전기자동차' };
   const fuelMap = { gasoline: '휘발유', diesel: '경유', lpg: 'LPG', electric: '전기', hydrogen: '수소', hybrid: '하이브리드', phev: '플러그인 하이브리드' };
   const transMap = { auto: '자동변속기', manual: '수동변속기', cvt: 'CVT', dct: 'DCT' };
@@ -240,25 +230,7 @@ const CHECKLIST_DATA = {
     { id: 'c11', text: '수수료 납부 영수증', note: '개별수입자: 1만원', required: true },
     { id: 'c12', text: '배출가스 이행 보증보험증권', note: '보증보험회사 발급', required: true },
   ],
-  'omit-individual': [
-    { id: 'oi1', text: '인증생략 신청서', note: 'KENCIS 또는 소정 양식', required: true },
-    { id: 'oi2', text: '대표차량 인증서 사본', note: '동일차종 대표 배출가스·소음 인증서', required: true },
-    { id: 'oi3', text: '차량 제원표', note: '제작사 발급 차량 상세 제원 명세서', required: true },
-    { id: 'oi4', text: '배출가스 이행 보증보험증권', note: '보증보험회사 발급 원본', required: true },
-    { id: 'oi5', text: '실차확인서', note: '차량 외관 사진 포함', required: true },
-    { id: 'oi6', text: '수입신고필증', note: '세관 발급 수입신고 필증 사본', required: true },
-    { id: 'oi7', text: '통관 차대번호(VIN) 목록', note: '동일 시점 통관 차량 전체 VIN 목록', required: true },
-    { id: 'oi8', text: '인증생략 대상 실차확인서 및 외관사진', note: '차량 4면 외관 사진 포함', required: true },
-    { id: 'oi9', text: '수수료 납부 영수증', note: '배출가스 5,500원 + 소음 5,500원', required: true },
-  ],
-  'omit-special': [
-    { id: 'os1', text: '인증생략 신청서', note: '소정 양식 작성', required: true },
-    { id: 'os2', text: '제작사 발급 배출가스·소음 인증내용 확인서', note: '원 제작사에서 발급한 공식 확인서', required: true },
-    { id: 'os3', text: '차량 제원표', note: '특장차 개조 내용 포함', required: true },
-    { id: 'os4', text: '자동차 안전검사증', note: '교통안전공단(자동차성능시험연구소) 발급', required: true },
-    { id: 'os5', text: '차량 외관 사면도', note: '전·후·좌·우 4면 외관 사진 또는 도면', required: true },
-    { id: 'os6', text: '수수료 납부 영수증', note: '배출가스 5,500원 + 소음 5,500원', required: true },
-  ]
+
 };
 
 let currentChecklistType = 'cert';
@@ -430,9 +402,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 폼 단계 초기화
   updateStepUI();
-
-  // 인증생략 탭 초기화
-  showOmitType('individual');
 
   // 체크리스트 메모 복원
   const savedMemo = localStorage.getItem('checklist_memo_cert');

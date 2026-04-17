@@ -335,13 +335,13 @@ const CHECKLIST_DATA = {
     { id: 'b5', text: '자동차배출가스 시험결과 보고 서류', note: '국립환경과학원 또는 공인시험기관 발급 시험성적서', required: true },
     { id: 'b6', text: '배출가스 보증 제작자 확인서 또는 계약서', note: '제작자-수입자 간 배출가스 보증 계약서', required: true },
     { id: 'b7', text: '제작차 배출허용기준 관련 사항', note: '저공해차 배출허용기준 포함', required: true },
-    { id: 'b8', text: '배출가스 이행 보증보험증권', note: '보증보험회사 발급 (개별수입자 해당)', required: true },
+    { id: 'b8', text: '배출가스 이행 보증보험증권', note: '보증보험회사 발급', required: true },
     { id: 'b9', text: 'OBD(자가진단장치) 구성 서류', note: '해당 차량 OBD 장착 여부 확인 후 제출', required: false },
     { id: 'b10', text: '축전지·모터·제너레이터 부품 보증 관련 사항', note: '전기차·수소전기차 해당 시 제출', required: false },
     { id: 'b11', text: '충전기 보증에 관한 사항', note: '전기자동차 해당 시 제출', required: false },
     { id: 'b12', text: '소음저감장치 구성 서류', note: '소음 인증 신청 시 필수 (머플러, 흡음재 등)', required: true },
     { id: 'b13', text: '소음시험 결과보고서', note: '주행소음·정지소음 측정치 포함', required: true },
-    { id: 'b14', text: '수수료 납부 영수증', note: '개별수입자: 1만원', required: true },
+    { id: 'b14', text: '수수료 납부 영수증', note: '해당 인증 수수료 납부 영수증', required: true },
   ],
   change: [
     { id: 'ch1', text: '변경인증신청서 (별지 서식)', note: 'KENCIS 온라인 또는 서면 작성', required: true },
@@ -353,7 +353,7 @@ const CHECKLIST_DATA = {
     { id: 'ch7', text: '배출가스 보증 제작자 확인서 또는 계약서 (변경분)', note: '변경 사항에 대한 제작자 보증 확인서', required: true },
     { id: 'ch8', text: 'OBD 소프트웨어 변경 관련 기술 자료', note: 'OBD 소프트웨어 변경 시 변경 전·후 비교 자료 포함', required: false },
     { id: 'ch9', text: '소음 변경 관련 서류', note: '소음에 영향 미치는 변경 시 소음 사양서·시험 성적서', required: false },
-    { id: 'ch10', text: '수수료 납부 영수증', note: '개별수입자: 1만원', required: true },
+    { id: 'ch10', text: '수수료 납부 영수증', note: '해당 인증 수수료 납부 영수증', required: true },
   ],
   report: [
     { id: 'rp1', text: '변경보고서 (별지 서식)', note: 'KENCIS 온라인 또는 서면 작성', required: true },
@@ -471,11 +471,7 @@ function calcFee() {
   let items = [];
   let total = 0;
 
-  if (type === 'basic-individual' || type === 'change-individual') {
-    const label = type === 'basic-individual' ? '기본인증 수수료 (개별수입자)' : '변경인증 수수료 (개별수입자)';
-    items.push({ label, amount: 10000 });
-    total += 10000;
-  } else if (type === 'basic-maker' || type === 'change-maker') {
+  if (type === 'basic-maker' || type === 'change-maker') {
     const amt = vehicle === 'two-wheel' ? 100000 : 300000;
     const certLabel = type === 'basic-maker' ? '기본인증' : '변경인증';
     items.push({ label: `${certLabel} 수수료 (${vehicle === 'two-wheel' ? '이륜' : ''}자동차 제작자)`, amount: amt });

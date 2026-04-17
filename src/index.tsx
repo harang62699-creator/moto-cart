@@ -549,7 +549,7 @@ app.get('/', (c) => {
                 <h4 class="font-semibold text-gray-800">배출가스 이행 보증보험증권</h4>
                 <span class="badge-required">필수</span>
               </div>
-              <p class="text-sm text-gray-600 mt-1">인증 이행을 보증하는 보험증권 (개별수입자 해당)</p>
+              <p class="text-sm text-gray-600 mt-1">인증 이행을 보증하는 보험증권 (수입자 제출)</p>
             </div>
           </div>
         </div>
@@ -1135,7 +1135,7 @@ app.get('/', (c) => {
 
     <!-- 인증 수수료 테이블 -->
     <div class="mb-6 overflow-x-auto">
-      <h3 class="font-semibold text-gray-700 mb-3">인증 수수료 (제작차·개별수입자)</h3>
+      <h3 class="font-semibold text-gray-700 mb-3">인증 수수료 (자동차 제작자)</h3>
       <table class="w-full border-collapse text-sm">
         <thead>
           <tr class="bg-green-50">
@@ -1151,19 +1151,9 @@ app.get('/', (c) => {
             <td class="border border-gray-200 px-4 py-2 text-xs text-gray-500">이륜차 제작자: 10만원</td>
           </tr>
           <tr class="bg-gray-50">
-            <td class="border border-gray-200 px-4 py-2">기본인증 (개별수입자)</td>
-            <td class="border border-gray-200 px-4 py-2 text-center font-medium text-green-700">1만원</td>
-            <td class="border border-gray-200 px-4 py-2 text-xs text-gray-500">개별 수입자동차</td>
-          </tr>
-          <tr>
             <td class="border border-gray-200 px-4 py-2">변경인증 (자동차 제작자)</td>
             <td class="border border-gray-200 px-4 py-2 text-center font-medium">30만원</td>
             <td class="border border-gray-200 px-4 py-2 text-xs text-gray-500">이륜차 제작자: 10만원</td>
-          </tr>
-          <tr class="bg-gray-50">
-            <td class="border border-gray-200 px-4 py-2">변경인증 (개별수입자)</td>
-            <td class="border border-gray-200 px-4 py-2 text-center font-medium text-blue-700">1만원</td>
-            <td class="border border-gray-200 px-4 py-2 text-xs text-gray-500">개별 수입자동차</td>
           </tr>
           <tr>
             <td class="border border-gray-200 px-4 py-2">변경보고</td>
@@ -1182,9 +1172,7 @@ app.get('/', (c) => {
           <label class="block text-sm font-medium text-gray-700 mb-1">신청 유형</label>
           <select id="fee-type" class="form-input w-full" onchange="calcFee()">
             <option value="">선택하세요</option>
-            <option value="basic-individual">기본인증 (개별수입자)</option>
             <option value="basic-maker">기본인증 (자동차 제작자)</option>
-            <option value="change-individual">변경인증 (개별수입자)</option>
             <option value="change-maker">변경인증 (자동차 제작자)</option>
             <option value="report">변경보고</option>
           </select>

@@ -174,7 +174,7 @@ app.get('/', (c) => {
         <i class="fas fa-book text-blue-500 mt-0.5"></i>
         <div>
           <p class="font-medium text-sm text-gray-800">소음진동관리법 시행규칙 제75조</p>
-          <p class="text-xs text-gray-500">소음 인증생략 수수료 근거</p>
+          <p class="text-xs text-gray-500">소음 인증 수수료 근거</p>
         </div>
       </div>
       <div class="flex items-start gap-2 p-3 bg-gray-50 rounded-lg">
@@ -230,73 +230,6 @@ app.get('/', (c) => {
         </div>
       </div>
     </div>
-
-    <!-- 인증생략 절차 -->
-    <div>
-      <h3 class="font-semibold text-gray-700 mb-3 flex items-center gap-2">
-        <span class="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full">인증생략신청</span> 처리기간: 10일
-      </h3>
-      <div class="flex flex-col md:flex-row gap-2 items-center">
-        <div class="step-box bg-blue-50 border border-blue-200 rounded-lg p-3 text-center flex-1">
-          <div class="text-2xl mb-1">📋</div>
-          <div class="font-semibold text-sm text-blue-800">1. 생략신청서 작성</div>
-          <div class="text-xs text-gray-500 mt-1">KENCIS 또는<br/>방문/우편</div>
-        </div>
-        <div class="text-gray-400 text-xl font-bold hidden md:block">→</div>
-        <div class="step-box bg-blue-50 border border-blue-200 rounded-lg p-3 text-center flex-1">
-          <div class="text-2xl mb-1">📁</div>
-          <div class="font-semibold text-sm text-blue-800">2. 서류 제출</div>
-          <div class="text-xs text-gray-500 mt-1">한국환경공단 제출</div>
-        </div>
-        <div class="text-gray-400 text-xl font-bold hidden md:block">→</div>
-        <div class="step-box bg-blue-50 border border-blue-200 rounded-lg p-3 text-center flex-1">
-          <div class="text-2xl mb-1">🔍</div>
-          <div class="font-semibold text-sm text-blue-800">3. 서류 검토</div>
-          <div class="text-xs text-gray-500 mt-1">한국환경공단<br/>서류 적합성 검토</div>
-        </div>
-        <div class="text-gray-400 text-xl font-bold hidden md:block">→</div>
-        <div class="step-box bg-blue-50 border border-blue-200 rounded-lg p-3 text-center flex-1">
-          <div class="text-2xl mb-1">📄</div>
-          <div class="font-semibold text-sm text-blue-800">4. 생략서 발급</div>
-          <div class="text-xs text-gray-500 mt-1">인증생략서 수령</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 인증생략 대상 -->
-  <div class="bg-white rounded-xl border border-gray-200 p-6 mb-6">
-    <h2 class="text-lg font-bold text-gray-800 mb-4"><i class="fas fa-car-side text-blue-600 mr-2"></i>인증생략 대상 차량</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="border border-gray-200 rounded-lg p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="bg-blue-100 rounded p-1.5"><i class="fas fa-truck text-blue-600"></i></div>
-          <h4 class="font-semibold text-gray-800">특장차</h4>
-        </div>
-        <p class="text-sm text-gray-600">기인증된 엔진을 가지고 제작된 차량을 이용하여 개조를 하여 사용하는 차량으로 제작차와 동일차종으로 인정되는 차량</p>
-      </div>
-      <div class="border border-gray-200 rounded-lg p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="bg-green-100 rounded p-1.5"><i class="fas fa-plane text-green-600"></i></div>
-          <h4 class="font-semibold text-gray-800">준이사자 차량</h4>
-        </div>
-        <p class="text-sm text-gray-600">해외에서 6개월 이상 1년 미만 체류 후 1인 이상 동반가족과 함께 입국하는 분이 이사물품으로 반입하는 차량 1대</p>
-      </div>
-      <div class="border border-gray-200 rounded-lg p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="bg-orange-100 rounded p-1.5"><i class="fas fa-tools text-orange-600"></i></div>
-          <h4 class="font-semibold text-gray-800">특수 목적 차량</h4>
-        </div>
-        <p class="text-sm text-gray-600">한정된 장소 또는 공익 목적의 특수용도로 사용하는 차량으로 배출가스 시험 결과를 토대로 인증 생략</p>
-      </div>
-      <div class="border border-gray-200 rounded-lg p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="bg-purple-100 rounded p-1.5"><i class="fas fa-car text-purple-600"></i></div>
-          <h4 class="font-semibold text-gray-800">개별 자동차</h4>
-        </div>
-        <p class="text-sm text-gray-600">동일시점에 통관한 동일차종의 신차에 대해 대표로 일부 차량이 인증서를 받으면 나머지 차량은 생략 가능</p>
-      </div>
-    </div>
   </div>
 
   <!-- 제출처 안내 -->
@@ -305,7 +238,7 @@ app.get('/', (c) => {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="bg-green-50 rounded-lg p-4">
         <h4 class="font-semibold text-green-800 mb-2"><i class="fas fa-building mr-1"></i>한국환경공단</h4>
-        <p class="text-sm text-gray-600 mb-1">인증대행기관 (접수·서류검토·인증생략서 발급)</p>
+        <p class="text-sm text-gray-600 mb-1">인증대행기관 (접수·서류검토·인증서 발급)</p>
         <p class="text-sm font-medium text-gray-700">📞 1577-7766</p>
         <p class="text-sm text-gray-500">인천광역시 서구 환경로 42</p>
       </div>
@@ -797,57 +730,6 @@ app.get('/', (c) => {
 
     <!-- 수수료 테이블 -->
     <div class="mb-6 overflow-x-auto">
-      <h3 class="font-semibold text-gray-700 mb-3">인증생략 수수료</h3>
-      <table class="w-full border-collapse text-sm">
-        <thead>
-          <tr class="bg-red-50">
-            <th class="border border-gray-200 px-4 py-2 text-left text-gray-700">구분</th>
-            <th class="border border-gray-200 px-4 py-2 text-center text-gray-700">수수료(원)</th>
-            <th class="border border-gray-200 px-4 py-2 text-left text-gray-700">근거 법령</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="border border-gray-200 px-4 py-2">배출가스 인증생략</td>
-            <td class="border border-gray-200 px-4 py-2 text-center font-medium text-red-700">5,500원</td>
-            <td class="border border-gray-200 px-4 py-2 text-gray-500 text-xs">대기환경보전법 시행규칙 제135조</td>
-          </tr>
-          <tr class="bg-gray-50">
-            <td class="border border-gray-200 px-4 py-2">소음 인증생략</td>
-            <td class="border border-gray-200 px-4 py-2 text-center font-medium text-red-700">5,500원</td>
-            <td class="border border-gray-200 px-4 py-2 text-gray-500 text-xs">소음진동관리법 시행규칙 제75조</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="mb-6 overflow-x-auto">
-      <h3 class="font-semibold text-gray-700 mb-3">인증생략 확인 시험 수수료</h3>
-      <table class="w-full border-collapse text-sm">
-        <thead>
-          <tr class="bg-blue-50">
-            <th class="border border-gray-200 px-4 py-2 text-left text-gray-700">검사 종류</th>
-            <th class="border border-gray-200 px-4 py-2 text-center text-gray-700">구내 시험(원)</th>
-            <th class="border border-gray-200 px-4 py-2 text-center text-gray-700">현지조사(원)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="border border-gray-200 px-4 py-2">자동차 (건설기계 포함)</td>
-            <td class="border border-gray-200 px-4 py-2 text-center font-medium">23,540원</td>
-            <td class="border border-gray-200 px-4 py-2 text-center font-medium">140,250원</td>
-          </tr>
-          <tr class="bg-gray-50">
-            <td class="border border-gray-200 px-4 py-2">이륜차</td>
-            <td class="border border-gray-200 px-4 py-2 text-center font-medium">12,210원</td>
-            <td class="border border-gray-200 px-4 py-2 text-center font-medium">98,340원</td>
-          </tr>
-        </tbody>
-      </table>
-      <p class="text-xs text-gray-500 mt-2">* 현지조사 시 여러 대 신청의 경우: 1대는 전액, 나머지는 각 25% 적용하여 합산</p>
-    </div>
-
-    <div class="mb-6 overflow-x-auto">
       <h3 class="font-semibold text-gray-700 mb-3">인증 수수료 (제작차/개별수입자)</h3>
       <table class="w-full border-collapse text-sm">
         <thead>
@@ -869,10 +751,7 @@ app.get('/', (c) => {
             <td class="border border-gray-200 px-4 py-2">인증 (개별자동차 수입자)</td>
             <td class="border border-gray-200 px-4 py-2 text-center font-medium text-green-700">1만원</td>
           </tr>
-          <tr class="bg-gray-50">
-            <td class="border border-gray-200 px-4 py-2">인증생략</td>
-            <td class="border border-gray-200 px-4 py-2 text-center font-medium text-green-700">5천원</td>
-          </tr>
+
         </tbody>
       </table>
     </div>
@@ -887,7 +766,6 @@ app.get('/', (c) => {
             <option value="">선택하세요</option>
             <option value="cert-individual">인증신청 (개별수입자)</option>
             <option value="cert-maker">인증신청 (자동차 제작자)</option>
-            <option value="omit">인증생략 신청</option>
           </select>
         </div>
         <div>
@@ -904,17 +782,7 @@ app.get('/', (c) => {
             <option value="no">아니오 (배출가스만)</option>
           </select>
         </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">현지조사 여부 (인증생략 시)</label>
-          <select id="fee-onsite" class="form-input w-full" onchange="calcFee()">
-            <option value="no">아니오 (구내 시험)</option>
-            <option value="yes">예 (현지조사)</option>
-          </select>
-        </div>
-        <div id="fee-qty-wrap">
-          <label class="block text-sm font-medium text-gray-700 mb-1">현지조사 차량 수 (현지조사 시)</label>
-          <input type="number" id="fee-qty" class="form-input w-full" value="1" min="1" onchange="calcFee()" />
-        </div>
+
       </div>
 
       <!-- 계산 결과 -->

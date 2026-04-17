@@ -324,8 +324,6 @@ function calcFee() {
   const type = document.getElementById('fee-type')?.value;
   const vehicle = document.getElementById('fee-vehicle')?.value;
   const noise = document.getElementById('fee-noise')?.value;
-  const onsite = document.getElementById('fee-onsite')?.value;
-  const qty = parseInt(document.getElementById('fee-qty')?.value || '1');
 
   const result = document.getElementById('fee-result');
   const breakdown = document.getElementById('fee-breakdown');
@@ -346,30 +344,10 @@ function calcFee() {
     const amt = vehicle === 'two-wheel' ? 100000 : 300000;
     items.push({ label: `인증신청 수수료 (${vehicle === 'two-wheel' ? '이륜' : ''}자동차 제작자)`, amount: amt });
     total += amt;
-  } else if (type === 'omit') {
-    items.push({ label: '배출가스 인증생략 수수료', amount: 5500 });
-    total += 5500;
-    if (noise === 'yes') {
-      items.push({ label: '소음 인증생략 수수료', amount: 5500 });
-      total += 5500;
-    }
   }
 
-  // 확인 시험 수수료 (인증생략 대상 차량 확인)
-  if (type === 'omit') {
-    const baseAmt = vehicle === 'two-wheel'
-      ? (onsite === 'yes' ? 98340 : 12210)
-      : (onsite === 'yes' ? 140250 : 23540);
-
-    if (onsite === 'yes' && qty > 1) {
-      const addAmt = Math.round(baseAmt * 0.25) * (qty - 1);
-      items.push({ label: `확인 시험 수수료 (현지조사, 1대)`, amount: baseAmt });
-      items.push({ label: `확인 시험 수수료 (추가 ${qty - 1}대 × 25%)`, amount: addAmt });
-      total += baseAmt + addAmt;
-    } else {
-      items.push({ label: `확인 시험 수수료 (${onsite === 'yes' ? '현지조사' : '구내시험'})`, amount: baseAmt });
-      total += baseAmt;
-    }
+  if (noise === 'yes' && type) {
+    items.push({ label: '소음 인증 추가 수수료', amount: 0, note: '배출가스 인증신청에 포함' });
   }
 
   if (result) result.classList.remove('hidden');

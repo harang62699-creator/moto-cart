@@ -91,33 +91,36 @@ async function authMiddleware(c: any, next: () => Promise<void>) {
 // API: 인증 (회원가입 / 로그인 / 로그아웃 / 내정보)
 // ────────────────────────────────────────────────
 app.post('/api/auth/register', async (c) => {
-  const { email, password, company_name, representative, business_number, phone } = await c.req.json()
-  if (!email || !password || !company_name || !representative || !business_number) {
+  const { username, password, company_name, representative, business_number, phone } = await c.req.json()
+  if (!username || !password || !company_name || !representative || !business_number) {
     return c.json({ error: '필수 항목을 모두 입력해주세요.' }, 400)
+  }
+  if (!/^[a-zA-Z0-9_]{4,20}$/.test(username)) {
+    return c.json({ error: '아이디는 영문·숫자·밑줄 4~20자로 입력해주세요.' }, 400)
   }
   const hash = await hashPassword(password)
   try {
     const result = await c.env.DB.prepare(
-      'INSERT INTO users (email, password_hash, company_name, representative, business_number, phone) VALUES (?, ?, ?, ?, ?, ?)'
-    ).bind(email, hash, company_name, representative, business_number, phone || '').run()
-    const user = await c.env.DB.prepare('SELECT id, email, company_name, representative FROM users WHERE id = ?').bind(result.meta.last_row_id).first()
-    const token = await signJWT({ id: user!.id, email: user!.email, company_name: user!.company_name })
+      'INSERT INTO users (username, password_hash, company_name, representative, business_number, phone) VALUES (?, ?, ?, ?, ?, ?)'
+    ).bind(username, hash, company_name, representative, business_number, phone || '').run()
+    const user = await c.env.DB.prepare('SELECT id, username, company_name, representative FROM users WHERE id = ?').bind(result.meta.last_row_id).first()
+    const token = await signJWT({ id: user!.id, username: user!.username, company_name: user!.company_name })
     setCookie(c, 'auth_token', token, { httpOnly: true, maxAge: 86400 * 7, path: '/' })
     return c.json({ ok: true, user })
   } catch (e: any) {
-    if (e.message?.includes('UNIQUE')) return c.json({ error: '이미 등록된 이메일입니다.' }, 409)
+    if (e.message?.includes('UNIQUE')) return c.json({ error: '이미 사용중인 아이디입니다.' }, 409)
     return c.json({ error: '서버 오류' }, 500)
   }
 })
 
 app.post('/api/auth/login', async (c) => {
-  const { email, password } = await c.req.json()
+  const { username, password } = await c.req.json()
   const hash = await hashPassword(password)
-  const user = await c.env.DB.prepare('SELECT * FROM users WHERE email = ? AND password_hash = ?').bind(email, hash).first()
-  if (!user) return c.json({ error: '이메일 또는 비밀번호가 올바르지 않습니다.' }, 401)
-  const token = await signJWT({ id: user.id, email: user.email, company_name: user.company_name })
+  const user = await c.env.DB.prepare('SELECT * FROM users WHERE username = ? AND password_hash = ?').bind(username, hash).first()
+  if (!user) return c.json({ error: '아이디 또는 비밀번호가 올바르지 않습니다.' }, 401)
+  const token = await signJWT({ id: user.id, username: user.username, company_name: user.company_name })
   setCookie(c, 'auth_token', token, { httpOnly: true, maxAge: 86400 * 7, path: '/' })
-  return c.json({ ok: true, user: { id: user.id, email: user.email, company_name: user.company_name, representative: user.representative } })
+  return c.json({ ok: true, user: { id: user.id, username: user.username, company_name: user.company_name, representative: user.representative } })
 })
 
 app.post('/api/auth/logout', async (c) => {
@@ -127,7 +130,7 @@ app.post('/api/auth/logout', async (c) => {
 
 app.get('/api/auth/me', authMiddleware, async (c) => {
   const payload = c.get('user') as any
-  const user = await c.env.DB.prepare('SELECT id, email, company_name, representative, business_number, phone FROM users WHERE id = ?').bind(payload.id).first()
+  const user = await c.env.DB.prepare('SELECT id, username, company_name, representative, business_number, phone FROM users WHERE id = ?').bind(payload.id).first()
   if (!user) return c.json({ error: 'Not found' }, 404)
   return c.json({ user })
 })
@@ -307,12 +310,12 @@ const HTML = `<!DOCTYPE html>
     <!-- 로그인 폼 -->
     <div id="login-form" class="bg-white rounded-2xl shadow-lg p-6">
       <div class="mb-4">
-        <label class="field-label">이메일</label>
-        <input id="login-email" type="email" class="field-input" placeholder="example@company.com">
+        <label class="field-label"><i class="fas fa-user mr-1 text-gray-400"></i>아이디</label>
+        <input id="login-username" type="text" class="field-input" placeholder="아이디 입력" autocomplete="username">
       </div>
       <div class="mb-6">
-        <label class="field-label">비밀번호</label>
-        <input id="login-password" type="password" class="field-input" placeholder="비밀번호 입력">
+        <label class="field-label"><i class="fas fa-lock mr-1 text-gray-400"></i>비밀번호</label>
+        <input id="login-password" type="password" class="field-input" placeholder="비밀번호 입력" autocomplete="current-password">
       </div>
       <button onclick="doLogin()" class="btn-primary w-full py-3">
         <i class="fas fa-sign-in-alt mr-2"></i>로그인
@@ -324,12 +327,17 @@ const HTML = `<!DOCTYPE html>
     <div id="register-form" class="bg-white rounded-2xl shadow-lg p-6 hidden">
       <div class="grid grid-cols-1 gap-4">
         <div>
-          <label class="field-label">이메일 <span class="text-red-500">*</span></label>
-          <input id="reg-email" type="email" class="field-input" placeholder="example@company.com">
+          <label class="field-label">아이디 <span class="text-red-500">*</span></label>
+          <input id="reg-username" type="text" class="field-input" placeholder="영문·숫자·밑줄 4~20자" autocomplete="username">
+          <p class="text-xs text-gray-400 mt-1">영문, 숫자, 밑줄(_)만 사용 가능 (4~20자)</p>
         </div>
         <div>
           <label class="field-label">비밀번호 <span class="text-red-500">*</span></label>
-          <input id="reg-password" type="password" class="field-input" placeholder="8자 이상">
+          <input id="reg-password" type="password" class="field-input" placeholder="8자 이상" autocomplete="new-password">
+        </div>
+        <div>
+          <label class="field-label">비밀번호 확인 <span class="text-red-500">*</span></label>
+          <input id="reg-password2" type="password" class="field-input" placeholder="비밀번호 재입력" autocomplete="new-password">
         </div>
         <div>
           <label class="field-label">회사명 <span class="text-red-500">*</span></label>
@@ -583,7 +591,7 @@ function updateHeader() {
   el.innerHTML = \`
     <div class="text-right hidden sm:block">
       <div class="text-sm font-semibold text-gray-800">\${currentUser.company_name}</div>
-      <div class="text-xs text-gray-500">\${currentUser.email}</div>
+      <div class="text-xs text-gray-500"><i class="fas fa-user mr-1"></i>\${currentUser.username}</div>
     </div>
     <button onclick="doLogout()" class="btn-secondary text-sm">
       <i class="fas fa-sign-out-alt mr-1"></i>로그아웃
@@ -602,12 +610,12 @@ function showAuthTab(tab) {
 }
 
 async function doLogin() {
-  const email = document.getElementById('login-email').value.trim();
+  const username = document.getElementById('login-username').value.trim();
   const password = document.getElementById('login-password').value;
   const err = document.getElementById('login-error');
   err.classList.add('hidden');
-  if (!email || !password) { err.textContent = '이메일과 비밀번호를 입력하세요.'; err.classList.remove('hidden'); return; }
-  const res = await fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
+  if (!username || !password) { err.textContent = '아이디와 비밀번호를 입력하세요.'; err.classList.remove('hidden'); return; }
+  const res = await fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
   const data = await res.json();
   if (!res.ok) { err.textContent = data.error; err.classList.remove('hidden'); return; }
   currentUser = data.user;
@@ -615,21 +623,26 @@ async function doLogin() {
 }
 
 async function doRegister() {
-  const email = document.getElementById('reg-email').value.trim();
+  const username = document.getElementById('reg-username').value.trim();
   const password = document.getElementById('reg-password').value;
+  const password2 = document.getElementById('reg-password2').value;
   const company_name = document.getElementById('reg-company').value.trim();
   const representative = document.getElementById('reg-rep').value.trim();
   const business_number = document.getElementById('reg-bizno').value.trim();
   const phone = document.getElementById('reg-phone').value.trim();
   const err = document.getElementById('register-error');
   err.classList.add('hidden');
-  if (!email || !password || !company_name || !representative || !business_number) {
+  if (!username || !password || !company_name || !representative || !business_number) {
     err.textContent = '필수 항목을 모두 입력해주세요.'; err.classList.remove('hidden'); return;
   }
+  if (!/^[a-zA-Z0-9_]{4,20}$/.test(username)) {
+    err.textContent = '아이디는 영문·숫자·밑줄 4~20자로 입력해주세요.'; err.classList.remove('hidden'); return;
+  }
   if (password.length < 8) { err.textContent = '비밀번호는 8자 이상이어야 합니다.'; err.classList.remove('hidden'); return; }
+  if (password !== password2) { err.textContent = '비밀번호가 일치하지 않습니다.'; err.classList.remove('hidden'); return; }
   const res = await fetch('/api/auth/register', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password, company_name, representative, business_number, phone })
+    body: JSON.stringify({ username, password, company_name, representative, business_number, phone })
   });
   const data = await res.json();
   if (!res.ok) { err.textContent = data.error; err.classList.remove('hidden'); return; }
@@ -651,7 +664,7 @@ async function doLogout() {
 async function showDashboard() {
   updateHeader();
   showPage('page-dashboard');
-  document.getElementById('dash-subtitle').textContent = currentUser ? currentUser.company_name + ' · ' + currentUser.email : '';
+  document.getElementById('dash-subtitle').textContent = currentUser ? currentUser.company_name + ' · @' + currentUser.username : '';
   await loadApplications();
 }
 

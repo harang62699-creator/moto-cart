@@ -1,7 +1,7 @@
 -- 사용자 테이블
 CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  email TEXT UNIQUE NOT NULL,
+  username TEXT UNIQUE NOT NULL,
   password_hash TEXT NOT NULL,
   company_name TEXT NOT NULL,
   representative TEXT NOT NULL,
@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS applications (
 CREATE TABLE IF NOT EXISTS form_data (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   application_id INTEGER NOT NULL,
-  form_type TEXT NOT NULL,  -- 'summary','gasoline','detail_plan','emission_noise','obd_config','emission_test','evap_test','obd_operation','noise_test','confirmation'
-  data TEXT NOT NULL DEFAULT '{}',  -- JSON 형태로 저장
+  form_type TEXT NOT NULL,
+  data TEXT NOT NULL DEFAULT '{}',
   completed INTEGER NOT NULL DEFAULT 0,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (application_id) REFERENCES applications(id) ON DELETE CASCADE

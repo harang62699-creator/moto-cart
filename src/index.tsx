@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { serveStatic } from 'hono/cloudflare-workers'
-import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
+// cookie import 제거 - localStorage + Bearer 토큰 방식으로 변경
 
 type Bindings = {
   DB: D1Database
@@ -76,10 +76,10 @@ async function verifyJWT(token: string): Promise<Record<string, unknown> | null>
 }
 
 // ────────────────────────────────────────────────
-// 미들웨어: 인증 체크
+// 미들웨어: 인증 체크 (Authorization: Bearer 헤더)
 // ────────────────────────────────────────────────
 async function authMiddleware(c: any, next: () => Promise<void>) {
-  const token = getCookie(c, 'auth_token') || c.req.header('Authorization')?.replace('Bearer ', '')
+  const token = c.req.header('Authorization')?.replace('Bearer ', '')
   if (!token) return c.json({ error: 'Unauthorized' }, 401)
   const payload = await verifyJWT(token)
   if (!payload) return c.json({ error: 'Invalid token' }, 401)
@@ -105,8 +105,7 @@ app.post('/api/auth/register', async (c) => {
     ).bind(username, hash, company_name, representative, business_number, phone || '').run()
     const user = await c.env.DB.prepare('SELECT id, username, company_name, representative FROM users WHERE id = ?').bind(result.meta.last_row_id).first()
     const token = await signJWT({ id: user!.id, username: user!.username, company_name: user!.company_name })
-    setCookie(c, 'auth_token', token, { httpOnly: true, maxAge: 86400 * 7, path: '/' })
-    return c.json({ ok: true, user })
+    return c.json({ ok: true, token, user })
   } catch (e: any) {
     if (e.message?.includes('UNIQUE')) return c.json({ error: '이미 사용중인 아이디입니다.' }, 409)
     return c.json({ error: '서버 오류' }, 500)
@@ -119,12 +118,11 @@ app.post('/api/auth/login', async (c) => {
   const user = await c.env.DB.prepare('SELECT * FROM users WHERE username = ? AND password_hash = ?').bind(username, hash).first()
   if (!user) return c.json({ error: '아이디 또는 비밀번호가 올바르지 않습니다.' }, 401)
   const token = await signJWT({ id: user.id, username: user.username, company_name: user.company_name })
-  setCookie(c, 'auth_token', token, { httpOnly: true, maxAge: 86400 * 7, path: '/' })
-  return c.json({ ok: true, user: { id: user.id, username: user.username, company_name: user.company_name, representative: user.representative } })
+  return c.json({ ok: true, token, user: { id: user.id, username: user.username, company_name: user.company_name, representative: user.representative } })
 })
 
 app.post('/api/auth/logout', async (c) => {
-  deleteCookie(c, 'auth_token', { path: '/' })
+  // 클라이언트가 localStorage 토큰 삭제 처리
   return c.json({ ok: true })
 })
 
@@ -557,16 +555,33 @@ const CERT_TYPE_LABEL = { basic: '기본인증', change: '변경인증', report:
 const STATUS_LABEL = { draft: '임시저장', in_progress: '작성중', completed: '완료' };
 
 // ================================================================
+// 토큰 관리 + 공통 fetch 헬퍼
+// ================================================================
+function getToken() { return localStorage.getItem('auth_token'); }
+function setToken(t) { localStorage.setItem('auth_token', t); }
+function clearToken() { localStorage.removeItem('auth_token'); }
+
+async function api(path, options = {}) {
+  const token = getToken();
+  const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  return fetch(path, { ...options, headers });
+}
+
+// ================================================================
 // 초기화
 // ================================================================
 async function init() {
+  const token = getToken();
+  if (!token) { showPage('page-auth'); return; }
   try {
-    const res = await fetch('/api/auth/me');
+    const res = await api('/api/auth/me');
     if (res.ok) {
       const { user } = await res.json();
       currentUser = user;
       showDashboard();
     } else {
+      clearToken();
       showPage('page-auth');
     }
   } catch {
@@ -618,6 +633,7 @@ async function doLogin() {
   const res = await fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
   const data = await res.json();
   if (!res.ok) { err.textContent = data.error; err.classList.remove('hidden'); return; }
+  setToken(data.token);
   currentUser = data.user;
   showDashboard();
 }
@@ -646,13 +662,14 @@ async function doRegister() {
   });
   const data = await res.json();
   if (!res.ok) { err.textContent = data.error; err.classList.remove('hidden'); return; }
+  setToken(data.token);
   currentUser = data.user;
   showToast('회원가입이 완료되었습니다.');
   showDashboard();
 }
 
 async function doLogout() {
-  await fetch('/api/auth/logout', { method: 'POST' });
+  clearToken();
   currentUser = null;
   showPage('page-auth');
   updateHeader();
@@ -669,7 +686,7 @@ async function showDashboard() {
 }
 
 async function loadApplications() {
-  const res = await fetch('/api/applications');
+  const res = await api('/api/applications');
   const data = await res.json();
   currentApplications = data.applications || [];
   renderApplicationList();
@@ -725,7 +742,7 @@ function renderApplicationList() {
 // 신청서 상세
 // ================================================================
 async function openApplication(id) {
-  const res = await fetch('/api/applications/' + id);
+  const res = await api('/api/applications/' + id);
   const data = await res.json();
   currentApplication = data.application;
   currentForms = data.forms;
@@ -798,9 +815,8 @@ async function openForm(formType) {
 async function saveForm() {
   const data = collectFormData(currentFormType);
   const completed = document.getElementById('form-completed-chk').checked;
-  const res = await fetch('/api/applications/' + currentApplicationId + '/forms/' + currentFormType, {
+  const res = await api('/api/applications/' + currentApplicationId + '/forms/' + currentFormType, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ data, completed })
   });
   if (res.ok) {
@@ -850,9 +866,8 @@ async function createApplication() {
   if ((cert_type === 'change' || cert_type === 'report') && !prev_cert_number) {
     showToast('기존 인증번호를 입력하세요.'); return;
   }
-  const res = await fetch('/api/applications', {
+  const res = await api('/api/applications', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ title, cert_type, brand, model, model_year, prev_cert_number })
   });
   if (res.ok) {
@@ -867,7 +882,7 @@ async function createApplication() {
 
 async function deleteApplication(id) {
   if (!confirm('이 신청서를 삭제하시겠습니까?')) return;
-  const res = await fetch('/api/applications/' + id, { method: 'DELETE' });
+  const res = await api('/api/applications/' + id, { method: 'DELETE' });
   if (res.ok) { showToast('삭제되었습니다.'); await loadApplications(); }
 }
 

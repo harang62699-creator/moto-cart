@@ -249,7 +249,15 @@ body {
   background:var(--c-bg);
   color:var(--c-text);
   min-height:100vh;
+  display:flex;
+  flex-direction:column;
   -webkit-font-smoothing:antialiased;
+}
+/* 헤더 제외 페이지 영역 확장 */
+#page-dashboard.active,
+#page-application.active,
+#page-form.active {
+  flex:1;
 }
 
 /* ── 스크롤바 ───────────────────────────────── */
@@ -441,12 +449,13 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
 
 /* ── 로그인 페이지 ──────────────────────────── */
 #page-auth {
-  min-height:100vh;
-  display:flex; align-items:center; justify-content:center;
+  min-height:calc(100vh - 60px);
+  display:none; align-items:center; justify-content:center;
   padding:24px;
   background:var(--grad-hero);
   position:relative; overflow:hidden;
 }
+#page-auth.active { display:flex; }
 #page-auth::before {
   content:'';
   position:absolute; inset:0;
@@ -497,7 +506,7 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
 }
 
 /* ── 대시보드 ───────────────────────────────── */
-#page-dashboard { max-width:1200px; margin:0 auto; padding:36px 24px; }
+#page-dashboard { max-width:1200px; width:100%; margin:0 auto; padding:36px 24px; }
 .dash-header {
   display:flex; align-items:center; justify-content:space-between;
   flex-wrap:wrap; gap:12px; margin-bottom:32px;
@@ -577,7 +586,7 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
 .empty-desc  { font-size:.875rem; color:var(--c-text2); line-height:1.7; margin-bottom:24px; }
 
 /* ── 신청서 상세 ─────────────────────────────── */
-#page-application { max-width:1200px; margin:0 auto; padding:36px 24px; }
+#page-application { max-width:1200px; width:100%; margin:0 auto; padding:36px 24px; }
 .breadcrumb {
   display:flex; align-items:center; gap:8px;
   font-size:.82rem; color:var(--c-text3); margin-bottom:24px; flex-wrap:wrap;
@@ -633,7 +642,7 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
 .form-card:hover .form-card-chevron { transform:translateX(3px); color:var(--c-accent); }
 
 /* ── 서류 폼 페이지 ──────────────────────────── */
-#page-form { max-width:860px; margin:0 auto; padding:36px 24px; }
+#page-form { max-width:860px; width:100%; margin:0 auto; padding:36px 24px; }
 .form-page-header {
   background:var(--grad-card);
   border:1px solid var(--c-border); border-radius:var(--r-xl);

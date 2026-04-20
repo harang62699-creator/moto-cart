@@ -682,6 +682,19 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
 }
 .form-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
 .form-grid-full { display:grid; gap:16px; }
+/* ── 서류 폼 하단 액션 바 ──────────────────── */
+.form-action-bar {
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:12px;
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--c-border);
+  border-radius:var(--r-lg);
+  padding:18px 24px;
+  margin-top:16px;
+}
+.form-action-bar-left  { display:flex; align-items:center; gap:10px; }
+.form-action-bar-right { display:flex; align-items:center; gap:10px; }
+
 .complete-card {
   background:var(--grad-card);
   border:1px solid var(--c-border); border-radius:var(--r-lg);
@@ -956,6 +969,23 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
       <div class="complete-label-sub">체크하면 진행률에 반영됩니다</div>
     </div>
     <i class="fas fa-check-circle" style="margin-left:auto;font-size:1.2rem;color:var(--c-success);opacity:0;transition:opacity .2s;" id="complete-check-icon"></i>
+  </div>
+
+  <!-- 하단 액션 바 -->
+  <div class="form-action-bar no-print">
+    <div class="form-action-bar-left">
+      <button class="btn btn-ghost" onclick="goBackToApplication()">
+        <i class="fas fa-arrow-left"></i>목록
+      </button>
+    </div>
+    <div class="form-action-bar-right">
+      <button class="btn btn-ghost" onclick="window.print()">
+        <i class="fas fa-print"></i>인쇄
+      </button>
+      <button class="btn btn-success" onclick="saveForm()">
+        <i class="fas fa-save"></i>저장
+      </button>
+    </div>
   </div>
 </div>
 
@@ -1282,6 +1312,15 @@ function renderApplicationPage() {
 // ================================================================
 // 서류 폼
 // ================================================================
+// 서류 폼 → 신청서 상세로 돌아가기
+function goBackToApplication() {
+  if (currentApplicationId) {
+    openApplication(currentApplicationId);
+  } else {
+    showDashboard();
+  }
+}
+
 async function openForm(formType) {
   currentFormType = formType;
   const meta   = FORM_META.find(m=>m.type===formType);

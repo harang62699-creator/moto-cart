@@ -619,6 +619,19 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
   display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px;
   margin-bottom:28px;
 }
+
+/* ── 신청서 하단 액션 바 ────────────────────── */
+.appl-action-bar {
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:12px;
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--c-border);
+  border-radius:var(--r-lg);
+  padding:20px 24px;
+  margin-top:8px;
+}
+.appl-action-bar-left { display:flex; align-items:center; gap:10px; }
+.appl-action-bar-right { display:flex; align-items:center; gap:10px; }
 .form-card {
   background:var(--grad-card);
   border:1px solid var(--c-border); border-radius:var(--r-lg);
@@ -887,6 +900,23 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
 
   <div class="forms-section-title">제출 서류 목록</div>
   <div id="forms-grid" class="forms-grid"></div>
+
+  <!-- 하단 액션 바 -->
+  <div class="appl-action-bar no-print">
+    <div class="appl-action-bar-left">
+      <button class="btn btn-ghost" onclick="showDashboard()">
+        <i class="fas fa-arrow-left"></i>목록으로
+      </button>
+    </div>
+    <div class="appl-action-bar-right">
+      <button class="btn btn-ghost" onclick="printApplicationSummary()">
+        <i class="fas fa-print"></i>인쇄
+      </button>
+      <button id="save-all-btn" class="btn btn-success" onclick="saveAllForms()">
+        <i class="fas fa-save"></i>모두 저장
+      </button>
+    </div>
+  </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════
@@ -1302,6 +1332,47 @@ async function saveForm() {
     } else { showToast('저장 실패','error'); }
   } catch { showToast('네트워크 오류','error'); }
   finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-save"></i>저장'; }
+}
+
+// ================================================================
+// 신청서 상세 – 모두 저장 / 인쇄
+// ================================================================
+async function saveAllForms() {
+  const btn = document.getElementById('save-all-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div>저장 중...';
+  let successCount = 0;
+  let failCount = 0;
+  try {
+    for (const form of currentForms) {
+      try {
+        let data = {};
+        try { data = JSON.parse(form.data || '{}'); } catch {}
+        const res = await api(
+          '/api/applications/' + currentApplicationId + '/forms/' + form.form_type,
+          { method: 'PUT', body: JSON.stringify({ data, completed: !!form.completed }) }
+        );
+        if (res.ok) successCount++;
+        else failCount++;
+      } catch { failCount++; }
+    }
+    if (failCount === 0) {
+      showToast(\`전체 \${successCount}개 서류가 저장되었습니다.\`, 'success');
+    } else {
+      showToast(\`\${successCount}개 저장 완료, \${failCount}개 실패\`, 'error');
+    }
+    // 최신 데이터 다시 로드
+    await openApplication(currentApplicationId);
+  } catch {
+    showToast('저장 중 오류가 발생했습니다.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-save"></i>모두 저장';
+  }
+}
+
+function printApplicationSummary() {
+  window.print();
 }
 
 // ================================================================

@@ -2264,6 +2264,23 @@ function buildFormHTML(formType, saved) {
 <!-- ■ PAGE 1 : 신청 유형 -->
 <div class="form-section g-wrap" style="padding:0;overflow:hidden;margin-top:10px;">
   <div class="g-sec-title">□ 신청 유형</div>
+  <!-- ★ 신청유형 아래 대표차종 안내 문구 (PDF 예시 반영) -->
+  <div style="padding:4px 12px 6px;font-size:10pt;line-height:2.0;">
+    <div style="display:flex;align-items:center;gap:0;">
+      <span style="min-width:16px;">-</span>
+      <span>EURO – 5 기준 적용 휘발유 이륜자동차 대표&nbsp;&nbsp;</span>
+      <input data-field="rep_euro5_count" class="input g-inp" type="text" value="\${E(v('rep_euro5_count'))}" style="width:90px;border-bottom:1px solid #888;border-top:none;border-left:none;border-right:none;background:transparent;text-align:center;">
+      <span>&nbsp;&nbsp;차종 인증신청</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:0;">
+      <span style="min-width:16px;">-</span>
+      <span>OBD 대표&nbsp;&nbsp;</span>
+      <input data-field="rep_obd_count" class="input g-inp" type="text" value="\${E(v('rep_obd_count'))}" style="width:90px;border-bottom:1px solid #888;border-top:none;border-left:none;border-right:none;background:transparent;text-align:center;">
+      <span>&nbsp;&nbsp;차종,&nbsp;&nbsp;&nbsp;&nbsp;증발가스 대표&nbsp;&nbsp;</span>
+      <input data-field="rep_evap_count" class="input g-inp" type="text" value="\${E(v('rep_evap_count'))}" style="width:90px;border-bottom:1px solid #888;border-top:none;border-left:none;border-right:none;background:transparent;text-align:center;">
+      <span>&nbsp;&nbsp;차종</span>
+    </div>
+  </div>
   <div style="overflow-x:auto;padding:3px 10px 10px;">
     <table class="g-tbl" style="min-width:460px;table-layout:auto;">
       <thead>
@@ -2385,24 +2402,6 @@ function buildFormHTML(formType, saved) {
         </tr>
       </tbody>
     </table>
-  </div>
-  <!-- ★ 신청유형 아래 대표차종 안내 문구 -->
-  <div class="g-sec-inner" style="padding:6px 14px 8px;">
-    <div style="font-size:10pt;line-height:1.8;border:1px solid #bbb;padding:5px 10px;background:#f8f8f8;">
-      <div>
-        EURO – 5 기준 적용 휘발유 이륜자동차 대표 :&nbsp;
-        <input data-field="rep_euro5_count" class="input g-inp" type="text" placeholder="숫자" value="\${E(v('rep_euro5_count'))}" style="width:40px;text-align:center;">
-        &nbsp;차종 인증신청
-      </div>
-      <div>
-        OBD 대표 :&nbsp;
-        <input data-field="rep_obd_count" class="input g-inp" type="text" placeholder="숫자" value="\${E(v('rep_obd_count'))}" style="width:40px;text-align:center;">
-        &nbsp;차종,&nbsp;&nbsp;
-        증발가스 대표 :&nbsp;
-        <input data-field="rep_evap_count" class="input g-inp" type="text" placeholder="숫자" value="\${E(v('rep_evap_count'))}" style="width:40px;text-align:center;">
-        &nbsp;차종
-      </div>
-    </div>
   </div>
 </div>
 

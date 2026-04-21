@@ -2009,63 +2009,67 @@ function buildFormHTML(formType, saved) {
         </tr>
       </thead>
       <tbody>
-        <!-- 배출기준 휘발유 -->
+        <!-- ★ 배출가스 (휘발유 4행 + 경유 1행 통합) -->
         <tr>
-          <td class="g-td-c" rowspan="4">배출기준<br>휘발유</td>
-          <td class="g-td-sub" rowspan="4">휘발유</td>
+          <td class="g-td-c" rowspan="5">배출가스</td>
+          <td class="g-td-sub">휘발유</td>
           <td style="font-size:10pt;">* 13년 휘발유 기준2의 나</td>
           <td class="g-ok-td"><select data-field="t_emis_g1" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_g1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <tr>
+          <td class="g-td-sub">휘발유</td>
           <td style="font-size:10pt;">* 13년 휘발유 기준1의 나</td>
           <td class="g-ok-td"><select data-field="t_emis_g2" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_g2')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <tr>
+          <td class="g-td-sub">휘발유</td>
           <td style="font-size:10pt;">* 16년 휘발유 기준</td>
           <td class="g-ok-td"><select data-field="t_emis_g3" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_g3')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <tr>
+          <td class="g-td-sub">휘발유</td>
           <td style="font-size:10pt;">* 20년 1월 이륜자동차(130km/h 이하) 기준</td>
           <td class="g-ok-td"><select data-field="t_emis_g4" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_g4')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
-        <!-- 배출기준 경유 -->
         <tr>
-          <td class="g-td-c">배출기준<br>경유</td>
           <td class="g-td-sub">경유</td>
           <td style="font-size:10pt;">* 14년 9월 경유 소형승용 기준</td>
           <td class="g-ok-td"><select data-field="t_emis_d1" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_d1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
-        <!-- OBD2 휘발유 -->
+        <!-- ★ OBD2 (휘발유 5행 + 경유 2행 통합) -->
         <tr>
-          <td class="g-td-c" rowspan="5">OBD 2<br>휘발유</td>
-          <td class="g-td-sub" rowspan="5">휘발유</td>
+          <td class="g-td-c" rowspan="7">OBD2</td>
+          <td class="g-td-sub">휘발유</td>
           <td style="font-size:10pt;">* OBD2 휘발유 기준 적용 대표(IUPR 1st 기준)</td>
           <td class="g-ok-td"><select data-field="t_obd_g1" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <tr>
+          <td class="g-td-sub">휘발유</td>
           <td style="font-size:10pt;">* OBD2 휘발유 기준 적용 동일 (대표: <input data-field="t_obd_g2_rep" class="input g-inp" type="text" placeholder="대표차명" value="\${E(v('t_obd_g2_rep'))}" style="width:70px;">, IUPR 1st)</td>
           <td class="g-ok-td"><select data-field="t_obd_g2" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g2')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <tr>
+          <td class="g-td-sub">휘발유</td>
           <td style="font-size:10pt;">* OBD2 휘발유 EURO6 기준 적용 대표(IUPR 2nd 기준)</td>
           <td class="g-ok-td"><select data-field="t_obd_g3" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g3')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <tr>
+          <td class="g-td-sub">휘발유</td>
           <td style="font-size:10pt;">* OBD2 휘발유 EURO6 기준 적용 대표 (대표: <input data-field="t_obd_g4_rep" class="input g-inp" type="text" placeholder="대표차명" value="\${E(v('t_obd_g4_rep'))}" style="width:70px;">, IUPR 2nd)</td>
           <td class="g-ok-td"><select data-field="t_obd_g4" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g4')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <tr>
+          <td class="g-td-sub">휘발유</td>
           <td style="font-size:10pt;">* OBD2 휘발유 EURO6 이륜자동차 기준 적용 대표(OBD Stage 2)</td>
           <td class="g-ok-td"><select data-field="t_obd_g5" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g5')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
-        <!-- OBD2 경유 -->
         <tr>
-          <td class="g-td-c" rowspan="2">OBD 2<br>경유</td>
-          <td class="g-td-sub" rowspan="2">경유</td>
+          <td class="g-td-sub">경유</td>
           <td style="font-size:10pt;">* OBD2 경유 (다)기준 적용 대표 (IUPR 2nd 기준)</td>
           <td class="g-ok-td"><select data-field="t_obd_d1" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_d1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <tr>
+          <td class="g-td-sub">경유</td>
           <td style="font-size:10pt;">* OBD2 경유 (다)기준 적용 동일 (대표: <input data-field="t_obd_d2_rep" class="input g-inp" type="text" placeholder="대표차명" value="\${E(v('t_obd_d2_rep'))}" style="width:70px;">, IUPR 2nd)</td>
           <td class="g-ok-td"><select data-field="t_obd_d2" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_d2')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>

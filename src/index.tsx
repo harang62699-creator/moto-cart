@@ -704,170 +704,9 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
 .gasoline-check-row:hover { background:rgba(255,255,255,.04); }
 .gasoline-check-row input[type="checkbox"] { width:16px; height:16px; flex-shrink:0; accent-color:var(--c-accent); }
 
-/* ── 인증신청 요약서 표 스타일 ──────────────── */
-.summary-header-grid {
-  display:grid; grid-template-columns:1fr 1fr 1fr 1fr;
-  border:1px solid var(--c-border2);
-  border-radius:var(--r-md) var(--r-md) 0 0;
-  overflow:hidden; margin-bottom:0;
-}
-.summary-header-cell {
-  display:flex; flex-direction:column; gap:4px;
-  padding:12px 16px;
-  border-right:1px solid var(--c-border);
-  background:rgba(255,255,255,.02);
-}
-.summary-header-cell:last-child { border-right:none; }
-.summary-header-label {
-  font-size:.7rem; font-weight:700; color:var(--c-text3);
-  letter-spacing:.05em; text-transform:uppercase;
-}
-.summary-header-input {
-  background:transparent; border:none; border-bottom:1px solid var(--c-border);
-  color:var(--c-text); font-family:inherit; font-size:.9rem;
-  padding:4px 0; outline:none; width:100%;
-}
-.summary-header-input:focus { border-bottom-color:var(--c-accent); }
-.summary-table {
-  width:100%; border-collapse:collapse;
-  border:1px solid var(--c-border2); border-top:none;
-  border-radius:0 0 var(--r-md) var(--r-md);
-  overflow:hidden;
-}
-.summary-table th {
-  background:rgba(79,142,247,.08);
-  color:var(--c-text2); font-size:.78rem; font-weight:700;
-  padding:10px 14px; text-align:center;
-  border:1px solid var(--c-border);
-  letter-spacing:.03em;
-}
-.summary-table td {
-  border:1px solid var(--c-border);
-  padding:0; vertical-align:middle;
-}
-.summary-td-num {
-  text-align:center; width:44px;
-  font-size:.85rem; font-weight:700; color:var(--c-text2);
-  background:rgba(255,255,255,.02);
-}
-.summary-td-label {
-  width:200px; padding:10px 14px;
-  font-size:.85rem; font-weight:600; color:var(--c-text2);
-  background:rgba(255,255,255,.02); white-space:pre-line;
-}
-.summary-td-content { padding:6px 10px; }
-.summary-td-content .input {
-  background:transparent; border:none; border-bottom:1px solid var(--c-border);
-  border-radius:0; padding:5px 4px;
-  font-size:.9rem;
-}
-.summary-td-content .input:focus {
-  border-bottom-color:var(--c-accent);
-  background:rgba(79,142,247,.04);
-  box-shadow:none;
-}
-.summary-td-content textarea.input {
-  resize:vertical; min-height:56px; border:1px solid var(--c-border); border-radius:var(--r-sm);
-}
-.summary-sub-row { display:grid; grid-template-columns:1fr 1fr; gap:0; }
-.summary-sub-item { display:flex; align-items:center; gap:8px; padding:6px 10px; border-top:1px solid var(--c-border); }
-.summary-sub-item:first-child { border-top:none; border-right:1px solid var(--c-border); }
-.summary-sub-label { font-size:.78rem; color:var(--c-text3); white-space:nowrap; flex-shrink:0; }
-.summary-rep-block { padding:8px 10px; display:flex; flex-direction:column; gap:6px; }
-.summary-rep-row { display:flex; align-items:center; gap:8px; }
-.summary-rep-row:not(:last-child) { padding-bottom:6px; border-bottom:1px solid var(--c-border); }
-.summary-rep-label { font-size:.78rem; color:var(--c-text3); width:60px; flex-shrink:0; }
-@media print {
-  /* ── summary 폼 인쇄 전용 스타일 ── */
-  .summary-header-grid {
-    display:table !important; width:100% !important;
-    border:1px solid #888 !important; border-collapse:collapse !important;
-    border-radius:0 !important; margin-bottom:0 !important;
-  }
-  .summary-header-cell {
-    display:table-cell !important;
-    width:25% !important;
-    padding:3px 6px !important;
-    border:1px solid #888 !important;
-    background:#e8edf5 !important;
-    font-family:'맑은 고딕','Malgun Gothic',sans-serif;
-    vertical-align:middle;
-  }
-  .summary-header-label {
-    font-size:6pt !important; font-weight:700 !important;
-    color:#333 !important; display:block; margin-bottom:1px;
-    letter-spacing:0 !important; text-transform:none !important;
-  }
-  .summary-header-input {
-    font-size:7pt !important; color:#000 !important;
-    border:none !important; border-bottom:1px solid #999 !important;
-    background:transparent !important; width:100% !important;
-    padding:1px 0 !important;
-  }
-  .summary-table {
-    font-family:'맑은 고딕','Malgun Gothic',sans-serif;
-    font-size:7pt !important;
-    border:1px solid #888 !important; border-top:none !important;
-    border-radius:0 !important;
-    width:100% !important; border-collapse:collapse !important;
-  }
-  .summary-table th {
-    background:#e8edf5 !important; color:#333 !important;
-    font-size:7pt !important; font-weight:700 !important;
-    padding:3px 6px !important;
-    border:1px solid #888 !important;
-  }
-  .summary-table td {
-    border:1px solid #888 !important;
-    font-size:7pt !important;
-    padding:0 !important; vertical-align:middle !important;
-  }
-  .summary-td-num {
-    text-align:center !important; width:30px !important;
-    font-size:7pt !important; font-weight:700 !important;
-    color:#000 !important;
-    background:#f0f3f9 !important;
-    padding:2px !important;
-  }
-  .summary-td-label {
-    width:130px !important; padding:3px 6px !important;
-    font-size:7pt !important; font-weight:600 !important;
-    color:#000 !important;
-    background:#f5f7fa !important;
-    white-space:normal !important;
-  }
-  .summary-td-content { padding:2px 5px !important; }
-  .summary-td-content .input {
-    font-size:7pt !important; color:#000 !important;
-    background:transparent !important;
-    border:none !important; border-bottom:1px solid #bbb !important;
-    border-radius:0 !important;
-    padding:1px 2px !important; width:100% !important;
-  }
-  .summary-td-content textarea.input {
-    border:1px solid #bbb !important; min-height:30px !important;
-    font-size:7pt !important;
-  }
-  .summary-td-content select.input {
-    font-size:7pt !important; color:#000 !important;
-    border:1px solid #bbb !important; height:auto !important;
-  }
-  .summary-sub-label { font-size:7pt !important; color:#555 !important; }
-  .summary-rep-label { font-size:7pt !important; color:#555 !important; width:50px !important; }
-  .summary-rep-block { padding:2px 4px !important; gap:2px !important; }
-  .summary-rep-row:not(:last-child) { padding-bottom:2px !important; }
-  /* 전역 A4 세로 인쇄 설정 */
-  @page { size: A4 portrait; margin:10mm 8mm; }
-  .no-print { display:none !important; }
-  body { background:#fff !important; color:#000 !important; font-size:7pt; }
-  /* summary 폼 제목 */
-  .form-section > div[style*="text-align:center"] {
-    font-size:9pt !important; font-weight:800 !important;
-    padding:4px 6px !important;
-    border-bottom:1px solid #888 !important;
-    background:#e8edf5 !important; color:#000 !important;
-  }
-}
+/* ── 인증신청 요약서 (구 클래스 유지 - 혹시 다른 곳 참조 방지용 stub) ──── */
+/* (구 summary 인쇄 CSS 제거됨) */
+
 /* ── 서류 폼 하단 액션 바 ──────────────────── */
 .form-action-bar {
   display:flex; align-items:center; justify-content:space-between;
@@ -1690,174 +1529,337 @@ function buildFormHTML(formType, saved) {
     </div>\`;
 
   if (formType==='summary') return \`
-  <div class="form-section" style="padding:0;overflow:hidden;">
-    <!-- 상단 제목 -->
-    <div style="text-align:center;padding:16px 20px;font-size:10pt;font-weight:800;letter-spacing:.02em;border-bottom:1px solid var(--c-border2);background:rgba(79,142,247,.06);">
-      배출가스 및 소음 인증신청 요약
-    </div>
+<style>
+/* ══════════ summary 전용 스타일 ══════════ */
+.sv-wrap {
+  box-sizing:border-box;
+  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+}
+/* ── 상단 헤더 4칸 테이블 ── */
+.sv-header-tbl {
+  width:100%; border-collapse:collapse;
+  border:1px solid #888;
+}
+.sv-header-tbl td {
+  width:25%; border:1px solid #888;
+  padding:4px 8px; vertical-align:middle;
+}
+.sv-header-lbl {
+  display:block; font-size:.7rem; font-weight:700;
+  color:var(--c-text3); margin-bottom:3px;
+  letter-spacing:.03em;
+}
+.sv-header-inp {
+  width:100%; background:transparent;
+  border:none; border-bottom:1px solid var(--c-border);
+  color:var(--c-text); font-size:.9rem;
+  padding:3px 0; outline:none;
+}
+.sv-header-inp:focus { border-bottom-color:var(--c-accent); }
 
-    <!-- 헤더 정보 4칸 -->
-    <div class="summary-header-grid">
-      <div class="summary-header-cell">
-        <span class="summary-header-label">수입사</span>
-        <input data-field="importer" class="summary-header-input" type="text" placeholder="수입사명" value="\${E(v('importer'))}">
-      </div>
-      <div class="summary-header-cell">
-        <span class="summary-header-label">인증연도</span>
-        <input data-field="cert_year" class="summary-header-input" type="text" placeholder="예) 2025" value="\${E(v('cert_year'))}">
-      </div>
-      <div class="summary-header-cell">
-        <span class="summary-header-label">배기량</span>
-        <input data-field="displacement" class="summary-header-input" type="text" placeholder="예) 1000cc" value="\${E(v('displacement'))}">
-      </div>
-      <div class="summary-header-cell">
-        <span class="summary-header-label">동일차종기호</span>
-        <input data-field="family_code" class="summary-header-input" type="text" placeholder="기호 입력" value="\${E(v('family_code'))}">
-      </div>
-    </div>
+/* ── 제목 ── */
+.sv-title {
+  text-align:center;
+  font-size:14pt; font-weight:800;
+  letter-spacing:.05em;
+  padding:14px 10px;
+  border:1px solid #888; border-top:none;
+}
 
-    <!-- 본문 표 -->
-    <table class="summary-table">
-      <thead>
-        <tr>
-          <th style="width:44px;">구분</th>
-          <th style="width:200px;">항&nbsp;&nbsp;&nbsp;목</th>
-          <th>내&nbsp;&nbsp;&nbsp;용</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- 1. 제작사 -->
-        <tr>
-          <td class="summary-td-num">1</td>
-          <td class="summary-td-label">제작사(제작국)</td>
-          <td class="summary-td-content">
-            <input data-field="maker" class="input" type="text" placeholder="예) PIAGGIO C.S.P.A(이태리)" value="\${E(v('maker'))}" style="width:100%;">
-          </td>
-        </tr>
-        <!-- 2. 시험자동차 명칭 -->
-        <tr>
-          <td class="summary-td-num">2</td>
-          <td class="summary-td-label">시험자동차 명칭(형식)</td>
-          <td class="summary-td-content">
-            <input data-field="vehicle_name" class="input" type="text" placeholder="예) RSV4 1000 RR" value="\${E(v('vehicle_name'))}" style="width:100%;">
-          </td>
-        </tr>
-        <!-- 3. 사용연료 -->
-        <tr>
-          <td class="summary-td-num">3</td>
-          <td class="summary-td-label">사용연료</td>
-          <td class="summary-td-content">
-            <select data-field="fuel" class="input" style="width:100%;">
-              <option value="" \${!v('fuel')?'selected':''}>선택</option>
-              <option value="휘발유" \${v('fuel')==='휘발유'?'selected':''}>휘발유</option>
-              <option value="경유" \${v('fuel')==='경유'?'selected':''}>경유</option>
-              <option value="전기" \${v('fuel')==='전기'?'selected':''}>전기</option>
-              <option value="LPG" \${v('fuel')==='LPG'?'selected':''}>LPG</option>
-            </select>
-          </td>
-        </tr>
-        <!-- 4. 적용 기준 (배출가스 / 소음 2행) -->
-        <tr>
-          <td class="summary-td-num" rowspan="2">4</td>
-          <td class="summary-td-label" rowspan="2">적용 기준</td>
-          <td class="summary-td-content">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <span class="summary-sub-label" style="width:64px;flex-shrink:0;">배출가스</span>
-              <input data-field="emission_std" class="input" type="text" placeholder="예) EURO 5" value="\${E(v('emission_std'))}" style="flex:1;">
+/* ── 본문 테이블 ── */
+.sv-tbl {
+  width:100%; border-collapse:collapse;
+  border:1px solid #888; border-top:none;
+  table-layout:fixed;
+}
+.sv-tbl th, .sv-tbl td {
+  border:1px solid #888;
+  vertical-align:middle;
+  padding:0;
+}
+.sv-tbl thead th {
+  background:#d8e0f0; font-weight:700;
+  text-align:center; font-size:10pt;
+  padding:6px 4px;
+}
+/* 구분열: 11.3%, 항목열: 31.5%, 내용열: 나머지 */
+.sv-col-num   { width:11%; }
+.sv-col-label { width:31%; }
+.sv-col-val   { }
+
+.sv-num {
+  text-align:center; font-size:10pt; font-weight:600;
+  padding:8px 4px;
+  background:rgba(255,255,255,.02);
+}
+.sv-lbl {
+  font-size:10pt; font-weight:500;
+  padding:8px 10px; line-height:1.4;
+  word-break:keep-all;
+  background:rgba(255,255,255,.02);
+}
+.sv-val {
+  padding:5px 10px;
+}
+.sv-val .sv-inp {
+  width:100%; background:transparent;
+  border:none; border-bottom:1px solid var(--c-border);
+  color:var(--c-text); font-size:10pt;
+  padding:4px 2px; outline:none;
+}
+.sv-val .sv-inp:focus { border-bottom-color:var(--c-accent); }
+.sv-val .sv-sel {
+  width:100%; background:transparent;
+  border:1px solid var(--c-border);
+  color:var(--c-text); font-size:10pt;
+  padding:3px 4px; outline:none;
+  border-radius:3px;
+}
+.sv-val .sv-sel:focus { border-color:var(--c-accent); }
+.sv-val .sv-ta {
+  width:100%; background:transparent;
+  border:1px solid var(--c-border);
+  color:var(--c-text); font-size:10pt;
+  padding:4px 6px; outline:none; resize:vertical;
+  border-radius:3px; min-height:52px;
+}
+.sv-val .sv-ta:focus { border-color:var(--c-accent); }
+
+/* 4번 적용기준 구분선 */
+.sv-sub-row {
+  display:flex; align-items:center; gap:8px;
+  padding:5px 10px;
+}
+.sv-sub-row + .sv-sub-row {
+  border-top:1px solid var(--c-border);
+}
+.sv-sub-lbl {
+  font-size:10pt; color:var(--c-text3);
+  width:56px; flex-shrink:0; font-weight:500;
+}
+
+/* 6·7번 대표차량 인라인 레이아웃 (PDF 동일) */
+.sv-rep-inline {
+  display:flex; align-items:center;
+  gap:0; padding:6px 10px;
+  flex-wrap:wrap; gap:4px 16px;
+}
+.sv-rep-item {
+  display:flex; align-items:center; gap:4px;
+  white-space:nowrap;
+}
+.sv-rep-item-lbl { font-size:10pt; color:var(--c-text); white-space:nowrap; }
+.sv-rep-item-inp {
+  background:transparent;
+  border:none; border-bottom:1px solid var(--c-border);
+  color:var(--c-text); font-size:10pt;
+  padding:2px 2px; outline:none; min-width:80px;
+}
+.sv-rep-item-inp:focus { border-bottom-color:var(--c-accent); }
+
+/* 8번 보증기간 인라인 */
+.sv-warranty-row {
+  display:flex; align-items:center; gap:6px;
+  padding:5px 10px;
+}
+
+@media screen {
+  .sv-header-tbl td { background:rgba(79,142,247,.04); }
+  .sv-tbl thead th  { background:rgba(79,142,247,.10); color:var(--c-text); border-color:var(--c-border); }
+  .sv-tbl th, .sv-tbl td { border-color:var(--c-border); }
+  .sv-header-tbl    { border-color:var(--c-border); }
+  .sv-header-tbl td { border-color:var(--c-border); }
+  .sv-title {
+    background:rgba(79,142,247,.06);
+    border-color:var(--c-border2); color:var(--c-text);
+  }
+}
+
+@media print {
+  .sv-wrap {
+    font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+    font-size:8pt;
+  }
+  @page { size:A4 portrait; margin:15mm 12mm; }
+  .no-print { display:none !important; }
+  body { background:#fff !important; color:#000 !important; }
+  .sv-header-tbl, .sv-tbl { border-color:#666 !important; }
+  .sv-header-tbl td, .sv-tbl th, .sv-tbl td { border-color:#666 !important; }
+  .sv-header-lbl   { color:#333 !important; font-size:7pt !important; }
+  .sv-header-inp   { color:#000 !important; font-size:8pt !important; border-bottom-color:#999 !important; }
+  .sv-title        { background:#fff !important; color:#000 !important; font-size:13pt !important; }
+  .sv-tbl thead th { background:#d8e0f0 !important; color:#000 !important; font-size:8pt !important; padding:4px !important; }
+  .sv-num          { font-size:8pt !important; background:#f5f7fa !important; padding:4px !important; }
+  .sv-lbl          { font-size:8pt !important; background:#f5f7fa !important; padding:4px 8px !important; }
+  .sv-val          { padding:3px 8px !important; }
+  .sv-val .sv-inp  { font-size:8pt !important; color:#000 !important; border-bottom-color:#999 !important; }
+  .sv-val .sv-sel  { font-size:8pt !important; color:#000 !important; border-color:#999 !important; }
+  .sv-val .sv-ta   { font-size:8pt !important; color:#000 !important; border-color:#999 !important; min-height:30px !important; }
+  .sv-sub-lbl      { font-size:8pt !important; }
+  .sv-sub-row      { padding:3px 8px !important; }
+  .sv-rep-inline   { padding:3px 8px !important; gap:3px 14px !important; }
+  .sv-rep-item-lbl { font-size:8pt !important; }
+  .sv-rep-item-inp { font-size:8pt !important; color:#000 !important; border-bottom-color:#999 !important; }
+  .sv-warranty-row { padding:3px 8px !important; }
+}
+</style>
+
+<div class="sv-wrap">
+  <!-- ① 상단 헤더 테이블 (4칸 균등) -->
+  <table class="sv-header-tbl">
+    <tr>
+      <td><span class="sv-header-lbl">수입사</span><input data-field="importer" class="sv-header-inp" type="text" placeholder="수입사명" value="\${E(v('importer'))}"></td>
+      <td><span class="sv-header-lbl">인증연도</span><input data-field="cert_year" class="sv-header-inp" type="text" placeholder="예) 2025" value="\${E(v('cert_year'))}"></td>
+      <td><span class="sv-header-lbl">배기량</span><input data-field="displacement" class="sv-header-inp" type="text" placeholder="예) 1000cc" value="\${E(v('displacement'))}"></td>
+      <td><span class="sv-header-lbl">동일차종기호</span><input data-field="family_code" class="sv-header-inp" type="text" placeholder="기호 입력" value="\${E(v('family_code'))}"></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+  </table>
+
+  <!-- ② 제목 -->
+  <div class="sv-title">배출가스 및 소음 인증신청 요약</div>
+
+  <!-- ③ 본문 테이블 -->
+  <table class="sv-tbl">
+    <colgroup>
+      <col class="sv-col-num">
+      <col class="sv-col-label">
+      <col class="sv-col-val">
+    </colgroup>
+    <thead>
+      <tr>
+        <th>구&nbsp;&nbsp;분</th>
+        <th>항&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
+        <th>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 1. 제작사(제작국) -->
+      <tr>
+        <td class="sv-num">1</td>
+        <td class="sv-lbl">제작사(제작국)</td>
+        <td class="sv-val">
+          <input data-field="maker" class="sv-inp" type="text" placeholder="예) PIAGGIO C.S.P.A(이태리)" value="\${E(v('maker'))}">
+        </td>
+      </tr>
+      <!-- 2. 시험자동차 명칭(형식) -->
+      <tr>
+        <td class="sv-num">2</td>
+        <td class="sv-lbl">시험자동차 명칭(형식)</td>
+        <td class="sv-val">
+          <input data-field="vehicle_name" class="sv-inp" type="text" placeholder="예) RSV4 1000 RR" value="\${E(v('vehicle_name'))}">
+        </td>
+      </tr>
+      <!-- 3. 사용연료 -->
+      <tr>
+        <td class="sv-num">3</td>
+        <td class="sv-lbl">사용연료</td>
+        <td class="sv-val">
+          <select data-field="fuel" class="sv-sel">
+            <option value="" \${!v('fuel')?'selected':''}>선택</option>
+            <option value="휘발유" \${v('fuel')==='휘발유'?'selected':''}>휘발유</option>
+            <option value="경유"   \${v('fuel')==='경유'?'selected':''}>경유</option>
+            <option value="전기"   \${v('fuel')==='전기'?'selected':''}>전기</option>
+            <option value="LPG"   \${v('fuel')==='LPG'?'selected':''}>LPG</option>
+          </select>
+        </td>
+      </tr>
+      <!-- 4. 적용 기준 (배출가스 / 소음 2분할) -->
+      <tr>
+        <td class="sv-num" rowspan="2">4</td>
+        <td class="sv-lbl" rowspan="2">적용 기준</td>
+        <td style="padding:0;">
+          <div class="sv-sub-row">
+            <span class="sv-sub-lbl">배출가스</span>
+            <input data-field="emission_std" class="sv-inp" type="text" placeholder="예) EURO 5" value="\${E(v('emission_std'))}" style="flex:1;min-width:0;">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:0;">
+          <div class="sv-sub-row" style="border-top:1px solid var(--c-border);">
+            <span class="sv-sub-lbl">소음</span>
+            <input data-field="noise_std" class="sv-inp" type="text" placeholder="예) ECE R41-04" value="\${E(v('noise_std'))}" style="flex:1;min-width:0;">
+          </div>
+        </td>
+      </tr>
+      <!-- 5. 외국 기준 -->
+      <tr>
+        <td class="sv-num">5</td>
+        <td class="sv-lbl">외국 기준<br><span style="font-weight:400;font-size:.88em;opacity:.7;">(유럽 또는 미국 기준)</span></td>
+        <td class="sv-val">
+          <input data-field="foreign_std" class="sv-inp" type="text" placeholder="예) EURO 5" value="\${E(v('foreign_std'))}">
+        </td>
+      </tr>
+      <!-- 6. 증발가스 대표차 여부 및 자동차 명칭 -->
+      <tr>
+        <td class="sv-num">6</td>
+        <td class="sv-lbl">증발가스 대표차 여부 및<br>자동차 명칭</td>
+        <td style="padding:0;">
+          <div class="sv-rep-inline">
+            <div class="sv-rep-item">
+              <span class="sv-rep-item-lbl">대표차량 :</span>
+              <input data-field="evap_is_rep" class="sv-rep-item-inp" type="text" placeholder="대표/비대표" value="\${E(v('evap_is_rep'))}" style="width:90px;">
             </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="summary-td-content" style="border-top:1px solid var(--c-border);">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <span class="summary-sub-label" style="width:64px;flex-shrink:0;">소음</span>
-              <input data-field="noise_std" class="input" type="text" placeholder="예) ECE R41-04" value="\${E(v('noise_std'))}" style="flex:1;">
+            <div class="sv-rep-item">
+              <span class="sv-rep-item-lbl">형식 :</span>
+              <input data-field="evap_rep_model" class="sv-rep-item-inp" type="text" placeholder="차종 형식" value="\${E(v('evap_rep_model'))}" style="width:120px;">
             </div>
-          </td>
-        </tr>
-        <!-- 5. 외국 기준 -->
-        <tr>
-          <td class="summary-td-num">5</td>
-          <td class="summary-td-label">외국 기준<br><span style="font-size:10pt;font-weight:400;color:var(--c-text3);">(유럽 또는 미국 기준)</span></td>
-          <td class="summary-td-content">
-            <input data-field="foreign_std" class="input" type="text" placeholder="예) EURO 5" value="\${E(v('foreign_std'))}" style="width:100%;">
-          </td>
-        </tr>
-        <!-- 6. 증발가스 대표차 -->
-        <tr>
-          <td class="summary-td-num">6</td>
-          <td class="summary-td-label">증발가스 대표차 여부 및 자동차 명칭</td>
-          <td class="summary-td-content">
-            <div class="summary-rep-block">
-              <div class="summary-rep-row">
-                <span class="summary-rep-label">대표차량</span>
-                <select data-field="evap_is_rep" class="input" style="width:120px;flex-shrink:0;">
-                  <option value="" \${!v('evap_is_rep')?'selected':''}>선택</option>
-                  <option value="대표차량" \${v('evap_is_rep')==='대표차량'?'selected':''}>대표차량</option>
-                  <option value="비대표차량" \${v('evap_is_rep')==='비대표차량'?'selected':''}>비대표차량</option>
-                </select>
-              </div>
-              <div class="summary-rep-row">
-                <span class="summary-rep-label">형식</span>
-                <input data-field="evap_rep_model" class="input" type="text" placeholder="차종 형식" value="\${E(v('evap_rep_model'))}" style="flex:1;">
-              </div>
+          </div>
+        </td>
+      </tr>
+      <!-- 7. OBD 대표차 여부 및 자동차 명칭 -->
+      <tr>
+        <td class="sv-num">7</td>
+        <td class="sv-lbl">OBD 대표차 여부 및<br>자동차 명칭</td>
+        <td style="padding:0;">
+          <div class="sv-rep-inline">
+            <div class="sv-rep-item">
+              <span class="sv-rep-item-lbl">대표차량 :</span>
+              <input data-field="obd_is_rep" class="sv-rep-item-inp" type="text" placeholder="대표/비대표" value="\${E(v('obd_is_rep'))}" style="width:90px;">
             </div>
-          </td>
-        </tr>
-        <!-- 7. OBD 대표차 -->
-        <tr>
-          <td class="summary-td-num">7</td>
-          <td class="summary-td-label">OBD 대표차 여부 및 자동차 명칭</td>
-          <td class="summary-td-content">
-            <div class="summary-rep-block">
-              <div class="summary-rep-row">
-                <span class="summary-rep-label">대표차량</span>
-                <select data-field="obd_is_rep" class="input" style="width:120px;flex-shrink:0;">
-                  <option value="" \${!v('obd_is_rep')?'selected':''}>선택</option>
-                  <option value="대표차량" \${v('obd_is_rep')==='대표차량'?'selected':''}>대표차량</option>
-                  <option value="비대표차량" \${v('obd_is_rep')==='비대표차량'?'selected':''}>비대표차량</option>
-                </select>
-              </div>
-              <div class="summary-rep-row">
-                <span class="summary-rep-label">형식</span>
-                <input data-field="obd_rep_model" class="input" type="text" placeholder="차종 형식" value="\${E(v('obd_rep_model'))}" style="flex:1;">
-              </div>
+            <div class="sv-rep-item">
+              <span class="sv-rep-item-lbl">형식 :</span>
+              <input data-field="obd_rep_model" class="sv-rep-item-inp" type="text" placeholder="차종 형식" value="\${E(v('obd_rep_model'))}" style="width:120px;">
             </div>
-          </td>
-        </tr>
-        <!-- 8. 보증 기간 -->
-        <tr>
-          <td class="summary-td-num">8</td>
-          <td class="summary-td-label">보증 기간</td>
-          <td class="summary-td-content">
-            <div style="display:flex;align-items:center;gap:8px;">
-              <input data-field="warranty_year" class="input" type="number" placeholder="년" value="\${E(v('warranty_year'))}" style="width:80px;">
-              <span style="color:var(--c-text3);font-size:10pt;">년</span>
-              <span style="color:var(--c-text3);">/</span>
-              <input data-field="warranty_km" class="input" type="number" placeholder="km" value="\${E(v('warranty_km'))}" style="width:120px;">
-              <span style="color:var(--c-text3);font-size:10pt;">km</span>
-            </div>
-          </td>
-        </tr>
-        <!-- 9. 자체시험실시 내역 -->
-        <tr>
-          <td class="summary-td-num">9</td>
-          <td class="summary-td-label">자체시험실시 내역</td>
-          <td class="summary-td-content">
-            <input data-field="self_test" class="input" type="text" placeholder="예) OBD, 소음, 증발가스" value="\${E(v('self_test'))}" style="width:100%;">
-          </td>
-        </tr>
-        <!-- 10. 대표 기술 -->
-        <tr>
-          <td class="summary-td-num">10</td>
-          <td class="summary-td-label">대표 기술</td>
-          <td class="summary-td-content">
-            <textarea data-field="key_tech" class="input" rows="3" placeholder="예) 산소센서, 삼원촉매, OBD, ECU, Idle control, 전자식 연료주입" style="width:100%;">\${E(v('key_tech'))}</textarea>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+          </div>
+        </td>
+      </tr>
+      <!-- 8. 보증 기간 -->
+      <tr>
+        <td class="sv-num">8</td>
+        <td class="sv-lbl">보증 기간</td>
+        <td style="padding:0;">
+          <div class="sv-warranty-row">
+            <input data-field="warranty_year" class="sv-rep-item-inp" type="text" placeholder="년" value="\${E(v('warranty_year'))}" style="width:50px;text-align:right;">
+            <span style="font-size:10pt;">년</span>
+            <span style="font-size:10pt;">&nbsp;/&nbsp;</span>
+            <input data-field="warranty_km" class="sv-rep-item-inp" type="text" placeholder="km" value="\${E(v('warranty_km'))}" style="width:90px;text-align:right;">
+            <span style="font-size:10pt;">km</span>
+          </div>
+        </td>
+      </tr>
+      <!-- 9. 자체시험실시 내역 -->
+      <tr>
+        <td class="sv-num">9</td>
+        <td class="sv-lbl">자체시험실시 내역</td>
+        <td class="sv-val">
+          <input data-field="self_test" class="sv-inp" type="text" placeholder="예) OBD, 소음, 증발가스" value="\${E(v('self_test'))}">
+        </td>
+      </tr>
+      <!-- 10. 대표 기술 -->
+      <tr>
+        <td class="sv-num">10</td>
+        <td class="sv-lbl">대표 기술</td>
+        <td class="sv-val">
+          <textarea data-field="key_tech" class="sv-ta" rows="3" placeholder="예) 산소센서, 삼원촉매, OBD, ECU, Idle control, 전자식 연료주입">\${E(v('key_tech'))}</textarea>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 \`;
 
   if (formType==='gasoline') return \`

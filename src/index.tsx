@@ -202,6 +202,208 @@ app.put('/api/applications/:id/forms/:type', authMiddleware, async (c) => {
   return c.json({ ok: true })
 })
 
+// ================================================================
+// 진위여부 QR 검증 API
+// ================================================================
+
+const QR_SECRET = 'moto-cert-qr-secret-2025'
+
+async function signQR(payload: Record<string, unknown>): Promise<string> {
+  const data = JSON.stringify(payload)
+  const enc  = new TextEncoder()
+  const key  = await crypto.subtle.importKey(
+    'raw', enc.encode(QR_SECRET),
+    { name:'HMAC', hash:'SHA-256' }, false, ['sign']
+  )
+  const sig    = await crypto.subtle.sign('HMAC', key, enc.encode(data))
+  const sigB64 = arrayBufferToBase64url(sig)
+  return toBase64url(data) + '.' + sigB64
+}
+
+async function verifyQR(token: string): Promise<Record<string, unknown> | null> {
+  const parts = token.split('.')
+  if (parts.length !== 2) return null
+  const [dataB64, sigB64] = parts
+  try {
+    const data = fromBase64url(dataB64)
+    const enc  = new TextEncoder()
+    const key  = await crypto.subtle.importKey(
+      'raw', enc.encode(QR_SECRET),
+      { name:'HMAC', hash:'SHA-256' }, false, ['verify']
+    )
+    const sigBytes = Uint8Array.from(
+      atob(sigB64.replace(/-/g,'+').replace(/_/g,'/')),
+      ch => ch.charCodeAt(0)
+    )
+    const ok = await crypto.subtle.verify('HMAC', key, sigBytes, enc.encode(data))
+    if (!ok) return null
+    return JSON.parse(data)
+  } catch { return null }
+}
+
+// QR 토큰 발급 API
+app.post('/api/qr/issue', authMiddleware, async (c) => {
+  const payload = c.get('user') as any
+  const { application_id, form_type, form_title } = await c.req.json()
+  const appl = await c.env.DB.prepare('SELECT * FROM applications WHERE id=? AND user_id=?')
+    .bind(application_id, payload.id).first() as any
+  if (!appl) return c.json({ error: 'Not found' }, 404)
+  const issuedAt = new Date().toISOString()
+  const token = await signQR({
+    app_id    : application_id,
+    form_type,
+    title     : appl.title,
+    company   : payload.company_name || '',
+    form_title,
+    issued_at : issuedAt,
+    issuer    : payload.username
+  })
+  return c.json({ ok: true, token, issued_at: issuedAt })
+})
+
+// QR 검증 공개 API
+app.get('/api/verify/:token', async (c) => {
+  const token   = c.req.param('token')
+  const payload = await verifyQR(token)
+  if (!payload) return c.json({ valid: false, reason: '위조되거나 손상된 토큰입니다.' })
+  const appl = await c.env.DB.prepare('SELECT * FROM applications WHERE id=?')
+    .bind(payload.app_id).first() as any
+  if (!appl) return c.json({ valid: false, reason: '삭제된 신청서입니다.' })
+  const form = await c.env.DB.prepare('SELECT * FROM form_data WHERE application_id=? AND form_type=?')
+    .bind(payload.app_id, payload.form_type).first() as any
+  if (!form) return c.json({ valid: false, reason: '폼 데이터를 찾을 수 없습니다.' })
+  return c.json({
+    valid     : true,
+    app_id    : payload.app_id,
+    form_type : payload.form_type,
+    form_title: payload.form_title,
+    title     : payload.title,
+    company   : payload.company,
+    issued_at : payload.issued_at,
+    issuer    : payload.issuer,
+    completed : !!form.completed
+  })
+})
+
+// 검증 웹 페이지 (/verify?t=TOKEN)
+app.get('/verify', (c) => {
+  const token = c.req.query('t') || ''
+  return c.html(`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>서류 진위 확인 — Motocert</title>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:#0a0d14;color:#e8ecf4;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:16px}
+  .card{background:#13172060;backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:40px 36px;max-width:520px;width:100%;text-align:center;box-shadow:0 16px 64px rgba(0,0,0,.5)}
+  .logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:32px}
+  .logo-icon{width:40px;height:40px;background:linear-gradient(135deg,#3b5bdb,#6c5ce7);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18pt;color:#fff}
+  .logo-text{font-size:16pt;font-weight:800;color:#e8ecf4;letter-spacing:-.03em}
+  .logo-sub{font-size:8pt;color:#6b7280;margin-top:2px;letter-spacing:.04em}
+  /* 상태 공통 */
+  .status-icon{font-size:52pt;margin-bottom:16px;line-height:1}
+  .status-valid .status-icon{color:#10b981}
+  .status-invalid .status-icon{color:#ef4444}
+  .status-loading .status-icon{color:#6b7280;animation:spin 1.2s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  h2{font-size:18pt;font-weight:800;margin-bottom:8px;letter-spacing:-.02em}
+  .status-valid h2{color:#10b981}
+  .status-invalid h2{color:#ef4444}
+  .reason{font-size:10pt;color:#9ca3af;margin-bottom:4px;line-height:1.6}
+  /* 정보 박스 */
+  .info-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px 20px;text-align:left;margin-top:20px}
+  .info-row{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:9pt;gap:10px}
+  .info-row:last-child{border-bottom:none;padding-bottom:0}
+  .info-label{color:#9ca3af;min-width:72px;flex-shrink:0;font-size:8.5pt}
+  .info-value{color:#e8ecf4;font-weight:700;text-align:right;word-break:break-all}
+  /* 뱃지 */
+  .badge-ok{display:inline-flex;align-items:center;gap:4px;background:rgba(16,185,129,.15);color:#10b981;border:1px solid rgba(16,185,129,.3);padding:3px 12px;border-radius:20px;font-size:8pt;font-weight:700}
+  .badge-ng{display:inline-flex;align-items:center;gap:4px;background:rgba(239,68,68,.15);color:#ef4444;border:1px solid rgba(239,68,68,.3);padding:3px 12px;border-radius:20px;font-size:8pt;font-weight:700}
+  /* 성공 배너 */
+  .valid-banner{background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(16,185,129,.04));border:1px solid rgba(16,185,129,.25);border-radius:12px;padding:14px 18px;margin-top:16px;display:flex;align-items:center;gap:12px;text-align:left}
+  .valid-banner-icon{font-size:20pt;color:#10b981;flex-shrink:0}
+  .valid-banner-text{font-size:9pt;color:#6ee7b7;line-height:1.6}
+  /* 하단 */
+  .footer{font-size:7.5pt;color:#4b5563;line-height:1.7;text-align:center}
+  .footer a{color:#3b5bdb;text-decoration:none}
+  /* 검증 코드 표시 */
+  .code-box{margin-top:16px;background:rgba(59,91,219,.08);border:1px solid rgba(59,91,219,.2);border-radius:8px;padding:10px 14px;font-size:7pt;color:#7c9ef5;word-break:break-all;line-height:1.6;text-align:left}
+  .code-box-label{font-weight:700;color:#3b5bdb;margin-bottom:4px;font-size:7.5pt}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <div class="logo-icon"><i class="fas fa-certificate"></i></div>
+    <div>
+      <div class="logo-text">Motocert</div>
+      <div class="logo-sub">수입이륜차 인증신청 시스템</div>
+    </div>
+  </div>
+  <div id="status-wrap" class="status-loading">
+    <div class="status-icon"><i class="fas fa-circle-notch"></i></div>
+    <h2>확인 중...</h2>
+    <div class="reason">서류 진위 여부를 검증하고 있습니다.<br>잠시만 기다려 주세요.</div>
+  </div>
+</div>
+<div class="footer">
+  본 QR코드는 Motocert 수입이륜차 인증신청 시스템에서 발급되었습니다.<br>
+  위조·변조가 의심될 경우 담당 기관에 문의하시기 바랍니다.
+</div>
+<script>
+(async () => {
+  const token = ${JSON.stringify(token)};
+  const wrap  = document.getElementById('status-wrap');
+  if (!token) {
+    wrap.className='status-invalid';
+    wrap.innerHTML='<div class="status-icon"><i class="fas fa-ban"></i></div><h2>유효하지 않은 주소</h2><div class="reason">QR코드 또는 URL이 올바르지 않습니다.<br>원본 문서의 QR코드를 다시 스캔해 주세요.</div>';
+    return;
+  }
+  try {
+    const res  = await fetch('/api/verify/'+encodeURIComponent(token));
+    const d    = await res.json();
+    if (d.valid) {
+      const dt = d.issued_at ? new Date(d.issued_at).toLocaleString('ko-KR') : '-';
+      const shortToken = token.length > 40 ? token.substring(0,40)+'...' : token;
+      wrap.className='status-valid';
+      wrap.innerHTML=\`
+        <div class="status-icon"><i class="fas fa-shield-halved"></i></div>
+        <h2>진위 확인됨 ✓</h2>
+        <div class="reason">Motocert 시스템에서 정식 발급된 문서입니다.</div>
+        <div class="valid-banner">
+          <div class="valid-banner-icon"><i class="fas fa-check-circle"></i></div>
+          <div class="valid-banner-text">본 서류는 위변조되지 않은 <strong>정식 인증 서류</strong>입니다.<br>발급 정보가 시스템 데이터베이스와 일치합니다.</div>
+        </div>
+        <div class="info-box">
+          <div class="info-row"><span class="info-label">서류명</span><span class="info-value">\${d.form_title||'-'}</span></div>
+          <div class="info-row"><span class="info-label">신청서명</span><span class="info-value">\${d.title||'-'}</span></div>
+          <div class="info-row"><span class="info-label">발급 기관</span><span class="info-value">\${d.company||d.issuer||'-'}</span></div>
+          <div class="info-row"><span class="info-label">발급 일시</span><span class="info-value">\${dt}</span></div>
+          <div class="info-row"><span class="info-label">작성 상태</span><span class="info-value">\${d.completed?'<span class="badge-ok"><i class="fas fa-check"></i>작성 완료</span>':'<span class="badge-ng"><i class="fas fa-clock"></i>작성 중</span>'}</span></div>
+        </div>
+        <div class="code-box"><div class="code-box-label"><i class="fas fa-key"></i> 진위확인 코드 (일부)</div>\${shortToken}</div>
+      \`;
+    } else {
+      wrap.className='status-invalid';
+      wrap.innerHTML=\`
+        <div class="status-icon"><i class="fas fa-triangle-exclamation"></i></div>
+        <h2>진위 확인 실패</h2>
+        <div class="reason">\${d.reason||'확인할 수 없는 문서입니다.'}<br><br>서류가 위조·변조되었거나 발급 기관이 다를 수 있습니다.</div>
+      \`;
+    }
+  } catch {
+    wrap.className='status-invalid';
+    wrap.innerHTML='<div class="status-icon"><i class="fas fa-wifi"></i></div><h2>연결 오류</h2><div class="reason">네트워크 오류가 발생했습니다.<br>잠시 후 다시 시도해 주세요.</div>';
+  }
+})();
+</script>
+</body>
+</html>`)
+})
+
 // ── HTML ────────────────────────────────────────
 const HTML = `<!DOCTYPE html>
 <html lang="ko">
@@ -213,6 +415,7 @@ const HTML = `<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <style>
 /* ── 디자인 토큰 ───────────────────────────── */
 :root {
@@ -765,6 +968,79 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
 }
 .form-action-bar-left  { display:flex; align-items:center; gap:10px; }
 .form-action-bar-right { display:flex; align-items:center; gap:10px; }
+
+/* ── QR 진위확인 블록 ── */
+.qr-footer {
+  margin-top:16px;
+  border:2px solid #3b5bdb;
+  border-radius:8px;
+  padding:10px 14px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  background:linear-gradient(135deg,#eef2ff 0%,#f7f9fc 100%);
+  page-break-inside:avoid;
+  position:relative;
+}
+.qr-footer::before {
+  content:'■ 진위여부 확인';
+  position:absolute;
+  top:-10px; left:12px;
+  background:#3b5bdb;
+  color:#fff;
+  font-size:7pt; font-weight:700;
+  padding:1px 8px; border-radius:4px;
+  letter-spacing:.04em;
+}
+.qr-footer-left { flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:4px; }
+.qr-footer-qr { flex-shrink:0; }
+.qr-footer-qr canvas, .qr-footer-qr img { display:block; border:1px solid #c8d4ea; border-radius:4px; }
+.qr-footer-code-label {
+  font-size:6pt; color:#3b5bdb; font-weight:700;
+  text-align:center; letter-spacing:.05em;
+}
+.qr-footer-info { flex:1; min-width:0; }
+.qr-footer-title {
+  font-size:8pt; font-weight:800; color:#1a2342;
+  margin-bottom:5px; letter-spacing:.02em;
+  padding-bottom:4px; border-bottom:1px dashed #c8d4ea;
+}
+.qr-footer-rows { font-size:7pt; color:#555; line-height:1.9; }
+.qr-footer-rows span { color:#1a2342; font-weight:700; }
+.qr-footer-url {
+  margin-top:4px; font-size:6pt; color:#3b5bdb;
+  word-break:break-all; line-height:1.5;
+}
+.qr-footer-url span { color:#3b5bdb; font-weight:600; }
+.qr-footer-badge {
+  display:inline-block; font-size:7pt; font-weight:700;
+  padding:1px 8px; border-radius:20px; margin-left:4px;
+}
+.qr-footer-badge.ok  { background:#d1fae5; color:#065f46; }
+.qr-footer-badge.ng  { background:#fee2e2; color:#991b1b; }
+.qr-footer-pending { color:#888; font-size:7pt; margin-top:8px; font-style:italic; padding:8px 0; }
+.qr-footer-pending i { margin-right:4px; }
+@media screen {
+  .qr-footer { max-width:640px; }
+}
+@media print {
+  .qr-footer {
+    border:2px solid #3b5bdb !important;
+    background:linear-gradient(135deg,#eef2ff 0%,#f7f9fc 100%) !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    page-break-inside:avoid;
+    margin-top:10px;
+    padding:8px 12px;
+  }
+  .qr-footer::before {
+    background:#3b5bdb !important;
+    color:#fff !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .qr-footer-title { font-size:7pt !important; }
+  .qr-footer-rows  { font-size:6.5pt !important; }
+  .qr-footer-url   { font-size:5.5pt !important; }
+}
 
 .complete-card {
   background:var(--grad-card);
@@ -1430,6 +1706,97 @@ async function openForm(formType) {
   updateCompleteCard();
   document.getElementById('form-content').innerHTML = buildFormHTML(formType, saved);
   showPage('page-form');
+  // QR 코드 비동기 생성 (폼 렌더 직후)
+  setTimeout(() => generateFormQR(formType, meta.title), 100);
+}
+
+// ── QR 코드 생성 및 하단 블록 렌더 ──────────────────────────────
+// QR 블록 HTML 생성 헬퍼
+function buildQRBlockHTML(qrDivId, formTitle, dt, verifyUrl, pageLabel) {
+  return \`<div class="qr-footer">
+  <div class="qr-footer-left">
+    <div class="qr-footer-qr" id="\${qrDivId}"></div>
+    <div class="qr-footer-code-label">진위확인코드</div>
+  </div>
+  <div class="qr-footer-info">
+    <div class="qr-footer-title"><i class="fas fa-qrcode"></i>&nbsp;진위여부 확인\${pageLabel ? ' — '+pageLabel : ''}</div>
+    <div class="qr-footer-rows">
+      서류명 &nbsp;: <span>\${formTitle}</span><br>
+      신청서 &nbsp;: <span>\${currentApplication?.title||'-'}</span><br>
+      발급일시: <span>\${dt}</span><br>
+      발급기관: <span>\${currentUser?.company_name||currentUser?.username||'-'}</span>
+    </div>
+    <div class="qr-footer-url"><i class="fas fa-link" style="font-size:6pt;margin-right:3px;"></i><span>\${verifyUrl}</span></div>
+  </div>
+</div>\`;
+}
+
+async function generateFormQR(formType, formTitle) {
+  // 모든 qr-footer-wrap div 수집 (단일 + 멀티페이지)
+  const allWraps = [];
+  const mainWrap = document.getElementById('qr-footer-wrap');
+  if (mainWrap) allWraps.push({ el: mainWrap, pageLabel: '' });
+  // 멀티페이지용 (gasoline: p1, p2 등)
+  for (let i = 1; i <= 9; i++) {
+    const pw = document.getElementById('qr-footer-wrap-p' + i);
+    if (pw) allWraps.push({ el: pw, pageLabel: i + '페이지' });
+  }
+
+  if (allWraps.length === 0) return;
+
+  // 로딩 표시
+  allWraps.forEach(({el}) => {
+    el.innerHTML = '<div class="qr-footer-pending"><i class="fas fa-spinner fa-spin"></i> 진위확인 코드 생성 중...</div>';
+  });
+
+  // 1) 서버에서 서명된 토큰 발급
+  let token = null, issuedAt = null;
+  try {
+    const res = await api('/api/qr/issue', {
+      method:'POST',
+      body: JSON.stringify({
+        application_id: currentApplicationId,
+        form_type     : formType,
+        form_title    : formTitle
+      })
+    });
+    if (res.ok) {
+      const d  = await res.json();
+      token    = d.token;
+      issuedAt = d.issued_at;
+    }
+  } catch {}
+
+  if (!token) {
+    allWraps.forEach(({el}) => {
+      el.innerHTML = '<div class="qr-footer-pending">⚠ QR 코드를 생성하려면 로그인 상태를 확인하세요.</div>';
+    });
+    return;
+  }
+
+  // 2) 검증 URL
+  const verifyUrl = window.location.origin + '/verify?t=' + encodeURIComponent(token);
+  const dt = issuedAt ? new Date(issuedAt).toLocaleString('ko-KR') : '-';
+
+  // 3) 각 wrap에 QR 블록 렌더링
+  allWraps.forEach(({el, pageLabel}, idx) => {
+    const qrDivId = 'qr-canvas-' + formType + (idx > 0 ? '-p' + idx : '');
+    el.innerHTML = buildQRBlockHTML(qrDivId, formTitle, dt, verifyUrl, pageLabel);
+    // 4) QRCode.js로 QR 이미지 생성
+    try {
+      new QRCode(document.getElementById(qrDivId), {
+        text      : verifyUrl,
+        width     : 80,
+        height    : 80,
+        colorDark : '#1a2342',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    } catch (e) {
+      const qrEl = document.getElementById(qrDivId);
+      if (qrEl) qrEl.innerHTML = '<div style="font-size:7pt;color:#888;">QR생성실패</div>';
+    }
+  });
 }
 
 function toggleComplete() {
@@ -2039,6 +2406,7 @@ function buildFormHTML(formType, saved) {
     </tbody>
   </table>
 </div>
+<div id="qr-footer-wrap" style="margin-top:12px;"></div>
 \`;
 
   if (formType==='gasoline') return \`
@@ -2394,6 +2762,9 @@ function buildFormHTML(formType, saved) {
     </table>
   </div>
 </div>
+
+<!-- QR PAGE 1 -->
+<div id="qr-footer-wrap-p1" class="qr-footer-wrap-multi" style="margin-top:8px;"></div>
 
 <!-- ■ PAGE 2 : 상세 내역 -->
 <div class="form-section g-wrap" style="padding:0;overflow:hidden;margin-top:10px;">
@@ -2801,6 +3172,8 @@ function buildFormHTML(formType, saved) {
     </table>
   </div>
 </div>
+<!-- QR PAGE 2 -->
+<div id="qr-footer-wrap" style="margin-top:12px;"></div>
 \`;
 
 
@@ -2821,7 +3194,8 @@ if (formType==='detail_plan') return (
     sec('배출가스 개발 목표','fa-bullseye',
       fld('CO 목표 (g/km)','target_co','number')+fld('NOx 목표 (g/km)','target_nox','number')+
       fld('THC 목표 (g/km)','target_thc','number')+fld('NMHC 목표 (g/km)','target_nmhc','number')+
-      fld('PM 목표 (g/km)','target_pm','number'))
+      fld('PM 목표 (g/km)','target_pm','number'))+
+    '<div id="qr-footer-wrap" style="margin-top:12px;"></div>'
   );
 
   if (formType==='emission_noise') return (
@@ -2835,7 +3209,8 @@ if (formType==='detail_plan') return (
     sec('배출가스 저감 기술','fa-leaf',ta('주요 저감 기술 설명','emission_tech','엔진 제어, 연료분사, 촉매 등',4),true)+
     sec('소음 측정 결과 요약','fa-chart-bar',
       fld('가속소음 측정값 (dB(A))','accel_noise_meas','number')+fld('가속소음 기준값 (dB(A))','accel_noise_std','number')+
-      fld('배기소음 측정값 (dB(A))','exhaust_noise_meas','number')+fld('배기소음 기준값 (dB(A))','exhaust_noise_std','number'))
+      fld('배기소음 측정값 (dB(A))','exhaust_noise_meas','number')+fld('배기소음 기준값 (dB(A))','exhaust_noise_std','number'))+
+    '<div id="qr-footer-wrap" style="margin-top:12px;"></div>'
   );
 
   if (formType==='obd_config') return (
@@ -2850,7 +3225,8 @@ if (formType==='detail_plan') return (
       fld('실화 모니터','mon_misfire','text','해당/비해당')+fld('연료 계통','mon_fuel_sys','text','해당/비해당'))+
     sec('고장 표시 장치','fa-exclamation-triangle',
       fld('MIL 위치','mil_location')+fld('OBD 커넥터 위치','obd_connector'))+
-    sec('DTC 처리 방식','fa-align-left',ta('고장코드 발생 조건 및 소거 방법','dtc_handling','DTC 처리 방식 설명',3),true)
+    sec('DTC 처리 방식','fa-align-left',ta('고장코드 발생 조건 및 소거 방법','dtc_handling','DTC 처리 방식 설명',3),true)+
+    '<div id="qr-footer-wrap" style="margin-top:12px;"></div>'
   );
 
   if (formType==='emission_test') return (
@@ -2869,7 +3245,8 @@ if (formType==='detail_plan') return (
       fld('CO 측정값','co_result','number')+fld('CO 기준값','co_limit','number')+
       fld('NOx 측정값','nox_result','number')+fld('NOx 기준값','nox_limit','number')+
       fld('NMHC 측정값','nmhc_result','number')+fld('NMHC 기준값','nmhc_limit','number')+
-      fld('CO₂ (g/km)','co2_result','number')+fld('연비 (km/L)','fuel_economy','number'))
+      fld('CO₂ (g/km)','co2_result','number')+fld('연비 (km/L)','fuel_economy','number'))+
+    '<div id="qr-footer-wrap" style="margin-top:12px;"></div>'
   );
 
   if (formType==='evap_test') return (
@@ -2881,7 +3258,8 @@ if (formType==='detail_plan') return (
     sec('시험 결과','fa-vials',
       fld('고온 침지 측정값 (g)','hot_soak_result','number')+fld('고온 침지 기준값 (g)','hot_soak_limit','number')+
       fld('주간 증발 측정값 (g)','diurnal_result','number')+fld('주간 증발 기준값 (g)','diurnal_limit','number')+
-      fld('합산 측정값 (g)','total_result','number')+fld('합산 기준값 (g)','total_limit','number'))
+      fld('합산 측정값 (g)','total_result','number')+fld('합산 기준값 (g)','total_limit','number'))+
+    '<div id="qr-footer-wrap" style="margin-top:12px;"></div>'
   );
 
   if (formType==='obd_operation') return (
@@ -2897,7 +3275,8 @@ if (formType==='detail_plan') return (
     sec('OBD 작동 확인 시험 결과','fa-chart-bar',
       fld('CO 측정값 (g/km)','co_meas','number')+fld('CO 고장 허용값','co_fault','number')+
       fld('NOx 측정값 (g/km)','nox_meas','number')+fld('NOx 고장 허용값','nox_fault','number')+
-      fld('HC 측정값 (g/km)','hc_meas','number')+fld('HC 고장 허용값','hc_fault','number'))
+      fld('HC 측정값 (g/km)','hc_meas','number')+fld('HC 고장 허용값','hc_fault','number'))+
+    '<div id="qr-footer-wrap" style="margin-top:12px;"></div>'
   );
 
   if (formType==='noise_test') return (
@@ -2916,7 +3295,8 @@ if (formType==='detail_plan') return (
       fld('평균 측정값 (dB(A))','accel_avg','number')+fld('기준값 (dB(A))','accel_limit','number'))+
     sec('배기소음 시험 결과','fa-volume-down',
       fld('배기소음 측정값 (dB(A))','exhaust_meas','number')+fld('배기소음 기준값 (dB(A))','exhaust_limit','number')+
-      fld('측정 장비 (소음계)','noise_meter'))
+      fld('측정 장비 (소음계)','noise_meter'))+
+    '<div id="qr-footer-wrap" style="margin-top:12px;"></div>'
   );
 
   if (formType==='confirmation') return (
@@ -2943,7 +3323,8 @@ if (formType==='detail_plan') return (
           </label>\`).join('')}
       </div>
     </div>\`+
-    sec('서명','fa-pen',fld('대표자 서명 (타이핑)','signature','text','성명 입력'))
+    sec('서명','fa-pen',fld('대표자 서명 (타이핑)','signature','text','성명 입력'))+
+    '<div id="qr-footer-wrap" style="margin-top:12px;"></div>'
   );
 
   return '<div class="form-section" style="text-align:center;color:var(--c-text3);padding:40px;">준비 중입니다.</div>';

@@ -1732,15 +1732,10 @@ function buildQRBlockHTML(qrDivId, formTitle, dt, verifyUrl, pageLabel) {
 }
 
 async function generateFormQR(formType, formTitle) {
-  // 모든 qr-footer-wrap div 수집 (단일 + 멀티페이지)
+  // qr-footer-wrap div 수집 (단일)
   const allWraps = [];
   const mainWrap = document.getElementById('qr-footer-wrap');
   if (mainWrap) allWraps.push({ el: mainWrap, pageLabel: '' });
-  // 멀티페이지용 (gasoline: p1, p2 등)
-  for (let i = 1; i <= 9; i++) {
-    const pw = document.getElementById('qr-footer-wrap-p' + i);
-    if (pw) allWraps.push({ el: pw, pageLabel: i + '페이지' });
-  }
 
   if (allWraps.length === 0) return;
 
@@ -2763,9 +2758,6 @@ function buildFormHTML(formType, saved) {
   </div>
 </div>
 
-<!-- QR PAGE 1 -->
-<div id="qr-footer-wrap-p1" class="qr-footer-wrap-multi" style="margin-top:8px;"></div>
-
 <!-- ■ PAGE 2 : 상세 내역 -->
 <div class="form-section g-wrap" style="padding:0;overflow:hidden;margin-top:10px;">
   <div class="g-sec-title">□ 상세 내역</div>
@@ -3172,7 +3164,6 @@ function buildFormHTML(formType, saved) {
     </table>
   </div>
 </div>
-<!-- QR PAGE 2 -->
 <div id="qr-footer-wrap" style="margin-top:12px;"></div>
 \`;
 

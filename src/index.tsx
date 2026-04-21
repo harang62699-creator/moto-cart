@@ -2146,6 +2146,10 @@ function buildFormHTML(formType, saved) {
     background:#f0f3f9 !important;
     -webkit-print-color-adjust:exact; print-color-adjust:exact;
   }
+  /* 촉매/O₂센서 셀 인쇄 시 10pt 유지 */
+  .g-td-sub[style*="font-size:10pt"] {
+    font-size:10pt !important;
+  }
   .g-td-n {
     background:#e8eef8 !important;
     -webkit-print-color-adjust:exact; print-color-adjust:exact;
@@ -2351,13 +2355,11 @@ function buildFormHTML(formType, saved) {
         <!-- 증발가스 -->
         <tr>
           <td class="g-td-c" rowspan="2">증발가스</td>
-          <td class="g-td-sub"></td>
-          <td style="font-size:10pt;">* 증발가스 대표</td>
+          <td colspan="2" style="font-size:10pt;">* 증발가스 대표</td>
           <td class="g-ok-td"><select data-field="t_evap1" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_evap1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <tr>
-          <td class="g-td-sub"></td>
-          <td style="font-size:10pt;">* 증발가스 동일 (대표: <input data-field="t_evap2_rep" class="input g-inp" type="text" placeholder="대표차명" value="\${E(v('t_evap2_rep'))}" style="width:70px;">)</td>
+          <td colspan="2" style="font-size:10pt;">* 증발가스 동일 (대표: <input data-field="t_evap2_rep" class="input g-inp" type="text" placeholder="대표차명" value="\${E(v('t_evap2_rep'))}" style="width:70px;">)</td>
           <td class="g-ok-td"><select data-field="t_evap2" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_evap2')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <!-- ★ 보증기간 (휘발유 5행 통합 + 경유 1행) -->

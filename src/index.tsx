@@ -614,11 +614,32 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
 .appl-hero-right { flex-shrink:0; text-align:right; }
 .appl-pct { font-size:2.4rem; font-weight:800; letter-spacing:-.04em; color:var(--c-accent); line-height:1; }
 .appl-pct-label { font-size:.78rem; color:var(--c-text3); margin-bottom:8px; }
-.forms-section-title { font-size:.9rem; font-weight:700; color:var(--c-text2); margin-bottom:16px; letter-spacing:.03em; text-transform:uppercase; }
-.forms-grid {
-  display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px;
-  margin-bottom:28px;
+.forms-section-title {
+  font-size:10pt; font-weight:800; color:var(--c-accent);
+  padding:6px 0 10px; margin-bottom:6px;
+  border-bottom:2px solid var(--c-border2);
+  letter-spacing:.02em;
 }
+/* ── 제출 서류 목록 테이블 (gasoline 스타일) ── */
+.forms-grid {
+  width:100%; border-collapse:collapse;
+  display:table;
+  margin-bottom:24px;
+  border:1px solid var(--c-border2);
+  border-radius:var(--r-lg); overflow:hidden;
+}
+.forms-grid-head {
+  display:table-row;
+  background:rgba(79,142,247,.10);
+}
+.forms-grid-head > div {
+  display:table-cell;
+  font-size:10pt; font-weight:700; color:var(--c-text2);
+  padding:10px 14px; border-bottom:1px solid var(--c-border2);
+  border-right:1px solid var(--c-border);
+}
+.forms-grid-head > div:last-child { border-right:none; }
+.forms-grid-body { display:table-row-group; }
 
 /* ── 신청서 하단 액션 바 ────────────────────── */
 .appl-action-bar {
@@ -632,29 +653,54 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
 }
 .appl-action-bar-left { display:flex; align-items:center; gap:10px; }
 .appl-action-bar-right { display:flex; align-items:center; gap:10px; }
+/* ── form-card : 테이블 행 스타일 ── */
 .form-card {
-  background:var(--grad-card);
-  border:1px solid var(--c-border); border-radius:var(--r-lg);
-  padding:18px 20px; cursor:pointer;
-  display:flex; align-items:center; gap:14px;
-  transition:all var(--transition); position:relative; overflow:hidden;
+  display:table-row;
+  cursor:pointer;
+  transition:background var(--transition);
 }
-.form-card::before {
-  content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
-  background:transparent; border-radius:0 3px 3px 0; transition:background var(--transition);
+.form-card:hover { background:rgba(79,142,247,.05) !important; }
+.form-card.done  { background:rgba(0,200,150,.04) !important; }
+
+/* 각 셀 */
+.form-card > .fc-cell {
+  display:table-cell;
+  vertical-align:middle;
+  padding:11px 14px;
+  border-bottom:1px solid var(--c-border);
+  border-right:1px solid var(--c-border);
+  font-size:10pt;
 }
-.form-card:hover { border-color:var(--c-border2); box-shadow:var(--shadow-sm); transform:translateY(-2px); }
-.form-card:hover::before { background:var(--c-accent); }
-.form-card.done { border-color:rgba(0,200,150,.3); background:rgba(0,200,150,.04); }
-.form-card.done::before { background:var(--c-success); }
+.form-card > .fc-cell:last-child { border-right:none; }
+.form-card:last-child > .fc-cell { border-bottom:none; }
+
+/* 번호 셀 */
+.fc-num {
+  width:48px; text-align:center;
+  font-weight:700; color:var(--c-text3);
+  background:rgba(79,142,247,.04);
+}
+.form-card.done .fc-num { background:rgba(0,200,150,.06); }
+
+/* 아이콘+서류명 셀 */
+.fc-main {
+  display:table-cell !important;
+}
+.fc-main-inner {
+  display:flex; align-items:center; gap:12px;
+}
 .form-card-icon {
-  width:42px; height:42px; border-radius:10px; flex-shrink:0;
-  display:flex; align-items:center; justify-content:center; font-size:16px;
+  width:36px; height:36px; border-radius:8px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:15px;
 }
-.form-card-body { flex:1; min-width:0; }
-.form-card-num  { font-size:.72rem; color:var(--c-text3); font-weight:600; margin-bottom:4px; letter-spacing:.02em; }
-.form-card-name { font-size:.875rem; font-weight:700; color:var(--c-text); line-height:1.4; }
-.form-card-chevron { color:var(--c-text3); font-size:.75rem; flex-shrink:0; transition:transform var(--transition); }
+.form-card-name { font-size:10pt; font-weight:700; color:var(--c-text); }
+
+/* 상태 셀 */
+.fc-status { width:90px; text-align:center; }
+
+/* 열기 버튼 셀 */
+.fc-action { width:44px; text-align:center; }
+.form-card-chevron { color:var(--c-text3); font-size:10pt; transition:transform var(--transition); }
 .form-card:hover .form-card-chevron { transform:translateX(3px); color:var(--c-accent); }
 
 /* ── 서류 폼 페이지 ──────────────────────────── */
@@ -739,7 +785,8 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
 @media(max-width:768px) {
   #page-dashboard, #page-application, #page-form { padding:20px 16px; }
   .appl-hero { padding:20px; }
-  .forms-grid { grid-template-columns:1fr; }
+  .fc-main { min-width:0; }
+  .form-card-name { font-size:9pt; }
   .stats-grid { grid-template-columns:repeat(2,1fr); }
   .modal { border-radius:var(--r-lg); }
   .form-page-header { padding:18px 20px; }
@@ -936,8 +983,17 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
     </div>
   </div>
 
-  <div class="forms-section-title">제출 서류 목록</div>
-  <div id="forms-grid" class="forms-grid"></div>
+  <div class="forms-section-title">□ 제출 서류 목록</div>
+  <div id="forms-grid" class="forms-grid">
+    <!-- 헤더행 -->
+    <div class="forms-grid-head">
+      <div style="width:48px;text-align:center;">번호</div>
+      <div>서류명</div>
+      <div style="width:90px;text-align:center;">상태</div>
+      <div style="width:44px;text-align:center;"></div>
+    </div>
+    <div class="forms-grid-body" id="forms-grid-body"></div>
+  </div>
 
   <!-- 하단 액션 바 -->
   <div class="appl-action-bar no-print">
@@ -1309,29 +1365,40 @@ function renderApplicationPage() {
   const pct   = total ? Math.round(done/total*100) : 0;
   document.getElementById('appl-progress-pct').textContent = pct + '%';
   document.getElementById('appl-progress-bar').style.width = pct + '%';
-  document.getElementById('forms-grid').innerHTML = FORM_META.map((m,i) => {
-    const fd    = currentForms.find(f=>f.form_type===m.type);
-    const isDone = !!fd?.completed;
-    return \`
-      <div class="form-card \${isDone?'done':''}" onclick="openForm('\${m.type}')">
-        <div class="form-card-icon" style="background:\${isDone?'rgba(0,200,150,.12)':m.bg};color:\${isDone?'var(--c-success)':m.color};">
-          <i class="fas \${m.icon}"></i>
-        </div>
-        <div class="form-card-body">
-          <div class="form-card-num">
-            서류 \${i+1}
-            &nbsp;
+  // forms-grid 헤더 복원 (innerHTML 덮어쓰기 방지)
+  const formsGrid = document.getElementById('forms-grid');
+  formsGrid.innerHTML = \`
+    <div class="forms-grid-head">
+      <div style="width:48px;text-align:center;">번호</div>
+      <div>서류명</div>
+      <div style="width:90px;text-align:center;">상태</div>
+      <div style="width:44px;text-align:center;"></div>
+    </div>
+    <div class="forms-grid-body">\${FORM_META.map((m,i) => {
+      const fd    = currentForms.find(f=>f.form_type===m.type);
+      const isDone = !!fd?.completed;
+      return \`
+        <div class="form-card \${isDone?'done':''}" onclick="openForm('\${m.type}')">
+          <div class="fc-cell fc-num">\${i+1}</div>
+          <div class="fc-cell fc-main">
+            <div class="fc-main-inner">
+              <div class="form-card-icon" style="background:\${isDone?'rgba(0,200,150,.12)':m.bg};color:\${isDone?'var(--c-success)':m.color};">
+                <i class="fas \${m.icon}"></i>
+              </div>
+              <span class="form-card-name">\${m.title}</span>
+            </div>
+          </div>
+          <div class="fc-cell fc-status">
             \${isDone
-              ? '<span class="badge badge-green" style="font-size:10pt;padding:2px 7px;"><i class="fas fa-check" style="margin-right:2px;"></i>완료</span>'
-              : '<span class="badge badge-gray" style="font-size:10pt;padding:2px 7px;">미완료</span>'
+              ? '<span class="badge badge-green" style="font-size:9pt;"><i class="fas fa-check" style="margin-right:2px;"></i>완료</span>'
+              : '<span class="badge badge-gray" style="font-size:9pt;">미완료</span>'
             }
           </div>
-          <div class="form-card-name">\${m.title}</div>
+          <div class="fc-cell fc-action"><i class="fas fa-chevron-right form-card-chevron"></i></div>
         </div>
-        <i class="fas fa-chevron-right form-card-chevron"></i>
-      </div>
-    \`;
-  }).join('');
+      \`;
+    }).join('')}</div>
+  \`;
 }
 
 // ================================================================
@@ -1540,14 +1607,19 @@ function buildFormHTML(formType, saved) {
   width:100%; border-collapse:collapse;
   border:1px solid #888;
 }
-.sv-header-tbl td {
+.sv-header-lbl-cell {
+  width:25%; border:1px solid #888;
+  padding:4px 8px; vertical-align:middle;
+  background:rgba(79,142,247,.08);
+}
+.sv-header-val-cell {
   width:25%; border:1px solid #888;
   padding:4px 8px; vertical-align:middle;
 }
 .sv-header-lbl {
-  display:block; font-size:.7rem; font-weight:700;
-  color:var(--c-text3); margin-bottom:3px;
-  letter-spacing:.03em;
+  display:block; font-size:.72rem; font-weight:700;
+  color:var(--c-text2); margin-bottom:0;
+  letter-spacing:.02em; text-align:center;
 }
 .sv-header-inp {
   width:100%; background:transparent;
@@ -1664,11 +1736,11 @@ function buildFormHTML(formType, saved) {
 }
 
 @media screen {
-  .sv-header-tbl td { background:rgba(79,142,247,.04); }
+  .sv-header-lbl-cell { border-color:var(--c-border); }
+  .sv-header-val-cell { border-color:var(--c-border); }
   .sv-tbl thead th  { background:rgba(79,142,247,.10); color:var(--c-text); border-color:var(--c-border); }
   .sv-tbl th, .sv-tbl td { border-color:var(--c-border); }
   .sv-header-tbl    { border-color:var(--c-border); }
-  .sv-header-tbl td { border-color:var(--c-border); }
   .sv-title {
     background:rgba(79,142,247,.06);
     border-color:var(--c-border2); color:var(--c-text);
@@ -1676,45 +1748,152 @@ function buildFormHTML(formType, saved) {
 }
 
 @media print {
+  /* ── 전역 페이지 설정 ── */
+  @page { size:A4 portrait; margin:18mm 15mm; }
+  .no-print  { display:none !important; }
+  body       { background:#fff !important; color:#000 !important; }
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+
+  /* ── sv-wrap 전체 ── */
   .sv-wrap {
-    font-family:'맑은 고딕','Malgun Gothic',sans-serif;
-    font-size:8pt;
+    font-family:'맑은 고딕','Malgun Gothic','MS Gothic',sans-serif;
+    font-size:9pt; color:#000;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
   }
-  @page { size:A4 portrait; margin:15mm 12mm; }
-  .no-print { display:none !important; }
-  body { background:#fff !important; color:#000 !important; }
-  .sv-header-tbl, .sv-tbl { border-color:#666 !important; }
-  .sv-header-tbl td, .sv-tbl th, .sv-tbl td { border-color:#666 !important; }
-  .sv-header-lbl   { color:#333 !important; font-size:7pt !important; }
-  .sv-header-inp   { color:#000 !important; font-size:8pt !important; border-bottom-color:#999 !important; }
-  .sv-title        { background:#fff !important; color:#000 !important; font-size:13pt !important; }
-  .sv-tbl thead th { background:#d8e0f0 !important; color:#000 !important; font-size:8pt !important; padding:4px !important; }
-  .sv-num          { font-size:8pt !important; background:#f5f7fa !important; padding:4px !important; }
-  .sv-lbl          { font-size:8pt !important; background:#f5f7fa !important; padding:4px 8px !important; }
-  .sv-val          { padding:3px 8px !important; }
-  .sv-val .sv-inp  { font-size:8pt !important; color:#000 !important; border-bottom-color:#999 !important; }
-  .sv-val .sv-sel  { font-size:8pt !important; color:#000 !important; border-color:#999 !important; }
-  .sv-val .sv-ta   { font-size:8pt !important; color:#000 !important; border-color:#999 !important; min-height:30px !important; }
-  .sv-sub-lbl      { font-size:8pt !important; }
-  .sv-sub-row      { padding:3px 8px !important; }
-  .sv-rep-inline   { padding:3px 8px !important; gap:3px 14px !important; }
-  .sv-rep-item-lbl { font-size:8pt !important; }
-  .sv-rep-item-inp { font-size:8pt !important; color:#000 !important; border-bottom-color:#999 !important; }
-  .sv-warranty-row { padding:3px 8px !important; }
+
+  /* ── 상단 헤더 테이블 ── */
+  .sv-header-tbl {
+    border:1px solid #555 !important;
+    width:100% !important; border-collapse:collapse !important;
+  }
+  .sv-header-lbl-cell {
+    border:1px solid #555 !important;
+    padding:3px 6px !important;
+    background:#cdd5e8 !important;
+    text-align:center !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .sv-header-val-cell {
+    border:1px solid #555 !important;
+    padding:3px 6px !important;
+    background:#fff !important;
+  }
+  .sv-header-lbl {
+    font-size:8.5pt !important; font-weight:700 !important;
+    color:#000 !important; display:block;
+    letter-spacing:0 !important; text-transform:none !important;
+    text-align:center !important;
+  }
+  .sv-header-inp {
+    font-size:8.5pt !important; color:#000 !important;
+    border:none !important; border-bottom:1px solid #888 !important;
+    background:transparent !important; padding:1px 0 !important;
+    width:100% !important; font-family:inherit !important;
+  }
+
+  /* ── 제목 ── */
+  .sv-title {
+    font-size:14pt !important; font-weight:900 !important;
+    color:#000 !important; background:#fff !important;
+    border:1px solid #555 !important; border-top:none !important;
+    padding:10px 8px !important; text-align:center !important;
+    letter-spacing:.08em !important;
+  }
+
+  /* ── 본문 테이블 전체 ── */
+  .sv-tbl {
+    border:1px solid #555 !important; border-top:none !important;
+    border-collapse:collapse !important; width:100% !important;
+    table-layout:fixed !important;
+  }
+  .sv-tbl th, .sv-tbl td {
+    border:1px solid #555 !important;
+    font-size:9pt !important;
+  }
+  /* 헤더행 */
+  .sv-tbl thead th {
+    background:#c8d4ea !important; color:#000 !important;
+    font-size:9pt !important; font-weight:700 !important;
+    padding:5px 4px !important; text-align:center !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+
+  /* 구분 번호 셀 */
+  .sv-num {
+    text-align:center !important;
+    font-size:9pt !important; font-weight:600 !important;
+    color:#000 !important;
+    background:#f0f3f8 !important;
+    padding:7px 2px !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  /* 항목 레이블 셀 */
+  .sv-lbl {
+    font-size:9pt !important; font-weight:500 !important;
+    color:#000 !important;
+    background:#f0f3f8 !important;
+    padding:6px 8px !important; line-height:1.5 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  /* 내용 셀 */
+  .sv-val { padding:4px 8px !important; }
+
+  /* 내용 셀 내 입력 요소 → 텍스트만 표시 */
+  .sv-val .sv-inp,
+  .sv-rep-item-inp {
+    font-size:9pt !important; color:#000 !important;
+    background:transparent !important;
+    border:none !important; border-bottom:none !important;
+    padding:0 !important; outline:none !important;
+    width:auto !important; font-family:inherit !important;
+    -webkit-appearance:none; appearance:none;
+  }
+  .sv-val .sv-sel {
+    font-size:9pt !important; color:#000 !important;
+    background:transparent !important;
+    border:none !important; padding:0 !important;
+    -webkit-appearance:none; appearance:none;
+    font-family:inherit !important;
+  }
+  .sv-val .sv-ta {
+    font-size:9pt !important; color:#000 !important;
+    background:transparent !important; border:none !important;
+    padding:0 !important; resize:none !important;
+    min-height:auto !important; font-family:inherit !important;
+    white-space:pre-wrap; word-break:break-all;
+  }
+
+  /* 4번 배출가스/소음 구분 */
+  .sv-sub-row { padding:4px 8px !important; }
+  .sv-sub-lbl { font-size:9pt !important; color:#000 !important; width:52px !important; }
+
+  /* 6·7번 대표차량 인라인 */
+  .sv-rep-inline { padding:4px 8px !important; gap:4px 20px !important; }
+  .sv-rep-item-lbl { font-size:9pt !important; color:#000 !important; }
+
+  /* 8번 보증기간 */
+  .sv-warranty-row { padding:4px 8px !important; }
+  .sv-warranty-row span { font-size:9pt !important; color:#000 !important; }
 }
 </style>
 
 <div class="sv-wrap">
-  <!-- ① 상단 헤더 테이블 (4칸 균등) -->
+  <!-- ① 상단 헤더 테이블 (4칸 균등 · PDF 동일 2행 구조) -->
   <table class="sv-header-tbl">
-    <tr>
-      <td><span class="sv-header-lbl">수입사</span><input data-field="importer" class="sv-header-inp" type="text" placeholder="수입사명" value="\${E(v('importer'))}"></td>
-      <td><span class="sv-header-lbl">인증연도</span><input data-field="cert_year" class="sv-header-inp" type="text" placeholder="예) 2025" value="\${E(v('cert_year'))}"></td>
-      <td><span class="sv-header-lbl">배기량</span><input data-field="displacement" class="sv-header-inp" type="text" placeholder="예) 1000cc" value="\${E(v('displacement'))}"></td>
-      <td><span class="sv-header-lbl">동일차종기호</span><input data-field="family_code" class="sv-header-inp" type="text" placeholder="기호 입력" value="\${E(v('family_code'))}"></td>
+    <!-- 레이블 행 (배경색) -->
+    <tr class="sv-header-row-lbl">
+      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">수입사</span></td>
+      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">인증연도</span></td>
+      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">배기량</span></td>
+      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">동일차종기호</span></td>
     </tr>
-    <tr>
-      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    <!-- 입력값 행 -->
+    <tr class="sv-header-row-val">
+      <td class="sv-header-val-cell"><input data-field="importer" class="sv-header-inp" type="text" placeholder="수입사명" value="\${E(v('importer'))}"></td>
+      <td class="sv-header-val-cell"><input data-field="cert_year" class="sv-header-inp" type="text" placeholder="예) 2025" value="\${E(v('cert_year'))}"></td>
+      <td class="sv-header-val-cell"><input data-field="displacement" class="sv-header-inp" type="text" placeholder="예) 1000cc" value="\${E(v('displacement'))}"></td>
+      <td class="sv-header-val-cell"><input data-field="family_code" class="sv-header-inp" type="text" placeholder="기호 입력" value="\${E(v('family_code'))}"></td>
     </tr>
   </table>
 

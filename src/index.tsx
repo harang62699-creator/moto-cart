@@ -1816,9 +1816,10 @@ function buildFormHTML(formType, saved) {
   .g-tbl { font-size:10pt; }
   .g-tbl th { background:rgba(79,142,247,.10); color:var(--c-text); border-color:var(--c-border); }
   .g-tbl td { border-color:var(--c-border); }
-  .g-td-c  { background:rgba(79,142,247,.06); color:var(--c-text2); }
-  .g-td-n  { background:rgba(79,142,247,.06); color:var(--c-text2); }
-  .g-td-sub{ background:rgba(255,255,255,.02); color:var(--c-text2); }
+  /* 구분·연료·허용기준 등 헤더셀: 화면에서 10pt 강제 */
+  .g-td-c  { background:rgba(79,142,247,.06); color:var(--c-text2); font-size:10pt !important; white-space:normal; }
+  .g-td-n  { background:rgba(79,142,247,.06); color:var(--c-text2); font-size:10pt !important; }
+  .g-td-sub{ background:rgba(255,255,255,.02); color:var(--c-text2); font-size:10pt !important; white-space:normal; }
   .g-chk-row {
     display:flex; align-items:center; gap:5px; padding:3px 2px;
     font-size:10pt; cursor:pointer;
@@ -1831,7 +1832,10 @@ function buildFormHTML(formType, saved) {
   .g-overview-section .g-sec-title { font-size:10pt; }
   .g-overview-section .g-tbl { font-size:7pt; }
   .g-overview-section .g-tbl th,
-  .g-overview-section .g-tbl td { font-size:7pt; padding:1px 2px; }
+  .g-overview-section .g-tbl td { font-size:7pt !important; padding:1px 2px; }
+  .g-overview-section .g-td-c  { font-size:7pt !important; }
+  .g-overview-section .g-td-n  { font-size:7pt !important; }
+  .g-overview-section .g-td-sub{ font-size:7pt !important; }
   .g-overview-section input.g-inp  { font-size:7pt; }
   .g-overview-section select.g-sel { font-size:7pt; height:18px; padding:0 2px; }
 }
@@ -1936,15 +1940,15 @@ function buildFormHTML(formType, saved) {
   <div style="overflow-x:auto;padding:4px 6px 8px;">
     <table class="g-tbl g-overview-tbl" style="width:100%;table-layout:fixed;">
       <colgroup>
-        <col style="width:4%;"><!-- 구분 -->
+        <col style="width:9%;"><!-- 구분 -->
         <col style="width:10%;"><!-- 신청일 -->
         <col style="width:10%;"><!-- 제작사 -->
-        <col style="width:14%;"><!-- 차명(형식) -->
+        <col style="width:13%;"><!-- 차명(형식) -->
         <col style="width:9%;"><!-- 차종 -->
         <col style="width:12%;"><!-- 출력 -->
-        <col style="width:11%;"><!-- 적용기준 배출 -->
-        <col style="width:11%;"><!-- 적용기준 소음 -->
-        <col style="width:13%;"><!-- 인증번호 -->
+        <col style="width:10%;"><!-- 적용기준 배출 -->
+        <col style="width:10%;"><!-- 적용기준 소음 -->
+        <col style="width:11%;"><!-- 인증번호 -->
         <col style="width:6%;"><!-- 비고 -->
       </colgroup>
       <thead>

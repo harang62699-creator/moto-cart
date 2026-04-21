@@ -683,6 +683,27 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
 .form-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
 .form-grid-full { display:grid; gap:16px; }
 
+/* ── 휘발유차 인증신청 주요내용 스타일 ─────── */
+.gasoline-sec-title {
+  font-size:.88rem; font-weight:800; color:var(--c-accent);
+  padding:14px 20px; border-bottom:1px solid var(--c-border2);
+  background:rgba(79,142,247,.05);
+  display:flex; align-items:center; gap:7px; letter-spacing:.02em;
+}
+.gasoline-subsec {
+  font-size:.82rem; font-weight:700; color:var(--c-text2);
+  padding:10px 4px 4px; margin-top:8px;
+  border-bottom:1px solid var(--c-border); margin-bottom:10px;
+}
+.gasoline-check-row {
+  display:flex; align-items:center; gap:10px;
+  padding:6px 8px; border-radius:var(--r-sm);
+  cursor:pointer; transition:background var(--transition);
+  font-size:.875rem; color:var(--c-text);
+}
+.gasoline-check-row:hover { background:rgba(255,255,255,.04); }
+.gasoline-check-row input[type="checkbox"] { width:16px; height:16px; flex-shrink:0; accent-color:var(--c-accent); }
+
 /* ── 인증신청 요약서 표 스타일 ──────────────── */
 .summary-header-grid {
   display:grid; grid-template-columns:1fr 1fr 1fr 1fr;
@@ -1748,24 +1769,412 @@ function buildFormHTML(formType, saved) {
   </div>
 \`;
 
-  if (formType==='gasoline') return (
-    sec('기본 차량 정보','fa-car',
-      fld('제작사명','maker')+fld('차종명','model')+fld('배기량 (cc)','displacement','number')+
-      fld('연료 공급 방식','fuel_supply','text','전자제어 분사')+fld('냉각 방식','cooling','text','수냉/공냉')+
-      fld('기통수','cylinders','number','1'))+
-    sec('적용 인증 기준','fa-certificate',
-      sel('배출가스 기준','emission_std',[['EURO5','EURO 5'],['EURO6','EURO 6'],['EURO4','EURO 4']])+
-      fld('OBD 단계','obd_stage','text','OBD-II')+fld('증발가스 기준','evap_std')+fld('인증 적용 대상','cert_target'))+
-    sec('대표 차종','fa-layer-group',
-      fld('대표 차종 여부','is_rep')+fld('대표 차종명','rep_model')+fld('포함 차종 수','family_count','number','1'))+
-    sec('보증 기간','fa-shield-alt',
-      fld('보증기간 (km)','warranty_km','number')+fld('보증기간 (년)','warranty_year','number')+
-      fld('자가 진단 교환 주기','obd_interval'))+
-    sec('배출가스 시험 결과 (WMTC)','fa-flask',
-      fld('CO 측정값 (g/km)','co_result','number')+fld('NOx 측정값 (g/km)','nox_result','number')+
-      fld('HC 측정값 (g/km)','hc_result','number')+fld('NMHC 측정값 (g/km)','nmhc_result','number')+
-      fld('CO 기준값','co_std','number')+fld('NOx 기준값','nox_std','number'))
-  );
+  if (formType==='gasoline') return \`
+  <!-- ═══ 헤더 4칸 ═══ -->
+  <div class="form-section" style="padding:0;overflow:hidden;">
+    <div style="text-align:center;padding:16px 20px;font-size:1.05rem;font-weight:800;letter-spacing:.02em;border-bottom:1px solid var(--c-border2);background:rgba(79,142,247,.06);">
+      휘발유차 인증신청 주요내용
+    </div>
+    <div class="summary-header-grid">
+      <div class="summary-header-cell"><span class="summary-header-label">수입사</span><input data-field="importer" class="summary-header-input" type="text" placeholder="수입사명" value="\${E(v('importer'))}"></div>
+      <div class="summary-header-cell"><span class="summary-header-label">인증연도</span><input data-field="cert_year" class="summary-header-input" type="text" placeholder="예) 2025" value="\${E(v('cert_year'))}"></div>
+      <div class="summary-header-cell"><span class="summary-header-label">배기량</span><input data-field="displacement" class="summary-header-input" type="text" placeholder="예) 999cc" value="\${E(v('displacement'))}"></div>
+      <div class="summary-header-cell"><span class="summary-header-label">동일차종기호</span><input data-field="family_code" class="summary-header-input" type="text" placeholder="기호 입력" value="\${E(v('family_code'))}"></div>
+    </div>
+  </div>
+
+  <!-- ═══ □ 신청 개요 ═══ -->
+  <div class="form-section" style="padding:0;overflow:hidden;margin-top:16px;">
+    <div class="gasoline-sec-title"><i class="fas fa-clipboard-list"></i> □ 신청 개요</div>
+    <table class="summary-table" style="border-top:none;">
+      <thead>
+        <tr>
+          <th style="width:80px;">구분</th>
+          <th style="width:90px;">신청일</th>
+          <th style="width:110px;">제작사</th>
+          <th>차명(형식)</th>
+          <th style="width:110px;">차종(사용연료)</th>
+          <th style="width:130px;">출력(ps/rpm)<br><small>(배기량 cc)</small></th>
+          <th style="width:130px;">적용기준</th>
+          <th style="width:100px;">인증번호</th>
+          <th style="width:70px;">비고</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="summary-td-content" style="text-align:center;"><input data-field="appl_div" class="input" type="text" placeholder="구분" value="\${E(v('appl_div'))}" style="width:100%;text-align:center;"></td>
+          <td class="summary-td-content"><input data-field="appl_date" class="input" type="date" value="\${E(v('appl_date'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="maker" class="input" type="text" placeholder="제작사" value="\${E(v('maker'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="vehicle_name" class="input" type="text" placeholder="차명(형식)" value="\${E(v('vehicle_name'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="fuel_type" class="input" type="text" placeholder="휘발유" value="\${E(v('fuel_type'))}" style="width:100%;"></td>
+          <td class="summary-td-content">
+            <input data-field="power_rpm" class="input" type="text" placeholder="출력(ps/rpm)" value="\${E(v('power_rpm'))}" style="width:100%;margin-bottom:4px;">
+            <input data-field="engine_cc" class="input" type="text" placeholder="배기량(cc)" value="\${E(v('engine_cc'))}" style="width:100%;">
+          </td>
+          <td class="summary-td-content">
+            <div style="font-size:.78rem;color:var(--c-text3);margin-bottom:3px;">배출 :</div>
+            <input data-field="emission_std" class="input" type="text" placeholder="예) EURO 5" value="\${E(v('emission_std'))}" style="width:100%;margin-bottom:4px;">
+            <div style="font-size:.78rem;color:var(--c-text3);margin-bottom:3px;">소음 :</div>
+            <input data-field="noise_std" class="input" type="text" placeholder="예) ECE R41" value="\${E(v('noise_std'))}" style="width:100%;">
+          </td>
+          <td class="summary-td-content"><input data-field="cert_no" class="input" type="text" placeholder="인증번호" value="\${E(v('cert_no'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="remark" class="input" type="text" placeholder="비고" value="\${E(v('remark'))}" style="width:100%;"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══ □ 신청 유형 ═══ -->
+  <div class="form-section" style="margin-top:16px;">
+    <div class="gasoline-sec-title"><i class="fas fa-tags"></i> □ 신청 유형</div>
+    <div style="display:flex;flex-direction:column;gap:10px;padding:4px 0 12px;">
+      <label class="gasoline-check-row">
+        <input type="checkbox" data-field="type_euro5" \${v('type_euro5')==='true'?'checked':''}>
+        <span>EURO–5 기준 적용 휘발유 이륜자동차 <b>대표차종 인증신청</b></span>
+      </label>
+      <label class="gasoline-check-row">
+        <input type="checkbox" data-field="type_obd_rep" \${v('type_obd_rep')==='true'?'checked':''}>
+        <span>OBD 대표차종</span>
+        <input data-field="obd_rep_model" class="input" type="text" placeholder="차종명" value="\${E(v('obd_rep_model'))}" style="width:200px;margin-left:8px;">
+      </label>
+      <label class="gasoline-check-row">
+        <input type="checkbox" data-field="type_evap_rep" \${v('type_evap_rep')==='true'?'checked':''}>
+        <span>증발가스 대표차종</span>
+        <input data-field="evap_rep_model" class="input" type="text" placeholder="차종명" value="\${E(v('evap_rep_model'))}" style="width:200px;margin-left:8px;">
+      </label>
+    </div>
+
+    <!-- 신청 유형 상세 표 -->
+    <table class="summary-table">
+      <thead>
+        <tr><th style="width:80px;">구분</th><th>인증서 기재 내용</th><th style="width:90px;">해당여부</th></tr>
+      </thead>
+      <tbody>
+        <!-- 배출기준 휘발유 -->
+        <tr><td class="summary-td-num" rowspan="5">배출기준<br><small style="font-weight:400;color:var(--c-text3);">휘발유</small></td>
+          <td class="summary-td-label" style="width:auto;font-weight:400;">* 13년 휘발유 기준2의 나</td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="emit_g_13_2" \${v('emit_g_13_2')==='true'?'checked':''}></td></tr>
+        <tr><td class="summary-td-label" style="width:auto;font-weight:400;">* 13년 휘발유 기준1의 나</td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="emit_g_13_1" \${v('emit_g_13_1')==='true'?'checked':''}></td></tr>
+        <tr><td class="summary-td-label" style="width:auto;font-weight:400;">* 16년 휘발유 기준</td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="emit_g_16" \${v('emit_g_16')==='true'?'checked':''}></td></tr>
+        <tr><td class="summary-td-label" style="width:auto;font-weight:400;">* 20년 1월 이륜자동차(130km/h 이하) 기준</td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="emit_g_20" \${v('emit_g_20')==='true'?'checked':''}></td></tr>
+        <tr><td class="summary-td-label" style="width:auto;font-weight:400;color:var(--c-text3);">경유 · * 14년 9월 경유 소형승용 기준</td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="emit_d_14" \${v('emit_d_14')==='true'?'checked':''}></td></tr>
+        <!-- OBD 2 휘발유 -->
+        <tr><td class="summary-td-num" rowspan="6">OBD 2<br><small style="font-weight:400;color:var(--c-text3);">휘발유</small></td>
+          <td class="summary-td-label" style="width:auto;font-weight:400;">* OBD2 휘발유 기준 적용 대표 (IUPR 1st 기준)</td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="obd_g_iupr1_rep" \${v('obd_g_iupr1_rep')==='true'?'checked':''}></td></tr>
+        <tr><td class="summary-td-label" style="width:auto;font-weight:400;">
+            * OBD2 휘발유 기준 적용 동일 (대표 : <input data-field="obd_g_iupr1_base" class="input" type="text" placeholder="대표차종" value="\${E(v('obd_g_iupr1_base'))}" style="width:120px;display:inline-block;">, IUPR 1st 기준)
+          </td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="obd_g_iupr1_same" \${v('obd_g_iupr1_same')==='true'?'checked':''}></td></tr>
+        <tr><td class="summary-td-label" style="width:auto;font-weight:400;">* OBD2 휘발유 EURO6 기준 적용 대표 (IUPR 2nd 기준)</td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="obd_g_e6_iupr2_rep" \${v('obd_g_e6_iupr2_rep')==='true'?'checked':''}></td></tr>
+        <tr><td class="summary-td-label" style="width:auto;font-weight:400;">
+            * OBD2 휘발유 EURO6 기준 적용 동일 (대표 : <input data-field="obd_g_e6_iupr2_base" class="input" type="text" placeholder="대표차종" value="\${E(v('obd_g_e6_iupr2_base'))}" style="width:120px;display:inline-block;">, IUPR 2nd 기준)
+          </td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="obd_g_e6_iupr2_same" \${v('obd_g_e6_iupr2_same')==='true'?'checked':''}></td></tr>
+        <tr><td class="summary-td-label" style="width:auto;font-weight:400;">* OBD2 휘발유 EURO6 이륜자동차 기준 적용 대표 (OBD Stage 2)</td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="obd_g_e6_stage2" \${v('obd_g_e6_stage2')==='true'?'checked':''}></td></tr>
+        <tr><td class="summary-td-label" style="width:auto;font-weight:400;color:var(--c-text3);">경유 · * OBD2 경유(다)기준 적용 대표/동일</td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="obd_d_rep" \${v('obd_d_rep')==='true'?'checked':''}></td></tr>
+        <!-- 증발가스 -->
+        <tr><td class="summary-td-num" rowspan="2">증발가스</td>
+          <td class="summary-td-label" style="width:auto;font-weight:400;">* 증발가스 대표</td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="evap_rep" \${v('evap_rep')==='true'?'checked':''}></td></tr>
+        <tr><td class="summary-td-label" style="width:auto;font-weight:400;">
+            * 증발가스 동일 (대표 : <input data-field="evap_base_model" class="input" type="text" placeholder="대표차종" value="\${E(v('evap_base_model'))}" style="width:150px;display:inline-block;">)
+          </td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="evap_same" \${v('evap_same')==='true'?'checked':''}></td></tr>
+        <!-- 보증기간 휘발유 -->
+        <tr><td class="summary-td-num" rowspan="6">보증기간<br><small style="font-weight:400;color:var(--c-text3);">휘발유</small></td>
+          <td class="summary-td-label" style="width:auto;font-weight:400;">* 보증기간 : 10년 / 19만2천km</td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="warr_10_192" \${v('warr_10_192')==='true'?'checked':''}></td></tr>
+        <tr><td class="summary-td-label" style="width:auto;font-weight:400;">* 보증기간 : 10년 / 24만km</td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="warr_10_24" \${v('warr_10_24')==='true'?'checked':''}></td></tr>
+        <tr><td class="summary-td-label" style="width:auto;font-weight:400;">* 보증기간 : 15년 / 24만km</td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="warr_15_24" \${v('warr_15_24')==='true'?'checked':''}></td></tr>
+        <tr><td class="summary-td-label" style="width:auto;font-weight:400;">* 보증기간 : 02년 / 3.5만km</td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="warr_2_35" \${v('warr_2_35')==='true'?'checked':''}></td></tr>
+        <tr><td class="summary-td-label" style="width:auto;font-weight:400;">* 보증기간 : 02년 / 2만km</td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="warr_2_2" \${v('warr_2_2')==='true'?'checked':''}></td></tr>
+        <tr><td class="summary-td-label" style="width:auto;font-weight:400;color:var(--c-text3);">경유 · * 보증기간 : 10년 / 16만km</td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="warr_d_10_16" \${v('warr_d_10_16')==='true'?'checked':''}></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══ □ 상세 내역 – 가. 적용기술 ═══ -->
+  <div class="form-section" style="margin-top:16px;">
+    <div class="gasoline-sec-title"><i class="fas fa-list-alt"></i> □ 상세 내역</div>
+    <div class="gasoline-subsec">가. 적용기술</div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding:0 4px 12px;">
+      <div style="display:flex;align-items:flex-start;gap:6px;"><span style="color:var(--c-accent);font-size:.9rem;">m</span><textarea data-field="tech_1" class="input" rows="2" placeholder="적용기술 1" style="flex:1;">\${E(v('tech_1'))}</textarea></div>
+      <div style="display:flex;align-items:flex-start;gap:6px;"><span style="color:var(--c-accent);font-size:.9rem;">m</span><textarea data-field="tech_2" class="input" rows="2" placeholder="적용기술 2" style="flex:1;">\${E(v('tech_2'))}</textarea></div>
+    </div>
+
+    <div class="gasoline-subsec">나. 자체시험 결과</div>
+    <div style="display:flex;gap:16px;padding:0 4px 12px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:200px;">
+        <span style="color:var(--c-accent);font-size:.9rem;white-space:nowrap;">m 배출가스 :</span>
+        <input data-field="self_emission" class="input" type="text" placeholder="자체시험 결과" value="\${E(v('self_emission'))}" style="flex:1;">
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:200px;">
+        <span style="color:var(--c-accent);font-size:.9rem;white-space:nowrap;">m 소&nbsp;&nbsp;&nbsp;음 :</span>
+        <input data-field="self_noise" class="input" type="text" placeholder="자체시험 결과" value="\${E(v('self_noise'))}" style="flex:1;">
+      </div>
+    </div>
+
+    <!-- 시험결과 표 -->
+    <div style="overflow-x:auto;">
+    <table class="summary-table" style="min-width:700px;">
+      <thead>
+        <tr>
+          <th rowspan="2">구분</th>
+          <th>CO<br><small>(g/km)</small></th>
+          <th>NOx<br><small>(g/km)</small></th>
+          <th>THC<br><small>(g/km)</small></th>
+          <th>NMHC<br><small>(g/km)</small></th>
+          <th>증발가스<br><small>(g/Test)</small></th>
+          <th>CO₂<br><small>(g/km)</small></th>
+          <th>가속주행<br><small>dB(A)</small></th>
+          <th>배기소음<br><small>dB(A)</small></th>
+          <th>경적소음<br><small>dB(C)</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="summary-td-label" style="width:auto;">허용기준</td>
+          <td class="summary-td-content"><input data-field="lim_co" class="input" type="number" step="0.001" value="\${E(v('lim_co'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="lim_nox" class="input" type="number" step="0.001" value="\${E(v('lim_nox'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="lim_thc" class="input" type="number" step="0.001" value="\${E(v('lim_thc'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="lim_nmhc" class="input" type="number" step="0.001" value="\${E(v('lim_nmhc'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="lim_evap" class="input" type="number" step="0.001" value="\${E(v('lim_evap'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="lim_co2" class="input" type="number" step="0.1" value="\${E(v('lim_co2'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="lim_accel" class="input" type="number" step="0.1" value="\${E(v('lim_accel'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="lim_exhaust" class="input" type="number" step="0.1" value="\${E(v('lim_exhaust'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="lim_horn" class="input" type="number" step="0.1" value="\${E(v('lim_horn'))}" style="width:100%;"></td>
+        </tr>
+        <tr>
+          <td class="summary-td-label" style="width:auto;">시험결과</td>
+          <td class="summary-td-content"><input data-field="res_co" class="input" type="number" step="0.001" value="\${E(v('res_co'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="res_nox" class="input" type="number" step="0.001" value="\${E(v('res_nox'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="res_thc" class="input" type="number" step="0.001" value="\${E(v('res_thc'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="res_nmhc" class="input" type="number" step="0.001" value="\${E(v('res_nmhc'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="res_evap" class="input" type="number" step="0.001" value="\${E(v('res_evap'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="res_co2" class="input" type="number" step="0.1" value="\${E(v('res_co2'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="res_accel" class="input" type="number" step="0.1" value="\${E(v('res_accel'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="res_exhaust" class="input" type="number" step="0.1" value="\${E(v('res_exhaust'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="res_horn" class="input" type="number" step="0.1" value="\${E(v('res_horn'))}" style="width:100%;"></td>
+        </tr>
+        <tr>
+          <td class="summary-td-label" style="width:auto;">기준만족도(%)</td>
+          <td class="summary-td-content"><input data-field="sat_co" class="input" type="number" step="0.1" value="\${E(v('sat_co'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="sat_nox" class="input" type="number" step="0.1" value="\${E(v('sat_nox'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="sat_thc" class="input" type="number" step="0.1" value="\${E(v('sat_thc'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="sat_nmhc" class="input" type="number" step="0.1" value="\${E(v('sat_nmhc'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="sat_evap" class="input" type="number" step="0.1" value="\${E(v('sat_evap'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="sat_co2" class="input" type="number" step="0.1" value="\${E(v('sat_co2'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="sat_accel" class="input" type="number" step="0.1" value="\${E(v('sat_accel'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="sat_exhaust" class="input" type="number" step="0.1" value="\${E(v('sat_exhaust'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="sat_horn" class="input" type="number" step="0.1" value="\${E(v('sat_horn'))}" style="width:100%;"></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div style="padding:10px 4px;font-size:.78rem;color:var(--c-text3);">
+      주 1) 지정열화계수 적용 : CO <input data-field="df_co" class="input" type="text" value="\${E(v('df_co'))}" style="width:60px;display:inline-block;">,
+      NOx <input data-field="df_nox" class="input" type="text" value="\${E(v('df_nox'))}" style="width:60px;display:inline-block;">,
+      THC <input data-field="df_thc" class="input" type="text" value="\${E(v('df_thc'))}" style="width:60px;display:inline-block;">,
+      증발가스 <input data-field="df_evap" class="input" type="text" value="\${E(v('df_evap'))}" style="width:60px;display:inline-block;"><br>
+      주 2) 기준만족도(%) = 시험결과 / 기준치 × 100<br>
+      ※ 연비 : <input data-field="fuel_economy" class="input" type="text" value="\${E(v('fuel_economy'))}" style="width:80px;display:inline-block;"> km/L
+    </div>
+
+    <!-- OBD 감시장치 -->
+    <div class="gasoline-subsec">OBD 감시장치 시험결과</div>
+    <div style="overflow-x:auto;margin-bottom:12px;">
+    <table class="summary-table" style="min-width:600px;">
+      <thead>
+        <tr>
+          <th>장치명</th>
+          <th>오작동 재현조건</th>
+          <th>WMTC 모드 결과<br><small>(g/km) CO / NOx / HC</small></th>
+          <th>오작동 표시등<br>점등여부</th>
+          <th>오작동 판단기준<br><small>(g/km) CO / NOx / HC</small></th>
+          <th>감시장치 적부판정</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="summary-td-label" style="width:auto;">촉매</td>
+          <td class="summary-td-content"><input data-field="obd_cat_cond" class="input" type="text" value="\${E(v('obd_cat_cond'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="obd_cat_wmtc" class="input" type="text" placeholder="CO/NOx/HC" value="\${E(v('obd_cat_wmtc'))}" style="width:100%;"></td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="obd_cat_mil" \${v('obd_cat_mil')==='true'?'checked':''}></td>
+          <td class="summary-td-content"><input data-field="obd_cat_std" class="input" type="text" placeholder="CO/NOx/HC" value="\${E(v('obd_cat_std'))}" style="width:100%;"></td>
+          <td class="summary-td-content" style="text-align:center;"><select data-field="obd_cat_pass" class="input" style="width:100%;"><option value="">선택</option><option value="적합" \${v('obd_cat_pass')==='적합'?'selected':''}>적합</option><option value="부적합" \${v('obd_cat_pass')==='부적합'?'selected':''}>부적합</option></select></td>
+        </tr>
+        <tr>
+          <td class="summary-td-label" style="width:auto;">O₂ 센서</td>
+          <td class="summary-td-content"><input data-field="obd_o2_cond" class="input" type="text" value="\${E(v('obd_o2_cond'))}" style="width:100%;"></td>
+          <td class="summary-td-content"><input data-field="obd_o2_wmtc" class="input" type="text" placeholder="CO/NOx/HC" value="\${E(v('obd_o2_wmtc'))}" style="width:100%;"></td>
+          <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="obd_o2_mil" \${v('obd_o2_mil')==='true'?'checked':''}></td>
+          <td class="summary-td-content"><input data-field="obd_o2_std" class="input" type="text" placeholder="CO/NOx/HC" value="\${E(v('obd_o2_std'))}" style="width:100%;"></td>
+          <td class="summary-td-content" style="text-align:center;"><select data-field="obd_o2_pass" class="input" style="width:100%;"><option value="">선택</option><option value="적합" \${v('obd_o2_pass')==='적합'?'selected':''}>적합</option><option value="부적합" \${v('obd_o2_pass')==='부적합'?'selected':''}>부적합</option></select></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- ═══ □ 다. 항목별 제원 및 시험결과 (1~13) ═══ -->
+  <div class="form-section" style="padding:0;overflow:hidden;margin-top:16px;">
+    <div class="gasoline-sec-title" style="padding:14px 20px;"><i class="fas fa-table"></i> 다. 항목별 제원 및 시험결과</div>
+    <table class="summary-table" style="border-top:none;">
+      <thead>
+        <tr><th style="width:44px;">구분</th><th style="width:200px;">항&nbsp;&nbsp;&nbsp;목</th><th>내&nbsp;&nbsp;&nbsp;용</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="summary-td-num">1</td><td class="summary-td-label">촉매, DPF 등<br>후처리장치</td>
+          <td class="summary-td-content"><textarea data-field="item_1_catalyst" class="input" rows="3" placeholder="촉매 후처리장치 내용" style="width:100%;">\${E(v('item_1_catalyst'))}</textarea></td></tr>
+
+        <tr><td class="summary-td-num">2</td><td class="summary-td-label">증발가스</td>
+          <td class="summary-td-content">
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:6px;">□ 증발가스 대표/동일 여부</div>
+            <textarea data-field="item_2_evap" class="input" rows="2" placeholder="증발가스 내용" style="width:100%;">\${E(v('item_2_evap'))}</textarea>
+          </td></tr>
+
+        <tr><td class="summary-td-num">3</td><td class="summary-td-label">블로바이가스</td>
+          <td class="summary-td-content">
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:6px;">□ 블로바이가스 제어장치</div>
+            <textarea data-field="item_3_blowby" class="input" rows="2" placeholder="블로바이가스 제어장치 내용" style="width:100%;">\${E(v('item_3_blowby'))}</textarea>
+          </td></tr>
+
+        <tr><td class="summary-td-num">4</td><td class="summary-td-label">배출가스자기진단장치<br>(OBD2)</td>
+          <td class="summary-td-content">
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:6px;">□ OBD2 대표/동일 여부</div>
+            <textarea data-field="item_4_obd_rep" class="input" rows="2" placeholder="OBD2 대표/동일 여부" style="width:100%;margin-bottom:10px;">\${E(v('item_4_obd_rep'))}</textarea>
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:6px;">□ 배출가스자기진단장치 기준</div>
+            <table class="summary-table" style="margin-bottom:10px;">
+              <thead><tr><th>OBD 기준명</th><th style="width:80px;">해당 여부</th></tr></thead>
+              <tbody>
+                \${[
+                  ['obd_std_g2006','휘발유 2006년 OBD 기준'],
+                  ['obd_std_g2013_1','휘발유 2013년 OBD IUPR 1st 기준'],
+                  ['obd_std_g2013_2','휘발유 2013년 OBD IUPR 2nd(2016년 1월) 기준'],
+                  ['obd_std_ge6_2','휘발유 EURO6 OBD IUPR 2nd 기준'],
+                  ['obd_std_ge5_s2','휘발유 EURO5 OBD 이륜자동차 기준(OBD Stage 2)'],
+                  ['obd_std_d2006','경유 2006년 OBD 기준'],
+                  ['obd_std_d2012','경유 2012년 OBD IUPR 1st 기준'],
+                  ['obd_std_d2014','경유 2014년 9월 OBD IUPR 2nd 기준'],
+                ].map(([k,label])=>\`<tr><td class="summary-td-label" style="width:auto;font-weight:400;">\${label}</td><td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="\${k}" \${v(k)==='true'?'checked':''}></td></tr>\`).join('')}
+              </tbody>
+            </table>
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:6px;">□ OBD2 오작동 판정기준</div>
+            <textarea data-field="item_4_obd_dtc" class="input" rows="2" placeholder="오작동 판정기준" style="width:100%;margin-bottom:10px;">\${E(v('item_4_obd_dtc'))}</textarea>
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:6px;">□ OBD2 감시항목별 시험여부</div>
+            <table class="summary-table" style="margin-bottom:10px;">
+              <thead><tr><th>감시항목</th><th style="width:80px;">시험여부</th><th>시험차명</th></tr></thead>
+              <tbody>
+                \${['산소센서','배기가스 재순환계통','가변밸브타이밍계통','연료계통','실화','2차 공기계통','촉매'].map((label,i)=>\`
+                  <tr>
+                    <td class="summary-td-label" style="width:auto;font-weight:400;">\${label}</td>
+                    <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="obd_mon_\${i}_tested" \${v('obd_mon_\${i}_tested')==='true'?'checked':''}></td>
+                    <td class="summary-td-content"><input data-field="obd_mon_\${i}_vehicle" class="input" type="text" placeholder="시험차명" value="\${E(v('obd_mon_\${i}_vehicle'))}" style="width:100%;"></td>
+                  </tr>\`).join('')}
+              </tbody>
+            </table>
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:6px;">□ IUPR 적용내역</div>
+            <table class="summary-table">
+              <thead><tr><th>감시항목</th><th style="width:80px;">적용여부</th><th>측정결과</th><th>시험차명</th></tr></thead>
+              <tbody>
+                \${['촉매','O₂ 센서','연료계통','실화','EGR'].map((label,i)=>\`
+                  <tr>
+                    <td class="summary-td-label" style="width:auto;font-weight:400;">\${label}</td>
+                    <td class="summary-td-content" style="text-align:center;"><input type="checkbox" data-field="iupr_\${i}_applied" \${v('iupr_\${i}_applied')==='true'?'checked':''}></td>
+                    <td class="summary-td-content"><input data-field="iupr_\${i}_result" class="input" type="text" value="\${E(v('iupr_\${i}_result'))}" style="width:100%;"></td>
+                    <td class="summary-td-content"><input data-field="iupr_\${i}_vehicle" class="input" type="text" value="\${E(v('iupr_\${i}_vehicle'))}" style="width:100%;"></td>
+                  </tr>\`).join('')}
+              </tbody>
+            </table>
+          </td></tr>
+
+        <tr><td class="summary-td-num">5</td><td class="summary-td-label">시험시설</td>
+          <td class="summary-td-content">
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:6px;">□ 자체시험을 실시한 시설에 대한 시설확인 내역</div>
+            <textarea data-field="item_5_facility" class="input" rows="3" placeholder="시험시설 확인 내역" style="width:100%;">\${E(v('item_5_facility'))}</textarea>
+          </td></tr>
+
+        <tr><td class="summary-td-num">6</td><td class="summary-td-label">시험차 선정근거</td>
+          <td class="summary-td-content">
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:4px;">□ 배출가스 시험자동차 선정근거</div>
+            <div style="font-size:.78rem;color:var(--c-text3);margin-bottom:8px;">「제작자동차 인증 및 검사방법과 절차 등에 관한 규정」 제11조에 따라 시험차량 선정</div>
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:4px;">□ 소음 시험자동차 선정근거</div>
+            <div style="font-size:.78rem;color:var(--c-text3);margin-bottom:8px;">「제작자동차 인증 및 검사방법과 절차 등에 관한 규정」 제12조에 따라 시험차량 선정</div>
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:4px;">□ OBD 시험자동차 선정근거</div>
+            <div style="font-size:.78rem;color:var(--c-text3);">「제작자동차 인증 및 검사방법과 절차 등에 관한 규정」 제23조에 따라 시험차량 선정</div>
+          </td></tr>
+
+        <tr><td class="summary-td-num">7</td><td class="summary-td-label">배출가스 시험</td>
+          <td class="summary-td-content">
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:6px;">□ 배출가스 시험모드 및 시험 횟수</div>
+            <textarea data-field="item_7_mode" class="input" rows="2" placeholder="시험모드 및 횟수" style="width:100%;margin-bottom:8px;">\${E(v('item_7_mode'))}</textarea>
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:6px;">□ 배출가스 자체시험 성적서 제출 내역</div>
+            <textarea data-field="item_7_report" class="input" rows="2" placeholder="성적서 제출 내역" style="width:100%;">\${E(v('item_7_report'))}</textarea>
+          </td></tr>
+
+        <tr><td class="summary-td-num">8</td><td class="summary-td-label">증발가스 시험</td>
+          <td class="summary-td-content">
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:6px;">□ 증발가스 자체시험 성적서 제출 내역</div>
+            <textarea data-field="item_8_evap" class="input" rows="2" placeholder="성적서 제출 내역" style="width:100%;">\${E(v('item_8_evap'))}</textarea>
+          </td></tr>
+
+        <tr><td class="summary-td-num">9</td><td class="summary-td-label">보증기간 및<br>열화계수</td>
+          <td class="summary-td-content">
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:6px;">□ 보증기간 및 열화계수 적용 내역</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+              <span style="font-size:.85rem;color:var(--c-text2);">보증기간 :</span>
+              <input data-field="item_9_warranty_km" class="input" type="text" placeholder="km" value="\${E(v('item_9_warranty_km'))}" style="width:120px;">
+              <span style="font-size:.85rem;color:var(--c-text3);">km</span>
+            </div>
+            <table class="summary-table">
+              <thead><tr><th>항목</th><th>적용 열화계수</th></tr></thead>
+              <tbody>
+                \${[['df_co_val','일산화탄소(CO)'],['df_hc_val','배기관 탄화수소'],['df_nox_val','질소산화물'],['df_evap_val','증발 탄화수소']].map(([k,label])=>\`
+                  <tr><td class="summary-td-label" style="width:auto;font-weight:400;">\${label}</td>
+                  <td class="summary-td-content"><input data-field="\${k}" class="input" type="text" value="\${E(v(k))}" style="width:100%;"></td></tr>\`).join('')}
+              </tbody>
+            </table>
+          </td></tr>
+
+        <tr><td class="summary-td-num">10</td><td class="summary-td-label">내구 시험</td>
+          <td class="summary-td-content"><textarea data-field="item_10_durability" class="input" rows="3" placeholder="내구 시험 내용" style="width:100%;">\${E(v('item_10_durability'))}</textarea></td></tr>
+
+        <tr><td class="summary-td-num">11</td><td class="summary-td-label">주기적재생지수<br>(ki) 시험</td>
+          <td class="summary-td-content"><textarea data-field="item_11_ki" class="input" rows="3" placeholder="주기적재생지수(ki) 시험 내용" style="width:100%;">\${E(v('item_11_ki'))}</textarea></td></tr>
+
+        <tr><td class="summary-td-num">12</td><td class="summary-td-label">소음시험</td>
+          <td class="summary-td-content">
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:6px;">□ 소음시험 성적서 제출 내역</div>
+            <textarea data-field="item_12_noise_reports" class="input" rows="2" placeholder="소음시험 성적서 제출 내역" style="width:100%;margin-bottom:8px;">\${E(v('item_12_noise_reports'))}</textarea>
+            <div style="font-size:.8rem;color:var(--c-accent);margin-bottom:6px;">□ 소음 시험방법</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:.82rem;color:var(--c-text2);width:80px;flex-shrink:0;">- 가속주행소음 :</span><input data-field="item_12_accel" class="input" type="text" value="\${E(v('item_12_accel'))}" style="flex:1;"></div>
+              <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:.82rem;color:var(--c-text2);width:80px;flex-shrink:0;">- 배기소음 :</span><input data-field="item_12_exhaust" class="input" type="text" value="\${E(v('item_12_exhaust'))}" style="flex:1;"></div>
+              <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:.82rem;color:var(--c-text2);width:80px;flex-shrink:0;">- 경적소음 :</span><input data-field="item_12_horn" class="input" type="text" value="\${E(v('item_12_horn'))}" style="flex:1;"></div>
+            </div>
+          </td></tr>
+
+        <tr><td class="summary-td-num">13</td><td class="summary-td-label">동일차종 구성</td>
+          <td class="summary-td-content">
+            <textarea data-field="item_13_family" class="input" rows="3" placeholder="동일차종 구성 내용" style="width:100%;">\${E(v('item_13_family'))}</textarea>
+          </td></tr>
+      </tbody>
+    </table>
+  </div>
+\`;
 
   if (formType==='detail_plan') return (
     sec('차량 기본 사양','fa-info-circle',

@@ -1771,189 +1771,185 @@ function buildFormHTML(formType, saved) {
 
   if (formType==='gasoline') return \`
 <style>
-/* ══════════════════════════════════════════════════════
-   gasoline 폼 전용 스타일
-   - .g-wrap: 공통 래퍼
-   - 화면(.screen) / 인쇄(@media print) 분리
-══════════════════════════════════════════════════════ */
+/* ══ gasoline 폼 전용 스타일 ══ */
 
-/* ─── 공통 (화면+인쇄) ─────────────────────────── */
+/* ─── 공통 ─────────────────────────────────────── */
 .g-wrap { box-sizing:border-box; }
-.g-tbl  { width:100%; border-collapse:collapse; font-size:8.5pt; }
+.g-tbl  { width:100%; border-collapse:collapse; font-size:7.5pt; table-layout:fixed; }
 .g-tbl th,
-.g-tbl td { border:1px solid #666; padding:3px 6px; vertical-align:middle; }
+.g-tbl td { border:1px solid #666; padding:2px 4px; vertical-align:middle; word-break:break-all; }
 .g-tbl th { background:#d8e4f0; font-weight:bold; text-align:center; white-space:nowrap; }
-.g-td-c   { text-align:center; background:#eef1f7; font-weight:600; font-size:8pt; white-space:nowrap; }
-.g-td-n   { width:34px; text-align:center; background:#eef1f7; font-weight:700; font-size:8pt; }
-.g-td-sub { background:#f3f6fb; font-weight:600; white-space:nowrap; padding:3px 8px; font-size:8pt; }
-.g-td-val { padding:2px 4px; }
+.g-td-c   { text-align:center; background:#eef1f7; font-weight:600; font-size:7.5pt; white-space:nowrap; }
+.g-td-n   { width:28px; text-align:center; background:#eef1f7; font-weight:700; font-size:7.5pt; }
+.g-td-sub { background:#f3f6fb; font-weight:600; white-space:nowrap; padding:2px 6px; font-size:7.5pt; }
+.g-td-val { padding:2px 3px; }
 .g-ok-td  { text-align:center; white-space:nowrap; }
 
 /* ─── 화면 전용 ─────────────────────────────────── */
 @media screen {
-  .g-wrap {
-    font-family: inherit;
-  }
+  .g-wrap { font-family: inherit; }
   .g-form-title {
-    text-align:center;
-    padding:14px 20px;
-    font-size:1.05rem;
-    font-weight:800;
+    text-align:center; padding:12px 20px;
+    font-size:.95rem; font-weight:800;
     border-bottom:1px solid var(--c-border2);
-    background:rgba(79,142,247,.06);
-    letter-spacing:.01em;
+    background:rgba(79,142,247,.06); letter-spacing:.01em;
   }
   .g-header-grid {
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr 1fr;
+    display:grid; grid-template-columns:1fr 1fr 1fr 1fr;
     border-bottom:1px solid var(--c-border2);
   }
-  .g-header-cell {
-    padding:10px 14px;
-    border-right:1px solid var(--c-border);
-  }
+  .g-header-cell { padding:8px 12px; border-right:1px solid var(--c-border); }
   .g-header-cell:last-child { border-right:none; }
   .g-header-label {
-    font-size:.7rem; font-weight:700;
-    color:var(--c-text3); letter-spacing:.04em;
-    display:block; margin-bottom:4px;
+    font-size:.65rem; font-weight:700; color:var(--c-text3);
+    letter-spacing:.04em; display:block; margin-bottom:3px;
   }
   .g-sec-title {
-    font-size:.88rem; font-weight:800;
-    color:var(--c-accent);
-    padding:10px 18px;
-    border-bottom:1px solid var(--c-border2);
-    background:rgba(79,142,247,.04);
-    display:flex; align-items:center; gap:7px;
+    font-size:.82rem; font-weight:800; color:var(--c-accent);
+    padding:8px 16px; border-bottom:1px solid var(--c-border2);
+    background:rgba(79,142,247,.04); display:flex; align-items:center; gap:6px;
   }
   .g-sub-title {
-    font-size:.82rem; font-weight:700;
-    color:var(--c-text2);
-    padding:8px 18px 4px;
+    font-size:.78rem; font-weight:700; color:var(--c-text2);
+    padding:7px 16px 3px;
   }
-  .g-tbl { font-size:.8rem; }
+  .g-tbl { font-size:.75rem; }
   .g-tbl th { background:rgba(79,142,247,.10); color:var(--c-text); border-color:var(--c-border); }
   .g-tbl td { border-color:var(--c-border); }
   .g-td-c  { background:rgba(79,142,247,.06); color:var(--c-text2); }
   .g-td-n  { background:rgba(79,142,247,.06); color:var(--c-text2); }
   .g-td-sub{ background:rgba(255,255,255,.03); color:var(--c-text2); }
-  .g-sec-inner { padding:12px 18px; }
-  .g-note { font-size:.75rem; color:var(--c-text3); padding:6px 18px; }
+  .g-sec-inner { padding:10px 16px; }
+  .g-note { font-size:.7rem; color:var(--c-text3); padding:5px 16px; }
   .g-check-row {
-    display:flex; align-items:center; gap:8px;
-    padding:5px 4px; font-size:.875rem; cursor:pointer;
+    display:flex; align-items:center; gap:6px;
+    padding:4px 3px; font-size:.82rem; cursor:pointer;
   }
-  .g-check-row:hover { background:rgba(255,255,255,.04); border-radius:6px; }
-  .g-check-row input[type=checkbox] { width:15px; height:15px; accent-color:var(--c-accent); flex-shrink:0; }
+  .g-check-row:hover { background:rgba(255,255,255,.04); border-radius:5px; }
+  .g-check-row input[type=checkbox] { width:14px; height:14px; accent-color:var(--c-accent); flex-shrink:0; }
   .g-screen-only { display:block; }
   .g-print-only  { display:none; }
+  /* select 크기 통일 */
+  select.g-sel { font-size:.75rem; padding:1px 2px; height:22px; }
 }
 
 /* ─── 인쇄 전용 ─────────────────────────────────── */
 @media print {
-  .g-wrap { font-family:'맑은 고딕','Malgun Gothic',sans-serif; font-size:8.5pt; color:#000; }
+  .g-wrap {
+    font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+    font-size:7.5pt; color:#000;
+  }
   .g-form-title {
-    text-align:center; font-size:13pt; font-weight:bold;
-    padding:6px 0; border-bottom:2px solid #000; margin-bottom:4px;
+    text-align:center; font-size:12pt; font-weight:bold;
+    padding:5px 0; border-bottom:2px solid #000; margin-bottom:3px;
   }
   .g-header-grid {
     display:table; width:100%;
-    border:1px solid #000; margin-bottom:4px;
+    border:1px solid #000; margin-bottom:3px;
   }
   .g-header-cell {
     display:table-cell; width:25%;
-    padding:3px 8px; border-right:1px solid #000;
+    padding:2px 6px; border-right:1px solid #000;
   }
   .g-header-cell:last-child { border-right:none; }
-  .g-header-label { font-size:7pt; color:#333; display:block; }
+  .g-header-label { font-size:6.5pt; color:#333; display:block; }
   .g-sec-title {
-    font-weight:bold; font-size:9.5pt;
-    margin:6px 0 3px; padding:0;
+    font-weight:bold; font-size:8.5pt;
+    margin:5px 0 2px; padding:0;
     background:none; color:#000; display:block;
   }
-  .g-sub-title { font-weight:bold; font-size:8.5pt; margin:4px 0 2px; padding:0; }
+  .g-sub-title { font-weight:bold; font-size:7.5pt; margin:3px 0 1px; padding:0; }
   .g-sec-inner { padding:0; }
-  .g-note { font-size:7.5pt; color:#333; margin:2px 0; padding:0; }
+  .g-note { font-size:7pt; color:#333; margin:2px 0; padding:0; }
+  .g-tbl { font-size:7pt; }
   .g-tbl th { background:#d8e4f0 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .g-td-c  { background:#eef1f7 !important; -webkit-print-color-adjust:exact; }
-  .g-td-sub{ background:#f3f6fb !important; -webkit-print-color-adjust:exact; }
-  .g-td-n  { background:#eef1f7 !important; -webkit-print-color-adjust:exact; }
+  .g-td-c  { background:#eef1f7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .g-td-sub{ background:#f3f6fb !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .g-td-n  { background:#eef1f7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .g-screen-only { display:none !important; }
   .g-print-only  { display:block; }
-  /* 인쇄 시 input/textarea → 텍스트로 */
-  input.input, textarea.input, select.input {
+  /* input/textarea/select → 텍스트처럼 */
+  input.input, textarea.input {
     border:none !important; background:transparent !important;
     padding:0 !important; margin:0 !important;
     font-size:inherit; font-family:inherit; color:#000;
     -webkit-appearance:none; appearance:none;
-    resize:none; outline:none;
-    white-space:pre-wrap; word-break:break-all;
+    resize:none; outline:none; white-space:pre-wrap; word-break:break-all;
+    width:auto !important; min-width:0 !important;
   }
-  select.input { border-bottom:1px solid #999 !important; }
+  select.input, select.g-sel {
+    border:none !important; background:transparent !important;
+    padding:0 !important; margin:0 !important;
+    font-size:inherit; font-family:inherit; color:#000;
+    -webkit-appearance:none; appearance:none; outline:none;
+    width:auto !important;
+  }
+  /* 페이지 여백 */
+  @page { margin: 12mm 10mm; }
 }
 </style>
 
 <div class="form-section g-wrap" style="padding:0;overflow:hidden;">
-  <!-- ■ 제목 + 헤더 -->
   <div class="g-form-title">휘발유차 인증신청 주요내용</div>
   <div class="g-header-grid">
     <div class="g-header-cell">
       <span class="g-header-label">수입사</span>
-      <input data-field="importer" class="input" type="text" placeholder="수입사명" value="\${E(v('importer'))}" style="width:100%;">
+      <input data-field="importer" class="input" type="text" placeholder="수입사명" value="\${E(v('importer'))}" style="width:100%;font-size:.8rem;">
     </div>
     <div class="g-header-cell">
       <span class="g-header-label">인증연도</span>
-      <input data-field="cert_year" class="input" type="text" placeholder="예) 2025" value="\${E(v('cert_year'))}" style="width:100%;">
+      <input data-field="cert_year" class="input" type="text" placeholder="예) 2025" value="\${E(v('cert_year'))}" style="width:100%;font-size:.8rem;">
     </div>
     <div class="g-header-cell">
       <span class="g-header-label">배기량</span>
-      <input data-field="displacement_cc" class="input" type="text" placeholder="예) 999cc" value="\${E(v('displacement_cc'))}" style="width:100%;">
+      <input data-field="displacement_cc" class="input" type="text" placeholder="예) 999cc" value="\${E(v('displacement_cc'))}" style="width:100%;font-size:.8rem;">
     </div>
     <div class="g-header-cell">
       <span class="g-header-label">동일차종기호</span>
-      <input data-field="family_code" class="input" type="text" placeholder="기호 입력" value="\${E(v('family_code'))}" style="width:100%;">
+      <input data-field="family_code" class="input" type="text" placeholder="기호 입력" value="\${E(v('family_code'))}" style="width:100%;font-size:.8rem;">
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════
-     PAGE 1  □ 신청 개요
-══════════════════════════════════════════════════════ -->
-<div class="form-section g-wrap" style="padding:0;overflow:hidden;margin-top:14px;">
+<!-- ══ PAGE 1  □ 신청 개요 ══ -->
+<div class="form-section g-wrap" style="padding:0;overflow:hidden;margin-top:12px;">
   <div class="g-sec-title">□ 신청 개요</div>
-  <div style="overflow-x:auto;padding:10px 14px 14px;">
-    <table class="g-tbl" style="min-width:720px;">
+  <div style="overflow-x:auto;padding:8px 12px 12px;">
+    <table class="g-tbl" style="min-width:680px;table-layout:auto;">
       <thead>
         <tr>
-          <th>구분</th><th>신청일</th><th>제작사</th><th>차명(형식)</th>
-          <th>차종<br>(사용연료)</th><th>출력(ps/rpm)<br>(배기량 cc)</th>
-          <th colspan="2">적용기준</th><th>인증번호</th><th>비고</th>
-        </tr>
-        <tr>
-          <th></th><th></th><th></th><th></th><th></th><th></th>
-          <th>배출</th><th>소음</th><th></th><th></th>
+          <th style="width:40px;">구분</th>
+          <th style="width:90px;">신청일</th>
+          <th style="width:90px;">제작사</th>
+          <th style="width:110px;">차명(형식)</th>
+          <th style="width:80px;">차종<br>(사용연료)</th>
+          <th style="width:90px;">출력(ps/rpm)<br>(배기량 cc)</th>
+          <th style="width:70px;">적용기준<br>배출</th>
+          <th style="width:70px;">적용기준<br>소음</th>
+          <th style="width:100px;">인증번호</th>
+          <th style="width:60px;">비고</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td class="g-td-val"><input data-field="appl_div" class="input" type="text" placeholder="구분" value="\${E(v('appl_div'))}" style="width:60px;"></td>
-          <td class="g-td-val"><input data-field="appl_date" class="input" type="date" value="\${E(v('appl_date'))}" style="width:120px;"></td>
-          <td class="g-td-val"><input data-field="maker" class="input" type="text" placeholder="제작사명" value="\${E(v('maker'))}" style="width:120px;"></td>
-          <td class="g-td-val"><input data-field="vehicle_name" class="input" type="text" placeholder="차명(형식)" value="\${E(v('vehicle_name'))}" style="width:130px;"></td>
+          <td class="g-td-val"><input data-field="appl_div" class="input" type="text" placeholder="구분" value="\${E(v('appl_div'))}" style="width:100%;font-size:.75rem;"></td>
+          <td class="g-td-val"><input data-field="appl_date" class="input" type="date" value="\${E(v('appl_date'))}" style="width:100%;font-size:.72rem;"></td>
+          <td class="g-td-val"><input data-field="maker" class="input" type="text" placeholder="제작사" value="\${E(v('maker'))}" style="width:100%;font-size:.75rem;"></td>
+          <td class="g-td-val"><input data-field="vehicle_name" class="input" type="text" placeholder="차명(형식)" value="\${E(v('vehicle_name'))}" style="width:100%;font-size:.75rem;"></td>
           <td class="g-td-val">
-            <select data-field="fuel_type" class="input" style="width:90px;">
+            <select data-field="fuel_type" class="input g-sel" style="width:100%;">
               <option value="">(선택)</option>
               \${ ['휘발유','경유','LPG','전기'].map(o=>\`<option value="\${o}" \${v('fuel_type')===o?'selected':''}>\${o}</option>\`).join('') }
             </select>
           </td>
           <td class="g-td-val">
-            <input data-field="power_rpm" class="input" type="text" placeholder="출력/rpm" value="\${E(v('power_rpm'))}" style="width:80px;margin-bottom:4px;display:block;">
-            <input data-field="displacement_cc2" class="input" type="text" placeholder="배기량cc" value="\${E(v('displacement_cc2'))}" style="width:80px;">
+            <input data-field="power_rpm" class="input" type="text" placeholder="출력/rpm" value="\${E(v('power_rpm'))}" style="width:100%;font-size:.72rem;margin-bottom:3px;display:block;">
+            <input data-field="displacement_cc2" class="input" type="text" placeholder="배기량cc" value="\${E(v('displacement_cc2'))}" style="width:100%;font-size:.72rem;">
           </td>
-          <td class="g-td-val"><input data-field="emission_std_appl" class="input" type="text" placeholder="배출기준" value="\${E(v('emission_std_appl'))}" style="width:80px;"></td>
-          <td class="g-td-val"><input data-field="noise_std_appl" class="input" type="text" placeholder="소음기준" value="\${E(v('noise_std_appl'))}" style="width:80px;"></td>
-          <td class="g-td-val"><input data-field="cert_no" class="input" type="text" placeholder="인증번호" value="\${E(v('cert_no'))}" style="width:110px;"></td>
-          <td class="g-td-val"><input data-field="appl_note" class="input" type="text" placeholder="비고" value="\${E(v('appl_note'))}" style="width:80px;"></td>
+          <td class="g-td-val"><input data-field="emission_std_appl" class="input" type="text" placeholder="배출기준" value="\${E(v('emission_std_appl'))}" style="width:100%;font-size:.72rem;"></td>
+          <td class="g-td-val"><input data-field="noise_std_appl" class="input" type="text" placeholder="소음기준" value="\${E(v('noise_std_appl'))}" style="width:100%;font-size:.72rem;"></td>
+          <td class="g-td-val"><input data-field="cert_no" class="input" type="text" placeholder="인증번호" value="\${E(v('cert_no'))}" style="width:100%;font-size:.72rem;"></td>
+          <td class="g-td-val"><input data-field="appl_note" class="input" type="text" placeholder="비고" value="\${E(v('appl_note'))}" style="width:100%;font-size:.72rem;"></td>
         </tr>
       </tbody>
     </table>
@@ -1961,335 +1957,424 @@ function buildFormHTML(formType, saved) {
 </div>
 
 <!-- □ 신청 유형 -->
-<div class="form-section g-wrap" style="padding:0;overflow:hidden;margin-top:14px;">
+<div class="form-section g-wrap" style="padding:0;overflow:hidden;margin-top:12px;">
   <div class="g-sec-title">□ 신청 유형</div>
-  <div style="padding:10px 18px 6px;">
+  <div style="padding:8px 16px 4px;">
     <label class="g-check-row">
       <input type="checkbox" data-field="type_euro5" \${v('type_euro5')==='1'?'checked':''}>
-      m EURO – 5 기준 적용 휘발유 이륜자동차 대표차종 인증신청
+      <span>ⅿ EURO – 5 기준 적용 휘발유 이륜자동차 대표 차종 인증신청</span>
     </label>
-    <div style="display:flex;align-items:center;gap:16px;padding:4px 28px;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:12px;padding:3px 22px;flex-wrap:wrap;">
       <label class="g-check-row">
         <input type="checkbox" data-field="type_obd" \${v('type_obd')==='1'?'checked':''}>
-        m OBD 대표 차종
+        <span>ⅿ OBD 대표 차종</span>
       </label>
-      <input data-field="type_obd_name" class="input" type="text" placeholder="차종명" value="\${E(v('type_obd_name'))}" style="width:200px;">
-    </div>
-    <div style="display:flex;align-items:center;gap:16px;padding:4px 28px;flex-wrap:wrap;">
+      <input data-field="type_obd_name" class="input" type="text" placeholder="차종명" value="\${E(v('type_obd_name'))}" style="width:180px;font-size:.78rem;">
       <label class="g-check-row">
         <input type="checkbox" data-field="type_evap" \${v('type_evap')==='1'?'checked':''}>
-        증발가스 대표 차종
+        <span>증발가스 대표 차종</span>
       </label>
-      <input data-field="type_evap_name" class="input" type="text" placeholder="차종명" value="\${E(v('type_evap_name'))}" style="width:200px;">
+      <input data-field="type_evap_name" class="input" type="text" placeholder="차종명" value="\${E(v('type_evap_name'))}" style="width:180px;font-size:.78rem;">
     </div>
   </div>
   <!-- 신청 유형 상세 표 -->
-  <div style="overflow-x:auto;padding:6px 14px 14px;">
-    <table class="g-tbl" style="min-width:600px;">
+  <div style="overflow-x:auto;padding:4px 12px 12px;">
+    <table class="g-tbl" style="min-width:500px;table-layout:auto;">
       <thead>
-        <tr><th style="width:100px;">구분</th><th>인증서 기재 내용</th><th style="width:70px;">해당여부</th></tr>
+        <tr>
+          <th style="width:70px;">구분</th>
+          <th style="width:60px;" class="g-td-c">구분2</th>
+          <th>인증서 기재 내용</th>
+          <th style="width:70px;">해당여부</th>
+        </tr>
       </thead>
       <tbody>
-        <!-- 배출기준 - 휘발유 -->
         <tr>
-          <td class="g-td-c" rowspan="5">배출기준<br>휘발유</td>
-          <td>* 13년 휘발유 기준2의 나</td>
-          <td class="g-ok-td"><select data-field="t_emis_g1" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_g1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td class="g-td-c" rowspan="4">배출기준<br>휘발유</td>
+          <td class="g-td-sub" rowspan="4">휘발유</td>
+          <td style="font-size:.75rem;">* 13년 휘발유 기준2의 나</td>
+          <td class="g-ok-td">
+            <select data-field="t_emis_g1" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_g1')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
         <tr>
-          <td>* 13년 휘발유 기준1의 나</td>
-          <td class="g-ok-td"><select data-field="t_emis_g2" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_g2')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td style="font-size:.75rem;">* 13년 휘발유 기준1의 나</td>
+          <td class="g-ok-td">
+            <select data-field="t_emis_g2" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_g2')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
         <tr>
-          <td>* 16년 휘발유 기준</td>
-          <td class="g-ok-td"><select data-field="t_emis_g3" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_g3')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td style="font-size:.75rem;">* 16년 휘발유 기준</td>
+          <td class="g-ok-td">
+            <select data-field="t_emis_g3" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_g3')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
         <tr>
-          <td>* 20년 1월 이륜자동차(130km/h 이하) 기준</td>
-          <td class="g-ok-td"><select data-field="t_emis_g4" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_g4')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td style="font-size:.75rem;">* 20년 1월 이륜자동차(130km/h 이하) 기준</td>
+          <td class="g-ok-td">
+            <select data-field="t_emis_g4" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_g4')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
-        <!-- 배출기준 - 경유 -->
         <tr>
           <td class="g-td-c">배출기준<br>경유</td>
-          <td>* 14년 9월 경유 소형승용 기준</td>
-          <td class="g-ok-td"><select data-field="t_emis_d1" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_d1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
-        </tr>
-        <!-- OBD2 - 휘발유 -->
-        <tr>
-          <td class="g-td-c" rowspan="6">OBD 2<br>휘발유</td>
-          <td>* OBD2 휘발유 기준 적용 대표(IUPR 1st 기준)</td>
-          <td class="g-ok-td"><select data-field="t_obd_g1" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
-        </tr>
-        <tr>
-          <td>* OBD2 휘발유 기준 적용 동일 (대표: <input data-field="t_obd_g2_rep" class="input" type="text" placeholder="대표차명" value="\${E(v('t_obd_g2_rep'))}" style="width:100px;">, IUPR 1st 기준)</td>
-          <td class="g-ok-td"><select data-field="t_obd_g2" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g2')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td class="g-td-sub">경유</td>
+          <td style="font-size:.75rem;">* 14년 9월 경유 소형승용 기준</td>
+          <td class="g-ok-td">
+            <select data-field="t_emis_d1" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_d1')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
         <tr>
-          <td>* OBD2 휘발유 EURO6 기준 적용 대표(IUPR 2nd 기준)</td>
-          <td class="g-ok-td"><select data-field="t_obd_g3" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g3')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td class="g-td-c" rowspan="5">OBD 2<br>휘발유</td>
+          <td class="g-td-sub" rowspan="5">휘발유</td>
+          <td style="font-size:.75rem;">* OBD2 휘발유 기준 적용 대표(IUPR 1st 기준)</td>
+          <td class="g-ok-td">
+            <select data-field="t_obd_g1" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g1')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
         <tr>
-          <td>* OBD2 휘발유 EURO6 기준 적용 대표 (대표: <input data-field="t_obd_g4_rep" class="input" type="text" placeholder="대표차명" value="\${E(v('t_obd_g4_rep'))}" style="width:100px;">, IUPR 2nd 기준)</td>
-          <td class="g-ok-td"><select data-field="t_obd_g4" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g4')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td style="font-size:.75rem;">* OBD2 휘발유 기준 적용 동일 (대표: <input data-field="t_obd_g2_rep" class="input" type="text" placeholder="대표차명" value="\${E(v('t_obd_g2_rep'))}" style="width:80px;font-size:.72rem;">, IUPR 1st 기준)</td>
+          <td class="g-ok-td">
+            <select data-field="t_obd_g2" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g2')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
         <tr>
-          <td>* OBD2 휘발유 EURO6 이륜자동차 기준 적용 대표(OBD Stage 2)</td>
-          <td class="g-ok-td"><select data-field="t_obd_g5" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g5')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td style="font-size:.75rem;">* OBD2 휘발유 EURO6 기준 적용 대표(IUPR 2nd 기준)</td>
+          <td class="g-ok-td">
+            <select data-field="t_obd_g3" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g3')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
-        <!-- OBD2 - 경유 -->
+        <tr>
+          <td style="font-size:.75rem;">* OBD2 휘발유 EURO6 기준 적용 대표 (대표: <input data-field="t_obd_g4_rep" class="input" type="text" placeholder="대표차명" value="\${E(v('t_obd_g4_rep'))}" style="width:80px;font-size:.72rem;">, IUPR 2nd 기준)</td>
+          <td class="g-ok-td">
+            <select data-field="t_obd_g4" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g4')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-size:.75rem;">* OBD2 휘발유 EURO6 이륜자동차 기준 적용 대표(OBD Stage 2)</td>
+          <td class="g-ok-td">
+            <select data-field="t_obd_g5" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g5')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
+        </tr>
         <tr>
           <td class="g-td-c" rowspan="2">OBD 2<br>경유</td>
-          <td>* OBD2 경유 (다)기준 적용 대표 (IUPR 2nd 기준)</td>
-          <td class="g-ok-td"><select data-field="t_obd_d1" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_d1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td class="g-td-sub" rowspan="2">경유</td>
+          <td style="font-size:.75rem;">* OBD2 경유 (다)기준 적용 대표 (IUPR 2nd 기준)</td>
+          <td class="g-ok-td">
+            <select data-field="t_obd_d1" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_d1')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
         <tr>
-          <td>* OBD2 경유 (다)기준 적용 동일 (대표: <input data-field="t_obd_d2_rep" class="input" type="text" placeholder="대표차명" value="\${E(v('t_obd_d2_rep'))}" style="width:100px;">, IUPR 2nd 기준)</td>
-          <td class="g-ok-td"><select data-field="t_obd_d2" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_d2')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td style="font-size:.75rem;">* OBD2 경유 (다)기준 적용 동일 (대표: <input data-field="t_obd_d2_rep" class="input" type="text" placeholder="대표차명" value="\${E(v('t_obd_d2_rep'))}" style="width:80px;font-size:.72rem;">, IUPR 2nd 기준)</td>
+          <td class="g-ok-td">
+            <select data-field="t_obd_d2" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_d2')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
-        <!-- 증발가스 -->
         <tr>
           <td class="g-td-c" rowspan="2">증발가스</td>
-          <td>* 증발가스 대표</td>
-          <td class="g-ok-td"><select data-field="t_evap1" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_evap1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td class="g-td-sub"></td>
+          <td style="font-size:.75rem;">* 증발가스 대표</td>
+          <td class="g-ok-td">
+            <select data-field="t_evap1" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_evap1')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
         <tr>
-          <td>* 증발가스 동일 (대표: <input data-field="t_evap2_rep" class="input" type="text" placeholder="대표차명" value="\${E(v('t_evap2_rep'))}" style="width:100px;">)</td>
-          <td class="g-ok-td"><select data-field="t_evap2" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_evap2')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td class="g-td-sub"></td>
+          <td style="font-size:.75rem;">* 증발가스 동일 (대표: <input data-field="t_evap2_rep" class="input" type="text" placeholder="대표차명" value="\${E(v('t_evap2_rep'))}" style="width:80px;font-size:.72rem;">)</td>
+          <td class="g-ok-td">
+            <select data-field="t_evap2" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_evap2')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
-        <!-- 보증기간 - 휘발유 -->
         <tr>
           <td class="g-td-c" rowspan="5">보증기간<br>휘발유</td>
-          <td>* 보증기간 : 10년 / 19만2천km</td>
-          <td class="g-ok-td"><select data-field="t_warr_g1" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td class="g-td-sub" rowspan="5">휘발유</td>
+          <td style="font-size:.75rem;">* 보증기간 : 10년 / 19만2천km</td>
+          <td class="g-ok-td">
+            <select data-field="t_warr_g1" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g1')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
         <tr>
-          <td>* 보증기간 : 10년 / 24만km</td>
-          <td class="g-ok-td"><select data-field="t_warr_g2" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g2')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td style="font-size:.75rem;">* 보증기간 : 10년 / 24만km</td>
+          <td class="g-ok-td">
+            <select data-field="t_warr_g2" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g2')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
         <tr>
-          <td>* 보증기간 : 15년 / 24만km</td>
-          <td class="g-ok-td"><select data-field="t_warr_g3" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g3')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td style="font-size:.75rem;">* 보증기간 : 15년 / 24만km</td>
+          <td class="g-ok-td">
+            <select data-field="t_warr_g3" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g3')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
         <tr>
-          <td>* 보증기간 : 02년 / 3.5만km</td>
-          <td class="g-ok-td"><select data-field="t_warr_g4" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g4')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td style="font-size:.75rem;">* 보증기간 : 02년 / 3.5만km</td>
+          <td class="g-ok-td">
+            <select data-field="t_warr_g4" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g4')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
         <tr>
-          <td>* 보증기간 : 02년 / 2만km</td>
-          <td class="g-ok-td"><select data-field="t_warr_g5" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g5')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td style="font-size:.75rem;">* 보증기간 : 02년 / 2만km</td>
+          <td class="g-ok-td">
+            <select data-field="t_warr_g5" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g5')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
-        <!-- 보증기간 - 경유 -->
         <tr>
           <td class="g-td-c">보증기간<br>경유</td>
-          <td>* 보증기간 : 10년 / 16만km</td>
-          <td class="g-ok-td"><select data-field="t_warr_d1" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_d1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+          <td class="g-td-sub">경유</td>
+          <td style="font-size:.75rem;">* 보증기간 : 10년 / 16만km</td>
+          <td class="g-ok-td">
+            <select data-field="t_warr_d1" class="input g-sel" style="width:68px;">
+              \${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_d1')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════
-     PAGE 2  □ 상세 내역
-══════════════════════════════════════════════════════ -->
-<div class="form-section g-wrap" style="padding:0;overflow:hidden;margin-top:14px;">
+<!-- ══ PAGE 2  □ 상세 내역 ══ -->
+<div class="form-section g-wrap" style="padding:0;overflow:hidden;margin-top:12px;">
   <div class="g-sec-title">□ 상세 내역</div>
 
   <!-- 가. 적용기술 -->
   <div class="g-sub-title">가. 적용기술</div>
   <div class="g-sec-inner">
-    <div style="display:flex;align-items:flex-start;gap:8px;padding:2px 0 6px;">
-      <span style="flex-shrink:0;font-weight:700;">m</span>
-      <textarea data-field="tech1" class="input" rows="2" placeholder="적용기술 내용 1" style="width:100%;">\${E(v('tech1'))}</textarea>
+    <div style="display:flex;align-items:flex-start;gap:6px;padding:2px 0 5px;">
+      <span style="flex-shrink:0;font-weight:700;font-size:.82rem;">ⅿ</span>
+      <textarea data-field="tech1" class="input" rows="2" placeholder="적용기술 내용 1" style="width:100%;font-size:.78rem;">\${E(v('tech1'))}</textarea>
     </div>
-    <div style="display:flex;align-items:flex-start;gap:8px;padding:2px 0 6px;">
-      <span style="flex-shrink:0;font-weight:700;">m</span>
-      <textarea data-field="tech2" class="input" rows="2" placeholder="적용기술 내용 2" style="width:100%;">\${E(v('tech2'))}</textarea>
+    <div style="display:flex;align-items:flex-start;gap:6px;padding:2px 0 5px;">
+      <span style="flex-shrink:0;font-weight:700;font-size:.82rem;">ⅿ</span>
+      <textarea data-field="tech2" class="input" rows="2" placeholder="적용기술 내용 2" style="width:100%;font-size:.78rem;">\${E(v('tech2'))}</textarea>
     </div>
   </div>
 
   <!-- 나. 자체시험 결과 -->
   <div class="g-sub-title">나. 자체시험 결과</div>
   <div class="g-sec-inner">
-    <div style="margin-bottom:6px;">
-      <span style="font-weight:700;">m 배출가스 :</span>
-      <input data-field="self_test_emis" class="input" type="text" placeholder="배출가스 시험 결과 요약" value="\${E(v('self_test_emis'))}" style="width:calc(100% - 120px);margin-left:8px;">
+    <div style="margin-bottom:5px;font-size:.78rem;">
+      <span style="font-weight:700;">ⅿ 배출가스 :</span>
+      <input data-field="self_test_emis" class="input" type="text" placeholder="배출가스 시험 결과 요약" value="\${E(v('self_test_emis'))}" style="width:calc(100% - 110px);margin-left:6px;font-size:.78rem;">
     </div>
-    <div style="margin-bottom:10px;">
-      <span style="font-weight:700;">m 소    음 :</span>
-      <input data-field="self_test_noise" class="input" type="text" placeholder="소음 시험 결과 요약" value="\${E(v('self_test_noise'))}" style="width:calc(100% - 120px);margin-left:8px;">
+    <div style="margin-bottom:8px;font-size:.78rem;">
+      <span style="font-weight:700;">ⅿ 소&nbsp;&nbsp;&nbsp;&nbsp;음 :</span>
+      <input data-field="self_test_noise" class="input" type="text" placeholder="소음 시험 결과 요약" value="\${E(v('self_test_noise'))}" style="width:calc(100% - 110px);margin-left:6px;font-size:.78rem;">
     </div>
-    <!-- 자체시험 결과 표 -->
+
+    <!-- 자체시험 결과 표 (PDF Page2 Table1) -->
     <div style="overflow-x:auto;">
-      <table class="g-tbl" style="min-width:700px;">
+      <table class="g-tbl" style="min-width:640px;table-layout:auto;">
         <thead>
           <tr>
-            <th rowspan="2">구분</th>
-            <th>CO<br>(g/km)</th>
-            <th>NOx<br>(g/km)</th>
-            <th colspan="2">탄화수소</th>
-            <th>CO2<br>(g/km)</th>
-            <th>가속주행<br>dB(A)</th>
-            <th>가속주행<br>dB(A)</th>
-            <th>가속주행<br>dB(C)</th>
+            <th rowspan="2" style="width:55px;">구분</th>
+            <th style="width:55px;">CO<br>(g/km)</th>
+            <th style="width:55px;">NOx<br>(g/km)</th>
+            <th style="width:55px;">THC<br>(g/km)</th>
+            <th style="width:60px;">NMHC<br>(g/km)</th>
+            <th style="width:65px;">증발가스<br>(g/Test)</th>
+            <th style="width:52px;">CO₂<br>(g/km)</th>
+            <th style="width:58px;">가속주행<br>dB(A)</th>
+            <th style="width:58px;">가속주행<br>dB(A)</th>
+            <th style="width:58px;">가속주행<br>dB(C)</th>
           </tr>
           <tr>
-            <th></th><th></th>
-            <th>THC<br>(g/km)</th><th>NMHC<br>(g/km)</th>
-            <th>증발가스<br>(g/Test)</th>
-            <th></th><th></th><th></th>
+            <th colspan="4" style="font-size:6.5pt;">탄화수소</th>
+            <th></th><th></th><th></th><th></th><th></th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td class="g-td-c">허용기준</td>
-            <td class="g-td-val"><input data-field="std_co" class="input" type="text" placeholder="기준" value="\${E(v('std_co'))}" style="width:60px;"></td>
-            <td class="g-td-val"><input data-field="std_nox" class="input" type="text" placeholder="기준" value="\${E(v('std_nox'))}" style="width:60px;"></td>
-            <td class="g-td-val"><input data-field="std_thc" class="input" type="text" placeholder="기준" value="\${E(v('std_thc'))}" style="width:60px;"></td>
-            <td class="g-td-val"><input data-field="std_nmhc" class="input" type="text" placeholder="기준" value="\${E(v('std_nmhc'))}" style="width:60px;"></td>
-            <td class="g-td-val"><input data-field="std_co2" class="input" type="text" placeholder="기준" value="\${E(v('std_co2'))}" style="width:60px;"></td>
-            <td class="g-td-val"><input data-field="std_accel1" class="input" type="text" placeholder="기준" value="\${E(v('std_accel1'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="std_accel2" class="input" type="text" placeholder="기준" value="\${E(v('std_accel2'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="std_accel3" class="input" type="text" placeholder="기준" value="\${E(v('std_accel3'))}" style="width:50px;"></td>
+            <td class="g-td-val"><input data-field="std_co" class="input" type="text" placeholder="-" value="\${E(v('std_co'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="std_nox" class="input" type="text" placeholder="-" value="\${E(v('std_nox'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="std_thc" class="input" type="text" placeholder="-" value="\${E(v('std_thc'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="std_nmhc" class="input" type="text" placeholder="-" value="\${E(v('std_nmhc'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="std_evap" class="input" type="text" placeholder="-" value="\${E(v('std_evap'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="std_co2" class="input" type="text" placeholder="-" value="\${E(v('std_co2'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="std_accel1" class="input" type="text" placeholder="-" value="\${E(v('std_accel1'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="std_accel2" class="input" type="text" placeholder="-" value="\${E(v('std_accel2'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="std_accel3" class="input" type="text" placeholder="-" value="\${E(v('std_accel3'))}" style="width:100%;font-size:.72rem;"></td>
           </tr>
           <tr>
             <td class="g-td-c">시험결과</td>
-            <td class="g-td-val"><input data-field="res_co" class="input" type="text" placeholder="결과" value="\${E(v('res_co'))}" style="width:60px;"></td>
-            <td class="g-td-val"><input data-field="res_nox" class="input" type="text" placeholder="결과" value="\${E(v('res_nox'))}" style="width:60px;"></td>
-            <td class="g-td-val"><input data-field="res_thc" class="input" type="text" placeholder="결과" value="\${E(v('res_thc'))}" style="width:60px;"></td>
-            <td class="g-td-val"><input data-field="res_nmhc" class="input" type="text" placeholder="결과" value="\${E(v('res_nmhc'))}" style="width:60px;"></td>
-            <td class="g-td-val"><input data-field="res_co2" class="input" type="text" placeholder="결과" value="\${E(v('res_co2'))}" style="width:60px;"></td>
-            <td class="g-td-val"><input data-field="res_accel1" class="input" type="text" placeholder="결과" value="\${E(v('res_accel1'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="res_accel2" class="input" type="text" placeholder="결과" value="\${E(v('res_accel2'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="res_accel3" class="input" type="text" placeholder="결과" value="\${E(v('res_accel3'))}" style="width:50px;"></td>
+            <td class="g-td-val"><input data-field="res_co" class="input" type="text" placeholder="-" value="\${E(v('res_co'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="res_nox" class="input" type="text" placeholder="-" value="\${E(v('res_nox'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="res_thc" class="input" type="text" placeholder="-" value="\${E(v('res_thc'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="res_nmhc" class="input" type="text" placeholder="-" value="\${E(v('res_nmhc'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="res_evap" class="input" type="text" placeholder="-" value="\${E(v('res_evap'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="res_co2" class="input" type="text" placeholder="-" value="\${E(v('res_co2'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="res_accel1" class="input" type="text" placeholder="-" value="\${E(v('res_accel1'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="res_accel2" class="input" type="text" placeholder="-" value="\${E(v('res_accel2'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="res_accel3" class="input" type="text" placeholder="-" value="\${E(v('res_accel3'))}" style="width:100%;font-size:.72rem;"></td>
           </tr>
           <tr>
             <td class="g-td-c">기준만족도</td>
-            <td class="g-td-val"><input data-field="rate_co" class="input" type="text" placeholder="%" value="\${E(v('rate_co'))}" style="width:60px;"></td>
-            <td class="g-td-val"><input data-field="rate_nox" class="input" type="text" placeholder="%" value="\${E(v('rate_nox'))}" style="width:60px;"></td>
-            <td class="g-td-val"><input data-field="rate_thc" class="input" type="text" placeholder="%" value="\${E(v('rate_thc'))}" style="width:60px;"></td>
-            <td class="g-td-val"><input data-field="rate_nmhc" class="input" type="text" placeholder="%" value="\${E(v('rate_nmhc'))}" style="width:60px;"></td>
-            <td class="g-td-val"><input data-field="rate_co2" class="input" type="text" placeholder="%" value="\${E(v('rate_co2'))}" style="width:60px;"></td>
-            <td class="g-td-val"><input data-field="rate_accel1" class="input" type="text" placeholder="%" value="\${E(v('rate_accel1'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="rate_accel2" class="input" type="text" placeholder="%" value="\${E(v('rate_accel2'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="rate_accel3" class="input" type="text" placeholder="%" value="\${E(v('rate_accel3'))}" style="width:50px;"></td>
+            <td class="g-td-val"><input data-field="rate_co" class="input" type="text" placeholder="%" value="\${E(v('rate_co'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="rate_nox" class="input" type="text" placeholder="%" value="\${E(v('rate_nox'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="rate_thc" class="input" type="text" placeholder="%" value="\${E(v('rate_thc'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="rate_nmhc" class="input" type="text" placeholder="%" value="\${E(v('rate_nmhc'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="rate_evap" class="input" type="text" placeholder="%" value="\${E(v('rate_evap'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="rate_co2" class="input" type="text" placeholder="%" value="\${E(v('rate_co2'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="rate_accel1" class="input" type="text" placeholder="%" value="\${E(v('rate_accel1'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="rate_accel2" class="input" type="text" placeholder="%" value="\${E(v('rate_accel2'))}" style="width:100%;font-size:.72rem;"></td>
+            <td class="g-td-val"><input data-field="rate_accel3" class="input" type="text" placeholder="%" value="\${E(v('rate_accel3'))}" style="width:100%;font-size:.72rem;"></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <!-- OBD 감시장치 시험결과 -->
-    <div style="overflow-x:auto;margin-top:10px;">
-      <table class="g-tbl" style="min-width:650px;">
+
+    <!-- OBD 감시장치 시험결과 표 (PDF Page2 Table2 구조 완전 반영) -->
+    <!-- PDF: 장치명 | 오작동재현조건 | WMTC모드결과(CO/NOx/HC) | 오작동표시등점등여부 | 오작동판단기준(CO/NOx/HC) | 감시장치적부판정 -->
+    <div style="overflow-x:auto;margin-top:8px;">
+      <table class="g-tbl" style="min-width:700px;table-layout:auto;">
         <thead>
           <tr>
-            <th rowspan="2">시험대상 감시장치</th>
-            <th rowspan="2">시험 결과</th>
-            <th rowspan="2">결과 판정</th>
-            <th colspan="4">WMTC 모드 결과 (g/km)</th>
-            <th rowspan="2">오작동 표시등 점등여부</th>
-            <th colspan="4">오작동 판단 기준 (g/km)</th>
-            <th rowspan="2">감시장치 적부판정</th>
+            <th rowspan="3" style="width:50px;">시험대상<br>감시장치</th>
+            <th rowspan="3" style="width:75px;">오작동<br>재현조건</th>
+            <th colspan="3" style="width:150px;">WMTC 모드 결과 (g/km)</th>
+            <th rowspan="3" style="width:55px;">오작동<br>표시등<br>점등여부</th>
+            <th colspan="3" style="width:150px;">오작동 판단 기준 (g/km)</th>
+            <th rowspan="3" style="width:55px;">감시장치<br>적부판정</th>
           </tr>
           <tr>
-            <th>CO</th><th>NOx</th><th>HC</th>
-            <th>오작동<br>재현 조건</th>
-            <th>CO</th><th>NOx</th><th>HC</th>
-            <th></th>
+            <th style="width:50px;">CO</th>
+            <th style="width:50px;">NOx</th>
+            <th style="width:50px;">HC</th>
+            <th style="width:50px;">CO</th>
+            <th style="width:50px;">NOx</th>
+            <th style="width:50px;">HC</th>
+          </tr>
+          <tr>
+            <th colspan="3">시험 결과</th>
+            <th colspan="3">결과 판정</th>
           </tr>
         </thead>
         <tbody>
+          <!-- 촉매 행 -->
           <tr>
             <td class="g-td-sub">촉매</td>
-            <td class="g-td-val"><input data-field="obd_cat_result" class="input" type="text" value="\${E(v('obd_cat_result'))}" style="width:80px;"></td>
+            <td class="g-td-val"><input data-field="obd_cat_cond" class="input" type="text" value="\${E(v('obd_cat_cond'))}" style="width:100%;font-size:.7rem;"></td>
+            <td class="g-td-val"><input data-field="obd_cat_co" class="input" type="text" value="\${E(v('obd_cat_co'))}" style="width:100%;font-size:.7rem;"></td>
+            <td class="g-td-val"><input data-field="obd_cat_nox" class="input" type="text" value="\${E(v('obd_cat_nox'))}" style="width:100%;font-size:.7rem;"></td>
+            <td class="g-td-val"><input data-field="obd_cat_hc" class="input" type="text" value="\${E(v('obd_cat_hc'))}" style="width:100%;font-size:.7rem;"></td>
             <td class="g-ok-td">
-              <label style="margin-right:6px;"><input type="radio" name="obd_cat_judge" value="OK" \${v('obd_cat_judge')==='OK'?'checked':''}> OK</label>
-              <label><input type="radio" name="obd_cat_judge" value="NO" \${v('obd_cat_judge')==='NO'?'checked':''}> NO</label>
+              <select data-field="obd_cat_lamp" class="input g-sel" style="width:100%;">
+                \${ ['','점등','미점등'].map(o=>\`<option value="\${o}" \${v('obd_cat_lamp')===o?'selected':''}>\${o}</option>\`).join('') }
+              </select>
             </td>
-            <td class="g-td-val"><input data-field="obd_cat_co" class="input" type="text" value="\${E(v('obd_cat_co'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_cat_nox" class="input" type="text" value="\${E(v('obd_cat_nox'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_cat_hc" class="input" type="text" value="\${E(v('obd_cat_hc'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_cat_cond" class="input" type="text" value="\${E(v('obd_cat_cond'))}" style="width:80px;"></td>
+            <td class="g-td-val"><input data-field="obd_cat_std_co" class="input" type="text" value="\${E(v('obd_cat_std_co'))}" style="width:100%;font-size:.7rem;"></td>
+            <td class="g-td-val"><input data-field="obd_cat_std_nox" class="input" type="text" value="\${E(v('obd_cat_std_nox'))}" style="width:100%;font-size:.7rem;"></td>
+            <td class="g-td-val"><input data-field="obd_cat_std_hc" class="input" type="text" value="\${E(v('obd_cat_std_hc'))}" style="width:100%;font-size:.7rem;"></td>
             <td class="g-ok-td">
-              <select data-field="obd_cat_lamp" class="input" style="width:60px;">\${ ['','점등','미점등'].map(o=>\`<option value="\${o}" \${v('obd_cat_lamp')===o?'selected':''}>\${o}</option>\`).join('') }</select>
-            </td>
-            <td class="g-td-val"><input data-field="obd_cat_std_co" class="input" type="text" value="\${E(v('obd_cat_std_co'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_cat_std_nox" class="input" type="text" value="\${E(v('obd_cat_std_nox'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_cat_std_hc" class="input" type="text" value="\${E(v('obd_cat_std_hc'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_cat_std_etc" class="input" type="text" value="\${E(v('obd_cat_std_etc'))}" style="width:60px;"></td>
-            <td class="g-ok-td">
-              <label style="margin-right:6px;"><input type="radio" name="obd_cat_pass" value="OK" \${v('obd_cat_pass')==='OK'?'checked':''}> OK</label>
-              <label><input type="radio" name="obd_cat_pass" value="NO" \${v('obd_cat_pass')==='NO'?'checked':''}> NO</label>
+              <select data-field="obd_cat_pass" class="input g-sel" style="width:100%;">
+                \${ ['','OK','NO'].map(o=>\`<option value="\${o}" \${v('obd_cat_pass')===o?'selected':''}>\${o}</option>\`).join('') }
+              </select>
             </td>
           </tr>
+          <!-- 실화 행 -->
           <tr>
             <td class="g-td-sub">실화</td>
-            <td class="g-td-val"><input data-field="obd_mis_result" class="input" type="text" value="\${E(v('obd_mis_result'))}" style="width:80px;"></td>
+            <td class="g-td-val"><input data-field="obd_mis_cond" class="input" type="text" value="\${E(v('obd_mis_cond'))}" style="width:100%;font-size:.7rem;"></td>
+            <td class="g-td-val"><input data-field="obd_mis_co" class="input" type="text" value="\${E(v('obd_mis_co'))}" style="width:100%;font-size:.7rem;"></td>
+            <td class="g-td-val"><input data-field="obd_mis_nox" class="input" type="text" value="\${E(v('obd_mis_nox'))}" style="width:100%;font-size:.7rem;"></td>
+            <td class="g-td-val"><input data-field="obd_mis_hc" class="input" type="text" value="\${E(v('obd_mis_hc'))}" style="width:100%;font-size:.7rem;"></td>
             <td class="g-ok-td">
-              <label style="margin-right:6px;"><input type="radio" name="obd_mis_judge" value="OK" \${v('obd_mis_judge')==='OK'?'checked':''}> OK</label>
-              <label><input type="radio" name="obd_mis_judge" value="NO" \${v('obd_mis_judge')==='NO'?'checked':''}> NO</label>
+              <select data-field="obd_mis_lamp" class="input g-sel" style="width:100%;">
+                \${ ['','점등','미점등'].map(o=>\`<option value="\${o}" \${v('obd_mis_lamp')===o?'selected':''}>\${o}</option>\`).join('') }
+              </select>
             </td>
-            <td class="g-td-val"><input data-field="obd_mis_co" class="input" type="text" value="\${E(v('obd_mis_co'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_mis_nox" class="input" type="text" value="\${E(v('obd_mis_nox'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_mis_hc" class="input" type="text" value="\${E(v('obd_mis_hc'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_mis_cond" class="input" type="text" value="\${E(v('obd_mis_cond'))}" style="width:80px;"></td>
+            <td class="g-td-val"><input data-field="obd_mis_std_co" class="input" type="text" value="\${E(v('obd_mis_std_co'))}" style="width:100%;font-size:.7rem;"></td>
+            <td class="g-td-val"><input data-field="obd_mis_std_nox" class="input" type="text" value="\${E(v('obd_mis_std_nox'))}" style="width:100%;font-size:.7rem;"></td>
+            <td class="g-td-val"><input data-field="obd_mis_std_hc" class="input" type="text" value="\${E(v('obd_mis_std_hc'))}" style="width:100%;font-size:.7rem;"></td>
             <td class="g-ok-td">
-              <select data-field="obd_mis_lamp" class="input" style="width:60px;">\${ ['','점등','미점등'].map(o=>\`<option value="\${o}" \${v('obd_mis_lamp')===o?'selected':''}>\${o}</option>\`).join('') }</select>
-            </td>
-            <td class="g-td-val"><input data-field="obd_mis_std_co" class="input" type="text" value="\${E(v('obd_mis_std_co'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_mis_std_nox" class="input" type="text" value="\${E(v('obd_mis_std_nox'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_mis_std_hc" class="input" type="text" value="\${E(v('obd_mis_std_hc'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_mis_std_etc" class="input" type="text" value="\${E(v('obd_mis_std_etc'))}" style="width:60px;"></td>
-            <td class="g-ok-td">
-              <label style="margin-right:6px;"><input type="radio" name="obd_mis_pass" value="OK" \${v('obd_mis_pass')==='OK'?'checked':''}> OK</label>
-              <label><input type="radio" name="obd_mis_pass" value="NO" \${v('obd_mis_pass')==='NO'?'checked':''}> NO</label>
+              <select data-field="obd_mis_pass" class="input g-sel" style="width:100%;">
+                \${ ['','OK','NO'].map(o=>\`<option value="\${o}" \${v('obd_mis_pass')===o?'selected':''}>\${o}</option>\`).join('') }
+              </select>
             </td>
           </tr>
+          <!-- O2 센서 열화 행 -->
           <tr>
-            <td class="g-td-sub">O2 센서 열화</td>
-            <td class="g-td-val"><input data-field="obd_o2_result" class="input" type="text" value="\${E(v('obd_o2_result'))}" style="width:80px;"></td>
+            <td class="g-td-sub">O₂센서<br>열화</td>
+            <td class="g-td-val"><input data-field="obd_o2_cond" class="input" type="text" value="\${E(v('obd_o2_cond'))}" style="width:100%;font-size:.7rem;"></td>
+            <td class="g-td-val"><input data-field="obd_o2_co" class="input" type="text" value="\${E(v('obd_o2_co'))}" style="width:100%;font-size:.7rem;"></td>
+            <td class="g-td-val"><input data-field="obd_o2_nox" class="input" type="text" value="\${E(v('obd_o2_nox'))}" style="width:100%;font-size:.7rem;"></td>
+            <td class="g-td-val"><input data-field="obd_o2_hc" class="input" type="text" value="\${E(v('obd_o2_hc'))}" style="width:100%;font-size:.7rem;"></td>
             <td class="g-ok-td">
-              <label style="margin-right:6px;"><input type="radio" name="obd_o2_judge" value="OK" \${v('obd_o2_judge')==='OK'?'checked':''}> OK</label>
-              <label><input type="radio" name="obd_o2_judge" value="NO" \${v('obd_o2_judge')==='NO'?'checked':''}> NO</label>
+              <select data-field="obd_o2_lamp" class="input g-sel" style="width:100%;">
+                \${ ['','점등','미점등'].map(o=>\`<option value="\${o}" \${v('obd_o2_lamp')===o?'selected':''}>\${o}</option>\`).join('') }
+              </select>
             </td>
-            <td class="g-td-val"><input data-field="obd_o2_co" class="input" type="text" value="\${E(v('obd_o2_co'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_o2_nox" class="input" type="text" value="\${E(v('obd_o2_nox'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_o2_hc" class="input" type="text" value="\${E(v('obd_o2_hc'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_o2_cond" class="input" type="text" value="\${E(v('obd_o2_cond'))}" style="width:80px;"></td>
+            <td class="g-td-val"><input data-field="obd_o2_std_co" class="input" type="text" value="\${E(v('obd_o2_std_co'))}" style="width:100%;font-size:.7rem;"></td>
+            <td class="g-td-val"><input data-field="obd_o2_std_nox" class="input" type="text" value="\${E(v('obd_o2_std_nox'))}" style="width:100%;font-size:.7rem;"></td>
+            <td class="g-td-val"><input data-field="obd_o2_std_hc" class="input" type="text" value="\${E(v('obd_o2_std_hc'))}" style="width:100%;font-size:.7rem;"></td>
             <td class="g-ok-td">
-              <select data-field="obd_o2_lamp" class="input" style="width:60px;">\${ ['','점등','미점등'].map(o=>\`<option value="\${o}" \${v('obd_o2_lamp')===o?'selected':''}>\${o}</option>\`).join('') }</select>
-            </td>
-            <td class="g-td-val"><input data-field="obd_o2_std_co" class="input" type="text" value="\${E(v('obd_o2_std_co'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_o2_std_nox" class="input" type="text" value="\${E(v('obd_o2_std_nox'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_o2_std_hc" class="input" type="text" value="\${E(v('obd_o2_std_hc'))}" style="width:50px;"></td>
-            <td class="g-td-val"><input data-field="obd_o2_std_etc" class="input" type="text" value="\${E(v('obd_o2_std_etc'))}" style="width:60px;"></td>
-            <td class="g-ok-td">
-              <label style="margin-right:6px;"><input type="radio" name="obd_o2_pass" value="OK" \${v('obd_o2_pass')==='OK'?'checked':''}> OK</label>
-              <label><input type="radio" name="obd_o2_pass" value="NO" \${v('obd_o2_pass')==='NO'?'checked':''}> NO</label>
+              <select data-field="obd_o2_pass" class="input g-sel" style="width:100%;">
+                \${ ['','OK','NO'].map(o=>\`<option value="\${o}" \${v('obd_o2_pass')===o?'selected':''}>\${o}</option>\`).join('') }
+              </select>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="g-note">
-      주 1) 지정열화계수 적용 (CO: <input data-field="df_co" class="input" type="text" value="\${E(v('df_co'))}" style="width:50px;">,
-      NOx: <input data-field="df_nox" class="input" type="text" value="\${E(v('df_nox'))}" style="width:50px;">,
-      THC: <input data-field="df_thc" class="input" type="text" value="\${E(v('df_thc'))}" style="width:50px;">,
-      증발가스: <input data-field="df_evap" class="input" type="text" value="\${E(v('df_evap'))}" style="width:50px;">)<br>
+      주 1) 지정열화계수 적용 (CO: <input data-field="df_co" class="input" type="text" value="\${E(v('df_co'))}" style="width:40px;font-size:.72rem;">,
+      NOx: <input data-field="df_nox" class="input" type="text" value="\${E(v('df_nox'))}" style="width:40px;font-size:.72rem;">,
+      THC: <input data-field="df_thc" class="input" type="text" value="\${E(v('df_thc'))}" style="width:40px;font-size:.72rem;">,
+      증발가스: <input data-field="df_evap" class="input" type="text" value="\${E(v('df_evap'))}" style="width:40px;font-size:.72rem;">)<br>
       주 2) 기준만족도(%) = 시험결과 / 기준치 × 100<br>
-      ※ 연비 : <input data-field="fuel_econ" class="input" type="text" value="\${E(v('fuel_econ'))}" style="width:60px;"> km/L
+      ※ 연비 : <input data-field="fuel_econ" class="input" type="text" value="\${E(v('fuel_econ'))}" style="width:55px;font-size:.72rem;"> km/L
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════
-     다. 항목별 제원 및 시험결과 등 (항목 1~13)
-══════════════════════════════════════════════════════ -->
-<div class="form-section g-wrap" style="padding:0;overflow:hidden;margin-top:14px;">
+<!-- ══ 다. 항목별 제원 및 시험결과 등 ══ -->
+<div class="form-section g-wrap" style="padding:0;overflow:hidden;margin-top:12px;">
   <div class="g-sec-title">다. 항목별 제원 및 시험결과 등</div>
-  <div style="overflow-x:auto;padding:10px 14px 14px;">
-    <table class="g-tbl" style="min-width:600px;">
+  <div style="overflow-x:auto;padding:8px 12px 12px;">
+    <table class="g-tbl" style="min-width:580px;table-layout:auto;">
       <thead>
-        <tr><th style="width:44px;">구분</th><th style="width:180px;">항 목</th><th>내 용</th></tr>
+        <tr>
+          <th style="width:34px;">구분</th>
+          <th style="width:90px;">항 목</th>
+          <th>내 용</th>
+        </tr>
       </thead>
       <tbody>
 
@@ -2298,75 +2383,70 @@ function buildFormHTML(formType, saved) {
           <td class="g-td-n" rowspan="4">1</td>
           <td class="g-td-sub" rowspan="4">촉매, DPF 등<br>후처리장치</td>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 후처리장치 종류 및 제원</div>
-            <textarea data-field="item1_catalyst" class="input" rows="2" placeholder="예) 삼원촉매(TWC), 위치, 용량 등" style="width:100%;">\${E(v('item1_catalyst'))}</textarea>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ 후처리장치 종류 및 제원</div>
+            <textarea data-field="item1_catalyst" class="input" rows="2" placeholder="예) 삼원촉매(TWC), 위치, 용량 등" style="width:100%;font-size:.75rem;">\${E(v('item1_catalyst'))}</textarea>
           </td>
         </tr>
         <tr>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 귀금속 함량 (Pt/Pd/Rh)</div>
-            <input data-field="item1_pgm" class="input" type="text" placeholder="예) Pt: g/L, Pd: g/L, Rh: g/L" value="\${E(v('item1_pgm'))}" style="width:100%;">
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ 귀금속 함량 (Pt/Pd/Rh)</div>
+            <input data-field="item1_pgm" class="input" type="text" placeholder="예) Pt: g/L, Pd: g/L, Rh: g/L" value="\${E(v('item1_pgm'))}" style="width:100%;font-size:.75rem;">
           </td>
         </tr>
         <tr>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 촉매 위치 및 장착방법</div>
-            <textarea data-field="item1_location" class="input" rows="2" placeholder="촉매 위치 및 장착방법 기재" style="width:100%;">\${E(v('item1_location'))}</textarea>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ 촉매 위치 및 장착방법</div>
+            <textarea data-field="item1_location" class="input" rows="2" placeholder="촉매 위치 및 장착방법 기재" style="width:100%;font-size:.75rem;">\${E(v('item1_location'))}</textarea>
           </td>
         </tr>
         <tr>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 기타 후처리장치</div>
-            <textarea data-field="item1_other" class="input" rows="2" placeholder="기타 후처리장치 기재" style="width:100%;">\${E(v('item1_other'))}</textarea>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ 기타 후처리장치</div>
+            <textarea data-field="item1_other" class="input" rows="2" placeholder="기타 후처리장치 기재" style="width:100%;font-size:.75rem;">\${E(v('item1_other'))}</textarea>
           </td>
         </tr>
 
-        <!-- PAGE 3 - 2. 증발가스 -->
+        <!-- 2. 증발가스 -->
         <tr>
           <td class="g-td-n" rowspan="2">2</td>
           <td class="g-td-sub" rowspan="2">증발가스</td>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 증발가스 대표/동일 여부</div>
-            <input data-field="item2_evap_rep" class="input" type="text" placeholder="대표 여부 및 관계 기재" value="\${E(v('item2_evap_rep'))}" style="width:100%;">
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ 증발가스 대표/동일 여부</div>
+            <input data-field="item2_evap_rep" class="input" type="text" placeholder="대표 여부 및 관계 기재" value="\${E(v('item2_evap_rep'))}" style="width:100%;font-size:.75rem;">
+            <div style="font-size:.72rem;margin-top:4px;">-&nbsp;<input data-field="item2_evap_detail" class="input" type="text" placeholder="상세 내용" value="\${E(v('item2_evap_detail'))}" style="width:calc(100% - 20px);font-size:.72rem;"></div>
           </td>
         </tr>
         <tr>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">- 상세 내용</div>
-            <textarea data-field="item2_evap_detail" class="input" rows="2" placeholder="증발가스 관련 상세 내용" style="width:100%;">\${E(v('item2_evap_detail'))}</textarea>
+            <textarea data-field="item2_evap_note" class="input" rows="2" placeholder="증발가스 관련 추가 내용" style="width:100%;font-size:.75rem;">\${E(v('item2_evap_note'))}</textarea>
           </td>
         </tr>
 
         <!-- 3. 블로바이가스 -->
         <tr>
-          <td class="g-td-n" rowspan="2">3</td>
-          <td class="g-td-sub" rowspan="2">블로바이가스</td>
+          <td class="g-td-n">3</td>
+          <td class="g-td-sub">블로바이가스</td>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 블로바이가스 제어장치</div>
-            <input data-field="item3_blowby" class="input" type="text" placeholder="블로바이가스 제어장치 유형" value="\${E(v('item3_blowby'))}" style="width:100%;">
-          </td>
-        </tr>
-        <tr>
-          <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">- 상세 내용</div>
-            <textarea data-field="item3_blowby_detail" class="input" rows="2" placeholder="블로바이가스 제어장치 상세 내용" style="width:100%;">\${E(v('item3_blowby_detail'))}</textarea>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ 블로바이가스 제어장치</div>
+            <input data-field="item3_blowby" class="input" type="text" placeholder="블로바이가스 제어장치 유형" value="\${E(v('item3_blowby'))}" style="width:100%;font-size:.75rem;">
+            <div style="font-size:.72rem;margin-top:4px;">-&nbsp;<input data-field="item3_blowby_detail" class="input" type="text" placeholder="상세 내용" value="\${E(v('item3_blowby_detail'))}" style="width:calc(100% - 20px);font-size:.72rem;"></div>
           </td>
         </tr>
 
-        <!-- 4. 배출가스자기진단장치(OBD2) -->
+        <!-- 4. OBD2 -->
         <tr>
           <td class="g-td-n" rowspan="5">4</td>
           <td class="g-td-sub" rowspan="5">배출가스<br>자기진단장치<br>(OBD2)</td>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ OBD2 대표/동일 여부</div>
-            <input data-field="item4_obd_rep" class="input" type="text" placeholder="OBD2 대표/동일 여부 및 관계 기재" value="\${E(v('item4_obd_rep'))}" style="width:100%;">
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ OBD2 대표/동일 여부</div>
+            <input data-field="item4_obd_rep" class="input" type="text" placeholder="OBD2 대표/동일 여부 및 관계 기재" value="\${E(v('item4_obd_rep'))}" style="width:100%;font-size:.75rem;">
           </td>
         </tr>
         <tr>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:6px;">□ 배출가스자기진단장치 기준</div>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:4px;">□ 배출가스자기진단장치 기준</div>
             <table class="g-tbl" style="width:100%;">
-              <thead><tr><th>OBD 기준명</th><th style="width:70px;">해당 여부</th></tr></thead>
+              <thead><tr><th>OBD 기준명</th><th style="width:65px;">해당 여부</th></tr></thead>
               <tbody>
                 \${ [
                   ['obd_std_g1','휘발유 2006년 OBD 기준'],
@@ -2378,8 +2458,8 @@ function buildFormHTML(formType, saved) {
                   ['obd_std_d2','경유 2012년 OBD IUPR 1st 기준'],
                   ['obd_std_d3','경유 2014년 9월 OBD IUPR 2nd 기준']
                 ].map(([field,label])=>\`<tr>
-                  <td>\${label}</td>
-                  <td class="g-ok-td"><select data-field="\${field}" class="input" style="width:60px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v(field)===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+                  <td style="font-size:.75rem;">\${label}</td>
+                  <td class="g-ok-td"><select data-field="\${field}" class="input g-sel" style="width:64px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v(field)===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
                 </tr>\`).join('') }
               </tbody>
             </table>
@@ -2387,16 +2467,16 @@ function buildFormHTML(formType, saved) {
         </tr>
         <tr>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ OBD2 오작동 판정기준</div>
-            <textarea data-field="item4_obd_fault1" class="input" rows="2" placeholder="오작동 판정기준 내용 1" style="width:100%;margin-bottom:6px;">\${E(v('item4_obd_fault1'))}</textarea>
-            <textarea data-field="item4_obd_fault2" class="input" rows="2" placeholder="오작동 판정기준 내용 2" style="width:100%;">\${E(v('item4_obd_fault2'))}</textarea>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ OBD2 오작동 판정기준</div>
+            <div style="font-size:.72rem;margin-bottom:3px;">-&nbsp;<input data-field="item4_obd_fault1" class="input" type="text" placeholder="오작동 판정기준 내용 1" value="\${E(v('item4_obd_fault1'))}" style="width:calc(100% - 20px);font-size:.72rem;"></div>
+            <div style="font-size:.72rem;">-&nbsp;<input data-field="item4_obd_fault2" class="input" type="text" placeholder="오작동 판정기준 내용 2" value="\${E(v('item4_obd_fault2'))}" style="width:calc(100% - 20px);font-size:.72rem;"></div>
           </td>
         </tr>
         <tr>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:6px;">□ OBD2 감시항목별 시험여부</div>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:4px;">□ OBD2 감시항목별 시험여부</div>
             <table class="g-tbl" style="width:100%;">
-              <thead><tr><th>감시항목</th><th style="width:70px;">시험여부</th><th>시험차명</th></tr></thead>
+              <thead><tr><th>감시항목</th><th style="width:65px;">시험여부</th><th>시험차명</th></tr></thead>
               <tbody>
                 \${ [
                   ['mon_o2','산소센서'],
@@ -2407,20 +2487,19 @@ function buildFormHTML(formType, saved) {
                   ['mon_air','2차 공기계통'],
                   ['mon_cat','촉매']
                 ].map(([field,label])=>\`<tr>
-                  <td>\${label}</td>
-                  <td class="g-ok-td"><select data-field="\${field}_yn" class="input" style="width:60px;">\${ ['','O','X'].map(o=>\`<option value="\${o}" \${v(field+'_yn')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
-                  <td class="g-td-val"><input data-field="\${field}_car" class="input" type="text" placeholder="시험차명" value="\${E(v(field+'_car'))}" style="width:100%;"></td>
+                  <td style="font-size:.75rem;">\${label}</td>
+                  <td class="g-ok-td"><select data-field="\${field}_yn" class="input g-sel" style="width:64px;">\${ ['','O','X'].map(o=>\`<option value="\${o}" \${v(field+'_yn')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+                  <td class="g-td-val"><input data-field="\${field}_car" class="input" type="text" placeholder="시험차명" value="\${E(v(field+'_car'))}" style="width:100%;font-size:.72rem;"></td>
                 </tr>\`).join('') }
               </tbody>
             </table>
           </td>
         </tr>
-        <!-- IUPR 적용내역 (4번 항목 계속, PAGE 4) -->
         <tr>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:6px;">□ IUPR 적용내역</div>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:4px;">□ IUPR 적용내역</div>
             <table class="g-tbl" style="width:100%;">
-              <thead><tr><th>감시항목</th><th style="width:70px;">적용여부</th><th>측정결과</th><th>시험차명</th></tr></thead>
+              <thead><tr><th>감시항목</th><th style="width:65px;">적용여부</th><th>측정결과</th><th>시험차명</th></tr></thead>
               <tbody>
                 \${ [
                   ['iupr_o2','산소센서'],
@@ -2431,92 +2510,72 @@ function buildFormHTML(formType, saved) {
                   ['iupr_air','2차 공기계통'],
                   ['iupr_cat','촉매']
                 ].map(([field,label])=>\`<tr>
-                  <td>\${label}</td>
-                  <td class="g-ok-td"><select data-field="\${field}_yn" class="input" style="width:60px;">\${ ['','적용','미적용'].map(o=>\`<option value="\${o}" \${v(field+'_yn')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
-                  <td class="g-td-val"><input data-field="\${field}_meas" class="input" type="text" placeholder="측정결과" value="\${E(v(field+'_meas'))}" style="width:80px;"></td>
-                  <td class="g-td-val"><input data-field="\${field}_car" class="input" type="text" placeholder="시험차명" value="\${E(v(field+'_car'))}" style="width:100%;"></td>
+                  <td style="font-size:.75rem;">\${label}</td>
+                  <td class="g-ok-td"><select data-field="\${field}_yn" class="input g-sel" style="width:64px;">\${ ['','적용','미적용'].map(o=>\`<option value="\${o}" \${v(field+'_yn')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
+                  <td class="g-td-val"><input data-field="\${field}_meas" class="input" type="text" placeholder="측정결과" value="\${E(v(field+'_meas'))}" style="width:80px;font-size:.72rem;"></td>
+                  <td class="g-td-val"><input data-field="\${field}_car" class="input" type="text" placeholder="시험차명" value="\${E(v(field+'_car'))}" style="width:100%;font-size:.72rem;"></td>
                 </tr>\`).join('') }
               </tbody>
             </table>
           </td>
         </tr>
 
-        <!-- 5. 시험시설 (PAGE 4) -->
+        <!-- 5. 시험시설 -->
         <tr>
-          <td class="g-td-n" rowspan="2">5</td>
-          <td class="g-td-sub" rowspan="2">시험시설</td>
+          <td class="g-td-n">5</td>
+          <td class="g-td-sub">시험시설</td>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 자체시험을 실시한 시설에 대한 시설확인 내역</div>
-            <textarea data-field="item5_facility1" class="input" rows="2" placeholder="시험시설 확인 내역 1" style="width:100%;margin-bottom:6px;">\${E(v('item5_facility1'))}</textarea>
-            <textarea data-field="item5_facility2" class="input" rows="2" placeholder="시험시설 확인 내역 2" style="width:100%;">\${E(v('item5_facility2'))}</textarea>
-          </td>
-        </tr>
-        <tr>
-          <td class="g-td-val">
-            <textarea data-field="item5_facility3" class="input" rows="2" placeholder="시험시설 추가 내용" style="width:100%;">\${E(v('item5_facility3'))}</textarea>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ 자체시험을 실시한 시설에 대한 시설확인 내역</div>
+            <div style="font-size:.72rem;margin-bottom:3px;">-&nbsp;<input data-field="item5_facility1" class="input" type="text" placeholder="시설확인 내역 1" value="\${E(v('item5_facility1'))}" style="width:calc(100% - 20px);font-size:.72rem;"></div>
+            <div style="font-size:.72rem;">-&nbsp;<input data-field="item5_facility2" class="input" type="text" placeholder="시설확인 내역 2" value="\${E(v('item5_facility2'))}" style="width:calc(100% - 20px);font-size:.72rem;"></div>
           </td>
         </tr>
 
-        <!-- 6. 시험차 선정근거 (PAGE 4) -->
+        <!-- 6. 시험차 선정근거 -->
         <tr>
-          <td class="g-td-n" rowspan="3">6</td>
-          <td class="g-td-sub" rowspan="3">시험차<br>선정근거</td>
+          <td class="g-td-n">6</td>
+          <td class="g-td-sub">시험차<br>선정근거</td>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 배출가스 시험자동차 선정근거</div>
-            <textarea data-field="item6_emis_basis" class="input" rows="2" placeholder="- 「제작자동차 인증 및 검사방법과 절차 등에 관한 규정」 제11조(배출가스 시험자동차의 선정)에 따라 시험차량 선정" style="width:100%;">\${E(v('item6_emis_basis'))}</textarea>
-          </td>
-        </tr>
-        <tr>
-          <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 소음 시험자동차 선정근거</div>
-            <textarea data-field="item6_noise_basis" class="input" rows="2" placeholder="- 「제작자동차 인증 및 검사방법과 절차 등에 관한 규정」 제12조(소음인증 시험자동차의 선정)에 따라 시험차량 선정" style="width:100%;">\${E(v('item6_noise_basis'))}</textarea>
-          </td>
-        </tr>
-        <tr>
-          <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ OBD 시험자동차 선정근거</div>
-            <textarea data-field="item6_obd_basis" class="input" rows="2" placeholder="- 「제작자동차 인증 및 검사방법과 절차 등에 관한 규정」 제23조(OBD인증시험자동차의 선정)에 따라 시험차량 선정" style="width:100%;">\${E(v('item6_obd_basis'))}</textarea>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ 배출가스 시험자동차 선정근거</div>
+            <textarea data-field="item6_emis_basis" class="input" rows="2" placeholder="- 「제작자동차 인증 및 검사방법과 절차 등에 관한 규정」 제11조에 따라 시험차량 선정" style="width:100%;font-size:.72rem;">\${E(v('item6_emis_basis'))}</textarea>
+            <div style="font-size:.75rem;font-weight:700;margin:4px 0 3px;">□ 소음 시험자동차 선정근거</div>
+            <textarea data-field="item6_noise_basis" class="input" rows="2" placeholder="- 「제작자동차 인증 및 검사방법과 절차 등에 관한 규정」 제12조에 따라 시험차량 선정" style="width:100%;font-size:.72rem;">\${E(v('item6_noise_basis'))}</textarea>
+            <div style="font-size:.75rem;font-weight:700;margin:4px 0 3px;">□ OBD 시험자동차 선정근거</div>
+            <textarea data-field="item6_obd_basis" class="input" rows="2" placeholder="- 「제작자동차 인증 및 검사방법과 절차 등에 관한 규정」 제23조에 따라 시험차량 선정" style="width:100%;font-size:.72rem;">\${E(v('item6_obd_basis'))}</textarea>
           </td>
         </tr>
 
-        <!-- 7. 배출가스 시험 (PAGE 4) -->
+        <!-- 7. 배출가스 시험 -->
         <tr>
-          <td class="g-td-n" rowspan="2">7</td>
-          <td class="g-td-sub" rowspan="2">배출가스<br>시험</td>
+          <td class="g-td-n">7</td>
+          <td class="g-td-sub">배출가스<br>시험</td>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 배출가스 시험모드 및 시험 회수</div>
-            <textarea data-field="item7_emis_mode" class="input" rows="2" placeholder="시험모드 및 횟수 기재" style="width:100%;">\${E(v('item7_emis_mode'))}</textarea>
-          </td>
-        </tr>
-        <tr>
-          <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 배출가스 자체시험 성적서 제출 내역</div>
-            <textarea data-field="item7_emis_cert1" class="input" rows="2" placeholder="성적서 제출 내역 1" style="width:100%;margin-bottom:6px;">\${E(v('item7_emis_cert1'))}</textarea>
-            <textarea data-field="item7_emis_cert2" class="input" rows="2" placeholder="성적서 제출 내역 2" style="width:100%;">\${E(v('item7_emis_cert2'))}</textarea>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ 배출가스 시험모드 및 시험 회수</div>
+            <div style="font-size:.72rem;margin-bottom:3px;">-&nbsp;<input data-field="item7_emis_mode" class="input" type="text" placeholder="시험모드 및 횟수" value="\${E(v('item7_emis_mode'))}" style="width:calc(100% - 20px);font-size:.72rem;"></div>
+            <div style="font-size:.75rem;font-weight:700;margin:4px 0 3px;">□ 배출가스 자체시험 성적서 제출 내역</div>
+            <div style="font-size:.72rem;margin-bottom:3px;">-&nbsp;<input data-field="item7_emis_cert1" class="input" type="text" placeholder="성적서 제출 내역 1" value="\${E(v('item7_emis_cert1'))}" style="width:calc(100% - 20px);font-size:.72rem;"></div>
+            <div style="font-size:.72rem;">-&nbsp;<input data-field="item7_emis_cert2" class="input" type="text" placeholder="성적서 제출 내역 2" value="\${E(v('item7_emis_cert2'))}" style="width:calc(100% - 20px);font-size:.72rem;"></div>
           </td>
         </tr>
 
-        <!-- 8. 증발가스 시험 (PAGE 4) -->
+        <!-- 8. 증발가스 시험 -->
         <tr>
           <td class="g-td-n">8</td>
           <td class="g-td-sub">증발가스<br>시험</td>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 증발가스 자체시험 성적서 제출 내역</div>
-            <textarea data-field="item8_evap_cert" class="input" rows="3" placeholder="증발가스 자체시험 성적서 제출 내역" style="width:100%;">\${E(v('item8_evap_cert'))}</textarea>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ 증발가스 자체시험 성적서 제출 내역</div>
+            <div style="font-size:.72rem;">-&nbsp;<input data-field="item8_evap_cert" class="input" type="text" placeholder="증발가스 자체시험 성적서 제출 내역" value="\${E(v('item8_evap_cert'))}" style="width:calc(100% - 20px);font-size:.72rem;"></div>
           </td>
         </tr>
 
-        <!-- 9. 보증기간 및 열화계수 (PAGE 4) -->
+        <!-- 9. 보증기간 및 열화계수 -->
         <tr>
           <td class="g-td-n" rowspan="2">9</td>
           <td class="g-td-sub" rowspan="2">보증기간 및<br>열화계수</td>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 보증기간 및 열화계수 적용 내역</div>
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-              <span>보증기간:</span>
-              <input data-field="item9_warr_km" class="input" type="text" placeholder="km" value="\${E(v('item9_warr_km'))}" style="width:80px;"> km
-            </div>
-            <div style="font-size:.78rem;color:var(--c-text3);">제작자동차 인증 및 검사 방법과 절차 등에 관한 규정 제21조 및 시행규칙 별표12 지정열화계수에 근거한 열화계수 적용</div>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ 보증기간 및 열화계수 적용 내역</div>
+            <div style="font-size:.72rem;margin-bottom:3px;">- 보증기간 : <input data-field="item9_warr_km" class="input" type="text" placeholder="km" value="\${E(v('item9_warr_km'))}" style="width:70px;font-size:.72rem;"> km</div>
+            <div style="font-size:.7rem;color:inherit;margin-bottom:3px;">- 제작자동차 인증 및 검사 방법과 절차 등에 관한 규정 제21조 및 시행규칙 별표12 지정열화계수에 근거한 열화계수 적용</div>
           </td>
         </tr>
         <tr>
@@ -2524,77 +2583,77 @@ function buildFormHTML(formType, saved) {
             <table class="g-tbl" style="width:100%;">
               <thead><tr><th>항목</th><th>적용 열화계수</th></tr></thead>
               <tbody>
-                <tr><td class="g-td-sub">일산화탄소(CO)</td><td class="g-td-val"><input data-field="item9_df_co" class="input" type="text" value="\${E(v('item9_df_co'))}" style="width:100%;"></td></tr>
-                <tr><td class="g-td-sub">배기관 탄화수소</td><td class="g-td-val"><input data-field="item9_df_hc" class="input" type="text" value="\${E(v('item9_df_hc'))}" style="width:100%;"></td></tr>
-                <tr><td class="g-td-sub">질소산화물</td><td class="g-td-val"><input data-field="item9_df_nox" class="input" type="text" value="\${E(v('item9_df_nox'))}" style="width:100%;"></td></tr>
-                <tr><td class="g-td-sub">증발 탄화수소</td><td class="g-td-val"><input data-field="item9_df_evap_hc" class="input" type="text" value="\${E(v('item9_df_evap_hc'))}" style="width:100%;"></td></tr>
+                <tr><td class="g-td-sub" style="font-size:.75rem;">일산화탄소(CO)</td><td class="g-td-val"><input data-field="item9_df_co" class="input" type="text" value="\${E(v('item9_df_co'))}" style="width:100%;font-size:.72rem;"></td></tr>
+                <tr><td class="g-td-sub" style="font-size:.75rem;">배기관 탄화수소</td><td class="g-td-val"><input data-field="item9_df_hc" class="input" type="text" value="\${E(v('item9_df_hc'))}" style="width:100%;font-size:.72rem;"></td></tr>
+                <tr><td class="g-td-sub" style="font-size:.75rem;">질소산화물</td><td class="g-td-val"><input data-field="item9_df_nox" class="input" type="text" value="\${E(v('item9_df_nox'))}" style="width:100%;font-size:.72rem;"></td></tr>
+                <tr><td class="g-td-sub" style="font-size:.75rem;">증발 탄화수소</td><td class="g-td-val"><input data-field="item9_df_evap_hc" class="input" type="text" value="\${E(v('item9_df_evap_hc'))}" style="width:100%;font-size:.72rem;"></td></tr>
               </tbody>
             </table>
           </td>
         </tr>
 
-        <!-- 10. 내구 시험 (PAGE 5) -->
+        <!-- 10. 내구 시험 -->
         <tr>
           <td class="g-td-n">10</td>
           <td class="g-td-sub">내구 시험</td>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 내구시험 내역</div>
-            <textarea data-field="item10_durability" class="input" rows="3" placeholder="내구시험 관련 내용 기재" style="width:100%;">\${E(v('item10_durability'))}</textarea>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ 내구시험 내역</div>
+            <textarea data-field="item10_durability" class="input" rows="2" placeholder="내구시험 관련 내용 기재" style="width:100%;font-size:.72rem;">\${E(v('item10_durability'))}</textarea>
           </td>
         </tr>
 
-        <!-- 11. 주기적재생지수(ki) 시험 (PAGE 5) -->
+        <!-- 11. 주기적재생지수(ki) 시험 -->
         <tr>
           <td class="g-td-n">11</td>
           <td class="g-td-sub">주기적재생지수<br>(ki) 시험</td>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ ki 시험 내역</div>
-            <textarea data-field="item11_ki" class="input" rows="3" placeholder="주기적재생지수(ki) 시험 관련 내용 기재" style="width:100%;">\${E(v('item11_ki'))}</textarea>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ ki 시험 내역</div>
+            <textarea data-field="item11_ki" class="input" rows="2" placeholder="주기적재생지수(ki) 시험 관련 내용 기재" style="width:100%;font-size:.72rem;">\${E(v('item11_ki'))}</textarea>
           </td>
         </tr>
 
-        <!-- 12. 소음시험 (PAGE 5) -->
+        <!-- 12. 소음시험 -->
         <tr>
           <td class="g-td-n" rowspan="2">12</td>
           <td class="g-td-sub" rowspan="2">소음시험</td>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 소음시험 성적서 제출 내역</div>
-            <textarea data-field="item12_noise_cert1" class="input" rows="2" placeholder="소음시험 성적서 1" style="width:100%;margin-bottom:6px;">\${E(v('item12_noise_cert1'))}</textarea>
-            <textarea data-field="item12_noise_cert2" class="input" rows="2" placeholder="소음시험 성적서 2" style="width:100%;margin-bottom:6px;">\${E(v('item12_noise_cert2'))}</textarea>
-            <textarea data-field="item12_noise_cert3" class="input" rows="2" placeholder="소음시험 성적서 3" style="width:100%;">\${E(v('item12_noise_cert3'))}</textarea>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ 소음시험 성적서 제출 내역</div>
+            <div style="font-size:.72rem;margin-bottom:3px;">-&nbsp;<input data-field="item12_noise_cert1" class="input" type="text" placeholder="소음시험 성적서 1" value="\${E(v('item12_noise_cert1'))}" style="width:calc(100% - 20px);font-size:.72rem;"></div>
+            <div style="font-size:.72rem;margin-bottom:3px;">-&nbsp;<input data-field="item12_noise_cert2" class="input" type="text" placeholder="소음시험 성적서 2" value="\${E(v('item12_noise_cert2'))}" style="width:calc(100% - 20px);font-size:.72rem;"></div>
+            <div style="font-size:.72rem;">-&nbsp;<input data-field="item12_noise_cert3" class="input" type="text" placeholder="소음시험 성적서 3" value="\${E(v('item12_noise_cert3'))}" style="width:calc(100% - 20px);font-size:.72rem;"></div>
           </td>
         </tr>
         <tr>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 소음 시험방법</div>
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-              <span style="width:130px;flex-shrink:0;">- 가속주행소음 :</span>
-              <input data-field="item12_method_accel" class="input" type="text" placeholder="가속주행소음 시험방법" value="\${E(v('item12_method_accel'))}" style="width:100%;">
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ 소음 시험방법</div>
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:.72rem;">
+              <span style="width:100px;flex-shrink:0;">- 가속주행소음 :</span>
+              <input data-field="item12_method_accel" class="input" type="text" placeholder="가속주행소음 시험방법" value="\${E(v('item12_method_accel'))}" style="width:100%;font-size:.72rem;">
             </div>
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-              <span style="width:130px;flex-shrink:0;">- 배기소음 :</span>
-              <input data-field="item12_method_exhaust" class="input" type="text" placeholder="배기소음 시험방법" value="\${E(v('item12_method_exhaust'))}" style="width:100%;">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:.72rem;">
+              <span style="width:100px;flex-shrink:0;">- 배기소음 :</span>
+              <input data-field="item12_method_exhaust" class="input" type="text" placeholder="배기소음 시험방법" value="\${E(v('item12_method_exhaust'))}" style="width:100%;font-size:.72rem;">
             </div>
-            <div style="display:flex;align-items:center;gap:8px;">
-              <span style="width:130px;flex-shrink:0;">- 경적소음 :</span>
-              <input data-field="item12_method_horn" class="input" type="text" placeholder="경적소음 시험방법" value="\${E(v('item12_method_horn'))}" style="width:100%;">
+            <div style="display:flex;align-items:center;gap:6px;font-size:.72rem;">
+              <span style="width:100px;flex-shrink:0;">- 경적소음 :</span>
+              <input data-field="item12_method_horn" class="input" type="text" placeholder="경적소음 시험방법" value="\${E(v('item12_method_horn'))}" style="width:100%;font-size:.72rem;">
             </div>
           </td>
         </tr>
 
-        <!-- 13. 동일차종 구성 (PAGE 5) -->
+        <!-- 13. 동일차종 구성 -->
         <tr>
           <td class="g-td-n" rowspan="2">13</td>
           <td class="g-td-sub" rowspan="2">동일차종<br>구성</td>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 동일차종 구성 내역 1</div>
-            <textarea data-field="item13_family_1" class="input" rows="3" placeholder="동일차종 구성 내용 1" style="width:100%;">\${E(v('item13_family_1'))}</textarea>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ 동일차종 구성 내역 1</div>
+            <div style="font-size:.72rem;">-&nbsp;<textarea data-field="item13_family_1" class="input" rows="2" placeholder="동일차종 구성 내용 1" style="width:calc(100% - 20px);font-size:.72rem;">\${E(v('item13_family_1'))}</textarea></div>
           </td>
         </tr>
         <tr>
           <td class="g-td-val">
-            <div style="font-size:.8rem;font-weight:700;margin-bottom:4px;">□ 동일차종 구성 내역 2</div>
-            <textarea data-field="item13_family_2" class="input" rows="3" placeholder="동일차종 구성 내용 2" style="width:100%;">\${E(v('item13_family_2'))}</textarea>
+            <div style="font-size:.75rem;font-weight:700;margin-bottom:3px;">□ 동일차종 구성 내역 2</div>
+            <div style="font-size:.72rem;">-&nbsp;<textarea data-field="item13_family_2" class="input" rows="2" placeholder="동일차종 구성 내용 2" style="width:calc(100% - 20px);font-size:.72rem;">\${E(v('item13_family_2'))}</textarea></div>
           </td>
         </tr>
 

@@ -1572,7 +1572,13 @@ async function deleteApplication(e, id) {
 // 폼 HTML 빌더
 // ================================================================
 function buildFormHTML(formType, saved) {
-  const v   = (k,def='') => saved[k]!==undefined ? saved[k] : def;
+  // cert_type → 구분 기본값: 저장값이 없으면 현재 신청서의 cert_type 한글 라벨로 자동 채움
+  const _certDefault = CERT_LABEL[currentApplication?.cert_type] || '';
+  const v   = (k,def='') => {
+    if (saved[k]!==undefined) return saved[k];
+    if (k==='appl_div') return _certDefault;
+    return def;
+  };
   const E   = esc;
   const fld = (label, key, type='text', ph='', note='') => \`
     <div class="field-wrap">
@@ -1957,7 +1963,11 @@ function buildFormHTML(formType, saved) {
       </thead>
       <tbody>
         <tr>
-          <td class="g-td-val"><input data-field="appl_div" class="input g-inp" type="text" placeholder="구분" value="\${E(v('appl_div'))}" style="width:100%;"></td>
+          <td class="g-td-val">
+            <select data-field="appl_div" class="input g-sel" style="width:100%;">
+              \${ ['기본인증','변경인증','변경보고'].map(o=>\`<option value="\${o}" \${v('appl_div')===o?'selected':''}>\${o}</option>\`).join('') }
+            </select>
+          </td>
           <td class="g-td-val"><input data-field="appl_date" class="input g-inp" type="text" placeholder="YYYY-MM-DD" value="\${E(v('appl_date'))}" style="width:100%;"></td>
           <td class="g-td-val"><input data-field="maker" class="input g-inp" type="text" placeholder="제작사" value="\${E(v('maker'))}" style="width:100%;"></td>
           <td class="g-td-val"><input data-field="vehicle_name" class="input g-inp" type="text" placeholder="차명(형식)" value="\${E(v('vehicle_name'))}" style="width:100%;"></td>

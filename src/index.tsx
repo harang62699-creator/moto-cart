@@ -778,10 +778,95 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
 .summary-rep-row:not(:last-child) { padding-bottom:6px; border-bottom:1px solid var(--c-border); }
 .summary-rep-label { font-size:.78rem; color:var(--c-text3); width:60px; flex-shrink:0; }
 @media print {
-  .summary-table th { background:#e8edf5 !important; color:#333 !important; }
-  .summary-td-num, .summary-td-label { background:#f5f7fa !important; }
-  .summary-header-cell { background:#f5f7fa !important; }
-  .summary-header-input, .summary-td-content .input { border-bottom-color:#bbb !important; }
+  /* ── summary 폼 인쇄 전용 스타일 ── */
+  .summary-header-grid {
+    display:table !important; width:100% !important;
+    border:1px solid #888 !important; border-collapse:collapse !important;
+    border-radius:0 !important; margin-bottom:0 !important;
+  }
+  .summary-header-cell {
+    display:table-cell !important;
+    width:25% !important;
+    padding:3px 6px !important;
+    border:1px solid #888 !important;
+    background:#e8edf5 !important;
+    font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+    vertical-align:middle;
+  }
+  .summary-header-label {
+    font-size:6pt !important; font-weight:700 !important;
+    color:#333 !important; display:block; margin-bottom:1px;
+    letter-spacing:0 !important; text-transform:none !important;
+  }
+  .summary-header-input {
+    font-size:7pt !important; color:#000 !important;
+    border:none !important; border-bottom:1px solid #999 !important;
+    background:transparent !important; width:100% !important;
+    padding:1px 0 !important;
+  }
+  .summary-table {
+    font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+    font-size:7pt !important;
+    border:1px solid #888 !important; border-top:none !important;
+    border-radius:0 !important;
+    width:100% !important; border-collapse:collapse !important;
+  }
+  .summary-table th {
+    background:#e8edf5 !important; color:#333 !important;
+    font-size:7pt !important; font-weight:700 !important;
+    padding:3px 6px !important;
+    border:1px solid #888 !important;
+  }
+  .summary-table td {
+    border:1px solid #888 !important;
+    font-size:7pt !important;
+    padding:0 !important; vertical-align:middle !important;
+  }
+  .summary-td-num {
+    text-align:center !important; width:30px !important;
+    font-size:7pt !important; font-weight:700 !important;
+    color:#000 !important;
+    background:#f0f3f9 !important;
+    padding:2px !important;
+  }
+  .summary-td-label {
+    width:130px !important; padding:3px 6px !important;
+    font-size:7pt !important; font-weight:600 !important;
+    color:#000 !important;
+    background:#f5f7fa !important;
+    white-space:normal !important;
+  }
+  .summary-td-content { padding:2px 5px !important; }
+  .summary-td-content .input {
+    font-size:7pt !important; color:#000 !important;
+    background:transparent !important;
+    border:none !important; border-bottom:1px solid #bbb !important;
+    border-radius:0 !important;
+    padding:1px 2px !important; width:100% !important;
+  }
+  .summary-td-content textarea.input {
+    border:1px solid #bbb !important; min-height:30px !important;
+    font-size:7pt !important;
+  }
+  .summary-td-content select.input {
+    font-size:7pt !important; color:#000 !important;
+    border:1px solid #bbb !important; height:auto !important;
+  }
+  .summary-sub-label { font-size:7pt !important; color:#555 !important; }
+  .summary-rep-label { font-size:7pt !important; color:#555 !important; width:50px !important; }
+  .summary-rep-block { padding:2px 4px !important; gap:2px !important; }
+  .summary-rep-row:not(:last-child) { padding-bottom:2px !important; }
+  /* 전역 A4 세로 인쇄 설정 */
+  @page { size: A4 portrait; margin:10mm 8mm; }
+  .no-print { display:none !important; }
+  body { background:#fff !important; color:#000 !important; font-size:7pt; }
+  /* summary 폼 제목 */
+  .form-section > div[style*="text-align:center"] {
+    font-size:9pt !important; font-weight:800 !important;
+    padding:4px 6px !important;
+    border-bottom:1px solid #888 !important;
+    background:#e8edf5 !important; color:#000 !important;
+  }
 }
 /* ── 서류 폼 하단 액션 바 ──────────────────── */
 .form-action-bar {
@@ -2085,38 +2170,58 @@ function buildFormHTML(formType, saved) {
           <td style="font-size:10pt;">* 증발가스 동일 (대표: <input data-field="t_evap2_rep" class="input g-inp" type="text" placeholder="대표차명" value="\${E(v('t_evap2_rep'))}" style="width:70px;">)</td>
           <td class="g-ok-td"><select data-field="t_evap2" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_evap2')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
-        <!-- 보증기간 휘발유 -->
+        <!-- ★ 보증기간 (휘발유 5행 + 경유 1행 통합 → 단일 구분셀) -->
         <tr>
-          <td class="g-td-c" rowspan="5">보증기간<br>휘발유</td>
-          <td class="g-td-sub" rowspan="5">휘발유</td>
-          <td style="font-size:10pt;">* 보증기간 : 10년 / 19만2천km</td>
+          <td class="g-td-c" rowspan="6">보증기간</td>
+          <td class="g-td-n">1</td>
+          <td style="font-size:10pt;">* 보증기간 : 10년 / 19만2천km (휘발유)</td>
           <td class="g-ok-td"><select data-field="t_warr_g1" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <tr>
-          <td style="font-size:10pt;">* 보증기간 : 10년 / 24만km</td>
+          <td class="g-td-n">2</td>
+          <td style="font-size:10pt;">* 보증기간 : 10년 / 24만km (휘발유)</td>
           <td class="g-ok-td"><select data-field="t_warr_g2" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g2')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <tr>
-          <td style="font-size:10pt;">* 보증기간 : 15년 / 24만km</td>
+          <td class="g-td-n">3</td>
+          <td style="font-size:10pt;">* 보증기간 : 15년 / 24만km (휘발유)</td>
           <td class="g-ok-td"><select data-field="t_warr_g3" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g3')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <tr>
-          <td style="font-size:10pt;">* 보증기간 : 02년 / 3.5만km</td>
+          <td class="g-td-n">4</td>
+          <td style="font-size:10pt;">* 보증기간 : 02년 / 3.5만km (휘발유)</td>
           <td class="g-ok-td"><select data-field="t_warr_g4" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g4')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <tr>
-          <td style="font-size:10pt;">* 보증기간 : 02년 / 2만km</td>
+          <td class="g-td-n">5</td>
+          <td style="font-size:10pt;">* 보증기간 : 02년 / 2만km (휘발유)</td>
           <td class="g-ok-td"><select data-field="t_warr_g5" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g5')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
-        <!-- 보증기간 경유 -->
         <tr>
-          <td class="g-td-c">보증기간<br>경유</td>
-          <td class="g-td-sub">경유</td>
-          <td style="font-size:10pt;">* 보증기간 : 10년 / 16만km</td>
+          <td class="g-td-n">6</td>
+          <td style="font-size:10pt;">* 보증기간 : 10년 / 16만km (경유)</td>
           <td class="g-ok-td"><select data-field="t_warr_d1" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_d1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
       </tbody>
     </table>
+  </div>
+  <!-- ★ 신청유형 아래 대표차종 안내 문구 -->
+  <div class="g-sec-inner" style="padding:6px 14px 8px;">
+    <div style="font-size:10pt;line-height:1.8;border:1px solid #bbb;padding:5px 10px;background:#f8f8f8;">
+      <div>
+        EURO – 5 기준 적용 휘발유 이륜자동차 대표 :&nbsp;
+        <input data-field="rep_euro5_count" class="input g-inp" type="text" placeholder="숫자" value="\${E(v('rep_euro5_count'))}" style="width:40px;text-align:center;">
+        &nbsp;차종 인증신청
+      </div>
+      <div>
+        OBD 대표 :&nbsp;
+        <input data-field="rep_obd_count" class="input g-inp" type="text" placeholder="숫자" value="\${E(v('rep_obd_count'))}" style="width:40px;text-align:center;">
+        &nbsp;차종,&nbsp;&nbsp;
+        증발가스 대표 :&nbsp;
+        <input data-field="rep_evap_count" class="input g-inp" type="text" placeholder="숫자" value="\${E(v('rep_evap_count'))}" style="width:40px;text-align:center;">
+        &nbsp;차종
+      </div>
+    </div>
   </div>
 </div>
 

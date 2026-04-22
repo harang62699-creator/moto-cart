@@ -3929,34 +3929,42 @@ if (formType==='detail_plan') return (
       <td class="nt-val"><input data-field="nt_g2_avg_cL" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_cL'))}"></td>
       <td class="nt-val"><input data-field="nt_g2_avg_cR" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_cR'))}"></td>
     </tr>
-    <!-- ⑤ 시험결과 행 (PDF 구조: 1행)
-         col0=시험결과
-         col1~col4=가속주행소음 L_WOTrep 라벨(colspan=4) + col5=값
-         col6~col9=정속주행소음 L_CRSrep 라벨(colspan=4) + col10=값
-         col11=L_URBAN(라벨+값 같이)
+    <!-- ⑤ 시험결과 행
+         PDF 수직선(y=450~476): x = [55, 104, 214, 267, 377, 540]
+         data_cols=[55,96,136,176,217,257,313,360,395,429,468,504,540] 기준:
+           x=55~104   → col0 (1칸)  : 시험결과
+           x=104~214  → col1~3 (colspan=3) : 가속주행소음 (L_WOTrep, dB(A)) 라벨
+           x=214~267  → col4 (1칸)  : L_WOTrep 값
+           x=267~377  → col5~6 (colspan=2) : 정속주행소음 (L_CRSrep, dB(A)) 라벨
+           x=377~540  → col7~11 (colspan=5) : (L_URBAN, dB(A)) 라벨+값
     -->
     <tr>
-      <td class="nt-lbl" style="font-size:6pt;">시험<br>결과</td>
-      <td class="nt-lbl" colspan="4" style="font-size:5pt; text-align:center;">가속주행소음<br>L<sub>WOTrep</sub><br>(dB(A))</td>
+      <td class="nt-lbl" style="font-size:6pt; text-align:center;">시험<br>결과</td>
+      <td class="nt-lbl" colspan="3" style="font-size:5pt; text-align:center; line-height:1.5;">가속주행소음<br>(L<sub>WOTrep</sub>, dB(A))</td>
       <td class="nt-val"><input data-field="nt_lwot" class="nt-inp" type="text" value="\${E(v('nt_lwot'))}"></td>
-      <td class="nt-lbl" colspan="4" style="font-size:5pt; text-align:center;">정속주행소음<br>L<sub>CRSrep</sub><br>(dB(A))</td>
-      <td class="nt-val"><input data-field="nt_lcrs" class="nt-inp" type="text" value="\${E(v('nt_lcrs'))}"></td>
-      <td class="nt-val" style="font-size:5pt; text-align:center;">L<sub>URBAN</sub><br>(dB(A))<br><input data-field="nt_lurban" class="nt-inp" type="text" value="\${E(v('nt_lurban'))}"></td>
+      <td class="nt-lbl" colspan="2" style="font-size:5pt; text-align:center; line-height:1.5;">정속주행소음<br>(L<sub>CRSrep</sub>, dB(A))</td>
+      <td colspan="5" style="text-align:center; padding:2px;">
+        <div style="font-size:5pt; margin-bottom:2px;">(L<sub>URBAN</sub>, dB(A))</div>
+        <input data-field="nt_lurban" class="nt-inp" type="text" value="\${E(v('nt_lurban'))}">
+      </td>
     </tr>
-    <!-- ⑥ 최종결과 행 (PDF 수직선: [55,96,360,395,429,468,504,540])
-         col0(55-96)=최종결과
-         col1~col5(96→360, 5칸)=L 값 colspan=5
-         col6(360-395)=기준치라벨(1칸)
-         col7~col11(395→540, 5칸)=기준값 colspan=5
+    <!-- ⑥ 최종결과 행
+         PDF 수직선(y=476~494): x = [55, 104, 214, 322, 429, 540]
+         data_cols 기준:
+           x=55~104   → col0 (1칸)      : 최종결과
+           x=104~214  → col1~3 (colspan=3) : L (dB(A)) 라벨
+           x=214~322  → col4~5 (colspan=2) : L 값 입력
+           x=322~429  → col6~8 (colspan=3) : 기준치 (dB(A)) 라벨
+           x=429~540  → col9~11 (colspan=3) : 기준치 값 입력
     -->
     <tr>
-      <td class="nt-lbl" style="font-size:6pt;">최종<br>결과</td>
-      <td colspan="5" style="text-align:center; padding:2px;">
-        <span style="font-size:5pt; display:block;">L (dB(A))</span>
+      <td class="nt-lbl" style="font-size:6pt; text-align:center;">최종<br>결과</td>
+      <td class="nt-lbl" colspan="3" style="font-size:5pt; text-align:center;">L (dB(A))</td>
+      <td colspan="2" style="text-align:center; padding:2px;">
         <input data-field="nt_final_L" class="nt-inp" type="text" value="\${E(v('nt_final_L'))}">
       </td>
-      <td class="nt-lbl" style="font-size:6pt; text-align:center;">기준치<br>(dB(A))</td>
-      <td colspan="5" style="text-align:center; padding:2px;">
+      <td class="nt-lbl" colspan="3" style="font-size:5pt; text-align:center;">기준치<br>(dB(A))</td>
+      <td colspan="3" style="text-align:center; padding:2px;">
         <input data-field="nt_limit" class="nt-inp" type="text" value="\${E(v('nt_limit'))}">
       </td>
     </tr>

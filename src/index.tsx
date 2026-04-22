@@ -1013,6 +1013,15 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
   font-size:6pt; color:#3b5bdb; font-weight:700;
   text-align:center; letter-spacing:.05em;
 }
+.qr-footer-short-code {
+  font-size:7pt; color:#1a2342; font-weight:800;
+  text-align:center; letter-spacing:.12em;
+  font-family:monospace;
+  margin-top:2px;
+  background:#eef2ff; border:1px solid #c8d4ea;
+  border-radius:3px; padding:1px 4px;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
 .qr-footer-info { flex:1; min-width:0; }
 .qr-footer-title {
   font-size:8pt; font-weight:800; color:#1a2342;
@@ -1054,6 +1063,12 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
   .qr-footer-title { font-size:7pt !important; }
   .qr-footer-rows  { font-size:6.5pt !important; }
   .qr-footer-url   { font-size:5.5pt !important; }
+  .qr-footer-short-code {
+    font-size:7pt !important; font-weight:800 !important;
+    background:#eef2ff !important; border:1px solid #c8d4ea !important;
+    -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;
+    display:block !important;
+  }
 }
 
 .complete-card {
@@ -1731,11 +1746,12 @@ async function openForm(formType) {
 
 // ── QR 코드 생성 및 하단 블록 렌더 ──────────────────────────────
 // QR 블록 HTML 생성 헬퍼
-function buildQRBlockHTML(qrDivId, formTitle, dt, verifyUrl, pageLabel) {
+function buildQRBlockHTML(qrDivId, formTitle, dt, verifyUrl, pageLabel, shortCode) {
   return \`<div class="qr-footer">
   <div class="qr-footer-left">
     <div class="qr-footer-qr" id="\${qrDivId}"></div>
-    <div class="qr-footer-code-label">진위확인코드</div>
+    <div class="qr-footer-code-label">진위여부코드</div>
+    <div class="qr-footer-short-code">\${shortCode||''}</div>
   </div>
   <div class="qr-footer-info">
     <div class="qr-footer-title"><i class="fas fa-qrcode"></i>&nbsp;진위여부 확인\${pageLabel ? ' — '+pageLabel : ''}</div>
@@ -1793,9 +1809,11 @@ async function generateFormQR(formType, formTitle) {
   const dt = issuedAt ? new Date(issuedAt).toLocaleString('ko-KR') : '-';
 
   // 3) 각 wrap에 QR 블록 렌더링
+  // 토큰 앞 8자리를 진위여부코드로 사용
+  const shortCode = token ? token.replace(/[^A-Za-z0-9]/g,'').slice(0,8).toUpperCase() : '';
   allWraps.forEach(({el, pageLabel}, idx) => {
     const qrDivId = 'qr-canvas-' + formType + (idx > 0 ? '-p' + idx : '');
-    el.innerHTML = buildQRBlockHTML(qrDivId, formTitle, dt, verifyUrl, pageLabel);
+    el.innerHTML = buildQRBlockHTML(qrDivId, formTitle, dt, verifyUrl, pageLabel, shortCode);
     // 4) QRCode.js로 QR 이미지 생성
     try {
       new QRCode(document.getElementById(qrDivId), {

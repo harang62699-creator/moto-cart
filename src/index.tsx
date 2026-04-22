@@ -112,6 +112,20 @@ app.post('/api/auth/login', async (c) => {
 
 app.post('/api/auth/logout', async (c) => c.json({ ok: true }))
 
+// 비밀번호 변경
+app.post('/api/auth/change-password', authMiddleware, async (c) => {
+  const payload = c.get('user') as any
+  const { current_password, new_password } = await c.req.json()
+  if (!current_password || !new_password) return c.json({ error: '현재 비밀번호와 새 비밀번호를 입력해주세요.' }, 400)
+  if (new_password.length < 4) return c.json({ error: '새 비밀번호는 4자 이상이어야 합니다.' }, 400)
+  const currentHash = await hashPassword(current_password)
+  const user = await c.env.DB.prepare('SELECT * FROM users WHERE id = ? AND password_hash = ?').bind(payload.id, currentHash).first()
+  if (!user) return c.json({ error: '현재 비밀번호가 올바르지 않습니다.' }, 401)
+  const newHash = await hashPassword(new_password)
+  await c.env.DB.prepare('UPDATE users SET password_hash = ? WHERE id = ?').bind(newHash, payload.id).run()
+  return c.json({ ok: true, message: '비밀번호가 변경되었습니다.' })
+})
+
 app.get('/api/auth/me', authMiddleware, async (c) => {
   const payload = c.get('user') as any
   const user = await c.env.DB.prepare('SELECT id, username, company_name, representative, business_number, phone FROM users WHERE id = ?').bind(payload.id).first()
@@ -1472,6 +1486,9 @@ function updateHeader() {
       <div style="font-size:10pt;color:var(--c-text3);">@\${esc(currentUser.username)}</div>
     </div>
     <div style="width:1px;height:24px;background:var(--c-border);"></div>
+    <button class="btn btn-ghost btn-sm" onclick="showChangePwModal()" title="비밀번호 변경">
+      <i class="fas fa-key"></i>
+    </button>
     <button class="btn btn-ghost btn-sm" onclick="doLogout()">
       <i class="fas fa-sign-out-alt"></i>로그아웃
     </button>
@@ -4443,7 +4460,79 @@ function showToast(msg, type='info') {
 // 초기 실행
 // ================================================================
 document.addEventListener('DOMContentLoaded', init);
+
+// ================================================================
+// 비밀번호 변경 모달
+// ================================================================
+function showChangePwModal() {
+  document.getElementById('cpw-current').value = '';
+  document.getElementById('cpw-new').value = '';
+  document.getElementById('cpw-new2').value = '';
+  const errEl = document.getElementById('cpw-error');
+  errEl.style.display = 'none'; errEl.textContent = '';
+  document.getElementById('modal-change-pw').classList.remove('hidden');
+}
+function closeChangePwModal() { document.getElementById('modal-change-pw').classList.add('hidden'); }
+
+async function doChangePw() {
+  const cur  = document.getElementById('cpw-current').value;
+  const nw   = document.getElementById('cpw-new').value;
+  const nw2  = document.getElementById('cpw-new2').value;
+  const errEl = document.getElementById('cpw-error');
+  errEl.style.display = 'none';
+  if (!cur || !nw || !nw2) { errEl.textContent='모든 항목을 입력해주세요.'; errEl.style.display='block'; return; }
+  if (nw.length < 4) { errEl.textContent='새 비밀번호는 4자 이상이어야 합니다.'; errEl.style.display='block'; return; }
+  if (nw !== nw2) { errEl.textContent='새 비밀번호가 일치하지 않습니다.'; errEl.style.display='block'; return; }
+  const btn = document.getElementById('cpw-btn');
+  btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>처리중...';
+  try {
+    const res = await api('/api/auth/change-password', { method:'POST', body:JSON.stringify({current_password:cur, new_password:nw}) });
+    const data = await res.json();
+    if (res.ok) { closeChangePwModal(); showToast('비밀번호가 변경되었습니다.', 'success'); }
+    else { errEl.textContent = data.error || '오류가 발생했습니다.'; errEl.style.display='block'; }
+  } catch { errEl.textContent='네트워크 오류가 발생했습니다.'; errEl.style.display='block'; }
+  finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-check"></i>변경'; }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const m = document.getElementById('modal-change-pw');
+  if (m) m.addEventListener('click', function(e){ if(e.target===this)closeChangePwModal(); });
+});
 </script>
+
+<!-- 비밀번호 변경 모달 -->
+<div id="modal-change-pw" class="modal-backdrop hidden no-print">
+  <div class="modal" onclick="event.stopPropagation()" style="max-width:420px;">
+    <div class="modal-header">
+      <h3 style="font-size:14pt;font-weight:700;"><i class="fas fa-key" style="margin-right:8px;color:var(--c-primary);"></i>비밀번호 변경</h3>
+      <button class="btn btn-ghost btn-icon btn-sm" onclick="closeChangePwModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="label">현재 비밀번호 <span style="color:var(--c-danger);">*</span></label>
+        <input id="cpw-current" class="input" type="password" placeholder="현재 비밀번호를 입력하세요" autocomplete="current-password"
+          onkeydown="if(event.key==='Enter')document.getElementById('cpw-new').focus()">
+      </div>
+      <div class="form-group">
+        <label class="label">새 비밀번호 <span style="color:var(--c-danger);">*</span></label>
+        <input id="cpw-new" class="input" type="password" placeholder="4자 이상" autocomplete="new-password"
+          onkeydown="if(event.key==='Enter')document.getElementById('cpw-new2').focus()">
+      </div>
+      <div class="form-group">
+        <label class="label">새 비밀번호 확인 <span style="color:var(--c-danger);">*</span></label>
+        <input id="cpw-new2" class="input" type="password" placeholder="재입력" autocomplete="new-password"
+          onkeydown="if(event.key==='Enter')doChangePw()">
+      </div>
+      <div id="cpw-error" class="auth-error" style="display:none;"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeChangePwModal()">취소</button>
+      <button id="cpw-btn" class="btn btn-primary" onclick="doChangePw()">
+        <i class="fas fa-check"></i>변경
+      </button>
+    </div>
+  </div>
+</div>
 </body>
 </html>`;
 

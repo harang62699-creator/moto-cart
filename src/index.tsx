@@ -3929,47 +3929,42 @@ if (formType==='detail_plan') return (
       <td class="nt-val"><input data-field="nt_g2_avg_cL" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_cL'))}"></td>
       <td class="nt-val"><input data-field="nt_g2_avg_cR" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_cR'))}"></td>
     </tr>
-    <!-- ⑤ 시험결과 행
-         PDF 실측 수직선(y=450~476): [55,96,104,214,267,322,360,377,395,429,468,504,540]
-         data_cols=[55,96,136,176,217,257,313,360,395,429,468,504,540] 기준 12칸:
-           col0     x=55~96    (1칸) : 시험결과 라벨
-           col1~3   x=104~214  (3칸) : 가속주행소음 (L_WOTrep, dB(A)) 라벨
-           col4     x=214~267  (1칸) : nt_lwot 값
-           col5     x=267~322  (1칸) : 정속주행소음 (L_CRSrep, dB(A)) 라벨
-           col6     x=322~360  (1칸) : nt_lcrs 값
-           col7~8   x=360~429  (2칸) : (L_URBAN, dB(A)) 라벨
-           col9     x=429~468  (1칸) : nt_lurban 값
-           col10~11 x=468~540  (2칸) : 빈칸
+    <!-- ⑤ 시험결과 행 — PDF 이미지 직접 확인 기준
+         헤더: col0=사용변속기어, col1=구분, col2~9=가속주행시험(8칸), col10~11=정속주행시험(2칸)
+         시험결과행 셀 구조:
+           col0       (1칸) : 시험결과 라벨
+           col1~3     (3칸) : 가속주행소음 (L_WOTrep, dB(A)) 라벨
+           col4       (1칸) : nt_lwot 값 입력
+           col5~7     (3칸) : 정속주행소음 (L_CRSrep, dB(A)) 라벨  ← 3칸
+           col8       (1칸) : nt_lcrs 값 입력
+           col9~10    (2칸) : (L_URBAN, dB(A)) 라벨
+           col11      (1칸) : nt_lurban 값 입력
     -->
     <tr>
       <td class="nt-lbl" style="font-size:6pt; text-align:center;">시험<br>결과</td>
       <td class="nt-lbl" colspan="3" style="font-size:5pt; text-align:center; line-height:1.5;">가속주행소음<br>(L<sub>WOTrep</sub>, dB(A))</td>
       <td class="nt-val"><input data-field="nt_lwot" class="nt-inp" type="text" value="\${E(v('nt_lwot'))}"></td>
-      <td class="nt-lbl" style="font-size:5pt; text-align:center; line-height:1.5;">정속주행소음<br>(L<sub>CRSrep</sub>, dB(A))</td>
+      <td class="nt-lbl" colspan="3" style="font-size:5pt; text-align:center; line-height:1.5;">정속주행소음<br>(L<sub>CRSrep</sub>, dB(A))</td>
       <td class="nt-val"><input data-field="nt_lcrs" class="nt-inp" type="text" value="\${E(v('nt_lcrs'))}"></td>
       <td class="nt-lbl" colspan="2" style="font-size:5pt; text-align:center; line-height:1.5;">(L<sub>URBAN</sub>, dB(A))</td>
       <td class="nt-val"><input data-field="nt_lurban" class="nt-inp" type="text" value="\${E(v('nt_lurban'))}"></td>
-      <td colspan="2"></td>
     </tr>
-    <!-- ⑥ 최종결과 행
-         PDF 실측 수직선(y=476~494): [55,104,214,267,322,377,429,504,540]
-         data_cols 기준 12칸:
-           col0     x=55~104   (1칸) : 최종결과 라벨
-           col1~3   x=104~214  (3칸) : L (dB(A)) 라벨
-           col4     x=214~267  (1칸) : nt_final_L 값
-           col5     x=267~322  (1칸) : 빈칸
-           col6     x=322~360  (1칸) : 기준치 (dB(A)) 라벨  ← col6(313~360)에 해당
-           col7~8   x=360~429  (2칸) : nt_limit 값          ← 시험결과행 L_URBAN과 동일 너비
-           col9~11  x=429~540  (3칸) : 빈칸
+    <!-- ⑥ 최종결과 행 — PDF 이미지 직접 확인 기준
+         최종결과행 셀 구조:
+           col0       (1칸) : 최종결과 라벨
+           col1~3     (3칸) : L (dB(A)) 라벨
+           col4       (1칸) : nt_final_L 값 입력
+           col5~7     (3칸) : 빈칸  ← 정속주행소음 라벨 위치와 동일
+           col8~10    (3칸) : 기준치 (dB(A)) 라벨  ← 정속주행시험 좌측소음 위치에 걸침
+           col11      (1칸) : nt_limit 값 입력     ← 정속주행시험 우측소음 위치
     -->
     <tr>
       <td class="nt-lbl" style="font-size:6pt; text-align:center;">최종<br>결과</td>
       <td class="nt-lbl" colspan="3" style="font-size:5pt; text-align:center;">L (dB(A))</td>
       <td class="nt-val"><input data-field="nt_final_L" class="nt-inp" type="text" value="\${E(v('nt_final_L'))}"></td>
-      <td></td>
-      <td class="nt-lbl" style="font-size:5pt; text-align:center;">기준치<br>(dB(A))</td>
-      <td class="nt-val" colspan="2"><input data-field="nt_limit" class="nt-inp" type="text" value="\${E(v('nt_limit'))}"></td>
       <td colspan="3"></td>
+      <td class="nt-lbl" colspan="3" style="font-size:5pt; text-align:center;">기준치 (dB(A))</td>
+      <td class="nt-val"><input data-field="nt_limit" class="nt-inp" type="text" value="\${E(v('nt_limit'))}"></td>
     </tr>
   </tbody>
 </table>

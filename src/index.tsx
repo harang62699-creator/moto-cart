@@ -3292,199 +3292,398 @@ if (formType==='detail_plan') return (
 
   if (formType==='confirmation') return \`
 <style>
-/* ══════════ confirmation 전용 추가 스타일 (sv-* 완전 동일 기반) ══════════ */
+/* ══════════ confirmation 전용 스타일 ══════════
+   PDF 원본 구조: 상단헤더(4칸) + 제목셀 + 단일 본문셀(1~5항목 + 확인문구 + 서명란)
+   인증신청 요약서와 달리 3열(구분/항목/내용) 구조 없음
+   ══════════════════════════════════════════════ */
 
-/* 보증 본문 고정 텍스트 */
-.cf-warranty-body {
-  font-size:10pt; line-height:1.9;
-  color:var(--c-text); padding:8px 10px 12px;
-  word-break:keep-all;
+/* ── 전체 래퍼 ── */
+.cf-wrap {
+  box-sizing:border-box;
+  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
 }
-/* 당사확인 문구 — 3열 통합 행 */
+
+/* ── 상단 헤더 (요약서와 동일) ── */
+.cf-header-tbl {
+  width:100%; border-collapse:collapse;
+  border:1px solid #888;
+}
+.cf-header-lbl-cell {
+  width:25%; border:1px solid #888;
+  padding:4px 8px; vertical-align:middle;
+  background:rgba(79,142,247,.08);
+  text-align:center;
+}
+.cf-header-val-cell {
+  width:25%; border:1px solid #888;
+  padding:4px 8px; vertical-align:middle;
+}
+.cf-header-lbl {
+  display:block; font-size:.72rem; font-weight:700;
+  color:var(--c-text2); letter-spacing:.02em; text-align:center;
+}
+.cf-header-inp {
+  width:100%; background:transparent;
+  border:none; border-bottom:1px solid var(--c-border);
+  color:var(--c-text); font-size:.9rem;
+  padding:3px 0; outline:none;
+}
+.cf-header-inp:focus { border-bottom-color:var(--c-accent); }
+
+/* ── 제목 셀 ── */
+.cf-title {
+  text-align:center;
+  font-size:14pt; font-weight:800;
+  letter-spacing:.08em;
+  padding:14px 10px;
+  border:1px solid #888; border-top:none;
+}
+
+/* ── 본문 테이블 (단일 셀 구조 - PDF 원본과 동일) ── */
+.cf-body-tbl {
+  width:100%; border-collapse:collapse;
+  border:1px solid #888; border-top:none;
+}
+.cf-body-tbl td {
+  border:1px solid #888;
+  vertical-align:top;
+  padding:0;
+}
+
+/* ── 각 항목 행 ── */
+.cf-item-row {
+  display:flex; align-items:flex-start;
+  padding:10px 14px;
+  border-bottom:1px solid var(--c-border);
+  min-height:40px;
+  gap:0;
+}
+.cf-item-row:last-child { border-bottom:none; }
+.cf-item-lbl {
+  font-size:10pt; font-weight:600;
+  white-space:nowrap;
+  color:var(--c-text);
+  min-width:110px;
+  flex-shrink:0;
+  padding-top:3px;
+}
+.cf-item-inp-wrap {
+  flex:1; min-width:0;
+}
+.cf-item-inp {
+  width:100%; background:transparent;
+  border:none; border-bottom:1px solid var(--c-border);
+  color:var(--c-text); font-size:10pt;
+  padding:2px 4px; outline:none;
+}
+.cf-item-inp:focus { border-bottom-color:var(--c-accent); }
+.cf-item-inp::placeholder { color:var(--c-text3); font-style:italic; }
+
+/* 주소 TEL/FAX 행 */
+.cf-tel-fax {
+  display:flex; gap:10px; margin-top:8px; align-items:center;
+}
+.cf-tel-fax-lbl {
+  font-size:10pt; white-space:nowrap;
+  color:var(--c-text3); font-weight:600;
+}
+
+/* ── 5. 보증내용 ── */
+.cf-warranty-row {
+  padding:10px 14px;
+  border-bottom:1px solid var(--c-border);
+}
+.cf-warranty-top {
+  display:flex; align-items:flex-start; gap:0; margin-bottom:8px;
+}
+.cf-warranty-lbl {
+  font-size:10pt; font-weight:600;
+  white-space:nowrap; min-width:110px; flex-shrink:0;
+  padding-top:3px; color:var(--c-text);
+}
+.cf-warranty-subject-inp {
+  flex:1; min-width:0;
+  background:transparent;
+  border:none; border-bottom:1px solid var(--c-border);
+  color:var(--c-text); font-size:10pt;
+  padding:2px 4px; outline:none;
+}
+.cf-warranty-subject-inp:focus { border-bottom-color:var(--c-accent); }
+.cf-warranty-subject-inp::placeholder { color:var(--c-text3); font-style:italic; }
+.cf-warranty-body {
+  font-size:10pt; line-height:1.85;
+  color:var(--c-text2);
+  word-break:keep-all; text-align:justify;
+  padding-left:110px;
+}
+
+/* ── 당사확인 문구 ── */
 .cf-confirm-stmt {
   text-align:center; font-size:10pt; font-weight:600;
-  padding:14px 10px;
+  padding:16px 14px;
+  border-bottom:1px solid var(--c-border);
   color:var(--c-text);
-  background:rgba(255,255,255,.02);
 }
-/* 서명란 헤더 — sv-tbl thead th 와 완전 동일 */
-.cf-sign-head-th {
-  background:#d8e0f0;
-  font-weight:700; font-size:10pt;
-  text-align:center; padding:7px 4px;
-  letter-spacing:.06em;
+
+/* ── 제작사 확인 헤더 ── */
+.cf-sign-head {
+  text-align:center; font-size:10pt; font-weight:700;
+  padding:8px 14px; letter-spacing:.08em;
+  border-bottom:1px solid var(--c-border);
+  background:rgba(79,142,247,.08);
+}
+
+/* ── 서명란 (Signed at / Date, Name / Title) ── */
+.cf-sign-tbl {
+  width:100%; border-collapse:collapse;
+}
+.cf-sign-tbl td {
+  border:none; vertical-align:middle;
+  padding:12px 14px;
+}
+.cf-sign-lbl {
+  font-size:10pt; font-weight:700;
+  white-space:nowrap; width:90px;
+  color:var(--c-text);
+}
+.cf-sign-inp {
+  width:100%; background:transparent;
+  border:none; border-bottom:1.5px solid var(--c-border);
+  color:var(--c-text); font-size:10pt;
+  padding:4px 2px; outline:none;
+}
+.cf-sign-inp:focus { border-bottom-color:var(--c-accent); }
+.cf-sign-inp::placeholder { color:var(--c-text3); font-style:italic; }
+.cf-sign-divider {
+  border:none; border-right:1px solid var(--c-border);
+  padding:0; width:1px;
 }
 
 @media screen {
-  .cf-sign-head-th { background:rgba(79,142,247,.10); color:var(--c-text); border-color:var(--c-border); }
-  .cf-warranty-body { color:var(--c-text2); }
-  .cf-confirm-stmt { color:var(--c-text2); }
+  .cf-header-lbl-cell { border-color:var(--c-border); }
+  .cf-header-val-cell { border-color:var(--c-border); }
+  .cf-header-tbl { border-color:var(--c-border); }
+  .cf-title { background:rgba(79,142,247,.06); border-color:var(--c-border2); color:var(--c-text); }
+  .cf-body-tbl { border-color:var(--c-border); }
+  .cf-body-tbl td { border-color:var(--c-border); }
+  .cf-sign-head { background:rgba(79,142,247,.06); border-color:var(--c-border); }
 }
+
 @media print {
   @page { size:A4 portrait; margin:18mm 15mm; }
   .no-print { display:none !important; }
   body { background:#fff !important; color:#000 !important; }
   -webkit-print-color-adjust:exact; print-color-adjust:exact;
 
-  .sv-wrap { font-family:'맑은 고딕','Malgun Gothic','MS Gothic',sans-serif; font-size:9pt; color:#000; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .sv-header-tbl { border:1px solid #555 !important; width:100% !important; border-collapse:collapse !important; }
-  .sv-header-lbl-cell { border:1px solid #555 !important; padding:3px 6px !important; background:#cdd5e8 !important; text-align:center !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .sv-header-val-cell { border:1px solid #555 !important; padding:3px 6px !important; background:#fff !important; }
-  .sv-header-lbl { font-size:8.5pt !important; font-weight:700 !important; color:#000 !important; display:block; text-align:center !important; }
-  .sv-header-inp { font-size:8.5pt !important; color:#000 !important; border:none !important; border-bottom:1px solid #888 !important; background:transparent !important; padding:1px 0 !important; width:100% !important; font-family:inherit !important; }
-  .sv-title { font-size:14pt !important; font-weight:900 !important; color:#000 !important; background:#fff !important; border:1px solid #555 !important; border-top:none !important; padding:10px 8px !important; text-align:center !important; letter-spacing:.08em !important; }
-  .sv-tbl { border:1px solid #555 !important; border-top:none !important; border-collapse:collapse !important; width:100% !important; table-layout:fixed !important; }
-  .sv-tbl th, .sv-tbl td { border:1px solid #555 !important; font-size:9pt !important; }
-  .sv-tbl thead th { background:#c8d4ea !important; color:#000 !important; font-size:9pt !important; font-weight:700 !important; padding:5px 4px !important; text-align:center !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .sv-num { text-align:center !important; font-size:9pt !important; font-weight:600 !important; color:#000 !important; background:#f0f3f8 !important; padding:7px 2px !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .sv-lbl { font-size:9pt !important; font-weight:500 !important; color:#000 !important; background:#f0f3f8 !important; padding:6px 8px !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .sv-val { padding:4px 8px !important; }
-  .sv-val .sv-inp,
-  .sv-val .sv-inp-inline,
-  .sv-lbl .sv-inp { font-size:9pt !important; color:#000 !important; background:transparent !important; border:none !important; border-bottom:none !important; padding:0 !important; width:auto !important; font-family:inherit !important; }
-  .cf-sign-head-th { background:#c8d4ea !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .cf-warranty-body { color:#000 !important; font-size:9pt !important; line-height:1.8 !important; }
-  .cf-confirm-stmt { color:#000 !important; font-size:9pt !important; background:#fff !important; }
+  /* 전체 래퍼 */
+  .cf-wrap {
+    font-family:'맑은 고딕','Malgun Gothic','MS Gothic',sans-serif;
+    font-size:9pt; color:#000;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+
+  /* 상단 헤더 */
+  .cf-header-tbl { border:1px solid #555 !important; border-collapse:collapse !important; width:100% !important; }
+  .cf-header-lbl-cell { border:1px solid #555 !important; padding:3px 6px !important; background:#cdd5e8 !important; text-align:center !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .cf-header-val-cell { border:1px solid #555 !important; padding:3px 6px !important; background:#fff !important; }
+  .cf-header-lbl { font-size:8.5pt !important; font-weight:700 !important; color:#000 !important; display:block; text-align:center !important; }
+  .cf-header-inp { font-size:8.5pt !important; color:#000 !important; border:none !important; border-bottom:1px solid #888 !important; background:transparent !important; padding:1px 0 !important; width:100% !important; font-family:inherit !important; }
+
+  /* 제목 */
+  .cf-title { font-size:14pt !important; font-weight:900 !important; color:#000 !important; background:#fff !important; border:1px solid #555 !important; border-top:none !important; padding:10px 8px !important; text-align:center !important; letter-spacing:.08em !important; }
+
+  /* 본문 테이블 */
+  .cf-body-tbl { border:1px solid #555 !important; border-top:none !important; border-collapse:collapse !important; width:100% !important; }
+  .cf-body-tbl td { border:1px solid #555 !important; }
+
+  /* 각 항목 행 — 인쇄 시 여백 넉넉하게 */
+  .cf-item-row { padding:14px 14px !important; min-height:46px !important; border-bottom:1px solid #888 !important; }
+  .cf-item-lbl { font-size:9pt !important; color:#000 !important; min-width:120px !important; }
+  .cf-item-inp {
+    font-size:9pt !important; color:#000 !important;
+    background:transparent !important;
+    border:none !important; border-bottom:1px solid #888 !important;
+    padding:0 2px !important;
+  }
+
+  /* 보증내용 */
+  .cf-warranty-row { padding:14px 14px !important; border-bottom:1px solid #888 !important; }
+  .cf-warranty-lbl { font-size:9pt !important; color:#000 !important; min-width:120px !important; }
+  .cf-warranty-subject-inp {
+    font-size:9pt !important; color:#000 !important;
+    background:transparent !important;
+    border:none !important; border-bottom:1px solid #888 !important;
+    padding:0 2px !important;
+  }
+  .cf-warranty-body { font-size:9pt !important; color:#000 !important; line-height:1.8 !important; padding-left:120px !important; }
+
+  /* 당사확인 */
+  .cf-confirm-stmt { font-size:9pt !important; color:#000 !important; padding:16px 14px !important; border-bottom:1px solid #888 !important; }
+
+  /* 제작사 확인 헤더 */
+  .cf-sign-head { background:#c8d4ea !important; color:#000 !important; font-size:9pt !important; border-bottom:1px solid #888 !important; padding:7px 14px !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+  /* 서명란 */
+  .cf-sign-tbl td { padding:14px 14px !important; }
+  .cf-sign-lbl { font-size:9pt !important; color:#000 !important; width:80px !important; }
+  .cf-sign-inp {
+    font-size:9pt !important; color:#000 !important;
+    background:transparent !important;
+    border:none !important; border-bottom:1px solid #888 !important;
+    padding:0 2px !important;
+  }
+  .cf-sign-divider { border-right:1px solid #888 !important; }
+  .cf-tel-fax-lbl { font-size:9pt !important; color:#000 !important; }
 }
 </style>
 
-<div class="sv-wrap">
+<div class="cf-wrap">
 
-  <!-- ① 상단 헤더 — summary 완전 동일 구조 (레이블 행 + 값 행 분리) -->
-  <table class="sv-header-tbl">
-    <tr class="sv-header-row-lbl">
-      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">수입사</span></td>
-      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">인증연도</span></td>
-      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">배기량</span></td>
-      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">동일차종기호</span></td>
+  <!-- ① 상단 헤더 (요약서와 동일 2행 구조) -->
+  <table class="cf-header-tbl">
+    <tr>
+      <td class="cf-header-lbl-cell"><span class="cf-header-lbl">수입사</span></td>
+      <td class="cf-header-lbl-cell"><span class="cf-header-lbl">인증연도</span></td>
+      <td class="cf-header-lbl-cell"><span class="cf-header-lbl">배기량</span></td>
+      <td class="cf-header-lbl-cell"><span class="cf-header-lbl">동일차종기호</span></td>
     </tr>
-    <tr class="sv-header-row-val">
-      <td class="sv-header-val-cell"><input data-field="importer"     class="sv-header-inp" type="text" placeholder="수입사명"   value="\${E(v('importer'))}"></td>
-      <td class="sv-header-val-cell"><input data-field="cert_year"    class="sv-header-inp" type="text" placeholder="예) 2025"   value="\${E(v('cert_year'))}"></td>
-      <td class="sv-header-val-cell"><input data-field="displacement" class="sv-header-inp" type="text" placeholder="예) 1000cc" value="\${E(v('displacement'))}"></td>
-      <td class="sv-header-val-cell"><input data-field="family_code"  class="sv-header-inp" type="text" placeholder="기호 입력"  value="\${E(v('family_code'))}"></td>
+    <tr>
+      <td class="cf-header-val-cell"><input data-field="importer"     class="cf-header-inp" type="text" placeholder="수입사명"   value="\${E(v('importer'))}"></td>
+      <td class="cf-header-val-cell"><input data-field="cert_year"    class="cf-header-inp" type="text" placeholder="예) 2025"   value="\${E(v('cert_year'))}"></td>
+      <td class="cf-header-val-cell"><input data-field="displacement" class="cf-header-inp" type="text" placeholder="예) 1000cc" value="\${E(v('displacement'))}"></td>
+      <td class="cf-header-val-cell"><input data-field="family_code"  class="cf-header-inp" type="text" placeholder="기호 입력"  value="\${E(v('family_code'))}"></td>
     </tr>
   </table>
 
-  <!-- ② 제목 — summary sv-title 완전 동일 -->
-  <div class="sv-title">확 &nbsp;&nbsp; 인 &nbsp;&nbsp; 서</div>
+  <!-- ② 제목 (PDF 원본: 전체 너비 단독 셀) -->
+  <div class="cf-title">확 &nbsp;&nbsp; 인 &nbsp;&nbsp; 서</div>
 
-  <!-- ③ 본문 테이블 — summary sv-tbl 완전 동일 구조 -->
-  <table class="sv-tbl">
-    <colgroup>
-      <col class="sv-col-num">    <!-- 구분 번호 (11%) -->
-      <col class="sv-col-label">  <!-- 항목 (31%) -->
-      <col class="sv-col-val">    <!-- 내용 (나머지) -->
-    </colgroup>
-    <thead>
-      <tr>
-        <th>구&nbsp;&nbsp;분</th>
-        <th>항&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
-        <th>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</th>
-      </tr>
-    </thead>
+  <!-- ③ 본문 — PDF 원본: 단일 셀 안에 1~5번 항목 나열 (3열 구조 없음) -->
+  <table class="cf-body-tbl">
     <tbody>
-
-      <!-- 1. 제작사 -->
       <tr>
-        <td class="sv-num">1</td>
-        <td class="sv-lbl">제작사</td>
-        <td class="sv-val">
-          <input data-field="cf_maker" class="sv-inp" type="text" placeholder="예) HONDA Motor Co.,Ltd(일본)" value="\${E(v('cf_maker'))}">
-        </td>
-      </tr>
+        <td>
 
-      <!-- 2. 주소 -->
-      <tr>
-        <td class="sv-num">2</td>
-        <td class="sv-lbl">주&nbsp;&nbsp;&nbsp;소</td>
-        <td class="sv-val">
-          <input data-field="cf_address" class="sv-inp" type="text" placeholder="제작사 주소" value="\${E(v('cf_address'))}">
-          <div style="display:flex;gap:12px;margin-top:6px;align-items:center;">
-            <span style="font-size:10pt;white-space:nowrap;color:var(--c-text3);">TEL)</span>
-            <input data-field="cf_tel" class="sv-inp" type="text" placeholder="전화번호" value="\${E(v('cf_tel'))}" style="flex:1;min-width:0;">
-            <span style="font-size:10pt;white-space:nowrap;color:var(--c-text3);">FAX)</span>
-            <input data-field="cf_fax" class="sv-inp" type="text" placeholder="팩스번호" value="\${E(v('cf_fax'))}" style="flex:1;min-width:0;">
+          <!-- 1. 제작사 -->
+          <div class="cf-item-row">
+            <span class="cf-item-lbl">1. 제작사 :</span>
+            <div class="cf-item-inp-wrap">
+              <input data-field="cf_maker" class="cf-item-inp" type="text"
+                placeholder="예) HONDA Motor Co.,Ltd(일본)" value="\${E(v('cf_maker'))}">
+            </div>
           </div>
-        </td>
-      </tr>
 
-      <!-- 3. 모델 -->
-      <tr>
-        <td class="sv-num">3</td>
-        <td class="sv-lbl">모&nbsp;&nbsp;&nbsp;델</td>
-        <td class="sv-val">
-          <input data-field="cf_model" class="sv-inp" type="text" placeholder="예) CB500F" value="\${E(v('cf_model'))}">
-        </td>
-      </tr>
-
-      <!-- 4. 수입자 -->
-      <tr>
-        <td class="sv-num">4</td>
-        <td class="sv-lbl">수&nbsp;입&nbsp;자</td>
-        <td class="sv-val">
-          <input data-field="cf_importer" class="sv-inp" type="text" placeholder="예) ㈜○○모터스" value="\${E(v('cf_importer'))}">
-        </td>
-      </tr>
-
-      <!-- 5. 보증내용 — 보증주체 입력 + 고정 법령 본문 -->
-      <tr>
-        <td class="sv-num">5</td>
-        <td class="sv-lbl">보증내용</td>
-        <td style="padding:0;">
-          <div style="padding:5px 10px 4px; border-bottom:1px solid var(--c-border);">
-            <input data-field="cf_warranty_subject" class="sv-inp" type="text"
-              placeholder="보증 주체명 (예: ㈜○○모터스)" value="\${E(v('cf_warranty_subject'))}" style="width:100%;">
+          <!-- 2. 주소 -->
+          <div class="cf-item-row" style="flex-direction:column;align-items:flex-start;">
+            <div style="display:flex;align-items:flex-start;width:100%;gap:0;">
+              <span class="cf-item-lbl">2. 주&nbsp;&nbsp;&nbsp;소 :</span>
+              <div class="cf-item-inp-wrap">
+                <input data-field="cf_address" class="cf-item-inp" type="text"
+                  placeholder="제작사 주소" value="\${E(v('cf_address'))}">
+              </div>
+            </div>
+            <div class="cf-tel-fax" style="padding-left:110px;width:100%;box-sizing:border-box;margin-top:10px;">
+              <span class="cf-tel-fax-lbl">TEL)</span>
+              <input data-field="cf_tel" class="cf-item-inp" type="text"
+                placeholder="전화번호" value="\${E(v('cf_tel'))}" style="flex:1;min-width:0;">
+              <span class="cf-tel-fax-lbl" style="margin-left:16px;">FAX)</span>
+              <input data-field="cf_fax" class="cf-item-inp" type="text"
+                placeholder="팩스번호" value="\${E(v('cf_fax'))}" style="flex:1;min-width:0;">
+            </div>
           </div>
-          <div class="cf-warranty-body">
-            은 대기환경보전법 제46조, 48조, 50조, 51조 및 대기환경보전법 시행규칙 제63조 규정에 의한
-            보증기간(130km/h이하 2년 또는 20,000km, 130km/h이상 2년 또는 35,000km) 까지 제작차 및
-            운행차 배출허용기준에 만족할 수 있도록 품질관리, 사후책임 등에 관한 의무사항을 이행하며,
-            수시검사 및 결함검사에서 결함이 확인될 경우 제작 결함 수정(리콜)의 의무를 이행한다.
+
+          <!-- 3. 모델 -->
+          <div class="cf-item-row">
+            <span class="cf-item-lbl">3. 모&nbsp;&nbsp;&nbsp;델 :</span>
+            <div class="cf-item-inp-wrap">
+              <input data-field="cf_model" class="cf-item-inp" type="text"
+                placeholder="예) CB500F" value="\${E(v('cf_model'))}">
+            </div>
           </div>
-        </td>
-      </tr>
 
-      <!-- 당사확인 문구 — 3열 통합 행 -->
-      <tr>
-        <td colspan="3" class="cf-confirm-stmt">
-          당사는 상기보증내용에 대해, 의무사항을 이행할 것을 확인합니다.
-        </td>
-      </tr>
-
-      <!-- 제작사 확인 헤더 — thead th 동일 스타일 -->
-      <tr>
-        <td colspan="3" class="cf-sign-head-th">제 작 사 &nbsp;&nbsp; 확 인</td>
-      </tr>
-
-      <!-- Signed at (6행) -->
-      <tr>
-        <td class="sv-num">Signed at</td>
-        <td class="sv-lbl" style="text-align:left;">
-          <input data-field="cf_signed_at" class="sv-inp" type="text" placeholder="서명 장소" value="\${E(v('cf_signed_at'))}" style="width:100%;">
-        </td>
-        <td class="sv-val">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span style="font-size:10pt;white-space:nowrap;font-weight:600;color:var(--c-text2);">Date :</span>
-            <input data-field="cf_sign_date" class="sv-inp" type="text" placeholder="예) 2025. 01. 01." value="\${E(v('cf_sign_date'))}" style="flex:1;min-width:0;">
+          <!-- 4. 수입자 -->
+          <div class="cf-item-row">
+            <span class="cf-item-lbl">4. 수입자 :</span>
+            <div class="cf-item-inp-wrap">
+              <input data-field="cf_importer" class="cf-item-inp" type="text"
+                placeholder="예) ㈜○○모터스" value="\${E(v('cf_importer'))}">
+            </div>
           </div>
-        </td>
-      </tr>
 
-      <!-- Name / Title (7행) -->
-      <tr>
-        <td class="sv-num">Name</td>
-        <td class="sv-lbl" style="text-align:left;">
-          <input data-field="cf_name" class="sv-inp" type="text" placeholder="서명자 성명" value="\${E(v('cf_name'))}" style="width:100%;">
-        </td>
-        <td class="sv-val">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span style="font-size:10pt;white-space:nowrap;font-weight:600;color:var(--c-text2);">Title :</span>
-            <input data-field="cf_title" class="sv-inp" type="text" placeholder="직책" value="\${E(v('cf_title'))}" style="flex:1;min-width:0;">
+          <!-- 5. 보증내용 -->
+          <div class="cf-warranty-row">
+            <div class="cf-warranty-top">
+              <span class="cf-warranty-lbl">5. 보증내용 :</span>
+              <input data-field="cf_warranty_subject" class="cf-warranty-subject-inp" type="text"
+                placeholder="보증 주체명 (예: ㈜○○모터스)" value="\${E(v('cf_warranty_subject'))}">
+            </div>
+            <div class="cf-warranty-body">
+              은 대기환경보전법 제46조, 48조, 50조, 51조 및 대기환경보전법 시행규칙 제63조 규정에 의한
+              보증기간(130km/h이하 2년 또는 20,000km, 130km/h이상 2년 또는 35,000km) 까지 제작차 및
+              운행차 배출허용기준에 만족할 수 있도록 품질관리, 사후책임 등에 관한 의무사항을 이행하며,
+              수시검사 및 결함검사에서 결함이 확인될 경우 제작 결함 수정(리콜)의 의무를 이행한다.
+            </div>
           </div>
+
+          <!-- 당사확인 문구 -->
+          <div class="cf-confirm-stmt">
+            당사는 상기보증내용에 대해, 의무사항을 이행할 것을 확인합니다.
+          </div>
+
+          <!-- 제작사 확인 헤더 -->
+          <div class="cf-sign-head">제 작 사 &nbsp;&nbsp; 확 인</div>
+
+          <!-- 서명란: Signed at | Date / Name | Title (2열 구조) -->
+          <table class="cf-sign-tbl">
+            <colgroup>
+              <col style="width:50%;">
+              <col class="cf-sign-divider" style="width:1px;">
+              <col style="width:50%;">
+            </colgroup>
+            <tbody>
+              <tr>
+                <!-- 좌: Signed at -->
+                <td>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="cf-sign-lbl">Signed at</span>
+                    <input data-field="cf_signed_at" class="cf-sign-inp" type="text"
+                      placeholder="서명 장소" value="\${E(v('cf_signed_at'))}" style="flex:1;min-width:0;">
+                  </div>
+                </td>
+                <td class="cf-sign-divider"></td>
+                <!-- 우: Date -->
+                <td>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="cf-sign-lbl">Date</span>
+                    <input data-field="cf_sign_date" class="cf-sign-inp" type="text"
+                      placeholder="예) 2025. 01. 01." value="\${E(v('cf_sign_date'))}" style="flex:1;min-width:0;">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <!-- 좌: Name -->
+                <td>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="cf-sign-lbl">Name</span>
+                    <input data-field="cf_name" class="cf-sign-inp" type="text"
+                      placeholder="서명자 성명" value="\${E(v('cf_name'))}" style="flex:1;min-width:0;">
+                  </div>
+                </td>
+                <td class="cf-sign-divider"></td>
+                <!-- 우: Title -->
+                <td>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="cf-sign-lbl">Title :</span>
+                    <input data-field="cf_title" class="cf-sign-inp" type="text"
+                      placeholder="직책" value="\${E(v('cf_title'))}" style="flex:1;min-width:0;">
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
         </td>
       </tr>
-
     </tbody>
   </table>
 

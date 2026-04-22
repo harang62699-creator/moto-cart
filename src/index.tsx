@@ -1043,6 +1043,10 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
 .qr-footer-badge.ng  { background:#fee2e2; color:#991b1b; }
 .qr-footer-pending { color:#888; font-size:7pt; margin-top:8px; font-style:italic; padding:8px 0; }
 .qr-footer-pending i { margin-right:4px; }
+@media print {
+  /* 로딩/에러 메시지는 인쇄에서 숨김 */
+  .qr-footer-pending { display:none !important; }
+}
 @media screen {
   .qr-footer { max-width:640px; }
 }
@@ -1339,7 +1343,7 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
       <button id="save-btn" class="btn btn-success" onclick="saveForm()">
         <i class="fas fa-save"></i>저장
       </button>
-      <button class="btn btn-ghost" onclick="window.print()">
+      <button class="btn btn-ghost" onclick="printWithQR()">
         <i class="fas fa-print"></i>인쇄
       </button>
     </div>
@@ -1365,7 +1369,7 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
       </button>
     </div>
     <div class="form-action-bar-right">
-      <button class="btn btn-ghost" onclick="window.print()">
+      <button class="btn btn-ghost" onclick="printWithQR()">
         <i class="fas fa-print"></i>인쇄
       </button>
       <button class="btn btn-success" onclick="saveForm()">
@@ -1756,14 +1760,33 @@ function buildQRBlockHTML(qrDivId, formTitle, dt, verifyUrl, pageLabel, shortCod
   <div class="qr-footer-info">
     <div class="qr-footer-title"><i class="fas fa-qrcode"></i>&nbsp;진위여부 확인\${pageLabel ? ' — '+pageLabel : ''}</div>
     <div class="qr-footer-rows">
-      서류명 &nbsp;: <span>\${formTitle}</span><br>
-      신청서 &nbsp;: <span>\${currentApplication?.title||'-'}</span><br>
-      발급일시: <span>\${dt}</span><br>
-      발급기관: <span>\${currentUser?.company_name||currentUser?.username||'-'}</span>
+      서류명 &nbsp;&nbsp;: <span>\${formTitle}</span><br>
+      신청서 &nbsp;&nbsp;: <span>\${currentApplication?.title||'-'}</span><br>
+      발급일시 &nbsp;: <span>\${dt}</span><br>
+      발급기관 &nbsp;: <span>\${currentUser?.company_name||currentUser?.username||'-'}</span><br>
+      진위여부코드: <span style="font-family:monospace;font-size:8pt;letter-spacing:.1em;">\${shortCode||'-'}</span>
     </div>
     <div class="qr-footer-url"><i class="fas fa-link" style="font-size:6pt;margin-right:3px;"></i><span>\${verifyUrl}</span></div>
   </div>
 </div>\`;
+}
+
+// 인쇄 버튼 클릭 시 QR이 준비됐는지 확인하고 인쇄
+function printWithQR() {
+  const wrap = document.getElementById('qr-footer-wrap');
+  // 아직 로딩 중이거나 에러 상태면 잠시 기다린 후 인쇄
+  if (wrap && wrap.querySelector('.qr-footer-pending')) {
+    // QR이 pending이면 먼저 재생성 시도 후 인쇄
+    const formType = currentFormType;
+    const meta = FORM_META.find(m=>m.type===formType);
+    if (meta) {
+      generateFormQR(formType, meta.title).then(() => {
+        setTimeout(() => window.print(), 300);
+      });
+      return;
+    }
+  }
+  window.print();
 }
 
 async function generateFormQR(formType, formTitle) {

@@ -1047,31 +1047,60 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
   /* 로딩/에러 메시지는 인쇄에서 숨김 */
   .qr-footer-pending { display:none !important; }
 }
+/* 화면에서만 숨기고 인쇄에서만 보이는 요소 */
+.no-screen { display:none; }
+@media print {
+  .no-screen { display:block !important; visibility:visible !important; }
+}
 @media screen {
   .qr-footer { max-width:640px; }
 }
 @media print {
+  #qr-footer-wrap {
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+  }
   .qr-footer {
+    display:flex !important;
     border:2px solid #3b5bdb !important;
     background:linear-gradient(135deg,#eef2ff 0%,#f7f9fc 100%) !important;
-    -webkit-print-color-adjust:exact; print-color-adjust:exact;
-    page-break-inside:avoid;
-    margin-top:10px;
-    padding:8px 12px;
+    -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;
+    page-break-inside:avoid !important;
+    margin-top:10px !important;
+    padding:8px 12px !important;
+    visibility:visible !important;
   }
   .qr-footer::before {
     background:#3b5bdb !important;
     color:#fff !important;
-    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;
   }
-  .qr-footer-title { font-size:7pt !important; }
-  .qr-footer-rows  { font-size:6.5pt !important; }
-  .qr-footer-url   { font-size:5.5pt !important; }
+  .qr-footer-left {
+    display:flex !important; flex-direction:column !important;
+    align-items:center !important; flex-shrink:0 !important;
+  }
+  .qr-footer-info { display:block !important; flex:1 !important; }
+  .qr-footer-title { font-size:7pt !important; display:block !important; }
+  .qr-footer-rows  { font-size:6.5pt !important; display:block !important; }
+  .qr-footer-url   { font-size:5.5pt !important; display:block !important; }
   .qr-footer-short-code {
     font-size:7pt !important; font-weight:800 !important;
     background:#eef2ff !important; border:1px solid #c8d4ea !important;
     -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;
+    display:block !important; visibility:visible !important;
+  }
+  .qr-print-code-bar {
     display:block !important;
+    visibility:visible !important;
+    font-size:8pt !important;
+    font-weight:800 !important;
+    border:2px solid #1a2342 !important;
+    padding:4px 10px !important;
+    margin-top:6px !important;
+    font-family:monospace !important;
+    letter-spacing:.15em !important;
+    -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;
   }
 }
 
@@ -1755,7 +1784,7 @@ function buildQRBlockHTML(qrDivId, formTitle, dt, verifyUrl, pageLabel, shortCod
   <div class="qr-footer-left">
     <div class="qr-footer-qr" id="\${qrDivId}"></div>
     <div class="qr-footer-code-label">진위여부코드</div>
-    <div class="qr-footer-short-code">\${shortCode||''}</div>
+    <div class="qr-footer-short-code">\${shortCode||'-'}</div>
   </div>
   <div class="qr-footer-info">
     <div class="qr-footer-title"><i class="fas fa-qrcode"></i>&nbsp;진위여부 확인\${pageLabel ? ' — '+pageLabel : ''}</div>
@@ -1764,10 +1793,13 @@ function buildQRBlockHTML(qrDivId, formTitle, dt, verifyUrl, pageLabel, shortCod
       신청서 &nbsp;&nbsp;: <span>\${currentApplication?.title||'-'}</span><br>
       발급일시 &nbsp;: <span>\${dt}</span><br>
       발급기관 &nbsp;: <span>\${currentUser?.company_name||currentUser?.username||'-'}</span><br>
-      진위여부코드: <span style="font-family:monospace;font-size:8pt;letter-spacing:.1em;">\${shortCode||'-'}</span>
+      진위여부코드: <span style="font-family:monospace;font-size:8pt;letter-spacing:.1em;font-weight:800;">\${shortCode||'-'}</span>
     </div>
     <div class="qr-footer-url"><i class="fas fa-link" style="font-size:6pt;margin-right:3px;"></i><span>\${verifyUrl}</span></div>
   </div>
+</div>
+<div class="qr-print-code-bar no-screen">
+  ■ 진위여부코드 : \${shortCode||'-'} &nbsp;|&nbsp; \${formTitle} &nbsp;|&nbsp; \${dt}
 </div>\`;
 }
 

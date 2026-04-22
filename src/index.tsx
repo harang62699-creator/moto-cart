@@ -3952,25 +3952,21 @@ if (formType==='detail_plan') return (
       <td class="nt-val" colspan="2"><input data-field="nt_lurban" class="nt-inp" type="text" value="\${E(v('nt_lurban'))}"></td>
     </tr>
     <!-- ⑥ 최종결과 행
-         PDF 실측 수직선(y=476~494): [55,104,214,267,322,377,429,504,540]
-         data_cols 기준 12칸:
-           col0  (1칸)  x=55~104   : 최종결과 라벨
-           col1~3(3칸)  x=104~214  : L (dB(A)) 라벨
-           col4  (1칸)  x=214~267  : L 값 입력  ← nt_final_L
-           col5  (1칸)  x=267~322  : 빈칸
-           col6  (1칸)  x=322~377  : 기준치 (dB(A)) 라벨
-           col7~8(2칸)  x=377~429  : 기준치 값 입력  ← nt_limit
-           col9~10(2칸) x=429~504  : 빈칸
-           col11 (1칸)  x=504~540  : 빈칸
+         기준치 라벨+값을 정속주행소음(col10~11, 9%+9%=18%)과 동일 위치·너비로 정렬
+           col0     (1칸) : 최종결과 라벨
+           col1~3   (3칸) : L (dB(A)) 라벨
+           col4     (1칸) : nt_final_L 값 입력
+           col5~9   (5칸) : 빈칸 (정렬 여백)
+           col10    (1칸) : 기준치 (dB(A)) 라벨  ← 정속주행소음 col10과 동일
+           col11    (1칸) : nt_limit 값 입력     ← 정속주행소음 col11과 동일
     -->
     <tr>
       <td class="nt-lbl" style="font-size:6pt; text-align:center;">최종<br>결과</td>
       <td class="nt-lbl" colspan="3" style="font-size:5pt; text-align:center;">L (dB(A))</td>
       <td class="nt-val"><input data-field="nt_final_L" class="nt-inp" type="text" value="\${E(v('nt_final_L'))}"></td>
-      <td class="nt-lbl" style="font-size:5pt;"></td>
+      <td colspan="5"></td>
       <td class="nt-lbl" style="font-size:5pt; text-align:center;">기준치<br>(dB(A))</td>
-      <td class="nt-val" colspan="2"><input data-field="nt_limit" class="nt-inp" type="text" value="\${E(v('nt_limit'))}"></td>
-      <td colspan="3"></td>
+      <td class="nt-val"><input data-field="nt_limit" class="nt-inp" type="text" value="\${E(v('nt_limit'))}"></td>
     </tr>
   </tbody>
 </table>

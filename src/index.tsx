@@ -3689,14 +3689,14 @@ if (formType==='detail_plan') return (
       <td class="nt-val"><input data-field="nt_eq6_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq6_cal'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl"></td>
+      <td class="nt-val"><input data-field="nt_eq7_name"  class="nt-inp" type="text" placeholder="장비명" value="\${E(v('nt_eq7_name'))}"></td>
       <td class="nt-val"><input data-field="nt_eq7_maker" class="nt-inp" type="text" value="\${E(v('nt_eq7_maker'))}"></td>
       <td class="nt-val"><input data-field="nt_eq7_type"  class="nt-inp" type="text" value="\${E(v('nt_eq7_type'))}"></td>
       <td class="nt-val"><input data-field="nt_eq7_no"    class="nt-inp" type="text" value="\${E(v('nt_eq7_no'))}"></td>
       <td class="nt-val"><input data-field="nt_eq7_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq7_cal'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl"></td>
+      <td class="nt-val"><input data-field="nt_eq8_name"  class="nt-inp" type="text" placeholder="장비명" value="\${E(v('nt_eq8_name'))}"></td>
       <td class="nt-val"><input data-field="nt_eq8_maker" class="nt-inp" type="text" value="\${E(v('nt_eq8_maker'))}"></td>
       <td class="nt-val"><input data-field="nt_eq8_type"  class="nt-inp" type="text" value="\${E(v('nt_eq8_type'))}"></td>
       <td class="nt-val"><input data-field="nt_eq8_no"    class="nt-inp" type="text" value="\${E(v('nt_eq8_no'))}"></td>
@@ -3706,70 +3706,84 @@ if (formType==='detail_plan') return (
 </table>
 
 <!-- 6. 가속주행소음 측정결과 -->
-<div class="nt-sec-title" style="margin-top:18px;">6. 가속주행소음 측정결과</div>
 <!--
-  PDF 실제 구조 (12개 수직선 → 11개 데이터 컬럼):
-  col0=사용변속기어 col1=구분
-  col2=초기속도VAA col3=중간속도VPP col4=탈출속도VBB col5=탈출엔진회전수NBB
-  col6=가속시작위치 col7=좌측소음 col8=우측소음 col9=가속도(awot)
-  col10=정속좌측소음 col11=정속우측소음
-  총 12개 컬럼 (모든 데이터 셀 = 단일 셀, colspan 없음)
+  PDF 분석 기반 정확한 컬럼 구조 (총 12컬럼):
+  수직선 x: [55, 96, 136, 176, 217, 257, 313, 360, 395, 429, 468, 504, 540]
+  col0(55-96)=사용변속기어  col1(96-136)=구분
+  col2(136-176)=초기속도VAA  col3(176-217)=중간속도VPP
+  col4(217-257)=탈출속도VBB  col5(257-313)=탈출엔진회전수NBB
+  col6(313-360)=가속시작위치  col7(360-395)=좌측소음(가속)
+  col8(395-429)=우측소음(가속)  col9(429-468)=가속도awot
+  col10(468-504)=정속좌측소음  col11(504-540)=정속우측소음
+
+  헤더 1행: 사용변속기어(rowspan=4, col0) + 구분(rowspan=4, col1)
+            + 가속주행시험(colspan=8, col2~9) + 정속주행시험(colspan=2, col10~11)
+  헤더 2~4행: 각 컬럼명/단위 (col2~11, 각각 단일 셀)
+  
+  데이터 행: 모든 셀 단일 셀 (col0~col11)
+  평균 행: col1~col6 병합 "평균" + col7~col11 개별 입력
+  
+  시험결과 행: col0=시험결과 + col1~col4=가속주행소음라벨 + col5=값
+              + col6~col9=정속주행소음라벨 + col10=값 + col11=LURBAN값
+  최종결과 행: col0=최종결과 + col1~col5=L값 + col6~col7=기준치라벨 + col8~col11=기준값
+              (수직선: [55,96,360,395,429,468,504,540])
 -->
+<div class="nt-sec-title" style="margin-top:18px;">6. 가속주행소음 측정결과</div>
 <table class="nt-tbl" style="table-layout:fixed;">
   <colgroup>
-    <col style="width:7%;">  <!-- 사용변속기어 -->
-    <col style="width:6%;">  <!-- 구분 -->
-    <col style="width:8%;">  <!-- 초기속도 VAA -->
-    <col style="width:8%;">  <!-- 중간속도 VPP -->
-    <col style="width:8%;">  <!-- 탈출속도 VBB -->
-    <col style="width:10%;"> <!-- 탈출엔진회전수 NBB -->
-    <col style="width:8%;">  <!-- 가속시작위치 -->
-    <col style="width:8%;">  <!-- 좌측소음 -->
-    <col style="width:8%;">  <!-- 우측소음 -->
-    <col style="width:8%;">  <!-- 가속도(awot) -->
-    <col style="width:9%;">  <!-- 정속 좌측소음 -->
-    <col style="width:9%;">  <!-- 정속 우측소음 -->
+    <col style="width:8%;">   <!-- col0: 사용변속기어 -->
+    <col style="width:7%;">   <!-- col1: 구분 -->
+    <col style="width:8%;">   <!-- col2: 초기속도VAA -->
+    <col style="width:8%;">   <!-- col3: 중간속도VPP -->
+    <col style="width:8%;">   <!-- col4: 탈출속도VBB -->
+    <col style="width:10%;">  <!-- col5: 탈출엔진회전수NBB -->
+    <col style="width:9%;">   <!-- col6: 가속시작위치 -->
+    <col style="width:7%;">   <!-- col7: 좌측소음(가속) -->
+    <col style="width:7%;">   <!-- col8: 우측소음(가속) -->
+    <col style="width:8%;">   <!-- col9: 가속도awot -->
+    <col style="width:9%;">   <!-- col10: 정속좌측소음 -->
+    <col style="width:9%;">   <!-- col11: 정속우측소음 -->
   </colgroup>
   <tbody>
-    <!-- ① 상단 요약 4행: 좌6칸(라벨4+값2) / 우6칸(라벨4+값2) -->
+    <!-- ① 상단 요약 4행 (수직선 없음 → 좌6칸/우6칸 균등 분할) -->
     <tr>
-      <td class="nt-lbl" colspan="4" style="font-size:6pt; text-align:center;">시험중량<br>(Tested Vehicle weight, kg)</td>
-      <td class="nt-val" colspan="2"><input data-field="nt_acc_test_wt" class="nt-inp" type="text" value="\${E(v('nt_acc_test_wt'))}"></td>
-      <td class="nt-lbl" colspan="4" style="font-size:6pt; text-align:center;">적재중량<br>(Vehicle load, kg)</td>
-      <td class="nt-val" colspan="2"><input data-field="nt_acc_load_wt" class="nt-inp" type="text" value="\${E(v('nt_acc_load_wt'))}"></td>
+      <td class="nt-lbl" colspan="5" style="font-size:6pt;">시험중량 (Tested Vehicle weight, kg)</td>
+      <td class="nt-val"><input data-field="nt_acc_test_wt" class="nt-inp" type="text" value="\${E(v('nt_acc_test_wt'))}"></td>
+      <td class="nt-lbl" colspan="5" style="font-size:6pt;">적재중량 (Vehicle load, kg)</td>
+      <td class="nt-val"><input data-field="nt_acc_load_wt" class="nt-inp" type="text" value="\${E(v('nt_acc_load_wt'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl" colspan="4" style="font-size:6pt; text-align:center;">선택기어<br>(Gear selected, I)</td>
-      <td class="nt-val" colspan="2"><input data-field="nt_gear_i" class="nt-inp" type="text" value="\${E(v('nt_gear_i'))}"></td>
-      <td class="nt-lbl" colspan="4" style="font-size:6pt; text-align:center;">선택기어<br>(Gear selected, I+1)</td>
-      <td class="nt-val" colspan="2"><input data-field="nt_gear_i1" class="nt-inp" type="text" value="\${E(v('nt_gear_i1'))}"></td>
+      <td class="nt-lbl" colspan="5" style="font-size:6pt;">선택기어 (Gear selected, I)</td>
+      <td class="nt-val"><input data-field="nt_gear_i" class="nt-inp" type="text" value="\${E(v('nt_gear_i'))}"></td>
+      <td class="nt-lbl" colspan="5" style="font-size:6pt;">선택기어 (Gear selected, I+1)</td>
+      <td class="nt-val"><input data-field="nt_gear_i1" class="nt-inp" type="text" value="\${E(v('nt_gear_i1'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl" colspan="4" style="font-size:6pt; text-align:center;">목표 가속도<br>(a<sub>urban</sub>, m/s²)</td>
-      <td class="nt-val" colspan="2"><input data-field="nt_aurban" class="nt-inp" type="text" value="\${E(v('nt_aurban'))}"></td>
-      <td class="nt-lbl" colspan="4" style="font-size:6pt; text-align:center;">기준 가속도<br>(a<sub>wotref</sub>, m/s²)</td>
-      <td class="nt-val" colspan="2"><input data-field="nt_awotref" class="nt-inp" type="text" value="\${E(v('nt_awotref'))}"></td>
+      <td class="nt-lbl" colspan="5" style="font-size:6pt;">목표 가속도 (a<sub>urban</sub>, m/s²)</td>
+      <td class="nt-val"><input data-field="nt_aurban" class="nt-inp" type="text" value="\${E(v('nt_aurban'))}"></td>
+      <td class="nt-lbl" colspan="5" style="font-size:6pt;">기준 가속도 (a<sub>wotref</sub>, m/s²)</td>
+      <td class="nt-val"><input data-field="nt_awotref" class="nt-inp" type="text" value="\${E(v('nt_awotref'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl" colspan="4" style="font-size:6pt; text-align:center;">측정 가속도<br>(a<sub>wot</sub>, m/s²)</td>
-      <td class="nt-val" colspan="2"><input data-field="nt_awot_meas" class="nt-inp" type="text" value="\${E(v('nt_awot_meas'))}"></td>
-      <td class="nt-lbl" colspan="2" style="font-size:6pt; text-align:center;">부분출력계수<br>(K<sub>p</sub>)</td>
-      <td class="nt-val" colspan="2"><input data-field="nt_kp2" class="nt-inp" type="text" value="\${E(v('nt_kp2'))}"></td>
-      <td class="nt-lbl" style="font-size:6pt; text-align:center;">가중<br>계수(k)</td>
+      <td class="nt-lbl" colspan="5" style="font-size:6pt;">측정 가속도 (a<sub>wot</sub>, m/s²)</td>
+      <td class="nt-val"><input data-field="nt_awot_meas" class="nt-inp" type="text" value="\${E(v('nt_awot_meas'))}"></td>
+      <td class="nt-lbl" colspan="3" style="font-size:6pt;">부분출력계수 (K<sub>p</sub>)</td>
+      <td class="nt-val"><input data-field="nt_kp2" class="nt-inp" type="text" value="\${E(v('nt_kp2'))}"></td>
+      <td class="nt-lbl" style="font-size:5.5pt;">가중계수<br>(k)</td>
       <td class="nt-val"><input data-field="nt_k" class="nt-inp" type="text" value="\${E(v('nt_k'))}"></td>
     </tr>
-    <!-- ② 헤더 4행 (PDF와 동일하게: 1행=가속/정속 구분, 2-3행=컬럼명, 4행=단위) -->
+    <!-- ② 헤더: 1행=가속/정속 구분, 2행=컬럼명, 3행=단위 (사용변속기어·구분은 rowspan=4) -->
     <tr>
-      <th class="nt-th" rowspan="4" style="font-size:5pt;">사용<br>변속<br>기어</th>
-      <th class="nt-th" rowspan="4" style="font-size:5pt;">구분</th>
+      <th class="nt-th" rowspan="3" style="font-size:5pt;">사용<br>변속<br>기어</th>
+      <th class="nt-th" rowspan="3" style="font-size:5pt;">구분</th>
       <th class="nt-th" colspan="8" style="font-size:6pt;">가속주행시험</th>
       <th class="nt-th" colspan="2" style="font-size:6pt;">정속주행시험</th>
     </tr>
     <tr>
-      <th class="nt-th" style="font-size:5pt;">초기<br>속도<br>(V<sub>AA′</sub>)</th>
-      <th class="nt-th" style="font-size:5pt;">중간<br>속도<br>(V<sub>PP′</sub>)</th>
-      <th class="nt-th" style="font-size:5pt;">탈출<br>속도<br>(V<sub>BB′</sub>)</th>
-      <th class="nt-th" style="font-size:5pt;">탈출<br>엔진회전수<br>(N<sub>BB′</sub>)</th>
+      <th class="nt-th" style="font-size:5pt;">초기속도<br>(V<sub>AA′</sub>)</th>
+      <th class="nt-th" style="font-size:5pt;">중간속도<br>(V<sub>PP′</sub>)</th>
+      <th class="nt-th" style="font-size:5pt;">탈출속도<br>(V<sub>BB′</sub>)</th>
+      <th class="nt-th" style="font-size:5pt;">탈출엔진<br>회전수<br>(N<sub>BB′</sub>)</th>
       <th class="nt-th" style="font-size:5pt;">가속<br>시작위치</th>
       <th class="nt-th" style="font-size:5pt;">좌측<br>소음</th>
       <th class="nt-th" style="font-size:5pt;">우측<br>소음</th>
@@ -3789,10 +3803,10 @@ if (formType==='detail_plan') return (
       <th class="nt-th" style="font-size:5pt;">dB(A)</th>
       <th class="nt-th" style="font-size:5pt;">dB(A)</th>
     </tr>
-    <!-- ③ 기어 I - 1~4차 + 평균 (사용변속기어 셀: rowspan=5) -->
+    <!-- ③ 기어 I - 1~4차 + 평균 (사용변속기어 rowspan=5) -->
     \${['1차','2차','3차','4차'].map((n,i)=>\`
     <tr>
-      \${i===0?'<td class="nt-lbl" rowspan="5" style="font-size:6pt;"><input data-field="nt_gear_sel1" class="nt-inp" type="text" style="width:100%;text-align:center;" value="\${E(v("nt_gear_sel1"))}"></td>':''}
+      \${i===0?'<td class="nt-lbl" rowspan="5" style="font-size:6pt; text-align:center;"><input data-field="nt_gear_sel1" class="nt-inp" type="text" style="width:100%;text-align:center;" value="\${E(v("nt_gear_sel1"))}"></td>':''}
       <td class="nt-lbl" style="font-size:6pt;">\${n}</td>
       <td class="nt-val"><input data-field="nt_g1_\${i+1}_vaa" class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_vaa"))}"></td>
       <td class="nt-val"><input data-field="nt_g1_\${i+1}_vpp" class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_vpp"))}"></td>
@@ -3806,18 +3820,19 @@ if (formType==='detail_plan') return (
       <td class="nt-val"><input data-field="nt_g1_\${i+1}_cR"  class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_cR"))}"></td>
     </tr>
     \`).join('')}
+    <!-- 평균 행: col1(구분)~col6(가속시작위치) = 6칸 병합 → 텍스트 "평균" -->
     <tr>
-      <td class="nt-lbl" colspan="5" style="font-size:6pt; text-align:center;">평균</td>
+      <td class="nt-lbl" colspan="6" style="font-size:6pt; text-align:center;">평균</td>
       <td class="nt-val"><input data-field="nt_g1_avg_lL" class="nt-inp" type="text" value="\${E(v('nt_g1_avg_lL'))}"></td>
       <td class="nt-val"><input data-field="nt_g1_avg_lR" class="nt-inp" type="text" value="\${E(v('nt_g1_avg_lR'))}"></td>
       <td class="nt-val"><input data-field="nt_g1_avg_aw" class="nt-inp" type="text" value="\${E(v('nt_g1_avg_aw'))}"></td>
       <td class="nt-val"><input data-field="nt_g1_avg_cL" class="nt-inp" type="text" value="\${E(v('nt_g1_avg_cL'))}"></td>
       <td class="nt-val"><input data-field="nt_g1_avg_cR" class="nt-inp" type="text" value="\${E(v('nt_g1_avg_cR'))}"></td>
     </tr>
-    <!-- ④ 기어 I+1 - 1~4차 + 평균 (사용변속기어 셀: rowspan=5) -->
+    <!-- ④ 기어 I+1 - 1~4차 + 평균 (사용변속기어 rowspan=5) -->
     \${['1차','2차','3차','4차'].map((n,i)=>\`
     <tr>
-      \${i===0?'<td class="nt-lbl" rowspan="5" style="font-size:6pt;"><input data-field="nt_gear_sel2" class="nt-inp" type="text" style="width:100%;text-align:center;" value="\${E(v("nt_gear_sel2"))}"></td>':''}
+      \${i===0?'<td class="nt-lbl" rowspan="5" style="font-size:6pt; text-align:center;"><input data-field="nt_gear_sel2" class="nt-inp" type="text" style="width:100%;text-align:center;" value="\${E(v("nt_gear_sel2"))}"></td>':''}
       <td class="nt-lbl" style="font-size:6pt;">\${n}</td>
       <td class="nt-val"><input data-field="nt_g2_\${i+1}_vaa" class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_vaa"))}"></td>
       <td class="nt-val"><input data-field="nt_g2_\${i+1}_vpp" class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_vpp"))}"></td>
@@ -3832,28 +3847,45 @@ if (formType==='detail_plan') return (
     </tr>
     \`).join('')}
     <tr>
-      <td class="nt-lbl" colspan="5" style="font-size:6pt; text-align:center;">평균</td>
+      <td class="nt-lbl" colspan="6" style="font-size:6pt; text-align:center;">평균</td>
       <td class="nt-val"><input data-field="nt_g2_avg_lL" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_lL'))}"></td>
       <td class="nt-val"><input data-field="nt_g2_avg_lR" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_lR'))}"></td>
       <td class="nt-val"><input data-field="nt_g2_avg_aw" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_aw'))}"></td>
       <td class="nt-val"><input data-field="nt_g2_avg_cL" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_cL'))}"></td>
       <td class="nt-val"><input data-field="nt_g2_avg_cR" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_cR'))}"></td>
     </tr>
-    <!-- ⑤ 시험결과 행: 시험결과(1) + 가속주행소음라벨(3)+값(1) + 정속주행소음라벨(3)+값(1) + LURBAN라벨(2)+값(1) -->
+    <!-- ⑤ 시험결과 행 (2행 구조 → rowspan으로 처리):
+         수직선: [55,96,136,176,217,257,313,360,395,429,468,504,540] = 12칸
+         col0=시험결과(rowspan=2)
+         col1~col4=가속주행소음 L_WOTrep 라벨(colspan=4)
+         col5=L_WOT값
+         col6~col9=정속주행소음 L_CRSrep 라벨(colspan=4)
+         col10=L_CRS값
+         col11=L_URBAN값 -->
     <tr>
-      <td class="nt-lbl" colspan="2" style="font-size:6pt;">시험결과</td>
-      <td class="nt-lbl" colspan="3" style="font-size:5.5pt;">가속주행소음<br>(L<sub>WOTrep</sub>, dB(A))</td>
-      <td class="nt-val" colspan="2"><input data-field="nt_lwot" class="nt-inp" type="text" value="\${E(v('nt_lwot'))}"></td>
-      <td class="nt-lbl" colspan="3" style="font-size:5.5pt;">정속주행소음<br>(L<sub>CRSrep</sub>, dB(A))</td>
+      <td class="nt-lbl" rowspan="2" style="font-size:6pt;">시험<br>결과</td>
+      <td class="nt-lbl" colspan="4" style="font-size:5.5pt;">가속주행소음<br>(L<sub>WOTrep</sub>, dB(A))</td>
+      <td class="nt-val"><input data-field="nt_lwot" class="nt-inp" type="text" value="\${E(v('nt_lwot'))}"></td>
+      <td class="nt-lbl" colspan="4" style="font-size:5.5pt;">정속주행소음<br>(L<sub>CRSrep</sub>, dB(A))</td>
       <td class="nt-val"><input data-field="nt_lcrs" class="nt-inp" type="text" value="\${E(v('nt_lcrs'))}"></td>
-      <td class="nt-val" style="font-size:5.5pt;">(L<sub>URBAN</sub>,<br>dB(A)) <input data-field="nt_lurban" class="nt-inp" type="text" value="\${E(v('nt_lurban'))}"></td>
+      <td class="nt-val" style="font-size:5pt;">L<sub>URBAN</sub><br><input data-field="nt_lurban" class="nt-inp" type="text" value="\${E(v('nt_lurban'))}"></td>
     </tr>
-    <!-- ⑥ 최종결과 행: 최종결과(1) + L dB(A) 값(4) + 기준치라벨(3) + 기준값(4) -->
     <tr>
-      <td class="nt-lbl" colspan="2" style="font-size:6pt;">최종결과</td>
-      <td class="nt-val" colspan="4"><input data-field="nt_final_L" class="nt-inp" type="text" placeholder="L dB(A)" value="\${E(v('nt_final_L'))}"></td>
-      <td class="nt-lbl" colspan="3" style="font-size:6pt;">기준치 (dB(A))</td>
-      <td class="nt-val" colspan="3"><input data-field="nt_limit" class="nt-inp" type="text" value="\${E(v('nt_limit'))}"></td>
+      <!-- col0은 rowspan=2로 이미 차지됨 -->
+      <td class="nt-lbl" colspan="10" style="font-size:5pt; text-align:center;">dB(A)</td>
+      <td class="nt-lbl" style="font-size:5pt;">dB(A)</td>
+    </tr>
+    <!-- ⑥ 최종결과 행:
+         수직선: [55,96,360,395,429,468,504,540]
+         col0(55-96)=최종결과
+         col1~col5(96-360)=L값 colspan=5
+         col6(360-395)=기준치라벨
+         col7~col11(395-540)=기준값 colspan=5 -->
+    <tr>
+      <td class="nt-lbl" style="font-size:6pt;">최종결과</td>
+      <td class="nt-val" colspan="5"><input data-field="nt_final_L" class="nt-inp" type="text" placeholder="L dB(A)" value="\${E(v('nt_final_L'))}"></td>
+      <td class="nt-lbl" style="font-size:6pt;">기준치<br>(dB(A))</td>
+      <td class="nt-val" colspan="5"><input data-field="nt_limit" class="nt-inp" type="text" value="\${E(v('nt_limit'))}"></td>
     </tr>
   </tbody>
 </table>

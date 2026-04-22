@@ -3296,6 +3296,10 @@ if (formType==='detail_plan') return (
 .cf-wrap {
   box-sizing:border-box;
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  background:#fff;
+  color:#111;
+  padding:8px;
+  border-radius:6px;
 }
 /* 상단 헤더 4칸 테이블 */
 .cf-header-tbl {
@@ -3309,7 +3313,7 @@ if (formType==='detail_plan') return (
 }
 .cf-header-val {
   border:1px solid #888; padding:4px 8px;
-  width:18%;
+  width:18%; background:#fff; color:#111;
 }
 /* 메인 바디 테이블 */
 .cf-body-tbl {
@@ -3324,6 +3328,7 @@ if (formType==='detail_plan') return (
 }
 .cf-content-cell {
   padding:14px 18px;
+  background:#fff; color:#111;
 }
 /* 항목 행 */
 .cf-item-row {
@@ -3363,6 +3368,7 @@ if (formType==='detail_plan') return (
 .cf-sign-tbl td {
   border:1px solid #888; padding:8px 12px;
   font-size:10pt; vertical-align:bottom;
+  background:#fff; color:#111;
 }
 .cf-sign-lbl {
   background:#f0f3f9; font-weight:600; width:18%;
@@ -3397,29 +3403,43 @@ if (formType==='detail_plan') return (
     background:#f0f3f9 !important;
     -webkit-print-color-adjust:exact; print-color-adjust:exact;
   }
-  .cf-inp { border:none !important; background:transparent !important; outline:none !important; }
+  .cf-inp { border:none !important; background:transparent !important; outline:none !important; color:#000 !important; }
   .cf-inp-line {
-    border:none !important; border-bottom:1px solid #888 !important;
-    background:transparent !important; outline:none !important;
+    border:none !important; border-bottom:1px solid #555 !important;
+    background:transparent !important; outline:none !important; color:#000 !important;
+  }
+  .cf-inp-sm {
+    border:none !important; border-bottom:1px solid #555 !important;
+    background:transparent !important; outline:none !important; color:#000 !important;
   }
 }
 .cf-inp {
-  border:1px solid #bbb; border-radius:4px; padding:2px 6px;
-  font-size:10pt; font-family:inherit; background:#fff;
+  border:1px solid #bbb; border-radius:4px; padding:3px 8px;
+  font-size:10pt; font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  background:#fff; color:#111;
   width:100%; box-sizing:border-box;
 }
+.cf-inp::placeholder { color:#aaa; }
 .cf-inp-line {
-  border:none; border-bottom:1px solid #888;
-  background:transparent; padding:2px 4px;
-  font-size:10pt; font-family:inherit;
+  border:none; border-bottom:2px solid #3b5bdb;
+  background:#f0f4ff; color:#111;
+  padding:3px 6px; margin-bottom:1px;
+  font-size:10pt; font-family:'맑은 고딕','Malgun Gothic',sans-serif;
   width:100%; box-sizing:border-box; outline:none;
+  border-radius:3px 3px 0 0;
 }
+.cf-inp-line::placeholder { color:#999; font-style:italic; }
+.cf-inp-line:focus { background:#e8eeff; border-bottom-color:#1a3abf; }
 .cf-inp-sm {
-  border:none; border-bottom:1px solid #888;
-  background:transparent; padding:2px 4px;
-  font-size:10pt; font-family:inherit;
+  border:none; border-bottom:2px solid #3b5bdb;
+  background:#f0f4ff; color:#111;
+  padding:3px 6px;
+  font-size:10pt; font-family:'맑은 고딕','Malgun Gothic',sans-serif;
   box-sizing:border-box; outline:none;
+  border-radius:3px 3px 0 0;
 }
+.cf-inp-sm::placeholder { color:#999; font-style:italic; }
+.cf-inp-sm:focus { background:#e8eeff; border-bottom-color:#1a3abf; }
 </style>
 
 <div class="cf-wrap">

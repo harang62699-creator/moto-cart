@@ -3803,24 +3803,61 @@ if (formType==='detail_plan') return (
       <th class="nt-th" style="font-size:5pt;">dB(A)</th>
       <th class="nt-th" style="font-size:5pt;">dB(A)</th>
     </tr>
-    <!-- ③ 기어 I - 1~4차 + 평균 (사용변속기어 rowspan=5) -->
-    \${['1차','2차','3차','4차'].map((n,i)=>\`
+    <!-- ③ 기어 I - 1~4차 (정적 행, template literal 오류 방지) -->
     <tr>
-      \${i===0?'<td class="nt-lbl" rowspan="5" style="font-size:6pt; text-align:center;"><input data-field="nt_gear_sel1" class="nt-inp" type="text" style="width:100%;text-align:center;" value="\${E(v("nt_gear_sel1"))}"></td>':''}
-      <td class="nt-lbl" style="font-size:6pt;">\${n}</td>
-      <td class="nt-val"><input data-field="nt_g1_\${i+1}_vaa" class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_vaa"))}"></td>
-      <td class="nt-val"><input data-field="nt_g1_\${i+1}_vpp" class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_vpp"))}"></td>
-      <td class="nt-val"><input data-field="nt_g1_\${i+1}_vbb" class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_vbb"))}"></td>
-      <td class="nt-val"><input data-field="nt_g1_\${i+1}_nbb" class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_nbb"))}"></td>
-      <td class="nt-val"><input data-field="nt_g1_\${i+1}_pos" class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_pos"))}"></td>
-      <td class="nt-val"><input data-field="nt_g1_\${i+1}_lL"  class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_lL"))}"></td>
-      <td class="nt-val"><input data-field="nt_g1_\${i+1}_lR"  class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_lR"))}"></td>
-      <td class="nt-val"><input data-field="nt_g1_\${i+1}_aw"  class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_aw"))}"></td>
-      <td class="nt-val"><input data-field="nt_g1_\${i+1}_cL"  class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_cL"))}"></td>
-      <td class="nt-val"><input data-field="nt_g1_\${i+1}_cR"  class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_cR"))}"></td>
+      <td class="nt-lbl" rowspan="5" style="font-size:6pt; text-align:center;"><input data-field="nt_gear_sel1" class="nt-inp" type="text" style="width:100%;text-align:center;" value="\${E(v('nt_gear_sel1'))}"></td>
+      <td class="nt-lbl" style="font-size:6pt;">1차</td>
+      <td class="nt-val"><input data-field="nt_g1_1_vaa" class="nt-inp" type="text" value="\${E(v('nt_g1_1_vaa'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_1_vpp" class="nt-inp" type="text" value="\${E(v('nt_g1_1_vpp'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_1_vbb" class="nt-inp" type="text" value="\${E(v('nt_g1_1_vbb'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_1_nbb" class="nt-inp" type="text" value="\${E(v('nt_g1_1_nbb'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_1_pos" class="nt-inp" type="text" value="\${E(v('nt_g1_1_pos'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_1_lL"  class="nt-inp" type="text" value="\${E(v('nt_g1_1_lL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_1_lR"  class="nt-inp" type="text" value="\${E(v('nt_g1_1_lR'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_1_aw"  class="nt-inp" type="text" value="\${E(v('nt_g1_1_aw'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_1_cL"  class="nt-inp" type="text" value="\${E(v('nt_g1_1_cL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_1_cR"  class="nt-inp" type="text" value="\${E(v('nt_g1_1_cR'))}"></td>
     </tr>
-    \`).join('')}
-    <!-- 평균 행: col1(구분)~col6(가속시작위치) = 6칸 병합 → 텍스트 "평균" -->
+    <tr>
+      <td class="nt-lbl" style="font-size:6pt;">2차</td>
+      <td class="nt-val"><input data-field="nt_g1_2_vaa" class="nt-inp" type="text" value="\${E(v('nt_g1_2_vaa'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_2_vpp" class="nt-inp" type="text" value="\${E(v('nt_g1_2_vpp'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_2_vbb" class="nt-inp" type="text" value="\${E(v('nt_g1_2_vbb'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_2_nbb" class="nt-inp" type="text" value="\${E(v('nt_g1_2_nbb'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_2_pos" class="nt-inp" type="text" value="\${E(v('nt_g1_2_pos'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_2_lL"  class="nt-inp" type="text" value="\${E(v('nt_g1_2_lL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_2_lR"  class="nt-inp" type="text" value="\${E(v('nt_g1_2_lR'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_2_aw"  class="nt-inp" type="text" value="\${E(v('nt_g1_2_aw'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_2_cL"  class="nt-inp" type="text" value="\${E(v('nt_g1_2_cL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_2_cR"  class="nt-inp" type="text" value="\${E(v('nt_g1_2_cR'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl" style="font-size:6pt;">3차</td>
+      <td class="nt-val"><input data-field="nt_g1_3_vaa" class="nt-inp" type="text" value="\${E(v('nt_g1_3_vaa'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_3_vpp" class="nt-inp" type="text" value="\${E(v('nt_g1_3_vpp'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_3_vbb" class="nt-inp" type="text" value="\${E(v('nt_g1_3_vbb'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_3_nbb" class="nt-inp" type="text" value="\${E(v('nt_g1_3_nbb'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_3_pos" class="nt-inp" type="text" value="\${E(v('nt_g1_3_pos'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_3_lL"  class="nt-inp" type="text" value="\${E(v('nt_g1_3_lL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_3_lR"  class="nt-inp" type="text" value="\${E(v('nt_g1_3_lR'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_3_aw"  class="nt-inp" type="text" value="\${E(v('nt_g1_3_aw'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_3_cL"  class="nt-inp" type="text" value="\${E(v('nt_g1_3_cL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_3_cR"  class="nt-inp" type="text" value="\${E(v('nt_g1_3_cR'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl" style="font-size:6pt;">4차</td>
+      <td class="nt-val"><input data-field="nt_g1_4_vaa" class="nt-inp" type="text" value="\${E(v('nt_g1_4_vaa'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_4_vpp" class="nt-inp" type="text" value="\${E(v('nt_g1_4_vpp'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_4_vbb" class="nt-inp" type="text" value="\${E(v('nt_g1_4_vbb'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_4_nbb" class="nt-inp" type="text" value="\${E(v('nt_g1_4_nbb'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_4_pos" class="nt-inp" type="text" value="\${E(v('nt_g1_4_pos'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_4_lL"  class="nt-inp" type="text" value="\${E(v('nt_g1_4_lL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_4_lR"  class="nt-inp" type="text" value="\${E(v('nt_g1_4_lR'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_4_aw"  class="nt-inp" type="text" value="\${E(v('nt_g1_4_aw'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_4_cL"  class="nt-inp" type="text" value="\${E(v('nt_g1_4_cL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_4_cR"  class="nt-inp" type="text" value="\${E(v('nt_g1_4_cR'))}"></td>
+    </tr>
+    <!-- 기어 I 평균 행: col0은 rowspan=5로 이미 차지, col1~col6 병합 "평균" -->
     <tr>
       <td class="nt-lbl" colspan="6" style="font-size:6pt; text-align:center;">평균</td>
       <td class="nt-val"><input data-field="nt_g1_avg_lL" class="nt-inp" type="text" value="\${E(v('nt_g1_avg_lL'))}"></td>
@@ -3829,23 +3866,61 @@ if (formType==='detail_plan') return (
       <td class="nt-val"><input data-field="nt_g1_avg_cL" class="nt-inp" type="text" value="\${E(v('nt_g1_avg_cL'))}"></td>
       <td class="nt-val"><input data-field="nt_g1_avg_cR" class="nt-inp" type="text" value="\${E(v('nt_g1_avg_cR'))}"></td>
     </tr>
-    <!-- ④ 기어 I+1 - 1~4차 + 평균 (사용변속기어 rowspan=5) -->
-    \${['1차','2차','3차','4차'].map((n,i)=>\`
+    <!-- ④ 기어 I+1 - 1~4차 (정적 행) -->
     <tr>
-      \${i===0?'<td class="nt-lbl" rowspan="5" style="font-size:6pt; text-align:center;"><input data-field="nt_gear_sel2" class="nt-inp" type="text" style="width:100%;text-align:center;" value="\${E(v("nt_gear_sel2"))}"></td>':''}
-      <td class="nt-lbl" style="font-size:6pt;">\${n}</td>
-      <td class="nt-val"><input data-field="nt_g2_\${i+1}_vaa" class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_vaa"))}"></td>
-      <td class="nt-val"><input data-field="nt_g2_\${i+1}_vpp" class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_vpp"))}"></td>
-      <td class="nt-val"><input data-field="nt_g2_\${i+1}_vbb" class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_vbb"))}"></td>
-      <td class="nt-val"><input data-field="nt_g2_\${i+1}_nbb" class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_nbb"))}"></td>
-      <td class="nt-val"><input data-field="nt_g2_\${i+1}_pos" class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_pos"))}"></td>
-      <td class="nt-val"><input data-field="nt_g2_\${i+1}_lL"  class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_lL"))}"></td>
-      <td class="nt-val"><input data-field="nt_g2_\${i+1}_lR"  class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_lR"))}"></td>
-      <td class="nt-val"><input data-field="nt_g2_\${i+1}_aw"  class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_aw"))}"></td>
-      <td class="nt-val"><input data-field="nt_g2_\${i+1}_cL"  class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_cL"))}"></td>
-      <td class="nt-val"><input data-field="nt_g2_\${i+1}_cR"  class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_cR"))}"></td>
+      <td class="nt-lbl" rowspan="5" style="font-size:6pt; text-align:center;"><input data-field="nt_gear_sel2" class="nt-inp" type="text" style="width:100%;text-align:center;" value="\${E(v('nt_gear_sel2'))}"></td>
+      <td class="nt-lbl" style="font-size:6pt;">1차</td>
+      <td class="nt-val"><input data-field="nt_g2_1_vaa" class="nt-inp" type="text" value="\${E(v('nt_g2_1_vaa'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_1_vpp" class="nt-inp" type="text" value="\${E(v('nt_g2_1_vpp'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_1_vbb" class="nt-inp" type="text" value="\${E(v('nt_g2_1_vbb'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_1_nbb" class="nt-inp" type="text" value="\${E(v('nt_g2_1_nbb'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_1_pos" class="nt-inp" type="text" value="\${E(v('nt_g2_1_pos'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_1_lL"  class="nt-inp" type="text" value="\${E(v('nt_g2_1_lL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_1_lR"  class="nt-inp" type="text" value="\${E(v('nt_g2_1_lR'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_1_aw"  class="nt-inp" type="text" value="\${E(v('nt_g2_1_aw'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_1_cL"  class="nt-inp" type="text" value="\${E(v('nt_g2_1_cL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_1_cR"  class="nt-inp" type="text" value="\${E(v('nt_g2_1_cR'))}"></td>
     </tr>
-    \`).join('')}
+    <tr>
+      <td class="nt-lbl" style="font-size:6pt;">2차</td>
+      <td class="nt-val"><input data-field="nt_g2_2_vaa" class="nt-inp" type="text" value="\${E(v('nt_g2_2_vaa'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_2_vpp" class="nt-inp" type="text" value="\${E(v('nt_g2_2_vpp'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_2_vbb" class="nt-inp" type="text" value="\${E(v('nt_g2_2_vbb'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_2_nbb" class="nt-inp" type="text" value="\${E(v('nt_g2_2_nbb'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_2_pos" class="nt-inp" type="text" value="\${E(v('nt_g2_2_pos'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_2_lL"  class="nt-inp" type="text" value="\${E(v('nt_g2_2_lL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_2_lR"  class="nt-inp" type="text" value="\${E(v('nt_g2_2_lR'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_2_aw"  class="nt-inp" type="text" value="\${E(v('nt_g2_2_aw'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_2_cL"  class="nt-inp" type="text" value="\${E(v('nt_g2_2_cL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_2_cR"  class="nt-inp" type="text" value="\${E(v('nt_g2_2_cR'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl" style="font-size:6pt;">3차</td>
+      <td class="nt-val"><input data-field="nt_g2_3_vaa" class="nt-inp" type="text" value="\${E(v('nt_g2_3_vaa'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_3_vpp" class="nt-inp" type="text" value="\${E(v('nt_g2_3_vpp'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_3_vbb" class="nt-inp" type="text" value="\${E(v('nt_g2_3_vbb'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_3_nbb" class="nt-inp" type="text" value="\${E(v('nt_g2_3_nbb'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_3_pos" class="nt-inp" type="text" value="\${E(v('nt_g2_3_pos'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_3_lL"  class="nt-inp" type="text" value="\${E(v('nt_g2_3_lL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_3_lR"  class="nt-inp" type="text" value="\${E(v('nt_g2_3_lR'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_3_aw"  class="nt-inp" type="text" value="\${E(v('nt_g2_3_aw'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_3_cL"  class="nt-inp" type="text" value="\${E(v('nt_g2_3_cL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_3_cR"  class="nt-inp" type="text" value="\${E(v('nt_g2_3_cR'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl" style="font-size:6pt;">4차</td>
+      <td class="nt-val"><input data-field="nt_g2_4_vaa" class="nt-inp" type="text" value="\${E(v('nt_g2_4_vaa'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_4_vpp" class="nt-inp" type="text" value="\${E(v('nt_g2_4_vpp'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_4_vbb" class="nt-inp" type="text" value="\${E(v('nt_g2_4_vbb'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_4_nbb" class="nt-inp" type="text" value="\${E(v('nt_g2_4_nbb'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_4_pos" class="nt-inp" type="text" value="\${E(v('nt_g2_4_pos'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_4_lL"  class="nt-inp" type="text" value="\${E(v('nt_g2_4_lL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_4_lR"  class="nt-inp" type="text" value="\${E(v('nt_g2_4_lR'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_4_aw"  class="nt-inp" type="text" value="\${E(v('nt_g2_4_aw'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_4_cL"  class="nt-inp" type="text" value="\${E(v('nt_g2_4_cL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_4_cR"  class="nt-inp" type="text" value="\${E(v('nt_g2_4_cR'))}"></td>
+    </tr>
+    <!-- 기어 I+1 평균 행: col0은 rowspan=5로 이미 차지, col1~col6 병합 "평균" -->
     <tr>
       <td class="nt-lbl" colspan="6" style="font-size:6pt; text-align:center;">평균</td>
       <td class="nt-val"><input data-field="nt_g2_avg_lL" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_lL'))}"></td>
@@ -3854,38 +3929,36 @@ if (formType==='detail_plan') return (
       <td class="nt-val"><input data-field="nt_g2_avg_cL" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_cL'))}"></td>
       <td class="nt-val"><input data-field="nt_g2_avg_cR" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_cR'))}"></td>
     </tr>
-    <!-- ⑤ 시험결과 행 (2행 구조 → rowspan으로 처리):
-         수직선: [55,96,136,176,217,257,313,360,395,429,468,504,540] = 12칸
-         col0=시험결과(rowspan=2)
-         col1~col4=가속주행소음 L_WOTrep 라벨(colspan=4)
-         col5=L_WOT값
-         col6~col9=정속주행소음 L_CRSrep 라벨(colspan=4)
-         col10=L_CRS값
-         col11=L_URBAN값 -->
+    <!-- ⑤ 시험결과 행 (PDF 구조: 1행)
+         col0=시험결과
+         col1~col4=가속주행소음 L_WOTrep 라벨(colspan=4) + col5=값
+         col6~col9=정속주행소음 L_CRSrep 라벨(colspan=4) + col10=값
+         col11=L_URBAN(라벨+값 같이)
+    -->
     <tr>
-      <td class="nt-lbl" rowspan="2" style="font-size:6pt;">시험<br>결과</td>
-      <td class="nt-lbl" colspan="4" style="font-size:5.5pt;">가속주행소음<br>(L<sub>WOTrep</sub>, dB(A))</td>
+      <td class="nt-lbl" style="font-size:6pt;">시험<br>결과</td>
+      <td class="nt-lbl" colspan="4" style="font-size:5pt; text-align:center;">가속주행소음<br>L<sub>WOTrep</sub><br>(dB(A))</td>
       <td class="nt-val"><input data-field="nt_lwot" class="nt-inp" type="text" value="\${E(v('nt_lwot'))}"></td>
-      <td class="nt-lbl" colspan="4" style="font-size:5.5pt;">정속주행소음<br>(L<sub>CRSrep</sub>, dB(A))</td>
+      <td class="nt-lbl" colspan="4" style="font-size:5pt; text-align:center;">정속주행소음<br>L<sub>CRSrep</sub><br>(dB(A))</td>
       <td class="nt-val"><input data-field="nt_lcrs" class="nt-inp" type="text" value="\${E(v('nt_lcrs'))}"></td>
-      <td class="nt-val" style="font-size:5pt;">L<sub>URBAN</sub><br><input data-field="nt_lurban" class="nt-inp" type="text" value="\${E(v('nt_lurban'))}"></td>
+      <td class="nt-val" style="font-size:5pt; text-align:center;">L<sub>URBAN</sub><br>(dB(A))<br><input data-field="nt_lurban" class="nt-inp" type="text" value="\${E(v('nt_lurban'))}"></td>
     </tr>
-    <tr>
-      <!-- col0은 rowspan=2로 이미 차지됨 -->
-      <td class="nt-lbl" colspan="10" style="font-size:5pt; text-align:center;">dB(A)</td>
-      <td class="nt-lbl" style="font-size:5pt;">dB(A)</td>
-    </tr>
-    <!-- ⑥ 최종결과 행:
-         수직선: [55,96,360,395,429,468,504,540]
+    <!-- ⑥ 최종결과 행 (PDF 수직선: [55,96,360,395,429,468,504,540])
          col0(55-96)=최종결과
-         col1~col5(96-360)=L값 colspan=5
-         col6(360-395)=기준치라벨
-         col7~col11(395-540)=기준값 colspan=5 -->
+         col1~col5(96→360, 5칸)=L 값 colspan=5
+         col6(360-395)=기준치라벨(1칸)
+         col7~col11(395→540, 5칸)=기준값 colspan=5
+    -->
     <tr>
-      <td class="nt-lbl" style="font-size:6pt;">최종결과</td>
-      <td class="nt-val" colspan="5"><input data-field="nt_final_L" class="nt-inp" type="text" placeholder="L dB(A)" value="\${E(v('nt_final_L'))}"></td>
-      <td class="nt-lbl" style="font-size:6pt;">기준치<br>(dB(A))</td>
-      <td class="nt-val" colspan="5"><input data-field="nt_limit" class="nt-inp" type="text" value="\${E(v('nt_limit'))}"></td>
+      <td class="nt-lbl" style="font-size:6pt;">최종<br>결과</td>
+      <td colspan="5" style="text-align:center; padding:2px;">
+        <span style="font-size:5pt; display:block;">L (dB(A))</span>
+        <input data-field="nt_final_L" class="nt-inp" type="text" value="\${E(v('nt_final_L'))}">
+      </td>
+      <td class="nt-lbl" style="font-size:6pt; text-align:center;">기준치<br>(dB(A))</td>
+      <td colspan="5" style="text-align:center; padding:2px;">
+        <input data-field="nt_limit" class="nt-inp" type="text" value="\${E(v('nt_limit'))}">
+      </td>
     </tr>
   </tbody>
 </table>
@@ -3899,7 +3972,7 @@ if (formType==='detail_plan') return (
   <thead>
     <tr>
       <th rowspan="2" colspan="2">배기<br>소음<br>시험</th>
-      <th rowspan="2">원동기 최고 출력<br>회전속도의<br>% 회전속도(rpm)</th>
+      <th rowspan="2">원동기 최고 출력<br>회전속도의<br><input data-field="nt_ex_pct" class="nt-inp" type="text" style="width:2.2em;text-align:right;" value="\${E(v('nt_ex_pct'))}">% 회전속도(rpm)</th>
       <th rowspan="2">암소음<br>(dB(A))</th>
       <th colspan="2">배기소음(dB(A))</th>
       <th rowspan="2">성적<br>(dB(A))</th>

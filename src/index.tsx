@@ -3270,25 +3270,757 @@ if (formType==='detail_plan') return (
     '<div id="qr-footer-wrap" style="margin-top:12px;"></div>'
   );
 
-  if (formType==='noise_test') return (
-    sec('시험 일반 정보','fa-clipboard',
-      fld('시험기관','test_lab')+fld('시험일','test_date','date')+
-      fld('적용 법규','regulation','text','ECE R41')+fld('시험 담당자','tester'))+
-    sec('시험 환경','fa-cloud-sun',
-      fld('시험장 표면','surface','text','ISO 10844 아스팔트')+fld('배경소음 (dB(A))','bg_noise','number')+
-      fld('온도 (°C)','temp','number')+fld('풍속 (m/s)','wind','number'))+
-    sec('차량 정보','fa-motorcycle',
-      fld('차종명','model')+fld('차대번호','vin')+fld('공차중량 (kg)','curb_weight','number')+
-      fld('최고출력 (kW)','max_power','number')+fld('변속기 종류','trans_type')+fld('타이어 규격','tire_spec'))+
-    sec('가속소음 시험 결과','fa-volume-up',
-      fld('1차 좌 (dB(A))','accel_l1','number')+fld('1차 우 (dB(A))','accel_r1','number')+
-      fld('2차 좌 (dB(A))','accel_l2','number')+fld('2차 우 (dB(A))','accel_r2','number')+
-      fld('평균 측정값 (dB(A))','accel_avg','number')+fld('기준값 (dB(A))','accel_limit','number'))+
-    sec('배기소음 시험 결과','fa-volume-down',
-      fld('배기소음 측정값 (dB(A))','exhaust_meas','number')+fld('배기소음 기준값 (dB(A))','exhaust_limit','number')+
-      fld('측정 장비 (소음계)','noise_meter'))+
-    '<div id="qr-footer-wrap" style="margin-top:12px;"></div>'
-  );
+  if (formType==='noise_test') return \`
+<style>
+/* ══════ noise_test 전용 스타일 ══════ */
+.nt-wrap {
+  box-sizing:border-box;
+  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  font-size:9pt;
+}
+/* 상단 헤더 */
+.nt-header-tbl { width:100%; border-collapse:collapse; border:1px solid #888; }
+.nt-header-lbl-cell { width:25%; border:1px solid #888; padding:3px 6px; background:rgba(79,142,247,.08); text-align:center; }
+.nt-header-val-cell { width:25%; border:1px solid #888; padding:3px 6px; }
+.nt-header-lbl { display:block; font-size:.72rem; font-weight:700; color:var(--c-text2); text-align:center; }
+.nt-header-inp { width:100%; background:transparent; border:none; border-bottom:1px solid var(--c-border); color:var(--c-text); font-size:.9rem; padding:2px 0; outline:none; }
+.nt-header-inp:focus { border-bottom-color:var(--c-accent); }
+
+/* 별지 서식명 / 대제목 */
+.nt-form-tag { font-size:9pt; font-weight:600; margin:10px 0 4px; color:var(--c-text2); }
+.nt-main-title { font-size:14pt; font-weight:900; text-align:center; margin:6px 0 14px; letter-spacing:.04em; color:var(--c-text); }
+
+/* 섹션 제목 */
+.nt-sec-title { font-size:9.5pt; font-weight:700; margin:12px 0 4px; color:var(--c-text); }
+
+/* 공통 표 */
+.nt-tbl { width:100%; border-collapse:collapse; font-size:7.5pt; table-layout:fixed; }
+.nt-tbl th, .nt-tbl td {
+  border:1px solid #888; padding:3px 4px;
+  vertical-align:middle; word-break:keep-all;
+  overflow-wrap:break-word; text-align:center;
+}
+.nt-tbl th { background:rgba(79,142,247,.08); font-weight:700; font-size:7.5pt; }
+.nt-lbl { background:rgba(79,142,247,.05); font-weight:600; text-align:center !important; }
+.nt-val { text-align:left !important; }
+.nt-inp {
+  width:100%; background:transparent; border:none; outline:none;
+  font-size:7.5pt; color:var(--c-text); font-family:inherit;
+  padding:1px 2px; text-align:left;
+}
+.nt-inp::placeholder { color:var(--c-text3); }
+.nt-inp:focus { border-bottom:1px solid var(--c-accent); }
+
+/* 텍스트 입력 (1행짜리) */
+.nt-inline { display:flex; align-items:center; gap:6px; margin:4px 0; }
+.nt-inline-lbl { font-size:9pt; font-weight:600; white-space:nowrap; color:var(--c-text); }
+.nt-inline-inp { flex:1; background:transparent; border:none; border-bottom:1px solid var(--c-border); color:var(--c-text); font-size:9pt; padding:2px 4px; outline:none; }
+.nt-inline-inp:focus { border-bottom-color:var(--c-accent); }
+.nt-inline-inp::placeholder { color:var(--c-text3); font-style:italic; }
+
+/* 검사담당자 / 확인자 행 */
+.nt-sign-row { display:flex; gap:40px; margin:12px 0 4px; }
+.nt-sign-item { display:flex; align-items:center; gap:8px; }
+.nt-sign-lbl { font-size:9pt; font-weight:600; white-space:nowrap; color:var(--c-text); }
+.nt-sign-inp { min-width:120px; background:transparent; border:none; border-bottom:1px solid var(--c-border); color:var(--c-text); font-size:9pt; padding:2px 4px; outline:none; }
+.nt-sign-inp:focus { border-bottom-color:var(--c-accent); }
+
+/* 첨부문서 업로드 영역 */
+.nt-attach-section { margin-top:14px; }
+.nt-attach-title { font-size:9pt; font-weight:700; margin-bottom:6px; color:var(--c-text); }
+.nt-attach-note { font-size:8pt; color:var(--c-text3); margin-bottom:8px; }
+.nt-attach-drop {
+  border:2px dashed var(--c-border2); border-radius:8px;
+  padding:16px; text-align:center; cursor:pointer;
+  transition:.2s; color:var(--c-text3); font-size:9pt;
+  background:rgba(255,255,255,.02);
+}
+.nt-attach-drop:hover { border-color:var(--c-accent); background:rgba(79,142,247,.04); }
+.nt-attach-drop input[type=file] { display:none; }
+.nt-attach-list { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
+.nt-attach-item {
+  display:flex; align-items:center; gap:8px;
+  padding:5px 10px; border-radius:6px;
+  background:rgba(79,142,247,.06); border:1px solid var(--c-border);
+  font-size:8.5pt;
+}
+.nt-attach-item-name { flex:1; color:var(--c-text); word-break:break-all; }
+.nt-attach-item-size { color:var(--c-text3); white-space:nowrap; font-size:8pt; }
+.nt-attach-item-del { color:#ef4444; cursor:pointer; padding:1px 5px; border-radius:3px; font-size:10pt; line-height:1; }
+.nt-attach-item-del:hover { background:rgba(239,68,68,.12); }
+/* 첨부문서 인쇄 미리보기 */
+.nt-attach-print-wrap { margin-top:10px; }
+.nt-attach-print-page { page-break-before:always; margin-top:20px; }
+.nt-attach-print-page img { max-width:100%; height:auto; display:block; }
+.nt-attach-print-page .nt-attach-pdf-frame { width:100%; min-height:600px; border:none; }
+
+@media screen {
+  .nt-header-lbl-cell,.nt-header-val-cell { border-color:var(--c-border); }
+  .nt-header-tbl { border-color:var(--c-border); }
+  .nt-tbl th,.nt-tbl td { border-color:var(--c-border); }
+  .nt-tbl th { background:rgba(79,142,247,.08); }
+  .nt-lbl { background:rgba(79,142,247,.05); }
+  .nt-attach-print-wrap { display:none; }
+}
+@media print {
+  @page { size:A4 portrait; margin:12mm 10mm; }
+  .no-print { display:none !important; }
+  body { background:#fff !important; color:#000 !important; }
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+
+  .nt-wrap { font-size:8pt; font-family:'맑은 고딕','Malgun Gothic','MS Gothic',sans-serif; color:#000; }
+  .nt-header-tbl { border:1px solid #555 !important; }
+  .nt-header-lbl-cell { border:1px solid #555 !important; background:#cdd5e8 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .nt-header-val-cell { border:1px solid #555 !important; background:#fff !important; }
+  .nt-header-lbl { font-size:7.5pt !important; color:#000 !important; }
+  .nt-header-inp { font-size:7.5pt !important; color:#000 !important; border:none !important; background:transparent !important; }
+  .nt-main-title { font-size:12pt !important; color:#000 !important; }
+  .nt-form-tag { font-size:8pt !important; color:#000 !important; }
+  .nt-sec-title { font-size:8.5pt !important; color:#000 !important; }
+  .nt-tbl { font-size:6.5pt !important; }
+  .nt-tbl th { background:#c8d4ea !important; color:#000 !important; font-size:6.5pt !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .nt-tbl td { font-size:6.5pt !important; color:#000 !important; }
+  .nt-lbl { background:#eef2fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .nt-inp { font-size:6.5pt !important; color:#000 !important; border:none !important; background:transparent !important; padding:0 !important; }
+  .nt-tbl th, .nt-tbl td { border:1px solid #555 !important; padding:2px 3px !important; }
+  .nt-inline-lbl { font-size:8pt !important; color:#000 !important; }
+  .nt-inline-inp { font-size:8pt !important; color:#000 !important; border:none !important; border-bottom:1px solid #888 !important; background:transparent !important; }
+  .nt-sign-lbl { font-size:8pt !important; color:#000 !important; }
+  .nt-sign-inp { font-size:8pt !important; color:#000 !important; border:none !important; border-bottom:1px solid #888 !important; background:transparent !important; }
+  .nt-attach-section .nt-attach-drop { display:none !important; }
+  .nt-attach-section .nt-attach-list { display:none !important; }
+  .nt-attach-print-wrap { display:block !important; }
+  .nt-attach-print-page { page-break-before:always; }
+}
+</style>
+
+<div class="nt-wrap">
+
+<!-- ① 상단 헤더 -->
+<table class="nt-header-tbl">
+  <tr>
+    <td class="nt-header-lbl-cell"><span class="nt-header-lbl">수입사</span></td>
+    <td class="nt-header-lbl-cell"><span class="nt-header-lbl">인증연도</span></td>
+    <td class="nt-header-lbl-cell"><span class="nt-header-lbl">배기량</span></td>
+    <td class="nt-header-lbl-cell"><span class="nt-header-lbl">동일차종기호</span></td>
+  </tr>
+  <tr>
+    <td class="nt-header-val-cell"><input data-field="importer"     class="nt-header-inp" type="text" placeholder="수입사명"   value="\${E(v('importer'))}"></td>
+    <td class="nt-header-val-cell"><input data-field="cert_year"    class="nt-header-inp" type="text" placeholder="예) 2025"   value="\${E(v('cert_year'))}"></td>
+    <td class="nt-header-val-cell"><input data-field="displacement" class="nt-header-inp" type="text" placeholder="예) 1000cc" value="\${E(v('displacement'))}"></td>
+    <td class="nt-header-val-cell"><input data-field="family_code"  class="nt-header-inp" type="text" placeholder="기호 입력"  value="\${E(v('family_code'))}"></td>
+  </tr>
+</table>
+
+<div class="nt-form-tag">[별지 제27의2호 서식]</div>
+<div class="nt-main-title">자동차소음 세부내용 보고서(ECE)</div>
+
+<!-- 1. 시험관련 규정 -->
+<div class="nt-sec-title">1. 시험관련 규정(ECE)</div>
+<div style="padding:4px 8px; font-size:9pt; color:var(--c-text2);">
+  가속주행 소음시험은 ECE 시험방법으로 측정함
+</div>
+
+<!-- 2. 시험일 -->
+<div class="nt-inline" style="margin-top:10px;">
+  <span class="nt-inline-lbl">2. 시험일 :</span>
+  <input data-field="nt_test_date" class="nt-inline-inp" type="text" placeholder="예) 2025. 01. 01." value="\${E(v('nt_test_date'))}">
+</div>
+
+<!-- 3. 시험자동차 제원 -->
+<div class="nt-sec-title" style="margin-top:12px;">3. 시험자동차 제원</div>
+<table class="nt-tbl">
+  <colgroup>
+    <col style="width:18%;"><col style="width:14%;"><col style="width:22%;"><col style="width:14%;">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>항&nbsp;&nbsp;&nbsp;목</th>
+      <th>내&nbsp;&nbsp;&nbsp;용</th>
+      <th>항&nbsp;&nbsp;&nbsp;목</th>
+      <th>내&nbsp;&nbsp;&nbsp;용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="nt-lbl">차명</td>
+      <td class="nt-val"><input data-field="nt_car_name"    class="nt-inp" type="text" value="\${E(v('nt_car_name'))}"></td>
+      <td class="nt-lbl">제작사(국)</td>
+      <td class="nt-val"><input data-field="nt_maker"       class="nt-inp" type="text" value="\${E(v('nt_maker'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">차종</td>
+      <td class="nt-val"><input data-field="nt_car_type"    class="nt-inp" type="text" value="\${E(v('nt_car_type'))}"></td>
+      <td class="nt-lbl">차대번호</td>
+      <td class="nt-val"><input data-field="nt_vin"         class="nt-inp" type="text" value="\${E(v('nt_vin'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">형식</td>
+      <td class="nt-val"><input data-field="nt_model_type"  class="nt-inp" type="text" value="\${E(v('nt_model_type'))}"></td>
+      <td class="nt-lbl">엔진번호</td>
+      <td class="nt-val"><input data-field="nt_engine_no"   class="nt-inp" type="text" value="\${E(v('nt_engine_no'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">엔진형식</td>
+      <td class="nt-val"><input data-field="nt_engine_type" class="nt-inp" type="text" value="\${E(v('nt_engine_type'))}"></td>
+      <td class="nt-lbl" style="font-size:6.5pt;">최고출력(PS/rpm, kw/rpm)</td>
+      <td class="nt-val"><input data-field="nt_max_power"   class="nt-inp" type="text" value="\${E(v('nt_max_power'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">차대형식</td>
+      <td class="nt-val"><input data-field="nt_chassis"     class="nt-inp" type="text" value="\${E(v('nt_chassis'))}"></td>
+      <td class="nt-lbl">최대토크(kg.m/rpm)</td>
+      <td class="nt-val"><input data-field="nt_max_torque"  class="nt-inp" type="text" value="\${E(v('nt_max_torque'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">배기량(cc)</td>
+      <td class="nt-val"><input data-field="nt_disp_cc"     class="nt-inp" type="text" value="\${E(v('nt_disp_cc'))}"></td>
+      <td class="nt-lbl" style="font-size:6.5pt;">엔진회전 수(Pmax 3/4, rpm)</td>
+      <td class="nt-val"><input data-field="nt_rpm_34"      class="nt-inp" type="text" value="\${E(v('nt_rpm_34'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">차량연식</td>
+      <td class="nt-val"><input data-field="nt_model_year"  class="nt-inp" type="text" value="\${E(v('nt_model_year'))}"></td>
+      <td class="nt-lbl" style="font-size:6.5pt;">엔진회전 수(Pmax 1/2, rpm)</td>
+      <td class="nt-val"><input data-field="nt_rpm_12"      class="nt-inp" type="text" value="\${E(v('nt_rpm_12'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">변속기종류 및 단수</td>
+      <td class="nt-val"><input data-field="nt_trans"       class="nt-inp" type="text" value="\${E(v('nt_trans'))}"></td>
+      <td class="nt-lbl">엔진위치</td>
+      <td class="nt-val"><input data-field="nt_eng_pos"     class="nt-inp" type="text" value="\${E(v('nt_eng_pos'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">변속비(또는 기어비)</td>
+      <td class="nt-val"><input data-field="nt_gear_ratio"  class="nt-inp" type="text" value="\${E(v('nt_gear_ratio'))}"></td>
+      <td class="nt-lbl">축수</td>
+      <td class="nt-val"><input data-field="nt_axles"       class="nt-inp" type="text" value="\${E(v('nt_axles'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">감속비</td>
+      <td class="nt-val"><input data-field="nt_final_ratio" class="nt-inp" type="text" value="\${E(v('nt_final_ratio'))}"></td>
+      <td class="nt-lbl">구동축수</td>
+      <td class="nt-val"><input data-field="nt_drive_axles" class="nt-inp" type="text" value="\${E(v('nt_drive_axles'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">구동축</td>
+      <td class="nt-val"><input data-field="nt_drive_axle"  class="nt-inp" type="text" value="\${E(v('nt_drive_axle'))}"></td>
+      <td class="nt-lbl">축비</td>
+      <td class="nt-val"><input data-field="nt_axle_ratio"  class="nt-inp" type="text" value="\${E(v('nt_axle_ratio'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">공차중량(kg)</td>
+      <td class="nt-val"><input data-field="nt_curb_wt"     class="nt-inp" type="text" value="\${E(v('nt_curb_wt'))}"></td>
+      <td class="nt-lbl">차량총중량(kg)</td>
+      <td class="nt-val"><input data-field="nt_gvw"         class="nt-inp" type="text" value="\${E(v('nt_gvw'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">시험중량(kg)</td>
+      <td class="nt-val"><input data-field="nt_test_wt"     class="nt-inp" type="text" value="\${E(v('nt_test_wt'))}"></td>
+      <td class="nt-lbl" style="font-size:6.5pt;">중량대 출력비(PMR, KW/t)</td>
+      <td class="nt-val"><input data-field="nt_pmr"         class="nt-inp" type="text" value="\${E(v('nt_pmr'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">자동차의 길이(m)</td>
+      <td class="nt-val"><input data-field="nt_length"      class="nt-inp" type="text" value="\${E(v('nt_length'))}"></td>
+      <td class="nt-lbl">부분출력계수(K<sub>p</sub>)</td>
+      <td class="nt-val"><input data-field="nt_kp"          class="nt-inp" type="text" value="\${E(v('nt_kp'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl" rowspan="2">구동륜타이어<br>동하중반경(m)</td>
+      <td class="nt-val" rowspan="2"><input data-field="nt_tire_radius" class="nt-inp" type="text" value="\${E(v('nt_tire_radius'))}"></td>
+      <td class="nt-lbl" rowspan="2">타이어규격 및<br>트레드깊이</td>
+      <td class="nt-val"><span style="font-size:6.5pt;color:var(--c-text3);">전&nbsp;</span><input data-field="nt_tire_spec_f" class="nt-inp" type="text" style="width:calc(100% - 20px);" value="\${E(v('nt_tire_spec_f'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-val"><span style="font-size:6.5pt;color:var(--c-text3);">후&nbsp;</span><input data-field="nt_tire_spec_r" class="nt-inp" type="text" style="width:calc(100% - 20px);" value="\${E(v('nt_tire_spec_r'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl" rowspan="2">소음기형태 및<br>부착위치. 수량</td>
+      <td class="nt-val" rowspan="2"><input data-field="nt_muffler" class="nt-inp" type="text" value="\${E(v('nt_muffler'))}"></td>
+      <td class="nt-lbl" rowspan="2">타이어<br>공기압력(kPa)</td>
+      <td class="nt-val"><span style="font-size:6.5pt;color:var(--c-text3);">전&nbsp;</span><input data-field="nt_tire_pres_f" class="nt-inp" type="text" style="width:calc(100% - 20px);" value="\${E(v('nt_tire_pres_f'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-val"><span style="font-size:6.5pt;color:var(--c-text3);">후&nbsp;</span><input data-field="nt_tire_pres_r" class="nt-inp" type="text" style="width:calc(100% - 20px);" value="\${E(v('nt_tire_pres_r'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">자동저단번속장치<br>작동여부</td>
+      <td class="nt-val"><input data-field="nt_auto_downshift" class="nt-inp" type="text" value="\${E(v('nt_auto_downshift'))}"></td>
+      <td class="nt-lbl">경음기 형식 및 수량</td>
+      <td class="nt-val"><input data-field="nt_horn"           class="nt-inp" type="text" value="\${E(v('nt_horn'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">기타</td>
+      <td class="nt-val" colspan="3"><input data-field="nt_etc1" class="nt-inp" type="text" style="width:100%;" value="\${E(v('nt_etc1'))}"></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 4. 시험장 주변조건 -->
+<div class="nt-sec-title" style="margin-top:14px;">4. 시험장 주변조건</div>
+<table class="nt-tbl">
+  <colgroup>
+    <col style="width:18%;"><col style="width:14%;"><col style="width:22%;"><col style="width:14%;">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>항&nbsp;&nbsp;&nbsp;목</th>
+      <th>내&nbsp;&nbsp;&nbsp;용</th>
+      <th>항&nbsp;&nbsp;&nbsp;목</th>
+      <th>내&nbsp;&nbsp;&nbsp;용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="nt-lbl">장소</td>
+      <td class="nt-val"><input data-field="nt_site"     class="nt-inp" type="text" value="\${E(v('nt_site'))}"></td>
+      <td class="nt-lbl">날씨</td>
+      <td class="nt-val"><input data-field="nt_weather"  class="nt-inp" type="text" value="\${E(v('nt_weather'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">풍향</td>
+      <td class="nt-val"><input data-field="nt_wind_dir" class="nt-inp" type="text" value="\${E(v('nt_wind_dir'))}"></td>
+      <td class="nt-lbl">풍속</td>
+      <td class="nt-val"><input data-field="nt_wind_spd" class="nt-inp" type="text" value="\${E(v('nt_wind_spd'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">대기습도</td>
+      <td class="nt-val"><input data-field="nt_humidity" class="nt-inp" type="text" value="\${E(v('nt_humidity'))}"></td>
+      <td class="nt-lbl">대기압력</td>
+      <td class="nt-val"><input data-field="nt_pressure" class="nt-inp" type="text" value="\${E(v('nt_pressure'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">대기온도</td>
+      <td class="nt-val"><input data-field="nt_temp"     class="nt-inp" type="text" value="\${E(v('nt_temp'))}"></td>
+      <td class="nt-lbl">기타</td>
+      <td class="nt-val"><input data-field="nt_env_etc"  class="nt-inp" type="text" value="\${E(v('nt_env_etc'))}"></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 5. 소음측정장비 -->
+<div class="nt-sec-title" style="margin-top:14px;">5. 소음측정장비</div>
+<table class="nt-tbl">
+  <colgroup>
+    <col style="width:18%;"><col style="width:20%;"><col style="width:18%;"><col style="width:18%;"><col style="width:14%;">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>구분</th><th>제작사</th><th>형식</th><th>기기번호</th><th>검/교정일</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="nt-lbl">소음계</td>
+      <td class="nt-val"><input data-field="nt_eq1_maker" class="nt-inp" type="text" value="\${E(v('nt_eq1_maker'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq1_type"  class="nt-inp" type="text" value="\${E(v('nt_eq1_type'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq1_no"    class="nt-inp" type="text" value="\${E(v('nt_eq1_no'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq1_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq1_cal'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">교정기</td>
+      <td class="nt-val"><input data-field="nt_eq2_maker" class="nt-inp" type="text" value="\${E(v('nt_eq2_maker'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq2_type"  class="nt-inp" type="text" value="\${E(v('nt_eq2_type'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq2_no"    class="nt-inp" type="text" value="\${E(v('nt_eq2_no'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq2_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq2_cal'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">차속계</td>
+      <td class="nt-val"><input data-field="nt_eq3_maker" class="nt-inp" type="text" value="\${E(v('nt_eq3_maker'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq3_type"  class="nt-inp" type="text" value="\${E(v('nt_eq3_type'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq3_no"    class="nt-inp" type="text" value="\${E(v('nt_eq3_no'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq3_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq3_cal'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">엔진속도<br>측정기</td>
+      <td class="nt-val"><input data-field="nt_eq4_maker" class="nt-inp" type="text" value="\${E(v('nt_eq4_maker'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq4_type"  class="nt-inp" type="text" value="\${E(v('nt_eq4_type'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq4_no"    class="nt-inp" type="text" value="\${E(v('nt_eq4_no'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq4_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq4_cal'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">기상관측장비<br>(풍속, 온도)</td>
+      <td class="nt-val"><input data-field="nt_eq5_maker" class="nt-inp" type="text" value="\${E(v('nt_eq5_maker'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq5_type"  class="nt-inp" type="text" value="\${E(v('nt_eq5_type'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq5_no"    class="nt-inp" type="text" value="\${E(v('nt_eq5_no'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq5_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq5_cal'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">소음 주행로</td>
+      <td class="nt-val"><input data-field="nt_eq6_maker" class="nt-inp" type="text" value="\${E(v('nt_eq6_maker'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq6_type"  class="nt-inp" type="text" value="\${E(v('nt_eq6_type'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq6_no"    class="nt-inp" type="text" value="\${E(v('nt_eq6_no'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq6_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq6_cal'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl"></td>
+      <td class="nt-val"><input data-field="nt_eq7_maker" class="nt-inp" type="text" value="\${E(v('nt_eq7_maker'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq7_type"  class="nt-inp" type="text" value="\${E(v('nt_eq7_type'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq7_no"    class="nt-inp" type="text" value="\${E(v('nt_eq7_no'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq7_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq7_cal'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl"></td>
+      <td class="nt-val"><input data-field="nt_eq8_maker" class="nt-inp" type="text" value="\${E(v('nt_eq8_maker'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq8_type"  class="nt-inp" type="text" value="\${E(v('nt_eq8_type'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq8_no"    class="nt-inp" type="text" value="\${E(v('nt_eq8_no'))}"></td>
+      <td class="nt-val"><input data-field="nt_eq8_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq8_cal'))}"></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 6. 가속주행소음 측정결과 -->
+<div class="nt-sec-title" style="margin-top:14px;">6. 가속주행소음 측정결과</div>
+<table class="nt-tbl">
+  <colgroup>
+    <col style="width:6%;"><col style="width:6%;"><col style="width:5%;"><col style="width:5%;"><col style="width:5%;"><col style="width:6%;"><col style="width:5%;"><col style="width:7%;"><col style="width:7%;"><col style="width:5%;"><col style="width:7%;"><col style="width:7%;">
+  </colgroup>
+  <tbody>
+    <!-- 상단 요약 정보 -->
+    <tr>
+      <td class="nt-lbl" colspan="4">시험중량<br><span style="font-size:5.5pt;">(Tested Vehicle weight, kg)</span></td>
+      <td class="nt-val" colspan="2"><input data-field="nt_acc_test_wt" class="nt-inp" type="text" value="\${E(v('nt_acc_test_wt'))}"></td>
+      <td class="nt-lbl" colspan="4">적재중량<br><span style="font-size:5.5pt;">(Vehicle load, kg)</span></td>
+      <td class="nt-val" colspan="2"><input data-field="nt_acc_load_wt" class="nt-inp" type="text" value="\${E(v('nt_acc_load_wt'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl" colspan="4">선택기어<br><span style="font-size:5.5pt;">(Gear selected, I)</span></td>
+      <td class="nt-val" colspan="2"><input data-field="nt_gear_i"  class="nt-inp" type="text" value="\${E(v('nt_gear_i'))}"></td>
+      <td class="nt-lbl" colspan="4">선택기어<br><span style="font-size:5.5pt;">(Gear selected, I+1)</span></td>
+      <td class="nt-val" colspan="2"><input data-field="nt_gear_i1" class="nt-inp" type="text" value="\${E(v('nt_gear_i1'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl" colspan="4">목표 가속도<br><span style="font-size:5.5pt;">(a<sub>urban</sub>, m/s²)</span></td>
+      <td class="nt-val" colspan="2"><input data-field="nt_aurban"    class="nt-inp" type="text" value="\${E(v('nt_aurban'))}"></td>
+      <td class="nt-lbl" colspan="4">기준 가속도<br><span style="font-size:5.5pt;">(a<sub>wotref</sub>, m/s²)</span></td>
+      <td class="nt-val" colspan="2"><input data-field="nt_awotref"   class="nt-inp" type="text" value="\${E(v('nt_awotref'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl" colspan="4">측정 가속도<br><span style="font-size:5.5pt;">(a<sub>wot</sub>, m/s²)</span></td>
+      <td class="nt-val" colspan="2"><input data-field="nt_awot_meas" class="nt-inp" type="text" value="\${E(v('nt_awot_meas'))}"></td>
+      <td class="nt-lbl" colspan="3">부분출력계수(K<sub>p</sub>)</td>
+      <td class="nt-val"><input data-field="nt_kp2" class="nt-inp" type="text" value="\${E(v('nt_kp2'))}"></td>
+      <td class="nt-lbl" style="font-size:5.5pt;">가중계수(k)</td>
+      <td class="nt-val"><input data-field="nt_k"   class="nt-inp" type="text" value="\${E(v('nt_k'))}"></td>
+    </tr>
+    <!-- 측정 데이터 헤더 -->
+    <tr>
+      <th rowspan="3" style="font-size:6pt;">사용<br>변속<br>기어</th>
+      <th rowspan="3" style="font-size:6pt;">구분</th>
+      <th colspan="10">가속주행시험</th>
+      <th rowspan="3" style="font-size:6pt;">정속<br>주행<br>시험<br>좌측<br>소음</th>
+      <th rowspan="3" style="font-size:6pt;">정속<br>주행<br>시험<br>우측<br>소음</th>
+    </tr>
+    <tr>
+      <th style="font-size:5.5pt;">초기속도<br>(V<sub>AA′</sub>)</th>
+      <th style="font-size:5.5pt;">중간속도<br>(V<sub>PP′</sub>)</th>
+      <th style="font-size:5.5pt;">탈출속도<br>(V<sub>BB′</sub>)</th>
+      <th style="font-size:5.5pt;">탈출엔진<br>회전수<br>(N<sub>BB′</sub>)</th>
+      <th style="font-size:5.5pt;">가속<br>시작위치</th>
+      <th style="font-size:5.5pt;">좌측소음</th>
+      <th style="font-size:5.5pt;">우측소음</th>
+      <th style="font-size:5.5pt;">가속도<br>(awot)</th>
+    </tr>
+    <tr>
+      <th style="font-size:5.5pt;">kph</th>
+      <th style="font-size:5.5pt;">kph</th>
+      <th style="font-size:5.5pt;">kph</th>
+      <th style="font-size:5.5pt;">rpm</th>
+      <th style="font-size:5.5pt;">m</th>
+      <th style="font-size:5.5pt;">dB(A)</th>
+      <th style="font-size:5.5pt;">dB(A)</th>
+      <th style="font-size:5.5pt;">m/s²</th>
+      <th style="font-size:5.5pt;">dB(A)</th>
+      <th style="font-size:5.5pt;">dB(A)</th>
+    </tr>
+    \${['1차','2차','3차','4차'].map((n,i)=>\`
+    <tr>
+      \${i===0?'<td class="nt-lbl" rowspan="5"><input data-field="nt_gear_sel1" class="nt-inp" type="text" style="width:100%;writing-mode:horizontal-tb;" value="\${E(v("nt_gear_sel1"))}"></td>':''}
+      <td class="nt-lbl" style="font-size:6.5pt;">\${n}</td>
+      <td class="nt-val"><input data-field="nt_g1_\${i+1}_vaa" class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_vaa"))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_\${i+1}_vpp" class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_vpp"))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_\${i+1}_vbb" class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_vbb"))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_\${i+1}_nbb" class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_nbb"))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_\${i+1}_pos" class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_pos"))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_\${i+1}_lL"  class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_lL"))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_\${i+1}_lR"  class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_lR"))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_\${i+1}_aw"  class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_aw"))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_\${i+1}_cL"  class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_cL"))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_\${i+1}_cR"  class="nt-inp" type="text" value="\${E(v("nt_g1_\${i+1}_cR"))}"></td>
+    </tr>
+    \`).join('')}
+    <tr>
+      <td class="nt-lbl" style="font-size:6.5pt;" colspan="2">평균</td>
+      <td colspan="4"></td>
+      <td></td>
+      <td class="nt-val"><input data-field="nt_g1_avg_lL" class="nt-inp" type="text" value="\${E(v('nt_g1_avg_lL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_avg_lR" class="nt-inp" type="text" value="\${E(v('nt_g1_avg_lR'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_avg_aw" class="nt-inp" type="text" value="\${E(v('nt_g1_avg_aw'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_avg_cL" class="nt-inp" type="text" value="\${E(v('nt_g1_avg_cL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g1_avg_cR" class="nt-inp" type="text" value="\${E(v('nt_g1_avg_cR'))}"></td>
+    </tr>
+    \${['1차','2차','3차','4차'].map((n,i)=>\`
+    <tr>
+      \${i===0?'<td class="nt-lbl" rowspan="5"><input data-field="nt_gear_sel2" class="nt-inp" type="text" style="width:100%;writing-mode:horizontal-tb;" value="\${E(v("nt_gear_sel2"))}"></td>':''}
+      <td class="nt-lbl" style="font-size:6.5pt;">\${n}</td>
+      <td class="nt-val"><input data-field="nt_g2_\${i+1}_vaa" class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_vaa"))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_\${i+1}_vpp" class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_vpp"))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_\${i+1}_vbb" class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_vbb"))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_\${i+1}_nbb" class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_nbb"))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_\${i+1}_pos" class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_pos"))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_\${i+1}_lL"  class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_lL"))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_\${i+1}_lR"  class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_lR"))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_\${i+1}_aw"  class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_aw"))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_\${i+1}_cL"  class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_cL"))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_\${i+1}_cR"  class="nt-inp" type="text" value="\${E(v("nt_g2_\${i+1}_cR"))}"></td>
+    </tr>
+    \`).join('')}
+    <tr>
+      <td class="nt-lbl" style="font-size:6.5pt;" colspan="2">평균</td>
+      <td colspan="4"></td>
+      <td></td>
+      <td class="nt-val"><input data-field="nt_g2_avg_lL" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_lL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_avg_lR" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_lR'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_avg_aw" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_aw'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_avg_cL" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_cL'))}"></td>
+      <td class="nt-val"><input data-field="nt_g2_avg_cR" class="nt-inp" type="text" value="\${E(v('nt_g2_avg_cR'))}"></td>
+    </tr>
+    <!-- 시험결과 / 최종결과 -->
+    <tr>
+      <td class="nt-lbl" colspan="2" style="font-size:6.5pt;">시험결과</td>
+      <td class="nt-lbl" colspan="3" style="font-size:5.5pt;">가속주행소음<br>(L<sub>WOTrep</sub>, dB(A))</td>
+      <td class="nt-val" colspan="2"><input data-field="nt_lwot" class="nt-inp" type="text" value="\${E(v('nt_lwot'))}"></td>
+      <td class="nt-lbl" colspan="3" style="font-size:5.5pt;">정속주행소음<br>(L<sub>CRSrep</sub>, dB(A))</td>
+      <td class="nt-val"><input data-field="nt_lcrs" class="nt-inp" type="text" value="\${E(v('nt_lcrs'))}"></td>
+      <td class="nt-val"><input data-field="nt_lurban" class="nt-inp" type="text" value="\${E(v('nt_lurban'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl" colspan="2" style="font-size:6.5pt;">최종결과</td>
+      <td class="nt-val" colspan="5"><input data-field="nt_final_L" class="nt-inp" type="text" placeholder="L dB(A)" value="\${E(v('nt_final_L'))}"></td>
+      <td class="nt-lbl" colspan="3" style="font-size:6.5pt;">기준치 (dB(A))</td>
+      <td class="nt-val" colspan="2"><input data-field="nt_limit" class="nt-inp" type="text" value="\${E(v('nt_limit'))}"></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 7. 배기소음측정결과 -->
+<div class="nt-sec-title" style="margin-top:14px;">7. 배기소음측정결과(KSAISO 362)</div>
+<table class="nt-tbl">
+  <colgroup>
+    <col style="width:8%;"><col style="width:8%;"><col style="width:18%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;">
+  </colgroup>
+  <thead>
+    <tr>
+      <th rowspan="2" colspan="2">배기<br>소음<br>시험</th>
+      <th rowspan="2">원동기 최고 출력<br>회전속도의<br>% 회전속도(rpm)</th>
+      <th rowspan="2">암소음<br>(dB(A))</th>
+      <th colspan="2">배기소음(dB(A))</th>
+      <th rowspan="2">성적<br>(dB(A))</th>
+      <th rowspan="2">기준치<br>(dB(A))</th>
+    </tr>
+    <tr>
+      <th>측정치</th><th>보정치</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="nt-lbl" rowspan="3">배기<br>소음<br>시험</td>
+      <td class="nt-lbl">1</td>
+      <td class="nt-val"><input data-field="nt_ex1_rpm"  class="nt-inp" type="text" value="\${E(v('nt_ex1_rpm'))}"></td>
+      <td class="nt-val"><input data-field="nt_ex1_amb"  class="nt-inp" type="text" value="\${E(v('nt_ex1_amb'))}"></td>
+      <td class="nt-val"><input data-field="nt_ex1_meas" class="nt-inp" type="text" value="\${E(v('nt_ex1_meas'))}"></td>
+      <td class="nt-val"><input data-field="nt_ex1_corr" class="nt-inp" type="text" value="\${E(v('nt_ex1_corr'))}"></td>
+      <td class="nt-val" rowspan="3"><input data-field="nt_ex_score" class="nt-inp" type="text" value="\${E(v('nt_ex_score'))}"></td>
+      <td class="nt-val" rowspan="3"><input data-field="nt_ex_limit" class="nt-inp" type="text" value="\${E(v('nt_ex_limit'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">2</td>
+      <td class="nt-val"><input data-field="nt_ex2_rpm"  class="nt-inp" type="text" value="\${E(v('nt_ex2_rpm'))}"></td>
+      <td class="nt-val"><input data-field="nt_ex2_amb"  class="nt-inp" type="text" value="\${E(v('nt_ex2_amb'))}"></td>
+      <td class="nt-val"><input data-field="nt_ex2_meas" class="nt-inp" type="text" value="\${E(v('nt_ex2_meas'))}"></td>
+      <td class="nt-val"><input data-field="nt_ex2_corr" class="nt-inp" type="text" value="\${E(v('nt_ex2_corr'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">3</td>
+      <td class="nt-val"><input data-field="nt_ex3_rpm"  class="nt-inp" type="text" value="\${E(v('nt_ex3_rpm'))}"></td>
+      <td class="nt-val"><input data-field="nt_ex3_amb"  class="nt-inp" type="text" value="\${E(v('nt_ex3_amb'))}"></td>
+      <td class="nt-val"><input data-field="nt_ex3_meas" class="nt-inp" type="text" value="\${E(v('nt_ex3_meas'))}"></td>
+      <td class="nt-val"><input data-field="nt_ex3_corr" class="nt-inp" type="text" value="\${E(v('nt_ex3_corr'))}"></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 8. 경적소음측정결과 -->
+<div class="nt-sec-title" style="margin-top:14px;">8. 경적소음측정결과(KSAISO 362)</div>
+<table class="nt-tbl">
+  <colgroup>
+    <col style="width:8%;"><col style="width:10%;"><col style="width:12%;"><col style="width:10%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:10%;">
+  </colgroup>
+  <thead>
+    <tr>
+      <th rowspan="2" colspan="2">경적<br>소음<br>시험</th>
+      <th rowspan="2">경음기<br>형식</th>
+      <th rowspan="2">경음기 수</th>
+      <th rowspan="2">암소음<br>(dB(C))</th>
+      <th colspan="2">경적소음(dB(C))</th>
+      <th rowspan="2">성적<br>(dB(C))</th>
+      <th rowspan="2">기준치<br>(dB(C))</th>
+    </tr>
+    <tr>
+      <th>측정치</th><th>보정치</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="nt-lbl" rowspan="2">경적<br>소음<br>시험</td>
+      <td class="nt-lbl">1</td>
+      <td class="nt-val"><input data-field="nt_horn1_type" class="nt-inp" type="text" value="\${E(v('nt_horn1_type'))}"></td>
+      <td class="nt-val"><input data-field="nt_horn1_cnt"  class="nt-inp" type="text" value="\${E(v('nt_horn1_cnt'))}"></td>
+      <td class="nt-val"><input data-field="nt_horn1_amb"  class="nt-inp" type="text" value="\${E(v('nt_horn1_amb'))}"></td>
+      <td class="nt-val"><input data-field="nt_horn1_meas" class="nt-inp" type="text" value="\${E(v('nt_horn1_meas'))}"></td>
+      <td class="nt-val"><input data-field="nt_horn1_corr" class="nt-inp" type="text" value="\${E(v('nt_horn1_corr'))}"></td>
+      <td class="nt-val" rowspan="2"><input data-field="nt_horn_score" class="nt-inp" type="text" value="\${E(v('nt_horn_score'))}"></td>
+      <td class="nt-val" rowspan="2"><input data-field="nt_horn_limit" class="nt-inp" type="text" value="\${E(v('nt_horn_limit'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl">2</td>
+      <td class="nt-val"><input data-field="nt_horn2_type" class="nt-inp" type="text" value="\${E(v('nt_horn2_type'))}"></td>
+      <td class="nt-val"><input data-field="nt_horn2_cnt"  class="nt-inp" type="text" value="\${E(v('nt_horn2_cnt'))}"></td>
+      <td class="nt-val"><input data-field="nt_horn2_amb"  class="nt-inp" type="text" value="\${E(v('nt_horn2_amb'))}"></td>
+      <td class="nt-val"><input data-field="nt_horn2_meas" class="nt-inp" type="text" value="\${E(v('nt_horn2_meas'))}"></td>
+      <td class="nt-val"><input data-field="nt_horn2_corr" class="nt-inp" type="text" value="\${E(v('nt_horn2_corr'))}"></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 검사담당자 / 확인자 -->
+<div class="nt-sign-row" style="margin-top:14px;">
+  <div class="nt-sign-item">
+    <span class="nt-sign-lbl">검사 담당자 :</span>
+    <input data-field="nt_inspector" class="nt-sign-inp" type="text" placeholder="성명" value="\${E(v('nt_inspector'))}">
+  </div>
+  <div class="nt-sign-item">
+    <span class="nt-sign-lbl">확인자 :</span>
+    <input data-field="nt_confirmer" class="nt-sign-inp" type="text" placeholder="성명" value="\${E(v('nt_confirmer'))}">
+  </div>
+</div>
+<div style="font-size:9pt; margin-top:8px; color:var(--c-text2);">자체시험성적서 및 RAW DATA 첨부</div>
+
+<!-- 첨부문서 업로드 -->
+<div class="nt-attach-section no-print">
+  <div class="nt-attach-title"><i class="fas fa-paperclip"></i> 첨부문서 (자체시험성적서 / RAW DATA)</div>
+  <div class="nt-attach-note">이미지(JPG, PNG) 또는 PDF 파일을 첨부하면 인쇄 시 함께 출력됩니다.</div>
+  <div class="nt-attach-drop" id="nt-drop-zone" onclick="document.getElementById('nt-file-input').click()">
+    <input type="file" id="nt-file-input" multiple accept="image/*,.pdf">
+    <i class="fas fa-cloud-upload-alt" style="font-size:20pt;margin-bottom:6px;display:block;"></i>
+    클릭하거나 파일을 드래그하여 첨부
+  </div>
+  <div class="nt-attach-list" id="nt-attach-list"></div>
+</div>
+
+<!-- 인쇄용 첨부문서 미리보기 (화면에서는 숨김) -->
+<div class="nt-attach-print-wrap" id="nt-attach-print-wrap"></div>
+
+</div>
+
+<div id="qr-footer-wrap" style="margin-top:12px;"></div>
+
+<script>
+(function(){
+  // 첨부파일 데이터 저장소 (Base64)
+  var ntAttachFiles = [];
+
+  var dropZone = document.getElementById('nt-drop-zone');
+  var fileInput = document.getElementById('nt-file-input');
+  var listEl   = document.getElementById('nt-attach-list');
+  var printWrap = document.getElementById('nt-attach-print-wrap');
+
+  if (!dropZone) return;
+
+  // 드래그앤드롭
+  dropZone.addEventListener('dragover', function(e){ e.preventDefault(); dropZone.style.borderColor='var(--c-accent)'; });
+  dropZone.addEventListener('dragleave', function(){ dropZone.style.borderColor=''; });
+  dropZone.addEventListener('drop', function(e){
+    e.preventDefault(); dropZone.style.borderColor='';
+    handleFiles(e.dataTransfer.files);
+  });
+  fileInput.addEventListener('change', function(){ handleFiles(this.files); this.value=''; });
+
+  function handleFiles(files) {
+    Array.from(files).forEach(function(file){
+      var reader = new FileReader();
+      reader.onload = function(e){
+        var item = { name: file.name, size: file.size, type: file.type, dataUrl: e.target.result };
+        ntAttachFiles.push(item);
+        renderList();
+        renderPrint();
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function formatSize(bytes){
+    if(bytes < 1024) return bytes+'B';
+    if(bytes < 1024*1024) return (bytes/1024).toFixed(1)+'KB';
+    return (bytes/1024/1024).toFixed(1)+'MB';
+  }
+
+  function renderList(){
+    listEl.innerHTML = '';
+    ntAttachFiles.forEach(function(f, idx){
+      var div = document.createElement('div');
+      div.className = 'nt-attach-item';
+      div.innerHTML =
+        '<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:var(--c-accent);"></i>' +
+        '<span class="nt-attach-item-name">'+escHtml(f.name)+'</span>' +
+        '<span class="nt-attach-item-size">'+formatSize(f.size)+'</span>' +
+        '<span class="nt-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
+      listEl.appendChild(div);
+    });
+    listEl.querySelectorAll('.nt-attach-item-del').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        ntAttachFiles.splice(parseInt(this.dataset.idx),1);
+        renderList(); renderPrint();
+      });
+    });
+  }
+
+  function renderPrint(){
+    printWrap.innerHTML = '';
+    ntAttachFiles.forEach(function(f){
+      var page = document.createElement('div');
+      page.className = 'nt-attach-print-page';
+      if(f.type === 'application/pdf'){
+        // PDF는 iframe 임베드
+        var label = document.createElement('div');
+        label.style.cssText = 'font-size:9pt;font-weight:700;margin-bottom:6px;';
+        label.textContent = '첨부: ' + f.name;
+        var iframe = document.createElement('iframe');
+        iframe.src = f.dataUrl;
+        iframe.className = 'nt-attach-pdf-frame';
+        iframe.style.cssText = 'width:100%;min-height:700px;border:none;';
+        page.appendChild(label);
+        page.appendChild(iframe);
+      } else {
+        // 이미지
+        var label = document.createElement('div');
+        label.style.cssText = 'font-size:9pt;font-weight:700;margin-bottom:6px;';
+        label.textContent = '첨부: ' + f.name;
+        var img = document.createElement('img');
+        img.src = f.dataUrl;
+        img.style.cssText = 'max-width:100%;height:auto;display:block;';
+        page.appendChild(label);
+        page.appendChild(img);
+      }
+      printWrap.appendChild(page);
+    });
+  }
+
+  function escHtml(s){ return s.replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]);}); }
+})();
+</script>
+\`;
 
   if (formType==='confirmation') return \`
 <style>

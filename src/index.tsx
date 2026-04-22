@@ -1725,6 +1725,8 @@ async function openForm(formType) {
   showPage('page-form');
   // QR 코드 비동기 생성 (폼 렌더 직후)
   setTimeout(() => generateFormQR(formType, meta.title), 100);
+  // noise_test 첨부파일 기능 초기화
+  if (formType === 'noise_test') setTimeout(() => initNoiseAttach(), 150);
 }
 
 // ── QR 코드 생성 및 하단 블록 렌더 ──────────────────────────────
@@ -3943,100 +3945,6 @@ if (formType==='detail_plan') return (
 
 <div id="qr-footer-wrap" style="margin-top:12px;"></div>
 
-<script>
-(function(){
-  // 첨부파일 데이터 저장소 (Base64)
-  var ntAttachFiles = [];
-
-  var dropZone = document.getElementById('nt-drop-zone');
-  var fileInput = document.getElementById('nt-file-input');
-  var listEl   = document.getElementById('nt-attach-list');
-  var printWrap = document.getElementById('nt-attach-print-wrap');
-
-  if (!dropZone) return;
-
-  // 드래그앤드롭
-  dropZone.addEventListener('dragover', function(e){ e.preventDefault(); dropZone.style.borderColor='var(--c-accent)'; });
-  dropZone.addEventListener('dragleave', function(){ dropZone.style.borderColor=''; });
-  dropZone.addEventListener('drop', function(e){
-    e.preventDefault(); dropZone.style.borderColor='';
-    handleFiles(e.dataTransfer.files);
-  });
-  fileInput.addEventListener('change', function(){ handleFiles(this.files); this.value=''; });
-
-  function handleFiles(files) {
-    Array.from(files).forEach(function(file){
-      var reader = new FileReader();
-      reader.onload = function(e){
-        var item = { name: file.name, size: file.size, type: file.type, dataUrl: e.target.result };
-        ntAttachFiles.push(item);
-        renderList();
-        renderPrint();
-      };
-      reader.readAsDataURL(file);
-    });
-  }
-
-  function formatSize(bytes){
-    if(bytes < 1024) return bytes+'B';
-    if(bytes < 1024*1024) return (bytes/1024).toFixed(1)+'KB';
-    return (bytes/1024/1024).toFixed(1)+'MB';
-  }
-
-  function renderList(){
-    listEl.innerHTML = '';
-    ntAttachFiles.forEach(function(f, idx){
-      var div = document.createElement('div');
-      div.className = 'nt-attach-item';
-      div.innerHTML =
-        '<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:var(--c-accent);"></i>' +
-        '<span class="nt-attach-item-name">'+escHtml(f.name)+'</span>' +
-        '<span class="nt-attach-item-size">'+formatSize(f.size)+'</span>' +
-        '<span class="nt-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
-      listEl.appendChild(div);
-    });
-    listEl.querySelectorAll('.nt-attach-item-del').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        ntAttachFiles.splice(parseInt(this.dataset.idx),1);
-        renderList(); renderPrint();
-      });
-    });
-  }
-
-  function renderPrint(){
-    printWrap.innerHTML = '';
-    ntAttachFiles.forEach(function(f){
-      var page = document.createElement('div');
-      page.className = 'nt-attach-print-page';
-      if(f.type === 'application/pdf'){
-        // PDF는 iframe 임베드
-        var label = document.createElement('div');
-        label.style.cssText = 'font-size:9pt;font-weight:700;margin-bottom:6px;';
-        label.textContent = '첨부: ' + f.name;
-        var iframe = document.createElement('iframe');
-        iframe.src = f.dataUrl;
-        iframe.className = 'nt-attach-pdf-frame';
-        iframe.style.cssText = 'width:100%;min-height:700px;border:none;';
-        page.appendChild(label);
-        page.appendChild(iframe);
-      } else {
-        // 이미지
-        var label = document.createElement('div');
-        label.style.cssText = 'font-size:9pt;font-weight:700;margin-bottom:6px;';
-        label.textContent = '첨부: ' + f.name;
-        var img = document.createElement('img');
-        img.src = f.dataUrl;
-        img.style.cssText = 'max-width:100%;height:auto;display:block;';
-        page.appendChild(label);
-        page.appendChild(img);
-      }
-      printWrap.appendChild(page);
-    });
-  }
-
-  function escHtml(s){ return s.replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]);}); }
-})();
-</script>
 \`;
 
   if (formType==='confirmation') return \`
@@ -4454,6 +4362,83 @@ function showToast(msg, type='info') {
   t.innerHTML = \`<div class="toast-icon"><i class="fas \${icons[type]||'fa-info'}"></i></div><span>\${esc(msg)}</span>\`;
   stack.appendChild(t);
   setTimeout(() => { t.classList.add('out'); setTimeout(()=>t.remove(), 300); }, 3000);
+}
+
+// ================================================================
+// noise_test 첨부파일 기능
+// ================================================================
+function initNoiseAttach() {
+  var ntAttachFiles = [];
+  var dropZone  = document.getElementById('nt-drop-zone');
+  var fileInput = document.getElementById('nt-file-input');
+  var listEl    = document.getElementById('nt-attach-list');
+  var printWrap = document.getElementById('nt-attach-print-wrap');
+  if (!dropZone) return;
+
+  dropZone.addEventListener('dragover', function(e){ e.preventDefault(); dropZone.style.borderColor='var(--c-accent)'; });
+  dropZone.addEventListener('dragleave', function(){ dropZone.style.borderColor=''; });
+  dropZone.addEventListener('drop', function(e){
+    e.preventDefault(); dropZone.style.borderColor='';
+    handleNtFiles(e.dataTransfer.files);
+  });
+  fileInput.addEventListener('change', function(){ handleNtFiles(this.files); this.value=''; });
+
+  function handleNtFiles(files) {
+    Array.from(files).forEach(function(file){
+      var reader = new FileReader();
+      reader.onload = function(ev){
+        ntAttachFiles.push({ name: file.name, size: file.size, type: file.type, dataUrl: ev.target.result });
+        renderNtList(); renderNtPrint();
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function fmtSize(b){ return b<1024?b+'B':b<1048576?(b/1024).toFixed(1)+'KB':(b/1048576).toFixed(1)+'MB'; }
+
+  function renderNtList(){
+    listEl.innerHTML = '';
+    ntAttachFiles.forEach(function(f, idx){
+      var div = document.createElement('div');
+      div.className = 'nt-attach-item';
+      div.innerHTML =
+        '<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:var(--c-accent);"></i>' +
+        '<span class="nt-attach-item-name">'+esc(f.name)+'</span>' +
+        '<span class="nt-attach-item-size">'+fmtSize(f.size)+'</span>' +
+        '<span class="nt-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
+      listEl.appendChild(div);
+    });
+    listEl.querySelectorAll('.nt-attach-item-del').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        ntAttachFiles.splice(parseInt(this.dataset.idx),1);
+        renderNtList(); renderNtPrint();
+      });
+    });
+  }
+
+  function renderNtPrint(){
+    printWrap.innerHTML = '';
+    ntAttachFiles.forEach(function(f){
+      var page = document.createElement('div');
+      page.className = 'nt-attach-print-page';
+      var label = document.createElement('div');
+      label.style.cssText = 'font-size:9pt;font-weight:700;margin-bottom:6px;';
+      label.textContent = '첨부: ' + f.name;
+      page.appendChild(label);
+      if (f.type === 'application/pdf') {
+        var iframe = document.createElement('iframe');
+        iframe.src = f.dataUrl;
+        iframe.style.cssText = 'width:100%;min-height:700px;border:none;';
+        page.appendChild(iframe);
+      } else {
+        var img = document.createElement('img');
+        img.src = f.dataUrl;
+        img.style.cssText = 'max-width:100%;height:auto;display:block;';
+        page.appendChild(img);
+      }
+      printWrap.appendChild(page);
+    });
+  }
 }
 
 // ================================================================

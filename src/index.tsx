@@ -1030,11 +1030,8 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
 }
 .qr-footer-rows { font-size:7pt; color:#555; line-height:1.9; }
 .qr-footer-rows span { color:#1a2342; font-weight:700; }
-.qr-footer-url {
-  margin-top:4px; font-size:6pt; color:#3b5bdb;
-  word-break:break-all; line-height:1.5;
-}
-.qr-footer-url span { color:#3b5bdb; font-weight:600; }
+.qr-footer-url { display:none; }
+.qr-footer-url span { display:none; }
 .qr-footer-badge {
   display:inline-block; font-size:7pt; font-weight:700;
   padding:1px 8px; border-radius:20px; margin-left:4px;
@@ -1049,9 +1046,6 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
 }
 /* 화면에서만 숨기고 인쇄에서만 보이는 요소 */
 .no-screen { display:none; }
-@media print {
-  .no-screen { display:block !important; visibility:visible !important; }
-}
 @media screen {
   .qr-footer { max-width:640px; }
 }
@@ -1068,7 +1062,8 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
     -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;
     page-break-inside:avoid !important;
     margin-top:10px !important;
-    padding:8px 12px !important;
+    padding:6px 10px !important;
+    gap:10px !important;
     visibility:visible !important;
   }
   .qr-footer::before {
@@ -1083,25 +1078,14 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
   .qr-footer-info { display:block !important; flex:1 !important; }
   .qr-footer-title { font-size:7pt !important; display:block !important; }
   .qr-footer-rows  { font-size:6.5pt !important; display:block !important; }
-  .qr-footer-url   { font-size:5.5pt !important; display:block !important; }
+  .qr-footer-url   { display:none !important; }
   .qr-footer-short-code {
     font-size:7pt !important; font-weight:800 !important;
     background:#eef2ff !important; border:1px solid #c8d4ea !important;
     -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;
     display:block !important; visibility:visible !important;
   }
-  .qr-print-code-bar {
-    display:block !important;
-    visibility:visible !important;
-    font-size:8pt !important;
-    font-weight:800 !important;
-    border:2px solid #1a2342 !important;
-    padding:4px 10px !important;
-    margin-top:6px !important;
-    font-family:monospace !important;
-    letter-spacing:.15em !important;
-    -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;
-  }
+  .qr-print-code-bar { display:none !important; }
 }
 
 .complete-card {
@@ -1795,11 +1779,7 @@ function buildQRBlockHTML(qrDivId, formTitle, dt, verifyUrl, pageLabel, shortCod
       발급기관 &nbsp;: <span>\${currentUser?.company_name||currentUser?.username||'-'}</span><br>
       진위여부코드: <span style="font-family:monospace;font-size:8pt;letter-spacing:.1em;font-weight:800;">\${shortCode||'-'}</span>
     </div>
-    <div class="qr-footer-url"><i class="fas fa-link" style="font-size:6pt;margin-right:3px;"></i><span>\${verifyUrl}</span></div>
   </div>
-</div>
-<div class="qr-print-code-bar no-screen">
-  ■ 진위여부코드 : \${shortCode||'-'} &nbsp;|&nbsp; \${formTitle} &nbsp;|&nbsp; \${dt}
 </div>\`;
 }
 

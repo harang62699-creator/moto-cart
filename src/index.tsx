@@ -2590,13 +2590,13 @@ function buildFormHTML(formType, saved) {
     -webkit-print-color-adjust:exact; print-color-adjust:exact;
   }
   /* input/select/textarea → 인쇄 시 내용만 표시 */
-  input.input, input.g-inp, textarea.input {
+  input.input, input.g-inp {
     border:none !important; background:transparent !important;
     padding:0 !important; margin:0 !important;
     font-size:inherit !important; font-family:inherit !important;
     color:#000 !important; -webkit-appearance:none; appearance:none;
-    resize:none; outline:none; display:inline;
-    width:auto !important; min-width:0 !important;
+    outline:none; display:inline-block;
+    width:100% !important; min-width:0 !important; box-sizing:border-box !important;
   }
   select.input, select.g-sel {
     border:none !important; background:transparent !important;
@@ -2605,7 +2605,21 @@ function buildFormHTML(formType, saved) {
     color:#000 !important; -webkit-appearance:none; appearance:none;
     outline:none; display:inline; width:auto !important;
   }
-  textarea.input { white-space:pre-wrap; word-break:break-all; }
+  textarea.input {
+    border:none !important; background:transparent !important;
+    padding:0 !important; margin:0 !important;
+    font-size:inherit !important; font-family:inherit !important;
+    color:#000 !important; -webkit-appearance:none; appearance:none;
+    resize:none; outline:none;
+    display:block; width:100% !important; box-sizing:border-box !important;
+    height:auto !important; min-height:0 !important; overflow:visible !important;
+    white-space:pre-wrap; word-break:break-all;
+  }
+  /* g-td-val 안 div > input: 인쇄 시 전체 너비 확보 */
+  .g-td-val div { display:block !important; }
+  .g-td-val div input.g-inp {
+    width:100% !important; display:block !important; box-sizing:border-box !important;
+  }
   /* 신청개요 인쇄 전용: 작은 글씨로 한 페이지 내 수용 */
   .g-overview-tbl { font-size:5.5pt !important; }
   .g-overview-tbl th, .g-overview-tbl td {
@@ -3211,15 +3225,19 @@ function buildFormHTML(formType, saved) {
         <tr>
           <td class="g-td-n">12</td>
           <td class="g-td-sub">소음시험</td>
-          <td class="g-td-val">
+          <td class="g-td-val" style="min-height:120px;">
             <div style="font-size:10pt;font-weight:700;margin-bottom:2px;">□ 소음시험 성적서 제출 내역</div>
-            <div style="font-size:10pt;">- <input data-field="item12_cert1" class="input g-inp" type="text" style="width:calc(100% - 14px);" value="\${E(v('item12_cert1'))}"></div>
-            <div style="font-size:10pt;margin-top:2px;">- <input data-field="item12_cert2" class="input g-inp" type="text" style="width:calc(100% - 14px);" value="\${E(v('item12_cert2'))}"></div>
-            <div style="font-size:10pt;margin-top:2px;">- <input data-field="item12_cert3" class="input g-inp" type="text" style="width:calc(100% - 14px);" value="\${E(v('item12_cert3'))}"></div>
-            <div style="font-size:10pt;font-weight:700;margin:3px 0 2px;">□ 소음 시험방법</div>
-            <div style="font-size:10pt;">- 가속주행소음 : <input data-field="item12_accel" class="input g-inp" type="text" style="width:calc(100% - 85px);" value="\${E(v('item12_accel'))}"></div>
-            <div style="font-size:10pt;margin-top:2px;">- 배기소음 : <input data-field="item12_exhaust" class="input g-inp" type="text" style="width:calc(100% - 70px);" value="\${E(v('item12_exhaust'))}"></div>
-            <div style="font-size:10pt;margin-top:2px;">- 경적소음 : <input data-field="item12_horn" class="input g-inp" type="text" style="width:calc(100% - 70px);" value="\${E(v('item12_horn'))}"></div>
+            <table style="width:100%;border:none;border-collapse:collapse;">
+              <tr><td style="font-size:10pt;padding:1px 0;white-space:nowrap;">-</td><td style="width:100%;padding:1px 2px;"><input data-field="item12_cert1" class="input g-inp" type="text" style="width:100%;" value="\${E(v('item12_cert1'))}"></td></tr>
+              <tr><td style="font-size:10pt;padding:1px 0;white-space:nowrap;">-</td><td style="width:100%;padding:1px 2px;"><input data-field="item12_cert2" class="input g-inp" type="text" style="width:100%;" value="\${E(v('item12_cert2'))}"></td></tr>
+              <tr><td style="font-size:10pt;padding:1px 0;white-space:nowrap;">-</td><td style="width:100%;padding:1px 2px;"><input data-field="item12_cert3" class="input g-inp" type="text" style="width:100%;" value="\${E(v('item12_cert3'))}"></td></tr>
+            </table>
+            <div style="font-size:10pt;font-weight:700;margin:4px 0 2px;">□ 소음 시험방법</div>
+            <table style="width:100%;border:none;border-collapse:collapse;">
+              <tr><td style="font-size:10pt;padding:1px 0;white-space:nowrap;">- 가속주행소음 :</td><td style="width:100%;padding:1px 2px;"><input data-field="item12_accel" class="input g-inp" type="text" style="width:100%;" value="\${E(v('item12_accel'))}"></td></tr>
+              <tr><td style="font-size:10pt;padding:1px 0;white-space:nowrap;">- 배기소음 :</td><td style="width:100%;padding:1px 2px;"><input data-field="item12_exhaust" class="input g-inp" type="text" style="width:100%;" value="\${E(v('item12_exhaust'))}"></td></tr>
+              <tr><td style="font-size:10pt;padding:1px 0;white-space:nowrap;">- 경적소음 :</td><td style="width:100%;padding:1px 2px;"><input data-field="item12_horn" class="input g-inp" type="text" style="width:100%;" value="\${E(v('item12_horn'))}"></td></tr>
+            </table>
           </td>
         </tr>
 

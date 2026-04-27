@@ -3442,18 +3442,287 @@ if (formType==='detail_plan') return (
     '<div id="qr-footer-wrap" style="margin-top:12px;"></div>'
   );
 
-  if (formType==='evap_test') return (
-    sec('시험 일반 정보','fa-clipboard',
-      fld('시험기관','test_lab')+fld('시험일','test_date','date')+fld('시험 담당자','tester'))+
-    sec('차량 및 연료','fa-gas-pump',
-      fld('차종명','model')+fld('차대번호','vin')+
-      fld('연료탱크 용량 (L)','fuel_tank','number')+fld('카니스터 용량 (g)','canister_cap','number'))+
-    sec('시험 결과','fa-vials',
-      fld('고온 침지 측정값 (g)','hot_soak_result','number')+fld('고온 침지 기준값 (g)','hot_soak_limit','number')+
-      fld('주간 증발 측정값 (g)','diurnal_result','number')+fld('주간 증발 기준값 (g)','diurnal_limit','number')+
-      fld('합산 측정값 (g)','total_result','number')+fld('합산 기준값 (g)','total_limit','number'))+
-    '<div id="qr-footer-wrap" style="margin-top:12px;"></div>'
-  );
+  if (formType==='evap_test') return \`
+<style>
+/* ══════ evap_test 전용 스타일 ══════ */
+.ev-wrap {
+  box-sizing:border-box;
+  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  font-size:9pt;
+  padding:10px 2px;
+}
+.ev-doc-tag  { font-size:8.5pt; font-weight:700; color:var(--c-text2); margin:10px 0 4px; }
+.ev-main-title {
+  font-size:14pt; font-weight:900; text-align:center;
+  margin:4px 0 16px; letter-spacing:.04em; color:var(--c-text);
+}
+/* 공통 표 */
+.ev-tbl {
+  width:100%; border-collapse:collapse;
+  font-size:8.5pt; margin-bottom:0;
+}
+.ev-tbl th, .ev-tbl td {
+  border:1px solid #888;
+  padding:4px 6px;
+  vertical-align:middle;
+  word-break:keep-all;
+  overflow-wrap:break-word;
+}
+.ev-th {
+  background:rgba(79,142,247,.08);
+  font-weight:700; text-align:center;
+  white-space:nowrap;
+}
+.ev-sec-th {
+  background:rgba(79,142,247,.06);
+  font-weight:700; text-align:left;
+  padding:5px 8px;
+}
+.ev-inp {
+  width:100%; background:transparent;
+  border:none; outline:none;
+  font-size:8.5pt; color:var(--c-text);
+  font-family:inherit; padding:2px 3px;
+}
+.ev-inp::placeholder { color:var(--c-text3); }
+.ev-inp:focus { border-bottom:1px solid var(--c-accent); }
+.ev-lbl { font-weight:600; white-space:nowrap; color:var(--c-text2); }
+.ev-chk-row { display:flex; align-items:center; gap:6px; }
+.ev-chk-item { display:flex; align-items:center; gap:3px; font-size:8.5pt; cursor:pointer; }
+/* 인쇄 */
+@media print {
+  .ev-wrap { font-size:8.5pt !important; }
+  .ev-main-title { font-size:13pt !important; }
+  .ev-tbl th, .ev-tbl td {
+    border:1px solid #000 !important; color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .ev-th { background:rgba(79,142,247,.10) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .ev-sec-th { background:rgba(79,142,247,.06) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .ev-inp { color:#000 !important; border-bottom:none !important; }
+}
+</style>
+
+<div class="ev-wrap">
+
+  <!-- ── 최상단 헤더 (수입사/인증연도/배기량/동일차종기호) ── -->
+  <table class="ev-tbl" style="margin-bottom:14px;">
+    <thead>
+      <tr>
+        <th class="ev-th" style="width:25%;">수입사</th>
+        <th class="ev-th" style="width:25%;">인증연도</th>
+        <th class="ev-th" style="width:25%;">배기량</th>
+        <th class="ev-th" style="width:25%;">동일차종기호</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="height:28px;">
+        <td><input data-field="ev_importer"   class="ev-inp" type="text" value="\${E(v('ev_importer'))}"></td>
+        <td><input data-field="ev_cert_year"  class="ev-inp" type="text" value="\${E(v('ev_cert_year'))}"></td>
+        <td><input data-field="ev_disp"       class="ev-inp" type="text" value="\${E(v('ev_disp'))}"></td>
+        <td><input data-field="ev_fam_code"   class="ev-inp" type="text" value="\${E(v('ev_fam_code'))}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="ev-doc-tag">[별지 제23호 서식]</div>
+  <div class="ev-main-title">증발가스 시험내용 보고서</div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- 1. 일반 사항 -->
+  <!-- ══════════════════════════════════════════ -->
+  <table class="ev-tbl">
+    <tbody>
+      <tr>
+        <th class="ev-sec-th" colspan="6">1. &nbsp;일 반 &nbsp;사 항</th>
+      </tr>
+      <!-- 인증차명 / 시험차명 / 시험일시 -->
+      <tr>
+        <td style="width:16%;" class="ev-th">인증차명 :</td>
+        <td style="width:18%;"><input data-field="ev_cert_model"  class="ev-inp" type="text" value="\${E(v('ev_cert_model'))}"></td>
+        <td style="width:14%;" class="ev-th">시험차명 :</td>
+        <td style="width:18%;"><input data-field="ev_test_model"  class="ev-inp" type="text" value="\${E(v('ev_test_model'))}"></td>
+        <td style="width:14%;" class="ev-th">시험일시 :</td>
+        <td style="width:20%;"><input data-field="ev_test_date"   class="ev-inp" type="text" placeholder="YYYY-MM-DD" value="\${E(v('ev_test_date'))}"></td>
+      </tr>
+      <!-- 동일차종 -->
+      <tr>
+        <td class="ev-th">동일차종 :</td>
+        <td colspan="5"><input data-field="ev_same_model" class="ev-inp" type="text" value="\${E(v('ev_same_model'))}"></td>
+      </tr>
+      <!-- 시험번호 / 장비작동자 / 검사책임자 -->
+      <tr>
+        <td class="ev-th">시험번호 :</td>
+        <td><input data-field="ev_test_no"    class="ev-inp" type="text" value="\${E(v('ev_test_no'))}"></td>
+        <td class="ev-th">장비작동자 :</td>
+        <td><input data-field="ev_operator"   class="ev-inp" type="text" value="\${E(v('ev_operator'))}"></td>
+        <td class="ev-th">검사책임자 :</td>
+        <td><input data-field="ev_inspector"  class="ev-inp" type="text" value="\${E(v('ev_inspector'))}"></td>
+      </tr>
+      <!-- 차대번호 / 엔진번호 / 적산거리 -->
+      <tr>
+        <td class="ev-th">차대번호 :</td>
+        <td><input data-field="ev_vin"        class="ev-inp" type="text" value="\${E(v('ev_vin'))}"></td>
+        <td class="ev-th">엔진번호</td>
+        <td><input data-field="ev_eng_no"     class="ev-inp" type="text" value="\${E(v('ev_eng_no'))}"></td>
+        <td class="ev-th">적산거리 :</td>
+        <td><input data-field="ev_mileage"    class="ev-inp" type="text" placeholder="km" value="\${E(v('ev_mileage'))}"></td>
+      </tr>
+      <!-- 시험구분 (체크박스) -->
+      <tr>
+        <td class="ev-th" style="text-align:center;">시험구분</td>
+        <td style="text-align:center;">
+          <label class="ev-chk-item" style="justify-content:center;">
+            <input type="checkbox" data-field="ev_type_dur" \${v('ev_type_dur')?'checked':''}>&nbsp;내구주행시험
+          </label>
+        </td>
+        <td colspan="2" style="text-align:center;">
+          <label class="ev-chk-item" style="justify-content:center;">
+            <input type="checkbox" data-field="ev_type_emis" \${v('ev_type_emis')?'checked':''}>&nbsp;배출가스시험
+          </label>
+        </td>
+        <td colspan="2" style="text-align:center;">
+          <label class="ev-chk-item" style="justify-content:center;">
+            <input type="checkbox" data-field="ev_type_etc" \${v('ev_type_etc')?'checked':''}>&nbsp;기타
+          </label>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- 2. 측정실 및 측정장비 -->
+  <!-- ══════════════════════════════════════════ -->
+  <table class="ev-tbl" style="border-top:none;">
+    <tbody>
+      <tr>
+        <th class="ev-sec-th" colspan="8">2. &nbsp;측정실 및 측정장비</th>
+      </tr>
+      <!-- 측정실(밀폐실) 규격 : 높이/폭/길이/순내부체적 -->
+      <tr>
+        <td class="ev-th" style="white-space:nowrap;">측정실(밀폐실) 규격 :</td>
+        <td style="width:8%;"><span class="ev-lbl">높이 :</span><input data-field="ev_room_h" class="ev-inp" type="text" value="\${E(v('ev_room_h'))}"></td>
+        <td style="width:8%;"><span class="ev-lbl">폭 :</span><input data-field="ev_room_w" class="ev-inp" type="text" value="\${E(v('ev_room_w'))}"></td>
+        <td style="width:8%;"><span class="ev-lbl">길이 :</span><input data-field="ev_room_l" class="ev-inp" type="text" value="\${E(v('ev_room_l'))}"></td>
+        <td colspan="4"><span class="ev-lbl">순내부체적 :</span><input data-field="ev_room_vol" class="ev-inp" type="text" value="\${E(v('ev_room_vol'))}"></td>
+      </tr>
+      <!-- 측정실 온도 조정방법 / 연료가열장치 / 측정실 모델 -->
+      <tr>
+        <td class="ev-th">측정실 온도 조정방법 :</td>
+        <td colspan="2"><input data-field="ev_temp_method" class="ev-inp" type="text" value="\${E(v('ev_temp_method'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">연료가열장치 :</td>
+        <td colspan="2"><input data-field="ev_fuel_heater" class="ev-inp" type="text" value="\${E(v('ev_fuel_heater'))}"></td>
+        <td class="ev-th">측정실 모델 :</td>
+        <td><input data-field="ev_room_model" class="ev-inp" type="text" value="\${E(v('ev_room_model'))}"></td>
+      </tr>
+      <!-- 분석장비 / HC 고정 방법 / 모델 -->
+      <tr>
+        <td class="ev-th">분석장비 :</td>
+        <td colspan="2"><input data-field="ev_analyzer" class="ev-inp" type="text" value="\${E(v('ev_analyzer'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">HC 고정 방법 :</td>
+        <td colspan="2"><input data-field="ev_hc_method" class="ev-inp" type="text" value="\${E(v('ev_hc_method'))}"></td>
+        <td class="ev-th">모&nbsp;&nbsp;&nbsp;델 :</td>
+        <td><input data-field="ev_hc_model" class="ev-inp" type="text" value="\${E(v('ev_hc_model'))}"></td>
+      </tr>
+      <!-- 활성탄 채집트랙 - 1행: 용기규격 / 보조채집장치 규격 -->
+      <tr>
+        <td class="ev-th" rowspan="2" style="text-align:center;">활성탄<br>채집트랙</td>
+        <td class="ev-th" style="white-space:nowrap;">용기규격 및 재질 :</td>
+        <td colspan="3"><input data-field="ev_can_spec" class="ev-inp" type="text" value="\${E(v('ev_can_spec'))}"></td>
+        <td class="ev-th" colspan="1" style="white-space:nowrap;">보조채집장치의 규격 및 재질 :</td>
+        <td colspan="2"><input data-field="ev_aux_spec" class="ev-inp" type="text" value="\${E(v('ev_aux_spec'))}"></td>
+      </tr>
+      <!-- 활성탄 채집트랙 - 2행: 채집용기 무게 / 시험후 무게 / 손무게 -->
+      <tr>
+        <td class="ev-th" style="white-space:nowrap;">채집용기 무게 :</td>
+        <td colspan="2"><input data-field="ev_can_wt_before" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_before'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">시험후 무게 :</td>
+        <td colspan="2"><input data-field="ev_can_wt_after" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_after'))}"></td>
+        <td><span class="ev-lbl">손무게 :</span><input data-field="ev_can_wt_loss" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_loss'))}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- 3. 시험결과 -->
+  <!-- ══════════════════════════════════════════ -->
+  <table class="ev-tbl" style="border-top:none;">
+    <thead>
+      <tr>
+        <th class="ev-sec-th" colspan="8">3. &nbsp;시험결과</th>
+      </tr>
+      <!-- 복합 헤더 1행 -->
+      <tr>
+        <th class="ev-th" rowspan="2" style="width:18%; vertical-align:middle;">구&nbsp;&nbsp;&nbsp;분</th>
+        <th class="ev-th" colspan="3">초기단계(밀폐실)</th>
+        <th class="ev-th" colspan="3">최종단계(밀폐실)</th>
+        <th class="ev-th" rowspan="2" style="width:8%; vertical-align:middle;">결과<br>g</th>
+      </tr>
+      <!-- 복합 헤더 2행 -->
+      <tr>
+        <th class="ev-th" style="width:9%;">온도<br>℃</th>
+        <th class="ev-th" style="width:10%;">압력<br>mmHg</th>
+        <th class="ev-th" style="width:9%;">농도<br>ppm</th>
+        <th class="ev-th" style="width:9%;">온도<br>℃</th>
+        <th class="ev-th" style="width:10%;">압력<br>mmHg</th>
+        <th class="ev-th" style="width:9%;">농도<br>ppm</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 주간증발손실시험 -->
+      <tr style="height:32px;">
+        <td style="text-align:center; font-weight:600;">주간증발손실시험</td>
+        <td><input data-field="ev_diurnal_t1"  class="ev-inp" type="text" value="\${E(v('ev_diurnal_t1'))}"></td>
+        <td><input data-field="ev_diurnal_p1"  class="ev-inp" type="text" value="\${E(v('ev_diurnal_p1'))}"></td>
+        <td><input data-field="ev_diurnal_c1"  class="ev-inp" type="text" value="\${E(v('ev_diurnal_c1'))}"></td>
+        <td><input data-field="ev_diurnal_t2"  class="ev-inp" type="text" value="\${E(v('ev_diurnal_t2'))}"></td>
+        <td><input data-field="ev_diurnal_p2"  class="ev-inp" type="text" value="\${E(v('ev_diurnal_p2'))}"></td>
+        <td><input data-field="ev_diurnal_c2"  class="ev-inp" type="text" value="\${E(v('ev_diurnal_c2'))}"></td>
+        <td><input data-field="ev_diurnal_res" class="ev-inp" type="text" value="\${E(v('ev_diurnal_res'))}"></td>
+      </tr>
+      <!-- 고온소오크시험 -->
+      <tr style="height:32px;">
+        <td style="text-align:center; font-weight:600;">고온소오크시험</td>
+        <td><input data-field="ev_soak_t1"  class="ev-inp" type="text" value="\${E(v('ev_soak_t1'))}"></td>
+        <td><input data-field="ev_soak_p1"  class="ev-inp" type="text" value="\${E(v('ev_soak_p1'))}"></td>
+        <td><input data-field="ev_soak_c1"  class="ev-inp" type="text" value="\${E(v('ev_soak_c1'))}"></td>
+        <td><input data-field="ev_soak_t2"  class="ev-inp" type="text" value="\${E(v('ev_soak_t2'))}"></td>
+        <td><input data-field="ev_soak_p2"  class="ev-inp" type="text" value="\${E(v('ev_soak_p2'))}"></td>
+        <td><input data-field="ev_soak_c2"  class="ev-inp" type="text" value="\${E(v('ev_soak_c2'))}"></td>
+        <td><input data-field="ev_soak_res" class="ev-inp" type="text" value="\${E(v('ev_soak_res'))}"></td>
+      </tr>
+      <!-- 시험결과/테스트 -->
+      <tr style="height:28px;">
+        <td style="text-align:center; font-weight:600;">시험결과/테스트</td>
+        <td colspan="7"><input data-field="ev_test_result" class="ev-inp" type="text" value="\${E(v('ev_test_result'))}"></td>
+      </tr>
+      <!-- 열화계수(DF) -->
+      <tr style="height:28px;">
+        <td style="text-align:center; font-weight:600;">열화계수(DF)</td>
+        <td colspan="7"><input data-field="ev_df" class="ev-inp" type="text" value="\${E(v('ev_df'))}"></td>
+      </tr>
+      <!-- 최종결과 -->
+      <tr style="height:28px;">
+        <td style="text-align:center; font-weight:600;">최종결과</td>
+        <td colspan="7"><input data-field="ev_final_result" class="ev-inp" type="text" value="\${E(v('ev_final_result'))}"></td>
+      </tr>
+      <!-- 기준치 -->
+      <tr style="height:28px;">
+        <td style="text-align:center; font-weight:600;">기 &nbsp;준 &nbsp;치</td>
+        <td colspan="7"><input data-field="ev_std" class="ev-inp" type="text" value="\${E(v('ev_std'))}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 첨부문서 안내 -->
+  <div style="margin-top:16px; font-size:8.5pt; line-height:2.0; color:var(--c-text2);">
+    <div>첨부문서 (자체시험성적서 / RAW DATA)</div>
+    <div>첨부문서 (시험 차량이 한국 인증에서 받는 차량과 상이할 경우 제작사의 확인서 추가)</div>
+  </div>
+
+  <div id="qr-footer-wrap" style="margin-top:16px;"></div>
+</div>
+\`;
 
   if (formType==='obd_operation') return \`
 <style>

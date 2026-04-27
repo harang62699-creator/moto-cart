@@ -3521,13 +3521,55 @@ if (formType==='detail_plan') return (
 @media print {
   .ev-wrap { font-size:8.5pt !important; }
   .ev-main-title { font-size:13pt !important; }
+
+  /* 표 테두리·색상 */
   .ev-tbl th, .ev-tbl td {
     border:1px solid #000 !important; color:#000 !important;
     -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    vertical-align:middle !important;
+    padding:3px 5px !important;
   }
-  .ev-th { background:rgba(79,142,247,.10) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .ev-sec-th { background:rgba(79,142,247,.06) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .ev-inp { color:#000 !important; border-bottom:none !important; }
+  .ev-th {
+    background:rgba(79,142,247,.10) !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .ev-sec-th {
+    background:rgba(79,142,247,.06) !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+
+  /* ── ev-inp: input 원본 및 auto-grow로 교체된 textarea 모두 처리 ── */
+  .ev-inp,
+  textarea.ev-inp,
+  textarea.ev-inp.auto-grow {
+    display:block !important;
+    width:100% !important;
+    background:transparent !important;
+    border:none !important;
+    border-bottom:none !important;
+    outline:none !important;
+    box-shadow:none !important;
+    color:#000 !important;
+    font-size:8.5pt !important;
+    font-family:'맑은 고딕','Malgun Gothic',sans-serif !important;
+    padding:1px 2px !important;
+    margin:0 !important;
+    /* 전역 auto-grow 인쇄 스타일 덮어쓰기 */
+    height:auto !important;
+    min-height:0 !important;
+    overflow:visible !important;
+    resize:none !important;
+    white-space:pre-wrap !important;
+    word-break:break-word !important;
+  }
+
+  /* ev-lbl (높이:, 폭: 등 인라인 라벨) */
+  .ev-lbl {
+    color:#000 !important;
+    font-weight:600 !important;
+  }
+
+  /* 첨부 영역 */
   .ev-attach-section { display:none !important; }
   .ev-attach-print-wrap { display:block !important; }
   .ev-attach-print-page { page-break-before:always; }

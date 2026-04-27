@@ -3656,41 +3656,38 @@ if (formType==='detail_plan') return (
 
   <!-- ══════════════════════════════════════════ -->
   <!-- 2. 측정실 및 측정장비                      -->
-  <!-- 12열 구조로 통일: 라벨(A1)+값(A2~A3)+라벨(B1)+값(B2~B3)+라벨(C1)+값(C2~C3) -->
-  <!-- 즉 col1~12, 라벨=2col, 값=2col 반복 = 12열  -->
+  <!-- 6열 구조로 1.일반사항과 완전 통일           -->
+  <!-- col1(16%):라벨A | col2(18%):값A | col3(14%):라벨B | col4(18%):값B | col5(14%):라벨C | col6(20%):값C -->
   <!-- ══════════════════════════════════════════ -->
   <table class="ev-tbl" style="border-top:none;">
     <colgroup>
       <col style="width:16%;"><!-- col1: 라벨A -->
-      <col style="width:4%;"><!-- col2: 값A-좌 -->
-      <col style="width:13%;"><!-- col3: 값A-우 -->
-      <col style="width:13%;"><!-- col4: 라벨B -->
-      <col style="width:4%;"><!-- col5: 값B-좌 -->
-      <col style="width:13%;"><!-- col6: 값B-우 -->
-      <col style="width:13%;"><!-- col7: 라벨C -->
-      <col style="width:4%;"><!-- col8: 값C-좌 -->
-      <col style="width:20%;"><!-- col9: 값C-우 -->
+      <col style="width:18%;"><!-- col2: 값A -->
+      <col style="width:14%;"><!-- col3: 라벨B -->
+      <col style="width:18%;"><!-- col4: 값B -->
+      <col style="width:14%;"><!-- col5: 라벨C -->
+      <col style="width:20%;"><!-- col6: 값C -->
     </colgroup>
     <tbody>
       <tr>
-        <th class="ev-sec-th" colspan="9">2. &nbsp;측정실 및 측정장비</th>
+        <th class="ev-sec-th" colspan="6">2. &nbsp;측정실 및 측정장비</th>
       </tr>
 
-      <!-- 행1: 측정실(밀폐실) 규격 : 높이/폭/길이/순내부체적 -->
-      <!-- 라벨(col1) | 높이라벨+값(col2~3) | 폭라벨+값(col4~5) | 길이라벨+값(col6~7) | 순내부체적라벨(col7) | 값(col8~9) -->
+      <!-- 행1: 측정실(밀폐실) 규격 : 높이/폭/길이 | 순내부체적 -->
+      <!-- col1=라벨 | col2=높이:값 | col3=폭:값 | col4=길이:값 | col5=순내부체적라벨 | col6=값 -->
       <tr>
         <td class="ev-th" style="white-space:nowrap;">측정실(밀폐실) 규격 :</td>
-        <td colspan="2">
-          <span class="ev-lbl" style="white-space:nowrap;">높이 :</span>
-          <input data-field="ev_room_h" class="ev-inp" type="text" value="\${E(v('ev_room_h'))}">
+        <td style="white-space:nowrap;">
+          <span class="ev-lbl">높이 :</span>
+          <input data-field="ev_room_h" class="ev-inp" type="text" style="width:55%;" value="\${E(v('ev_room_h'))}">
         </td>
-        <td colspan="2">
-          <span class="ev-lbl" style="white-space:nowrap;">폭 :</span>
-          <input data-field="ev_room_w" class="ev-inp" type="text" value="\${E(v('ev_room_w'))}">
+        <td style="white-space:nowrap;">
+          <span class="ev-lbl">폭 :</span>
+          <input data-field="ev_room_w" class="ev-inp" type="text" style="width:65%;" value="\${E(v('ev_room_w'))}">
         </td>
-        <td colspan="2">
-          <span class="ev-lbl" style="white-space:nowrap;">길이 :</span>
-          <input data-field="ev_room_l" class="ev-inp" type="text" value="\${E(v('ev_room_l'))}">
+        <td style="white-space:nowrap;">
+          <span class="ev-lbl">길이 :</span>
+          <input data-field="ev_room_l" class="ev-inp" type="text" style="width:60%;" value="\${E(v('ev_room_l'))}">
         </td>
         <td class="ev-th" style="white-space:nowrap;">순내부체적 :</td>
         <td><input data-field="ev_room_vol" class="ev-inp" type="text" value="\${E(v('ev_room_vol'))}"></td>
@@ -3699,39 +3696,41 @@ if (formType==='detail_plan') return (
       <!-- 행2: 측정실 온도 조정방법 / 연료가열장치 / 측정실 모델 -->
       <tr>
         <td class="ev-th" style="white-space:nowrap;">측정실 온도 조정방법 :</td>
-        <td colspan="2"><input data-field="ev_temp_method" class="ev-inp" type="text" value="\${E(v('ev_temp_method'))}"></td>
-        <td colspan="1" class="ev-th" style="white-space:nowrap;">연료가열장치 :</td>
-        <td colspan="2"><input data-field="ev_fuel_heater" class="ev-inp" type="text" value="\${E(v('ev_fuel_heater'))}"></td>
-        <td colspan="1" class="ev-th" style="white-space:nowrap;">측정실 모델 :</td>
-        <td colspan="2"><input data-field="ev_room_model" class="ev-inp" type="text" value="\${E(v('ev_room_model'))}"></td>
+        <td><input data-field="ev_temp_method" class="ev-inp" type="text" value="\${E(v('ev_temp_method'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">연료가열장치 :</td>
+        <td><input data-field="ev_fuel_heater" class="ev-inp" type="text" value="\${E(v('ev_fuel_heater'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">측정실 모델 :</td>
+        <td><input data-field="ev_room_model" class="ev-inp" type="text" value="\${E(v('ev_room_model'))}"></td>
       </tr>
 
       <!-- 행3: 분석장비 / HC 고정 방법 / 모델 -->
       <tr>
         <td class="ev-th" style="white-space:nowrap;">분석장비 :</td>
-        <td colspan="2"><input data-field="ev_analyzer" class="ev-inp" type="text" value="\${E(v('ev_analyzer'))}"></td>
-        <td colspan="1" class="ev-th" style="white-space:nowrap;">HC 고정 방법 :</td>
-        <td colspan="2"><input data-field="ev_hc_method" class="ev-inp" type="text" value="\${E(v('ev_hc_method'))}"></td>
-        <td colspan="1" class="ev-th" style="white-space:nowrap;">모&nbsp;&nbsp;&nbsp;델 :</td>
-        <td colspan="2"><input data-field="ev_hc_model" class="ev-inp" type="text" value="\${E(v('ev_hc_model'))}"></td>
+        <td><input data-field="ev_analyzer" class="ev-inp" type="text" value="\${E(v('ev_analyzer'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">HC 고정 방법 :</td>
+        <td><input data-field="ev_hc_method" class="ev-inp" type="text" value="\${E(v('ev_hc_method'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">모&nbsp;&nbsp;&nbsp;델 :</td>
+        <td><input data-field="ev_hc_model" class="ev-inp" type="text" value="\${E(v('ev_hc_model'))}"></td>
       </tr>
 
-      <!-- 행4: 활성탄 채집트랙(rowspan=2) / 용기규격 및 재질 / 보조채집장치 규격 -->
+      <!-- 행4: 활성탄 채집트랙(rowspan=2) / 용기규격 및 재질 / 보조채집장치 규격 및 재질 -->
+      <!-- col1=활성탄채집트랙(rowspan=2) | col2=용기규격라벨 | col3=값 | col4=보조채집장치라벨 | col5~6=값 -->
       <tr>
         <td class="ev-th" rowspan="2" style="text-align:center; vertical-align:middle; white-space:nowrap;">활성탄<br>채집트랙</td>
-        <td class="ev-th" colspan="1" style="white-space:nowrap;">용기규격 및 재질 :</td>
-        <td colspan="3"><input data-field="ev_can_spec" class="ev-inp" type="text" value="\${E(v('ev_can_spec'))}"></td>
-        <td class="ev-th" colspan="1" style="white-space:nowrap; font-size:7.5pt;">보조채집장치의 규격 및 재질 :</td>
-        <td colspan="3"><input data-field="ev_aux_spec" class="ev-inp" type="text" value="\${E(v('ev_aux_spec'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">용기규격 및 재질 :</td>
+        <td><input data-field="ev_can_spec" class="ev-inp" type="text" value="\${E(v('ev_can_spec'))}"></td>
+        <td class="ev-th" style="white-space:nowrap; font-size:7.5pt;">보조채집장치의<br>규격 및 재질 :</td>
+        <td colspan="2"><input data-field="ev_aux_spec" class="ev-inp" type="text" value="\${E(v('ev_aux_spec'))}"></td>
       </tr>
 
-      <!-- 행5: (활성탄 rowspan 계속, col1 차지) 나머지 8칸: 1+2+1+2+1+1=8 -->
+      <!-- 행5: (활성탄 rowspan 계속, col1 차지) 나머지 5열: 라벨+값+라벨+값+라벨+값 -->
+      <!-- col1=rowspan차지 | col2=채집용기무게라벨 | col3=값 | col4=시험후무게라벨 | col5=값 | col6=손무게라벨+값 -->
       <tr>
         <td class="ev-th" style="white-space:nowrap;">채집용기 무게 :</td>
-        <td colspan="2"><input data-field="ev_can_wt_before" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_before'))}"></td>
+        <td><input data-field="ev_can_wt_before" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_before'))}"></td>
         <td class="ev-th" style="white-space:nowrap;">시험후 무게 :</td>
-        <td colspan="2"><input data-field="ev_can_wt_after" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_after'))}"></td>
-        <td class="ev-th" style="white-space:nowrap;">손무게 :</td>
+        <td><input data-field="ev_can_wt_after" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_after'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">손&nbsp;무&nbsp;게 :</td>
         <td><input data-field="ev_can_wt_loss" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_loss'))}"></td>
       </tr>
 

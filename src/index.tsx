@@ -1803,6 +1803,8 @@ async function openForm(formType) {
   setTimeout(() => generateFormQR(formType, meta.title), 100);
   // noise_test 첨부파일 기능 초기화
   if (formType === 'noise_test') setTimeout(() => initNoiseAttach(), 150);
+  // evap_test 첨부파일 기능 초기화
+  if (formType === 'evap_test') setTimeout(() => initEvapAttach(), 150);
 }
 
 // ── Auto-grow: input[type=text] → textarea 동적 교체 ──────────────
@@ -3489,6 +3491,32 @@ if (formType==='detail_plan') return (
 .ev-lbl { font-weight:600; white-space:nowrap; color:var(--c-text2); }
 .ev-chk-row { display:flex; align-items:center; gap:6px; }
 .ev-chk-item { display:flex; align-items:center; gap:3px; font-size:8.5pt; cursor:pointer; }
+/* 첨부 섹션 */
+.ev-attach-section { margin-top:14px; }
+.ev-attach-title { font-size:9pt; font-weight:700; margin-bottom:6px; color:var(--c-text); }
+.ev-attach-note { font-size:8pt; color:var(--c-text3); margin-bottom:8px; }
+.ev-attach-drop {
+  border:2px dashed var(--c-border); border-radius:8px;
+  padding:16px; text-align:center; cursor:pointer;
+  transition:border-color .2s, background .2s;
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+}
+.ev-attach-drop:hover { border-color:var(--c-accent); background:rgba(79,142,247,.04); }
+.ev-attach-drop input[type=file] { display:none; }
+.ev-attach-list { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
+.ev-attach-item {
+  display:flex; align-items:center; gap:8px;
+  padding:4px 8px; border-radius:4px;
+  background:var(--c-surface2); font-size:8.5pt;
+}
+.ev-attach-item-name { flex:1; color:var(--c-text); word-break:break-all; }
+.ev-attach-item-size { color:var(--c-text3); white-space:nowrap; font-size:8pt; }
+.ev-attach-item-del { color:#ef4444; cursor:pointer; padding:1px 5px; border-radius:3px; font-size:10pt; line-height:1; }
+.ev-attach-item-del:hover { background:rgba(239,68,68,.12); }
+.ev-attach-print-wrap { margin-top:10px; }
+.ev-attach-print-page { page-break-before:always; margin-top:20px; }
+.ev-attach-print-page img { max-width:100%; height:auto; display:block; }
+.ev-attach-print-page .ev-attach-pdf-frame { width:100%; min-height:600px; border:none; }
 /* 인쇄 */
 @media print {
   .ev-wrap { font-size:8.5pt !important; }
@@ -3500,6 +3528,9 @@ if (formType==='detail_plan') return (
   .ev-th { background:rgba(79,142,247,.10) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .ev-sec-th { background:rgba(79,142,247,.06) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .ev-inp { color:#000 !important; border-bottom:none !important; }
+  .ev-attach-section { display:none !important; }
+  .ev-attach-print-wrap { display:block !important; }
+  .ev-attach-print-page { page-break-before:always; }
 }
 </style>
 
@@ -3594,51 +3625,63 @@ if (formType==='detail_plan') return (
   <!-- 2. 측정실 및 측정장비 -->
   <!-- ══════════════════════════════════════════ -->
   <table class="ev-tbl" style="border-top:none;">
+    <colgroup>
+      <col style="width:18%;"><!-- 라벨1 -->
+      <col style="width:10%;"><!-- 높이값 -->
+      <col style="width:10%;"><!-- 폭값 -->
+      <col style="width:10%;"><!-- 길이값 -->
+      <col style="width:18%;"><!-- 라벨2 -->
+      <col style="width:11%;"><!-- 값2 -->
+      <col style="width:12%;"><!-- 라벨3 -->
+      <col style="width:11%;"><!-- 값3 -->
+    </colgroup>
     <tbody>
       <tr>
         <th class="ev-sec-th" colspan="8">2. &nbsp;측정실 및 측정장비</th>
       </tr>
-      <!-- 측정실(밀폐실) 규격 : 높이/폭/길이/순내부체적 -->
+      <!-- 측정실(밀폐실) 규격 : 높이 / 폭 / 길이 / 순내부체적 -->
       <tr>
         <td class="ev-th" style="white-space:nowrap;">측정실(밀폐실) 규격 :</td>
-        <td style="width:8%;"><span class="ev-lbl">높이 :</span><input data-field="ev_room_h" class="ev-inp" type="text" value="\${E(v('ev_room_h'))}"></td>
-        <td style="width:8%;"><span class="ev-lbl">폭 :</span><input data-field="ev_room_w" class="ev-inp" type="text" value="\${E(v('ev_room_w'))}"></td>
-        <td style="width:8%;"><span class="ev-lbl">길이 :</span><input data-field="ev_room_l" class="ev-inp" type="text" value="\${E(v('ev_room_l'))}"></td>
-        <td colspan="4"><span class="ev-lbl">순내부체적 :</span><input data-field="ev_room_vol" class="ev-inp" type="text" value="\${E(v('ev_room_vol'))}"></td>
+        <td><span class="ev-lbl" style="white-space:nowrap;">높이 :</span><input data-field="ev_room_h" class="ev-inp" type="text" value="\${E(v('ev_room_h'))}"></td>
+        <td><span class="ev-lbl" style="white-space:nowrap;">폭 :</span><input data-field="ev_room_w" class="ev-inp" type="text" value="\${E(v('ev_room_w'))}"></td>
+        <td><span class="ev-lbl" style="white-space:nowrap;">길이 :</span><input data-field="ev_room_l" class="ev-inp" type="text" value="\${E(v('ev_room_l'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">순내부체적 :</td>
+        <td colspan="3"><input data-field="ev_room_vol" class="ev-inp" type="text" value="\${E(v('ev_room_vol'))}"></td>
       </tr>
       <!-- 측정실 온도 조정방법 / 연료가열장치 / 측정실 모델 -->
       <tr>
-        <td class="ev-th">측정실 온도 조정방법 :</td>
-        <td colspan="2"><input data-field="ev_temp_method" class="ev-inp" type="text" value="\${E(v('ev_temp_method'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">측정실 온도 조정방법 :</td>
+        <td colspan="3"><input data-field="ev_temp_method" class="ev-inp" type="text" value="\${E(v('ev_temp_method'))}"></td>
         <td class="ev-th" style="white-space:nowrap;">연료가열장치 :</td>
-        <td colspan="2"><input data-field="ev_fuel_heater" class="ev-inp" type="text" value="\${E(v('ev_fuel_heater'))}"></td>
-        <td class="ev-th">측정실 모델 :</td>
+        <td><input data-field="ev_fuel_heater" class="ev-inp" type="text" value="\${E(v('ev_fuel_heater'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">측정실 모델 :</td>
         <td><input data-field="ev_room_model" class="ev-inp" type="text" value="\${E(v('ev_room_model'))}"></td>
       </tr>
       <!-- 분석장비 / HC 고정 방법 / 모델 -->
       <tr>
-        <td class="ev-th">분석장비 :</td>
-        <td colspan="2"><input data-field="ev_analyzer" class="ev-inp" type="text" value="\${E(v('ev_analyzer'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">분석장비 :</td>
+        <td colspan="3"><input data-field="ev_analyzer" class="ev-inp" type="text" value="\${E(v('ev_analyzer'))}"></td>
         <td class="ev-th" style="white-space:nowrap;">HC 고정 방법 :</td>
-        <td colspan="2"><input data-field="ev_hc_method" class="ev-inp" type="text" value="\${E(v('ev_hc_method'))}"></td>
-        <td class="ev-th">모&nbsp;&nbsp;&nbsp;델 :</td>
+        <td><input data-field="ev_hc_method" class="ev-inp" type="text" value="\${E(v('ev_hc_method'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">모&nbsp;&nbsp;&nbsp;델 :</td>
         <td><input data-field="ev_hc_model" class="ev-inp" type="text" value="\${E(v('ev_hc_model'))}"></td>
       </tr>
       <!-- 활성탄 채집트랙 - 1행: 용기규격 / 보조채집장치 규격 -->
       <tr>
-        <td class="ev-th" rowspan="2" style="text-align:center;">활성탄<br>채집트랙</td>
+        <td class="ev-th" rowspan="2" style="text-align:center; vertical-align:middle;">활성탄<br>채집트랙</td>
         <td class="ev-th" style="white-space:nowrap;">용기규격 및 재질 :</td>
-        <td colspan="3"><input data-field="ev_can_spec" class="ev-inp" type="text" value="\${E(v('ev_can_spec'))}"></td>
-        <td class="ev-th" colspan="1" style="white-space:nowrap;">보조채집장치의 규격 및 재질 :</td>
-        <td colspan="2"><input data-field="ev_aux_spec" class="ev-inp" type="text" value="\${E(v('ev_aux_spec'))}"></td>
+        <td colspan="2"><input data-field="ev_can_spec" class="ev-inp" type="text" value="\${E(v('ev_can_spec'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">보조채집장치의 규격 및 재질 :</td>
+        <td colspan="3"><input data-field="ev_aux_spec" class="ev-inp" type="text" value="\${E(v('ev_aux_spec'))}"></td>
       </tr>
       <!-- 활성탄 채집트랙 - 2행: 채집용기 무게 / 시험후 무게 / 손무게 -->
       <tr>
         <td class="ev-th" style="white-space:nowrap;">채집용기 무게 :</td>
         <td colspan="2"><input data-field="ev_can_wt_before" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_before'))}"></td>
         <td class="ev-th" style="white-space:nowrap;">시험후 무게 :</td>
-        <td colspan="2"><input data-field="ev_can_wt_after" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_after'))}"></td>
-        <td><span class="ev-lbl">손무게 :</span><input data-field="ev_can_wt_loss" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_loss'))}"></td>
+        <td><input data-field="ev_can_wt_after" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_after'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">손무게 :</td>
+        <td><input data-field="ev_can_wt_loss" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_loss'))}"></td>
       </tr>
     </tbody>
   </table>
@@ -3714,11 +3757,31 @@ if (formType==='detail_plan') return (
     </tbody>
   </table>
 
-  <!-- 첨부문서 안내 -->
-  <div style="margin-top:16px; font-size:8.5pt; line-height:2.0; color:var(--c-text2);">
-    <div>첨부문서 (자체시험성적서 / RAW DATA)</div>
-    <div>첨부문서 (시험 차량이 한국 인증에서 받는 차량과 상이할 경우 제작사의 확인서 추가)</div>
+  <!-- 첨부문서 1: 자체시험성적서 / RAW DATA -->
+  <div class="ev-attach-section no-print" id="ev-attach-raw-section">
+    <div class="ev-attach-title"><i class="fas fa-paperclip"></i> 첨부문서 ① – 자체시험성적서 / RAW DATA</div>
+    <div class="ev-attach-note">이미지(JPG, PNG) 또는 PDF 파일을 첨부하면 인쇄 시 함께 출력됩니다.</div>
+    <div class="ev-attach-drop" id="ev-drop-raw" onclick="document.getElementById('ev-file-raw').click()">
+      <input type="file" id="ev-file-raw" multiple accept="image/*,.pdf">
+      <i class="fas fa-cloud-upload-alt" style="font-size:20px;color:var(--c-accent);margin-bottom:4px;"></i>
+      <div style="font-size:8.5pt;color:var(--c-text2);">클릭하거나 파일을 끌어다 놓으세요 (이미지 / PDF)</div>
+    </div>
+    <div class="ev-attach-list" id="ev-list-raw"></div>
   </div>
+  <div class="ev-attach-print-wrap" id="ev-print-raw"></div>
+
+  <!-- 첨부문서 2: 제작사의 확인서 -->
+  <div class="ev-attach-section no-print" id="ev-attach-mfr-section">
+    <div class="ev-attach-title"><i class="fas fa-paperclip"></i> 첨부문서 ② – 제작사의 확인서 <span style="font-size:8pt;font-weight:400;color:var(--c-text3);">(시험 차량이 한국 인증 차량과 상이할 경우)</span></div>
+    <div class="ev-attach-note">이미지(JPG, PNG) 또는 PDF 파일을 첨부하면 인쇄 시 함께 출력됩니다.</div>
+    <div class="ev-attach-drop" id="ev-drop-mfr" onclick="document.getElementById('ev-file-mfr').click()">
+      <input type="file" id="ev-file-mfr" multiple accept="image/*,.pdf">
+      <i class="fas fa-cloud-upload-alt" style="font-size:20px;color:var(--c-accent);margin-bottom:4px;"></i>
+      <div style="font-size:8.5pt;color:var(--c-text2);">클릭하거나 파일을 끌어다 놓으세요 (이미지 / PDF)</div>
+    </div>
+    <div class="ev-attach-list" id="ev-list-mfr"></div>
+  </div>
+  <div class="ev-attach-print-wrap" id="ev-print-mfr"></div>
 
   <div id="qr-footer-wrap" style="margin-top:16px;"></div>
 </div>
@@ -5191,6 +5254,79 @@ function showToast(msg, type='info') {
 // ================================================================
 // noise_test 첨부파일 기능
 // ================================================================
+function initEvapAttach() {
+  function makeAttach(dropId, fileInputId, listId, printWrapId) {
+    var files = [];
+    var dropZone  = document.getElementById(dropId);
+    var fileInput = document.getElementById(fileInputId);
+    var listEl    = document.getElementById(listId);
+    var printWrap = document.getElementById(printWrapId);
+    if (!dropZone || !fileInput) return;
+
+    dropZone.addEventListener('dragover',  function(e){ e.preventDefault(); dropZone.style.borderColor='var(--c-accent)'; });
+    dropZone.addEventListener('dragleave', function(){ dropZone.style.borderColor=''; });
+    dropZone.addEventListener('drop',      function(e){ e.preventDefault(); dropZone.style.borderColor=''; handleFiles(e.dataTransfer.files); });
+    fileInput.addEventListener('change',   function(){ handleFiles(this.files); this.value=''; });
+
+    function handleFiles(flist) {
+      Array.from(flist).forEach(function(file){
+        var reader = new FileReader();
+        reader.onload = function(ev){
+          files.push({ name:file.name, size:file.size, type:file.type, dataUrl:ev.target.result });
+          renderList(); renderPrint();
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+    function fmtSize(b){ return b<1024?b+'B':b<1048576?(b/1024).toFixed(1)+'KB':(b/1048576).toFixed(1)+'MB'; }
+    function renderList(){
+      listEl.innerHTML='';
+      files.forEach(function(f,idx){
+        var div=document.createElement('div');
+        div.className='ev-attach-item';
+        div.innerHTML='<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:var(--c-accent);"></i>'+
+          '<span class="ev-attach-item-name">'+f.name+'</span>'+
+          '<span class="ev-attach-item-size">'+fmtSize(f.size)+'</span>'+
+          '<span class="ev-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
+        listEl.appendChild(div);
+      });
+      listEl.querySelectorAll('.ev-attach-item-del').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          files.splice(parseInt(this.dataset.idx),1);
+          renderList(); renderPrint();
+        });
+      });
+    }
+    function renderPrint(){
+      printWrap.innerHTML='';
+      files.forEach(function(f){
+        var page=document.createElement('div');
+        page.className='ev-attach-print-page';
+        var lbl=document.createElement('div');
+        lbl.style.cssText='font-size:9pt;font-weight:700;margin-bottom:6px;';
+        lbl.textContent='첨부: '+f.name;
+        page.appendChild(lbl);
+        if(f.type==='application/pdf'){
+          var iframe=document.createElement('iframe');
+          iframe.src=f.dataUrl;
+          iframe.style.cssText='width:100%;min-height:700px;border:none;';
+          page.appendChild(iframe);
+        } else {
+          var img=document.createElement('img');
+          img.src=f.dataUrl;
+          img.style.cssText='max-width:100%;height:auto;display:block;';
+          page.appendChild(img);
+        }
+        printWrap.appendChild(page);
+      });
+    }
+  }
+  // 자체시험성적서 / RAW DATA
+  makeAttach('ev-drop-raw','ev-file-raw','ev-list-raw','ev-print-raw');
+  // 제작사의 확인서
+  makeAttach('ev-drop-mfr','ev-file-mfr','ev-list-mfr','ev-print-mfr');
+}
+
 function initNoiseAttach() {
   var ntAttachFiles = [];
   var dropZone  = document.getElementById('nt-drop-zone');

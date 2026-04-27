@@ -1846,7 +1846,8 @@ function initAutoGrow(container) {
   }
 
   // 1) data-field 있는 일반 input[type=text] (g-inp, sv-inp 등)
-  container.querySelectorAll('input[type="text"][data-field]').forEach(replaceWithTextarea);
+  // ev-inp는 표 구조 유지를 위해 textarea 교체 제외
+  container.querySelectorAll('input[type="text"][data-field]:not(.ev-inp)').forEach(replaceWithTextarea);
 
   // 2) cf-item-inp (확인서 항목 입력)
   container.querySelectorAll('input[type="text"].cf-item-inp').forEach(replaceWithTextarea);
@@ -3538,15 +3539,12 @@ if (formType==='detail_plan') return (
     -webkit-print-color-adjust:exact; print-color-adjust:exact;
   }
 
-  /* ── ev-inp: input 원본 및 auto-grow로 교체된 textarea 모두 처리 ── */
-  .ev-inp,
-  textarea.ev-inp,
-  textarea.ev-inp.auto-grow {
-    display:block !important;
+  /* ── ev-inp: input 원본 그대로 인쇄 (textarea 교체 안 함) ── */
+  .ev-inp {
+    display:inline-block !important;
     width:100% !important;
     background:transparent !important;
     border:none !important;
-    border-bottom:none !important;
     outline:none !important;
     box-shadow:none !important;
     color:#000 !important;
@@ -3554,13 +3552,6 @@ if (formType==='detail_plan') return (
     font-family:'맑은 고딕','Malgun Gothic',sans-serif !important;
     padding:1px 2px !important;
     margin:0 !important;
-    /* 전역 auto-grow 인쇄 스타일 덮어쓰기 */
-    height:auto !important;
-    min-height:0 !important;
-    overflow:visible !important;
-    resize:none !important;
-    white-space:pre-wrap !important;
-    word-break:break-word !important;
   }
 
   /* ev-lbl (높이:, 폭: 등 인라인 라벨) */

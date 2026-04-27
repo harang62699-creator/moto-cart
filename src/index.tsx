@@ -3725,14 +3725,14 @@ if (formType==='detail_plan') return (
         <td colspan="3"><input data-field="ev_aux_spec" class="ev-inp" type="text" value="\${E(v('ev_aux_spec'))}"></td>
       </tr>
 
-      <!-- 행5: (활성탄 계속) / 채집용기 무게 / 시험후 무게 / 손무게 -->
+      <!-- 행5: (활성탄 rowspan 계속, col1 차지) 나머지 8칸: 1+2+1+2+1+1=8 -->
       <tr>
-        <td class="ev-th" colspan="1" style="white-space:nowrap;">채집용기 무게 :</td>
+        <td class="ev-th" style="white-space:nowrap;">채집용기 무게 :</td>
         <td colspan="2"><input data-field="ev_can_wt_before" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_before'))}"></td>
-        <td class="ev-th" colspan="1" style="white-space:nowrap;">시험후 무게 :</td>
+        <td class="ev-th" style="white-space:nowrap;">시험후 무게 :</td>
         <td colspan="2"><input data-field="ev_can_wt_after" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_after'))}"></td>
-        <td class="ev-th" colspan="1" style="white-space:nowrap;">손무게 :</td>
-        <td colspan="2"><input data-field="ev_can_wt_loss" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_loss'))}"></td>
+        <td class="ev-th" style="white-space:nowrap;">손무게 :</td>
+        <td><input data-field="ev_can_wt_loss" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_loss'))}"></td>
       </tr>
 
     </tbody>

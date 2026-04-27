@@ -570,13 +570,18 @@ textarea.auto-grow {
   overflow:hidden !important;
   min-height:0 !important;
   line-height:1.5;
-  padding-top:6px;
-  padding-bottom:6px;
+  padding-top:4px;
+  padding-bottom:4px;
   box-sizing:border-box;
   display:block;
   width:100%;
   white-space:pre-wrap;
   word-break:break-word;
+  /* cf-item-inp 스타일 유지 */
+  font-family:inherit;
+  font-size:inherit;
+  color:inherit;
+  background:transparent;
 }
 .label {
   display:block; font-size:.8rem; font-weight:600;
@@ -1138,7 +1143,24 @@ textarea.auto-grow {
   textarea.auto-grow {
     border:1px solid #ccc !important; background:#fff !important; color:#000 !important;
     height:auto !important; overflow:visible !important; resize:none !important;
-    white-space:pre-wrap; word-break:break-word;
+    white-space:pre-wrap !important; word-break:break-word !important;
+    page-break-inside:avoid;
+  }
+  /* cf-item-inp auto-grow 인쇄 시 */
+  textarea.cf-item-inp.auto-grow {
+    border:none !important; border-bottom:1px solid #888 !important;
+    background:transparent !important; color:#000 !important;
+    height:auto !important; overflow:visible !important;
+    white-space:pre-wrap !important; word-break:break-word !important;
+    font-size:10pt !important;
+  }
+  /* cf-warranty-subject-inp auto-grow 인쇄 시 */
+  textarea.cf-warranty-subject-inp.auto-grow {
+    border:none !important; border-bottom:1px solid #888 !important;
+    background:transparent !important; color:#000 !important;
+    height:auto !important; overflow:visible !important;
+    white-space:pre-wrap !important; word-break:break-word !important;
+    font-size:10pt !important;
   }
 }
 
@@ -1786,42 +1808,58 @@ async function openForm(formType) {
 // ── Auto-grow: input[type=text] → textarea 동적 교체 ──────────────
 function initAutoGrow(container) {
   if (!container) return;
-  // data-field 속성을 가진 input[type=text] 만 대상 (select, checkbox, file 제외)
-  const inputs = container.querySelectorAll('input[type="text"][data-field]');
-  inputs.forEach(inp => {
-    // 너무 짧은 고정 너비(특수 소형 인풋)는 제외
-    const w = inp.style.width || '';
-    const wVal = parseInt(w);
-    if (w && !w.includes('%') && !w.includes('calc') && wVal > 0 && wVal < 80) return;
 
+  // 소형 고정 너비 입력 제외 판별 (px 단위 80px 미만 고정폭만 제외)
+  function isSmallFixed(inp) {
+    const w = inp.style.width || '';
+    if (!w) return false;
+    if (w.includes('%') || w.includes('calc') || w.includes('em') || w.includes('rem')) return false;
+    const wVal = parseInt(w);
+    return wVal > 0 && wVal < 80;
+  }
+
+  // input → textarea 교체 공통 함수
+  function replaceWithTextarea(inp) {
+    if (isSmallFixed(inp)) return;
     const ta = document.createElement('textarea');
-    // 속성 복사
-    ta.dataset.field = inp.dataset.field;
-    ta.className = inp.className.replace('input g-inp','input g-inp').replace('cf-item-inp','cf-item-inp') + ' auto-grow';
+    // data-field 복사
+    if (inp.dataset.field) ta.dataset.field = inp.dataset.field;
+    // 클래스 복사 + auto-grow 추가
+    ta.className = inp.className + ' auto-grow';
     ta.placeholder = inp.placeholder || '';
     ta.value = inp.value || '';
-    // 스타일 복사 (너비 유지)
+    // 스타일 복사
     const inpStyle = inp.getAttribute('style') || '';
     ta.setAttribute('style', inpStyle);
     ta.rows = 1;
-
-    // 높이 자동 조정 함수
+    // 높이 자동 조정
     function adjustHeight() {
       ta.style.height = 'auto';
       ta.style.height = ta.scrollHeight + 'px';
     }
     ta.addEventListener('input', adjustHeight);
     ta.addEventListener('change', adjustHeight);
-    // 초기 높이 설정
     setTimeout(adjustHeight, 0);
-
     inp.parentNode.replaceChild(ta, inp);
-  });
+  }
 
-  // 기존 textarea.input (rows 고정된 것)도 auto-grow 적용
-  const textareas = container.querySelectorAll('textarea[data-field]');
-  textareas.forEach(ta => {
-    if (ta.classList.contains('auto-grow')) return; // 이미 처리됨
+  // 1) data-field 있는 일반 input[type=text] (g-inp, sv-inp 등)
+  container.querySelectorAll('input[type="text"][data-field]').forEach(replaceWithTextarea);
+
+  // 2) cf-item-inp (확인서 항목 입력)
+  container.querySelectorAll('input[type="text"].cf-item-inp').forEach(replaceWithTextarea);
+
+  // 3) cf-warranty-subject-inp (보증내용 주어)
+  container.querySelectorAll('input[type="text"].cf-warranty-subject-inp').forEach(replaceWithTextarea);
+
+  // 4) cf-header-inp (확인서 헤더 입력 - 수입사, 연도 등 짧은 고정폭 제외)
+  container.querySelectorAll('input[type="text"].cf-header-inp').forEach(replaceWithTextarea);
+
+  // 5) cf-sign-inp 제외 (서명란 - 너무 작아 자동 확장 불필요)
+
+  // 6) 기존 textarea[data-field] (rows 고정된 것)도 auto-grow 적용
+  container.querySelectorAll('textarea[data-field], textarea.cf-item-inp, textarea.cf-warranty-subject-inp').forEach(ta => {
+    if (ta.classList.contains('auto-grow')) return;
     ta.classList.add('auto-grow');
     ta.style.resize = 'none';
     ta.style.overflow = 'hidden';

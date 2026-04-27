@@ -3654,84 +3654,127 @@ if (formType==='detail_plan') return (
     </tbody>
   </table>
 
-  <!-- ══════════════════════════════════════════ -->
-  <!-- 2. 측정실 및 측정장비                      -->
-  <!-- 6열 구조로 1.일반사항과 완전 통일           -->
-  <!-- col1(16%):라벨A | col2(18%):값A | col3(14%):라벨B | col4(18%):값B | col5(14%):라벨C | col6(20%):값C -->
-  <!-- ══════════════════════════════════════════ -->
-  <table class="ev-tbl" style="border-top:none;">
-    <colgroup>
-      <col style="width:16%;"><!-- col1: 라벨A -->
-      <col style="width:18%;"><!-- col2: 값A -->
-      <col style="width:14%;"><!-- col3: 라벨B -->
-      <col style="width:18%;"><!-- col4: 값B -->
-      <col style="width:14%;"><!-- col5: 라벨C -->
-      <col style="width:20%;"><!-- col6: 값C -->
-    </colgroup>
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- 2. 측정실 및 측정장비                                    -->
+  <!-- PDF 수직선 실측값 기반 완전 재설계 (표 너비 489.2px 기준) -->
+  <!--                                                          -->
+  <!-- [행별 셀 구조]                                           -->
+  <!-- 행1: 29.6% | 14.3% | 15.0% | 17.0% | 24.1%  (5셀)      -->
+  <!-- 행2: 33.4% | 33.6% | 33.0%               (3셀, 라벨+값) -->
+  <!-- 행3: 33.4% | 33.6% | 33.0%               (3셀, 라벨+값) -->
+  <!-- 행4: 16.2%(rowspan2) | 57.7% | 42.3%     (3셀)          -->
+  <!-- 행5: [rowspan] | 43.9% | 27.7% | 28.4%   (3셀)          -->
+  <!--                                                          -->
+  <!-- table-layout:fixed + colgroup 없음 → 행별 td.width 적용 -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <table class="ev-tbl" style="border-top:none; table-layout:fixed; width:100%;">
     <tbody>
+
+      <!-- 섹션 헤더 -->
       <tr>
-        <th class="ev-sec-th" colspan="6">2. &nbsp;측정실 및 측정장비</th>
+        <th class="ev-sec-th" colspan="5">2. &nbsp;측정실 및 측정장비</th>
       </tr>
 
-      <!-- 행1: 측정실(밀폐실) 규격 : 높이/폭/길이 | 순내부체적 -->
-      <!-- col1=라벨 | col2=높이:값 | col3=폭:값 | col4=길이:값 | col5=순내부체적라벨 | col6=값 -->
+      <!-- ─────────────────────────────────────────────────── -->
+      <!-- 행1: 측정실(밀폐실) 규격                            -->
+      <!-- PDF 수직선: 197.5 / 267.6 / 340.9 / 424.0          -->
+      <!-- 셀: 29.6% | 14.3% | 15.0% | 17.0% | 24.1%          -->
+      <!-- ─────────────────────────────────────────────────── -->
       <tr>
-        <td class="ev-th" style="white-space:nowrap;">측정실(밀폐실) 규격 :</td>
-        <td style="white-space:nowrap;">
-          <span class="ev-lbl">높이 :</span>
-          <input data-field="ev_room_h" class="ev-inp" type="text" style="width:55%;" value="\${E(v('ev_room_h'))}">
+        <td class="ev-th" style="width:29.6%; white-space:nowrap;">측정실(밀폐실) 규격 :</td>
+        <td style="width:14.3%; white-space:nowrap; padding:2px 3px;">
+          <span class="ev-lbl" style="font-size:8.5pt;">높이 :</span>
+          <input data-field="ev_room_h" class="ev-inp" type="text" style="width:52%;" value="\${E(v('ev_room_h'))}">
         </td>
-        <td style="white-space:nowrap;">
-          <span class="ev-lbl">폭 :</span>
-          <input data-field="ev_room_w" class="ev-inp" type="text" style="width:65%;" value="\${E(v('ev_room_w'))}">
+        <td style="width:15.0%; white-space:nowrap; padding:2px 3px;">
+          <span class="ev-lbl" style="font-size:8.5pt;">폭 :</span>
+          <input data-field="ev_room_w" class="ev-inp" type="text" style="width:62%;" value="\${E(v('ev_room_w'))}">
         </td>
-        <td style="white-space:nowrap;">
-          <span class="ev-lbl">길이 :</span>
-          <input data-field="ev_room_l" class="ev-inp" type="text" style="width:60%;" value="\${E(v('ev_room_l'))}">
+        <td style="width:17.0%; white-space:nowrap; padding:2px 3px;">
+          <span class="ev-lbl" style="font-size:8.5pt;">길이 :</span>
+          <input data-field="ev_room_l" class="ev-inp" type="text" style="width:58%;" value="\${E(v('ev_room_l'))}">
         </td>
-        <td class="ev-th" style="white-space:nowrap;">순내부체적 :</td>
-        <td><input data-field="ev_room_vol" class="ev-inp" type="text" value="\${E(v('ev_room_vol'))}"></td>
+        <td style="width:24.1%; white-space:nowrap; padding:2px 3px;">
+          <span class="ev-lbl" style="font-size:8.5pt;">순내부체적 :</span>
+          <input data-field="ev_room_vol" class="ev-inp" type="text" style="width:42%;" value="\${E(v('ev_room_vol'))}">
+        </td>
       </tr>
 
+      <!-- ─────────────────────────────────────────────────── -->
       <!-- 행2: 측정실 온도 조정방법 / 연료가열장치 / 측정실 모델 -->
+      <!-- PDF 수직선: 216.2 / 380.8                           -->
+      <!-- 셀: 33.4% | 33.6% | 33.0%  (라벨+입력 합칩)        -->
+      <!-- ─────────────────────────────────────────────────── -->
       <tr>
-        <td class="ev-th" style="white-space:nowrap;">측정실 온도 조정방법 :</td>
-        <td><input data-field="ev_temp_method" class="ev-inp" type="text" value="\${E(v('ev_temp_method'))}"></td>
-        <td class="ev-th" style="white-space:nowrap;">연료가열장치 :</td>
-        <td><input data-field="ev_fuel_heater" class="ev-inp" type="text" value="\${E(v('ev_fuel_heater'))}"></td>
-        <td class="ev-th" style="white-space:nowrap;">측정실 모델 :</td>
-        <td><input data-field="ev_room_model" class="ev-inp" type="text" value="\${E(v('ev_room_model'))}"></td>
+        <td colspan="2" style="width:33.4%; padding:2px 4px;">
+          <span class="ev-lbl ev-th" style="white-space:nowrap;">측정실 온도 조정방법 :</span>
+          <input data-field="ev_temp_method" class="ev-inp" type="text" value="\${E(v('ev_temp_method'))}">
+        </td>
+        <td colspan="2" style="width:33.6%; padding:2px 4px;">
+          <span class="ev-lbl ev-th" style="white-space:nowrap;">연료가열장치 :</span>
+          <input data-field="ev_fuel_heater" class="ev-inp" type="text" value="\${E(v('ev_fuel_heater'))}">
+        </td>
+        <td style="width:33.0%; padding:2px 4px;">
+          <span class="ev-lbl ev-th" style="white-space:nowrap;">측정실 모델 :</span>
+          <input data-field="ev_room_model" class="ev-inp" type="text" value="\${E(v('ev_room_model'))}">
+        </td>
       </tr>
 
-      <!-- 행3: 분석장비 / HC 고정 방법 / 모델 -->
+      <!-- ─────────────────────────────────────────────────── -->
+      <!-- 행3: 분석장비 / HC 고정 방법 / 모델  (행2 동일 비율) -->
+      <!-- ─────────────────────────────────────────────────── -->
       <tr>
-        <td class="ev-th" style="white-space:nowrap;">분석장비 :</td>
-        <td><input data-field="ev_analyzer" class="ev-inp" type="text" value="\${E(v('ev_analyzer'))}"></td>
-        <td class="ev-th" style="white-space:nowrap;">HC 고정 방법 :</td>
-        <td><input data-field="ev_hc_method" class="ev-inp" type="text" value="\${E(v('ev_hc_method'))}"></td>
-        <td class="ev-th" style="white-space:nowrap;">모&nbsp;&nbsp;&nbsp;델 :</td>
-        <td><input data-field="ev_hc_model" class="ev-inp" type="text" value="\${E(v('ev_hc_model'))}"></td>
+        <td colspan="2" style="width:33.4%; padding:2px 4px;">
+          <span class="ev-lbl ev-th" style="white-space:nowrap;">분석장비 :</span>
+          <input data-field="ev_analyzer" class="ev-inp" type="text" value="\${E(v('ev_analyzer'))}">
+        </td>
+        <td colspan="2" style="width:33.6%; padding:2px 4px;">
+          <span class="ev-lbl ev-th" style="white-space:nowrap;">HC 고정 방법 :</span>
+          <input data-field="ev_hc_method" class="ev-inp" type="text" value="\${E(v('ev_hc_method'))}">
+        </td>
+        <td style="width:33.0%; padding:2px 4px;">
+          <span class="ev-lbl ev-th" style="white-space:nowrap;">모&nbsp;&nbsp;&nbsp;델 :</span>
+          <input data-field="ev_hc_model" class="ev-inp" type="text" value="\${E(v('ev_hc_model'))}">
+        </td>
       </tr>
 
-      <!-- 행4: 활성탄 채집트랙(rowspan=2) / 용기규격 및 재질 / 보조채집장치 규격 및 재질 -->
-      <!-- col1=활성탄채집트랙(rowspan=2) | col2=용기규격라벨 | col3=값 | col4=보조채집장치라벨 | col5~6=값 -->
+      <!-- ─────────────────────────────────────────────────── -->
+      <!-- 행4: 활성탄 채집트랙(rowspan=2) / 용기규격 / 보조채집 -->
+      <!-- PDF 수직선: 132.3 / 335.2                           -->
+      <!-- 활성탄(16.2%, rowspan=2) | 용기규격(57.7%) | 보조(42.3%는 행4만) -->
+      <!-- 실제: 132.3~335.2=57.7% (용기규격) | 335.2~542.1=42.3% (보조) -->
+      <!-- ─────────────────────────────────────────────────── -->
       <tr>
-        <td class="ev-th" rowspan="2" style="text-align:center; vertical-align:middle; white-space:nowrap;">활성탄<br>채집트랙</td>
-        <td class="ev-th" style="white-space:nowrap;">용기규격 및 재질 :</td>
-        <td><input data-field="ev_can_spec" class="ev-inp" type="text" value="\${E(v('ev_can_spec'))}"></td>
-        <td class="ev-th" style="white-space:nowrap; font-size:7.5pt;">보조채집장치의<br>규격 및 재질 :</td>
-        <td colspan="2"><input data-field="ev_aux_spec" class="ev-inp" type="text" value="\${E(v('ev_aux_spec'))}"></td>
+        <td class="ev-th" rowspan="2" style="width:16.2%; text-align:center; vertical-align:middle; white-space:nowrap; padding:2px 3px;">활성탄<br>채집트랙</td>
+        <td colspan="2" style="width:57.7%; padding:2px 4px;">
+          <span class="ev-lbl ev-th" style="white-space:nowrap;">용기규격 및 재질 :</span>
+          <input data-field="ev_can_spec" class="ev-inp" type="text" value="\${E(v('ev_can_spec'))}">
+        </td>
+        <td colspan="2" style="width:42.3%; padding:2px 4px;">
+          <span class="ev-lbl ev-th" style="white-space:nowrap; font-size:8pt;">보조채집장치의 규격 및 재질 :</span>
+          <input data-field="ev_aux_spec" class="ev-inp" type="text" value="\${E(v('ev_aux_spec'))}">
+        </td>
       </tr>
 
-      <!-- 행5: (활성탄 rowspan 계속, col1 차지) 나머지 5열: 라벨+값+라벨+값+라벨+값 -->
-      <!-- col1=rowspan차지 | col2=채집용기무게라벨 | col3=값 | col4=시험후무게라벨 | col5=값 | col6=손무게라벨+값 -->
+      <!-- ─────────────────────────────────────────────────── -->
+      <!-- 행5: [활성탄 rowspan 차지] / 채집용기무게 / 시험후무게 / 손무게 -->
+      <!-- PDF 수직선: 132.3 / 267.6 / 402.9                  -->
+      <!-- [rowspan] | 43.9% | 27.7% | 28.4%                  -->
+      <!-- 실제: 132.3~267.6=27.7% | 267.6~402.9=27.7% | 402.9~542.1=28.4% -->
+      <!-- ─────────────────────────────────────────────────── -->
       <tr>
-        <td class="ev-th" style="white-space:nowrap;">채집용기 무게 :</td>
-        <td><input data-field="ev_can_wt_before" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_before'))}"></td>
-        <td class="ev-th" style="white-space:nowrap;">시험후 무게 :</td>
-        <td><input data-field="ev_can_wt_after" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_after'))}"></td>
-        <td class="ev-th" style="white-space:nowrap;">손&nbsp;무&nbsp;게 :</td>
-        <td><input data-field="ev_can_wt_loss" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_loss'))}"></td>
+        <td colspan="2" style="width:43.9%; padding:2px 4px;">
+          <span class="ev-lbl ev-th" style="white-space:nowrap;">채집용기 무게 :</span>
+          <input data-field="ev_can_wt_before" class="ev-inp" type="text" placeholder="g" style="width:38%;" value="\${E(v('ev_can_wt_before'))}">
+        </td>
+        <td style="width:27.7%; padding:2px 4px;">
+          <span class="ev-lbl ev-th" style="white-space:nowrap;">시험후 무게 :</span>
+          <input data-field="ev_can_wt_after" class="ev-inp" type="text" placeholder="g" style="width:42%;" value="\${E(v('ev_can_wt_after'))}">
+        </td>
+        <td style="width:28.4%; padding:2px 4px;">
+          <span class="ev-lbl ev-th" style="white-space:nowrap;">손&nbsp;무&nbsp;게 :</span>
+          <input data-field="ev_can_wt_loss" class="ev-inp" type="text" placeholder="g" style="width:42%;" value="\${E(v('ev_can_wt_loss'))}">
+        </td>
       </tr>
 
     </tbody>

@@ -564,6 +564,20 @@ body {
 .input:disabled { opacity:.5; cursor:not-allowed; }
 select.input { appearance:none; cursor:pointer; }
 textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
+/* auto-grow textarea: 한 줄로 시작, 내용 증가 시 자동 확장 */
+textarea.auto-grow {
+  resize:none !important;
+  overflow:hidden !important;
+  min-height:0 !important;
+  line-height:1.5;
+  padding-top:6px;
+  padding-bottom:6px;
+  box-sizing:border-box;
+  display:block;
+  width:100%;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
 .label {
   display:block; font-size:.8rem; font-weight:600;
   color:var(--c-text2); margin-bottom:6px; letter-spacing:.02em;
@@ -1120,6 +1134,12 @@ textarea.input { resize:vertical; min-height:80px; line-height:1.6; }
   .card, .form-section { background:#fff !important; border:1px solid #ddd !important; box-shadow:none !important; }
   .input { border:1px solid #ccc !important; background:#fff !important; color:#000 !important; }
   .label { color:#333 !important; }
+  /* auto-grow textarea 인쇄 시 높이 고정 해제 */
+  textarea.auto-grow {
+    border:1px solid #ccc !important; background:#fff !important; color:#000 !important;
+    height:auto !important; overflow:visible !important; resize:none !important;
+    white-space:pre-wrap; word-break:break-word;
+  }
 }
 
 /* ── 구분선 ─────────────────────────────────── */
@@ -1755,10 +1775,64 @@ async function openForm(formType) {
   updateCompleteCard();
   document.getElementById('form-content').innerHTML = buildFormHTML(formType, saved);
   showPage('page-form');
+  // auto-grow 초기화 (input[type=text] → textarea 자동 교체)
+  setTimeout(() => initAutoGrow(document.getElementById('form-content')), 50);
   // QR 코드 비동기 생성 (폼 렌더 직후)
   setTimeout(() => generateFormQR(formType, meta.title), 100);
   // noise_test 첨부파일 기능 초기화
   if (formType === 'noise_test') setTimeout(() => initNoiseAttach(), 150);
+}
+
+// ── Auto-grow: input[type=text] → textarea 동적 교체 ──────────────
+function initAutoGrow(container) {
+  if (!container) return;
+  // data-field 속성을 가진 input[type=text] 만 대상 (select, checkbox, file 제외)
+  const inputs = container.querySelectorAll('input[type="text"][data-field]');
+  inputs.forEach(inp => {
+    // 너무 짧은 고정 너비(특수 소형 인풋)는 제외
+    const w = inp.style.width || '';
+    const wVal = parseInt(w);
+    if (w && !w.includes('%') && !w.includes('calc') && wVal > 0 && wVal < 80) return;
+
+    const ta = document.createElement('textarea');
+    // 속성 복사
+    ta.dataset.field = inp.dataset.field;
+    ta.className = inp.className.replace('input g-inp','input g-inp').replace('cf-item-inp','cf-item-inp') + ' auto-grow';
+    ta.placeholder = inp.placeholder || '';
+    ta.value = inp.value || '';
+    // 스타일 복사 (너비 유지)
+    const inpStyle = inp.getAttribute('style') || '';
+    ta.setAttribute('style', inpStyle);
+    ta.rows = 1;
+
+    // 높이 자동 조정 함수
+    function adjustHeight() {
+      ta.style.height = 'auto';
+      ta.style.height = ta.scrollHeight + 'px';
+    }
+    ta.addEventListener('input', adjustHeight);
+    ta.addEventListener('change', adjustHeight);
+    // 초기 높이 설정
+    setTimeout(adjustHeight, 0);
+
+    inp.parentNode.replaceChild(ta, inp);
+  });
+
+  // 기존 textarea.input (rows 고정된 것)도 auto-grow 적용
+  const textareas = container.querySelectorAll('textarea[data-field]');
+  textareas.forEach(ta => {
+    if (ta.classList.contains('auto-grow')) return; // 이미 처리됨
+    ta.classList.add('auto-grow');
+    ta.style.resize = 'none';
+    ta.style.overflow = 'hidden';
+    function adjustHeight() {
+      ta.style.height = 'auto';
+      ta.style.height = ta.scrollHeight + 'px';
+    }
+    ta.addEventListener('input', adjustHeight);
+    ta.addEventListener('change', adjustHeight);
+    setTimeout(adjustHeight, 0);
+  });
 }
 
 // ── QR 코드 생성 및 하단 블록 렌더 ──────────────────────────────
@@ -2605,19 +2679,19 @@ function buildFormHTML(formType, saved) {
     color:#000 !important; -webkit-appearance:none; appearance:none;
     outline:none; display:inline; width:auto !important;
   }
-  textarea.input {
+  textarea.input, textarea.auto-grow {
     border:none !important; background:transparent !important;
     padding:0 !important; margin:0 !important;
     font-size:inherit !important; font-family:inherit !important;
     color:#000 !important; -webkit-appearance:none; appearance:none;
-    resize:none; outline:none;
+    resize:none !important; outline:none;
     display:block; width:100% !important; box-sizing:border-box !important;
     height:auto !important; min-height:0 !important; overflow:visible !important;
     white-space:pre-wrap; word-break:break-all;
   }
-  /* g-td-val 안 div > input: 인쇄 시 전체 너비 확보 */
+  /* g-td-val 안 div > input/textarea: 인쇄 시 전체 너비 확보 */
   .g-td-val div { display:block !important; }
-  .g-td-val div input.g-inp {
+  .g-td-val div input.g-inp, .g-td-val div textarea.auto-grow {
     width:100% !important; display:block !important; box-sizing:border-box !important;
   }
   /* 신청개요 인쇄 전용: 작은 글씨로 한 페이지 내 수용 */

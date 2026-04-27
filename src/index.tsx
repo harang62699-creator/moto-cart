@@ -3636,29 +3636,54 @@ if (formType==='detail_plan') return (
 
   <!-- ── □ 시 험 결 과 ── -->
   <div class="obd-sec-label">□ 시 험 결 과</div>
-  <table class="obd-tbl">
+  <table class="obd-tbl" style="table-layout:fixed;">
+    <colgroup>
+      <col style="width:13%;"><!-- 장치명 -->
+      <col style="width:15%;"><!-- 오작동 재현조건 -->
+      <col style="width:7%;"><!-- CO(측정) -->
+      <col style="width:7%;"><!-- NOx(측정) -->
+      <col style="width:7%;"><!-- HC(측정) -->
+      <col style="width:9%;"><!-- 오작동표시등 -->
+      <col style="width:7%;"><!-- CO(기준) -->
+      <col style="width:7%;"><!-- NOx(기준) -->
+      <col style="width:7%;"><!-- HC(기준) -->
+      <col style="width:11%;"><!-- 감시장치 적부판정 -->
+    </colgroup>
     <thead>
+      <!-- 1행: 대분류 -->
       <tr>
-        <th class="obd-result-th-top" colspan="2" rowspan="2" style="width:26%; vertical-align:bottom; padding-bottom:5px;">시험대상 감시장치</th>
+        <th class="obd-result-th-top" colspan="2" rowspan="3" style="vertical-align:middle;">시험대상<br>감시장치</th>
         <th class="obd-result-th-top" colspan="4">시험결과</th>
         <th class="obd-result-th-top" colspan="4">결과판정</th>
       </tr>
+      <!-- 2행: 중분류 -->
       <tr>
-        <th class="obd-result-th-mid" colspan="3">CVS-75모드<br>결과 (g/km)</th>
-        <th class="obd-result-th-mid" rowspan="2" style="vertical-align:middle; font-size:7.5pt;">오작동<br>표시등<br>점등여부</th>
-        <th class="obd-result-th-mid" colspan="3">오작동 판단 기준<br>(g/km)</th>
-        <th class="obd-result-th-mid" rowspan="2" style="vertical-align:middle; font-size:7.5pt;">감시장치<br>적부판정</th>
+        <th class="obd-result-th-mid" colspan="3">CVS-75모드 결과 (g/km)</th>
+        <th class="obd-result-th-mid" rowspan="2" style="vertical-align:middle; font-size:7pt;">오작동<br>표시등<br>점등여부</th>
+        <th class="obd-result-th-mid" colspan="3">오작동 판단 기준 (g/km)</th>
+        <th class="obd-result-th-mid" rowspan="2" style="vertical-align:middle; font-size:7pt;">감시장치<br>적부판정</th>
       </tr>
+      <!-- 3행: 소분류 -->
       <tr>
-        <th class="obd-result-th-mid" style="width:12%;">장치명</th>
-        <th class="obd-result-th-mid" style="width:14%;">오작동<br>재현조건</th>
-        <th class="obd-result-th-mid" style="width:6%;">CO</th>
-        <th class="obd-result-th-mid" style="width:7%;">NOx</th>
-        <th class="obd-result-th-mid" style="width:6%;">HC</th>
-        <th class="obd-result-th-mid" style="width:6%;">CO</th>
-        <th class="obd-result-th-mid" style="width:7%;">NOx</th>
-        <th class="obd-result-th-mid" style="width:6%;">HC</th>
-        <th class="obd-result-th-mid" style="width:9%;">적부</th>
+        <th class="obd-result-th-mid">CO</th>
+        <th class="obd-result-th-mid">NOx</th>
+        <th class="obd-result-th-mid">HC</th>
+        <th class="obd-result-th-mid">CO</th>
+        <th class="obd-result-th-mid">NOx</th>
+        <th class="obd-result-th-mid">HC</th>
+      </tr>
+      <!-- 4행: 장치명/재현조건 라벨 -->
+      <tr>
+        <th class="obd-result-th-mid">장치명</th>
+        <th class="obd-result-th-mid">오작동<br>재현조건</th>
+        <th class="obd-result-th-mid"></th>
+        <th class="obd-result-th-mid"></th>
+        <th class="obd-result-th-mid"></th>
+        <th class="obd-result-th-mid"></th>
+        <th class="obd-result-th-mid"></th>
+        <th class="obd-result-th-mid"></th>
+        <th class="obd-result-th-mid"></th>
+        <th class="obd-result-th-mid"></th>
       </tr>
     </thead>
     <tbody>

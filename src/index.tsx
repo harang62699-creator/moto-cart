@@ -3626,27 +3626,39 @@ if (formType==='detail_plan') return (
   <!-- ══════════════════════════════════════════ -->
   <table class="ev-tbl" style="border-top:none;">
     <colgroup>
-      <col style="width:20%;"><!-- 라벨A -->
-      <col style="width:13%;"><!-- 값A -->
-      <col style="width:17%;"><!-- 라벨B -->
-      <col style="width:13%;"><!-- 값B -->
-      <col style="width:17%;"><!-- 라벨C -->
+      <!-- 6열 균등 구조: 라벨(좁) / 값(넓) / 라벨(좁) / 값(넓) / 라벨(좁) / 값(넓) -->
+      <col style="width:16%;"><!-- 라벨A -->
+      <col style="width:18%;"><!-- 값A -->
+      <col style="width:14%;"><!-- 라벨B -->
+      <col style="width:18%;"><!-- 값B -->
+      <col style="width:14%;"><!-- 라벨C -->
       <col style="width:20%;"><!-- 값C -->
     </colgroup>
     <tbody>
       <tr>
         <th class="ev-sec-th" colspan="6">2. &nbsp;측정실 및 측정장비</th>
       </tr>
-      <!-- 측정실(밀폐실) 규격 : 높이 / 폭 / 길이 / 순내부체적 -->
+
+      <!-- 행1: 측정실(밀폐실) 규격 → 높이/폭/길이/순내부체적 한 행에 배치 -->
       <tr>
         <td class="ev-th" style="white-space:nowrap;">측정실(밀폐실) 규격 :</td>
-        <td><span class="ev-lbl" style="white-space:nowrap;">높이 :</span><input data-field="ev_room_h" class="ev-inp" type="text" value="\${E(v('ev_room_h'))}"></td>
-        <td style="text-align:center;"><span class="ev-lbl" style="white-space:nowrap;">폭 :</span><input data-field="ev_room_w" class="ev-inp" type="text" value="\${E(v('ev_room_w'))}"></td>
-        <td><span class="ev-lbl" style="white-space:nowrap;">길이 :</span><input data-field="ev_room_l" class="ev-inp" type="text" value="\${E(v('ev_room_l'))}"></td>
+        <td>
+          <span class="ev-lbl" style="white-space:nowrap;">높이 :</span>
+          <input data-field="ev_room_h" class="ev-inp" type="text" value="\${E(v('ev_room_h'))}">
+        </td>
+        <td>
+          <span class="ev-lbl" style="white-space:nowrap;">폭 :</span>
+          <input data-field="ev_room_w" class="ev-inp" type="text" value="\${E(v('ev_room_w'))}">
+        </td>
+        <td>
+          <span class="ev-lbl" style="white-space:nowrap;">길이 :</span>
+          <input data-field="ev_room_l" class="ev-inp" type="text" value="\${E(v('ev_room_l'))}">
+        </td>
         <td class="ev-th" style="white-space:nowrap;">순내부체적 :</td>
         <td><input data-field="ev_room_vol" class="ev-inp" type="text" value="\${E(v('ev_room_vol'))}"></td>
       </tr>
-      <!-- 측정실 온도 조정방법 / 연료가열장치 / 측정실 모델 -->
+
+      <!-- 행2: 측정실 온도 조정방법 / 연료가열장치 / 측정실 모델 -->
       <tr>
         <td class="ev-th" style="white-space:nowrap;">측정실 온도 조정방법 :</td>
         <td><input data-field="ev_temp_method" class="ev-inp" type="text" value="\${E(v('ev_temp_method'))}"></td>
@@ -3655,7 +3667,8 @@ if (formType==='detail_plan') return (
         <td class="ev-th" style="white-space:nowrap;">측정실 모델 :</td>
         <td><input data-field="ev_room_model" class="ev-inp" type="text" value="\${E(v('ev_room_model'))}"></td>
       </tr>
-      <!-- 분석장비 / HC 고정 방법 / 모델 -->
+
+      <!-- 행3: 분석장비 / HC 고정 방법 / 모델 -->
       <tr>
         <td class="ev-th" style="white-space:nowrap;">분석장비 :</td>
         <td><input data-field="ev_analyzer" class="ev-inp" type="text" value="\${E(v('ev_analyzer'))}"></td>
@@ -3664,15 +3677,17 @@ if (formType==='detail_plan') return (
         <td class="ev-th" style="white-space:nowrap;">모&nbsp;&nbsp;&nbsp;델 :</td>
         <td><input data-field="ev_hc_model" class="ev-inp" type="text" value="\${E(v('ev_hc_model'))}"></td>
       </tr>
-      <!-- 활성탄 채집트랙 - 1행: 용기규격 / 보조채집장치 규격 -->
+
+      <!-- 행4: 활성탄 채집트랙(rowspan=2) / 용기규격 / 보조채집장치 규격 -->
       <tr>
-        <td class="ev-th" rowspan="2" style="text-align:center; vertical-align:middle;">활성탄<br>채집트랙</td>
+        <td class="ev-th" rowspan="2" style="text-align:center; vertical-align:middle; white-space:nowrap;">활성탄<br>채집트랙</td>
         <td class="ev-th" style="white-space:nowrap;">용기규격 및 재질 :</td>
         <td colspan="2"><input data-field="ev_can_spec" class="ev-inp" type="text" value="\${E(v('ev_can_spec'))}"></td>
         <td class="ev-th" style="white-space:nowrap; font-size:7.5pt;">보조채집장치의 규격 및 재질 :</td>
         <td><input data-field="ev_aux_spec" class="ev-inp" type="text" value="\${E(v('ev_aux_spec'))}"></td>
       </tr>
-      <!-- 활성탄 채집트랙 - 2행: 채집용기 무게 / 시험후 무게 / 손무게 -->
+
+      <!-- 행5: (활성탄 계속) / 채집용기 무게 / 시험후 무게 / 손무게 -->
       <tr>
         <td class="ev-th" style="white-space:nowrap;">채집용기 무게 :</td>
         <td><input data-field="ev_can_wt_before" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_before'))}"></td>
@@ -3681,6 +3696,7 @@ if (formType==='detail_plan') return (
         <td class="ev-th" style="white-space:nowrap;">손무게 :</td>
         <td><input data-field="ev_can_wt_loss" class="ev-inp" type="text" placeholder="g" value="\${E(v('ev_can_wt_loss'))}"></td>
       </tr>
+
     </tbody>
   </table>
 

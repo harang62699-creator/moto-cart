@@ -3536,19 +3536,19 @@ if (formType==='detail_plan') return (
       <tr>
         <th class="ev-sec-th" colspan="6">1. &nbsp;일 반 &nbsp;사 항</th>
       </tr>
-      <!-- 인증차명 / 시험차명 / 시험일시 -->
+      <!-- 인증차명(rowspan=2) / 시험차명 / 시험일시 -->
       <tr>
         <td style="width:16%;" class="ev-th">인증차명 :</td>
         <td style="width:18%;"><input data-field="ev_cert_model"  class="ev-inp" type="text" value="\${E(v('ev_cert_model'))}"></td>
-        <td style="width:14%;" class="ev-th">시험차명 :</td>
-        <td style="width:18%;"><input data-field="ev_test_model"  class="ev-inp" type="text" value="\${E(v('ev_test_model'))}"></td>
-        <td style="width:14%;" class="ev-th">시험일시 :</td>
-        <td style="width:20%;"><input data-field="ev_test_date"   class="ev-inp" type="text" placeholder="YYYY-MM-DD" value="\${E(v('ev_test_date'))}"></td>
+        <td style="width:14%;" class="ev-th" rowspan="2" style="vertical-align:middle;">시험차명 :</td>
+        <td style="width:18%;" rowspan="2"><input data-field="ev_test_model"  class="ev-inp" type="text" value="\${E(v('ev_test_model'))}"></td>
+        <td style="width:14%;" class="ev-th" rowspan="2" style="vertical-align:middle;">시험일시 :</td>
+        <td style="width:20%;" rowspan="2"><input data-field="ev_test_date"   class="ev-inp" type="text" placeholder="YYYY-MM-DD" value="\${E(v('ev_test_date'))}"></td>
       </tr>
-      <!-- 동일차종 -->
+      <!-- 동일차종 (인증차명 아래 별도 행, 좌측 2칸만) -->
       <tr>
         <td class="ev-th">동일차종 :</td>
-        <td colspan="5"><input data-field="ev_same_model" class="ev-inp" type="text" value="\${E(v('ev_same_model'))}"></td>
+        <td><input data-field="ev_same_model" class="ev-inp" type="text" value="\${E(v('ev_same_model'))}"></td>
       </tr>
       <!-- 시험번호 / 장비작동자 / 검사책임자 -->
       <tr>

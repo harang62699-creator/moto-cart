@@ -3654,7 +3654,7 @@ if (formType==='detail_plan') return (
 
   <!-- ══════════════════════════════════════════════════════ -->
   <!-- PAGE3 라. 감시장치 기술적 설명자료                    -->
-  <!-- 마. 기타 추가정보: 3열 33%|33%|33%                   -->
+  <!-- 마. 기타 추가정보: 2열 83.6%|16.4%                   -->
   <!-- ══════════════════════════════════════════════════════ -->
   <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
     <colgroup>
@@ -3679,10 +3679,11 @@ if (formType==='detail_plan') return (
     </tbody>
   </table>
 
-  <!-- 마. 기타 추가정보 (3열 균등) -->
+  <!-- 마. 기타 추가정보 (2열: 83.6%|16.4%) -->
+  <!-- PDF 측정: x=55.3,460.0,539.6 → 83.6%|16.4% -->
   <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
     <colgroup>
-      <col style="width:83%;"><col style="width:17%;">
+      <col style="width:83.6%;"><col style="width:16.4%;">
     </colgroup>
     <tbody>
       <tr>
@@ -3706,10 +3707,10 @@ if (formType==='detail_plan') return (
     </tbody>
   </table>
 
-  <!-- 마. 세부항목 3열 -->
+  <!-- 마. 세부항목 3열 (PDF: x=55.3,216.7,378.2,539.6 → 33.3%|33.3%|33.4%) -->
   <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
     <colgroup>
-      <col style="width:33%;"><col style="width:33%;"><col style="width:34%;">
+      <col style="width:33.3%;"><col style="width:33.3%;"><col style="width:33.4%;">
     </colgroup>
     <tbody>
       <tr>
@@ -3729,35 +3730,37 @@ if (formType==='detail_plan') return (
     </tbody>
   </table>
 
-  <!-- 바. 자체시험결과 및 기술적 설명자료 (3열 균등) -->
+  <!-- 바. 자체시험결과 및 기술적 설명자료 -->
+  <!-- PDF 측정: x=55.3,216.7,378.2,460.0,539.6 → 33.3%|33.3%|16.9%|16.4% -->
   <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
     <colgroup>
-      <col style="width:33%;"><col style="width:33%;"><col style="width:34%;">
+      <col style="width:33.3%;"><col style="width:33.3%;"><col style="width:16.9%;"><col style="width:16.4%;">
     </colgroup>
     <tbody>
       <tr>
-        <th class="obd-sec-th" colspan="3">바. 자체시험결과 및 기술적 설명자료 – 시험결과</th>
+        <th class="obd-sec-th" colspan="4">바. 자체시험결과 및 기술적 설명자료 – 시험결과</th>
       </tr>
       <tr>
         <th class="obd-th">부품 점검</th>
         <th class="obd-th">MI 활성화 시기</th>
-        <th class="obd-th">메모리에 저장된 오류코드 수정</th>
+        <th class="obd-th" colspan="2">메모리에 저장된 오류코드 수정</th>
       </tr>
       <tr>
         <td><input data-field="obd_ba_part" class="obd-inp" type="text" value="\${E(v('obd_ba_part'))}"></td>
         <td><input data-field="obd_ba_mi"   class="obd-inp" type="text" value="\${E(v('obd_ba_mi'))}"></td>
-        <td><input data-field="obd_ba_dtc"  class="obd-inp" type="text" value="\${E(v('obd_ba_dtc'))}"></td>
+        <td colspan="2"><input data-field="obd_ba_dtc"  class="obd-inp" type="text" value="\${E(v('obd_ba_dtc'))}"></td>
       </tr>
     </tbody>
   </table>
 
   <!-- ══════════════════════════════════════════════════════ -->
   <!-- PAGE4: OBD 감시부품 테스트 및 진단                    -->
-  <!-- 7열: 27.5%|14.2%|11.3%|9.5%|20%|16.5%               -->
+  <!-- PDF: x=55.3,189.7,259.2,314.5,361.2,458.9,539.6      -->
+  <!-- → 27.8%|14.4%|11.4%|9.6%|20.2%|16.7%                -->
   <!-- ══════════════════════════════════════════════════════ -->
   <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
     <colgroup>
-      <col style="width:27.5%;"><col style="width:14.2%;"><col style="width:11.3%;"><col style="width:9.5%;"><col style="width:20.0%;"><col style="width:17.5%;">
+      <col style="width:27.8%;"><col style="width:14.4%;"><col style="width:11.4%;"><col style="width:9.6%;"><col style="width:20.2%;"><col style="width:16.7%;">
     </colgroup>
     <tbody>
       <tr>
@@ -3843,12 +3846,24 @@ if (formType==='detail_plan') return (
         <td><input data-field="obd_t_wire_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_wire_spec'))}"></td>
         <td><input data-field="obd_t_wire_mil"   class="obd-inp" type="text" value="\${E(v('obd_t_wire_mil'))}"></td>
       </tr>
+      <tr>
+        <td class="obd-lbl">라디에이터 팬 릴레이</td>
+        <td><input data-field="obd_t_fan_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_fan_harn'))}"></td>
+        <td><input data-field="obd_t_fan_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_fan_sw'))}"></td>
+        <td><input data-field="obd_t_fan_start" class="obd-inp" type="text" value="\${E(v('obd_t_fan_start'))}"></td>
+        <td><input data-field="obd_t_fan_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_fan_spec'))}"></td>
+        <td><input data-field="obd_t_fan_mil"   class="obd-inp" type="text" value="\${E(v('obd_t_fan_mil'))}"></td>
+      </tr>
     </tbody>
   </table>
 
   <!-- ══════════════════════════════════════════════════════ -->
   <!-- 2. 동일차종 설명에 관한 서류                          -->
   <!-- PAGE4 가. 자동차 제원 - 일반제원 6열                  -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 2. 동일차종 설명에 관한 서류                          -->
+  <!-- PAGE4 가. 자동차 제원                                 -->
   <!-- ══════════════════════════════════════════════════════ -->
   <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
     <tbody>
@@ -3865,9 +3880,10 @@ if (formType==='detail_plan') return (
     </tbody>
   </table>
 
+  <!-- PDF: x=55.3,134.7,214.1,293.5,355.5,424.0,539.6 → 16.4%|16.4%|16.4%|12.8%|14.1%|23.9% -->
   <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
     <colgroup>
-      <col style="width:13%;"><col style="width:15%;"><col style="width:13%;"><col style="width:15%;"><col style="width:19%;"><col style="width:25%;">
+      <col style="width:16.4%;"><col style="width:16.4%;"><col style="width:16.4%;"><col style="width:12.8%;"><col style="width:14.1%;"><col style="width:23.9%;">
     </colgroup>
     <tbody>
       <tr>
@@ -3890,9 +3906,10 @@ if (formType==='detail_plan') return (
   </table>
 
   <!-- 02. 엔진 제원 -->
+  <!-- PDF: x=55.3,134.7,222.6,293.5,372.9,452.3,539.6 → 16.4%|18.1%|14.6%|16.4%|16.4%|18.0% -->
   <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
     <colgroup>
-      <col style="width:13%;"><col style="width:20%;"><col style="width:15%;"><col style="width:17%;"><col style="width:17%;"><col style="width:18%;">
+      <col style="width:16.4%;"><col style="width:18.1%;"><col style="width:14.6%;"><col style="width:16.4%;"><col style="width:16.4%;"><col style="width:18.0%;">
     </colgroup>
     <tbody>
       <tr>
@@ -3918,9 +3935,10 @@ if (formType==='detail_plan') return (
   </table>
 
   <!-- 03. 배출가스 제어장치 및 OBD 제원 -->
+  <!-- PDF: x=55.3,214.1,372.9,539.6 → 32.8%|32.8%|34.4% -->
   <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
     <colgroup>
-      <col style="width:33%;"><col style="width:33%;"><col style="width:34%;">
+      <col style="width:32.8%;"><col style="width:32.8%;"><col style="width:34.4%;">
     </colgroup>
     <tbody>
       <tr>
@@ -3956,9 +3974,10 @@ if (formType==='detail_plan') return (
   </table>
 
   <!-- 나. 자기진단동일차종 - PAGE4 하단: 6열 -->
+  <!-- PDF: x=55.3,134.7,214.1,293.5,355.5,424.0,539.6 → 16.4%|16.4%|16.4%|12.8%|14.1%|23.9% -->
   <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
     <colgroup>
-      <col style="width:16.2%;"><col style="width:16.2%;"><col style="width:16.2%;"><col style="width:12.7%;"><col style="width:14.0%;"><col style="width:24.7%;">
+      <col style="width:16.4%;"><col style="width:16.4%;"><col style="width:16.4%;"><col style="width:12.8%;"><col style="width:14.1%;"><col style="width:23.9%;">
     </colgroup>
     <tbody>
       <tr>
@@ -3986,11 +4005,12 @@ if (formType==='detail_plan') return (
 
   <!-- ══════════════════════════════════════════════════════ -->
   <!-- PAGE5: 다. 배출가스자기진단장치 동일차종 설명         -->
-  <!-- PDF: 4열 구조 구분(22%)|내용(38%)|입력×2(20%|20%)   -->
+  <!-- PDF: x=55.3,163.0,353.0,446.3,539.6                 -->
+  <!-- → 22.0%|38.8%|19.1%|19.1%                           -->
   <!-- ══════════════════════════════════════════════════════ -->
   <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
     <colgroup>
-      <col style="width:22%;"><col style="width:38%;"><col style="width:20%;"><col style="width:20%;">
+      <col style="width:22.0%;"><col style="width:38.8%;"><col style="width:19.1%;"><col style="width:19.1%;">
     </colgroup>
     <tbody>
       <tr>

@@ -3991,15 +3991,38 @@ if (formType==='detail_plan') return (
         <th class="obd-th">변속기(단)</th>
         <th class="obd-th">총중량(공차중량, kg)</th>
       </tr>
-      \${[1,2,3,4].map(i=>\`
       <tr>
-        <td><input data-field="obd_same_name\${i}"   class="obd-inp" type="text" value="\${E(v('obd_same_name'+\${i}))}"></td>
-        <td><input data-field="obd_same_eng\${i}"    class="obd-inp" type="text" value="\${E(v('obd_same_eng'+\${i}))}"></td>
-        <td><input data-field="obd_same_cc\${i}"     class="obd-inp" type="text" value="\${E(v('obd_same_cc'+\${i}))}"></td>
-        <td><input data-field="obd_same_pow\${i}"    class="obd-inp" type="text" value="\${E(v('obd_same_pow'+\${i}))}"></td>
-        <td><input data-field="obd_same_trans\${i}"  class="obd-inp" type="text" value="\${E(v('obd_same_trans'+\${i}))}"></td>
-        <td><input data-field="obd_same_wt\${i}"     class="obd-inp" type="text" value="\${E(v('obd_same_wt'+\${i}))}"></td>
-      </tr>\`).join('')}
+        <td><input data-field="obd_same_name1" class="obd-inp" type="text" value="\${E(v('obd_same_name1'))}"></td>
+        <td><input data-field="obd_same_eng1"  class="obd-inp" type="text" value="\${E(v('obd_same_eng1'))}"></td>
+        <td><input data-field="obd_same_cc1"   class="obd-inp" type="text" value="\${E(v('obd_same_cc1'))}"></td>
+        <td><input data-field="obd_same_pow1"  class="obd-inp" type="text" value="\${E(v('obd_same_pow1'))}"></td>
+        <td><input data-field="obd_same_trans1" class="obd-inp" type="text" value="\${E(v('obd_same_trans1'))}"></td>
+        <td><input data-field="obd_same_wt1"   class="obd-inp" type="text" value="\${E(v('obd_same_wt1'))}"></td>
+      </tr>
+      <tr>
+        <td><input data-field="obd_same_name2" class="obd-inp" type="text" value="\${E(v('obd_same_name2'))}"></td>
+        <td><input data-field="obd_same_eng2"  class="obd-inp" type="text" value="\${E(v('obd_same_eng2'))}"></td>
+        <td><input data-field="obd_same_cc2"   class="obd-inp" type="text" value="\${E(v('obd_same_cc2'))}"></td>
+        <td><input data-field="obd_same_pow2"  class="obd-inp" type="text" value="\${E(v('obd_same_pow2'))}"></td>
+        <td><input data-field="obd_same_trans2" class="obd-inp" type="text" value="\${E(v('obd_same_trans2'))}"></td>
+        <td><input data-field="obd_same_wt2"   class="obd-inp" type="text" value="\${E(v('obd_same_wt2'))}"></td>
+      </tr>
+      <tr>
+        <td><input data-field="obd_same_name3" class="obd-inp" type="text" value="\${E(v('obd_same_name3'))}"></td>
+        <td><input data-field="obd_same_eng3"  class="obd-inp" type="text" value="\${E(v('obd_same_eng3'))}"></td>
+        <td><input data-field="obd_same_cc3"   class="obd-inp" type="text" value="\${E(v('obd_same_cc3'))}"></td>
+        <td><input data-field="obd_same_pow3"  class="obd-inp" type="text" value="\${E(v('obd_same_pow3'))}"></td>
+        <td><input data-field="obd_same_trans3" class="obd-inp" type="text" value="\${E(v('obd_same_trans3'))}"></td>
+        <td><input data-field="obd_same_wt3"   class="obd-inp" type="text" value="\${E(v('obd_same_wt3'))}"></td>
+      </tr>
+      <tr>
+        <td><input data-field="obd_same_name4" class="obd-inp" type="text" value="\${E(v('obd_same_name4'))}"></td>
+        <td><input data-field="obd_same_eng4"  class="obd-inp" type="text" value="\${E(v('obd_same_eng4'))}"></td>
+        <td><input data-field="obd_same_cc4"   class="obd-inp" type="text" value="\${E(v('obd_same_cc4'))}"></td>
+        <td><input data-field="obd_same_pow4"  class="obd-inp" type="text" value="\${E(v('obd_same_pow4'))}"></td>
+        <td><input data-field="obd_same_trans4" class="obd-inp" type="text" value="\${E(v('obd_same_trans4'))}"></td>
+        <td><input data-field="obd_same_wt4"   class="obd-inp" type="text" value="\${E(v('obd_same_wt4'))}"></td>
+      </tr>
     </tbody>
   </table>
 
@@ -5494,19 +5517,54 @@ if (formType==='detail_plan') return (
       </tr>
     </thead>
     <tbody>
-      \${[1,2,3,4].map(i=>\`
       <tr style="height:34px;">
-        <td class="obd-result-td"><input data-field="obd_r\${i}_device"  class="obd-inp" type="text" value="\${E(v('obd_r'+i+'_device'))}"></td>
-        <td class="obd-result-td"><input data-field="obd_r\${i}_cond"    class="obd-inp" type="text" value="\${E(v('obd_r'+i+'_cond'))}"></td>
-        <td class="obd-result-td"><input data-field="obd_r\${i}_co"      class="obd-inp" type="text" value="\${E(v('obd_r'+i+'_co'))}"></td>
-        <td class="obd-result-td"><input data-field="obd_r\${i}_nox"     class="obd-inp" type="text" value="\${E(v('obd_r'+i+'_nox'))}"></td>
-        <td class="obd-result-td"><input data-field="obd_r\${i}_hc"      class="obd-inp" type="text" value="\${E(v('obd_r'+i+'_hc'))}"></td>
-        <td class="obd-result-td"><input data-field="obd_r\${i}_mil"     class="obd-inp" type="text" value="\${E(v('obd_r'+i+'_mil'))}"></td>
-        <td class="obd-result-td"><input data-field="obd_r\${i}_std_co"  class="obd-inp" type="text" value="\${E(v('obd_r'+i+'_std_co'))}"></td>
-        <td class="obd-result-td"><input data-field="obd_r\${i}_std_nox" class="obd-inp" type="text" value="\${E(v('obd_r'+i+'_std_nox'))}"></td>
-        <td class="obd-result-td"><input data-field="obd_r\${i}_std_hc"  class="obd-inp" type="text" value="\${E(v('obd_r'+i+'_std_hc'))}"></td>
-        <td class="obd-result-td"><input data-field="obd_r\${i}_judge"   class="obd-inp" type="text" value="\${E(v('obd_r'+i+'_judge'))}"></td>
-      </tr>\`).join('')}
+        <td class="obd-result-td"><input data-field="obd_r1_device"  class="obd-inp" type="text" value="\${E(v('obd_r1_device'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r1_cond"    class="obd-inp" type="text" value="\${E(v('obd_r1_cond'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r1_co"      class="obd-inp" type="text" value="\${E(v('obd_r1_co'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r1_nox"     class="obd-inp" type="text" value="\${E(v('obd_r1_nox'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r1_hc"      class="obd-inp" type="text" value="\${E(v('obd_r1_hc'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r1_mil"     class="obd-inp" type="text" value="\${E(v('obd_r1_mil'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r1_std_co"  class="obd-inp" type="text" value="\${E(v('obd_r1_std_co'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r1_std_nox" class="obd-inp" type="text" value="\${E(v('obd_r1_std_nox'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r1_std_hc"  class="obd-inp" type="text" value="\${E(v('obd_r1_std_hc'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r1_judge"   class="obd-inp" type="text" value="\${E(v('obd_r1_judge'))}"></td>
+      </tr>
+      <tr style="height:34px;">
+        <td class="obd-result-td"><input data-field="obd_r2_device"  class="obd-inp" type="text" value="\${E(v('obd_r2_device'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r2_cond"    class="obd-inp" type="text" value="\${E(v('obd_r2_cond'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r2_co"      class="obd-inp" type="text" value="\${E(v('obd_r2_co'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r2_nox"     class="obd-inp" type="text" value="\${E(v('obd_r2_nox'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r2_hc"      class="obd-inp" type="text" value="\${E(v('obd_r2_hc'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r2_mil"     class="obd-inp" type="text" value="\${E(v('obd_r2_mil'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r2_std_co"  class="obd-inp" type="text" value="\${E(v('obd_r2_std_co'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r2_std_nox" class="obd-inp" type="text" value="\${E(v('obd_r2_std_nox'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r2_std_hc"  class="obd-inp" type="text" value="\${E(v('obd_r2_std_hc'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r2_judge"   class="obd-inp" type="text" value="\${E(v('obd_r2_judge'))}"></td>
+      </tr>
+      <tr style="height:34px;">
+        <td class="obd-result-td"><input data-field="obd_r3_device"  class="obd-inp" type="text" value="\${E(v('obd_r3_device'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r3_cond"    class="obd-inp" type="text" value="\${E(v('obd_r3_cond'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r3_co"      class="obd-inp" type="text" value="\${E(v('obd_r3_co'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r3_nox"     class="obd-inp" type="text" value="\${E(v('obd_r3_nox'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r3_hc"      class="obd-inp" type="text" value="\${E(v('obd_r3_hc'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r3_mil"     class="obd-inp" type="text" value="\${E(v('obd_r3_mil'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r3_std_co"  class="obd-inp" type="text" value="\${E(v('obd_r3_std_co'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r3_std_nox" class="obd-inp" type="text" value="\${E(v('obd_r3_std_nox'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r3_std_hc"  class="obd-inp" type="text" value="\${E(v('obd_r3_std_hc'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r3_judge"   class="obd-inp" type="text" value="\${E(v('obd_r3_judge'))}"></td>
+      </tr>
+      <tr style="height:34px;">
+        <td class="obd-result-td"><input data-field="obd_r4_device"  class="obd-inp" type="text" value="\${E(v('obd_r4_device'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r4_cond"    class="obd-inp" type="text" value="\${E(v('obd_r4_cond'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r4_co"      class="obd-inp" type="text" value="\${E(v('obd_r4_co'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r4_nox"     class="obd-inp" type="text" value="\${E(v('obd_r4_nox'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r4_hc"      class="obd-inp" type="text" value="\${E(v('obd_r4_hc'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r4_mil"     class="obd-inp" type="text" value="\${E(v('obd_r4_mil'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r4_std_co"  class="obd-inp" type="text" value="\${E(v('obd_r4_std_co'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r4_std_nox" class="obd-inp" type="text" value="\${E(v('obd_r4_std_nox'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r4_std_hc"  class="obd-inp" type="text" value="\${E(v('obd_r4_std_hc'))}"></td>
+        <td class="obd-result-td"><input data-field="obd_r4_judge"   class="obd-inp" type="text" value="\${E(v('obd_r4_judge'))}"></td>
+      </tr>
     </tbody>
   </table>
 

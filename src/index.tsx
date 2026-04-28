@@ -1848,8 +1848,8 @@ function initAutoGrow(container) {
   }
 
   // 1) data-field 있는 일반 input[type=text] (g-inp, sv-inp 등)
-  // ev-inp는 표 구조 유지를 위해 textarea 교체 제외
-  container.querySelectorAll('input[type="text"][data-field]:not(.ev-inp)').forEach(replaceWithTextarea);
+  // ev-inp, em-inp는 표 구조 유지를 위해 textarea 교체 제외
+  container.querySelectorAll('input[type="text"][data-field]:not(.ev-inp):not(.em-inp)').forEach(replaceWithTextarea);
 
   // 2) cf-item-inp (확인서 항목 입력)
   container.querySelectorAll('input[type="text"].cf-item-inp').forEach(replaceWithTextarea);
@@ -3435,39 +3435,39 @@ if (formType==='detail_plan') return (
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
   font-size:9pt;
   padding:10px 2px;
-  background:var(--c-surface);
-  color:var(--c-text);
+  background:#fff;
+  color:#111;
   border-radius:8px;
 }
-.em-doc-tag  { font-size:8.5pt; font-weight:700; color:var(--c-text2); margin:10px 0 4px; }
+.em-doc-tag  { font-size:8.5pt; font-weight:700; color:#444; margin:10px 0 4px; }
 .em-main-title {
   font-size:13pt; font-weight:900; text-align:center;
-  margin:4px 0 14px; letter-spacing:.03em; color:var(--c-text);
+  margin:4px 0 14px; letter-spacing:.03em; color:#111;
 }
 .em-tbl {
   width:100%; border-collapse:collapse;
   font-size:8.5pt; margin-bottom:0;
 }
 .em-tbl th, .em-tbl td {
-  border:1px solid var(--c-border);
+  border:1px solid #888;
   padding:3px 5px;
   vertical-align:middle;
-  color:var(--c-text);
+  color:#111;
 }
 .em-sec-th {
-  background:rgba(79,142,247,.15);
+  background:#d6e4f7;
   font-weight:700;
   text-align:left;
   padding:3px 6px;
   font-size:8.5pt;
-  color:var(--c-text);
+  color:#111;
 }
 .em-th {
-  background:rgba(79,142,247,.08);
+  background:#eef3fa;
   font-weight:600;
   white-space:nowrap;
   font-size:8pt;
-  color:var(--c-text);
+  color:#111;
 }
 .em-inp {
   border:none;
@@ -3477,38 +3477,38 @@ if (formType==='detail_plan') return (
   font-family:inherit;
   padding:0 2px;
   box-sizing:border-box;
-  color:var(--c-text);
+  color:#111;
 }
-.em-inp::placeholder { color:var(--c-text3); }
-.em-inp:focus { outline:none; border-bottom:1px solid var(--c-accent); }
-.em-chk { display:flex; align-items:center; gap:3px; font-size:8.5pt; color:var(--c-text); }
+.em-inp::placeholder { color:#aaa; }
+.em-inp:focus { outline:none; border-bottom:1px solid #4e90d8; }
+.em-chk { display:flex; align-items:center; gap:3px; font-size:8.5pt; color:#111; }
 /* 첨부 섹션 (증발가스와 동일 패턴) */
 .em-attach-section { margin-top:14px; }
-.em-attach-title { font-size:9pt; font-weight:700; margin-bottom:6px; color:var(--c-text); }
-.em-attach-note { font-size:8pt; color:var(--c-text3); margin-bottom:8px; }
+.em-attach-title { font-size:9pt; font-weight:700; margin-bottom:6px; color:#222; }
+.em-attach-note { font-size:8pt; color:#666; margin-bottom:8px; }
 .em-attach-drop {
-  border:2px dashed var(--c-border); border-radius:8px;
+  border:2px dashed #bbb; border-radius:8px;
   padding:16px; text-align:center; cursor:pointer;
   transition:border-color .2s, background .2s;
   display:flex; flex-direction:column; align-items:center; gap:4px;
-  color:var(--c-text2);
+  color:#555; background:#fafafa;
 }
-.em-attach-drop:hover { border-color:var(--c-accent); background:rgba(79,142,247,.04); }
+.em-attach-drop:hover { border-color:#4e90d8; background:rgba(79,142,247,.04); }
 .em-attach-drop input[type=file] { display:none; }
 .em-attach-list { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
 .em-attach-item {
   display:flex; align-items:center; gap:8px;
   padding:4px 8px; border-radius:4px;
-  background:var(--c-surface2); font-size:8.5pt;
+  background:#f0f4fa; font-size:8.5pt;
 }
-.em-attach-item-name { flex:1; color:var(--c-text); word-break:break-all; }
-.em-attach-item-size { color:var(--c-text3); white-space:nowrap; font-size:8pt; }
+.em-attach-item-name { flex:1; color:#111; word-break:break-all; }
+.em-attach-item-size { color:#666; white-space:nowrap; font-size:8pt; }
 .em-attach-item-del { color:#ef4444; cursor:pointer; padding:1px 5px; border-radius:3px; font-size:10pt; line-height:1; }
 .em-attach-item-del:hover { background:rgba(239,68,68,.12); }
-.em-attach-print-wrap { margin-top:10px; }
+.em-attach-print-wrap { display:none; margin-top:10px; }
 .em-attach-print-page { page-break-before:always; margin-top:20px; }
 .em-attach-print-page img { max-width:100%; height:auto; display:block; }
-.em-attach-print-page .em-attach-pdf-frame { width:100%; min-height:600px; border:none; }
+.em-attach-print-page .em-attach-pdf-frame { width:100%; min-height:1100px; border:none; }
 
 @media print {
   .em-wrap {

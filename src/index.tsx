@@ -4142,7 +4142,7 @@ if (formType==='detail_plan') return (
       <!-- 배출가스 제어장치 -->
       <tr>
         <td class="obd-lbl" rowspan="5" style="text-align:center; vertical-align:middle;">배출가스<br>제어장치</td>
-        <td class="obd-lbl">촉매 전환기의 형식 (산화촉매, 삼원촉매, 가열식 촉매 등)</td>
+        <td class="obd-lbl">촉매전환기의 형식 (산화촉매, 삼원촉매, 가열식 촉매 등)</td>
         <td><input data-field="obd_sel_cat" class="obd-inp" type="text" value="\${E(v('obd_sel_cat'))}"></td>
       </tr>
       <tr>
@@ -4154,7 +4154,7 @@ if (formType==='detail_plan') return (
         <td><input data-field="obd_sel_2air" class="obd-inp" type="text" placeholder="유/무" value="\${E(v('obd_sel_2air'))}"></td>
       </tr>
       <tr>
-        <td class="obd-lbl">배출가스 재 순환 장치의 유무</td>
+        <td class="obd-lbl">배출가스 재순환 장치의 유무</td>
         <td><input data-field="obd_sel_egr" class="obd-inp" type="text" placeholder="유/무" value="\${E(v('obd_sel_egr'))}"></td>
       </tr>
       <tr>
@@ -4163,7 +4163,7 @@ if (formType==='detail_plan') return (
       </tr>
       <!-- 배출가스 자기진단장치의 구성 및 기능 -->
       <tr>
-        <td class="obd-lbl" rowspan="4" style="text-align:center; vertical-align:middle;">배출가스자기진단장치의<br>구성 및 기능</td>
+        <td class="obd-lbl" rowspan="5" style="text-align:center; vertical-align:middle;">배출가스자기진단장치의<br>구성 및 기능</td>
         <td class="obd-lbl">배출가스 자기진단장치 작동방법</td>
         <td><input data-field="obd_sel_method" class="obd-inp" type="text" value="\${E(v('obd_sel_method'))}"></td>
       </tr>
@@ -4179,9 +4179,8 @@ if (formType==='detail_plan') return (
         <td class="obd-lbl">감시항목</td>
         <td><input data-field="obd_sel_items" class="obd-inp" type="text" value="\${E(v('obd_sel_items'))}"></td>
       </tr>
-      <!-- 비고 행 (PDF: colspan 전체) -->
       <tr>
-        <td class="obd-lbl" colspan="2">비&nbsp;&nbsp;고</td>
+        <td class="obd-lbl">비&nbsp;&nbsp;고</td>
         <td><input data-field="obd_sel_note" class="obd-inp" type="text" value="\${E(v('obd_sel_note'))}"></td>
       </tr>
     </tbody>

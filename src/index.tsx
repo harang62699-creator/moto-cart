@@ -3425,25 +3425,578 @@ if (formType==='detail_plan') return (
     '<div id="qr-footer-wrap" style="margin-top:12px;"></div>'
   );
 
-  if (formType==='emission_test') return (
-    sec('시험 일반 정보','fa-clipboard',
-      fld('시험기관','test_lab')+fld('시험일','test_date','date')+
-      fld('시험 모드','test_mode','text','WMTC')+fld('시험 담당자','tester'))+
-    sec('차량 정보','fa-motorcycle',
-      fld('차종명','model')+fld('연식','model_year')+fld('차대번호','vin')+
-      fld('공차중량 (kg)','curb_weight','number')+fld('시험 중량 (kg)','test_weight','number')+
-      fld('주행거리 (km)','mileage','number'))+
-    sec('시험 조건','fa-thermometer-half',
-      fld('실내 온도 (°C)','room_temp','number')+fld('대기압 (kPa)','atm_pressure','number')+
-      fld('습도 (%)','humidity','number')+fld('연료 종류','fuel_type','text','무연 휘발유'))+
-    sec('배출가스 측정 결과 (g/km)','fa-chart-line',
-      fld('HC 측정값','hc_result','number')+fld('HC 기준값','hc_limit','number')+
-      fld('CO 측정값','co_result','number')+fld('CO 기준값','co_limit','number')+
-      fld('NOx 측정값','nox_result','number')+fld('NOx 기준값','nox_limit','number')+
-      fld('NMHC 측정값','nmhc_result','number')+fld('NMHC 기준값','nmhc_limit','number')+
-      fld('CO₂ (g/km)','co2_result','number')+fld('연비 (km/L)','fuel_economy','number'))+
-    '<div id="qr-footer-wrap" style="margin-top:12px;"></div>'
-  );
+  if (formType==='emission_test') return \`
+<style>
+/* ══════ emission_test 전용 스타일 ══════ */
+.em-wrap {
+  box-sizing:border-box;
+  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  font-size:9pt;
+  padding:10px 2px;
+}
+.em-doc-tag  { font-size:8.5pt; font-weight:700; color:var(--c-text2); margin:10px 0 4px; }
+.em-main-title {
+  font-size:13pt; font-weight:900; text-align:center;
+  margin:4px 0 14px; letter-spacing:.03em; color:var(--c-text);
+}
+.em-tbl {
+  width:100%; border-collapse:collapse;
+  font-size:8.5pt; margin-bottom:0;
+}
+.em-tbl th, .em-tbl td {
+  border:1px solid #888;
+  padding:3px 5px;
+  vertical-align:middle;
+}
+.em-sec-th {
+  background:#d6e4f7;
+  font-weight:700;
+  text-align:left;
+  padding:3px 6px;
+  font-size:8.5pt;
+}
+.em-th {
+  background:#eef3fa;
+  font-weight:600;
+  white-space:nowrap;
+  font-size:8pt;
+}
+.em-inp {
+  border:none;
+  background:transparent;
+  width:100%;
+  font-size:8.5pt;
+  font-family:inherit;
+  padding:0 2px;
+  box-sizing:border-box;
+}
+.em-inp:focus { outline:1px solid #4e90d8; }
+.em-chk { display:flex; align-items:center; gap:3px; font-size:8.5pt; }
+
+@media print {
+  .em-tbl th, .em-tbl td { border:1px solid #333 !important; }
+  .em-inp {
+    border:none !important;
+    background:transparent !important;
+    height:auto !important;
+    overflow:visible !important;
+    font-size:8.5pt !important;
+    font-family:'맑은 고딕','Malgun Gothic',sans-serif !important;
+    padding:0 2px !important;
+  }
+  .em-sec-th { background:#d6e4f7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .em-th      { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+</style>
+
+<div class="em-wrap">
+
+  <!-- ── 최상단 헤더 (수입사/인증연도/배기량/동일차종기호) ── -->
+  <!-- PDF 실측: 4등분 25.2%/24.7%/24.8%/25.2% -->
+  <table class="em-tbl" style="margin-bottom:12px; table-layout:fixed;">
+    <colgroup>
+      <col style="width:25.2%;"><col style="width:24.7%;"><col style="width:24.9%;"><col style="width:25.2%;">
+    </colgroup>
+    <thead>
+      <tr>
+        <th class="em-th">수입사</th>
+        <th class="em-th">인증연도</th>
+        <th class="em-th">배기량</th>
+        <th class="em-th">동일차종기호</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="height:26px;">
+        <td><input data-field="em_importer"  class="em-inp" type="text" value="\${E(v('em_importer'))}"></td>
+        <td><input data-field="em_cert_year" class="em-inp" type="text" value="\${E(v('em_cert_year'))}"></td>
+        <td><input data-field="em_disp"      class="em-inp" type="text" value="\${E(v('em_disp'))}"></td>
+        <td><input data-field="em_fam_code"  class="em-inp" type="text" value="\${E(v('em_fam_code'))}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="em-doc-tag">[별지 제18의2호 서식]</div>
+  <div class="em-main-title">배출가스 시험내용 보고서(WMTC 모드)</div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- 1. 일반 사항                               -->
+  <!-- ══════════════════════════════════════════ -->
+  <!-- PDF 실측: y=181~196 섹션헤더              -->
+  <!-- y=196~210: 3열 [33.5%|31.5%|35.1%]       -->
+  <!-- y=210~225: 시험구분 10셀 복합              -->
+  <!-- y=225~240: 시험번호/운전자/장비작동자/검사책임자 8셀 -->
+  <table class="em-tbl">
+    <tbody>
+      <tr>
+        <th class="em-sec-th" colspan="8">1. 일반 사항</th>
+      </tr>
+      <!-- 인증차명 / 시험차명 / 시험일시 (3열) -->
+      <tr>
+        <td class="em-th" colspan="3" style="width:33.5%;">인증차명(동일차종) :
+          <input data-field="em_cert_model" class="em-inp" type="text" value="\${E(v('em_cert_model'))}">
+        </td>
+        <td class="em-th" colspan="2" style="width:31.5%;">시험차명 :
+          <input data-field="em_test_model" class="em-inp" type="text" value="\${E(v('em_test_model'))}">
+        </td>
+        <td class="em-th" colspan="3" style="width:35.0%;">시험일시 :
+          <input data-field="em_test_date" class="em-inp" type="text" placeholder="YYYY-MM-DD" value="\${E(v('em_test_date'))}">
+        </td>
+      </tr>
+      <!-- 시험구분 -->
+      <tr>
+        <td class="em-th" colspan="1">시험구분</td>
+        <td colspan="2" style="text-align:center;">
+          <label class="em-chk"><input type="checkbox" data-field="em_type_dur" \${v('em_type_dur')?'checked':''}>&nbsp;내구주행시험</label>
+        </td>
+        <td colspan="2" style="text-align:center;">
+          <label class="em-chk"><input type="checkbox" data-field="em_type_emis" \${v('em_type_emis')?'checked':''}>&nbsp;배출가스 시험</label>
+        </td>
+        <td colspan="2" style="text-align:center;">
+          <label class="em-chk"><input type="checkbox" data-field="em_type_insp" \${v('em_type_insp')?'checked':''}>&nbsp;정기검사</label>
+        </td>
+        <td colspan="1" style="text-align:center;">
+          <label class="em-chk"><input type="checkbox" data-field="em_type_etc" \${v('em_type_etc')?'checked':''}>&nbsp;기타</label>
+        </td>
+      </tr>
+      <!-- 시험번호 / 운전자 / 장비작동자 / 검사책임자 -->
+      <tr>
+        <td class="em-th" colspan="1">시험번호</td>
+        <td colspan="1"><input data-field="em_test_no"   class="em-inp" type="text" value="\${E(v('em_test_no'))}"></td>
+        <td class="em-th" colspan="1">운전자</td>
+        <td colspan="1"><input data-field="em_driver"    class="em-inp" type="text" value="\${E(v('em_driver'))}"></td>
+        <td class="em-th" colspan="1">장비작동자</td>
+        <td colspan="1"><input data-field="em_operator"  class="em-inp" type="text" value="\${E(v('em_operator'))}"></td>
+        <td class="em-th" colspan="1">검사책임자</td>
+        <td colspan="1"><input data-field="em_inspector" class="em-inp" type="text" value="\${E(v('em_inspector'))}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- 2. 시험자동차 제원                         -->
+  <!-- PDF 실측 y=254~298                         -->
+  <!-- y=254~269: [27.8%|14.5%|23.3%|18.2%|16.2%] (5셀) -->
+  <!-- y=269~284: 좌측 22.3%는 rowspan, 나머지 3열  -->
+  <!-- y=284~298: 우측 42.3%/23.3%/34.4%          -->
+  <!-- ══════════════════════════════════════════ -->
+  <table class="em-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+    <tbody>
+      <tr>
+        <th class="em-sec-th" colspan="5">2. 시험자동차 제원</th>
+      </tr>
+      <!-- 행1: 차대번호/제작일/변속기형식/적산거리/공차중량 -->
+      <!-- PDF: 27.8%|14.5%|23.3%|18.2%|16.2% -->
+      <tr>
+        <td style="width:27.8%;">
+          <span class="em-th">차대번호 :</span>
+          <input data-field="em_vin"        class="em-inp" type="text" value="\${E(v('em_vin'))}">
+        </td>
+        <td style="width:14.5%;">
+          <span class="em-th">제작일 :</span>
+          <input data-field="em_mfg_date"   class="em-inp" type="text" value="\${E(v('em_mfg_date'))}">
+        </td>
+        <td style="width:23.3%;">
+          <span class="em-th">변속기형식 :</span>
+          <input data-field="em_trans"      class="em-inp" type="text" value="\${E(v('em_trans'))}">
+        </td>
+        <td style="width:18.2%;">
+          <span class="em-th">적산거리 :</span>
+          <input data-field="em_mileage"    class="em-inp" type="text" placeholder="km" value="\${E(v('em_mileage'))}">
+        </td>
+        <td style="width:16.2%;">
+          <span class="em-th">공차중량 :</span>
+          <input data-field="em_curb_wt"    class="em-inp" type="text" placeholder="kg" value="\${E(v('em_curb_wt'))}">
+        </td>
+      </tr>
+      <!-- 행2: 제작사(rowspan=1)/차량총중량/관성중량등급/연료탱크 용량 및 위치 -->
+      <!-- PDF y=269: 22.3% | 20.0% | 23.3% | 34.4% -->
+      <tr>
+        <td style="width:27.8%;">
+          <span class="em-th">제작사 :</span>
+          <input data-field="em_maker"      class="em-inp" type="text" value="\${E(v('em_maker'))}">
+        </td>
+        <td style="width:14.5%;">
+          <span class="em-th">차량총중량 :</span>
+          <input data-field="em_gvw"        class="em-inp" type="text" placeholder="kg" value="\${E(v('em_gvw'))}">
+        </td>
+        <td style="width:23.3%;">
+          <span class="em-th">관성중량등급 :</span>
+          <input data-field="em_inertia"    class="em-inp" type="text" value="\${E(v('em_inertia'))}">
+        </td>
+        <td colspan="2" style="width:34.4%;">
+          <span class="em-th">연료탱크 용량 및 위치 :</span>
+          <input data-field="em_tank"       class="em-inp" type="text" value="\${E(v('em_tank'))}">
+        </td>
+      </tr>
+      <!-- 행3: 도로부하력/코스트다운시간/촉매부착여부 -->
+      <!-- PDF y=284: 42.3% | 23.3% | 34.4% (내부수직선 259.8, 373.7) -->
+      <tr>
+        <td colspan="2" style="width:42.3%;">
+          <span class="em-th">도로 부하력 :</span>
+          <input data-field="em_road_load"  class="em-inp" type="text" value="\${E(v('em_road_load'))}">
+        </td>
+        <td style="width:23.3%;">
+          <span class="em-th">코스트다운 시간 :</span>
+          <input data-field="em_coastdown"  class="em-inp" type="text" value="\${E(v('em_coastdown'))}">
+        </td>
+        <td colspan="2" style="width:34.4%;">
+          <span class="em-th">촉매부착여부 :</span>
+          <input data-field="em_catalyst"   class="em-inp" type="text" value="\${E(v('em_catalyst'))}">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- 3. 시험차 엔진제원                         -->
+  <!-- PDF 실측 y=312~342                         -->
+  <!-- 5열: 18.2%|22.0%|16.3%|26.8%|16.6%        -->
+  <!-- 행1: 엔진번호/엔진방식/최고출력/총배기량/실린더수 -->
+  <!-- 행2: 공회전/냉각방식/연소사이클/시험연료    -->
+  <!-- ══════════════════════════════════════════ -->
+  <table class="em-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+    <colgroup>
+      <col style="width:18.2%;"><col style="width:22.0%;"><col style="width:16.3%;"><col style="width:26.8%;"><col style="width:16.6%;">
+    </colgroup>
+    <tbody>
+      <tr>
+        <th class="em-sec-th" colspan="5">3. 시험차 엔진제원</th>
+      </tr>
+      <tr>
+        <td><span class="em-th">엔진번호 :</span><input data-field="em_eng_no"    class="em-inp" type="text" value="\${E(v('em_eng_no'))}"></td>
+        <td><span class="em-th">엔진방식 :</span><input data-field="em_eng_type"  class="em-inp" type="text" value="\${E(v('em_eng_type'))}"></td>
+        <td><span class="em-th">최고출력 :</span><input data-field="em_max_pow"   class="em-inp" type="text" value="\${E(v('em_max_pow'))}"></td>
+        <td><span class="em-th">총배기량 :</span><input data-field="em_total_cc"  class="em-inp" type="text" placeholder="cc" value="\${E(v('em_total_cc'))}"></td>
+        <td><span class="em-th">실린더수 :</span><input data-field="em_cyl"       class="em-inp" type="text" value="\${E(v('em_cyl'))}"></td>
+      </tr>
+      <tr>
+        <td><span class="em-th">공회전 :</span><input data-field="em_idle"       class="em-inp" type="text" placeholder="rpm" value="\${E(v('em_idle'))}"></td>
+        <td><span class="em-th">냉각방식 :</span><input data-field="em_cooling"   class="em-inp" type="text" value="\${E(v('em_cooling'))}"></td>
+        <td><span class="em-th">연소사이클 :</span><input data-field="em_cycle"    class="em-inp" type="text" value="\${E(v('em_cycle'))}"></td>
+        <td colspan="2"><span class="em-th">시험연료 :</span><input data-field="em_fuel"     class="em-inp" type="text" value="\${E(v('em_fuel'))}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- 4. 시험장비                                -->
+  <!-- PDF 실측 y=356~430 (명칭행 포함)           -->
+  <!-- y=357~430: 6열 18.2%|11.2%|17.3%|16.9%|16.9%|19.4% -->
+  <!-- 헤더: 명칭|형식|제작사|모델|형식승인일자|설치장소 -->
+  <!-- 데이터: 다이나모메타/분석장치/CVS장치/냉각팬 -->
+  <!-- ══════════════════════════════════════════ -->
+  <table class="em-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+    <colgroup>
+      <col style="width:18.2%;"><col style="width:11.2%;"><col style="width:17.3%;"><col style="width:16.9%;"><col style="width:16.9%;"><col style="width:19.4%;">
+    </colgroup>
+    <tbody>
+      <tr>
+        <th class="em-sec-th" colspan="6">4. 시험장비</th>
+      </tr>
+      <tr>
+        <th class="em-th" style="text-align:center;">명&nbsp;&nbsp;&nbsp;칭</th>
+        <th class="em-th" style="text-align:center;">형&nbsp;&nbsp;&nbsp;식</th>
+        <th class="em-th" style="text-align:center;">제작사</th>
+        <th class="em-th" style="text-align:center;">모델</th>
+        <th class="em-th" style="text-align:center;">형식승인일자</th>
+        <th class="em-th" style="text-align:center;">설치장소</th>
+      </tr>
+      <tr>
+        <td class="em-th">다이나모 메타</td>
+        <td><input data-field="em_dyn_form"   class="em-inp" type="text" value="\${E(v('em_dyn_form'))}"></td>
+        <td><input data-field="em_dyn_maker"  class="em-inp" type="text" value="\${E(v('em_dyn_maker'))}"></td>
+        <td><input data-field="em_dyn_model"  class="em-inp" type="text" value="\${E(v('em_dyn_model'))}"></td>
+        <td><input data-field="em_dyn_appr"   class="em-inp" type="text" value="\${E(v('em_dyn_appr'))}"></td>
+        <td><input data-field="em_dyn_loc"    class="em-inp" type="text" value="\${E(v('em_dyn_loc'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th">분석 장치</td>
+        <td><input data-field="em_ana_form"   class="em-inp" type="text" value="\${E(v('em_ana_form'))}"></td>
+        <td><input data-field="em_ana_maker"  class="em-inp" type="text" value="\${E(v('em_ana_maker'))}"></td>
+        <td><input data-field="em_ana_model"  class="em-inp" type="text" value="\${E(v('em_ana_model'))}"></td>
+        <td><input data-field="em_ana_appr"   class="em-inp" type="text" value="\${E(v('em_ana_appr'))}"></td>
+        <td><input data-field="em_ana_loc"    class="em-inp" type="text" value="\${E(v('em_ana_loc'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th">CVS 장치</td>
+        <td><input data-field="em_cvs_form"   class="em-inp" type="text" value="\${E(v('em_cvs_form'))}"></td>
+        <td><input data-field="em_cvs_maker"  class="em-inp" type="text" value="\${E(v('em_cvs_maker'))}"></td>
+        <td><input data-field="em_cvs_model"  class="em-inp" type="text" value="\${E(v('em_cvs_model'))}"></td>
+        <td><input data-field="em_cvs_appr"   class="em-inp" type="text" value="\${E(v('em_cvs_appr'))}"></td>
+        <td><input data-field="em_cvs_loc"    class="em-inp" type="text" value="\${E(v('em_cvs_loc'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th">냉각팬</td>
+        <td><input data-field="em_fan_form"   class="em-inp" type="text" value="\${E(v('em_fan_form'))}"></td>
+        <td><input data-field="em_fan_maker"  class="em-inp" type="text" value="\${E(v('em_fan_maker'))}"></td>
+        <td><input data-field="em_fan_model"  class="em-inp" type="text" value="\${E(v('em_fan_model'))}"></td>
+        <td><input data-field="em_fan_appr"   class="em-inp" type="text" value="\${E(v('em_fan_appr'))}"></td>
+        <td><input data-field="em_fan_loc"    class="em-inp" type="text" value="\${E(v('em_fan_loc'))}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- 5. CVS 운전시험상태                        -->
+  <!-- PDF 실측 y=430~564                         -->
+  <!-- y=430~563 (냉각팬 이후): 5열               -->
+  <!-- 구분 | 1BAG | 2BAG | 3BAG 헤더             -->
+  <!-- 18.2% | 28.6% | 16.9% | 16.9% | 19.4%    -->
+  <!-- 단, 첫 열은 "5.CVS 운전시험상태" 라벨+구분  -->
+  <!-- ══════════════════════════════════════════ -->
+  <table class="em-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+    <colgroup>
+      <col style="width:18.2%;"><col style="width:28.6%;"><col style="width:16.9%;"><col style="width:17.0%;"><col style="width:19.3%;">
+    </colgroup>
+    <tbody>
+      <tr>
+        <th class="em-sec-th" colspan="5">5. CVS 운전시험상태</th>
+      </tr>
+      <tr>
+        <th class="em-th" style="text-align:center;">구&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;분</th>
+        <th class="em-th" style="text-align:center;">1BAG</th>
+        <th class="em-th" style="text-align:center;">2BAG</th>
+        <th class="em-th" style="text-align:center;">3BAG</th>
+        <th class="em-th" style="text-align:center;">비고</th>
+      </tr>
+      <tr>
+        <td class="em-th">압&nbsp;&nbsp;&nbsp;력 &nbsp;&nbsp;&nbsp;mmHg</td>
+        <td><input data-field="em_cvs_press1" class="em-inp" type="text" value="\${E(v('em_cvs_press1'))}"></td>
+        <td><input data-field="em_cvs_press2" class="em-inp" type="text" value="\${E(v('em_cvs_press2'))}"></td>
+        <td><input data-field="em_cvs_press3" class="em-inp" type="text" value="\${E(v('em_cvs_press3'))}"></td>
+        <td><input data-field="em_cvs_press_note" class="em-inp" type="text" value="\${E(v('em_cvs_press_note'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th">습구온도 &nbsp;&nbsp;&nbsp;℃</td>
+        <td><input data-field="em_cvs_wet1"   class="em-inp" type="text" value="\${E(v('em_cvs_wet1'))}"></td>
+        <td><input data-field="em_cvs_wet2"   class="em-inp" type="text" value="\${E(v('em_cvs_wet2'))}"></td>
+        <td><input data-field="em_cvs_wet3"   class="em-inp" type="text" value="\${E(v('em_cvs_wet3'))}"></td>
+        <td><input data-field="em_cvs_wet_note" class="em-inp" type="text" value="\${E(v('em_cvs_wet_note'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th">건구온도 &nbsp;&nbsp;&nbsp;℃</td>
+        <td><input data-field="em_cvs_dry1"   class="em-inp" type="text" value="\${E(v('em_cvs_dry1'))}"></td>
+        <td><input data-field="em_cvs_dry2"   class="em-inp" type="text" value="\${E(v('em_cvs_dry2'))}"></td>
+        <td><input data-field="em_cvs_dry3"   class="em-inp" type="text" value="\${E(v('em_cvs_dry3'))}"></td>
+        <td><input data-field="em_cvs_dry_note" class="em-inp" type="text" value="\${E(v('em_cvs_dry_note'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th">상대습도 &nbsp;&nbsp;&nbsp;%</td>
+        <td><input data-field="em_cvs_rh1"    class="em-inp" type="text" value="\${E(v('em_cvs_rh1'))}"></td>
+        <td><input data-field="em_cvs_rh2"    class="em-inp" type="text" value="\${E(v('em_cvs_rh2'))}"></td>
+        <td><input data-field="em_cvs_rh3"    class="em-inp" type="text" value="\${E(v('em_cvs_rh3'))}"></td>
+        <td><input data-field="em_cvs_rh_note" class="em-inp" type="text" value="\${E(v('em_cvs_rh_note'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th">비교습도 H₂Og/kg Air</td>
+        <td><input data-field="em_cvs_ha1"    class="em-inp" type="text" value="\${E(v('em_cvs_ha1'))}"></td>
+        <td><input data-field="em_cvs_ha2"    class="em-inp" type="text" value="\${E(v('em_cvs_ha2'))}"></td>
+        <td><input data-field="em_cvs_ha3"    class="em-inp" type="text" value="\${E(v('em_cvs_ha3'))}"></td>
+        <td><input data-field="em_cvs_ha_note" class="em-inp" type="text" value="\${E(v('em_cvs_ha_note'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th">배&nbsp;출&nbsp;량 &nbsp;&nbsp;&nbsp;㎥</td>
+        <td><input data-field="em_cvs_vol1"   class="em-inp" type="text" value="\${E(v('em_cvs_vol1'))}"></td>
+        <td><input data-field="em_cvs_vol2"   class="em-inp" type="text" value="\${E(v('em_cvs_vol2'))}"></td>
+        <td><input data-field="em_cvs_vol3"   class="em-inp" type="text" value="\${E(v('em_cvs_vol3'))}"></td>
+        <td><input data-field="em_cvs_vol_note" class="em-inp" type="text" value="\${E(v('em_cvs_vol_note'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th">DF</td>
+        <td><input data-field="em_cvs_df1"    class="em-inp" type="text" value="\${E(v('em_cvs_df1'))}"></td>
+        <td><input data-field="em_cvs_df2"    class="em-inp" type="text" value="\${E(v('em_cvs_df2'))}"></td>
+        <td><input data-field="em_cvs_df3"    class="em-inp" type="text" value="\${E(v('em_cvs_df3'))}"></td>
+        <td><input data-field="em_cvs_df_note" class="em-inp" type="text" value="\${E(v('em_cvs_df_note'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th">운전거리 &nbsp;&nbsp;&nbsp;Km</td>
+        <td><input data-field="em_cvs_dist1"  class="em-inp" type="text" value="\${E(v('em_cvs_dist1'))}"></td>
+        <td><input data-field="em_cvs_dist2"  class="em-inp" type="text" value="\${E(v('em_cvs_dist2'))}"></td>
+        <td><input data-field="em_cvs_dist3"  class="em-inp" type="text" value="\${E(v('em_cvs_dist3'))}"></td>
+        <td><input data-field="em_cvs_dist_note" class="em-inp" type="text" value="\${E(v('em_cvs_dist_note'))}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- 6. 시험결과                                        -->
+  <!-- PDF 실측 y=577~755                                 -->
+  <!-- ── 상단헤더: 항목|PHASE1|PHASE2|PHASE3            -->
+  <!--    4열: 11.8%|29.3%|29.2%|29.7%                  -->
+  <!-- ── 중단헤더: 항목|배출질량×2|배출질량×2|배출질량×2 -->
+  <!--    7열: 11.8%|14.6%|14.6%|14.6%|14.6%|14.6%|15.1% -->
+  <!-- ── 데이터: HC/CO/NOx/CO2/연비                      -->
+  <!-- ── 하단: 종합결과표                                 -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <table class="em-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+    <colgroup>
+      <col style="width:11.8%;"><!-- 항목 -->
+      <col style="width:14.6%;"><!-- PHASE1 배출질량 -->
+      <col style="width:14.6%;"><!-- PHASE1 g/km -->
+      <col style="width:14.6%;"><!-- PHASE2 배출질량 -->
+      <col style="width:14.6%;"><!-- PHASE2 g/km -->
+      <col style="width:14.6%;"><!-- PHASE3 배출질량 -->
+      <col style="width:15.1%;"><!-- PHASE3 g/km -->
+    </colgroup>
+    <thead>
+      <tr>
+        <th class="em-sec-th" colspan="7">6. 시험결과</th>
+      </tr>
+      <!-- 복합 헤더 1행: PHASE 1/2/3 -->
+      <tr>
+        <th class="em-th" rowspan="2" style="text-align:center; vertical-align:middle;">항&nbsp;목</th>
+        <th class="em-th" colspan="2" style="text-align:center;">PHASE 1</th>
+        <th class="em-th" colspan="2" style="text-align:center;">PHASE 2</th>
+        <th class="em-th" colspan="2" style="text-align:center;">PHASE 3</th>
+      </tr>
+      <!-- 복합 헤더 2행: 배출질량/g/km -->
+      <tr>
+        <th class="em-th" style="text-align:center; font-size:7.5pt;">배출질량<br>(g/test)</th>
+        <th class="em-th" style="text-align:center;">g/km</th>
+        <th class="em-th" style="text-align:center; font-size:7.5pt;">배출질량<br>(g/test)</th>
+        <th class="em-th" style="text-align:center;">g/km</th>
+        <th class="em-th" style="text-align:center; font-size:7.5pt;">배출질량<br>(g/test)</th>
+        <th class="em-th" style="text-align:center;">g/km</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="em-th" style="text-align:center;">HC</td>
+        <td><input data-field="em_hc_p1_mass" class="em-inp" type="text" value="\${E(v('em_hc_p1_mass'))}"></td>
+        <td><input data-field="em_hc_p1_gkm"  class="em-inp" type="text" value="\${E(v('em_hc_p1_gkm'))}"></td>
+        <td><input data-field="em_hc_p2_mass" class="em-inp" type="text" value="\${E(v('em_hc_p2_mass'))}"></td>
+        <td><input data-field="em_hc_p2_gkm"  class="em-inp" type="text" value="\${E(v('em_hc_p2_gkm'))}"></td>
+        <td><input data-field="em_hc_p3_mass" class="em-inp" type="text" value="\${E(v('em_hc_p3_mass'))}"></td>
+        <td><input data-field="em_hc_p3_gkm"  class="em-inp" type="text" value="\${E(v('em_hc_p3_gkm'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th" style="text-align:center;">CO</td>
+        <td><input data-field="em_co_p1_mass" class="em-inp" type="text" value="\${E(v('em_co_p1_mass'))}"></td>
+        <td><input data-field="em_co_p1_gkm"  class="em-inp" type="text" value="\${E(v('em_co_p1_gkm'))}"></td>
+        <td><input data-field="em_co_p2_mass" class="em-inp" type="text" value="\${E(v('em_co_p2_mass'))}"></td>
+        <td><input data-field="em_co_p2_gkm"  class="em-inp" type="text" value="\${E(v('em_co_p2_gkm'))}"></td>
+        <td><input data-field="em_co_p3_mass" class="em-inp" type="text" value="\${E(v('em_co_p3_mass'))}"></td>
+        <td><input data-field="em_co_p3_gkm"  class="em-inp" type="text" value="\${E(v('em_co_p3_gkm'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th" style="text-align:center;">NOx</td>
+        <td><input data-field="em_nox_p1_mass" class="em-inp" type="text" value="\${E(v('em_nox_p1_mass'))}"></td>
+        <td><input data-field="em_nox_p1_gkm"  class="em-inp" type="text" value="\${E(v('em_nox_p1_gkm'))}"></td>
+        <td><input data-field="em_nox_p2_mass" class="em-inp" type="text" value="\${E(v('em_nox_p2_mass'))}"></td>
+        <td><input data-field="em_nox_p2_gkm"  class="em-inp" type="text" value="\${E(v('em_nox_p2_gkm'))}"></td>
+        <td><input data-field="em_nox_p3_mass" class="em-inp" type="text" value="\${E(v('em_nox_p3_mass'))}"></td>
+        <td><input data-field="em_nox_p3_gkm"  class="em-inp" type="text" value="\${E(v('em_nox_p3_gkm'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th" style="text-align:center;">CO₂</td>
+        <td><input data-field="em_co2_p1_mass" class="em-inp" type="text" value="\${E(v('em_co2_p1_mass'))}"></td>
+        <td><input data-field="em_co2_p1_gkm"  class="em-inp" type="text" value="\${E(v('em_co2_p1_gkm'))}"></td>
+        <td><input data-field="em_co2_p2_mass" class="em-inp" type="text" value="\${E(v('em_co2_p2_mass'))}"></td>
+        <td><input data-field="em_co2_p2_gkm"  class="em-inp" type="text" value="\${E(v('em_co2_p2_gkm'))}"></td>
+        <td><input data-field="em_co2_p3_mass" class="em-inp" type="text" value="\${E(v('em_co2_p3_mass'))}"></td>
+        <td><input data-field="em_co2_p3_gkm"  class="em-inp" type="text" value="\${E(v('em_co2_p3_gkm'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th" style="text-align:center; font-size:7.5pt;">연비<br>(km/ℓ)</td>
+        <td colspan="2"><input data-field="em_fe_p1"  class="em-inp" type="text" value="\${E(v('em_fe_p1'))}"></td>
+        <td colspan="2"><input data-field="em_fe_p2"  class="em-inp" type="text" value="\${E(v('em_fe_p2'))}"></td>
+        <td colspan="2"><input data-field="em_fe_p3"  class="em-inp" type="text" value="\${E(v('em_fe_p3'))}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- 6. 시험결과 - 종합 결과표                                  -->
+  <!-- PDF 실측 y=672~755                                        -->
+  <!-- y=673~687: 항목|CO|NOx|HC(배기관/NMHC/증발가스)|PM|CO2|연비 -->
+  <!-- 7열: 11.8%|10.5%|11.8%|33.3%|6.4%|11.2%|15.1%           -->
+  <!--   ↑ HC열은 내부적으로 배기관가스/NMHC/증발가스 3분할       -->
+  <!-- y=687~755: 데이터 행 (시험결과/열화계수/최종결과/기준치)   -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <table class="em-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+    <colgroup>
+      <col style="width:11.8%;"><!-- 항목 -->
+      <col style="width:10.5%;"><!-- CO -->
+      <col style="width:11.8%;"><!-- NOx -->
+      <col style="width:14.1%;"><!-- HC 배기관 -->
+      <col style="width:9.8%; "><!-- NMHC -->
+      <col style="width:9.4%; "><!-- 증발가스 -->
+      <col style="width:6.4%; "><!-- PM -->
+      <col style="width:11.2%;"><!-- CO2 -->
+      <col style="width:15.0%;"><!-- 연비 -->
+    </colgroup>
+    <thead>
+      <tr>
+        <th class="em-th" rowspan="2" style="text-align:center; vertical-align:middle;">항&nbsp;목</th>
+        <th class="em-th" rowspan="2" style="text-align:center; vertical-align:middle;">CO</th>
+        <th class="em-th" rowspan="2" style="text-align:center; vertical-align:middle;">NOx</th>
+        <th class="em-th" colspan="3" style="text-align:center;">HC</th>
+        <th class="em-th" rowspan="2" style="text-align:center; vertical-align:middle;">PM</th>
+        <th class="em-th" rowspan="2" style="text-align:center; vertical-align:middle;">CO₂</th>
+        <th class="em-th" rowspan="2" style="text-align:center; vertical-align:middle; font-size:7.5pt;">연 비<br>(km/ℓ)</th>
+      </tr>
+      <tr>
+        <th class="em-th" style="text-align:center; font-size:7.5pt;">배기관<br>가스</th>
+        <th class="em-th" style="text-align:center;">NMHC</th>
+        <th class="em-th" style="text-align:center; font-size:7.5pt;">증발가스<br>(g/test)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="em-th" style="font-size:7.5pt;">시험결과<br>(g/km)</td>
+        <td><input data-field="em_r_co"       class="em-inp" type="text" value="\${E(v('em_r_co'))}"></td>
+        <td><input data-field="em_r_nox"      class="em-inp" type="text" value="\${E(v('em_r_nox'))}"></td>
+        <td><input data-field="em_r_hc"       class="em-inp" type="text" value="\${E(v('em_r_hc'))}"></td>
+        <td><input data-field="em_r_nmhc"     class="em-inp" type="text" value="\${E(v('em_r_nmhc'))}"></td>
+        <td><input data-field="em_r_evap"     class="em-inp" type="text" value="\${E(v('em_r_evap'))}"></td>
+        <td><input data-field="em_r_pm"       class="em-inp" type="text" value="\${E(v('em_r_pm'))}"></td>
+        <td><input data-field="em_r_co2"      class="em-inp" type="text" value="\${E(v('em_r_co2'))}"></td>
+        <td><input data-field="em_r_fe"       class="em-inp" type="text" value="\${E(v('em_r_fe'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th" style="font-size:7.5pt;">열화계수<br>(DF)</td>
+        <td><input data-field="em_df_co"      class="em-inp" type="text" value="\${E(v('em_df_co'))}"></td>
+        <td><input data-field="em_df_nox"     class="em-inp" type="text" value="\${E(v('em_df_nox'))}"></td>
+        <td><input data-field="em_df_hc"      class="em-inp" type="text" value="\${E(v('em_df_hc'))}"></td>
+        <td><input data-field="em_df_nmhc"    class="em-inp" type="text" value="\${E(v('em_df_nmhc'))}"></td>
+        <td><input data-field="em_df_evap"    class="em-inp" type="text" value="\${E(v('em_df_evap'))}"></td>
+        <td><input data-field="em_df_pm"      class="em-inp" type="text" value="\${E(v('em_df_pm'))}"></td>
+        <td><input data-field="em_df_co2"     class="em-inp" type="text" value="\${E(v('em_df_co2'))}"></td>
+        <td><input data-field="em_df_fe"      class="em-inp" type="text" value="\${E(v('em_df_fe'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th" style="text-align:center;">최종결과</td>
+        <td><input data-field="em_fin_co"     class="em-inp" type="text" value="\${E(v('em_fin_co'))}"></td>
+        <td><input data-field="em_fin_nox"    class="em-inp" type="text" value="\${E(v('em_fin_nox'))}"></td>
+        <td><input data-field="em_fin_hc"     class="em-inp" type="text" value="\${E(v('em_fin_hc'))}"></td>
+        <td><input data-field="em_fin_nmhc"   class="em-inp" type="text" value="\${E(v('em_fin_nmhc'))}"></td>
+        <td><input data-field="em_fin_evap"   class="em-inp" type="text" value="\${E(v('em_fin_evap'))}"></td>
+        <td><input data-field="em_fin_pm"     class="em-inp" type="text" value="\${E(v('em_fin_pm'))}"></td>
+        <td><input data-field="em_fin_co2"    class="em-inp" type="text" value="\${E(v('em_fin_co2'))}"></td>
+        <td><input data-field="em_fin_fe"     class="em-inp" type="text" value="\${E(v('em_fin_fe'))}"></td>
+      </tr>
+      <tr>
+        <td class="em-th" style="text-align:center;">기&nbsp;준&nbsp;치</td>
+        <td><input data-field="em_lim_co"     class="em-inp" type="text" value="\${E(v('em_lim_co'))}"></td>
+        <td><input data-field="em_lim_nox"    class="em-inp" type="text" value="\${E(v('em_lim_nox'))}"></td>
+        <td><input data-field="em_lim_hc"     class="em-inp" type="text" value="\${E(v('em_lim_hc'))}"></td>
+        <td><input data-field="em_lim_nmhc"   class="em-inp" type="text" value="\${E(v('em_lim_nmhc'))}"></td>
+        <td><input data-field="em_lim_evap"   class="em-inp" type="text" value="\${E(v('em_lim_evap'))}"></td>
+        <td><input data-field="em_lim_pm"     class="em-inp" type="text" value="\${E(v('em_lim_pm'))}"></td>
+        <td><input data-field="em_lim_co2"    class="em-inp" type="text" value="\${E(v('em_lim_co2'))}"></td>
+        <td><input data-field="em_lim_fe"     class="em-inp" type="text" value="\${E(v('em_lim_fe'))}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 자체 배출가스 시험 성적서 및 RAW DATA 첨부 안내 (페이지2) -->
+  <div style="margin-top:12px; padding:8px 10px; border:1px solid #aaa; font-size:8.5pt; background:#fafafa;">
+    ※ 자체 배출가스 시험 성적서와 RAW-DATA 첨부
+  </div>
+
+  <div id="qr-footer-wrap" style="margin-top:12px;"></div>
+</div>
+\`;
 
   if (formType==='evap_test') return \`
 <style>

@@ -1803,6 +1803,8 @@ async function openForm(formType) {
   setTimeout(() => generateFormQR(formType, meta.title), 100);
   // noise_test 첨부파일 기능 초기화
   if (formType === 'noise_test') setTimeout(() => initNoiseAttach(), 150);
+  // emission_test 첨부파일 기능 초기화
+  if (formType === 'emission_test') setTimeout(() => initEmissionAttach(), 150);
   // evap_test 첨부파일 기능 초기화
   if (formType === 'evap_test') setTimeout(() => initEvapAttach(), 150);
 }
@@ -3433,6 +3435,9 @@ if (formType==='detail_plan') return (
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
   font-size:9pt;
   padding:10px 2px;
+  background:var(--c-surface);
+  color:var(--c-text);
+  border-radius:8px;
 }
 .em-doc-tag  { font-size:8.5pt; font-weight:700; color:var(--c-text2); margin:10px 0 4px; }
 .em-main-title {
@@ -3444,22 +3449,25 @@ if (formType==='detail_plan') return (
   font-size:8.5pt; margin-bottom:0;
 }
 .em-tbl th, .em-tbl td {
-  border:1px solid #888;
+  border:1px solid var(--c-border);
   padding:3px 5px;
   vertical-align:middle;
+  color:var(--c-text);
 }
 .em-sec-th {
-  background:#d6e4f7;
+  background:rgba(79,142,247,.15);
   font-weight:700;
   text-align:left;
   padding:3px 6px;
   font-size:8.5pt;
+  color:var(--c-text);
 }
 .em-th {
-  background:#eef3fa;
+  background:rgba(79,142,247,.08);
   font-weight:600;
   white-space:nowrap;
   font-size:8pt;
+  color:var(--c-text);
 }
 .em-inp {
   border:none;
@@ -3469,12 +3477,50 @@ if (formType==='detail_plan') return (
   font-family:inherit;
   padding:0 2px;
   box-sizing:border-box;
+  color:var(--c-text);
 }
-.em-inp:focus { outline:1px solid #4e90d8; }
-.em-chk { display:flex; align-items:center; gap:3px; font-size:8.5pt; }
+.em-inp::placeholder { color:var(--c-text3); }
+.em-inp:focus { outline:none; border-bottom:1px solid var(--c-accent); }
+.em-chk { display:flex; align-items:center; gap:3px; font-size:8.5pt; color:var(--c-text); }
+/* 첨부 섹션 (증발가스와 동일 패턴) */
+.em-attach-section { margin-top:14px; }
+.em-attach-title { font-size:9pt; font-weight:700; margin-bottom:6px; color:var(--c-text); }
+.em-attach-note { font-size:8pt; color:var(--c-text3); margin-bottom:8px; }
+.em-attach-drop {
+  border:2px dashed var(--c-border); border-radius:8px;
+  padding:16px; text-align:center; cursor:pointer;
+  transition:border-color .2s, background .2s;
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+  color:var(--c-text2);
+}
+.em-attach-drop:hover { border-color:var(--c-accent); background:rgba(79,142,247,.04); }
+.em-attach-drop input[type=file] { display:none; }
+.em-attach-list { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
+.em-attach-item {
+  display:flex; align-items:center; gap:8px;
+  padding:4px 8px; border-radius:4px;
+  background:var(--c-surface2); font-size:8.5pt;
+}
+.em-attach-item-name { flex:1; color:var(--c-text); word-break:break-all; }
+.em-attach-item-size { color:var(--c-text3); white-space:nowrap; font-size:8pt; }
+.em-attach-item-del { color:#ef4444; cursor:pointer; padding:1px 5px; border-radius:3px; font-size:10pt; line-height:1; }
+.em-attach-item-del:hover { background:rgba(239,68,68,.12); }
+.em-attach-print-wrap { margin-top:10px; }
+.em-attach-print-page { page-break-before:always; margin-top:20px; }
+.em-attach-print-page img { max-width:100%; height:auto; display:block; }
+.em-attach-print-page .em-attach-pdf-frame { width:100%; min-height:600px; border:none; }
 
 @media print {
-  .em-tbl th, .em-tbl td { border:1px solid #333 !important; }
+  .em-wrap {
+    background:#fff !important;
+    color:#000 !important;
+    border-radius:0 !important;
+  }
+  .em-tbl th, .em-tbl td {
+    border:1px solid #333 !important;
+    color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
   .em-inp {
     border:none !important;
     background:transparent !important;
@@ -3483,9 +3529,23 @@ if (formType==='detail_plan') return (
     font-size:8.5pt !important;
     font-family:'맑은 고딕','Malgun Gothic',sans-serif !important;
     padding:0 2px !important;
+    color:#000 !important;
   }
-  .em-sec-th { background:#d6e4f7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .em-th      { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .em-sec-th {
+    background:#d6e4f7 !important;
+    color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .em-th {
+    background:#eef3fa !important;
+    color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .em-chk { color:#000 !important; }
+  /* 첨부 드롭존·목록은 숨기고 인쇄 렌더만 표시 */
+  .em-attach-section { display:none !important; }
+  .em-attach-print-wrap { display:block !important; }
+  .em-attach-print-page { page-break-before:always; }
 }
 </style>
 
@@ -3989,9 +4049,18 @@ if (formType==='detail_plan') return (
     </tbody>
   </table>
 
-  <!-- 자체 배출가스 시험 성적서 및 RAW DATA 첨부 안내 (페이지2) -->
-  <div style="margin-top:12px; padding:8px 10px; border:1px solid #aaa; font-size:8.5pt; background:#fafafa;">
-    ※ 자체 배출가스 시험 성적서와 RAW-DATA 첨부
+  <!-- ── 첨부문서: 자체 배출가스 시험 성적서 / RAW DATA ── -->
+  <div class="em-attach-section" id="em-attach-raw-section">
+    <div class="em-attach-title"><i class="fas fa-paperclip"></i>&nbsp;첨부문서 – 자체 배출가스 시험 성적서 / RAW DATA</div>
+    <div class="em-attach-note">※ 이미지 또는 PDF 파일을 첨부하면 인쇄 시 자동으로 함께 인쇄됩니다.</div>
+    <div class="em-attach-drop" id="em-drop-raw">
+      <i class="fas fa-cloud-upload-alt" style="font-size:20px; color:var(--c-accent);"></i>
+      <span style="font-size:8.5pt;">클릭하거나 파일을 여기에 끌어다 놓으세요</span>
+      <span style="font-size:7.5pt; color:var(--c-text3);">지원 형식: 이미지(JPG, PNG, GIF), PDF</span>
+      <input type="file" id="em-file-raw" accept="image/*,.pdf" multiple>
+    </div>
+    <div class="em-attach-list" id="em-list-raw"></div>
+    <div class="em-attach-print-wrap" id="em-print-raw" style="display:none;"></div>
   </div>
 
   <div id="qr-footer-wrap" style="margin-top:12px;"></div>
@@ -5901,6 +5970,83 @@ function showToast(msg, type='info') {
 // ================================================================
 // noise_test 첨부파일 기능
 // ================================================================
+function initEmissionAttach() {
+  function makeAttach(dropId, fileInputId, listId, printWrapId) {
+    var files = [];
+    var dropZone  = document.getElementById(dropId);
+    var fileInput = document.getElementById(fileInputId);
+    var listEl    = document.getElementById(listId);
+    var printWrap = document.getElementById(printWrapId);
+    if (!dropZone || !fileInput) return;
+
+    dropZone.addEventListener('dragover',  function(e){ e.preventDefault(); dropZone.style.borderColor='var(--c-accent)'; });
+    dropZone.addEventListener('dragleave', function(){ dropZone.style.borderColor=''; });
+    dropZone.addEventListener('drop',      function(e){ e.preventDefault(); dropZone.style.borderColor=''; handleFiles(e.dataTransfer.files); });
+    dropZone.addEventListener('click',     function(){ fileInput.click(); });
+    fileInput.addEventListener('change',   function(){ handleFiles(this.files); this.value=''; });
+
+    function handleFiles(flist) {
+      Array.from(flist).forEach(function(file){
+        var reader = new FileReader();
+        reader.onload = function(ev){
+          files.push({ name:file.name, size:file.size, type:file.type, dataUrl:ev.target.result });
+          renderList(); renderPrint();
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+    function fmtSize(b){ return b<1024?b+'B':b<1048576?(b/1024).toFixed(1)+'KB':(b/1048576).toFixed(1)+'MB'; }
+    function renderList(){
+      listEl.innerHTML='';
+      files.forEach(function(f,idx){
+        var div=document.createElement('div');
+        div.className='em-attach-item';
+        div.innerHTML='<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:var(--c-accent);"></i>'+
+          '<span class="em-attach-item-name">'+f.name+'</span>'+
+          '<span class="em-attach-item-size">'+fmtSize(f.size)+'</span>'+
+          '<span class="em-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
+        listEl.appendChild(div);
+      });
+      listEl.querySelectorAll('.em-attach-item-del').forEach(function(btn){
+        btn.addEventListener('click',function(e){
+          e.stopPropagation();
+          files.splice(parseInt(this.dataset.idx),1);
+          renderList(); renderPrint();
+        });
+      });
+    }
+    function renderPrint(){
+      if (!printWrap) return;
+      printWrap.innerHTML='';
+      if (files.length === 0) { printWrap.style.display='none'; return; }
+      printWrap.style.display='block';
+      files.forEach(function(f){
+        var page=document.createElement('div');
+        page.className='em-attach-print-page';
+        var lbl=document.createElement('div');
+        lbl.style.cssText='font-size:9pt;font-weight:700;margin-bottom:6px;color:#000;';
+        lbl.textContent='첨부: '+f.name;
+        page.appendChild(lbl);
+        if(f.type==='application/pdf'){
+          var iframe=document.createElement('iframe');
+          iframe.src=f.dataUrl;
+          iframe.className='em-attach-pdf-frame';
+          iframe.style.cssText='width:100%;min-height:700px;border:none;';
+          page.appendChild(iframe);
+        } else {
+          var img=document.createElement('img');
+          img.src=f.dataUrl;
+          img.style.cssText='max-width:100%;height:auto;display:block;';
+          page.appendChild(img);
+        }
+        printWrap.appendChild(page);
+      });
+    }
+  }
+  // 자체 배출가스 시험 성적서 / RAW DATA
+  makeAttach('em-drop-raw','em-file-raw','em-list-raw','em-print-raw');
+}
+
 function initEvapAttach() {
   function makeAttach(dropId, fileInputId, listId, printWrapId) {
     var files = [];

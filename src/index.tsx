@@ -3804,9 +3804,11 @@ if (formType==='detail_plan') return (
   <!-- 18.2% | 28.6% | 16.9% | 16.9% | 19.4%    -->
   <!-- 단, 첫 열은 "5.CVS 운전시험상태" 라벨+구분  -->
   <!-- ══════════════════════════════════════════ -->
+  <!-- CVS: "구분" 칸을 위 4.시험장비의 "명칭+형식" 두 열 너비(18.2+11.2=29.4%)로 확장 -->
+  <!-- 세로선 정렬: 29.4% | 17.3% | 16.9% | 16.9% | 19.4% (합계≈99.9%) -->
   <table class="em-tbl" style="border-top:none; table-layout:fixed; width:100%;">
     <colgroup>
-      <col style="width:18.2%;"><col style="width:28.6%;"><col style="width:16.9%;"><col style="width:17.0%;"><col style="width:19.3%;">
+      <col style="width:29.4%;"><col style="width:17.3%;"><col style="width:16.9%;"><col style="width:16.9%;"><col style="width:19.4%;">
     </colgroup>
     <tbody>
       <tr>

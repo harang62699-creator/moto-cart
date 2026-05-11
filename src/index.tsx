@@ -6507,8 +6507,12 @@ if (formType==='detail_plan') return (
 /* ══════ noise_test 전용 스타일 ══════ */
 .nt-wrap {
   box-sizing:border-box;
-  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  font-family:'Malgun Gothic',sans-serif;
   font-size:9pt;
+  padding:10px 2px;
+  background:#fff;
+  color:#111;
+  border-radius:8px;
 }
 /* 상단 헤더 */
 /* noise_test: emission_test 기준으로 통일된 헤더 테이블 */

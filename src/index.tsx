@@ -1905,19 +1905,49 @@ function buildQRBlockHTML(qrDivId, formTitle, dt, verifyUrl, pageLabel, shortCod
 // 인쇄 버튼 클릭 시 QR이 준비됐는지 확인하고 인쇄
 function printWithQR() {
   const wrap = document.getElementById('qr-footer-wrap');
+
+  // ── emission_noise 시트: textarea → div 변환 (인쇄 시 텍스트 잘림 방지) ──
+  const enTextareas = document.querySelectorAll('.en-field-text');
+  const enRestoreList = [];
+  if (enTextareas.length > 0) {
+    enTextareas.forEach(function(ta) {
+      const div = document.createElement('div');
+      div.className = 'en-field-text';
+      div.style.cssText = [
+        'white-space:pre-wrap', 'word-break:break-word', 'overflow-wrap:break-word',
+        'font-size:8.5pt', 'line-height:1.5', 'padding:2px 0',
+        'min-height:0', 'height:auto', 'overflow:visible',
+        'font-family:\'맑은 고딕\',\'Malgun Gothic\',sans-serif',
+        'color:#000', 'background:transparent', 'border:none'
+      ].join(';');
+      div.textContent = (ta as HTMLTextAreaElement).value;
+      ta.parentNode!.insertBefore(div, ta);
+      (ta as HTMLElement).style.display = 'none';
+      enRestoreList.push({ ta, div });
+    });
+  }
+
+  const doPrint = () => {
+    window.print();
+    // 인쇄 후 원상복구
+    enRestoreList.forEach(function(item) {
+      (item.ta as HTMLElement).style.display = '';
+      item.div.parentNode!.removeChild(item.div);
+    });
+  };
+
   // 아직 로딩 중이거나 에러 상태면 잠시 기다린 후 인쇄
   if (wrap && wrap.querySelector('.qr-footer-pending')) {
-    // QR이 pending이면 먼저 재생성 시도 후 인쇄
     const formType = currentFormType;
     const meta = FORM_META.find(m=>m.type===formType);
     if (meta) {
       generateFormQR(formType, meta.title).then(() => {
-        setTimeout(() => window.print(), 300);
+        setTimeout(doPrint, 300);
       });
       return;
     }
   }
-  window.print();
+  doPrint();
 }
 
 async function generateFormQR(formType, formTitle) {
@@ -3508,18 +3538,65 @@ if (formType==='detail_plan') return (
 .en-inp::placeholder { color:#aaa; }
 .en-inp:focus { outline:none; border-bottom:1px solid #4e90d8; }
 @media print {
+  /* ── 전체 래퍼 ── */
   .en-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; }
-  .en-tbl th, .en-tbl td { border:1px solid #333 !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .en-field-text { border:none !important; background:transparent !important; color:#000 !important; font-size:8.5pt !important; font-family:'맑은 고딕','Malgun Gothic',sans-serif !important; }
-  .en-inp { border:none !important; background:transparent !important; color:#000 !important; font-size:8.5pt !important; font-family:'맑은 고딕','Malgun Gothic',sans-serif !important; }
-  .en-drop { border:none !important; background:transparent !important; padding:0 !important; min-height:unset !important; }
+
+  /* ── 테이블 셀: 내용에 맞춰 높이 자동 확장, 잘림 방지 ── */
+  .en-tbl { table-layout:fixed !important; width:100% !important; }
+  .en-tbl th, .en-tbl td {
+    border:1px solid #333 !important; color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important; overflow-wrap:break-word !important;
+  }
+
+  /* ── textarea: 내용 전체 표시 (잘림 완전 방지) ── */
+  .en-field-text {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'맑은 고딕','Malgun Gothic',sans-serif !important;
+    height:auto !important; min-height:0 !important;
+    overflow:visible !important; resize:none !important;
+    white-space:pre-wrap !important; word-break:break-word !important;
+    overflow-wrap:break-word !important;
+    /* 브라우저별 textarea 높이 자동 확장 */
+    display:block !important; box-sizing:border-box !important;
+  }
+
+  /* ── 단순 1행 input ── */
+  .en-inp {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'맑은 고딕','Malgun Gothic',sans-serif !important;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important;
+  }
+
+  /* ── 이미지 드롭존 ── */
+  .en-drop {
+    border:none !important; background:transparent !important;
+    padding:0 !important; min-height:unset !important;
+    height:auto !important; overflow:visible !important;
+  }
   .en-drop-hint { display:none !important; }
   .en-img-item-del { display:none !important; }
-  .en-img-item img { max-width:100% !important; max-height:none !important; }
+  .en-img-list { gap:4px !important; }
+  .en-img-item img {
+    max-width:100% !important; max-height:none !important;
+    page-break-inside:avoid;
+  }
+
+  /* ── 섹션 헤더 배경색 유지 ── */
   .en-sec-th { background:#d6e4f7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .en-sub-th { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .en-th { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .en-lbl { background:#f5f8ff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-th     { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-lbl    { background:#f5f8ff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+  /* ── 페이지 분리 방지 (행 단위) ── */
+  .en-tbl tr { page-break-inside:avoid; }
+
+  /* ── en-field 컨테이너도 높이 자동 ── */
+  .en-field { height:auto !important; overflow:visible !important; }
 }
 </style>
 

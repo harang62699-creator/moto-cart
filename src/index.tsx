@@ -5108,6 +5108,175 @@ if (formType==='detail_plan') return (
 <div id="qr-footer-wrap" style="margin-top:12px;"></div>
 </div>
 \`;
+
+  if (formType==='emission_test') return \`
+<style>
+/* ══════ emission_test 전용 스타일 ══════ */
+.em-wrap {
+  box-sizing:border-box;
+  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  font-size:9pt;
+  padding:10px 2px;
+  background:#fff;
+  color:#111;
+  border-radius:8px;
+}
+.em-doc-tag  { font-size:8.5pt; font-weight:700; color:#444; margin:10px 0 4px; }
+.em-main-title {
+  font-size:13pt; font-weight:900; text-align:center;
+  margin:4px 0 14px; letter-spacing:.03em; color:#111;
+}
+.em-tbl {
+  width:100%; border-collapse:collapse;
+  font-size:8.5pt; margin-bottom:0;
+}
+.em-tbl th, .em-tbl td {
+  border:1px solid #888;
+  padding:3px 5px;
+  vertical-align:middle;
+  color:#111;
+}
+.em-sec-th {
+  background:#d6e4f7;
+  font-weight:700;
+  text-align:left;
+  padding:3px 6px;
+  font-size:8.5pt;
+  color:#111;
+}
+.em-th {
+  background:#eef3fa;
+  font-weight:600;
+  white-space:nowrap;
+  font-size:8pt;
+  color:#111;
+}
+.em-inp {
+  border:none;
+  background:transparent;
+  width:100%;
+  font-size:8.5pt;
+  font-family:inherit;
+  padding:0 2px;
+  box-sizing:border-box;
+  color:#111;
+}
+.em-inp::placeholder { color:#aaa; }
+.em-inp:focus { outline:none; border-bottom:1px solid #4e90d8; }
+.em-chk { display:flex; align-items:center; gap:3px; font-size:8.5pt; color:#111; }
+/* 첨부 섹션 (증발가스와 동일 패턴) */
+.em-attach-section { margin-top:14px; }
+.em-attach-title { font-size:9pt; font-weight:700; margin-bottom:6px; color:#222; }
+.em-attach-note { font-size:8pt; color:#666; margin-bottom:8px; }
+.em-attach-drop {
+  border:2px dashed #bbb; border-radius:8px;
+  padding:16px; text-align:center; cursor:pointer;
+  transition:border-color .2s, background .2s;
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+  color:#555; background:#fafafa;
+}
+.em-attach-drop:hover { border-color:#4e90d8; background:rgba(79,142,247,.04); }
+.em-attach-drop input[type=file] { display:none; }
+.em-attach-list { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
+.em-attach-item {
+  display:flex; align-items:center; gap:8px;
+  padding:4px 8px; border-radius:4px;
+  background:#f0f4fa; font-size:8.5pt;
+}
+.em-attach-item-name { flex:1; color:#111; word-break:break-all; }
+.em-attach-item-size { color:#666; white-space:nowrap; font-size:8pt; }
+.em-attach-item-del { color:#ef4444; cursor:pointer; padding:1px 5px; border-radius:3px; font-size:10pt; line-height:1; }
+.em-attach-item-del:hover { background:rgba(239,68,68,.12); }
+.em-attach-print-wrap { display:none; margin-top:10px; }
+.em-attach-print-page { page-break-before:always; margin-top:20px; }
+.em-attach-print-page img { max-width:100%; height:auto; display:block; }
+.em-attach-print-page .em-attach-pdf-frame { width:100%; min-height:1100px; border:none; }
+
+@media print {
+  .em-wrap {
+    background:#fff !important;
+    color:#000 !important;
+    border-radius:0 !important;
+  }
+  .em-tbl th, .em-tbl td {
+    border:1px solid #333 !important;
+    color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .em-inp {
+    border:none !important;
+    background:transparent !important;
+    height:auto !important;
+    overflow:visible !important;
+    font-size:8.5pt !important;
+    font-family:'맑은 고딕','Malgun Gothic',sans-serif !important;
+    padding:0 2px !important;
+    color:#000 !important;
+  }
+  .em-sec-th {
+    background:#d6e4f7 !important;
+    color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .em-th {
+    background:#eef3fa !important;
+    color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .em-chk { color:#000 !important; }
+  /* 첨부 드롭존·목록은 숨기고 인쇄 렌더만 표시 */
+  .em-attach-section { display:none !important; }
+  .em-attach-print-wrap { display:block !important; }
+  .em-attach-print-page { page-break-before:always; }
+}
+</style>
+
+<div class="em-wrap">
+
+  <!-- ── 최상단 헤더 (수입사/인증연도/배기량/동일차종기호) ── -->
+  <!-- PDF 실측: 4등분 25.2%/24.7%/24.8%/25.2% -->
+  <table class="em-tbl" style="margin-bottom:12px; table-layout:fixed;">
+    <colgroup>
+      <col style="width:25.2%;"><col style="width:24.7%;"><col style="width:24.9%;"><col style="width:25.2%;">
+    </colgroup>
+    <thead>
+      <tr>
+        <th class="em-th">수입사</th>
+        <th class="em-th">인증연도</th>
+        <th class="em-th">배기량</th>
+        <th class="em-th">동일차종기호</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="height:26px;">
+        <td><input data-field="em_importer"  class="em-inp" type="text" value="\${E(v('em_importer'))}"></td>
+        <td><input data-field="em_cert_year" class="em-inp" type="text" value="\${E(v('em_cert_year'))}"></td>
+        <td><input data-field="em_disp"      class="em-inp" type="text" value="\${E(v('em_disp'))}"></td>
+        <td><input data-field="em_fam_code"  class="em-inp" type="text" value="\${E(v('em_fam_code'))}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="em-doc-tag">[별지 제18의2호 서식]</div>
+  <div class="em-main-title">배출가스 시험내용 보고서(WMTC 모드)</div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- 1. 일반 사항                               -->
+  <!-- ══════════════════════════════════════════ -->
+  <!-- PDF 실측: y=181~196 섹션헤더              -->
+  <!-- y=196~210: 3열 [33.5%|31.5%|35.1%]       -->
+  <!-- y=210~225: 시험구분 10셀 복합              -->
+  <!-- y=225~240: 시험번호/운전자/장비작동자/검사책임자 8셀 -->
+  <table class="em-tbl">
+    <tbody>
+      <tr>
+        <th class="em-sec-th" colspan="8">1. 일반 사항</th>
+      </tr>
+      <!-- 인증차명 / 시험차명 / 시험일시 (3열) -->
+      <tr>
+        <td class="em-th" colspan="3" style="width:33.5%;">인증차명(동일차종) :
+          <input data-field="em_cert_model" class="em-inp" type="text" value="\${E(v('em_cert_model'))}">
+        </td>
         <td class="em-th" colspan="2" style="width:31.5%;">시험차명 :
           <input data-field="em_test_model" class="em-inp" type="text" value="\${E(v('em_test_model'))}">
         </td>

@@ -1902,36 +1902,6 @@ function buildQRBlockHTML(qrDivId, formTitle, dt, verifyUrl, pageLabel, shortCod
 </div>\`;
 }
 
-// 인쇄 버튼 클릭 시 QR이 준비됐는지 확인하고 인쇄
-// ── emission_noise 인쇄 전처리: textarea → 숨김 + 내용 div 삽입 ──────────────
-// beforeprint/afterprint 이벤트로 한 번만 등록 (중복 방지)
-(function() {
-  var _enDivs = [];
-  window.addEventListener('beforeprint', function() {
-    // 이미 변환된 경우 재실행 방지
-    if (_enDivs.length > 0) return;
-    document.querySelectorAll('textarea.en-field-text').forEach(function(ta) {
-      if (!ta.value) return; // 빈 textarea는 건너뜀
-      var div = document.createElement('div');
-      div.setAttribute('data-en-print', '1');
-      div.style.cssText = 'white-space:pre-wrap;word-break:break-word;overflow-wrap:break-word;font-size:8.5pt;line-height:1.5;padding:2px 0;min-height:0;height:auto;overflow:visible;font-family:Malgun Gothic,sans-serif;color:#000;background:transparent;border:none;width:100%;box-sizing:border-box;display:block;';
-      div.textContent = ta.value;
-      ta.parentNode.insertBefore(div, ta);
-      ta.setAttribute('data-en-hidden', '1');
-      ta.style.display = 'none';
-      _enDivs.push({ ta: ta, div: div });
-    });
-  });
-  window.addEventListener('afterprint', function() {
-    _enDivs.forEach(function(item) {
-      item.ta.style.display = '';
-      item.ta.removeAttribute('data-en-hidden');
-      if (item.div.parentNode) item.div.parentNode.removeChild(item.div);
-    });
-    _enDivs = [];
-  });
-})();
-
 function printWithQR() {
   const wrap = document.getElementById('qr-footer-wrap');
 
@@ -3549,32 +3519,36 @@ if (formType==='detail_plan') return (
     word-break:break-word !important; overflow-wrap:break-word !important;
   }
 
-  /* ── textarea: 내용 전체 표시 (잘림 완전 방지) ── */
+  /* ── en-field: 인쇄 시 flex 유지, 높이 자동 ── */
+  .en-field { height:auto !important; overflow:visible !important; display:flex !important; flex-direction:column !important; }
+
+  /* ── textarea: 내용 전체 표시, 스크롤 없이 ── */
   textarea.en-field-text {
     border:none !important; background:transparent !important;
     color:#000 !important; font-size:8.5pt !important;
     font-family:'Malgun Gothic',sans-serif !important;
-    /* 핵심: 높이를 내용에 맞게 자동 확장 */
-    height:auto !important; min-height:0 !important;
-    max-height:none !important;
+    height:auto !important; min-height:0 !important; max-height:none !important;
     overflow:visible !important; resize:none !important;
     white-space:pre-wrap !important; word-break:break-word !important;
     overflow-wrap:break-word !important;
     display:block !important; box-sizing:border-box !important;
-    /* textarea 고유 스크롤 완전 제거 */
     -webkit-appearance:none !important; appearance:none !important;
+    padding:2px 0 !important;
   }
 
   /* ── 단순 1행 input ── */
   .en-inp {
     border:none !important; background:transparent !important;
     color:#000 !important; font-size:8.5pt !important;
-    font-family:'맑은 고딕','Malgun Gothic',sans-serif !important;
+    font-family:'Malgun Gothic',sans-serif !important;
     height:auto !important; overflow:visible !important;
     word-break:break-word !important;
   }
 
-  /* ── 이미지 드롭존 ── */
+  /* ── hidden input 완전 숨김 ── */
+  input[type=hidden] { display:none !important; }
+
+  /* ── 이미지 드롭존: 테두리/배경 제거, 힌트/삭제버튼 숨김 ── */
   .en-drop {
     border:none !important; background:transparent !important;
     padding:0 !important; min-height:unset !important;
@@ -3582,11 +3556,13 @@ if (formType==='detail_plan') return (
   }
   .en-drop-hint { display:none !important; }
   .en-img-item-del { display:none !important; }
-  .en-img-list { gap:4px !important; }
+  .en-img-list { gap:4px !important; margin-top:2px !important; }
   .en-img-item img {
     max-width:100% !important; max-height:none !important;
     page-break-inside:avoid;
   }
+  /* 이미지가 없는 빈 en-drop은 공간 차지 안 함 */
+  .en-drop:not(:has(img)) { display:none !important; }
 
   /* ── 섹션 헤더 배경색 유지 ── */
   .en-sec-th { background:#d6e4f7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
@@ -3596,9 +3572,6 @@ if (formType==='detail_plan') return (
 
   /* ── 페이지 분리 방지 (행 단위) ── */
   .en-tbl tr { page-break-inside:avoid; }
-
-  /* ── en-field 컨테이너도 높이 자동 ── */
-  .en-field { height:auto !important; overflow:visible !important; }
 }
 </style>
 

@@ -1903,38 +1903,37 @@ function buildQRBlockHTML(qrDivId, formTitle, dt, verifyUrl, pageLabel, shortCod
 }
 
 // 인쇄 버튼 클릭 시 QR이 준비됐는지 확인하고 인쇄
+// ── emission_noise 인쇄 전처리: textarea → 숨김 + 내용 div 삽입 ──────────────
+// beforeprint/afterprint 이벤트로 한 번만 등록 (중복 방지)
+(function() {
+  var _enDivs = [];
+  window.addEventListener('beforeprint', function() {
+    // 이미 변환된 경우 재실행 방지
+    if (_enDivs.length > 0) return;
+    document.querySelectorAll('textarea.en-field-text').forEach(function(ta) {
+      if (!ta.value) return; // 빈 textarea는 건너뜀
+      var div = document.createElement('div');
+      div.setAttribute('data-en-print', '1');
+      div.style.cssText = 'white-space:pre-wrap;word-break:break-word;overflow-wrap:break-word;font-size:8.5pt;line-height:1.5;padding:2px 0;min-height:0;height:auto;overflow:visible;font-family:Malgun Gothic,sans-serif;color:#000;background:transparent;border:none;width:100%;box-sizing:border-box;display:block;';
+      div.textContent = ta.value;
+      ta.parentNode.insertBefore(div, ta);
+      ta.setAttribute('data-en-hidden', '1');
+      ta.style.display = 'none';
+      _enDivs.push({ ta: ta, div: div });
+    });
+  });
+  window.addEventListener('afterprint', function() {
+    _enDivs.forEach(function(item) {
+      item.ta.style.display = '';
+      item.ta.removeAttribute('data-en-hidden');
+      if (item.div.parentNode) item.div.parentNode.removeChild(item.div);
+    });
+    _enDivs = [];
+  });
+})();
+
 function printWithQR() {
   const wrap = document.getElementById('qr-footer-wrap');
-
-  // ── emission_noise 시트: textarea → div 변환 (인쇄 시 텍스트 잘림 방지) ──
-  // textarea 태그만 정확히 선택 (이전에 생성된 div.en-field-text 제외)
-  var enTextareas = document.querySelectorAll('textarea.en-field-text');
-  var enRestoreList = [];
-  enTextareas.forEach(function(ta) {
-    var div = document.createElement('div');
-    div.className = 'en-field-print'; // 클래스명을 다르게 하여 중복 선택 방지
-    div.style.cssText = [
-      'white-space:pre-wrap', 'word-break:break-word', 'overflow-wrap:break-word',
-      'font-size:8.5pt', 'line-height:1.5', 'padding:2px 0',
-      'min-height:0', 'height:auto', 'overflow:visible',
-      'font-family:Malgun Gothic,sans-serif',
-      'color:#000', 'background:transparent', 'border:none',
-      'width:100%', 'box-sizing:border-box'
-    ].join(';');
-    div.textContent = ta.value;
-    ta.parentNode.insertBefore(div, ta);
-    ta.style.display = 'none';
-    enRestoreList.push({ ta: ta, div: div });
-  });
-
-  var doPrint = function() {
-    window.print();
-    // 인쇄 후 원상복구
-    enRestoreList.forEach(function(item) {
-      item.ta.style.display = '';
-      item.div.parentNode.removeChild(item.div);
-    });
-  };
 
   // 아직 로딩 중이거나 에러 상태면 잠시 기다린 후 인쇄
   if (wrap && wrap.querySelector('.qr-footer-pending')) {
@@ -1942,12 +1941,12 @@ function printWithQR() {
     const meta = FORM_META.find(m=>m.type===formType);
     if (meta) {
       generateFormQR(formType, meta.title).then(() => {
-        setTimeout(doPrint, 300);
+        setTimeout(() => window.print(), 300);
       });
       return;
     }
   }
-  doPrint();
+  window.print();
 }
 
 async function generateFormQR(formType, formTitle) {
@@ -3551,16 +3550,19 @@ if (formType==='detail_plan') return (
   }
 
   /* ── textarea: 내용 전체 표시 (잘림 완전 방지) ── */
-  .en-field-text {
+  textarea.en-field-text {
     border:none !important; background:transparent !important;
     color:#000 !important; font-size:8.5pt !important;
-    font-family:'맑은 고딕','Malgun Gothic',sans-serif !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    /* 핵심: 높이를 내용에 맞게 자동 확장 */
     height:auto !important; min-height:0 !important;
+    max-height:none !important;
     overflow:visible !important; resize:none !important;
     white-space:pre-wrap !important; word-break:break-word !important;
     overflow-wrap:break-word !important;
-    /* 브라우저별 textarea 높이 자동 확장 */
     display:block !important; box-sizing:border-box !important;
+    /* textarea 고유 스크롤 완전 제거 */
+    -webkit-appearance:none !important; appearance:none !important;
   }
 
   /* ── 단순 1행 input ── */

@@ -1907,32 +1907,30 @@ function printWithQR() {
   const wrap = document.getElementById('qr-footer-wrap');
 
   // ── emission_noise 시트: textarea → div 변환 (인쇄 시 텍스트 잘림 방지) ──
-  const enTextareas = document.querySelectorAll('.en-field-text');
-  const enRestoreList = [];
-  if (enTextareas.length > 0) {
-    enTextareas.forEach(function(ta) {
-      const div = document.createElement('div');
-      div.className = 'en-field-text';
-      div.style.cssText = [
-        'white-space:pre-wrap', 'word-break:break-word', 'overflow-wrap:break-word',
-        'font-size:8.5pt', 'line-height:1.5', 'padding:2px 0',
-        'min-height:0', 'height:auto', 'overflow:visible',
-        'font-family:\'맑은 고딕\',\'Malgun Gothic\',sans-serif',
-        'color:#000', 'background:transparent', 'border:none'
-      ].join(';');
-      div.textContent = (ta as HTMLTextAreaElement).value;
-      ta.parentNode!.insertBefore(div, ta);
-      (ta as HTMLElement).style.display = 'none';
-      enRestoreList.push({ ta, div });
-    });
-  }
+  var enTextareas = document.querySelectorAll('.en-field-text');
+  var enRestoreList = [];
+  enTextareas.forEach(function(ta) {
+    var div = document.createElement('div');
+    div.className = 'en-field-text';
+    div.style.cssText = [
+      'white-space:pre-wrap', 'word-break:break-word', 'overflow-wrap:break-word',
+      'font-size:8.5pt', 'line-height:1.5', 'padding:2px 0',
+      'min-height:0', 'height:auto', 'overflow:visible',
+      'font-family:Malgun Gothic,sans-serif',
+      'color:#000', 'background:transparent', 'border:none'
+    ].join(';');
+    div.textContent = ta.value;
+    ta.parentNode.insertBefore(div, ta);
+    ta.style.display = 'none';
+    enRestoreList.push({ ta: ta, div: div });
+  });
 
-  const doPrint = () => {
+  var doPrint = function() {
     window.print();
     // 인쇄 후 원상복구
     enRestoreList.forEach(function(item) {
-      (item.ta as HTMLElement).style.display = '';
-      item.div.parentNode!.removeChild(item.div);
+      item.ta.style.display = '';
+      item.div.parentNode.removeChild(item.div);
     });
   };
 

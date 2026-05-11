@@ -4471,11 +4471,8 @@ if (formType==='detail_plan') return (
 
 <div class="obd-wrap">
 
-<!-- ══ 헤더 식별 정보 ══ -->
-<div class="obd-doc-tag">[별지 제9호 서식]</div>
-<div class="obd-main-title">배출가스자기진단장치(OBD) 구성에 관한 서류</div>
-
-<table class="obd-tbl" style="margin-bottom:10px;">
+<!-- ══ 헤더 식별 정보 (맨 위) ══ -->
+<table class="obd-tbl" style="margin-bottom:8px;">
   <colgroup><col style="width:25%"><col style="width:25%"><col style="width:25%"><col style="width:25%"></colgroup>
   <tr>
     <th class="obd-th">수입사</th>
@@ -4490,6 +4487,9 @@ if (formType==='detail_plan') return (
     <td><textarea class="obd-field-text" data-field="obd_header_code" placeholder="동일차종기호"></textarea></td>
   </tr>
 </table>
+
+<div class="obd-doc-tag">[별지 제9호 서식]</div>
+<div class="obd-main-title">배출가스자기진단장치(OBD) 구성에 관한 서류</div>
 
 <!-- ══════════════════════════════════════════════════
      1. OBD 종합정보에 관한 서류
@@ -4641,11 +4641,6 @@ if (formType==='detail_plan') return (
 </div>
 <table class="obd-tbl">
   <colgroup><col style="width:5%"><col style="width:55%"><col style="width:40%"></colgroup>
-  <tr>
-    <td class="obd-lbl" style="text-align:center; white-space:nowrap;">1.4.1.</td>
-    <td class="obd-lbl">내구성시험 주행여부</td>
-    <td><textarea class="obd-field-text" data-field="obd_1_4_1" placeholder="내용 입력"></textarea></td>
-  </tr>
   <tr>
     <td class="obd-lbl" style="text-align:center; white-space:nowrap;">1.4.2.</td>
     <td class="obd-lbl">촉매 감시장치</td>
@@ -7749,65 +7744,105 @@ function showToast(msg, type='info') {
 // ================================================================
 // ── obd_config 이미지 드롭존 초기화 ─────────────────────────────────
 function initObdImgDrops() {
-  var drops = [
-    { dropId:'obd-drop-mil',  fileId:'obd-file-mil',  field:'obd_mil_img'  },
-    { dropId:'obd-drop-lh',   fileId:'obd-file-lh',   field:'obd_lh_img'   },
-    { dropId:'obd-drop-rh',   fileId:'obd-file-rh',   field:'obd_rh_img'   },
-    { dropId:'obd-drop-kb',   fileId:'obd-file-kb',   field:'obd_kb_img'   },
-    { dropId:'obd-drop-test', fileId:'obd-file-test', field:'obd_test_img' },
-  ];
-  drops.forEach(function(cfg) {
-    var drop = document.getElementById(cfg.dropId);
-    var fileInput = document.getElementById(cfg.fileId);
-    var hidden = drop ? drop.querySelector('input[type=hidden]') : null;
-    if (!drop || !fileInput) return;
+  // obd-wrap 안의 모든 .obd-drop 을 자동 탐색하여 초기화
+  var wrap = document.querySelector('.obd-wrap');
+  if (!wrap) return;
+  var allDrops = wrap.querySelectorAll('.obd-drop');
 
-    function renderImg(src) {
-      var span = drop.querySelector('span');
-      if (span) span.remove();
-      var existing = drop.querySelector('img');
-      if (existing) existing.remove();
-      if (src) {
-        var img = document.createElement('img');
-        img.src = src;
-        img.style.cssText = 'max-width:100%;max-height:180px;display:block;object-fit:contain;';
-        drop.appendChild(img);
-        if (hidden) hidden.value = src;
-      } else {
-        var sp = document.createElement('span');
-        sp.textContent = '클릭하여 이미지 첨부';
-        drop.appendChild(sp);
-        if (hidden) hidden.value = '';
-      }
+  allDrops.forEach(function(drop) {
+    var fileInput = drop.querySelector('input[type="file"]');
+    if (!fileInput) return;
+    var listEl = null;
+    // 드롭존 ID에서 imgs- 컨테이너 찾기 (obd-drop-xxx → obd-imgs-xxx)
+    if (drop.id) {
+      var listId = drop.id.replace('obd-drop-', 'obd-imgs-');
+      listEl = document.getElementById(listId);
+    }
+    // listEl 없으면 드롭존 다음 형제에서 찾기
+    if (!listEl) {
+      listEl = drop.nextElementSibling;
+      if (listEl && !listEl.classList.contains('obd-img-list')) listEl = null;
+    }
+
+    function addImageToList(src) {
+      // hint 숨기기
+      var hint = drop.querySelector('.obd-drop-hint');
+      if (hint) hint.style.display = 'none';
+
+      var container = listEl || drop;
+      var item = document.createElement('div');
+      item.className = 'obd-img-item';
+      var img = document.createElement('img');
+      img.src = src;
+      var del = document.createElement('button');
+      del.className = 'obd-img-item-del';
+      del.innerHTML = '×';
+      del.title = '삭제';
+      del.addEventListener('click', function(e) {
+        e.stopPropagation();
+        item.remove();
+        // 남은 이미지 없으면 hint 다시 표시
+        var remaining = (listEl || drop).querySelectorAll('.obd-img-item');
+        if (remaining.length === 0) {
+          var h2 = drop.querySelector('.obd-drop-hint');
+          if (h2) h2.style.display = '';
+        }
+        saveImgs();
+      });
+      item.appendChild(img);
+      item.appendChild(del);
+      container.appendChild(item);
+      saveImgs();
+    }
+
+    function saveImgs() {
+      var hidden = drop.querySelector('input[type="hidden"]');
+      if (!hidden) return;
+      var imgs = (listEl || drop).querySelectorAll('.obd-img-item img');
+      var srcs = [];
+      imgs.forEach(function(i) { srcs.push(i.src); });
+      hidden.value = JSON.stringify(srcs);
+    }
+
+    function handleFiles(files) {
+      Array.from(files).forEach(function(file) {
+        if (!file.type.startsWith('image/')) return;
+        var reader = new FileReader();
+        reader.onload = function(e) { addImageToList(e.target.result); };
+        reader.readAsDataURL(file);
+      });
     }
 
     // 기존 저장값 복원
-    if (hidden && hidden.value) renderImg(hidden.value);
+    var hidden = drop.querySelector('input[type="hidden"]');
+    if (hidden && hidden.value) {
+      try {
+        var saved = JSON.parse(hidden.value);
+        if (Array.isArray(saved)) saved.forEach(function(s) { addImageToList(s); });
+        else if (typeof saved === 'string' && saved) addImageToList(saved);
+      } catch(e) {
+        if (hidden.value) addImageToList(hidden.value);
+      }
+    }
 
+    // 파일 선택
     fileInput.addEventListener('change', function() {
-      var file = fileInput.files[0];
-      if (!file) return;
-      var reader = new FileReader();
-      reader.onload = function(e) { renderImg(e.target.result); };
-      reader.readAsDataURL(file);
+      handleFiles(this.files);
+      this.value = '';
     });
 
     // 드래그앤드롭
-    drop.addEventListener('dragover', function(e) { e.preventDefault(); drop.style.borderColor='#4e90d8'; });
-    drop.addEventListener('dragleave', function() { drop.style.borderColor=''; });
-    drop.addEventListener('drop', function(e) {
-      e.preventDefault(); drop.style.borderColor='';
-      var file = e.dataTransfer.files[0];
-      if (!file || !file.type.startsWith('image/')) return;
-      var reader = new FileReader();
-      reader.onload = function(ev) { renderImg(ev.target.result); };
-      reader.readAsDataURL(file);
-    });
-
-    // 우클릭 삭제
-    drop.addEventListener('contextmenu', function(e) {
+    drop.addEventListener('dragover', function(e) {
       e.preventDefault();
-      if (drop.querySelector('img')) renderImg('');
+      drop.classList.add('drag-over');
+    });
+    drop.addEventListener('dragleave', function() {
+      drop.classList.remove('drag-over');
+    });
+    drop.addEventListener('drop', function(e) {
+      e.preventDefault();
+      drop.classList.remove('drag-over');
+      handleFiles(e.dataTransfer.files);
     });
   });
 }

@@ -1809,6 +1809,8 @@ async function openForm(formType) {
   if (formType === 'evap_test') setTimeout(() => initEvapAttach(), 150);
   // emission_noise 복합 입력 필드 초기화
   if (formType === 'emission_noise') setTimeout(() => initEnFields(), 150);
+  // obd_config 이미지 드롭존 초기화
+  if (formType === 'obd_config') setTimeout(() => initObdImgDrops(), 150);
 }
 
 // ── Auto-grow: input[type=text] → textarea 동적 교체 ──────────────
@@ -4351,7 +4353,7 @@ if (formType==='detail_plan') return (
 /* ══════ obd_config 전용 스타일 ══════ */
 .obd-wrap {
   box-sizing:border-box;
-  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  font-family:'Malgun Gothic',sans-serif;
   font-size:9pt;
   padding:10px 2px;
   background:#fff;
@@ -4396,931 +4398,716 @@ if (formType==='detail_plan') return (
 }
 .obd-inp::placeholder { color:#aaa; }
 .obd-inp:focus { outline:none; border-bottom:1px solid #4e90d8; }
-.obd-section-label {
-  font-size:8.5pt; font-weight:700;
-  padding:4px 6px; color:#111;
-  vertical-align:top;
+/* 이미지 드롭존 (emission_noise 동일 패턴) */
+.obd-drop {
+  border:2px dashed #bbb; border-radius:6px;
+  min-height:80px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; background:#fafafa; color:#999; font-size:8pt;
+  transition:.2s; position:relative; overflow:hidden;
 }
-.obd-img-cell {
-  text-align:center; vertical-align:middle;
-  color:#999; font-size:8pt; padding:8px;
-  min-height:60px;
-}
+.obd-drop:hover { border-color:#4e90d8; background:rgba(79,142,247,.04); }
+.obd-drop img { max-width:100%; max-height:200px; display:block; object-fit:contain; }
+.obd-drop input[type=file] { display:none; }
+.obd-drop input[type=hidden] { display:none; }
+/* 체크박스 행 */
+.obd-chk-row { display:flex; align-items:center; gap:12px; padding:4px 6px; font-size:8.5pt; }
+.obd-chk-row label { display:flex; align-items:center; gap:3px; cursor:pointer; }
+/* 항목 번호 */
+.obd-item-no { font-size:8.5pt; font-weight:700; color:#111; padding:3px 6px; }
 @media print {
-  .obd-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; }
+  .obd-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; font-family:'Malgun Gothic',sans-serif !important; }
   .obd-tbl th, .obd-tbl td { border:1px solid #333 !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .obd-inp { border:none !important; background:transparent !important; color:#000 !important; font-size:8.5pt !important; font-family:'맑은 고딕','Malgun Gothic',sans-serif !important; }
+  .obd-inp { border:none !important; background:transparent !important; color:#000 !important; font-size:8.5pt !important; }
   .obd-sec-th { background:#d6e4f7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .obd-th { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .obd-lbl { background:#f5f8ff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .obd-drop { border:1px solid #333 !important; }
+  .obd-drop:not(:has(img)) { display:none !important; }
 }
-</style>
-
 <div class="obd-wrap">
 
-  <!-- ── 상단 헤더 (수입사/인증연도/배기량/동일차종기호) ── -->
-  <!-- PDF 측정: x=55.3,174.3,290.5,406.6,539.6 → 24.6%|24.0%|23.9%|27.5% -->
-  <table class="obd-tbl" style="margin-bottom:12px; table-layout:fixed;">
-    <colgroup>
-      <col style="width:24.6%;"><col style="width:24.0%;"><col style="width:23.9%;"><col style="width:27.5%;">
-    </colgroup>
-    <thead>
-      <tr>
-        <th class="obd-th">수입사</th>
-        <th class="obd-th">인증연도</th>
-        <th class="obd-th">배기량</th>
-        <th class="obd-th">동일차종기호</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr style="height:26px;">
-        <td><input data-field="obd_importer"  class="obd-inp" type="text" value="\${E(v('obd_importer'))}"></td>
-        <td><input data-field="obd_cert_year" class="obd-inp" type="text" value="\${E(v('obd_cert_year'))}"></td>
-        <td><input data-field="obd_disp"      class="obd-inp" type="text" value="\${E(v('obd_disp'))}"></td>
-        <td><input data-field="obd_fam_code"  class="obd-inp" type="text" value="\${E(v('obd_fam_code'))}"></td>
-      </tr>
-    </tbody>
-  </table>
+<!-- ① 상단 헤더 -->
+<table class="obd-tbl" style="margin-bottom:12px; table-layout:fixed;">
+  <colgroup>
+    <col style="width:25%;"><col style="width:25%;"><col style="width:25%;"><col style="width:25%;">
+  </colgroup>
+  <thead>
+    <tr>
+      <th class="obd-th">수입사</th>
+      <th class="obd-th">인증연도</th>
+      <th class="obd-th">배기량</th>
+      <th class="obd-th">동일차종기호</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="height:26px;">
+      <td><input data-field="obd_importer"  class="obd-inp" type="text" value="\${E(v('obd_importer'))}"></td>
+      <td><input data-field="obd_cert_year" class="obd-inp" type="text" value="\${E(v('obd_cert_year'))}"></td>
+      <td><input data-field="obd_disp"      class="obd-inp" type="text" value="\${E(v('obd_disp'))}"></td>
+      <td><input data-field="obd_fam_code"  class="obd-inp" type="text" value="\${E(v('obd_fam_code'))}"></td>
+    </tr>
+  </tbody>
+</table>
 
-  <div class="obd-doc-tag">[별지 제9호 서식]</div>
-  <div class="obd-main-title">배출가스자기진단장치(OBD) 구성에 관한 서류</div>
+<div class="obd-doc-tag">[별지 제9호 서식]</div>
+<div class="obd-main-title">배출가스자기진단장치(OBD) 구성에 관한 서류</div>
 
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- 1. 배출가스자기진단장치(OBD) 종합정보에 관한 서류    -->
-  <!-- PAGE1: x=55.3,143.2,304.9,539.6 → 18.0%|33.5%|48.5% -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <table class="obd-tbl" style="table-layout:fixed; width:100%;">
-    <colgroup>
-      <col style="width:18.0%;"><col style="width:33.5%;"><col style="width:48.5%;">
-    </colgroup>
-    <tbody>
-      <tr>
-        <th class="obd-sec-th" colspan="3">1. 배출가스자기진단장치(OBD) 종합정보에 관한 서류</th>
-      </tr>
-      <!-- 가. 부품 목록 -->
-      <tr>
-        <td class="obd-lbl" colspan="3" style="padding:4px 6px; font-size:8.5pt;">
-          가. 센서·액츄에이터 등의 부품들과 같이 배출가스 자기진단장치에 의해 감시되는 자동차 배출가스 관련 부품 목록 및 기능적인 특성을 설명하는 자료
-        </td>
-      </tr>
-      <tr>
-        <th class="obd-th">구&nbsp;&nbsp;분</th>
-        <th class="obd-th">자동차 배출가스 관련 부품</th>
-        <th class="obd-th">기능적인 작동 특성</th>
-      </tr>
-      <!-- 센서 rowspan=5 -->
-      <tr>
-        <td class="obd-lbl" rowspan="5" style="text-align:center;">센&nbsp;&nbsp;서</td>
-        <td class="obd-lbl">크랭크 포지션 센서(CPS)</td>
-        <td><input data-field="obd_cps_func" class="obd-inp" type="text" value="\${E(v('obd_cps_func'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">온도 공기압 센서(T-MAP)</td>
-        <td><input data-field="obd_tmap_func" class="obd-inp" type="text" value="\${E(v('obd_tmap_func'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">스로틀 포지션 센서(TPS)</td>
-        <td><input data-field="obd_tps_func" class="obd-inp" type="text" value="\${E(v('obd_tps_func'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">엔진 온도 센서(WPS)</td>
-        <td><input data-field="obd_wps_func" class="obd-inp" type="text" value="\${E(v('obd_wps_func'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">산소 센서(O₂)</td>
-        <td><input data-field="obd_o2_func" class="obd-inp" type="text" value="\${E(v('obd_o2_func'))}"></td>
-      </tr>
-      <!-- 액츄에이터 rowspan=5 -->
-      <tr>
-        <td class="obd-lbl" rowspan="5" style="text-align:center;">액츄에이터</td>
-        <td class="obd-lbl">연료분사장치(인젝터)</td>
-        <td><input data-field="obd_inj_func" class="obd-inp" type="text" value="\${E(v('obd_inj_func'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">점화코일</td>
-        <td><input data-field="obd_coil_func" class="obd-inp" type="text" value="\${E(v('obd_coil_func'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">O₂ 센서 히터</td>
-        <td><input data-field="obd_o2h_func" class="obd-inp" type="text" value="\${E(v('obd_o2h_func'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">와이어 액츄에이터에 의한 스로틀</td>
-        <td><input data-field="obd_wire_func" class="obd-inp" type="text" value="\${E(v('obd_wire_func'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">라디에이터 팬 릴레이</td>
-        <td><input data-field="obd_fan_func" class="obd-inp" type="text" value="\${E(v('obd_fan_func'))}"></td>
-      </tr>
-      <!-- 기타 rowspan=2 -->
-      <tr>
-        <td class="obd-lbl" rowspan="2" style="text-align:center;">기&nbsp;&nbsp;타</td>
-        <td class="obd-lbl">연료 펌프 릴레이</td>
-        <td><input data-field="obd_pump_func" class="obd-inp" type="text" value="\${E(v('obd_pump_func'))}"></td>
-      </tr>
-      <tr>
-        <td><input data-field="obd_etc_part" class="obd-inp" type="text" placeholder="기타 부품명" value="\${E(v('obd_etc_part'))}"></td>
-        <td><input data-field="obd_etc_func" class="obd-inp" type="text" value="\${E(v('obd_etc_func'))}"></td>
-      </tr>
-      <!-- 나. 오작동 표시등 -->
-      <tr>
-        <td class="obd-lbl" colspan="3" style="padding:4px 6px; font-size:8.5pt;">
-          나. 오작동을 알려주는 오작동표시등에 관한 설명자료
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" style="padding:4px 6px;">
-          <input data-field="obd_mil_desc" class="obd-inp" type="text"
-            placeholder="예) 이륜자동차에 결함코드가 확인되면 계기판에 엔진 체크등이 점등됨."
-            value="\${E(v('obd_mil_desc'))}">
-        </td>
-        <td class="obd-img-cell" style="border-left:1px solid #888;">
-          오작동 표시등의 형태 및 위치 이미지 첨부
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<!-- ══ 1. 종합정보 ══ -->
+<table class="obd-tbl" style="table-layout:fixed; width:100%;">
+  <colgroup><col style="width:18%;"><col style="width:36%;"><col style="width:46%;"></colgroup>
+  <tbody>
+    <tr><th class="obd-sec-th" colspan="3">1. 배출가스자기진단장치(OBD) 종합정보에 관한 서류</th></tr>
+    <!-- 1.1 -->
+    <tr>
+      <td class="obd-lbl" colspan="3" style="padding:4px 6px;">
+        1.1. 센서·액츄에이터 등의 부품들과 같이 배출가스 자기진단장치에 의해 감시되는 자동차 배출가스 관련 부품 목록 및 기능적인 특성을 설명하는 자료
+      </td>
+    </tr>
+    <tr>
+      <th class="obd-th">구&nbsp;&nbsp;분</th>
+      <th class="obd-th">자동차 배출가스 관련 부품</th>
+      <th class="obd-th">기능적인 작동 특성</th>
+    </tr>
+    <!-- 센서 5행 -->
+    <tr>
+      <td class="obd-lbl" rowspan="5" style="text-align:center;">센&nbsp;&nbsp;서</td>
+      <td class="obd-lbl">크랭크 포지션 센서(CPS)</td>
+      <td><input data-field="obd_cps_func" class="obd-inp" type="text" value="\${E(v('obd_cps_func'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">온도 공기압 센서(T-MAP)</td>
+      <td><input data-field="obd_tmap_func" class="obd-inp" type="text" value="\${E(v('obd_tmap_func'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">스로틀 포지션 센서(TPS)</td>
+      <td><input data-field="obd_tps_func" class="obd-inp" type="text" value="\${E(v('obd_tps_func'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">엔진 온도 센서(WPS)</td>
+      <td><input data-field="obd_wps_func" class="obd-inp" type="text" value="\${E(v('obd_wps_func'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">산소 센서(O₂)</td>
+      <td><input data-field="obd_o2_func" class="obd-inp" type="text" value="\${E(v('obd_o2_func'))}"></td>
+    </tr>
+    <!-- 액츄에이터 4행 -->
+    <tr>
+      <td class="obd-lbl" rowspan="4" style="text-align:center;">액츄에이터</td>
+      <td class="obd-lbl">연료분사장치(인젝터)</td>
+      <td><input data-field="obd_inj_func" class="obd-inp" type="text" value="\${E(v('obd_inj_func'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">점화코일</td>
+      <td><input data-field="obd_coil_func" class="obd-inp" type="text" value="\${E(v('obd_coil_func'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">O₂ 센서 히터</td>
+      <td><input data-field="obd_o2h_func" class="obd-inp" type="text" value="\${E(v('obd_o2h_func'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">와이어 액츄에이터에 의한 스로틀</td>
+      <td><input data-field="obd_wire_func" class="obd-inp" type="text" value="\${E(v('obd_wire_func'))}"></td>
+    </tr>
+    <!-- 기타 2행 -->
+    <tr>
+      <td class="obd-lbl" rowspan="2" style="text-align:center;">기&nbsp;&nbsp;타</td>
+      <td class="obd-lbl">라디에이터 팬 릴레이</td>
+      <td><input data-field="obd_fan_func" class="obd-inp" type="text" value="\${E(v('obd_fan_func'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">연료 펌프 릴레이</td>
+      <td><input data-field="obd_pump_func" class="obd-inp" type="text" value="\${E(v('obd_pump_func'))}"></td>
+    </tr>
+    <!-- 1.2 오작동 표시등 -->
+    <tr>
+      <td class="obd-lbl" colspan="3" style="padding:4px 6px;">
+        1.2. 오작동을 알려주는 오작동표시등에 관한 설명자료
+      </td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" colspan="3" style="padding:3px 6px; font-size:8pt;">
+        1.2.1. <input data-field="obd_mil_desc" class="obd-inp" type="text" style="width:90%;"
+          placeholder="예) 이륜자동차에 결함코드가 확인되면 계기판에 엔진 체크등이 점등됨."
+          value="\${E(v('obd_mil_desc'))}">
+      </td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" style="text-align:center; padding:5px 4px;">1.2.2.<br>오작동 표시등<br>형태 및 위치<br>(도면 또는 사진)</td>
+      <td colspan="2" style="padding:6px;">
+        <div class="obd-drop" id="obd-drop-mil" onclick="document.getElementById('obd-file-mil').click()">
+          <span id="obd-drop-mil-txt">클릭하여 이미지 첨부</span>
+          <input type="file" id="obd-file-mil" accept="image/*">
+          <input type="hidden" data-field="obd_mil_img">
+        </div>
+      </td>
+    </tr>
+    <!-- 1.2.3 제어·인디케이터 -->
+    <tr>
+      <td class="obd-lbl" colspan="3" style="padding:4px 6px;">1.2.3. 제어, 자동표시기, 인디케이터 위치 및 식별 기호</td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" style="text-align:center; padding:5px 4px;">1.2.3.1.<br>왼쪽 핸들 스위치<br>제어 및 기호 도면</td>
+      <td colspan="2" style="padding:6px;">
+        <div class="obd-drop" id="obd-drop-lh" onclick="document.getElementById('obd-file-lh').click()">
+          <span id="obd-drop-lh-txt">클릭하여 이미지 첨부</span>
+          <input type="file" id="obd-file-lh" accept="image/*">
+          <input type="hidden" data-field="obd_lh_img">
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" style="text-align:center; padding:5px 4px;">1.2.3.2.<br>오른쪽 핸들 스위치<br>제어 및 기호 도면</td>
+      <td colspan="2" style="padding:6px;">
+        <div class="obd-drop" id="obd-drop-rh" onclick="document.getElementById('obd-file-rh').click()">
+          <span id="obd-drop-rh-txt">클릭하여 이미지 첨부</span>
+          <input type="file" id="obd-file-rh" accept="image/*">
+          <input type="hidden" data-field="obd_rh_img">
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" style="text-align:center; padding:5px 4px;">1.2.3.3.<br>키박스 도면</td>
+      <td colspan="2" style="padding:6px;">
+        <div class="obd-drop" id="obd-drop-kb" onclick="document.getElementById('obd-file-kb').click()">
+          <span id="obd-drop-kb-txt">클릭하여 이미지 첨부</span>
+          <input type="file" id="obd-file-kb" accept="image/*">
+          <input type="hidden" data-field="obd_kb_img">
+        </div>
+      </td>
+    </tr>
+    <!-- 1.3 무단변경 금지 -->
+    <tr>
+      <td class="obd-lbl" colspan="3" style="padding:4px 6px;">1.3. 무단변경 및 배기가스제어컴퓨터의 수정을 금지하는 문구</td>
+    </tr>
+    <tr>
+      <td colspan="3" style="padding:4px 8px;">
+        <input data-field="obd_no_tamper" class="obd-inp" type="text"
+          placeholder="예) 기계적으로 ECU는 임의로 설정을 변경할 수 없습니다. ECU ASSY는 부착 및 밀폐되어 있으며..."
+          value="\${E(v('obd_no_tamper'))}">
+      </td>
+    </tr>
+    <!-- 1.4 감시장치 기술적 설명자료 -->
+    <tr>
+      <td class="obd-lbl" colspan="3" style="padding:4px 6px;">1.4. 감시장치의 기술적인 설명자료(일반적인 작동원리)</td>
+    </tr>
+    <tr>
+      <td colspan="3" style="padding:4px 8px; font-size:8.5pt; line-height:2.0;">
+        1.4.1. 내구성시험 주행여부 :
+        <input data-field="obd_diag_dur" class="obd-inp" type="text" style="width:75%;" placeholder="해당 사항 없음" value="\${E(v('obd_diag_dur'))}"><br>
+        1.4.2. 촉매 감시장치 :
+        <input data-field="obd_diag_01" class="obd-inp" type="text" style="width:78%;" placeholder="해당 사항 없음" value="\${E(v('obd_diag_01'))}"><br>
+        1.4.3. 매연여과장치 감시장치 :
+        <input data-field="obd_diag_02" class="obd-inp" type="text" style="width:75%;" placeholder="해당 사항 없음" value="\${E(v('obd_diag_02'))}"><br>
+        1.4.4. 전자분사시스템 감시장치 :
+        <input data-field="obd_diag_03" class="obd-inp" type="text" style="width:74%;" placeholder="해당 사항 없음" value="\${E(v('obd_diag_03'))}"><br>
+        1.4.5. 배출가스자기진단장치에 의해 감시되는 부품들 :
+        <input data-field="obd_diag_04" class="obd-inp" type="text" style="width:60%;" placeholder="부록 첨부" value="\${E(v('obd_diag_04'))}"><br>
+        1.4.6. 오작동표시등 점등을 위한 기준(운전 싸이클의 횟수 및 통계적인 방법) :
+        <input data-field="obd_diag_05" class="obd-inp" type="text" style="width:43%;" placeholder="부록 첨부" value="\${E(v('obd_diag_05'))}"><br>
+        1.4.7. 모든 배출가스자기진단장치 출력코드 목록과 사용된 양식(각각의 설명 포함) :
+        <input data-field="obd_diag_06" class="obd-inp" type="text" style="width:37%;" placeholder="부록 첨부" value="\${E(v('obd_diag_06'))}">
+      </td>
+    </tr>
+    <!-- 1.5 기타 추가정보 -->
+    <tr>
+      <td class="obd-lbl" colspan="3" style="padding:4px 6px;">1.5. 기타 추가정보</td>
+    </tr>
+    <tr>
+      <th class="obd-th" colspan="2">시험 요구 사항 작동 기준(Ⅰ) 형</th>
+      <th class="obd-th">적합 여부</th>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding:4px 8px; font-size:8.5pt; line-height:1.7;">
+        오작동 재현을 위한 부품 또는 오작동 모터사이클을 위한 전자 장비를 장착한 차량을 시험할 때, 오작동 판단 기준 이하에서 오작동 경고등이 점등되며 배출가스 자기진단장치는 적합한 것으로 판정됨
+      </td>
+      <td style="text-align:center; vertical-align:middle;">
+        <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer;">
+          <input type="checkbox" data-field="obd_ma1_pass" \${v('obd_ma1_pass')?'checked':''}> 적합
+        </label>&nbsp;&nbsp;
+        <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer;">
+          <input type="checkbox" data-field="obd_ma1_fail" \${v('obd_ma1_fail')?'checked':''}> 부적합
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding:4px 8px; font-size:8.5pt; line-height:1.7;">
+        배출가스 관련 부품 또는 배출가스와 관련되고 엔진 제어장치에 연결된 파워트레인 관련 부품의 전기적인 연속성을 감시하여야 함
+      </td>
+      <td style="text-align:center; vertical-align:middle;">
+        <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer;">
+          <input type="checkbox" data-field="obd_ma2_pass" \${v('obd_ma2_pass')?'checked':''}> 적합
+        </label>&nbsp;&nbsp;
+        <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer;">
+          <input type="checkbox" data-field="obd_ma2_fail" \${v('obd_ma2_fail')?'checked':''}> 부적합
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" style="padding:4px 8px; font-size:8.5pt; line-height:2.0;">
+        1.5.1. 오작동 확인시험을 위한 준비싸이클의 형식과 횟수에 대한 설명 :
+        <input data-field="obd_ma_01" class="obd-inp" type="text" style="width:65%;" placeholder="부록 첨부" value="\${E(v('obd_ma_01'))}"><br>
+        1.5.2. 배출가스자기진단장치에 의해 감시되는 부품에 대한 확인시험을 위한 시험싸이클의 형식에 관한 설명 :
+        <input data-field="obd_ma_02" class="obd-inp" type="text" style="width:37%;" placeholder="부록 첨부" value="\${E(v('obd_ma_02'))}"><br>
+        1.5.3. 배출가스자기진단장치에 의해 감시되는 구성부품들에 대한 2차 감시변수들의 목록, 오작동 확인 및 오작동표시등 점등을 위한 방법을 포함한 포괄적인 설명자료 :
+        <input data-field="obd_ma_03" class="obd-inp" type="text" style="width:30%;" placeholder="부록 첨부" value="\${E(v('obd_ma_03'))}">
+      </td>
+    </tr>
+    <!-- 1.6 자체시험결과 -->
+    <tr>
+      <td class="obd-lbl" colspan="3" style="padding:4px 6px;">1.6. 자체시험결과 및 기술적 설명자료</td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" colspan="3" style="padding:3px 6px;">1.6.1. 시험결과</td>
+    </tr>
+  </tbody>
+</table>
 
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- PAGE2: 제어·자동표시기·인디케이터 위치 및 식별 기호  -->
-  <!-- 2열: 22%|77%                                          -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
-    <colgroup>
-      <col style="width:22%;"><col style="width:78%;">
-    </colgroup>
-    <tbody>
-      <tr>
-        <th class="obd-sec-th" colspan="2">제어, 자동표시기, 인디케이터 위치 및 식별 기호</th>
-      </tr>
-      <tr>
-        <td class="obd-lbl" style="text-align:center; padding:5px 4px;">왼쪽 핸들 스위치의<br>제어 및 기호 도면<br>또는 이미지 첨부</td>
-        <td class="obd-img-cell" style="min-height:80px;">
-          <input data-field="obd_left_handle" class="obd-inp" type="text" placeholder="이미지 설명 또는 첨부 안내" value="\${E(v('obd_left_handle'))}">
-        </td>
-      </tr>
-      <tr>
-        <td class="obd-lbl" style="text-align:center; padding:5px 4px;">오른쪽 핸들 스위치의<br>제어 및 기호 도면<br>또는 이미지 첨부</td>
-        <td class="obd-img-cell" style="min-height:80px;">
-          <input data-field="obd_right_handle" class="obd-inp" type="text" placeholder="이미지 설명 또는 첨부 안내" value="\${E(v('obd_right_handle'))}">
-        </td>
-      </tr>
-      <tr>
-        <td class="obd-lbl" style="text-align:center; padding:5px 4px;">키박스 도면 또는<br>이미지 첨부</td>
-        <td class="obd-img-cell" style="min-height:60px;">
-          <input data-field="obd_keybox" class="obd-inp" type="text" placeholder="이미지 설명 또는 첨부 안내" value="\${E(v('obd_keybox'))}">
-        </td>
-      </tr>
-      <!-- 다. 무단변경 금지 -->
-      <tr>
-        <td class="obd-lbl" colspan="2" style="padding:4px 6px; font-size:8.5pt;">
-          다. 무단변경 및 배기가스제어컴퓨터의 수정을 금지하는 문구
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" style="padding:4px 6px;">
-          <input data-field="obd_no_tamper" class="obd-inp" type="text"
-            placeholder="예) 기계적으로 ECU는 임의로 설정을 변경할 수 없습니다. ECU ASSY는 부착 및 밀폐되어 있으며..."
-            value="\${E(v('obd_no_tamper'))}">
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+  <colgroup><col style="width:33.3%;"><col style="width:33.3%;"><col style="width:33.4%;"></colgroup>
+  <tbody>
+    <tr>
+      <th class="obd-th">부품 점검</th>
+      <th class="obd-th">MI 활성화 시기</th>
+      <th class="obd-th">메모리에 저장된 오류코드 수정</th>
+    </tr>
+    <tr>
+      <td><input data-field="obd_ba_part" class="obd-inp" type="text" value="\${E(v('obd_ba_part'))}"></td>
+      <td><input data-field="obd_ba_mi"   class="obd-inp" type="text" value="\${E(v('obd_ba_mi'))}"></td>
+      <td><input data-field="obd_ba_dtc"  class="obd-inp" type="text" value="\${E(v('obd_ba_dtc'))}"></td>
+    </tr>
+  </tbody>
+</table>
 
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- PAGE3 라. 감시장치 기술적 설명자료                    -->
-  <!-- 마. 기타 추가정보: 2열 83.6%|16.4%                   -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
-    <colgroup>
-      <col style="width:100%;">
-    </colgroup>
-    <tbody>
-      <tr>
-        <td class="obd-lbl" style="padding:4px 6px; font-size:8.5pt;">
-          라. 감시장치의 기술적인 설명자료(일반적인 작동원리)
-        </td>
-      </tr>
-      <tr>
-        <td style="padding:4px 8px; font-size:8pt; color:#555; line-height:1.8;">
-          01. 촉매 감시장치 : <input data-field="obd_diag_01" class="obd-inp" type="text" style="width:80%;" placeholder="해당 사항 없음" value="\${E(v('obd_diag_01'))}"><br>
-          02. 매연여과장치 감시장치 : <input data-field="obd_diag_02" class="obd-inp" type="text" style="width:78%;" placeholder="해당 사항 없음" value="\${E(v('obd_diag_02'))}"><br>
-          03. 전자분사시스템 감시장치 : <input data-field="obd_diag_03" class="obd-inp" type="text" style="width:77%;" placeholder="해당 사항 없음" value="\${E(v('obd_diag_03'))}"><br>
-          04. 배출가스자기진단장치에 의해 감시되는 부품들 : <input data-field="obd_diag_04" class="obd-inp" type="text" style="width:54%;" placeholder="부록 첨부" value="\${E(v('obd_diag_04'))}"><br>
-          05. 오작동표시등 점등을 위한 기준 : <input data-field="obd_diag_05" class="obd-inp" type="text" style="width:67%;" placeholder="부록 첨부" value="\${E(v('obd_diag_05'))}"><br>
-          06. 모든 배출가스자기진단장치 출력코드 목록과 사용된 양식 : <input data-field="obd_diag_06" class="obd-inp" type="text" style="width:40%;" placeholder="부록 첨부" value="\${E(v('obd_diag_06'))}">
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<!-- 1.6.2 OBD 감시부품 테스트 및 진단 -->
+<table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+  <colgroup>
+    <col style="width:27%;"><col style="width:14%;"><col style="width:11%;"><col style="width:10%;"><col style="width:19%;"><col style="width:19%;">
+  </colgroup>
+  <tbody>
+    <tr><th class="obd-sec-th" colspan="6">1.6.2. OBD 감시부품의 테스트 및 진단</th></tr>
+    <tr>
+      <th class="obd-th">항&nbsp;&nbsp;목</th>
+      <th class="obd-th">부품/하네스</th>
+      <th class="obd-th">스위치</th>
+      <th class="obd-th">시&nbsp;동</th>
+      <th class="obd-th">규&nbsp;&nbsp;격</th>
+      <th class="obd-th">오작동표시등 점등</th>
+    </tr>
+    <tr>
+      <td class="obd-lbl">크랭크 포지션 센서(CPS)</td>
+      <td><input data-field="obd_t_cps_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_cps_harn'))}"></td>
+      <td><input data-field="obd_t_cps_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_cps_sw'))}"></td>
+      <td><input data-field="obd_t_cps_start" class="obd-inp" type="text" value="\${E(v('obd_t_cps_start'))}"></td>
+      <td><input data-field="obd_t_cps_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_cps_spec'))}"></td>
+      <td style="text-align:center;">
+        <label><input type="checkbox" data-field="obd_t_cps_mil_y" \${v('obd_t_cps_mil_y')?'checked':''}> 유</label>&nbsp;
+        <label><input type="checkbox" data-field="obd_t_cps_mil_n" \${v('obd_t_cps_mil_n')?'checked':''}> 무</label>
+      </td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">온도 공기압 센서(T-MAP)</td>
+      <td><input data-field="obd_t_tmap_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_tmap_harn'))}"></td>
+      <td><input data-field="obd_t_tmap_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_tmap_sw'))}"></td>
+      <td><input data-field="obd_t_tmap_start" class="obd-inp" type="text" value="\${E(v('obd_t_tmap_start'))}"></td>
+      <td><input data-field="obd_t_tmap_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_tmap_spec'))}"></td>
+      <td style="text-align:center;">
+        <label><input type="checkbox" data-field="obd_t_tmap_mil_y" \${v('obd_t_tmap_mil_y')?'checked':''}> 유</label>&nbsp;
+        <label><input type="checkbox" data-field="obd_t_tmap_mil_n" \${v('obd_t_tmap_mil_n')?'checked':''}> 무</label>
+      </td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">스로틀 포지션 센서(TPS)</td>
+      <td><input data-field="obd_t_tps_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_tps_harn'))}"></td>
+      <td><input data-field="obd_t_tps_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_tps_sw'))}"></td>
+      <td><input data-field="obd_t_tps_start" class="obd-inp" type="text" value="\${E(v('obd_t_tps_start'))}"></td>
+      <td><input data-field="obd_t_tps_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_tps_spec'))}"></td>
+      <td style="text-align:center;">
+        <label><input type="checkbox" data-field="obd_t_tps_mil_y" \${v('obd_t_tps_mil_y')?'checked':''}> 유</label>&nbsp;
+        <label><input type="checkbox" data-field="obd_t_tps_mil_n" \${v('obd_t_tps_mil_n')?'checked':''}> 무</label>
+      </td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">엔진 온도 센서(WPS)</td>
+      <td><input data-field="obd_t_wps_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_wps_harn'))}"></td>
+      <td><input data-field="obd_t_wps_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_wps_sw'))}"></td>
+      <td><input data-field="obd_t_wps_start" class="obd-inp" type="text" value="\${E(v('obd_t_wps_start'))}"></td>
+      <td><input data-field="obd_t_wps_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_wps_spec'))}"></td>
+      <td style="text-align:center;">
+        <label><input type="checkbox" data-field="obd_t_wps_mil_y" \${v('obd_t_wps_mil_y')?'checked':''}> 유</label>&nbsp;
+        <label><input type="checkbox" data-field="obd_t_wps_mil_n" \${v('obd_t_wps_mil_n')?'checked':''}> 무</label>
+      </td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">산소 센서(O₂)</td>
+      <td><input data-field="obd_t_o2_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_o2_harn'))}"></td>
+      <td><input data-field="obd_t_o2_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_o2_sw'))}"></td>
+      <td><input data-field="obd_t_o2_start" class="obd-inp" type="text" value="\${E(v('obd_t_o2_start'))}"></td>
+      <td><input data-field="obd_t_o2_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_o2_spec'))}"></td>
+      <td style="text-align:center;">
+        <label><input type="checkbox" data-field="obd_t_o2_mil_y" \${v('obd_t_o2_mil_y')?'checked':''}> 유</label>&nbsp;
+        <label><input type="checkbox" data-field="obd_t_o2_mil_n" \${v('obd_t_o2_mil_n')?'checked':''}> 무</label>
+      </td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">연료분사장치(인젝터)</td>
+      <td><input data-field="obd_t_inj_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_inj_harn'))}"></td>
+      <td><input data-field="obd_t_inj_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_inj_sw'))}"></td>
+      <td><input data-field="obd_t_inj_start" class="obd-inp" type="text" value="\${E(v('obd_t_inj_start'))}"></td>
+      <td><input data-field="obd_t_inj_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_inj_spec'))}"></td>
+      <td style="text-align:center;">
+        <label><input type="checkbox" data-field="obd_t_inj_mil_y" \${v('obd_t_inj_mil_y')?'checked':''}> 유</label>&nbsp;
+        <label><input type="checkbox" data-field="obd_t_inj_mil_n" \${v('obd_t_inj_mil_n')?'checked':''}> 무</label>
+      </td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">점화코일</td>
+      <td><input data-field="obd_t_coil_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_coil_harn'))}"></td>
+      <td><input data-field="obd_t_coil_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_coil_sw'))}"></td>
+      <td><input data-field="obd_t_coil_start" class="obd-inp" type="text" value="\${E(v('obd_t_coil_start'))}"></td>
+      <td><input data-field="obd_t_coil_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_coil_spec'))}"></td>
+      <td style="text-align:center;">
+        <label><input type="checkbox" data-field="obd_t_coil_mil_y" \${v('obd_t_coil_mil_y')?'checked':''}> 유</label>&nbsp;
+        <label><input type="checkbox" data-field="obd_t_coil_mil_n" \${v('obd_t_coil_mil_n')?'checked':''}> 무</label>
+      </td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">O₂ 센서 히터</td>
+      <td><input data-field="obd_t_o2h_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_o2h_harn'))}"></td>
+      <td><input data-field="obd_t_o2h_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_o2h_sw'))}"></td>
+      <td><input data-field="obd_t_o2h_start" class="obd-inp" type="text" value="\${E(v('obd_t_o2h_start'))}"></td>
+      <td><input data-field="obd_t_o2h_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_o2h_spec'))}"></td>
+      <td style="text-align:center;">
+        <label><input type="checkbox" data-field="obd_t_o2h_mil_y" \${v('obd_t_o2h_mil_y')?'checked':''}> 유</label>&nbsp;
+        <label><input type="checkbox" data-field="obd_t_o2h_mil_n" \${v('obd_t_o2h_mil_n')?'checked':''}> 무</label>
+      </td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">와이어 액츄에이터에 의한 스로틀</td>
+      <td><input data-field="obd_t_wire_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_wire_harn'))}"></td>
+      <td><input data-field="obd_t_wire_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_wire_sw'))}"></td>
+      <td><input data-field="obd_t_wire_start" class="obd-inp" type="text" value="\${E(v('obd_t_wire_start'))}"></td>
+      <td><input data-field="obd_t_wire_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_wire_spec'))}"></td>
+      <td style="text-align:center;">
+        <label><input type="checkbox" data-field="obd_t_wire_mil_y" \${v('obd_t_wire_mil_y')?'checked':''}> 유</label>&nbsp;
+        <label><input type="checkbox" data-field="obd_t_wire_mil_n" \${v('obd_t_wire_mil_n')?'checked':''}> 무</label>
+      </td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">라디에이터 팬 릴레이</td>
+      <td><input data-field="obd_t_fan_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_fan_harn'))}"></td>
+      <td><input data-field="obd_t_fan_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_fan_sw'))}"></td>
+      <td><input data-field="obd_t_fan_start" class="obd-inp" type="text" value="\${E(v('obd_t_fan_start'))}"></td>
+      <td><input data-field="obd_t_fan_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_fan_spec'))}"></td>
+      <td style="text-align:center;">
+        <label><input type="checkbox" data-field="obd_t_fan_mil_y" \${v('obd_t_fan_mil_y')?'checked':''}> 유</label>&nbsp;
+        <label><input type="checkbox" data-field="obd_t_fan_mil_n" \${v('obd_t_fan_mil_n')?'checked':''}> 무</label>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-  <!-- 마. 기타 추가정보 (2열: 83.6%|16.4%) -->
-  <!-- PDF 측정: x=55.3,460.0,539.6 → 83.6%|16.4% -->
-  <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
-    <colgroup>
-      <col style="width:83.6%;"><col style="width:16.4%;">
-    </colgroup>
-    <tbody>
-      <tr>
-        <td class="obd-lbl" colspan="2" style="padding:4px 6px; font-size:8.5pt;">
-          마. 기타 추가정보
-        </td>
-      </tr>
-      <tr>
-        <th class="obd-th" style="text-align:left; padding:3px 8px;">시험 요구 사항 작동 기준(Ⅰ) 형</th>
-        <th class="obd-th">적합 여부</th>
-      </tr>
-      <tr>
-        <td style="padding:4px 8px; font-size:8.5pt; line-height:1.7;">
-          오작동 재현을 위한 부품 또는 오작동 모터사이클을 위한 전자 장비를 장착한 차량을 시험할 때, 오작동 판단 기준 이하에서 오작동 경고등이 점등되며 배출가스 자기진단장치는 적합한 것으로 판정됨<br>
-          배출가스 관련 부품 또는 배출가스와 관련되고 엔진 제어장치에 연결된 파워트레인 관련 부품의 전기적인 연속성을 감시하여야 함
-        </td>
-        <td style="text-align:center;">
-          <input data-field="obd_ma_pass" class="obd-inp" type="text" placeholder="적합/부적합" value="\${E(v('obd_ma_pass'))}">
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<!-- ══ 2. 동일차종 설명 ══ -->
+<table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+  <tbody>
+    <tr><th class="obd-sec-th" colspan="6">2. 동일차종 설명에 관한 서류</th></tr>
+    <tr><th class="obd-sec-th" colspan="6">2.1. 자동차 제원(자기진단동일차종 중 대표차종)</th></tr>
+    <tr><td class="obd-lbl" colspan="6" style="padding:3px 6px;">1. 일반 제원</td></tr>
+  </tbody>
+</table>
 
-  <!-- 마. 세부항목 3열 (PDF: x=55.3,216.7,378.2,539.6 → 33.3%|33.3%|33.4%) -->
-  <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
-    <colgroup>
-      <col style="width:33.3%;"><col style="width:33.3%;"><col style="width:33.4%;">
-    </colgroup>
-    <tbody>
-      <tr>
-        <td style="padding:4px 8px; font-size:8.5pt;">
-          01. 오작동 확인시험을 위한 준비싸이클의 형식과 회수에 대한 설명 :
-          <input data-field="obd_ma_01" class="obd-inp" type="text" placeholder="부록 첨부" value="\${E(v('obd_ma_01'))}">
-        </td>
-        <td style="padding:4px 8px; font-size:8.5pt;">
-          02. 배출가스자기진단장치에 의해 감시되는 부품에 대한 확인시험을 위한 시험싸이클의 형식에 관한 설명 :
-          <input data-field="obd_ma_02" class="obd-inp" type="text" placeholder="부록 첨부" value="\${E(v('obd_ma_02'))}">
-        </td>
-        <td style="padding:4px 8px; font-size:8.5pt;">
-          03. 배출가스자기진단장치에 의해 감시되는 구성부품들에 대한 2차 감시변수들의 목록, 오작동 확인 및 오작동표시등 점등을 위한 방법을 포함한 포괄적인 설명자료 :
-          <input data-field="obd_ma_03" class="obd-inp" type="text" placeholder="부록 첨부" value="\${E(v('obd_ma_03'))}">
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+  <colgroup>
+    <col style="width:16.4%;"><col style="width:16.4%;"><col style="width:16.4%;"><col style="width:12.8%;"><col style="width:14.1%;"><col style="width:23.9%;">
+  </colgroup>
+  <tbody>
+    <tr>
+      <th class="obd-th">차&nbsp;&nbsp;명</th><th class="obd-th">형&nbsp;&nbsp;식</th>
+      <th class="obd-th">차&nbsp;&nbsp;종</th><th class="obd-th">사용연료</th>
+      <th class="obd-th">변속기 종류</th><th class="obd-th">총중량(공차중량, kg)</th>
+    </tr>
+    <tr>
+      <td><input data-field="obd_veh_name"   class="obd-inp" type="text" value="\${E(v('obd_veh_name'))}"></td>
+      <td><input data-field="obd_veh_form"   class="obd-inp" type="text" value="\${E(v('obd_veh_form'))}"></td>
+      <td><input data-field="obd_veh_type"   class="obd-inp" type="text" value="\${E(v('obd_veh_type'))}"></td>
+      <td><input data-field="obd_veh_fuel"   class="obd-inp" type="text" value="\${E(v('obd_veh_fuel'))}"></td>
+      <td><input data-field="obd_veh_trans"  class="obd-inp" type="text" value="\${E(v('obd_veh_trans'))}"></td>
+      <td><input data-field="obd_veh_weight" class="obd-inp" type="text" value="\${E(v('obd_veh_weight'))}"></td>
+    </tr>
+  </tbody>
+</table>
 
-  <!-- 바. 자체시험결과 및 기술적 설명자료 -->
-  <!-- PDF 측정: x=55.3,216.7,378.2,460.0,539.6 → 33.3%|33.3%|16.9%|16.4% -->
-  <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
-    <colgroup>
-      <col style="width:33.3%;"><col style="width:33.3%;"><col style="width:16.9%;"><col style="width:16.4%;">
-    </colgroup>
-    <tbody>
-      <tr>
-        <th class="obd-sec-th" colspan="4">바. 자체시험결과 및 기술적 설명자료 – 시험결과</th>
-      </tr>
-      <tr>
-        <th class="obd-th">부품 점검</th>
-        <th class="obd-th">MI 활성화 시기</th>
-        <th class="obd-th" colspan="2">메모리에 저장된 오류코드 수정</th>
-      </tr>
-      <tr>
-        <td><input data-field="obd_ba_part" class="obd-inp" type="text" value="\${E(v('obd_ba_part'))}"></td>
-        <td><input data-field="obd_ba_mi"   class="obd-inp" type="text" value="\${E(v('obd_ba_mi'))}"></td>
-        <td colspan="2"><input data-field="obd_ba_dtc"  class="obd-inp" type="text" value="\${E(v('obd_ba_dtc'))}"></td>
-      </tr>
-    </tbody>
-  </table>
+<table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+  <colgroup>
+    <col style="width:16.4%;"><col style="width:18.1%;"><col style="width:14.6%;"><col style="width:16.4%;"><col style="width:16.4%;"><col style="width:18.1%;">
+  </colgroup>
+  <tbody>
+    <tr><td class="obd-lbl" colspan="6" style="padding:3px 6px;">2. 엔진 제원</td></tr>
+    <tr>
+      <th class="obd-th">형&nbsp;&nbsp;식</th><th class="obd-th">최고출력(ps/rpm)</th>
+      <th class="obd-th">배기량(cc)</th><th class="obd-th">연소형식</th>
+      <th class="obd-th">연소사이클</th><th class="obd-th">연료 공급형태</th>
+    </tr>
+    <tr>
+      <td><input data-field="obd_eng_form"   class="obd-inp" type="text" value="\${E(v('obd_eng_form'))}"></td>
+      <td><input data-field="obd_eng_power"  class="obd-inp" type="text" value="\${E(v('obd_eng_power'))}"></td>
+      <td><input data-field="obd_eng_cc"     class="obd-inp" type="text" value="\${E(v('obd_eng_cc'))}"></td>
+      <td><input data-field="obd_eng_comb"   class="obd-inp" type="text" value="\${E(v('obd_eng_comb'))}"></td>
+      <td><input data-field="obd_eng_cycle"  class="obd-inp" type="text" value="\${E(v('obd_eng_cycle'))}"></td>
+      <td><input data-field="obd_eng_supply" class="obd-inp" type="text" value="\${E(v('obd_eng_supply'))}"></td>
+    </tr>
+  </tbody>
+</table>
 
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- PAGE4: OBD 감시부품 테스트 및 진단                    -->
-  <!-- PDF: x=55.3,189.7,259.2,314.5,361.2,458.9,539.6      -->
-  <!-- → 27.8%|14.4%|11.4%|9.6%|20.2%|16.7%                -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
-    <colgroup>
-      <col style="width:27.8%;"><col style="width:14.4%;"><col style="width:11.4%;"><col style="width:9.6%;"><col style="width:20.2%;"><col style="width:16.7%;">
-    </colgroup>
-    <tbody>
-      <tr>
-        <th class="obd-sec-th" colspan="6">OBD 감시부품의 테스트 및 진단</th>
-      </tr>
-      <tr>
-        <th class="obd-th">항&nbsp;&nbsp;목</th>
-        <th class="obd-th">부품/하네스</th>
-        <th class="obd-th">스위치</th>
-        <th class="obd-th">시&nbsp;동</th>
-        <th class="obd-th">규&nbsp;&nbsp;격</th>
-        <th class="obd-th">오작동표시등 점등</th>
-      </tr>
-      <tr>
-        <td class="obd-lbl">크랭크 포지션 센서(CPS)</td>
-        <td><input data-field="obd_t_cps_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_cps_harn'))}"></td>
-        <td><input data-field="obd_t_cps_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_cps_sw'))}"></td>
-        <td><input data-field="obd_t_cps_start" class="obd-inp" type="text" value="\${E(v('obd_t_cps_start'))}"></td>
-        <td><input data-field="obd_t_cps_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_cps_spec'))}"></td>
-        <td><input data-field="obd_t_cps_mil"   class="obd-inp" type="text" value="\${E(v('obd_t_cps_mil'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">온도 공기압 센서(T-MAP)</td>
-        <td><input data-field="obd_t_tmap_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_tmap_harn'))}"></td>
-        <td><input data-field="obd_t_tmap_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_tmap_sw'))}"></td>
-        <td><input data-field="obd_t_tmap_start" class="obd-inp" type="text" value="\${E(v('obd_t_tmap_start'))}"></td>
-        <td><input data-field="obd_t_tmap_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_tmap_spec'))}"></td>
-        <td><input data-field="obd_t_tmap_mil"   class="obd-inp" type="text" value="\${E(v('obd_t_tmap_mil'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">스로틀 포지션 센서(TPS)</td>
-        <td><input data-field="obd_t_tps_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_tps_harn'))}"></td>
-        <td><input data-field="obd_t_tps_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_tps_sw'))}"></td>
-        <td><input data-field="obd_t_tps_start" class="obd-inp" type="text" value="\${E(v('obd_t_tps_start'))}"></td>
-        <td><input data-field="obd_t_tps_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_tps_spec'))}"></td>
-        <td><input data-field="obd_t_tps_mil"   class="obd-inp" type="text" value="\${E(v('obd_t_tps_mil'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">엔진 온도 센서(WPS)</td>
-        <td><input data-field="obd_t_wps_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_wps_harn'))}"></td>
-        <td><input data-field="obd_t_wps_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_wps_sw'))}"></td>
-        <td><input data-field="obd_t_wps_start" class="obd-inp" type="text" value="\${E(v('obd_t_wps_start'))}"></td>
-        <td><input data-field="obd_t_wps_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_wps_spec'))}"></td>
-        <td><input data-field="obd_t_wps_mil"   class="obd-inp" type="text" value="\${E(v('obd_t_wps_mil'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">산소 센서(O₂)</td>
-        <td><input data-field="obd_t_o2_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_o2_harn'))}"></td>
-        <td><input data-field="obd_t_o2_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_o2_sw'))}"></td>
-        <td><input data-field="obd_t_o2_start" class="obd-inp" type="text" value="\${E(v('obd_t_o2_start'))}"></td>
-        <td><input data-field="obd_t_o2_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_o2_spec'))}"></td>
-        <td><input data-field="obd_t_o2_mil"   class="obd-inp" type="text" value="\${E(v('obd_t_o2_mil'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">연료분사장치(인젝터)</td>
-        <td><input data-field="obd_t_inj_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_inj_harn'))}"></td>
-        <td><input data-field="obd_t_inj_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_inj_sw'))}"></td>
-        <td><input data-field="obd_t_inj_start" class="obd-inp" type="text" value="\${E(v('obd_t_inj_start'))}"></td>
-        <td><input data-field="obd_t_inj_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_inj_spec'))}"></td>
-        <td><input data-field="obd_t_inj_mil"   class="obd-inp" type="text" value="\${E(v('obd_t_inj_mil'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">점화코일</td>
-        <td><input data-field="obd_t_coil_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_coil_harn'))}"></td>
-        <td><input data-field="obd_t_coil_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_coil_sw'))}"></td>
-        <td><input data-field="obd_t_coil_start" class="obd-inp" type="text" value="\${E(v('obd_t_coil_start'))}"></td>
-        <td><input data-field="obd_t_coil_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_coil_spec'))}"></td>
-        <td><input data-field="obd_t_coil_mil"   class="obd-inp" type="text" value="\${E(v('obd_t_coil_mil'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">O₂ 센서 히터</td>
-        <td><input data-field="obd_t_o2h_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_o2h_harn'))}"></td>
-        <td><input data-field="obd_t_o2h_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_o2h_sw'))}"></td>
-        <td><input data-field="obd_t_o2h_start" class="obd-inp" type="text" value="\${E(v('obd_t_o2h_start'))}"></td>
-        <td><input data-field="obd_t_o2h_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_o2h_spec'))}"></td>
-        <td><input data-field="obd_t_o2h_mil"   class="obd-inp" type="text" value="\${E(v('obd_t_o2h_mil'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">와이어 액츄에이터에 의한 스로틀</td>
-        <td><input data-field="obd_t_wire_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_wire_harn'))}"></td>
-        <td><input data-field="obd_t_wire_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_wire_sw'))}"></td>
-        <td><input data-field="obd_t_wire_start" class="obd-inp" type="text" value="\${E(v('obd_t_wire_start'))}"></td>
-        <td><input data-field="obd_t_wire_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_wire_spec'))}"></td>
-        <td><input data-field="obd_t_wire_mil"   class="obd-inp" type="text" value="\${E(v('obd_t_wire_mil'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">라디에이터 팬 릴레이</td>
-        <td><input data-field="obd_t_fan_harn"  class="obd-inp" type="text" value="\${E(v('obd_t_fan_harn'))}"></td>
-        <td><input data-field="obd_t_fan_sw"    class="obd-inp" type="text" value="\${E(v('obd_t_fan_sw'))}"></td>
-        <td><input data-field="obd_t_fan_start" class="obd-inp" type="text" value="\${E(v('obd_t_fan_start'))}"></td>
-        <td><input data-field="obd_t_fan_spec"  class="obd-inp" type="text" value="\${E(v('obd_t_fan_spec'))}"></td>
-        <td><input data-field="obd_t_fan_mil"   class="obd-inp" type="text" value="\${E(v('obd_t_fan_mil'))}"></td>
-      </tr>
-    </tbody>
-  </table>
+<table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+  <colgroup><col style="width:32.8%;"><col style="width:32.8%;"><col style="width:34.4%;"></colgroup>
+  <tbody>
+    <tr><td class="obd-lbl" colspan="3" style="padding:3px 6px;">3. 배출가스 제어장치 및 배출가스 자기진단장치 제원</td></tr>
+    <tr>
+      <th class="obd-th">촉매전환기 형식 (제작사)</th>
+      <th class="obd-th">2차 공기 분사</th>
+      <th class="obd-th">배출가스 재순환 장치</th>
+    </tr>
+    <tr>
+      <td><input data-field="obd_cat_form" class="obd-inp" type="text" value="\${E(v('obd_cat_form'))}"></td>
+      <td style="text-align:center;">
+        유 <input type="checkbox" data-field="obd_2air_y" \${v('obd_2air_y')?'checked':''}>
+        &nbsp;&nbsp;무 <input type="checkbox" data-field="obd_2air_n" \${v('obd_2air_n')?'checked':''}>
+      </td>
+      <td style="text-align:center;">
+        유 <input type="checkbox" data-field="obd_egr_y" \${v('obd_egr_y')?'checked':''}>
+        &nbsp;&nbsp;무 <input type="checkbox" data-field="obd_egr_n" \${v('obd_egr_n')?'checked':''}>
+      </td>
+    </tr>
+    <tr>
+      <th class="obd-th">전자제어장치 형식 (제작사)</th>
+      <th class="obd-th">산소센서 형식 (제작사)</th>
+      <th class="obd-th">퍼지 제어밸브 형식 (제작사)</th>
+    </tr>
+    <tr>
+      <td><input data-field="obd_ecu_form"   class="obd-inp" type="text" value="\${E(v('obd_ecu_form'))}"></td>
+      <td><input data-field="obd_o2s_form"   class="obd-inp" type="text" value="\${E(v('obd_o2s_form'))}"></td>
+      <td><input data-field="obd_purge_form" class="obd-inp" type="text" value="\${E(v('obd_purge_form'))}"></td>
+    </tr>
+  </tbody>
+</table>
 
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- 2. 동일차종 설명에 관한 서류                          -->
-  <!-- PAGE4 가. 자동차 제원 - 일반제원 6열                  -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- 2. 동일차종 설명에 관한 서류                          -->
-  <!-- PAGE4 가. 자동차 제원                                 -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
-    <tbody>
-      <tr>
-        <th class="obd-sec-th" colspan="6">2. 동일차종 설명에 관한 서류</th>
-      </tr>
-      <tr>
-        <th class="obd-sec-th" colspan="6">가. 자동차 제원(자기진단동일차종 중 대표차종)</th>
-      </tr>
-      <!-- 01. 일반 제원 -->
-      <tr>
-        <td class="obd-lbl" colspan="6" style="padding:3px 6px;">01. 일반 제원</td>
-      </tr>
-    </tbody>
-  </table>
+<!-- 2.2 자기진단동일차종 -->
+<table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+  <colgroup>
+    <col style="width:16.4%;"><col style="width:16.4%;"><col style="width:16.4%;"><col style="width:12.8%;"><col style="width:14.1%;"><col style="width:23.9%;">
+  </colgroup>
+  <tbody>
+    <tr><th class="obd-sec-th" colspan="6">2.2. 자기진단동일차종</th></tr>
+    <tr>
+      <th class="obd-th">차명(형식)</th><th class="obd-th">엔진형식</th>
+      <th class="obd-th">배기량(cc)</th><th class="obd-th">최대출력</th>
+      <th class="obd-th">변속기(단)</th><th class="obd-th">총중량(공차중량, kg)</th>
+    </tr>
+    <tr>
+      <td><input data-field="obd_same_name1"  class="obd-inp" type="text" value="\${E(v('obd_same_name1'))}"></td>
+      <td><input data-field="obd_same_eng1"   class="obd-inp" type="text" value="\${E(v('obd_same_eng1'))}"></td>
+      <td><input data-field="obd_same_cc1"    class="obd-inp" type="text" value="\${E(v('obd_same_cc1'))}"></td>
+      <td><input data-field="obd_same_pow1"   class="obd-inp" type="text" value="\${E(v('obd_same_pow1'))}"></td>
+      <td><input data-field="obd_same_trans1" class="obd-inp" type="text" value="\${E(v('obd_same_trans1'))}"></td>
+      <td><input data-field="obd_same_wt1"    class="obd-inp" type="text" value="\${E(v('obd_same_wt1'))}"></td>
+    </tr>
+    <tr>
+      <td><input data-field="obd_same_name2"  class="obd-inp" type="text" value="\${E(v('obd_same_name2'))}"></td>
+      <td><input data-field="obd_same_eng2"   class="obd-inp" type="text" value="\${E(v('obd_same_eng2'))}"></td>
+      <td><input data-field="obd_same_cc2"    class="obd-inp" type="text" value="\${E(v('obd_same_cc2'))}"></td>
+      <td><input data-field="obd_same_pow2"   class="obd-inp" type="text" value="\${E(v('obd_same_pow2'))}"></td>
+      <td><input data-field="obd_same_trans2" class="obd-inp" type="text" value="\${E(v('obd_same_trans2'))}"></td>
+      <td><input data-field="obd_same_wt2"    class="obd-inp" type="text" value="\${E(v('obd_same_wt2'))}"></td>
+    </tr>
+    <tr>
+      <td><input data-field="obd_same_name3"  class="obd-inp" type="text" value="\${E(v('obd_same_name3'))}"></td>
+      <td><input data-field="obd_same_eng3"   class="obd-inp" type="text" value="\${E(v('obd_same_eng3'))}"></td>
+      <td><input data-field="obd_same_cc3"    class="obd-inp" type="text" value="\${E(v('obd_same_cc3'))}"></td>
+      <td><input data-field="obd_same_pow3"   class="obd-inp" type="text" value="\${E(v('obd_same_pow3'))}"></td>
+      <td><input data-field="obd_same_trans3" class="obd-inp" type="text" value="\${E(v('obd_same_trans3'))}"></td>
+      <td><input data-field="obd_same_wt3"    class="obd-inp" type="text" value="\${E(v('obd_same_wt3'))}"></td>
+    </tr>
+    <tr>
+      <td><input data-field="obd_same_name4"  class="obd-inp" type="text" value="\${E(v('obd_same_name4'))}"></td>
+      <td><input data-field="obd_same_eng4"   class="obd-inp" type="text" value="\${E(v('obd_same_eng4'))}"></td>
+      <td><input data-field="obd_same_cc4"    class="obd-inp" type="text" value="\${E(v('obd_same_cc4'))}"></td>
+      <td><input data-field="obd_same_pow4"   class="obd-inp" type="text" value="\${E(v('obd_same_pow4'))}"></td>
+      <td><input data-field="obd_same_trans4" class="obd-inp" type="text" value="\${E(v('obd_same_trans4'))}"></td>
+      <td><input data-field="obd_same_wt4"    class="obd-inp" type="text" value="\${E(v('obd_same_wt4'))}"></td>
+    </tr>
+  </tbody>
+</table>
 
-  <!-- PDF: x=55.3,134.7,214.1,293.5,355.5,424.0,539.6 → 16.4%|16.4%|16.4%|12.8%|14.1%|23.9% -->
-  <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
-    <colgroup>
-      <col style="width:16.4%;"><col style="width:16.4%;"><col style="width:16.4%;"><col style="width:12.8%;"><col style="width:14.1%;"><col style="width:23.9%;">
-    </colgroup>
-    <tbody>
-      <tr>
-        <th class="obd-th">차&nbsp;&nbsp;명</th>
-        <th class="obd-th">형&nbsp;&nbsp;식</th>
-        <th class="obd-th">차&nbsp;&nbsp;종</th>
-        <th class="obd-th">사용연료</th>
-        <th class="obd-th">변속기 종류</th>
-        <th class="obd-th">총중량(공차중량, kg)</th>
-      </tr>
-      <tr>
-        <td><input data-field="obd_veh_name"   class="obd-inp" type="text" value="\${E(v('obd_veh_name'))}"></td>
-        <td><input data-field="obd_veh_form"   class="obd-inp" type="text" value="\${E(v('obd_veh_form'))}"></td>
-        <td><input data-field="obd_veh_type"   class="obd-inp" type="text" value="\${E(v('obd_veh_type'))}"></td>
-        <td><input data-field="obd_veh_fuel"   class="obd-inp" type="text" value="\${E(v('obd_veh_fuel'))}"></td>
-        <td><input data-field="obd_veh_trans"  class="obd-inp" type="text" value="\${E(v('obd_veh_trans'))}"></td>
-        <td><input data-field="obd_veh_weight" class="obd-inp" type="text" value="\${E(v('obd_veh_weight'))}"></td>
-      </tr>
-    </tbody>
-  </table>
+<!-- 2.3 배출가스자기진단장치 동일차종 설명 -->
+<table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+  <colgroup><col style="width:22%;"><col style="width:40%;"><col style="width:38%;"></colgroup>
+  <tbody>
+    <tr><th class="obd-sec-th" colspan="3">2.3. 배출가스자기진단장치 동일차종 설명</th></tr>
+    <tr>
+      <th class="obd-th">항&nbsp;&nbsp;목</th>
+      <th class="obd-th" colspan="2">배출가스자기진단장치 동일차종</th>
+    </tr>
+    <tr>
+      <td class="obd-lbl">차명(동일차명)</td>
+      <td colspan="2"><input data-field="obd_same_veh_name" class="obd-inp" type="text" value="\${E(v('obd_same_veh_name'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" rowspan="2" style="text-align:center;">엔&nbsp;&nbsp;진</td>
+      <td class="obd-lbl">연소과정 (불꽃점화, 압축착화, 2행정, 4행정 등)</td>
+      <td><input data-field="obd_eng_process" class="obd-inp" type="text" value="\${E(v('obd_eng_process'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">연료공급 방법 (기화기식, 연료분사식 등)</td>
+      <td><input data-field="obd_fuel_supply" class="obd-inp" type="text" value="\${E(v('obd_fuel_supply'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" rowspan="4" style="text-align:center;">배출가스<br>제어장치</td>
+      <td class="obd-lbl">촉매전환기의 형식 (산화촉매, 삼원촉매, 가열식촉매 등)</td>
+      <td><input data-field="obd_cat_type2" class="obd-inp" type="text" value="\${E(v('obd_cat_type2'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">매연여과장치의 형식</td>
+      <td><input data-field="obd_dpf_type" class="obd-inp" type="text" value="\${E(v('obd_dpf_type'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">2차공기 분사의 유무</td>
+      <td><input data-field="obd_2air2" class="obd-inp" type="text" placeholder="유/무" value="\${E(v('obd_2air2'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">배출가스 재순환장치의 유무</td>
+      <td><input data-field="obd_egr2" class="obd-inp" type="text" placeholder="유/무" value="\${E(v('obd_egr2'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" rowspan="3" style="text-align:center;">배출가스<br>자기진단장치의<br>구성 및 기능</td>
+      <td class="obd-lbl">배출가스 자기진단장치의 작동방법</td>
+      <td><input data-field="obd_diag_method" class="obd-inp" type="text" value="\${E(v('obd_diag_method'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">감시장치의 오작동 확인 방법</td>
+      <td><input data-field="obd_mon_method" class="obd-inp" type="text" value="\${E(v('obd_mon_method'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">오작동 표시방법</td>
+      <td><input data-field="obd_mil_method" class="obd-inp" type="text" value="\${E(v('obd_mil_method'))}"></td>
+    </tr>
+  </tbody>
+</table>
 
-  <!-- 02. 엔진 제원 -->
-  <!-- PDF: x=55.3,134.7,222.6,293.5,372.9,452.3,539.6 → 16.4%|18.1%|14.6%|16.4%|16.4%|18.0% -->
-  <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
-    <colgroup>
-      <col style="width:16.4%;"><col style="width:18.1%;"><col style="width:14.6%;"><col style="width:16.4%;"><col style="width:16.4%;"><col style="width:18.0%;">
-    </colgroup>
-    <tbody>
-      <tr>
-        <td class="obd-lbl" colspan="6" style="padding:3px 6px;">02. 엔진 제원</td>
-      </tr>
-      <tr>
-        <th class="obd-th">형&nbsp;&nbsp;식</th>
-        <th class="obd-th">최고출력(ps/rpm)</th>
-        <th class="obd-th">배기량(cc)</th>
-        <th class="obd-th">연소형식</th>
-        <th class="obd-th">연소사이클</th>
-        <th class="obd-th">연료 공급형태</th>
-      </tr>
-      <tr>
-        <td><input data-field="obd_eng_form"   class="obd-inp" type="text" value="\${E(v('obd_eng_form'))}"></td>
-        <td><input data-field="obd_eng_power"  class="obd-inp" type="text" value="\${E(v('obd_eng_power'))}"></td>
-        <td><input data-field="obd_eng_cc"     class="obd-inp" type="text" value="\${E(v('obd_eng_cc'))}"></td>
-        <td><input data-field="obd_eng_comb"   class="obd-inp" type="text" value="\${E(v('obd_eng_comb'))}"></td>
-        <td><input data-field="obd_eng_cycle"  class="obd-inp" type="text" value="\${E(v('obd_eng_cycle'))}"></td>
-        <td><input data-field="obd_eng_supply" class="obd-inp" type="text" value="\${E(v('obd_eng_supply'))}"></td>
-      </tr>
-    </tbody>
-  </table>
+<!-- ══ 3. 시험차량 선정 ══ -->
+<table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+  <colgroup><col style="width:30%;"><col style="width:35%;"><col style="width:35%;"></colgroup>
+  <tbody>
+    <tr><th class="obd-sec-th" colspan="3">3. 시험차량 선정에 관한 서류</th></tr>
+    <tr><th class="obd-sec-th" colspan="3">3.1. 배출가스자기진단장치 시험차량 선정근거</th></tr>
+    <tr>
+      <th class="obd-th" rowspan="2">항&nbsp;&nbsp;목</th>
+      <th class="obd-th" colspan="2">배출가스자기진단장치 시험차량</th>
+    </tr>
+    <tr>
+      <th class="obd-th">모델명</th>
+      <td><input data-field="obd_test_model" class="obd-inp" type="text" value="\${E(v('obd_test_model'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" colspan="2">차대번호(엔진번호)</td>
+      <td><input data-field="obd_test_vin" class="obd-inp" type="text" value="\${E(v('obd_test_vin'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" colspan="2">배기량(cc)</td>
+      <td><input data-field="obd_test_cc" class="obd-inp" type="text" value="\${E(v('obd_test_cc'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" colspan="2">엔진형식</td>
+      <td><input data-field="obd_test_eng" class="obd-inp" type="text" value="\${E(v('obd_test_eng'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" colspan="2">변속기 형태</td>
+      <td><input data-field="obd_test_trans" class="obd-inp" type="text" value="\${E(v('obd_test_trans'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" colspan="2">변속절차</td>
+      <td><input data-field="obd_test_trans_proc" class="obd-inp" type="text" value="\${E(v('obd_test_trans_proc'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" colspan="2">등가관성중량(kg)</td>
+      <td><input data-field="obd_test_inertia" class="obd-inp" type="text" value="\${E(v('obd_test_inertia'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" colspan="2">종감속기</td>
+      <td><input data-field="obd_test_final" class="obd-inp" type="text" value="\${E(v('obd_test_final'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" colspan="2">N/V비, rpm/kph</td>
+      <td><input data-field="obd_test_nv" class="obd-inp" type="text" value="\${E(v('obd_test_nv'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" rowspan="2">타이어</td>
+      <td class="obd-lbl">전</td>
+      <td><input data-field="obd_test_tire_f" class="obd-inp" type="text" value="\${E(v('obd_test_tire_f'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">후</td>
+      <td><input data-field="obd_test_tire_r" class="obd-inp" type="text" value="\${E(v('obd_test_tire_r'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" rowspan="4">배출가스<br>제어장치</td>
+      <td class="obd-lbl">촉매 전환기의 형식 (산화촉매, 삼원촉매, 가열식 촉매 등)</td>
+      <td><input data-field="obd_sel_cat" class="obd-inp" type="text" value="\${E(v('obd_sel_cat'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">매연 여과장치의 형식</td>
+      <td><input data-field="obd_sel_dpf" class="obd-inp" type="text" value="\${E(v('obd_sel_dpf'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">2차공기 분사의 유무</td>
+      <td><input data-field="obd_sel_2air" class="obd-inp" type="text" placeholder="유/무" value="\${E(v('obd_sel_2air'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">배출가스 재순환 장치의 유무</td>
+      <td><input data-field="obd_sel_egr" class="obd-inp" type="text" placeholder="유/무" value="\${E(v('obd_sel_egr'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" colspan="2">증발가스 제어장치</td>
+      <td><input data-field="obd_sel_evap" class="obd-inp" type="text" value="\${E(v('obd_sel_evap'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" rowspan="3">배출가스자기진단장치의<br>구성 및 기능</td>
+      <td class="obd-lbl">배출가스 자기진단장치 작동방법</td>
+      <td><input data-field="obd_sel_method" class="obd-inp" type="text" value="\${E(v('obd_sel_method'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">감시장치의 오작동 확인방법</td>
+      <td><input data-field="obd_sel_mon" class="obd-inp" type="text" value="\${E(v('obd_sel_mon'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl">오작동 표시 방법</td>
+      <td><input data-field="obd_sel_mil" class="obd-inp" type="text" value="\${E(v('obd_sel_mil'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" colspan="2">감시항목</td>
+      <td><input data-field="obd_sel_items" class="obd-inp" type="text" value="\${E(v('obd_sel_items'))}"></td>
+    </tr>
+    <tr>
+      <td class="obd-lbl" colspan="2">비&nbsp;&nbsp;고</td>
+      <td><input data-field="obd_sel_note" class="obd-inp" type="text" value="\${E(v('obd_sel_note'))}"></td>
+    </tr>
+  </tbody>
+</table>
 
-  <!-- 03. 배출가스 제어장치 및 OBD 제원 -->
-  <!-- PDF: x=55.3,214.1,372.9,539.6 → 32.8%|32.8%|34.4% -->
-  <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
-    <colgroup>
-      <col style="width:32.8%;"><col style="width:32.8%;"><col style="width:34.4%;">
-    </colgroup>
-    <tbody>
-      <tr>
-        <td class="obd-lbl" colspan="3" style="padding:3px 6px;">03. 배출가스 제어장치 및 배출가스 자기진단장치 제원</td>
-      </tr>
-      <tr>
-        <th class="obd-th">촉매전환기 형식 (제작사)</th>
-        <th class="obd-th">2차 공기 분사</th>
-        <th class="obd-th">배출가스 재순환 장치</th>
-      </tr>
-      <tr>
-        <td><input data-field="obd_cat_form"  class="obd-inp" type="text" value="\${E(v('obd_cat_form'))}"></td>
-        <td style="text-align:center;">
-          유 <input type="checkbox" data-field="obd_2air_y" \${v('obd_2air_y')?'checked':''}>
-          &nbsp;&nbsp;무 <input type="checkbox" data-field="obd_2air_n" \${v('obd_2air_n')?'checked':''}>
-        </td>
-        <td style="text-align:center;">
-          유 <input type="checkbox" data-field="obd_egr_y" \${v('obd_egr_y')?'checked':''}>
-          &nbsp;&nbsp;무 <input type="checkbox" data-field="obd_egr_n" \${v('obd_egr_n')?'checked':''}>
-        </td>
-      </tr>
-      <tr>
-        <th class="obd-th">전자제어장치 형식 (제작사)</th>
-        <th class="obd-th">산소센서 형식 (제작사)</th>
-        <th class="obd-th">퍼지 제어밸브 형식 (제작사)</th>
-      </tr>
-      <tr>
-        <td><input data-field="obd_ecu_form"   class="obd-inp" type="text" value="\${E(v('obd_ecu_form'))}"></td>
-        <td><input data-field="obd_o2s_form"   class="obd-inp" type="text" value="\${E(v('obd_o2s_form'))}"></td>
-        <td><input data-field="obd_purge_form" class="obd-inp" type="text" value="\${E(v('obd_purge_form'))}"></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- 나. 자기진단동일차종 - PAGE4 하단: 6열 -->
-  <!-- PDF: x=55.3,134.7,214.1,293.5,355.5,424.0,539.6 → 16.4%|16.4%|16.4%|12.8%|14.1%|23.9% -->
-  <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
-    <colgroup>
-      <col style="width:16.4%;"><col style="width:16.4%;"><col style="width:16.4%;"><col style="width:12.8%;"><col style="width:14.1%;"><col style="width:23.9%;">
-    </colgroup>
-    <tbody>
-      <tr>
-        <th class="obd-sec-th" colspan="6">나. 자기진단동일차종</th>
-      </tr>
-      <tr>
-        <th class="obd-th">차명(형식)</th>
-        <th class="obd-th">엔진형식</th>
-        <th class="obd-th">배기량(cc)</th>
-        <th class="obd-th">최대출력</th>
-        <th class="obd-th">변속기(단)</th>
-        <th class="obd-th">총중량(공차중량, kg)</th>
-      </tr>
-      <tr>
-        <td><input data-field="obd_same_name1" class="obd-inp" type="text" value="\${E(v('obd_same_name1'))}"></td>
-        <td><input data-field="obd_same_eng1"  class="obd-inp" type="text" value="\${E(v('obd_same_eng1'))}"></td>
-        <td><input data-field="obd_same_cc1"   class="obd-inp" type="text" value="\${E(v('obd_same_cc1'))}"></td>
-        <td><input data-field="obd_same_pow1"  class="obd-inp" type="text" value="\${E(v('obd_same_pow1'))}"></td>
-        <td><input data-field="obd_same_trans1" class="obd-inp" type="text" value="\${E(v('obd_same_trans1'))}"></td>
-        <td><input data-field="obd_same_wt1"   class="obd-inp" type="text" value="\${E(v('obd_same_wt1'))}"></td>
-      </tr>
-      <tr>
-        <td><input data-field="obd_same_name2" class="obd-inp" type="text" value="\${E(v('obd_same_name2'))}"></td>
-        <td><input data-field="obd_same_eng2"  class="obd-inp" type="text" value="\${E(v('obd_same_eng2'))}"></td>
-        <td><input data-field="obd_same_cc2"   class="obd-inp" type="text" value="\${E(v('obd_same_cc2'))}"></td>
-        <td><input data-field="obd_same_pow2"  class="obd-inp" type="text" value="\${E(v('obd_same_pow2'))}"></td>
-        <td><input data-field="obd_same_trans2" class="obd-inp" type="text" value="\${E(v('obd_same_trans2'))}"></td>
-        <td><input data-field="obd_same_wt2"   class="obd-inp" type="text" value="\${E(v('obd_same_wt2'))}"></td>
-      </tr>
-      <tr>
-        <td><input data-field="obd_same_name3" class="obd-inp" type="text" value="\${E(v('obd_same_name3'))}"></td>
-        <td><input data-field="obd_same_eng3"  class="obd-inp" type="text" value="\${E(v('obd_same_eng3'))}"></td>
-        <td><input data-field="obd_same_cc3"   class="obd-inp" type="text" value="\${E(v('obd_same_cc3'))}"></td>
-        <td><input data-field="obd_same_pow3"  class="obd-inp" type="text" value="\${E(v('obd_same_pow3'))}"></td>
-        <td><input data-field="obd_same_trans3" class="obd-inp" type="text" value="\${E(v('obd_same_trans3'))}"></td>
-        <td><input data-field="obd_same_wt3"   class="obd-inp" type="text" value="\${E(v('obd_same_wt3'))}"></td>
-      </tr>
-      <tr>
-        <td><input data-field="obd_same_name4" class="obd-inp" type="text" value="\${E(v('obd_same_name4'))}"></td>
-        <td><input data-field="obd_same_eng4"  class="obd-inp" type="text" value="\${E(v('obd_same_eng4'))}"></td>
-        <td><input data-field="obd_same_cc4"   class="obd-inp" type="text" value="\${E(v('obd_same_cc4'))}"></td>
-        <td><input data-field="obd_same_pow4"  class="obd-inp" type="text" value="\${E(v('obd_same_pow4'))}"></td>
-        <td><input data-field="obd_same_trans4" class="obd-inp" type="text" value="\${E(v('obd_same_trans4'))}"></td>
-        <td><input data-field="obd_same_wt4"   class="obd-inp" type="text" value="\${E(v('obd_same_wt4'))}"></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- PAGE5: 다. 배출가스자기진단장치 동일차종 설명         -->
-  <!-- PDF: x=55.3,163.0,353.0,446.3,539.6                 -->
-  <!-- → 22.0%|38.8%|19.1%|19.1%                           -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
-    <colgroup>
-      <col style="width:22.0%;"><col style="width:38.8%;"><col style="width:19.1%;"><col style="width:19.1%;">
-    </colgroup>
-    <tbody>
-      <tr>
-        <th class="obd-sec-th" colspan="4">다. 배출가스자기진단장치 동일차종 설명</th>
-      </tr>
-      <!-- 차명(동일차명) 헤더행 + 입력칸 -->
-      <tr>
-        <th class="obd-th" colspan="2">차명(동일차명)</th>
-        <td colspan="2"><input data-field="obd_same_veh_name" class="obd-inp" type="text" value="\${E(v('obd_same_veh_name'))}"></td>
-      </tr>
-      <!-- 구분/내용 서브헤더 -->
-      <tr>
-        <th class="obd-th">구&nbsp;&nbsp;분</th>
-        <th class="obd-th">내&nbsp;&nbsp;용</th>
-        <td colspan="2"></td>
-      </tr>
-      <!-- 엔진 -->
-      <tr>
-        <td class="obd-lbl" rowspan="2" style="text-align:center; vertical-align:middle;">엔&nbsp;&nbsp;진</td>
-        <td class="obd-lbl">연소과정 (불꽃점화, 압축착화, 2행정, 4행정 등)</td>
-        <td colspan="2"><input data-field="obd_eng_process" class="obd-inp" type="text" value="\${E(v('obd_eng_process'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">연료공급 방법 (기화기식, 연료분사식 등)</td>
-        <td colspan="2"><input data-field="obd_fuel_supply" class="obd-inp" type="text" value="\${E(v('obd_fuel_supply'))}"></td>
-      </tr>
-      <!-- 배출가스 제어장치 -->
-      <tr>
-        <td class="obd-lbl" rowspan="4" style="text-align:center; vertical-align:middle;">배출가스<br>제어장치</td>
-        <td class="obd-lbl">촉매전환기의 형식 (산화촉매, 삼원촉매, 가열식촉매 등)</td>
-        <td colspan="2"><input data-field="obd_cat_type2" class="obd-inp" type="text" value="\${E(v('obd_cat_type2'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">매연여과장치의 형식</td>
-        <td colspan="2"><input data-field="obd_dpf_type" class="obd-inp" type="text" value="\${E(v('obd_dpf_type'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">2차공기 분사의 유무</td>
-        <td colspan="2"><input data-field="obd_2air2" class="obd-inp" type="text" placeholder="유/무" value="\${E(v('obd_2air2'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">배출가스 재순환장치의 유무</td>
-        <td colspan="2"><input data-field="obd_egr2" class="obd-inp" type="text" placeholder="유/무" value="\${E(v('obd_egr2'))}"></td>
-      </tr>
-      <!-- 배출가스 자기진단장치의 구성 및 기능 -->
-      <tr>
-        <td class="obd-lbl" rowspan="3" style="text-align:center; vertical-align:middle;">배출가스<br>자기진단장치의<br>구성 및 기능</td>
-        <td class="obd-lbl">배출가스 자기진단장치의 작동방법</td>
-        <td colspan="2"><input data-field="obd_diag_method" class="obd-inp" type="text" value="\${E(v('obd_diag_method'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">감시장치의 오작동 확인 방법</td>
-        <td colspan="2"><input data-field="obd_mon_method" class="obd-inp" type="text" value="\${E(v('obd_mon_method'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">오작동 표시방법</td>
-        <td colspan="2"><input data-field="obd_mil_method" class="obd-inp" type="text" value="\${E(v('obd_mil_method'))}"></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- PAGE6: 3. 시험차량 선정에 관한 서류                   -->
-  <!-- PDF: 3열 구조 항목(30%) | 구분(중간35%) | 시험차량(35%) -->
-  <!-- 항목+구분 병합, 배출가스제어장치·자기진단장치·비고 포함 -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <table class="obd-tbl" style="border-top:none; table-layout:fixed; width:100%;">
-    <colgroup>
-      <col style="width:30%;"><col style="width:35%;"><col style="width:35%;">
-    </colgroup>
-    <tbody>
-      <tr>
-        <th class="obd-sec-th" colspan="3">3. 시험차량 선정에 관한 서류</th>
-      </tr>
-      <tr>
-        <th class="obd-sec-th" colspan="3">가. 배출가스자기진단장치 시험차량 선정근거</th>
-      </tr>
-      <!-- 헤더: 구분 | 배출가스자기진단장치 시험차량 -->
-      <tr>
-        <th class="obd-th" rowspan="2">항&nbsp;&nbsp;목</th>
-        <th class="obd-th" colspan="2">배출가스자기진단장치 시험차량</th>
-      </tr>
-      <tr>
-        <th class="obd-th">모델명</th>
-        <td><input data-field="obd_test_model" class="obd-inp" type="text" value="\${E(v('obd_test_model'))}"></td>
-      </tr>
-      <!-- 기본 항목들 -->
-      <tr>
-        <td class="obd-lbl" colspan="2">차대번호(엔진번호)</td>
-        <td><input data-field="obd_test_vin" class="obd-inp" type="text" value="\${E(v('obd_test_vin'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl" colspan="2">배기량(cc)</td>
-        <td><input data-field="obd_test_cc" class="obd-inp" type="text" value="\${E(v('obd_test_cc'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl" colspan="2">엔진형식</td>
-        <td><input data-field="obd_test_eng" class="obd-inp" type="text" value="\${E(v('obd_test_eng'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl" colspan="2">변속기 형태</td>
-        <td><input data-field="obd_test_trans" class="obd-inp" type="text" value="\${E(v('obd_test_trans'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl" colspan="2">변속절차</td>
-        <td><input data-field="obd_test_trans_proc" class="obd-inp" type="text" value="\${E(v('obd_test_trans_proc'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl" colspan="2">등가관성중량(kg)</td>
-        <td><input data-field="obd_test_inertia" class="obd-inp" type="text" value="\${E(v('obd_test_inertia'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl" colspan="2">종감속기</td>
-        <td><input data-field="obd_test_final" class="obd-inp" type="text" value="\${E(v('obd_test_final'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl" colspan="2">N/V비, rpm/kph</td>
-        <td><input data-field="obd_test_nv" class="obd-inp" type="text" value="\${E(v('obd_test_nv'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl" rowspan="2">타이어</td>
-        <td class="obd-lbl">전</td>
-        <td><input data-field="obd_test_tire_f" class="obd-inp" type="text" value="\${E(v('obd_test_tire_f'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">후</td>
-        <td><input data-field="obd_test_tire_r" class="obd-inp" type="text" value="\${E(v('obd_test_tire_r'))}"></td>
-      </tr>
-      <!-- 배출가스 제어장치 -->
-      <tr>
-        <td class="obd-lbl" rowspan="5" style="text-align:center; vertical-align:middle;">배출가스<br>제어장치</td>
-        <td class="obd-lbl">촉매전환기의 형식 (산화촉매, 삼원촉매, 가열식 촉매 등)</td>
-        <td><input data-field="obd_sel_cat" class="obd-inp" type="text" value="\${E(v('obd_sel_cat'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">매연 여과장치의 형식</td>
-        <td><input data-field="obd_sel_dpf" class="obd-inp" type="text" value="\${E(v('obd_sel_dpf'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">2차공기 분사의 유무</td>
-        <td><input data-field="obd_sel_2air" class="obd-inp" type="text" placeholder="유/무" value="\${E(v('obd_sel_2air'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">배출가스 재순환 장치의 유무</td>
-        <td><input data-field="obd_sel_egr" class="obd-inp" type="text" placeholder="유/무" value="\${E(v('obd_sel_egr'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">증발가스 제어장치</td>
-        <td><input data-field="obd_sel_evap" class="obd-inp" type="text" value="\${E(v('obd_sel_evap'))}"></td>
-      </tr>
-      <!-- 배출가스 자기진단장치의 구성 및 기능 -->
-      <tr>
-        <td class="obd-lbl" rowspan="5" style="text-align:center; vertical-align:middle;">배출가스자기진단장치의<br>구성 및 기능</td>
-        <td class="obd-lbl">배출가스 자기진단장치 작동방법</td>
-        <td><input data-field="obd_sel_method" class="obd-inp" type="text" value="\${E(v('obd_sel_method'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">감시장치의 오작동 확인방법</td>
-        <td><input data-field="obd_sel_mon" class="obd-inp" type="text" value="\${E(v('obd_sel_mon'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">오작동 표시 방법</td>
-        <td><input data-field="obd_sel_mil" class="obd-inp" type="text" value="\${E(v('obd_sel_mil'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">감시항목</td>
-        <td><input data-field="obd_sel_items" class="obd-inp" type="text" value="\${E(v('obd_sel_items'))}"></td>
-      </tr>
-      <tr>
-        <td class="obd-lbl">비&nbsp;&nbsp;고</td>
-        <td><input data-field="obd_sel_note" class="obd-inp" type="text" value="\${E(v('obd_sel_note'))}"></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- 비고: OBD TEST 사진 첨부 안내 -->
-  <div style="margin-top:10px; padding:7px 10px; border:1px solid #aaa; font-size:8.5pt; background:#fafafa; color:#333;">
-    ※ OBD TEST 사진 및 스캐너 사진 첨부 : 차량사진, 차대번호 사진, 엔진번호 사진 포함
+<!-- OBD TEST 사진 첨부 -->
+<div style="margin-top:10px; padding:7px 10px; border:1px solid #aaa; font-size:8.5pt; background:#fafafa; color:#333; border-radius:4px;">
+  ※ OBD TEST 사진 및 스캐너 사진 첨부 : 차량사진, 차대번호 사진, 엔진번호 사진 포함
+</div>
+<div style="margin-top:8px; padding:6px;">
+  <div class="obd-drop" id="obd-drop-test" onclick="document.getElementById('obd-file-test').click()">
+    <span id="obd-drop-test-txt">클릭하여 OBD TEST 사진 첨부</span>
+    <input type="file" id="obd-file-test" accept="image/*">
+    <input type="hidden" data-field="obd_test_img">
   </div>
+</div>
 
-  <div id="qr-footer-wrap" style="margin-top:12px;"></div>
+<div id="qr-footer-wrap" style="margin-top:12px;"></div>
 </div>
 \`;
-
-  if (formType==='emission_test') return \`
-<style>
-/* ══════ emission_test 전용 스타일 ══════ */
-.em-wrap {
-  box-sizing:border-box;
-  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
-  font-size:9pt;
-  padding:10px 2px;
-  background:#fff;
-  color:#111;
-  border-radius:8px;
-}
-.em-doc-tag  { font-size:8.5pt; font-weight:700; color:#444; margin:10px 0 4px; }
-.em-main-title {
-  font-size:13pt; font-weight:900; text-align:center;
-  margin:4px 0 14px; letter-spacing:.03em; color:#111;
-}
-.em-tbl {
-  width:100%; border-collapse:collapse;
-  font-size:8.5pt; margin-bottom:0;
-}
-.em-tbl th, .em-tbl td {
-  border:1px solid #888;
-  padding:3px 5px;
-  vertical-align:middle;
-  color:#111;
-}
-.em-sec-th {
-  background:#d6e4f7;
-  font-weight:700;
-  text-align:left;
-  padding:3px 6px;
-  font-size:8.5pt;
-  color:#111;
-}
-.em-th {
-  background:#eef3fa;
-  font-weight:600;
-  white-space:nowrap;
-  font-size:8pt;
-  color:#111;
-}
-.em-inp {
-  border:none;
-  background:transparent;
-  width:100%;
-  font-size:8.5pt;
-  font-family:inherit;
-  padding:0 2px;
-  box-sizing:border-box;
-  color:#111;
-}
-.em-inp::placeholder { color:#aaa; }
-.em-inp:focus { outline:none; border-bottom:1px solid #4e90d8; }
-.em-chk { display:flex; align-items:center; gap:3px; font-size:8.5pt; color:#111; }
-/* 첨부 섹션 (증발가스와 동일 패턴) */
-.em-attach-section { margin-top:14px; }
-.em-attach-title { font-size:9pt; font-weight:700; margin-bottom:6px; color:#222; }
-.em-attach-note { font-size:8pt; color:#666; margin-bottom:8px; }
-.em-attach-drop {
-  border:2px dashed #bbb; border-radius:8px;
-  padding:16px; text-align:center; cursor:pointer;
-  transition:border-color .2s, background .2s;
-  display:flex; flex-direction:column; align-items:center; gap:4px;
-  color:#555; background:#fafafa;
-}
-.em-attach-drop:hover { border-color:#4e90d8; background:rgba(79,142,247,.04); }
-.em-attach-drop input[type=file] { display:none; }
-.em-attach-list { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
-.em-attach-item {
-  display:flex; align-items:center; gap:8px;
-  padding:4px 8px; border-radius:4px;
-  background:#f0f4fa; font-size:8.5pt;
-}
-.em-attach-item-name { flex:1; color:#111; word-break:break-all; }
-.em-attach-item-size { color:#666; white-space:nowrap; font-size:8pt; }
-.em-attach-item-del { color:#ef4444; cursor:pointer; padding:1px 5px; border-radius:3px; font-size:10pt; line-height:1; }
-.em-attach-item-del:hover { background:rgba(239,68,68,.12); }
-.em-attach-print-wrap { display:none; margin-top:10px; }
-.em-attach-print-page { page-break-before:always; margin-top:20px; }
-.em-attach-print-page img { max-width:100%; height:auto; display:block; }
-.em-attach-print-page .em-attach-pdf-frame { width:100%; min-height:1100px; border:none; }
-
-@media print {
-  .em-wrap {
-    background:#fff !important;
-    color:#000 !important;
-    border-radius:0 !important;
-  }
-  .em-tbl th, .em-tbl td {
-    border:1px solid #333 !important;
-    color:#000 !important;
-    -webkit-print-color-adjust:exact; print-color-adjust:exact;
-  }
-  .em-inp {
-    border:none !important;
-    background:transparent !important;
-    height:auto !important;
-    overflow:visible !important;
-    font-size:8.5pt !important;
-    font-family:'맑은 고딕','Malgun Gothic',sans-serif !important;
-    padding:0 2px !important;
-    color:#000 !important;
-  }
-  .em-sec-th {
-    background:#d6e4f7 !important;
-    color:#000 !important;
-    -webkit-print-color-adjust:exact; print-color-adjust:exact;
-  }
-  .em-th {
-    background:#eef3fa !important;
-    color:#000 !important;
-    -webkit-print-color-adjust:exact; print-color-adjust:exact;
-  }
-  .em-chk { color:#000 !important; }
-  /* 첨부 드롭존·목록은 숨기고 인쇄 렌더만 표시 */
-  .em-attach-section { display:none !important; }
-  .em-attach-print-wrap { display:block !important; }
-  .em-attach-print-page { page-break-before:always; }
-}
-</style>
-
-<div class="em-wrap">
-
-  <!-- ── 최상단 헤더 (수입사/인증연도/배기량/동일차종기호) ── -->
-  <!-- PDF 실측: 4등분 25.2%/24.7%/24.8%/25.2% -->
-  <table class="em-tbl" style="margin-bottom:12px; table-layout:fixed;">
-    <colgroup>
-      <col style="width:25.2%;"><col style="width:24.7%;"><col style="width:24.9%;"><col style="width:25.2%;">
-    </colgroup>
-    <thead>
-      <tr>
-        <th class="em-th">수입사</th>
-        <th class="em-th">인증연도</th>
-        <th class="em-th">배기량</th>
-        <th class="em-th">동일차종기호</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr style="height:26px;">
-        <td><input data-field="em_importer"  class="em-inp" type="text" value="\${E(v('em_importer'))}"></td>
-        <td><input data-field="em_cert_year" class="em-inp" type="text" value="\${E(v('em_cert_year'))}"></td>
-        <td><input data-field="em_disp"      class="em-inp" type="text" value="\${E(v('em_disp'))}"></td>
-        <td><input data-field="em_fam_code"  class="em-inp" type="text" value="\${E(v('em_fam_code'))}"></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="em-doc-tag">[별지 제18의2호 서식]</div>
-  <div class="em-main-title">배출가스 시험내용 보고서(WMTC 모드)</div>
-
-  <!-- ══════════════════════════════════════════ -->
-  <!-- 1. 일반 사항                               -->
-  <!-- ══════════════════════════════════════════ -->
-  <!-- PDF 실측: y=181~196 섹션헤더              -->
-  <!-- y=196~210: 3열 [33.5%|31.5%|35.1%]       -->
-  <!-- y=210~225: 시험구분 10셀 복합              -->
-  <!-- y=225~240: 시험번호/운전자/장비작동자/검사책임자 8셀 -->
-  <table class="em-tbl">
-    <tbody>
-      <tr>
-        <th class="em-sec-th" colspan="8">1. 일반 사항</th>
-      </tr>
-      <!-- 인증차명 / 시험차명 / 시험일시 (3열) -->
-      <tr>
-        <td class="em-th" colspan="3" style="width:33.5%;">인증차명(동일차종) :
-          <input data-field="em_cert_model" class="em-inp" type="text" value="\${E(v('em_cert_model'))}">
-        </td>
         <td class="em-th" colspan="2" style="width:31.5%;">시험차명 :
           <input data-field="em_test_model" class="em-inp" type="text" value="\${E(v('em_test_model'))}">
         </td>
@@ -7714,6 +7501,71 @@ function showToast(msg, type='info') {
 // ================================================================
 // noise_test 첨부파일 기능
 // ================================================================
+// ── obd_config 이미지 드롭존 초기화 ─────────────────────────────────
+function initObdImgDrops() {
+  var drops = [
+    { dropId:'obd-drop-mil',  fileId:'obd-file-mil',  field:'obd_mil_img'  },
+    { dropId:'obd-drop-lh',   fileId:'obd-file-lh',   field:'obd_lh_img'   },
+    { dropId:'obd-drop-rh',   fileId:'obd-file-rh',   field:'obd_rh_img'   },
+    { dropId:'obd-drop-kb',   fileId:'obd-file-kb',   field:'obd_kb_img'   },
+    { dropId:'obd-drop-test', fileId:'obd-file-test', field:'obd_test_img' },
+  ];
+  drops.forEach(function(cfg) {
+    var drop = document.getElementById(cfg.dropId);
+    var fileInput = document.getElementById(cfg.fileId);
+    var hidden = drop ? drop.querySelector('input[type=hidden]') : null;
+    if (!drop || !fileInput) return;
+
+    function renderImg(src) {
+      var span = drop.querySelector('span');
+      if (span) span.remove();
+      var existing = drop.querySelector('img');
+      if (existing) existing.remove();
+      if (src) {
+        var img = document.createElement('img');
+        img.src = src;
+        img.style.cssText = 'max-width:100%;max-height:180px;display:block;object-fit:contain;';
+        drop.appendChild(img);
+        if (hidden) hidden.value = src;
+      } else {
+        var sp = document.createElement('span');
+        sp.textContent = '클릭하여 이미지 첨부';
+        drop.appendChild(sp);
+        if (hidden) hidden.value = '';
+      }
+    }
+
+    // 기존 저장값 복원
+    if (hidden && hidden.value) renderImg(hidden.value);
+
+    fileInput.addEventListener('change', function() {
+      var file = fileInput.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(e) { renderImg(e.target.result); };
+      reader.readAsDataURL(file);
+    });
+
+    // 드래그앤드롭
+    drop.addEventListener('dragover', function(e) { e.preventDefault(); drop.style.borderColor='#4e90d8'; });
+    drop.addEventListener('dragleave', function() { drop.style.borderColor=''; });
+    drop.addEventListener('drop', function(e) {
+      e.preventDefault(); drop.style.borderColor='';
+      var file = e.dataTransfer.files[0];
+      if (!file || !file.type.startsWith('image/')) return;
+      var reader = new FileReader();
+      reader.onload = function(ev) { renderImg(ev.target.result); };
+      reader.readAsDataURL(file);
+    });
+
+    // 우클릭 삭제
+    drop.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      if (drop.querySelector('img')) renderImg('');
+    });
+  });
+}
+
 function initEmissionAttach() {
   function makeAttach(dropId, fileInputId, listId, printWrapId) {
     var files = [];

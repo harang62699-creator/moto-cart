@@ -3396,20 +3396,639 @@ if (formType==='detail_plan') return (
     '<div id="qr-footer-wrap" style="margin-top:12px;"></div>'
   );
 
-  if (formType==='emission_noise') return (
-    sec('소음기','fa-volume-mute',
-      fld('소음기 종류','muffler_type')+fld('소음기 재질','muffler_material')+
-      fld('소음기 외경 (mm)','muffler_od','number')+fld('소음기 길이 (mm)','muffler_length','number'))+
-    sec('소음기 구조 설명','fa-align-left',ta('소음기 구조 및 작동 방식','muffler_desc','소음기 구조 설명',3),true)+
-    sec('촉매 변환장치','fa-filter',
-      fld('촉매 형식','cat_type')+fld('촉매 용량 (L)','cat_volume','number')+
-      fld('셀 밀도 (cpsi)','cat_cpsi','number')+fld('귀금속 함량 (g/ft³)','cat_pgm','number'))+
-    sec('배출가스 저감 기술','fa-leaf',ta('주요 저감 기술 설명','emission_tech','엔진 제어, 연료분사, 촉매 등',4),true)+
-    sec('소음 측정 결과 요약','fa-chart-bar',
-      fld('가속소음 측정값 (dB(A))','accel_noise_meas','number')+fld('가속소음 기준값 (dB(A))','accel_noise_std','number')+
-      fld('배기소음 측정값 (dB(A))','exhaust_noise_meas','number')+fld('배기소음 기준값 (dB(A))','exhaust_noise_std','number'))+
-    '<div id="qr-footer-wrap" style="margin-top:12px;"></div>'
-  );
+  if (formType==='emission_noise') return \`
+<style>
+/* ══════ emission_noise 전용 스타일 ══════ */
+.en-wrap {
+  box-sizing:border-box;
+  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  font-size:9pt;
+  padding:10px 2px;
+  background:#fff;
+  color:#111;
+  border-radius:8px;
+}
+.en-doc-tag { font-size:8.5pt; font-weight:700; color:#444; margin:10px 0 4px; }
+.en-main-title {
+  font-size:13pt; font-weight:900; text-align:center;
+  margin:4px 0 14px; letter-spacing:.03em; color:#111;
+}
+.en-tbl {
+  width:100%; border-collapse:collapse;
+  font-size:8.5pt; margin-bottom:0;
+}
+.en-tbl th, .en-tbl td {
+  border:1px solid #888;
+  padding:3px 5px;
+  vertical-align:middle;
+  color:#111;
+}
+.en-sec-th {
+  background:#d6e4f7;
+  font-weight:700; text-align:left;
+  padding:4px 6px; font-size:8.5pt; color:#111;
+}
+.en-sub-th {
+  background:#eef3fa;
+  font-weight:700; text-align:left;
+  padding:3px 6px; font-size:8.5pt; color:#111;
+}
+.en-th {
+  background:#eef3fa;
+  font-weight:600; text-align:center;
+  font-size:8pt; color:#111;
+}
+.en-lbl {
+  background:#f5f8ff;
+  font-weight:600; color:#111;
+  vertical-align:middle;
+}
+.en-inp {
+  border:none; background:transparent;
+  width:100%; font-size:8.5pt;
+  font-family:inherit; padding:0 2px;
+  box-sizing:border-box; color:#111;
+}
+.en-inp::placeholder { color:#aaa; }
+.en-inp:focus { outline:none; border-bottom:1px solid #4e90d8; }
+.en-img-cell {
+  text-align:center; vertical-align:middle;
+  color:#999; font-size:8pt; padding:8px;
+  min-height:60px;
+}
+.en-ta {
+  width:100%; font-size:8.5pt; font-family:inherit;
+  border:none; background:transparent; padding:2px;
+  box-sizing:border-box; resize:vertical; color:#111;
+  min-height:48px;
+}
+.en-ta:focus { outline:none; border-bottom:1px solid #4e90d8; }
+@media print {
+  .en-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; }
+  .en-tbl th, .en-tbl td { border:1px solid #333 !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-inp { border:none !important; background:transparent !important; color:#000 !important; font-size:8.5pt !important; font-family:'맑은 고딕','Malgun Gothic',sans-serif !important; }
+  .en-ta { border:none !important; background:transparent !important; color:#000 !important; font-size:8.5pt !important; font-family:'맑은 고딕','Malgun Gothic',sans-serif !important; }
+  .en-sec-th { background:#d6e4f7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-sub-th { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-th { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-lbl { background:#f5f8ff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+</style>
+
+<div class="en-wrap">
+
+  <!-- ── 상단 헤더 (수입사/인증연도/배기량/동일차종기호) ── -->
+  <table class="en-tbl" style="margin-bottom:12px; table-layout:fixed;">
+    <colgroup>
+      <col style="width:25%;"><col style="width:25%;"><col style="width:25%;"><col style="width:25%;">
+    </colgroup>
+    <thead>
+      <tr>
+        <th class="en-th">수입사</th>
+        <th class="en-th">인증연도</th>
+        <th class="en-th">배기량</th>
+        <th class="en-th">동일차종기호</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="height:26px;">
+        <td><input data-field="en_importer"  class="en-inp" type="text" value="\${E(v('en_importer'))}"></td>
+        <td><input data-field="en_cert_year" class="en-inp" type="text" value="\${E(v('en_cert_year'))}"></td>
+        <td><input data-field="en_disp"      class="en-inp" type="text" value="\${E(v('en_disp'))}"></td>
+        <td><input data-field="en_fam_code"  class="en-inp" type="text" value="\${E(v('en_fam_code'))}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="en-doc-tag">[별지 제5호 서식]</div>
+  <div class="en-main-title">이륜자동차 배출가스·소음 저감에 관한 서류</div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 1. 머플러                                              -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <table class="en-tbl" style="table-layout:fixed; width:100%;">
+    <colgroup><col style="width:22%;"><col style="width:78%;"></colgroup>
+    <tbody>
+      <tr><th class="en-sec-th" colspan="2">1. 머플러</th></tr>
+
+      <!-- 1.1 머플러 구성 내역 -->
+      <tr><td class="en-sub-th" colspan="2">1.1. 머플러 구성 내역</td></tr>
+      <tr>
+        <td colspan="2" style="padding:4px 6px; min-height:60px;">
+          <textarea data-field="en_muffler_comp" class="en-ta" rows="3" placeholder="머플러 구성 내역을 기재하세요">\${E(v('en_muffler_comp'))}</textarea>
+        </td>
+      </tr>
+
+      <!-- 1.2 머플러 내부 구조도 -->
+      <tr><td class="en-sub-th" colspan="2">1.2. 머플러 내부 구조도</td></tr>
+      <tr>
+        <td colspan="2" class="en-img-cell" style="min-height:80px;">
+          <input data-field="en_muffler_diagram" class="en-inp" type="text" placeholder="도면 또는 이미지 첨부" value="\${E(v('en_muffler_diagram'))}">
+        </td>
+      </tr>
+
+      <!-- 1.3 소음기 상세제원 -->
+      <tr><td class="en-sub-th" colspan="2">1.3. 소음기 상세제원</td></tr>
+
+      <!-- 1.3.1 구조 및 소음저감 원리 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">1.3.1. 구조 및 소음저감 원리</td>
+        <td><textarea data-field="en_muffler_principle" class="en-ta" rows="3" placeholder="구조 및 소음저감 원리를 기재하세요">\${E(v('en_muffler_principle'))}</textarea></td>
+      </tr>
+
+      <!-- 1.3.2 소음기내의 배출가스 흐름도 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">1.3.2. 소음기내의 배출가스 흐름도</td>
+        <td class="en-img-cell">
+          <input data-field="en_muffler_flow" class="en-inp" type="text" placeholder="흐름도 이미지 첨부" value="\${E(v('en_muffler_flow'))}">
+        </td>
+      </tr>
+
+      <!-- 1.3.3 소음기 제작사 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">1.3.3. 소음기 제작사</td>
+        <td><input data-field="en_muffler_maker" class="en-inp" type="text" placeholder="제작사명" value="\${E(v('en_muffler_maker'))}"></td>
+      </tr>
+
+      <!-- 1.3.4 소음기 내부/외부 -->
+      <tr>
+        <td class="en-lbl" style="padding:3px 6px;">1.3.4. 소음기 내부 / 소음기 외부</td>
+        <td>
+          <span style="font-size:8pt;">내부 : </span>
+          <input data-field="en_muffler_inside" class="en-inp" type="text" style="width:42%; display:inline-block;" placeholder="내부 재질/사양" value="\${E(v('en_muffler_inside'))}">
+          <span style="font-size:8pt;">&nbsp;&nbsp;외부 : </span>
+          <input data-field="en_muffler_outside" class="en-inp" type="text" style="width:38%; display:inline-block;" placeholder="외부 재질/사양" value="\${E(v('en_muffler_outside'))}">
+        </td>
+      </tr>
+
+      <!-- 1.3.5 소음기 치수 도면 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">1.3.5. 소음기 치수 도면</td>
+        <td class="en-img-cell">
+          <input data-field="en_muffler_dim" class="en-inp" type="text" placeholder="치수 도면 이미지 첨부" value="\${E(v('en_muffler_dim'))}">
+        </td>
+      </tr>
+
+      <!-- 1.4 촉매 상세제원 -->
+      <tr><td class="en-sub-th" colspan="2">1.4. 촉매 상세제원</td></tr>
+
+      <!-- 1.4.1 촉매 제작사 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">1.4.1. 촉매 제작사</td>
+        <td><input data-field="en_cat_maker" class="en-inp" type="text" placeholder="제작사명" value="\${E(v('en_cat_maker'))}"></td>
+      </tr>
+
+      <!-- 1.4.2 촉매 재질 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">1.4.2. 촉매 재질</td>
+        <td><input data-field="en_cat_material" class="en-inp" type="text" placeholder="촉매 재질" value="\${E(v('en_cat_material'))}"></td>
+      </tr>
+
+      <!-- 1.4.3 촉매 성능 및 치수 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">1.4.3. 촉매 성능 및 치수</td>
+        <td><input data-field="en_cat_spec" class="en-inp" type="text" placeholder="촉매 성능 및 치수" value="\${E(v('en_cat_spec'))}"></td>
+      </tr>
+
+      <!-- 1.4.4 촉매 치수 도면 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">1.4.4. 촉매 치수 도면</td>
+        <td class="en-img-cell">
+          <input data-field="en_cat_dim" class="en-inp" type="text" placeholder="치수 도면 이미지 첨부" value="\${E(v('en_cat_dim'))}">
+        </td>
+      </tr>
+
+      <!-- 1.4.5 촉매 원리 또는 효과 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">1.4.5. 촉매 원리 또는 효과</td>
+        <td><textarea data-field="en_cat_principle" class="en-ta" rows="3" placeholder="촉매 원리 또는 효과를 기재하세요">\${E(v('en_cat_principle'))}</textarea></td>
+      </tr>
+
+      <!-- 1.4.6 촉매 부착위치 도면 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">1.4.6. 촉매 부착위치 도면</td>
+        <td class="en-img-cell">
+          <input data-field="en_cat_pos" class="en-inp" type="text" placeholder="부착위치 도면 이미지 첨부" value="\${E(v('en_cat_pos'))}">
+        </td>
+      </tr>
+
+      <!-- 1.5 센서 상세제원 -->
+      <tr><td class="en-sub-th" colspan="2">1.5. 센서 상세제원</td></tr>
+
+      <!-- 1.5.1 센서 제작사 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">1.5.1. 센서 제작사</td>
+        <td><input data-field="en_sensor_maker" class="en-inp" type="text" placeholder="제작사명" value="\${E(v('en_sensor_maker'))}"></td>
+      </tr>
+
+      <!-- 1.5.2 센서 재질 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">1.5.2. 센서 재질</td>
+        <td><input data-field="en_sensor_material" class="en-inp" type="text" placeholder="센서 재질" value="\${E(v('en_sensor_material'))}"></td>
+      </tr>
+
+      <!-- 1.5.3 센서 치수 도면 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">1.5.3. 센서 치수 도면</td>
+        <td class="en-img-cell">
+          <input data-field="en_sensor_dim" class="en-inp" type="text" placeholder="치수 도면 이미지 첨부" value="\${E(v('en_sensor_dim'))}">
+        </td>
+      </tr>
+
+      <!-- 1.6 머플러 도면 -->
+      <tr><td class="en-sub-th" colspan="2">1.6. 머플러 도면</td></tr>
+      <tr>
+        <td colspan="2" class="en-img-cell" style="min-height:100px;">
+          <input data-field="en_muffler_drawing" class="en-inp" type="text" placeholder="머플러 도면 이미지 첨부" value="\${E(v('en_muffler_drawing'))}">
+        </td>
+      </tr>
+
+      <!-- 1.7 머플러 사진 -->
+      <tr><td class="en-sub-th" colspan="2">1.7. 머플러 사진</td></tr>
+      <tr>
+        <td colspan="2" class="en-img-cell" style="min-height:100px;">
+          <input data-field="en_muffler_photo" class="en-inp" type="text" placeholder="머플러 사진 첨부" value="\${E(v('en_muffler_photo'))}">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 2. 밸브 장치(Valve Train)                              -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <table class="en-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+    <colgroup><col style="width:22%;"><col style="width:78%;"></colgroup>
+    <tbody>
+      <tr><th class="en-sec-th" colspan="2">2. 밸브 장치(Valve Train)</th></tr>
+
+      <!-- 2.1 밸브 기구의 관성력 -->
+      <tr><td class="en-sub-th" colspan="2">2.1. 밸브 기구의 관성력</td></tr>
+      <tr>
+        <td colspan="2" style="padding:4px 6px;">
+          <textarea data-field="en_valve_inertia" class="en-ta" rows="3" placeholder="밸브 기구의 관성력에 관한 내용을 기재하세요">\${E(v('en_valve_inertia'))}</textarea>
+        </td>
+      </tr>
+
+      <!-- 2.2 밸브 스프링의 Surging 현상 대응기술 -->
+      <tr><td class="en-sub-th" colspan="2">2.2. 밸브 스프링의 Surging 현상 대응기술</td></tr>
+      <tr>
+        <td colspan="2" style="padding:4px 6px;">
+          <textarea data-field="en_valve_surging" class="en-ta" rows="3" placeholder="Surging 현상 대응기술을 기재하세요">\${E(v('en_valve_surging'))}</textarea>
+        </td>
+      </tr>
+
+      <!-- 2.3 캠프로파일 및 제원 -->
+      <tr><td class="en-sub-th" colspan="2">2.3. 캠프로파일 및 제원</td></tr>
+
+      <!-- 2.3.1 밸브 제원 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">2.3.1. 밸브 제원</td>
+        <td><textarea data-field="en_valve_spec" class="en-ta" rows="2" placeholder="밸브 제원을 기재하세요">\${E(v('en_valve_spec'))}</textarea></td>
+      </tr>
+
+      <!-- 2.3.2 Cam 제원 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">2.3.2. Cam 제원</td>
+        <td><textarea data-field="en_cam_spec" class="en-ta" rows="2" placeholder="Cam 제원을 기재하세요">\${E(v('en_cam_spec'))}</textarea></td>
+      </tr>
+
+      <!-- 2.3.3 Cam 치수 도면 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">2.3.3. Cam 치수 도면</td>
+        <td class="en-img-cell">
+          <input data-field="en_cam_dim" class="en-inp" type="text" placeholder="Cam 치수 도면 이미지 첨부" value="\${E(v('en_cam_dim'))}">
+        </td>
+      </tr>
+
+      <!-- 2.4 Valve 기구의 재질 -->
+      <tr><td class="en-sub-th" colspan="2">2.4. Valve 기구의 재질 등에 관한 내용</td></tr>
+      <tr>
+        <td colspan="2" style="padding:4px 6px;">
+          <textarea data-field="en_valve_material" class="en-ta" rows="3" placeholder="Valve 기구의 재질 등에 관한 내용을 기재하세요">\${E(v('en_valve_material'))}</textarea>
+        </td>
+      </tr>
+
+      <!-- 2.5 밸브 간극 -->
+      <tr><td class="en-sub-th" colspan="2">2.5. 밸브 간극</td></tr>
+      <tr>
+        <td colspan="2" style="padding:4px 6px;">
+          <input data-field="en_valve_clearance" class="en-inp" type="text" placeholder="밸브 간극 수치 또는 설명" value="\${E(v('en_valve_clearance'))}">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 3. 점화장치                                            -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <table class="en-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+    <colgroup><col style="width:22%;"><col style="width:78%;"></colgroup>
+    <tbody>
+      <tr><th class="en-sec-th" colspan="2">3. 점화장치</th></tr>
+
+      <!-- 3.1 점화장치 구성도 -->
+      <tr><td class="en-sub-th" colspan="2">3.1. 점화장치 구성도</td></tr>
+      <tr>
+        <td colspan="2" class="en-img-cell" style="min-height:80px;">
+          <input data-field="en_ign_diagram" class="en-inp" type="text" placeholder="점화장치 구성도 이미지 첨부" value="\${E(v('en_ign_diagram'))}">
+        </td>
+      </tr>
+
+      <!-- 3.2 점화장치 제어특성 -->
+      <tr><td class="en-sub-th" colspan="2">3.2. 점화장치 제어특성</td></tr>
+      <tr>
+        <td colspan="2" style="padding:4px 6px;">
+          <textarea data-field="en_ign_control" class="en-ta" rows="3" placeholder="점화장치 제어특성을 기재하세요">\${E(v('en_ign_control'))}</textarea>
+        </td>
+      </tr>
+
+      <!-- 3.3 점화장치 상세제원 -->
+      <tr><td class="en-sub-th" colspan="2">3.3. 점화장치 상세제원</td></tr>
+
+      <!-- 3.3.1 제너레이터 -->
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:12px;">3.3.1. 제너레이터</td>
+        <td style="padding:3px 6px; color:#888; font-size:8pt;"></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">3.3.1.1. 제너레이터 상세제원</td>
+        <td><textarea data-field="en_gen_spec" class="en-ta" rows="2" placeholder="제너레이터 상세제원">\${E(v('en_gen_spec'))}</textarea></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">3.3.1.2. 제너레이터 형상 및 치수제원</td>
+        <td class="en-img-cell">
+          <input data-field="en_gen_dim" class="en-inp" type="text" placeholder="형상 및 치수제원 이미지 첨부" value="\${E(v('en_gen_dim'))}">
+        </td>
+      </tr>
+
+      <!-- 3.3.2 CDI UNIT -->
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:12px;">3.3.2. CDI UNIT</td>
+        <td style="padding:3px 6px; color:#888; font-size:8pt;"></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">3.3.2.1. CDI UNIT 상세제원</td>
+        <td><textarea data-field="en_cdi_spec" class="en-ta" rows="2" placeholder="CDI UNIT 상세제원">\${E(v('en_cdi_spec'))}</textarea></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">3.3.2.2. CDI UNIT 형상 및 치수제원</td>
+        <td class="en-img-cell">
+          <input data-field="en_cdi_dim" class="en-inp" type="text" placeholder="형상 및 치수제원 이미지 첨부" value="\${E(v('en_cdi_dim'))}">
+        </td>
+      </tr>
+
+      <!-- 3.3.3 점화코일 -->
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:12px;">3.3.3. 점화코일</td>
+        <td style="padding:3px 6px; color:#888; font-size:8pt;"></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">3.3.3.1. 점화코일 상세제원</td>
+        <td><textarea data-field="en_coil_spec" class="en-ta" rows="2" placeholder="점화코일 상세제원">\${E(v('en_coil_spec'))}</textarea></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">3.3.3.2. 점화코일 형상 및 치수제원</td>
+        <td class="en-img-cell">
+          <input data-field="en_coil_dim" class="en-inp" type="text" placeholder="형상 및 치수제원 이미지 첨부" value="\${E(v('en_coil_dim'))}">
+        </td>
+      </tr>
+
+      <!-- 3.3.4 점화플러그 -->
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:12px;">3.3.4. 점화플러그</td>
+        <td style="padding:3px 6px; color:#888; font-size:8pt;"></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">3.3.4.1. 점화플러그 상세제원</td>
+        <td><textarea data-field="en_plug_spec" class="en-ta" rows="2" placeholder="점화플러그 상세제원">\${E(v('en_plug_spec'))}</textarea></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">3.3.4.2. 점화플러그 형상 및 치수제원</td>
+        <td class="en-img-cell">
+          <input data-field="en_plug_dim" class="en-inp" type="text" placeholder="형상 및 치수제원 이미지 첨부" value="\${E(v('en_plug_dim'))}">
+        </td>
+      </tr>
+
+      <!-- 3.3.5 ECU -->
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:12px;">3.3.5. ECU 상세제원</td>
+        <td style="padding:3px 6px; color:#888; font-size:8pt;"></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">3.3.5.1. ECU 상세제원</td>
+        <td><textarea data-field="en_ecu_spec" class="en-ta" rows="2" placeholder="ECU 상세제원">\${E(v('en_ecu_spec'))}</textarea></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">3.3.5.2. ECU 형상 및 치수제원</td>
+        <td class="en-img-cell">
+          <input data-field="en_ecu_dim" class="en-inp" type="text" placeholder="형상 및 치수제원 이미지 첨부" value="\${E(v('en_ecu_dim'))}">
+        </td>
+      </tr>
+
+      <!-- 3.4 점화장치 사진 -->
+      <tr><td class="en-sub-th" colspan="2">3.4. 점화장치 사진</td></tr>
+      <tr>
+        <td colspan="2" class="en-img-cell" style="min-height:80px;">
+          <input data-field="en_ign_photo" class="en-inp" type="text" placeholder="점화장치 사진 첨부" value="\${E(v('en_ign_photo'))}">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 4. 연료장치                                            -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <table class="en-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+    <colgroup><col style="width:22%;"><col style="width:78%;"></colgroup>
+    <tbody>
+      <tr><th class="en-sec-th" colspan="2">4. 연료장치</th></tr>
+
+      <!-- 4.1 연료장치 구성 및 제어방식 -->
+      <tr><td class="en-sub-th" colspan="2">4.1. 연료장치 구성 및 제어방식</td></tr>
+      <tr>
+        <td colspan="2" style="padding:4px 6px;">
+          <textarea data-field="en_fuel_sys" class="en-ta" rows="3" placeholder="연료장치 구성 및 제어방식을 기재하세요">\${E(v('en_fuel_sys'))}</textarea>
+        </td>
+      </tr>
+
+      <!-- 4.2 연료장치 도면 및 치수 -->
+      <tr><td class="en-sub-th" colspan="2">4.2. 연료장치 도면 및 치수</td></tr>
+      <tr>
+        <td colspan="2" class="en-img-cell" style="min-height:80px;">
+          <input data-field="en_fuel_drawing" class="en-inp" type="text" placeholder="도면 및 치수 이미지 첨부" value="\${E(v('en_fuel_drawing'))}">
+        </td>
+      </tr>
+
+      <!-- 4.3 연료장치 상세제원 -->
+      <tr><td class="en-sub-th" colspan="2">4.3. 연료장치 상세제원</td></tr>
+
+      <!-- 4.3.1 연료탱크 -->
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:12px;">4.3.1. 연료탱크</td>
+        <td style="padding:3px 6px; color:#888; font-size:8pt;"></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">4.3.1.1. 연료탱크 상세제원</td>
+        <td><textarea data-field="en_tank_spec" class="en-ta" rows="2" placeholder="연료탱크 상세제원">\${E(v('en_tank_spec'))}</textarea></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">4.3.1.2. 연료탱크 위치</td>
+        <td class="en-img-cell">
+          <input data-field="en_tank_pos" class="en-inp" type="text" placeholder="위치 도면 또는 이미지 첨부" value="\${E(v('en_tank_pos'))}">
+        </td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">4.3.1.3. 연료탱크 형상</td>
+        <td class="en-img-cell">
+          <input data-field="en_tank_shape" class="en-inp" type="text" placeholder="형상 이미지 첨부" value="\${E(v('en_tank_shape'))}">
+        </td>
+      </tr>
+
+      <!-- 4.3.2 스로틀바디 -->
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:12px;">4.3.2. 스로틀바디</td>
+        <td style="padding:3px 6px; color:#888; font-size:8pt;"></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">4.3.2.1. 스로틀바디 상세제원</td>
+        <td><textarea data-field="en_throttle_spec" class="en-ta" rows="2" placeholder="스로틀바디 상세제원">\${E(v('en_throttle_spec'))}</textarea></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">4.3.2.2. 스로틀바디 형상 및 치수제원</td>
+        <td class="en-img-cell">
+          <input data-field="en_throttle_dim" class="en-inp" type="text" placeholder="형상 및 치수제원 이미지 첨부" value="\${E(v('en_throttle_dim'))}">
+        </td>
+      </tr>
+
+      <!-- 4.3.3 연료인젝터 -->
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:12px;">4.3.3. 연료인젝터</td>
+        <td style="padding:3px 6px; color:#888; font-size:8pt;"></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">4.3.3.1. 연료인젝터 상세제원</td>
+        <td><textarea data-field="en_injector_spec" class="en-ta" rows="2" placeholder="연료인젝터 상세제원">\${E(v('en_injector_spec'))}</textarea></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">4.3.3.2. 연료인젝터 형상 및 치수제원</td>
+        <td class="en-img-cell">
+          <input data-field="en_injector_dim" class="en-inp" type="text" placeholder="형상 및 치수제원 이미지 첨부" value="\${E(v('en_injector_dim'))}">
+        </td>
+      </tr>
+
+      <!-- 4.3.4 연료펌프 -->
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:12px;">4.3.4. 연료펌프</td>
+        <td style="padding:3px 6px; color:#888; font-size:8pt;"></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">4.3.4.1. 연료펌프 상세제원</td>
+        <td><textarea data-field="en_pump_spec" class="en-ta" rows="2" placeholder="연료펌프 상세제원">\${E(v('en_pump_spec'))}</textarea></td>
+      </tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">4.3.4.2. 연료펌프 형상 및 치수제원</td>
+        <td class="en-img-cell">
+          <input data-field="en_pump_dim" class="en-inp" type="text" placeholder="형상 및 치수제원 이미지 첨부" value="\${E(v('en_pump_dim'))}">
+        </td>
+      </tr>
+
+      <!-- 4.4 연료장치 사진 -->
+      <tr><td class="en-sub-th" colspan="2">4.4. 연료장치 사진</td></tr>
+      <tr>
+        <td colspan="2" class="en-img-cell" style="min-height:80px;">
+          <input data-field="en_fuel_photo" class="en-inp" type="text" placeholder="연료장치 사진 첨부" value="\${E(v('en_fuel_photo'))}">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 5. 흡배기장치                                          -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <table class="en-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+    <colgroup><col style="width:22%;"><col style="width:78%;"></colgroup>
+    <tbody>
+      <tr><th class="en-sec-th" colspan="2">5. 흡배기장치</th></tr>
+
+      <!-- 5.1 흡기계통 -->
+      <tr><td class="en-sub-th" colspan="2">5.1. 흡기계통</td></tr>
+
+      <!-- 5.1.1 흡기다기관 구성도 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">5.1.1. 흡기다기관 구성도</td>
+        <td class="en-img-cell">
+          <input data-field="en_intake_diagram" class="en-inp" type="text" placeholder="흡기다기관 구성도 이미지 첨부" value="\${E(v('en_intake_diagram'))}">
+        </td>
+      </tr>
+
+      <!-- 5.1.2 흡기메니폴드 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">5.1.2. 흡기메니폴드</td>
+        <td><textarea data-field="en_intake_manifold" class="en-ta" rows="2" placeholder="흡기메니폴드 제원 또는 설명">\${E(v('en_intake_manifold'))}</textarea></td>
+      </tr>
+
+      <!-- 5.1.3 에어필터 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">5.1.3. 에어필터</td>
+        <td><textarea data-field="en_air_filter" class="en-ta" rows="2" placeholder="에어필터 제원 또는 설명">\${E(v('en_air_filter'))}</textarea></td>
+      </tr>
+
+      <!-- 5.2 배기계통 -->
+      <tr><td class="en-sub-th" colspan="2">5.2. 배기계통</td></tr>
+
+      <!-- 5.2.1 배기다기관 구성도 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">5.2.1. 배기다기관 구성도</td>
+        <td class="en-img-cell">
+          <input data-field="en_exhaust_diagram" class="en-inp" type="text" placeholder="배기다기관 구성도 이미지 첨부" value="\${E(v('en_exhaust_diagram'))}">
+        </td>
+      </tr>
+
+      <!-- 5.2.2 배기메니폴드 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">5.2.2. 배기메니폴드</td>
+        <td><textarea data-field="en_exhaust_manifold" class="en-ta" rows="2" placeholder="배기메니폴드 제원 또는 설명">\${E(v('en_exhaust_manifold'))}</textarea></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 6. 차량외관 및 치수                                    -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <table class="en-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+    <colgroup><col style="width:22%;"><col style="width:78%;"></colgroup>
+    <tbody>
+      <tr><th class="en-sec-th" colspan="2">6. 차량외관 및 치수</th></tr>
+
+      <!-- 6.1 차량사진 -->
+      <tr><td class="en-sub-th" colspan="2">6.1. 차량사진</td></tr>
+
+      <!-- 6.1.1 차량 전면 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">6.1.1. 차량 전면</td>
+        <td class="en-img-cell" style="min-height:80px;">
+          <input data-field="en_veh_front" class="en-inp" type="text" placeholder="차량 전면 사진 첨부" value="\${E(v('en_veh_front'))}">
+        </td>
+      </tr>
+
+      <!-- 6.1.2 차량 후면 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">6.1.2. 차량 후면</td>
+        <td class="en-img-cell" style="min-height:80px;">
+          <input data-field="en_veh_rear" class="en-inp" type="text" placeholder="차량 후면 사진 첨부" value="\${E(v('en_veh_rear'))}">
+        </td>
+      </tr>
+
+      <!-- 6.1.3 차량 측면 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">6.1.3. 차량 측면</td>
+        <td class="en-img-cell" style="min-height:80px;">
+          <input data-field="en_veh_side" class="en-inp" type="text" placeholder="차량 측면 사진 첨부" value="\${E(v('en_veh_side'))}">
+        </td>
+      </tr>
+
+      <!-- 6.1.4 차량 상면 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">6.1.4. 차량 상면</td>
+        <td class="en-img-cell" style="min-height:80px;">
+          <input data-field="en_veh_top" class="en-inp" type="text" placeholder="차량 상면 사진 첨부" value="\${E(v('en_veh_top'))}">
+        </td>
+      </tr>
+
+      <!-- 6.2 외형도 -->
+      <tr><td class="en-sub-th" colspan="2">6.2. 외형도</td></tr>
+
+      <!-- 6.2.1 외형 측면 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">6.2.1. 외형 측면</td>
+        <td class="en-img-cell" style="min-height:80px;">
+          <input data-field="en_ext_side" class="en-inp" type="text" placeholder="외형 측면 도면 첨부" value="\${E(v('en_ext_side'))}">
+        </td>
+      </tr>
+
+      <!-- 6.2.2 외형 상면 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">6.2.2. 외형 상면</td>
+        <td class="en-img-cell" style="min-height:80px;">
+          <input data-field="en_ext_top" class="en-inp" type="text" placeholder="외형 상면 도면 첨부" value="\${E(v('en_ext_top'))}">
+        </td>
+      </tr>
+
+      <!-- 6.2.3 외형 뒷면 -->
+      <tr><td class="en-lbl" style="padding:3px 6px;">6.2.3. 외형 뒷면</td>
+        <td class="en-img-cell" style="min-height:80px;">
+          <input data-field="en_ext_rear" class="en-inp" type="text" placeholder="외형 뒷면 도면 첨부" value="\${E(v('en_ext_rear'))}">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 7. 기타                                                -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <table class="en-tbl" style="border-top:none; table-layout:fixed; width:100%;">
+    <colgroup><col style="width:22%;"><col style="width:78%;"></colgroup>
+    <tbody>
+      <tr><th class="en-sec-th" colspan="2">7. 기타</th></tr>
+
+      <!-- 7.1 그 외 배출가스 및 소음 저감기술 -->
+      <tr><td class="en-sub-th" colspan="2">7.1. 그 외 배출가스 및 소음 저감기술</td></tr>
+      <tr>
+        <td colspan="2" style="padding:4px 6px;">
+          <textarea data-field="en_other_tech" class="en-ta" rows="4" placeholder="그 외 배출가스 및 소음 저감기술을 기재하세요">\${E(v('en_other_tech'))}</textarea>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="qr-footer-wrap" style="margin-top:12px;"></div>
+</div>
+\`;
 
   if (formType==='obd_config') return \`
 <style>

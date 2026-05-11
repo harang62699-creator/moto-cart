@@ -5803,11 +5803,14 @@ if (formType==='detail_plan') return (
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
   font-size:9pt;
   padding:10px 2px;
+  background:#fff;
+  color:#111;
+  border-radius:8px;
 }
-.ev-doc-tag  { font-size:8.5pt; font-weight:700; color:var(--c-text2); margin:10px 0 4px; }
+.ev-doc-tag  { font-size:8.5pt; font-weight:700; color:#444; margin:10px 0 4px; }
 .ev-main-title {
-  font-size:14pt; font-weight:900; text-align:center;
-  margin:4px 0 16px; letter-spacing:.04em; color:var(--c-text);
+  font-size:13pt; font-weight:900; text-align:center;
+  margin:4px 0 14px; letter-spacing:.03em; color:#111;
 }
 /* 공통 표 */
 .ev-tbl {
@@ -5816,30 +5819,36 @@ if (formType==='detail_plan') return (
 }
 .ev-tbl th, .ev-tbl td {
   border:1px solid #888;
-  padding:4px 6px;
+  padding:3px 5px;
   vertical-align:middle;
   word-break:keep-all;
   overflow-wrap:break-word;
+  color:#111;
 }
 .ev-th {
-  background:rgba(79,142,247,.08);
-  font-weight:700; text-align:center;
+  background:#eef3fa;
+  font-weight:600;
   white-space:nowrap;
+  font-size:8pt;
+  color:#111;
 }
 .ev-sec-th {
-  background:rgba(79,142,247,.06);
+  background:#d6e4f7;
   font-weight:700; text-align:left;
-  padding:5px 8px;
+  padding:3px 6px;
+  font-size:8.5pt;
+  color:#111;
 }
 .ev-inp {
   width:100%; background:transparent;
   border:none; outline:none;
-  font-size:8.5pt; color:var(--c-text);
-  font-family:inherit; padding:2px 3px;
+  font-size:8.5pt; color:#111;
+  font-family:inherit; padding:0 2px;
+  box-sizing:border-box;
 }
-.ev-inp::placeholder { color:var(--c-text3); }
-.ev-inp:focus { border-bottom:1px solid var(--c-accent); }
-.ev-lbl { font-weight:600; white-space:nowrap; color:var(--c-text2); }
+.ev-inp::placeholder { color:#aaa; }
+.ev-inp:focus { border-bottom:1px solid #4e90d8; }
+.ev-lbl { font-weight:600; white-space:nowrap; color:#111; }
 .ev-chk-row { display:flex; align-items:center; gap:6px; }
 .ev-chk-item { display:flex; align-items:center; gap:3px; font-size:8.5pt; cursor:pointer; }
 /* 첨부 섹션 */
@@ -5870,47 +5879,22 @@ if (formType==='detail_plan') return (
 .ev-attach-print-page .ev-attach-pdf-frame { width:100%; min-height:600px; border:none; }
 /* 인쇄 */
 @media print {
-  .ev-wrap { font-size:8.5pt !important; }
-  .ev-main-title { font-size:13pt !important; }
-
-  /* 표 테두리·색상 */
+  .ev-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; }
   .ev-tbl th, .ev-tbl td {
-    border:1px solid #000 !important; color:#000 !important;
+    border:1px solid #333 !important; color:#000 !important;
     -webkit-print-color-adjust:exact; print-color-adjust:exact;
-    vertical-align:middle !important;
-    padding:3px 5px !important;
+    vertical-align:middle !important; padding:3px 5px !important;
   }
-  .ev-th {
-    background:rgba(79,142,247,.10) !important;
-    -webkit-print-color-adjust:exact; print-color-adjust:exact;
-  }
-  .ev-sec-th {
-    background:rgba(79,142,247,.06) !important;
-    -webkit-print-color-adjust:exact; print-color-adjust:exact;
-  }
-
-  /* ── ev-inp: input 원본 그대로 인쇄 (textarea 교체 안 함) ── */
+  .ev-sec-th { background:#d6e4f7 !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .ev-th     { background:#eef3fa !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .ev-inp {
-    display:inline-block !important;
-    width:100% !important;
-    background:transparent !important;
-    border:none !important;
-    outline:none !important;
-    box-shadow:none !important;
-    color:#000 !important;
-    font-size:8.5pt !important;
-    font-family:'맑은 고딕','Malgun Gothic',sans-serif !important;
-    padding:1px 2px !important;
-    margin:0 !important;
+    border:none !important; background:transparent !important;
+    height:auto !important; overflow:visible !important;
+    font-size:8.5pt !important; font-family:'맑은 고딕','Malgun Gothic',sans-serif !important;
+    padding:0 2px !important; color:#000 !important;
   }
-
-  /* ev-lbl (높이:, 폭: 등 인라인 라벨) */
-  .ev-lbl {
-    color:#000 !important;
-    font-weight:600 !important;
-  }
-
-  /* 첨부 영역 */
+  .ev-lbl { color:#000 !important; font-weight:600 !important; }
+  .ev-chk-item { color:#000 !important; }
   .ev-attach-section { display:none !important; }
   .ev-attach-print-wrap { display:block !important; }
   .ev-attach-print-page { page-break-before:always; }
@@ -6239,55 +6223,64 @@ if (formType==='detail_plan') return (
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
   font-size:9pt;
   padding:10px 2px;
+  background:#fff;
+  color:#111;
+  border-radius:8px;
 }
-.obd-doc-tag  { font-size:8.5pt; color:var(--c-text2); margin-bottom:6px; }
+.obd-doc-tag  { font-size:8.5pt; font-weight:700; color:#444; margin:10px 0 4px; }
 .obd-main-title {
-  font-size:14pt; font-weight:900; text-align:center;
-  margin:0 0 16px; letter-spacing:.04em; color:var(--c-text);
+  font-size:13pt; font-weight:900; text-align:center;
+  margin:4px 0 14px; letter-spacing:.03em; color:#111;
 }
 .obd-sec-label {
-  font-size:9.5pt; font-weight:700; margin:16px 0 6px; color:var(--c-text);
+  font-size:9.5pt; font-weight:700; margin:16px 0 6px; color:#111;
 }
 .obd-tbl {
   width:100%; border-collapse:collapse; font-size:8.5pt; margin-bottom:4px;
 }
 .obd-tbl th, .obd-tbl td {
-  border:1px solid #888; padding:4px 6px;
+  border:1px solid #888; padding:3px 5px;
   vertical-align:middle; text-align:center;
   word-break:keep-all; overflow-wrap:break-word;
+  color:#111;
 }
 .obd-th {
-  background:rgba(79,142,247,.08); font-weight:700;
-  font-size:8.5pt; text-align:center !important;
+  background:#eef3fa; font-weight:600;
+  font-size:8pt; text-align:center !important; color:#111;
 }
 .obd-inp {
   width:100%; background:transparent; border:none; outline:none;
-  font-size:8.5pt; color:var(--c-text); font-family:inherit;
-  padding:2px 3px; text-align:left;
+  font-size:8.5pt; color:#111; font-family:inherit;
+  padding:0 2px; text-align:left; box-sizing:border-box;
 }
-.obd-inp::placeholder { color:var(--c-text3); }
-.obd-inp:focus { border-bottom:1px solid var(--c-accent); }
+.obd-inp::placeholder { color:#aaa; }
+.obd-inp:focus { border-bottom:1px solid #4e90d8; }
 .obd-chk-row { display:flex; align-items:center; gap:10px; }
-.obd-chk-item { display:flex; align-items:center; gap:3px; font-size:8.5pt; cursor:pointer; }
+.obd-chk-item { display:flex; align-items:center; gap:3px; font-size:8.5pt; cursor:pointer; color:#111; }
 .obd-result-th-top {
-  background:rgba(79,142,247,.10); font-weight:700; text-align:center !important;
+  background:#d6e4f7; font-weight:700; text-align:center !important; color:#111;
 }
 .obd-result-th-mid {
-  background:rgba(79,142,247,.06); font-weight:700;
-  text-align:center !important; font-size:8pt;
+  background:#eef3fa; font-weight:700;
+  text-align:center !important; font-size:8pt; color:#111;
 }
 .obd-result-td { text-align:center !important; padding:3px 2px !important; }
 @media print {
-  .obd-wrap { font-size:8.5pt !important; }
-  .obd-main-title { font-size:13pt !important; }
+  .obd-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; }
   .obd-tbl th, .obd-tbl td {
-    border:1px solid #000 !important; color:#000 !important;
+    border:1px solid #333 !important; color:#000 !important;
     -webkit-print-color-adjust:exact; print-color-adjust:exact;
   }
-  .obd-th { background:rgba(79,142,247,.10) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .obd-result-th-top { background:rgba(79,142,247,.12) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .obd-result-th-mid { background:rgba(79,142,247,.07) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .obd-inp { color:#000 !important; border-bottom:none !important; }
+  .obd-th         { background:#eef3fa !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .obd-result-th-top { background:#d6e4f7 !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .obd-result-th-mid { background:#eef3fa !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .obd-inp {
+    border:none !important; background:transparent !important;
+    height:auto !important; overflow:visible !important;
+    font-size:8.5pt !important; font-family:'맑은 고딕','Malgun Gothic',sans-serif !important;
+    padding:0 2px !important; color:#000 !important;
+  }
+  .obd-chk-item { color:#000 !important; }
   .obd-chk-item input[type=checkbox] { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 }
 </style>
@@ -6518,116 +6511,100 @@ if (formType==='detail_plan') return (
   font-size:9pt;
 }
 /* 상단 헤더 */
-.nt-header-tbl { width:100%; border-collapse:collapse; border:1px solid #888; }
-.nt-header-lbl-cell { width:25%; border:1px solid #888; padding:3px 6px; background:rgba(79,142,247,.08); text-align:center; }
-.nt-header-val-cell { width:25%; border:1px solid #888; padding:3px 6px; }
-.nt-header-lbl { display:block; font-size:.72rem; font-weight:700; color:var(--c-text2); text-align:center; }
-.nt-header-inp { width:100%; background:transparent; border:none; border-bottom:1px solid var(--c-border); color:var(--c-text); font-size:.9rem; padding:2px 0; outline:none; }
-.nt-header-inp:focus { border-bottom-color:var(--c-accent); }
+/* noise_test: emission_test 기준으로 통일된 헤더 테이블 */
+.nt-header-tbl { width:100%; border-collapse:collapse; margin-bottom:12px; table-layout:fixed; }
+.nt-header-lbl-cell { width:25%; border:1px solid #888; padding:3px 5px; background:#eef3fa; text-align:center; font-weight:600; font-size:8pt; color:#111; }
+.nt-header-val-cell { width:25%; border:1px solid #888; padding:3px 5px; }
+.nt-header-lbl { display:block; font-size:8pt; font-weight:600; color:#111; text-align:center; }
+.nt-header-inp { width:100%; background:transparent; border:none; color:#111; font-size:8.5pt; padding:0 2px; outline:none; box-sizing:border-box; }
+.nt-header-inp:focus { border-bottom:1px solid #4e90d8; }
 
 /* 별지 서식명 / 대제목 */
-.nt-form-tag { font-size:9pt; font-weight:600; margin:10px 0 4px; color:var(--c-text2); }
-.nt-main-title { font-size:14pt; font-weight:900; text-align:center; margin:6px 0 14px; letter-spacing:.04em; color:var(--c-text); }
+.nt-form-tag { font-size:8.5pt; font-weight:700; color:#444; margin:10px 0 4px; }
+.nt-main-title { font-size:13pt; font-weight:900; text-align:center; margin:4px 0 14px; letter-spacing:.03em; color:#111; }
 
 /* 섹션 제목 */
-.nt-sec-title { font-size:9.5pt; font-weight:700; margin:18px 0 8px; color:var(--c-text); }
+.nt-sec-title { font-size:9.5pt; font-weight:700; margin:18px 0 8px; color:#111; }
 
 /* 공통 표 */
-.nt-tbl { width:100%; border-collapse:collapse; font-size:7.5pt; table-layout:fixed; margin-bottom:14px; }
+.nt-tbl { width:100%; border-collapse:collapse; font-size:8.5pt; table-layout:fixed; margin-bottom:14px; }
 .nt-tbl th, .nt-tbl td {
-  border:1px solid #888; padding:5px 5px;
+  border:1px solid #888; padding:3px 5px;
   vertical-align:middle; word-break:keep-all;
-  overflow-wrap:break-word; text-align:center;
+  overflow-wrap:break-word; text-align:center; color:#111;
 }
-.nt-th { background:rgba(79,142,247,.08); font-weight:700; font-size:7.5pt; }
-.nt-tbl th { background:rgba(79,142,247,.08); font-weight:700; font-size:7.5pt; }
-.nt-lbl { background:rgba(79,142,247,.05); font-weight:600; text-align:center !important; }
+.nt-th { background:#eef3fa; font-weight:600; font-size:8pt; color:#111; }
+.nt-tbl th { background:#eef3fa; font-weight:600; font-size:8pt; color:#111; }
+.nt-lbl { background:#f5f8ff; font-weight:600; text-align:center !important; color:#111; }
 .nt-val { text-align:left !important; }
 .nt-inp {
   width:100%; background:transparent; border:none; outline:none;
-  font-size:7.5pt; color:var(--c-text); font-family:inherit;
-  padding:2px 3px; text-align:left;
+  font-size:8.5pt; color:#111; font-family:inherit;
+  padding:0 2px; text-align:left; box-sizing:border-box;
 }
-.nt-inp::placeholder { color:var(--c-text3); }
-.nt-inp:focus { border-bottom:1px solid var(--c-accent); }
+.nt-inp::placeholder { color:#aaa; }
+.nt-inp:focus { border-bottom:1px solid #4e90d8; }
 
 /* 텍스트 입력 (1행짜리) */
 .nt-inline { display:flex; align-items:center; gap:6px; margin:4px 0; }
-.nt-inline-lbl { font-size:9pt; font-weight:600; white-space:nowrap; color:var(--c-text); }
-.nt-inline-inp { flex:1; background:transparent; border:none; border-bottom:1px solid var(--c-border); color:var(--c-text); font-size:9pt; padding:2px 4px; outline:none; }
-.nt-inline-inp:focus { border-bottom-color:var(--c-accent); }
-.nt-inline-inp::placeholder { color:var(--c-text3); font-style:italic; }
+.nt-inline-lbl { font-size:9pt; font-weight:600; white-space:nowrap; color:#111; }
+.nt-inline-inp { flex:1; background:transparent; border:none; border-bottom:1px solid #bbb; color:#111; font-size:9pt; padding:2px 4px; outline:none; }
+.nt-inline-inp:focus { border-bottom-color:#4e90d8; }
+.nt-inline-inp::placeholder { color:#aaa; font-style:italic; }
 
 /* 검사담당자 / 확인자 행 */
 .nt-sign-row { display:flex; gap:40px; margin:12px 0 4px; }
 .nt-sign-item { display:flex; align-items:center; gap:8px; }
-.nt-sign-lbl { font-size:9pt; font-weight:600; white-space:nowrap; color:var(--c-text); }
-.nt-sign-inp { min-width:120px; background:transparent; border:none; border-bottom:1px solid var(--c-border); color:var(--c-text); font-size:9pt; padding:2px 4px; outline:none; }
-.nt-sign-inp:focus { border-bottom-color:var(--c-accent); }
+.nt-sign-lbl { font-size:9pt; font-weight:600; white-space:nowrap; color:#111; }
+.nt-sign-inp { min-width:120px; background:transparent; border:none; border-bottom:1px solid #bbb; color:#111; font-size:9pt; padding:2px 4px; outline:none; }
+.nt-sign-inp:focus { border-bottom-color:#4e90d8; }
 
 /* 첨부문서 업로드 영역 */
 .nt-attach-section { margin-top:14px; }
-.nt-attach-title { font-size:9pt; font-weight:700; margin-bottom:6px; color:var(--c-text); }
-.nt-attach-note { font-size:8pt; color:var(--c-text3); margin-bottom:8px; }
+.nt-attach-title { font-size:9pt; font-weight:700; margin-bottom:6px; color:#111; }
+.nt-attach-note { font-size:8pt; color:#666; margin-bottom:8px; }
 .nt-attach-drop {
-  border:2px dashed var(--c-border2); border-radius:8px;
+  border:2px dashed #bbb; border-radius:8px;
   padding:16px; text-align:center; cursor:pointer;
-  transition:.2s; color:var(--c-text3); font-size:9pt;
-  background:rgba(255,255,255,.02);
+  transition:.2s; color:#555; font-size:9pt; background:#fafafa;
 }
-.nt-attach-drop:hover { border-color:var(--c-accent); background:rgba(79,142,247,.04); }
+.nt-attach-drop:hover { border-color:#4e90d8; background:rgba(79,142,247,.04); }
 .nt-attach-drop input[type=file] { display:none; }
 .nt-attach-list { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
 .nt-attach-item {
   display:flex; align-items:center; gap:8px;
-  padding:5px 10px; border-radius:6px;
-  background:rgba(79,142,247,.06); border:1px solid var(--c-border);
-  font-size:8.5pt;
+  padding:4px 8px; border-radius:4px;
+  background:#f0f4fa; font-size:8.5pt;
 }
-.nt-attach-item-name { flex:1; color:var(--c-text); word-break:break-all; }
-.nt-attach-item-size { color:var(--c-text3); white-space:nowrap; font-size:8pt; }
+.nt-attach-item-name { flex:1; color:#111; word-break:break-all; }
+.nt-attach-item-size { color:#666; white-space:nowrap; font-size:8pt; }
 .nt-attach-item-del { color:#ef4444; cursor:pointer; padding:1px 5px; border-radius:3px; font-size:10pt; line-height:1; }
 .nt-attach-item-del:hover { background:rgba(239,68,68,.12); }
 /* 첨부문서 인쇄 미리보기 */
-.nt-attach-print-wrap { margin-top:10px; }
+.nt-attach-print-wrap { display:none; margin-top:10px; }
 .nt-attach-print-page { page-break-before:always; margin-top:20px; }
 .nt-attach-print-page img { max-width:100%; height:auto; display:block; }
 .nt-attach-print-page .nt-attach-pdf-frame { width:100%; min-height:600px; border:none; }
 
-@media screen {
-  .nt-header-lbl-cell,.nt-header-val-cell { border-color:var(--c-border); }
-  .nt-header-tbl { border-color:var(--c-border); }
-  .nt-tbl th,.nt-tbl td { border-color:var(--c-border); }
-  .nt-tbl th { background:rgba(79,142,247,.08); }
-  .nt-lbl { background:rgba(79,142,247,.05); }
-  .nt-attach-print-wrap { display:none; }
-}
 @media print {
-  @page { size:A4 portrait; margin:12mm 10mm; }
-  .no-print { display:none !important; }
-  body { background:#fff !important; color:#000 !important; }
-  -webkit-print-color-adjust:exact; print-color-adjust:exact;
-
-  .nt-wrap { font-size:8pt; font-family:'맑은 고딕','Malgun Gothic','MS Gothic',sans-serif; color:#000; }
-  .nt-header-tbl { border:1px solid #555 !important; }
-  .nt-header-lbl-cell { border:1px solid #555 !important; background:#cdd5e8 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .nt-header-val-cell { border:1px solid #555 !important; background:#fff !important; }
-  .nt-header-lbl { font-size:7.5pt !important; color:#000 !important; }
-  .nt-header-inp { font-size:7.5pt !important; color:#000 !important; border:none !important; background:transparent !important; }
-  .nt-main-title { font-size:12pt !important; color:#000 !important; }
-  .nt-form-tag { font-size:8pt !important; color:#000 !important; }
-  .nt-sec-title { font-size:8.5pt !important; color:#000 !important; }
-  .nt-tbl { font-size:6.5pt !important; margin-bottom:8px !important; }
-  .nt-th { background:#c8d4ea !important; color:#000 !important; font-size:6.5pt !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .nt-tbl th { background:#c8d4ea !important; color:#000 !important; font-size:6.5pt !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .nt-tbl td { font-size:6.5pt !important; color:#000 !important; }
-  .nt-lbl { background:#eef2fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .nt-inp { font-size:6.5pt !important; color:#000 !important; border:none !important; background:transparent !important; padding:0 !important; }
-  .nt-tbl th, .nt-tbl td { border:1px solid #555 !important; padding:3px 4px !important; }
-  .nt-inline-lbl { font-size:8pt !important; color:#000 !important; }
-  .nt-inline-inp { font-size:8pt !important; color:#000 !important; border:none !important; border-bottom:1px solid #888 !important; background:transparent !important; }
-  .nt-sign-lbl { font-size:8pt !important; color:#000 !important; }
-  .nt-sign-inp { font-size:8pt !important; color:#000 !important; border:none !important; border-bottom:1px solid #888 !important; background:transparent !important; }
+  .nt-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; font-family:'Malgun Gothic',sans-serif !important; }
+  .nt-header-tbl { border-collapse:collapse !important; }
+  .nt-header-lbl-cell { border:1px solid #333 !important; background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .nt-header-val-cell { border:1px solid #333 !important; }
+  .nt-header-lbl { color:#000 !important; }
+  .nt-header-inp { color:#000 !important; border:none !important; background:transparent !important; }
+  .nt-tbl th, .nt-tbl td { border:1px solid #333 !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:3px 4px !important; }
+  .nt-th  { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .nt-tbl th { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .nt-lbl { background:#f5f8ff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .nt-inp { color:#000 !important; border:none !important; background:transparent !important; padding:0 2px !important; }
+  .nt-form-tag { color:#000 !important; }
+  .nt-main-title { color:#000 !important; }
+  .nt-sec-title { color:#000 !important; }
+  .nt-inline-lbl { color:#000 !important; }
+  .nt-inline-inp { color:#000 !important; border:none !important; border-bottom:1px solid #888 !important; background:transparent !important; }
+  .nt-sign-lbl { color:#000 !important; }
+  .nt-sign-inp { color:#000 !important; border:none !important; border-bottom:1px solid #888 !important; background:transparent !important; }
   .nt-attach-section .nt-attach-drop { display:none !important; }
   .nt-attach-section .nt-attach-list { display:none !important; }
   .nt-attach-print-wrap { display:block !important; }

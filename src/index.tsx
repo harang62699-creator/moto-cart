@@ -3565,7 +3565,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_muffler_comp" rows="3" placeholder="머플러 구성 내역을 기재하세요">\${E(v('en_muffler_comp'))}</textarea>
-            <div class="en-drop" data-field-img="en_muffler_comp"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_comp_imgs" value="\${E(v('en_muffler_comp_imgs'))}"><div class="en-drop" data-field-img="en_muffler_comp"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3576,7 +3576,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_muffler_diagram" rows="2" placeholder="내부 구조 설명">\${E(v('en_muffler_diagram'))}</textarea>
-            <div class="en-drop" data-field-img="en_muffler_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_diagram_imgs" value="\${E(v('en_muffler_diagram_imgs'))}"><div class="en-drop" data-field-img="en_muffler_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3589,7 +3589,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_muffler_principle" rows="3" placeholder="구조 및 소음저감 원리를 기재하세요">\${E(v('en_muffler_principle'))}</textarea>
-            <div class="en-drop" data-field-img="en_muffler_principle"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_principle_imgs" value="\${E(v('en_muffler_principle_imgs'))}"><div class="en-drop" data-field-img="en_muffler_principle"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3599,7 +3599,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_muffler_flow" rows="2" placeholder="흐름도 설명">\${E(v('en_muffler_flow'))}</textarea>
-            <div class="en-drop" data-field-img="en_muffler_flow"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_flow_imgs" value="\${E(v('en_muffler_flow_imgs'))}"><div class="en-drop" data-field-img="en_muffler_flow"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3609,7 +3609,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_muffler_maker" rows="2" placeholder="제작사명">\${E(v('en_muffler_maker'))}</textarea>
-            <div class="en-drop" data-field-img="en_muffler_maker"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_maker_imgs" value="\${E(v('en_muffler_maker_imgs'))}"><div class="en-drop" data-field-img="en_muffler_maker"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3624,7 +3624,7 @@ if (formType==='detail_plan') return (
               <label style="font-size:8pt; white-space:nowrap; margin-top:4px;">외부 :</label>
               <textarea class="en-field-text" data-field="en_muffler_outside" rows="2" placeholder="외부 재질/사양" style="flex:1; min-width:80px;">\${E(v('en_muffler_outside'))}</textarea>
             </div>
-            <div class="en-drop" data-field-img="en_muffler_inout"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_inout_imgs" value="\${E(v('en_muffler_inout_imgs'))}"><div class="en-drop" data-field-img="en_muffler_inout"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3634,7 +3634,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_muffler_dim" rows="2" placeholder="치수 도면 설명">\${E(v('en_muffler_dim'))}</textarea>
-            <div class="en-drop" data-field-img="en_muffler_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_dim_imgs" value="\${E(v('en_muffler_dim_imgs'))}"><div class="en-drop" data-field-img="en_muffler_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3647,7 +3647,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cat_maker" rows="2" placeholder="제작사명">\${E(v('en_cat_maker'))}</textarea>
-            <div class="en-drop" data-field-img="en_cat_maker"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cat_maker_imgs" value="\${E(v('en_cat_maker_imgs'))}"><div class="en-drop" data-field-img="en_cat_maker"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3657,7 +3657,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cat_material" rows="2" placeholder="촉매 재질">\${E(v('en_cat_material'))}</textarea>
-            <div class="en-drop" data-field-img="en_cat_material"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cat_material_imgs" value="\${E(v('en_cat_material_imgs'))}"><div class="en-drop" data-field-img="en_cat_material"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3667,7 +3667,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cat_spec" rows="2" placeholder="촉매 성능 및 치수">\${E(v('en_cat_spec'))}</textarea>
-            <div class="en-drop" data-field-img="en_cat_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cat_spec_imgs" value="\${E(v('en_cat_spec_imgs'))}"><div class="en-drop" data-field-img="en_cat_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3677,7 +3677,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cat_dim" rows="2" placeholder="치수 도면 설명">\${E(v('en_cat_dim'))}</textarea>
-            <div class="en-drop" data-field-img="en_cat_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cat_dim_imgs" value="\${E(v('en_cat_dim_imgs'))}"><div class="en-drop" data-field-img="en_cat_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3687,7 +3687,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cat_principle" rows="3" placeholder="촉매 원리 또는 효과를 기재하세요">\${E(v('en_cat_principle'))}</textarea>
-            <div class="en-drop" data-field-img="en_cat_principle"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cat_principle_imgs" value="\${E(v('en_cat_principle_imgs'))}"><div class="en-drop" data-field-img="en_cat_principle"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3697,7 +3697,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cat_pos" rows="2" placeholder="부착위치 설명">\${E(v('en_cat_pos'))}</textarea>
-            <div class="en-drop" data-field-img="en_cat_pos"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cat_pos_imgs" value="\${E(v('en_cat_pos_imgs'))}"><div class="en-drop" data-field-img="en_cat_pos"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3710,7 +3710,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_sensor_maker" rows="2" placeholder="제작사명">\${E(v('en_sensor_maker'))}</textarea>
-            <div class="en-drop" data-field-img="en_sensor_maker"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_sensor_maker_imgs" value="\${E(v('en_sensor_maker_imgs'))}"><div class="en-drop" data-field-img="en_sensor_maker"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3720,7 +3720,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_sensor_material" rows="2" placeholder="센서 재질">\${E(v('en_sensor_material'))}</textarea>
-            <div class="en-drop" data-field-img="en_sensor_material"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_sensor_material_imgs" value="\${E(v('en_sensor_material_imgs'))}"><div class="en-drop" data-field-img="en_sensor_material"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3730,7 +3730,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_sensor_dim" rows="2" placeholder="치수 도면 설명">\${E(v('en_sensor_dim'))}</textarea>
-            <div class="en-drop" data-field-img="en_sensor_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_sensor_dim_imgs" value="\${E(v('en_sensor_dim_imgs'))}"><div class="en-drop" data-field-img="en_sensor_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3741,7 +3741,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_muffler_drawing" rows="2" placeholder="머플러 도면 설명">\${E(v('en_muffler_drawing'))}</textarea>
-            <div class="en-drop" data-field-img="en_muffler_drawing"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_drawing_imgs" value="\${E(v('en_muffler_drawing_imgs'))}"><div class="en-drop" data-field-img="en_muffler_drawing"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3752,7 +3752,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_muffler_photo" rows="2" placeholder="머플러 사진 설명">\${E(v('en_muffler_photo'))}</textarea>
-            <div class="en-drop" data-field-img="en_muffler_photo"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_photo_imgs" value="\${E(v('en_muffler_photo_imgs'))}"><div class="en-drop" data-field-img="en_muffler_photo"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3773,7 +3773,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_valve_inertia" rows="3" placeholder="밸브 기구의 관성력에 관한 내용을 기재하세요">\${E(v('en_valve_inertia'))}</textarea>
-            <div class="en-drop" data-field-img="en_valve_inertia"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_valve_inertia_imgs" value="\${E(v('en_valve_inertia_imgs'))}"><div class="en-drop" data-field-img="en_valve_inertia"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3784,7 +3784,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_valve_surging" rows="3" placeholder="Surging 현상 대응기술을 기재하세요">\${E(v('en_valve_surging'))}</textarea>
-            <div class="en-drop" data-field-img="en_valve_surging"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_valve_surging_imgs" value="\${E(v('en_valve_surging_imgs'))}"><div class="en-drop" data-field-img="en_valve_surging"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3797,7 +3797,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_valve_spec" rows="2" placeholder="밸브 제원을 기재하세요">\${E(v('en_valve_spec'))}</textarea>
-            <div class="en-drop" data-field-img="en_valve_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_valve_spec_imgs" value="\${E(v('en_valve_spec_imgs'))}"><div class="en-drop" data-field-img="en_valve_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3807,7 +3807,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cam_spec" rows="2" placeholder="Cam 제원을 기재하세요">\${E(v('en_cam_spec'))}</textarea>
-            <div class="en-drop" data-field-img="en_cam_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cam_spec_imgs" value="\${E(v('en_cam_spec_imgs'))}"><div class="en-drop" data-field-img="en_cam_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3817,7 +3817,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cam_dim" rows="2" placeholder="Cam 치수 도면 설명">\${E(v('en_cam_dim'))}</textarea>
-            <div class="en-drop" data-field-img="en_cam_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cam_dim_imgs" value="\${E(v('en_cam_dim_imgs'))}"><div class="en-drop" data-field-img="en_cam_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3828,7 +3828,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_valve_material" rows="3" placeholder="Valve 기구의 재질 등에 관한 내용을 기재하세요">\${E(v('en_valve_material'))}</textarea>
-            <div class="en-drop" data-field-img="en_valve_material"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_valve_material_imgs" value="\${E(v('en_valve_material_imgs'))}"><div class="en-drop" data-field-img="en_valve_material"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3839,7 +3839,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_valve_clearance" rows="2" placeholder="밸브 간극 수치 또는 설명">\${E(v('en_valve_clearance'))}</textarea>
-            <div class="en-drop" data-field-img="en_valve_clearance"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_valve_clearance_imgs" value="\${E(v('en_valve_clearance_imgs'))}"><div class="en-drop" data-field-img="en_valve_clearance"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3860,7 +3860,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_ign_diagram" rows="2" placeholder="점화장치 구성 설명">\${E(v('en_ign_diagram'))}</textarea>
-            <div class="en-drop" data-field-img="en_ign_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_ign_diagram_imgs" value="\${E(v('en_ign_diagram_imgs'))}"><div class="en-drop" data-field-img="en_ign_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3871,7 +3871,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_ign_control" rows="3" placeholder="점화장치 제어특성을 기재하세요">\${E(v('en_ign_control'))}</textarea>
-            <div class="en-drop" data-field-img="en_ign_control"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_ign_control_imgs" value="\${E(v('en_ign_control_imgs'))}"><div class="en-drop" data-field-img="en_ign_control"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3885,7 +3885,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_gen_spec" rows="2" placeholder="제너레이터 상세제원">\${E(v('en_gen_spec'))}</textarea>
-            <div class="en-drop" data-field-img="en_gen_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_gen_spec_imgs" value="\${E(v('en_gen_spec_imgs'))}"><div class="en-drop" data-field-img="en_gen_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3893,7 +3893,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_gen_dim" rows="2" placeholder="형상 및 치수 설명">\${E(v('en_gen_dim'))}</textarea>
-            <div class="en-drop" data-field-img="en_gen_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_gen_dim_imgs" value="\${E(v('en_gen_dim_imgs'))}"><div class="en-drop" data-field-img="en_gen_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3904,7 +3904,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cdi_spec" rows="2" placeholder="CDI UNIT 상세제원">\${E(v('en_cdi_spec'))}</textarea>
-            <div class="en-drop" data-field-img="en_cdi_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cdi_spec_imgs" value="\${E(v('en_cdi_spec_imgs'))}"><div class="en-drop" data-field-img="en_cdi_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3912,7 +3912,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cdi_dim" rows="2" placeholder="형상 및 치수 설명">\${E(v('en_cdi_dim'))}</textarea>
-            <div class="en-drop" data-field-img="en_cdi_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cdi_dim_imgs" value="\${E(v('en_cdi_dim_imgs'))}"><div class="en-drop" data-field-img="en_cdi_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3923,7 +3923,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_coil_spec" rows="2" placeholder="점화코일 상세제원">\${E(v('en_coil_spec'))}</textarea>
-            <div class="en-drop" data-field-img="en_coil_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_coil_spec_imgs" value="\${E(v('en_coil_spec_imgs'))}"><div class="en-drop" data-field-img="en_coil_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3931,7 +3931,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_coil_dim" rows="2" placeholder="형상 및 치수 설명">\${E(v('en_coil_dim'))}</textarea>
-            <div class="en-drop" data-field-img="en_coil_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_coil_dim_imgs" value="\${E(v('en_coil_dim_imgs'))}"><div class="en-drop" data-field-img="en_coil_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3942,7 +3942,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_plug_spec" rows="2" placeholder="점화플러그 상세제원">\${E(v('en_plug_spec'))}</textarea>
-            <div class="en-drop" data-field-img="en_plug_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_plug_spec_imgs" value="\${E(v('en_plug_spec_imgs'))}"><div class="en-drop" data-field-img="en_plug_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3950,7 +3950,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_plug_dim" rows="2" placeholder="형상 및 치수 설명">\${E(v('en_plug_dim'))}</textarea>
-            <div class="en-drop" data-field-img="en_plug_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_plug_dim_imgs" value="\${E(v('en_plug_dim_imgs'))}"><div class="en-drop" data-field-img="en_plug_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3961,7 +3961,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_ecu_spec" rows="2" placeholder="ECU 상세제원">\${E(v('en_ecu_spec'))}</textarea>
-            <div class="en-drop" data-field-img="en_ecu_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_ecu_spec_imgs" value="\${E(v('en_ecu_spec_imgs'))}"><div class="en-drop" data-field-img="en_ecu_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3969,7 +3969,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_ecu_dim" rows="2" placeholder="형상 및 치수 설명">\${E(v('en_ecu_dim'))}</textarea>
-            <div class="en-drop" data-field-img="en_ecu_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_ecu_dim_imgs" value="\${E(v('en_ecu_dim_imgs'))}"><div class="en-drop" data-field-img="en_ecu_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3980,7 +3980,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_ign_photo" rows="2" placeholder="점화장치 사진 설명">\${E(v('en_ign_photo'))}</textarea>
-            <div class="en-drop" data-field-img="en_ign_photo"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_ign_photo_imgs" value="\${E(v('en_ign_photo_imgs'))}"><div class="en-drop" data-field-img="en_ign_photo"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4001,7 +4001,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_fuel_sys" rows="3" placeholder="연료장치 구성 및 제어방식을 기재하세요">\${E(v('en_fuel_sys'))}</textarea>
-            <div class="en-drop" data-field-img="en_fuel_sys"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_fuel_sys_imgs" value="\${E(v('en_fuel_sys_imgs'))}"><div class="en-drop" data-field-img="en_fuel_sys"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4012,7 +4012,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_fuel_drawing" rows="2" placeholder="도면 및 치수 설명">\${E(v('en_fuel_drawing'))}</textarea>
-            <div class="en-drop" data-field-img="en_fuel_drawing"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_fuel_drawing_imgs" value="\${E(v('en_fuel_drawing_imgs'))}"><div class="en-drop" data-field-img="en_fuel_drawing"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4026,7 +4026,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_tank_spec" rows="2" placeholder="연료탱크 상세제원">\${E(v('en_tank_spec'))}</textarea>
-            <div class="en-drop" data-field-img="en_tank_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_tank_spec_imgs" value="\${E(v('en_tank_spec_imgs'))}"><div class="en-drop" data-field-img="en_tank_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4034,7 +4034,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_tank_pos" rows="2" placeholder="위치 설명">\${E(v('en_tank_pos'))}</textarea>
-            <div class="en-drop" data-field-img="en_tank_pos"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_tank_pos_imgs" value="\${E(v('en_tank_pos_imgs'))}"><div class="en-drop" data-field-img="en_tank_pos"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4042,7 +4042,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_tank_shape" rows="2" placeholder="형상 설명">\${E(v('en_tank_shape'))}</textarea>
-            <div class="en-drop" data-field-img="en_tank_shape"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_tank_shape_imgs" value="\${E(v('en_tank_shape_imgs'))}"><div class="en-drop" data-field-img="en_tank_shape"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4053,7 +4053,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_throttle_spec" rows="2" placeholder="스로틀바디 상세제원">\${E(v('en_throttle_spec'))}</textarea>
-            <div class="en-drop" data-field-img="en_throttle_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_throttle_spec_imgs" value="\${E(v('en_throttle_spec_imgs'))}"><div class="en-drop" data-field-img="en_throttle_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4061,7 +4061,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_throttle_dim" rows="2" placeholder="형상 및 치수 설명">\${E(v('en_throttle_dim'))}</textarea>
-            <div class="en-drop" data-field-img="en_throttle_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_throttle_dim_imgs" value="\${E(v('en_throttle_dim_imgs'))}"><div class="en-drop" data-field-img="en_throttle_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4072,7 +4072,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_injector_spec" rows="2" placeholder="연료인젝터 상세제원">\${E(v('en_injector_spec'))}</textarea>
-            <div class="en-drop" data-field-img="en_injector_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_injector_spec_imgs" value="\${E(v('en_injector_spec_imgs'))}"><div class="en-drop" data-field-img="en_injector_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4080,7 +4080,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_injector_dim" rows="2" placeholder="형상 및 치수 설명">\${E(v('en_injector_dim'))}</textarea>
-            <div class="en-drop" data-field-img="en_injector_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_injector_dim_imgs" value="\${E(v('en_injector_dim_imgs'))}"><div class="en-drop" data-field-img="en_injector_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4091,7 +4091,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_pump_spec" rows="2" placeholder="연료펌프 상세제원">\${E(v('en_pump_spec'))}</textarea>
-            <div class="en-drop" data-field-img="en_pump_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_pump_spec_imgs" value="\${E(v('en_pump_spec_imgs'))}"><div class="en-drop" data-field-img="en_pump_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4099,7 +4099,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_pump_dim" rows="2" placeholder="형상 및 치수 설명">\${E(v('en_pump_dim'))}</textarea>
-            <div class="en-drop" data-field-img="en_pump_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_pump_dim_imgs" value="\${E(v('en_pump_dim_imgs'))}"><div class="en-drop" data-field-img="en_pump_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4110,7 +4110,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_fuel_photo" rows="2" placeholder="연료장치 사진 설명">\${E(v('en_fuel_photo'))}</textarea>
-            <div class="en-drop" data-field-img="en_fuel_photo"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_fuel_photo_imgs" value="\${E(v('en_fuel_photo_imgs'))}"><div class="en-drop" data-field-img="en_fuel_photo"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4133,7 +4133,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_intake_diagram" rows="2" placeholder="흡기다기관 구성 설명">\${E(v('en_intake_diagram'))}</textarea>
-            <div class="en-drop" data-field-img="en_intake_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_intake_diagram_imgs" value="\${E(v('en_intake_diagram_imgs'))}"><div class="en-drop" data-field-img="en_intake_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4143,7 +4143,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_intake_manifold" rows="2" placeholder="흡기메니폴드 제원 또는 설명">\${E(v('en_intake_manifold'))}</textarea>
-            <div class="en-drop" data-field-img="en_intake_manifold"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_intake_manifold_imgs" value="\${E(v('en_intake_manifold_imgs'))}"><div class="en-drop" data-field-img="en_intake_manifold"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4153,7 +4153,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_air_filter" rows="2" placeholder="에어필터 제원 또는 설명">\${E(v('en_air_filter'))}</textarea>
-            <div class="en-drop" data-field-img="en_air_filter"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_air_filter_imgs" value="\${E(v('en_air_filter_imgs'))}"><div class="en-drop" data-field-img="en_air_filter"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4166,7 +4166,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_exhaust_diagram" rows="2" placeholder="배기다기관 구성 설명">\${E(v('en_exhaust_diagram'))}</textarea>
-            <div class="en-drop" data-field-img="en_exhaust_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_exhaust_diagram_imgs" value="\${E(v('en_exhaust_diagram_imgs'))}"><div class="en-drop" data-field-img="en_exhaust_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4176,7 +4176,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_exhaust_manifold" rows="2" placeholder="배기메니폴드 제원 또는 설명">\${E(v('en_exhaust_manifold'))}</textarea>
-            <div class="en-drop" data-field-img="en_exhaust_manifold"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_exhaust_manifold_imgs" value="\${E(v('en_exhaust_manifold_imgs'))}"><div class="en-drop" data-field-img="en_exhaust_manifold"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4199,7 +4199,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_veh_front" rows="2" placeholder="차량 전면 설명">\${E(v('en_veh_front'))}</textarea>
-            <div class="en-drop" data-field-img="en_veh_front"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_veh_front_imgs" value="\${E(v('en_veh_front_imgs'))}"><div class="en-drop" data-field-img="en_veh_front"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4209,7 +4209,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_veh_rear" rows="2" placeholder="차량 후면 설명">\${E(v('en_veh_rear'))}</textarea>
-            <div class="en-drop" data-field-img="en_veh_rear"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_veh_rear_imgs" value="\${E(v('en_veh_rear_imgs'))}"><div class="en-drop" data-field-img="en_veh_rear"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4219,7 +4219,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_veh_side" rows="2" placeholder="차량 측면 설명">\${E(v('en_veh_side'))}</textarea>
-            <div class="en-drop" data-field-img="en_veh_side"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_veh_side_imgs" value="\${E(v('en_veh_side_imgs'))}"><div class="en-drop" data-field-img="en_veh_side"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4229,7 +4229,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_veh_top" rows="2" placeholder="차량 상면 설명">\${E(v('en_veh_top'))}</textarea>
-            <div class="en-drop" data-field-img="en_veh_top"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_veh_top_imgs" value="\${E(v('en_veh_top_imgs'))}"><div class="en-drop" data-field-img="en_veh_top"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4242,7 +4242,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_ext_side" rows="2" placeholder="외형 측면 설명">\${E(v('en_ext_side'))}</textarea>
-            <div class="en-drop" data-field-img="en_ext_side"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_ext_side_imgs" value="\${E(v('en_ext_side_imgs'))}"><div class="en-drop" data-field-img="en_ext_side"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4252,7 +4252,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_ext_top" rows="2" placeholder="외형 상면 설명">\${E(v('en_ext_top'))}</textarea>
-            <div class="en-drop" data-field-img="en_ext_top"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_ext_top_imgs" value="\${E(v('en_ext_top_imgs'))}"><div class="en-drop" data-field-img="en_ext_top"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4262,7 +4262,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_ext_rear" rows="2" placeholder="외형 뒷면 설명">\${E(v('en_ext_rear'))}</textarea>
-            <div class="en-drop" data-field-img="en_ext_rear"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_ext_rear_imgs" value="\${E(v('en_ext_rear_imgs'))}"><div class="en-drop" data-field-img="en_ext_rear"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4283,7 +4283,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_other_tech" rows="4" placeholder="그 외 배출가스 및 소음 저감기술을 기재하세요">\${E(v('en_other_tech'))}</textarea>
-            <div class="en-drop" data-field-img="en_other_tech"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_other_tech_imgs" value="\${E(v('en_other_tech_imgs'))}"><div class="en-drop" data-field-img="en_other_tech"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -7843,7 +7843,22 @@ function initEnFields() {
     var hint      = drop.querySelector('.en-drop-hint');
     if (!fileInput || !imgList) return;
 
+    // data-field-img 속성으로 대응 hidden input 탐색
+    var fieldName   = drop.getAttribute('data-field-img');
+    var hiddenInput = fieldName
+      ? document.querySelector('[data-field="' + fieldName + '_imgs"]')
+      : null;
+
     var images = []; // { dataUrl, name }
+
+    // ── 초기화: 저장된 이미지 복원 ──────────────────────────
+    if (hiddenInput && hiddenInput.value) {
+      try {
+        var saved = JSON.parse(hiddenInput.value);
+        if (Array.isArray(saved)) images = saved;
+      } catch(e) { /* 파싱 실패 시 무시 */ }
+      render();
+    }
 
     // 클릭 → 파일 선택 (드롭존 내 input이 아닌 영역만)
     drop.addEventListener('click', function(e) {
@@ -7887,6 +7902,8 @@ function initEnFields() {
       imgList.innerHTML = '';
       if (images.length === 0) {
         if (hint) hint.style.display = 'flex';
+        // ── 빈 배열도 hidden input에 동기화 ─────────────────
+        if (hiddenInput) hiddenInput.value = '[]';
         return;
       }
       if (hint) hint.style.display = 'none';
@@ -7909,6 +7926,8 @@ function initEnFields() {
         item.appendChild(delBtn);
         imgList.appendChild(item);
       });
+      // ── 현재 이미지 배열을 hidden input에 JSON 직렬화 저장 ──
+      if (hiddenInput) hiddenInput.value = JSON.stringify(images);
     }
   });
 }

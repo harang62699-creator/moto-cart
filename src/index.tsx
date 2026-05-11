@@ -1907,17 +1907,19 @@ function printWithQR() {
   const wrap = document.getElementById('qr-footer-wrap');
 
   // ── emission_noise 시트: textarea → div 변환 (인쇄 시 텍스트 잘림 방지) ──
-  var enTextareas = document.querySelectorAll('.en-field-text');
+  // textarea 태그만 정확히 선택 (이전에 생성된 div.en-field-text 제외)
+  var enTextareas = document.querySelectorAll('textarea.en-field-text');
   var enRestoreList = [];
   enTextareas.forEach(function(ta) {
     var div = document.createElement('div');
-    div.className = 'en-field-text';
+    div.className = 'en-field-print'; // 클래스명을 다르게 하여 중복 선택 방지
     div.style.cssText = [
       'white-space:pre-wrap', 'word-break:break-word', 'overflow-wrap:break-word',
       'font-size:8.5pt', 'line-height:1.5', 'padding:2px 0',
       'min-height:0', 'height:auto', 'overflow:visible',
       'font-family:Malgun Gothic,sans-serif',
-      'color:#000', 'background:transparent', 'border:none'
+      'color:#000', 'background:transparent', 'border:none',
+      'width:100%', 'box-sizing:border-box'
     ].join(';');
     div.textContent = ta.value;
     ta.parentNode.insertBefore(div, ta);

@@ -4575,7 +4575,7 @@ if (formType==='detail_plan') return (
       <div class="obd-drop" id="obd-drop-1_2_2" onclick="document.getElementById('obd-file-1_2_2').click()">
         <div class="obd-drop-hint"><i class="fas fa-image"></i> 클릭하여 도면/사진 첨부</div>
         <input type="file" id="obd-file-1_2_2" accept="image/*" multiple data-drop-id="obd-drop-1_2_2">
-        <input type="hidden" data-field="obd_1_2_2_img">
+        <input type="hidden" data-field="obd_1_2_2_img" value="\${E(v('obd_1_2_2_img'))}">
       </div>
       <div class="obd-img-list" id="obd-imgs-1_2_2"></div>
     </td>
@@ -4591,7 +4591,7 @@ if (formType==='detail_plan') return (
             <div class="obd-drop" id="obd-drop-1_2_3_1" onclick="document.getElementById('obd-file-1_2_3_1').click()">
               <div class="obd-drop-hint"><i class="fas fa-image"></i> 클릭하여 도면/사진 첨부</div>
               <input type="file" id="obd-file-1_2_3_1" accept="image/*" multiple data-drop-id="obd-drop-1_2_3_1">
-              <input type="hidden" data-field="obd_1_2_3_1_img">
+              <input type="hidden" data-field="obd_1_2_3_1_img" value="\${E(v('obd_1_2_3_1_img'))}">
             </div>
             <div class="obd-img-list" id="obd-imgs-1_2_3_1"></div>
           </td>
@@ -4602,7 +4602,7 @@ if (formType==='detail_plan') return (
             <div class="obd-drop" id="obd-drop-1_2_3_2" onclick="document.getElementById('obd-file-1_2_3_2').click()">
               <div class="obd-drop-hint"><i class="fas fa-image"></i> 클릭하여 도면/사진 첨부</div>
               <input type="file" id="obd-file-1_2_3_2" accept="image/*" multiple data-drop-id="obd-drop-1_2_3_2">
-              <input type="hidden" data-field="obd_1_2_3_2_img">
+              <input type="hidden" data-field="obd_1_2_3_2_img" value="\${E(v('obd_1_2_3_2_img'))}">
             </div>
             <div class="obd-img-list" id="obd-imgs-1_2_3_2"></div>
           </td>
@@ -4613,7 +4613,7 @@ if (formType==='detail_plan') return (
             <div class="obd-drop" id="obd-drop-1_2_3_3" onclick="document.getElementById('obd-file-1_2_3_3').click()">
               <div class="obd-drop-hint"><i class="fas fa-image"></i> 클릭하여 도면/사진 첨부</div>
               <input type="file" id="obd-file-1_2_3_3" accept="image/*" multiple data-drop-id="obd-drop-1_2_3_3">
-              <input type="hidden" data-field="obd_1_2_3_3_img">
+              <input type="hidden" data-field="obd_1_2_3_3_img" value="\${E(v('obd_1_2_3_3_img'))}">
             </div>
             <div class="obd-img-list" id="obd-imgs-1_2_3_3"></div>
           </td>
@@ -5140,7 +5140,7 @@ if (formType==='detail_plan') return (
       <div class="obd-drop" id="obd-drop-car" onclick="document.getElementById('obd-file-car').click()">
         <div class="obd-drop-hint"><i class="fas fa-image"></i> 차량 사진 첨부</div>
         <input type="file" id="obd-file-car" accept="image/*" multiple data-drop-id="obd-drop-car">
-        <input type="hidden" data-field="obd_car_img">
+        <input type="hidden" data-field="obd_car_img" value="\${E(v('obd_car_img'))}">
       </div>
       <div class="obd-img-list" id="obd-imgs-car"></div>
     </td>
@@ -5148,7 +5148,7 @@ if (formType==='detail_plan') return (
       <div class="obd-drop" id="obd-drop-vin" onclick="document.getElementById('obd-file-vin').click()">
         <div class="obd-drop-hint"><i class="fas fa-image"></i> 차대번호 사진 첨부</div>
         <input type="file" id="obd-file-vin" accept="image/*" multiple data-drop-id="obd-drop-vin">
-        <input type="hidden" data-field="obd_vin_img">
+        <input type="hidden" data-field="obd_vin_img" value="\${E(v('obd_vin_img'))}">
       </div>
       <div class="obd-img-list" id="obd-imgs-vin"></div>
     </td>
@@ -5156,7 +5156,7 @@ if (formType==='detail_plan') return (
       <div class="obd-drop" id="obd-drop-eng" onclick="document.getElementById('obd-file-eng').click()">
         <div class="obd-drop-hint"><i class="fas fa-image"></i> 엔진번호 사진 첨부</div>
         <input type="file" id="obd-file-eng" accept="image/*" multiple data-drop-id="obd-drop-eng">
-        <input type="hidden" data-field="obd_eng_img">
+        <input type="hidden" data-field="obd_eng_img" value="\${E(v('obd_eng_img'))}">
       </div>
       <div class="obd-img-list" id="obd-imgs-eng"></div>
     </td>
@@ -5169,7 +5169,7 @@ if (formType==='detail_plan') return (
       <div class="obd-drop" id="obd-drop-scanner" onclick="document.getElementById('obd-file-scanner').click()">
         <div class="obd-drop-hint"><i class="fas fa-image"></i> OBD 스캐너 사진 첨부 (복수 첨부 가능)</div>
         <input type="file" id="obd-file-scanner" accept="image/*" multiple data-drop-id="obd-drop-scanner">
-        <input type="hidden" data-field="obd_scanner_img">
+        <input type="hidden" data-field="obd_scanner_img" value="\${E(v('obd_scanner_img'))}">
       </div>
       <div class="obd-img-list" id="obd-imgs-scanner"></div>
     </td>
@@ -7747,85 +7747,88 @@ function initObdImgDrops() {
   // obd-wrap 안의 모든 .obd-drop 을 자동 탐색하여 초기화
   var wrap = document.querySelector('.obd-wrap');
   if (!wrap) return;
-  var allDrops = wrap.querySelectorAll('.obd-drop');
 
-  allDrops.forEach(function(drop) {
+  wrap.querySelectorAll('.obd-drop').forEach(function(drop) {
     var fileInput = drop.querySelector('input[type="file"]');
     if (!fileInput) return;
+
+    // hidden input: drop 안에서 찾기
+    var hidden = drop.querySelector('input[type="hidden"]');
+
+    // img-list 컨테이너: drop 다음 형제 .obd-img-list 또는 ID 기반
     var listEl = null;
-    // 드롭존 ID에서 imgs- 컨테이너 찾기 (obd-drop-xxx → obd-imgs-xxx)
     if (drop.id) {
-      var listId = drop.id.replace('obd-drop-', 'obd-imgs-');
-      listEl = document.getElementById(listId);
+      listEl = document.getElementById(drop.id.replace('obd-drop-', 'obd-imgs-'));
     }
-    // listEl 없으면 드롭존 다음 형제에서 찾기
     if (!listEl) {
-      listEl = drop.nextElementSibling;
-      if (listEl && !listEl.classList.contains('obd-img-list')) listEl = null;
+      var sib = drop.nextElementSibling;
+      if (sib && sib.classList.contains('obd-img-list')) listEl = sib;
     }
+    // listEl이 없으면 drop 자체를 컨테이너로
+    var container = listEl || drop;
 
-    function addImageToList(src) {
-      // hint 숨기기
+    // 이미지 배열 (메모리)
+    var images = []; // string[]  (dataURL)
+
+    // ── render ──────────────────────────────────────────────────
+    function render() {
+      // img-list 초기화
+      container.querySelectorAll('.obd-img-item').forEach(function(el){ el.remove(); });
       var hint = drop.querySelector('.obd-drop-hint');
+      if (images.length === 0) {
+        if (hint) hint.style.display = '';
+        if (hidden) hidden.value = '[]';
+        return;
+      }
       if (hint) hint.style.display = 'none';
-
-      var container = listEl || drop;
-      var item = document.createElement('div');
-      item.className = 'obd-img-item';
-      var img = document.createElement('img');
-      img.src = src;
-      var del = document.createElement('button');
-      del.className = 'obd-img-item-del';
-      del.innerHTML = '×';
-      del.title = '삭제';
-      del.addEventListener('click', function(e) {
-        e.stopPropagation();
-        item.remove();
-        // 남은 이미지 없으면 hint 다시 표시
-        var remaining = (listEl || drop).querySelectorAll('.obd-img-item');
-        if (remaining.length === 0) {
-          var h2 = drop.querySelector('.obd-drop-hint');
-          if (h2) h2.style.display = '';
-        }
-        saveImgs();
+      images.forEach(function(src, idx) {
+        var item = document.createElement('div');
+        item.className = 'obd-img-item';
+        var img = document.createElement('img');
+        img.src = src;
+        var del = document.createElement('button');
+        del.className = 'obd-img-item-del';
+        del.innerHTML = '\xd7';
+        del.title = '삭제';
+        del.addEventListener('click', function(e) {
+          e.stopPropagation();
+          images.splice(idx, 1);
+          render();
+        });
+        item.appendChild(img);
+        item.appendChild(del);
+        container.appendChild(item);
       });
-      item.appendChild(img);
-      item.appendChild(del);
-      container.appendChild(item);
-      saveImgs();
+      // hidden input 동기화
+      if (hidden) hidden.value = JSON.stringify(images);
     }
 
-    function saveImgs() {
-      var hidden = drop.querySelector('input[type="hidden"]');
-      if (!hidden) return;
-      var imgs = (listEl || drop).querySelectorAll('.obd-img-item img');
-      var srcs = [];
-      imgs.forEach(function(i) { srcs.push(i.src); });
-      hidden.value = JSON.stringify(srcs);
+    // ── 저장값 복원 ─────────────────────────────────────────────
+    if (hidden && hidden.value && hidden.value !== '[]') {
+      try {
+        var parsed = JSON.parse(hidden.value);
+        if (Array.isArray(parsed)) images = parsed;
+        else if (typeof parsed === 'string' && parsed) images = [parsed];
+      } catch(e) {
+        if (hidden.value) images = [hidden.value];
+      }
+      render();
     }
 
+    // ── 파일 처리 ───────────────────────────────────────────────
     function handleFiles(files) {
       Array.from(files).forEach(function(file) {
         if (!file.type.startsWith('image/')) return;
         var reader = new FileReader();
-        reader.onload = function(e) { addImageToList(e.target.result); };
+        reader.onload = function(ev) {
+          images.push(ev.target.result);
+          render();
+        };
         reader.readAsDataURL(file);
       });
     }
 
-    // 기존 저장값 복원
-    var hidden = drop.querySelector('input[type="hidden"]');
-    if (hidden && hidden.value) {
-      try {
-        var saved = JSON.parse(hidden.value);
-        if (Array.isArray(saved)) saved.forEach(function(s) { addImageToList(s); });
-        else if (typeof saved === 'string' && saved) addImageToList(saved);
-      } catch(e) {
-        if (hidden.value) addImageToList(hidden.value);
-      }
-    }
-
-    // 파일 선택
+    // 클릭 → 파일 선택
     fileInput.addEventListener('change', function() {
       handleFiles(this.files);
       this.value = '';
@@ -7833,15 +7836,13 @@ function initObdImgDrops() {
 
     // 드래그앤드롭
     drop.addEventListener('dragover', function(e) {
-      e.preventDefault();
-      drop.classList.add('drag-over');
+      e.preventDefault(); drop.classList.add('drag-over');
     });
     drop.addEventListener('dragleave', function() {
       drop.classList.remove('drag-over');
     });
     drop.addEventListener('drop', function(e) {
-      e.preventDefault();
-      drop.classList.remove('drag-over');
+      e.preventDefault(); drop.classList.remove('drag-over');
       handleFiles(e.dataTransfer.files);
     });
   });

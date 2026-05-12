@@ -147,11 +147,11 @@ app.get('/api/applications', authMiddleware, async (c) => {
 app.post('/api/applications', authMiddleware, async (c) => {
   const payload = c.get('user') as any
   try {
-    const { cert_type, title, brand, model, model_year, prev_cert_number, change_item, change_reason } = await c.req.json()
+    const { cert_type, title, importer, cert_year, displacement, family_code, lang, prev_cert_number, change_item, change_reason } = await c.req.json()
     if (!cert_type || !title) return c.json({ error: '신청 제목과 인증 유형은 필수입니다.' }, 400)
     const result = await c.env.DB.prepare(
-      'INSERT INTO applications (user_id, cert_type, title, brand, model, model_year, prev_cert_number, change_item, change_reason) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
-    ).bind(payload.id, cert_type, title, brand || '', model || '', model_year || '', prev_cert_number || '', change_item || '', change_reason || '').run()
+      'INSERT INTO applications (user_id, cert_type, title, importer, cert_year, displacement, family_code, lang, prev_cert_number, change_item, change_reason) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+    ).bind(payload.id, cert_type, title, importer || '', cert_year || '', displacement || '', family_code || '', lang || 'ko', prev_cert_number || '', change_item || '', change_reason || '').run()
     const app_id = result.meta.last_row_id
     const formTypes = ['summary','gasoline','detail_plan','emission_noise','obd_config','emission_test','evap_test','obd_operation','noise_test','confirmation']
     await c.env.DB.batch(formTypes.map(ft => c.env.DB.prepare('INSERT INTO form_data (application_id, form_type) VALUES (?, ?)').bind(app_id, ft)))
@@ -176,9 +176,9 @@ app.put('/api/applications/:id', authMiddleware, async (c) => {
   const id = c.req.param('id')
   const appl = await c.env.DB.prepare('SELECT * FROM applications WHERE id = ? AND user_id = ?').bind(id, payload.id).first()
   if (!appl) return c.json({ error: 'Not found' }, 404)
-  const { title, brand, model, model_year, status } = await c.req.json()
-  await c.env.DB.prepare('UPDATE applications SET title=?, brand=?, model=?, model_year=?, status=?, updated_at=CURRENT_TIMESTAMP WHERE id=?')
-    .bind(title || appl.title, brand || appl.brand, model || appl.model, model_year || appl.model_year, status || appl.status, id).run()
+  const { title, importer, cert_year, displacement, family_code, lang, status } = await c.req.json()
+  await c.env.DB.prepare('UPDATE applications SET title=?, importer=?, cert_year=?, displacement=?, family_code=?, lang=?, status=?, updated_at=CURRENT_TIMESTAMP WHERE id=?')
+    .bind(title || appl.title, importer ?? appl.importer, cert_year ?? appl.cert_year, displacement ?? appl.displacement, family_code ?? appl.family_code, lang ?? appl.lang, status || appl.status, id).run()
   return c.json({ ok: true })
 })
 
@@ -1450,30 +1450,45 @@ textarea.auto-grow {
         <label class="label">신청 제목 <span style="color:var(--c-danger);">*</span></label>
         <input id="new-title" class="input" type="text" placeholder="예) 2025년 Honda CB125R 기본인증">
       </div>
-      <div class="field-wrap">
-        <label class="label">인증 유형 <span style="color:var(--c-danger);">*</span></label>
-        <select id="new-cert-type" class="input" onchange="onNewCertTypeChange()">
-          <option value="basic">기본인증 — 신규 수입이륜차</option>
-          <option value="change">변경인증 — 인증사항 중요 변경</option>
-          <option value="report">변경보고 — 경미한 사항 변경</option>
-        </select>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="field-wrap">
+          <label class="label">인증 유형 <span style="color:var(--c-danger);">*</span></label>
+          <select id="new-cert-type" class="input" onchange="onNewCertTypeChange()">
+            <option value="basic">기본인증 — 신규 수입이륜차</option>
+            <option value="change">변경인증 — 인증사항 중요 변경</option>
+            <option value="report">변경보고 — 경미한 사항 변경</option>
+          </select>
+        </div>
+        <div class="field-wrap">
+          <label class="label">서류 언어</label>
+          <select id="new-lang" class="input" onchange="onNewLangChange()">
+            <option value="ko">🇰🇷 한국어</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="ja">🇯🇵 日本語</option>
+            <option value="zh">🇨🇳 中文</option>
+          </select>
+        </div>
       </div>
       <div id="new-prev-cert-wrap" class="field-wrap" style="display:none;">
         <label class="label">기존 인증번호 <span style="color:var(--c-danger);">*</span></label>
         <input id="new-prev-cert" class="input" type="text" placeholder="기존 인증번호 입력">
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;">
         <div class="field-wrap">
-          <label class="label">브랜드</label>
-          <input id="new-brand" class="input" type="text" placeholder="Honda">
+          <label class="label">수입사</label>
+          <input id="new-importer" class="input" type="text" placeholder="Honda Korea">
         </div>
         <div class="field-wrap">
-          <label class="label">차종명</label>
-          <input id="new-model" class="input" type="text" placeholder="CB125R">
+          <label class="label">인증연도</label>
+          <input id="new-cert-year" class="input" type="text" placeholder="2025">
         </div>
         <div class="field-wrap">
-          <label class="label">연식</label>
-          <input id="new-year" class="input" type="text" placeholder="2025">
+          <label class="label">배기량</label>
+          <input id="new-displacement" class="input" type="text" placeholder="125cc">
+        </div>
+        <div class="field-wrap">
+          <label class="label">동일차종기호</label>
+          <input id="new-family-code" class="input" type="text" placeholder="A1">
         </div>
       </div>
       <div id="modal-error" class="auth-error"></div>
@@ -1493,6 +1508,7 @@ textarea.auto-grow {
 // ================================================================
 let currentUser = null, currentApplications = [], currentApplication = null;
 let currentForms = [], currentFormType = null, currentApplicationId = null;
+let currentLang = 'ko'; // 'ko' | 'en' | 'ja' | 'zh'
 
 const FORM_META = [
   { type:'summary',        title:'인증신청 요약서',              icon:'fa-file-alt',       color:'#4f8ef7', bg:'rgba(79,142,247,.12)'   },
@@ -1509,6 +1525,172 @@ const FORM_META = [
 const CERT_LABEL   = { basic:'기본인증', change:'변경인증', report:'변경보고' };
 const STATUS_LABEL = { draft:'임시저장', in_progress:'작성중', completed:'완료' };
 const STATUS_BADGE = { draft:'badge-gray', in_progress:'badge-yellow', completed:'badge-green' };
+
+// ================================================================
+// 다국어 사전 (LANG_DICT)
+// ================================================================
+const LANG_DICT = {
+  ko: {
+    // 공통 헤더 필드
+    importer:'수입사', cert_year:'인증연도', displacement:'배기량', family_code:'동일차종기호',
+    appl_div:'구분', appl_no:'인증번호', cert_date:'인증일자', representative:'대표자',
+    address:'주소', phone:'전화번호', model_name:'차종명', engine_no:'엔진번호',
+    // summary
+    summary_title:'인증신청 요약서',
+    // gasoline
+    gasoline_title:'휘발유차 인증신청 주요내용',
+    maker:'제작사', engine_type:'엔진형식', fuel:'연료',
+    max_power:'최고출력(ps/rpm)', max_torque:'최대토크(N·m/rpm)',
+    transmission:'변속기', drive_type:'구동방식', fuel_tank:'연료탱크용량(L)',
+    curb_weight:'공차중량(kg)', wheelbase:'축간거리(mm)',
+    // detail_plan
+    detail_plan_title:'인증에 필요한 세부 계획 서류',
+    vehicle_type:'차종', model_year:'연식', color:'색상',
+    test_org:'시험기관', test_date:'시험일자', test_result:'시험결과',
+    // emission_noise
+    emission_noise_title:'배출가스·소음 저감 서류',
+    emission_std:'배출가스 기준', noise_std:'소음 기준',
+    catalyst:'촉매장치', muffler:'소음기', air_filter:'공기청정기',
+    // obd_config
+    obd_config_title:'OBD 구성에 관한 서류',
+    obd_system:'OBD시스템 유형', ecu_maker:'ECU 제조사', ecu_model:'ECU 모델',
+    sensor_o2:'O2 센서', sensor_map:'MAP 센서', sensor_tps:'TPS 센서',
+    dtc_code:'고장코드(DTC)', mil:'MIL 경고등', readiness:'준비완료 모니터',
+    // emission_test
+    emission_test_title:'배출가스 시험보고서',
+    co:'CO(g/km)', hc:'HC(g/km)', nox:'NOx(g/km)', co2:'CO₂(g/km)',
+    test_mode:'시험모드', fuel_consumption:'연료소비율(km/L)',
+    // evap_test
+    evap_test_title:'증발가스 시험내용 보고서',
+    evap_std:'증발가스 기준', canister:'캐니스터 용량', tank_vol:'연료탱크 용량',
+    // obd_operation
+    obd_operation_title:'OBD 작동 확인시험 보고서',
+    fault_insert:'결함 삽입 방법', mil_check:'MIL 점등 확인', dtc_check:'DTC 저장 확인',
+    freeze_frame:'Freeze Frame 확인',
+    // noise_test
+    noise_test_title:'자동차소음 시험내용 보고서',
+    drive_noise:'주행소음(dB(A))', stationary_noise:'정지소음(dB(A))', horn_noise:'경음기 소음',
+    // confirmation
+    confirmation_title:'확인서',
+    confirm_content:'확인 내용', confirm_date:'확인일자', confirm_sign:'서명',
+    // placeholder
+    ph_importer:'수입사명', ph_cert_year:'예) 2025', ph_displacement:'예) 125cc', ph_family_code:'기호 입력',
+    ph_maker:'제작사명', ph_model_name:'차종명 입력', ph_appl_no:'인증번호 입력',
+  },
+  en: {
+    importer:'Importer', cert_year:'Cert. Year', displacement:'Displacement', family_code:'Family Code',
+    appl_div:'Type', appl_no:'Cert. No.', cert_date:'Cert. Date', representative:'Representative',
+    address:'Address', phone:'Phone', model_name:'Model Name', engine_no:'Engine No.',
+    summary_title:'Certification Application Summary',
+    gasoline_title:'Gasoline Vehicle Certification Key Information',
+    maker:'Manufacturer', engine_type:'Engine Type', fuel:'Fuel',
+    max_power:'Max Power(ps/rpm)', max_torque:'Max Torque(N·m/rpm)',
+    transmission:'Transmission', drive_type:'Drive Type', fuel_tank:'Fuel Tank(L)',
+    curb_weight:'Curb Weight(kg)', wheelbase:'Wheelbase(mm)',
+    detail_plan_title:'Detailed Plan Documents',
+    vehicle_type:'Vehicle Type', model_year:'Model Year', color:'Color',
+    test_org:'Test Organization', test_date:'Test Date', test_result:'Test Result',
+    emission_noise_title:'Emission & Noise Reduction Documents',
+    emission_std:'Emission Standard', noise_std:'Noise Standard',
+    catalyst:'Catalyst', muffler:'Muffler', air_filter:'Air Filter',
+    obd_config_title:'OBD Configuration Documents',
+    obd_system:'OBD System Type', ecu_maker:'ECU Manufacturer', ecu_model:'ECU Model',
+    sensor_o2:'O2 Sensor', sensor_map:'MAP Sensor', sensor_tps:'TPS Sensor',
+    dtc_code:'DTC Code', mil:'MIL Warning Light', readiness:'Readiness Monitor',
+    emission_test_title:'Emission Test Report',
+    co:'CO(g/km)', hc:'HC(g/km)', nox:'NOx(g/km)', co2:'CO₂(g/km)',
+    test_mode:'Test Mode', fuel_consumption:'Fuel Economy(km/L)',
+    evap_test_title:'Evaporative Emission Test Report',
+    evap_std:'Evap. Standard', canister:'Canister Capacity', tank_vol:'Fuel Tank Volume',
+    obd_operation_title:'OBD Operation Verification Test Report',
+    fault_insert:'Fault Insertion Method', mil_check:'MIL Activation Check', dtc_check:'DTC Storage Check',
+    freeze_frame:'Freeze Frame Check',
+    noise_test_title:'Vehicle Noise Test Report',
+    drive_noise:'Drive-by Noise(dB(A))', stationary_noise:'Stationary Noise(dB(A))', horn_noise:'Horn Noise',
+    confirmation_title:'Confirmation Letter',
+    confirm_content:'Confirmation Content', confirm_date:'Date', confirm_sign:'Signature',
+    ph_importer:'Importer name', ph_cert_year:'e.g. 2025', ph_displacement:'e.g. 125cc', ph_family_code:'Family code',
+    ph_maker:'Manufacturer', ph_model_name:'Model name', ph_appl_no:'Cert. number',
+  },
+  ja: {
+    importer:'輸入会社', cert_year:'認証年度', displacement:'排気量', family_code:'同一車種記号',
+    appl_div:'区分', appl_no:'認証番号', cert_date:'認証日', representative:'代表者',
+    address:'住所', phone:'電話番号', model_name:'車種名', engine_no:'エンジン番号',
+    summary_title:'認証申請概要書',
+    gasoline_title:'ガソリン車認証申請主要内容',
+    maker:'製造社', engine_type:'エンジン形式', fuel:'燃料',
+    max_power:'最高出力(ps/rpm)', max_torque:'最大トルク(N·m/rpm)',
+    transmission:'変速機', drive_type:'駆動方式', fuel_tank:'燃料タンク容量(L)',
+    curb_weight:'車両重量(kg)', wheelbase:'軸距(mm)',
+    detail_plan_title:'認証に必要な詳細計画書類',
+    vehicle_type:'車種', model_year:'年式', color:'色',
+    test_org:'試験機関', test_date:'試験日', test_result:'試験結果',
+    emission_noise_title:'排出ガス・騒音低減書類',
+    emission_std:'排出ガス基準', noise_std:'騒音基準',
+    catalyst:'触媒装置', muffler:'消音器', air_filter:'エアフィルター',
+    obd_config_title:'OBD構成に関する書類',
+    obd_system:'OBDシステムタイプ', ecu_maker:'ECUメーカー', ecu_model:'ECUモデル',
+    sensor_o2:'O2センサー', sensor_map:'MAPセンサー', sensor_tps:'TPSセンサー',
+    dtc_code:'故障コード(DTC)', mil:'MIL警告灯', readiness:'レディネスモニター',
+    emission_test_title:'排出ガス試験報告書',
+    co:'CO(g/km)', hc:'HC(g/km)', nox:'NOx(g/km)', co2:'CO₂(g/km)',
+    test_mode:'試験モード', fuel_consumption:'燃費(km/L)',
+    evap_test_title:'蒸発ガス試験内容報告書',
+    evap_std:'蒸発ガス基準', canister:'キャニスター容量', tank_vol:'燃料タンク容量',
+    obd_operation_title:'OBD作動確認試験報告書',
+    fault_insert:'故障挿入方法', mil_check:'MIL点灯確認', dtc_check:'DTC保存確認',
+    freeze_frame:'フリーズフレーム確認',
+    noise_test_title:'自動車騒音試験内容報告書',
+    drive_noise:'走行騒音(dB(A))', stationary_noise:'定置騒音(dB(A))', horn_noise:'警音器騒音',
+    confirmation_title:'確認書',
+    confirm_content:'確認内容', confirm_date:'確認日', confirm_sign:'署名',
+    ph_importer:'輸入会社名', ph_cert_year:'例) 2025', ph_displacement:'例) 125cc', ph_family_code:'記号入力',
+    ph_maker:'製造社名', ph_model_name:'車種名入力', ph_appl_no:'認証番号入力',
+  },
+  zh: {
+    importer:'进口商', cert_year:'认证年度', displacement:'排量', family_code:'同一车型代号',
+    appl_div:'类别', appl_no:'认证编号', cert_date:'认证日期', representative:'代表人',
+    address:'地址', phone:'电话', model_name:'车型名称', engine_no:'发动机编号',
+    summary_title:'认证申请概要书',
+    gasoline_title:'汽油车认证申请主要内容',
+    maker:'制造商', engine_type:'发动机型式', fuel:'燃料',
+    max_power:'最大功率(ps/rpm)', max_torque:'最大扭矩(N·m/rpm)',
+    transmission:'变速器', drive_type:'驱动方式', fuel_tank:'油箱容量(L)',
+    curb_weight:'整备质量(kg)', wheelbase:'轴距(mm)',
+    detail_plan_title:'认证所需详细计划文件',
+    vehicle_type:'车种', model_year:'年款', color:'颜色',
+    test_org:'检测机构', test_date:'检测日期', test_result:'检测结果',
+    emission_noise_title:'排放及噪音减排文件',
+    emission_std:'排放标准', noise_std:'噪音标准',
+    catalyst:'催化装置', muffler:'消音器', air_filter:'空气滤清器',
+    obd_config_title:'OBD配置相关文件',
+    obd_system:'OBD系统类型', ecu_maker:'ECU制造商', ecu_model:'ECU型号',
+    sensor_o2:'O2传感器', sensor_map:'MAP传感器', sensor_tps:'TPS传感器',
+    dtc_code:'故障码(DTC)', mil:'MIL警告灯', readiness:'就绪监测器',
+    emission_test_title:'排放气体试验报告书',
+    co:'CO(g/km)', hc:'HC(g/km)', nox:'NOx(g/km)', co2:'CO₂(g/km)',
+    test_mode:'试验模式', fuel_consumption:'油耗(km/L)',
+    evap_test_title:'蒸发排放试验内容报告书',
+    evap_std:'蒸发排放标准', canister:'碳罐容量', tank_vol:'油箱容量',
+    obd_operation_title:'OBD运行确认试验报告书',
+    fault_insert:'故障插入方法', mil_check:'MIL点亮确认', dtc_check:'DTC存储确认',
+    freeze_frame:'冻结帧确认',
+    noise_test_title:'汽车噪声试验内容报告书',
+    drive_noise:'行驶噪声(dB(A))', stationary_noise:'怠速噪声(dB(A))', horn_noise:'喇叭噪声',
+    confirmation_title:'确认书',
+    confirm_content:'确认内容', confirm_date:'确认日期', confirm_sign:'签名',
+    ph_importer:'进口商名称', ph_cert_year:'例) 2025', ph_displacement:'例) 125cc', ph_family_code:'代号输入',
+    ph_maker:'制造商名称', ph_model_name:'车型名称', ph_appl_no:'认证编号输入',
+  },
+};
+// LANG_DICT 헬퍼: 현재 언어로 라벨 반환 (fallback: ko)
+function L(key) {
+  return (LANG_DICT[currentLang]||LANG_DICT.ko)[key] || (LANG_DICT.ko[key] || key);
+}
+function PH(key) {
+  const phKey = 'ph_'+key;
+  return (LANG_DICT[currentLang]||LANG_DICT.ko)[phKey] || (LANG_DICT.ko[phKey] || '');
+}
 
 // ================================================================
 // 토큰
@@ -1671,7 +1853,7 @@ function renderAppList() {
     const total_f = a.total_forms || 10;
     const pct     = Math.round(done_f/total_f*100);
     const date    = new Date(a.updated_at).toLocaleDateString('ko-KR',{month:'short',day:'numeric'});
-    const metaStr = [a.brand,a.model,a.model_year?a.model_year+'년식':''].filter(Boolean).join(' ');
+    const metaStr = [a.importer,a.cert_year?a.cert_year+'년':'',a.displacement?a.displacement+'cc':''].filter(Boolean).join(' ');
     const certBadge = { basic:'badge-blue', change:'badge-violet', report:'badge-yellow' }[a.cert_type] || 'badge-gray';
     return \`
       <div class="app-item">
@@ -1712,6 +1894,12 @@ async function openApplication(id) {
     if (!res.ok) { showToast('불러오기 실패','error'); return; }
     const data = await res.json();
     currentApplication = data.application; currentForms = data.forms; currentApplicationId = id;
+    // 저장된 언어 복원
+    if (data.application.lang && ['ko','en','ja','zh'].includes(data.application.lang)) {
+      currentLang = data.application.lang;
+    } else {
+      currentLang = 'ko';
+    }
     renderApplicationPage(); showPage('page-application');
   } catch { showToast('네트워크 오류','error'); }
 }
@@ -1726,7 +1914,7 @@ function renderApplicationPage() {
   sb.className   = 'badge ' + (STATUS_BADGE[a.status]||'badge-gray');
   sb.textContent = STATUS_LABEL[a.status]||a.status;
   document.getElementById('appl-title').textContent = a.title;
-  document.getElementById('appl-meta').textContent  = [a.brand,a.model,a.model_year?a.model_year+'년식':''].filter(Boolean).join(' · ');
+  document.getElementById('appl-meta').textContent  = [a.importer,a.cert_year?a.cert_year+'년':'',a.displacement?a.displacement+'cc':''].filter(Boolean).join(' · ');
   const done  = currentForms.filter(f=>f.completed).length;
   const total = currentForms.length;
   const pct   = total ? Math.round(done/total*100) : 0;
@@ -2064,8 +2252,11 @@ function printApplicationSummary() {
 // 신청서 생성/삭제
 // ================================================================
 function showNewAppModal() {
-  ['new-title','new-brand','new-model','new-year'].forEach(id=>document.getElementById(id).value='');
+  ['new-title','new-importer','new-cert-year','new-displacement','new-family-code'].forEach(id=>{
+    const el=document.getElementById(id); if(el)el.value='';
+  });
   document.getElementById('new-cert-type').value = 'basic';
+  document.getElementById('new-lang').value = currentLang || 'ko';
   document.getElementById('modal-error').style.display = 'none';
   document.getElementById('create-btn').disabled = false;
   document.getElementById('create-btn').innerHTML = '<i class="fas fa-check"></i>신청서 생성';
@@ -2078,16 +2269,21 @@ function onNewCertTypeChange() {
   const v = document.getElementById('new-cert-type').value;
   document.getElementById('new-prev-cert-wrap').style.display = v==='basic' ? 'none' : 'flex';
 }
+function onNewLangChange() {
+  currentLang = document.getElementById('new-lang').value;
+}
 document.getElementById('modal-new-app').addEventListener('click', function(e){ if(e.target===this)closeNewAppModal(); });
 
 async function createApplication() {
-  const title    = document.getElementById('new-title').value.trim();
-  const cert_type= document.getElementById('new-cert-type').value;
-  const brand    = document.getElementById('new-brand').value.trim();
-  const model    = document.getElementById('new-model').value.trim();
-  const model_year= document.getElementById('new-year').value.trim();
-  const prev_cert= document.getElementById('new-prev-cert')?.value.trim()||'';
-  const errEl    = document.getElementById('modal-error');
+  const title       = document.getElementById('new-title').value.trim();
+  const cert_type   = document.getElementById('new-cert-type').value;
+  const lang        = document.getElementById('new-lang').value;
+  const importer    = document.getElementById('new-importer').value.trim();
+  const cert_year   = document.getElementById('new-cert-year').value.trim();
+  const displacement= document.getElementById('new-displacement').value.trim();
+  const family_code = document.getElementById('new-family-code').value.trim();
+  const prev_cert   = document.getElementById('new-prev-cert')?.value.trim()||'';
+  const errEl       = document.getElementById('modal-error');
   errEl.style.display = 'none';
   if (!title) { errEl.textContent='신청 제목을 입력하세요.'; errEl.style.display='block'; document.getElementById('new-title').focus(); return; }
   if ((cert_type==='change'||cert_type==='report')&&!prev_cert) {
@@ -2095,9 +2291,13 @@ async function createApplication() {
   const btn = document.getElementById('create-btn');
   btn.disabled=true; btn.innerHTML='<div class="spinner"></div>생성 중...';
   try {
-    const res  = await api('/api/applications',{method:'POST',body:JSON.stringify({title,cert_type,brand,model,model_year,prev_cert_number:prev_cert})});
+    const res  = await api('/api/applications',{method:'POST',body:JSON.stringify({
+      title, cert_type, lang, importer, cert_year, displacement, family_code, prev_cert_number:prev_cert
+    })});
     const data = await res.json();
     if (!res.ok) { errEl.textContent=data.error||'생성 실패'; errEl.style.display='block'; return; }
+    // 선택한 언어를 전역 상태에 반영
+    currentLang = lang;
     closeNewAppModal();
     showToast('신청서가 생성되었습니다.','success');
     await openApplication(data.application.id);
@@ -2437,17 +2637,17 @@ function buildFormHTML(formType, saved) {
   <table class="sv-header-tbl">
     <!-- 레이블 행 (배경색) -->
     <tr class="sv-header-row-lbl">
-      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">수입사</span></td>
-      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">인증연도</span></td>
-      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">배기량</span></td>
-      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">동일차종기호</span></td>
+      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">\${L('importer')}</span></td>
+      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">\${L('cert_year')}</span></td>
+      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">\${L('displacement')}</span></td>
+      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">\${L('family_code')}</span></td>
     </tr>
     <!-- 입력값 행 -->
     <tr class="sv-header-row-val">
-      <td class="sv-header-val-cell"><input data-field="importer" class="sv-header-inp" type="text" placeholder="수입사명" value="\${E(v('importer'))}"></td>
-      <td class="sv-header-val-cell"><input data-field="cert_year" class="sv-header-inp" type="text" placeholder="예) 2025" value="\${E(v('cert_year'))}"></td>
-      <td class="sv-header-val-cell"><input data-field="displacement" class="sv-header-inp" type="text" placeholder="예) 1000cc" value="\${E(v('displacement'))}"></td>
-      <td class="sv-header-val-cell"><input data-field="family_code" class="sv-header-inp" type="text" placeholder="기호 입력" value="\${E(v('family_code'))}"></td>
+      <td class="sv-header-val-cell"><input data-field="importer" class="sv-header-inp" type="text" placeholder="\${L('ph_importer')}" value="\${E(v('importer'))}"></td>
+      <td class="sv-header-val-cell"><input data-field="cert_year" class="sv-header-inp" type="text" placeholder="\${L('ph_cert_year')}" value="\${E(v('cert_year'))}"></td>
+      <td class="sv-header-val-cell"><input data-field="displacement" class="sv-header-inp" type="text" placeholder="\${L('ph_displacement')}" value="\${E(v('displacement'))}"></td>
+      <td class="sv-header-val-cell"><input data-field="family_code" class="sv-header-inp" type="text" placeholder="\${L('ph_family_code')}" value="\${E(v('family_code'))}"></td>
     </tr>
   </table>
 
@@ -2752,23 +2952,23 @@ function buildFormHTML(formType, saved) {
 
 <!-- ■ 제목 + 헤더 -->
 <div class="form-section g-wrap" style="padding:0;overflow:hidden;">
-  <div class="g-form-title">휘발유차 인증신청 주요내용</div>
+  <div class="g-form-title">\${L('gasoline_title')}</div>
   <div class="g-header-grid">
     <div class="g-header-cell">
-      <span class="g-header-label">수입사</span>
-      <input data-field="importer" class="input g-inp" type="text" placeholder="수입사명" value="\${E(v('importer'))}" style="width:100%;">
+      <span class="g-header-label">\${L('importer')}</span>
+      <input data-field="importer" class="input g-inp" type="text" placeholder="\${L('ph_importer')}" value="\${E(v('importer'))}" style="width:100%;">
     </div>
     <div class="g-header-cell">
-      <span class="g-header-label">인증연도</span>
-      <input data-field="cert_year" class="input g-inp" type="text" placeholder="예) 2025" value="\${E(v('cert_year'))}" style="width:100%;">
+      <span class="g-header-label">\${L('cert_year')}</span>
+      <input data-field="cert_year" class="input g-inp" type="text" placeholder="\${L('ph_cert_year')}" value="\${E(v('cert_year'))}" style="width:100%;">
     </div>
     <div class="g-header-cell">
-      <span class="g-header-label">배기량</span>
-      <input data-field="displacement_cc" class="input g-inp" type="text" placeholder="예) 999cc" value="\${E(v('displacement_cc'))}" style="width:100%;">
+      <span class="g-header-label">\${L('displacement')}</span>
+      <input data-field="displacement_cc" class="input g-inp" type="text" placeholder="\${L('ph_displacement')}" value="\${E(v('displacement_cc'))}" style="width:100%;">
     </div>
     <div class="g-header-cell">
-      <span class="g-header-label">동일차종기호</span>
-      <input data-field="family_code" class="input g-inp" type="text" placeholder="기호 입력" value="\${E(v('family_code'))}" style="width:100%;">
+      <span class="g-header-label">\${L('family_code')}</span>
+      <input data-field="family_code" class="input g-inp" type="text" placeholder="\${L('ph_family_code')}" value="\${E(v('family_code'))}" style="width:100%;">
     </div>
   </div>
 </div>
@@ -3379,17 +3579,17 @@ function buildFormHTML(formType, saved) {
 
 
 if (formType==='detail_plan') return (
-    sec('차량 기본 사양','fa-info-circle',
-      fld('제작사','maker')+fld('차종명','model')+fld('연식','model_year')+
-      fld('차량 총중량 (kg)','gvw','number')+fld('공차중량 (kg)','curb_weight','number')+
+    sec(L('detail_plan_title'),'fa-info-circle',
+      fld(L('maker'),'maker')+fld(L('model_name'),'model')+fld(L('model_year'),'model_year')+
+      fld('차량 총중량 (kg)','gvw','number')+fld(L('curb_weight'),'curb_weight','number')+
       fld('전장 (mm)','length','number')+fld('전폭 (mm)','width','number')+
-      fld('전고 (mm)','height','number')+fld('축간거리 (mm)','wheelbase','number'))+
+      fld('전고 (mm)','height','number')+fld(L('wheelbase'),'wheelbase','number'))+
     sec('엔진 사양','fa-cog',
-      fld('배기량 (cc)','displacement','number')+fld('최고출력 (kW)','max_power','number')+
-      fld('최대토크 (N·m)','max_torque','number')+fld('보어 × 스트로크 (mm)','bore_stroke')+
-      fld('압축비','compression')+fld('연료탱크 용량 (L)','fuel_tank','number'))+
-    sec('촉매 장치','fa-filter',
-      fld('촉매 종류','catalyst_type','text','3원 촉매')+fld('귀금속 성분 (Pt)','cat_pt','number')+
+      fld(L('displacement'),'displacement','number')+fld(L('max_power'),'max_power','number')+
+      fld(L('max_torque'),'max_torque','number')+fld('보어 × 스트로크 (mm)','bore_stroke')+
+      fld('압축비','compression')+fld(L('fuel_tank'),'fuel_tank','number'))+
+    sec(L('catalyst'),'fa-filter',
+      fld(L('catalyst'),'catalyst_type','text','3원 촉매')+fld('귀금속 성분 (Pt)','cat_pt','number')+
       fld('귀금속 성분 (Pd)','cat_pd','number')+fld('귀금속 성분 (Rh)','cat_rh','number')+
       fld('촉매 위치','cat_location'))+
     sec('배출가스 개발 목표','fa-bullseye',
@@ -3586,18 +3786,18 @@ if (formType==='detail_plan') return (
     </colgroup>
     <thead>
       <tr>
-        <th class="en-th">수입사</th>
-        <th class="en-th">인증연도</th>
-        <th class="en-th">배기량</th>
-        <th class="en-th">동일차종기호</th>
+        <th class="en-th">\${L('importer')}</th>
+        <th class="en-th">\${L('cert_year')}</th>
+        <th class="en-th">\${L('displacement')}</th>
+        <th class="en-th">\${L('family_code')}</th>
       </tr>
     </thead>
     <tbody>
       <tr style="height:26px;">
-        <td><input data-field="en_importer"  class="en-inp" type="text" value="\${E(v('en_importer'))}"></td>
-        <td><input data-field="en_cert_year" class="en-inp" type="text" value="\${E(v('en_cert_year'))}"></td>
-        <td><input data-field="en_disp"      class="en-inp" type="text" value="\${E(v('en_disp'))}"></td>
-        <td><input data-field="en_fam_code"  class="en-inp" type="text" value="\${E(v('en_fam_code'))}"></td>
+        <td><input data-field="en_importer"  class="en-inp" type="text" placeholder="\${L('ph_importer')}" value="\${E(v('en_importer'))}"></td>
+        <td><input data-field="en_cert_year" class="en-inp" type="text" placeholder="\${L('ph_cert_year')}" value="\${E(v('en_cert_year'))}"></td>
+        <td><input data-field="en_disp"      class="en-inp" type="text" placeholder="\${L('ph_displacement')}" value="\${E(v('en_disp'))}"></td>
+        <td><input data-field="en_fam_code"  class="en-inp" type="text" placeholder="\${L('ph_family_code')}" value="\${E(v('en_fam_code'))}"></td>
       </tr>
     </tbody>
   </table>
@@ -4475,16 +4675,16 @@ if (formType==='detail_plan') return (
 <table class="obd-tbl" style="margin-bottom:8px;">
   <colgroup><col style="width:25%"><col style="width:25%"><col style="width:25%"><col style="width:25%"></colgroup>
   <tr>
-    <th class="obd-th">수입사</th>
-    <th class="obd-th">인증연도</th>
-    <th class="obd-th">배기량</th>
-    <th class="obd-th">동일차종기호</th>
+    <th class="obd-th">\${L('importer')}</th>
+    <th class="obd-th">\${L('cert_year')}</th>
+    <th class="obd-th">\${L('displacement')}</th>
+    <th class="obd-th">\${L('family_code')}</th>
   </tr>
   <tr>
-    <td><textarea class="obd-field-text" data-field="obd_header_importer" placeholder="수입사명"></textarea></td>
-    <td><textarea class="obd-field-text" data-field="obd_header_year" placeholder="인증연도"></textarea></td>
-    <td><textarea class="obd-field-text" data-field="obd_header_cc" placeholder="배기량(cc)"></textarea></td>
-    <td><textarea class="obd-field-text" data-field="obd_header_code" placeholder="동일차종기호"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_header_importer" placeholder="\${L('ph_importer')}"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_header_year" placeholder="\${L('ph_cert_year')}"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_header_cc" placeholder="\${L('ph_displacement')}"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_header_code" placeholder="\${L('ph_family_code')}"></textarea></td>
   </tr>
 </table>
 
@@ -5313,18 +5513,18 @@ if (formType==='detail_plan') return (
     </colgroup>
     <thead>
       <tr>
-        <th class="em-th">수입사</th>
-        <th class="em-th">인증연도</th>
-        <th class="em-th">배기량</th>
-        <th class="em-th">동일차종기호</th>
+        <th class="em-th">\${L('importer')}</th>
+        <th class="em-th">\${L('cert_year')}</th>
+        <th class="em-th">\${L('displacement')}</th>
+        <th class="em-th">\${L('family_code')}</th>
       </tr>
     </thead>
     <tbody>
       <tr style="height:26px;">
-        <td><input data-field="em_importer"  class="em-inp" type="text" value="\${E(v('em_importer'))}"></td>
-        <td><input data-field="em_cert_year" class="em-inp" type="text" value="\${E(v('em_cert_year'))}"></td>
-        <td><input data-field="em_disp"      class="em-inp" type="text" value="\${E(v('em_disp'))}"></td>
-        <td><input data-field="em_fam_code"  class="em-inp" type="text" value="\${E(v('em_fam_code'))}"></td>
+        <td><input data-field="em_importer"  class="em-inp" type="text" placeholder="\${L('ph_importer')}" value="\${E(v('em_importer'))}"></td>
+        <td><input data-field="em_cert_year" class="em-inp" type="text" placeholder="\${L('ph_cert_year')}" value="\${E(v('em_cert_year'))}"></td>
+        <td><input data-field="em_disp"      class="em-inp" type="text" placeholder="\${L('ph_displacement')}" value="\${E(v('em_disp'))}"></td>
+        <td><input data-field="em_fam_code"  class="em-inp" type="text" placeholder="\${L('ph_family_code')}" value="\${E(v('em_fam_code'))}"></td>
       </tr>
     </tbody>
   </table>
@@ -5935,18 +6135,18 @@ if (formType==='detail_plan') return (
   <table class="ev-tbl" style="margin-bottom:14px;">
     <thead>
       <tr>
-        <th class="ev-th" style="width:25%;">수입사</th>
-        <th class="ev-th" style="width:25%;">인증연도</th>
-        <th class="ev-th" style="width:25%;">배기량</th>
-        <th class="ev-th" style="width:25%;">동일차종기호</th>
+        <th class="ev-th" style="width:25%;">\${L('importer')}</th>
+        <th class="ev-th" style="width:25%;">\${L('cert_year')}</th>
+        <th class="ev-th" style="width:25%;">\${L('displacement')}</th>
+        <th class="ev-th" style="width:25%;">\${L('family_code')}</th>
       </tr>
     </thead>
     <tbody>
       <tr style="height:28px;">
-        <td><input data-field="ev_importer"   class="ev-inp" type="text" value="\${E(v('ev_importer'))}"></td>
-        <td><input data-field="ev_cert_year"  class="ev-inp" type="text" value="\${E(v('ev_cert_year'))}"></td>
-        <td><input data-field="ev_disp"       class="ev-inp" type="text" value="\${E(v('ev_disp'))}"></td>
-        <td><input data-field="ev_fam_code"   class="ev-inp" type="text" value="\${E(v('ev_fam_code'))}"></td>
+        <td><input data-field="ev_importer"   class="ev-inp" type="text" placeholder="\${L('ph_importer')}" value="\${E(v('ev_importer'))}"></td>
+        <td><input data-field="ev_cert_year"  class="ev-inp" type="text" placeholder="\${L('ph_cert_year')}" value="\${E(v('ev_cert_year'))}"></td>
+        <td><input data-field="ev_disp"       class="ev-inp" type="text" placeholder="\${L('ph_displacement')}" value="\${E(v('ev_disp'))}"></td>
+        <td><input data-field="ev_fam_code"   class="ev-inp" type="text" placeholder="\${L('ph_family_code')}" value="\${E(v('ev_fam_code'))}"></td>
       </tr>
     </tbody>
   </table>
@@ -6649,16 +6849,16 @@ if (formType==='detail_plan') return (
 <!-- ① 상단 헤더 -->
 <table class="nt-header-tbl">
   <tr>
-    <td class="nt-header-lbl-cell"><span class="nt-header-lbl">수입사</span></td>
-    <td class="nt-header-lbl-cell"><span class="nt-header-lbl">인증연도</span></td>
-    <td class="nt-header-lbl-cell"><span class="nt-header-lbl">배기량</span></td>
-    <td class="nt-header-lbl-cell"><span class="nt-header-lbl">동일차종기호</span></td>
+    <td class="nt-header-lbl-cell"><span class="nt-header-lbl">\${L('importer')}</span></td>
+    <td class="nt-header-lbl-cell"><span class="nt-header-lbl">\${L('cert_year')}</span></td>
+    <td class="nt-header-lbl-cell"><span class="nt-header-lbl">\${L('displacement')}</span></td>
+    <td class="nt-header-lbl-cell"><span class="nt-header-lbl">\${L('family_code')}</span></td>
   </tr>
   <tr>
-    <td class="nt-header-val-cell"><input data-field="importer"     class="nt-header-inp" type="text" placeholder="수입사명"   value="\${E(v('importer'))}"></td>
-    <td class="nt-header-val-cell"><input data-field="cert_year"    class="nt-header-inp" type="text" placeholder="예) 2025"   value="\${E(v('cert_year'))}"></td>
-    <td class="nt-header-val-cell"><input data-field="displacement" class="nt-header-inp" type="text" placeholder="예) 1000cc" value="\${E(v('displacement'))}"></td>
-    <td class="nt-header-val-cell"><input data-field="family_code"  class="nt-header-inp" type="text" placeholder="기호 입력"  value="\${E(v('family_code'))}"></td>
+    <td class="nt-header-val-cell"><input data-field="importer"     class="nt-header-inp" type="text" placeholder="\${L('ph_importer')}"    value="\${E(v('importer'))}"></td>
+    <td class="nt-header-val-cell"><input data-field="cert_year"    class="nt-header-inp" type="text" placeholder="\${L('ph_cert_year')}"   value="\${E(v('cert_year'))}"></td>
+    <td class="nt-header-val-cell"><input data-field="displacement" class="nt-header-inp" type="text" placeholder="\${L('ph_displacement')}" value="\${E(v('displacement'))}"></td>
+    <td class="nt-header-val-cell"><input data-field="family_code"  class="nt-header-inp" type="text" placeholder="\${L('ph_family_code')}"  value="\${E(v('family_code'))}"></td>
   </tr>
 </table>
 
@@ -7574,16 +7774,16 @@ if (formType==='detail_plan') return (
   <!-- ① 상단 헤더 (요약서와 동일 2행 구조) -->
   <table class="cf-header-tbl">
     <tr>
-      <td class="cf-header-lbl-cell"><span class="cf-header-lbl">수입사</span></td>
-      <td class="cf-header-lbl-cell"><span class="cf-header-lbl">인증연도</span></td>
-      <td class="cf-header-lbl-cell"><span class="cf-header-lbl">배기량</span></td>
-      <td class="cf-header-lbl-cell"><span class="cf-header-lbl">동일차종기호</span></td>
+      <td class="cf-header-lbl-cell"><span class="cf-header-lbl">\${L('importer')}</span></td>
+      <td class="cf-header-lbl-cell"><span class="cf-header-lbl">\${L('cert_year')}</span></td>
+      <td class="cf-header-lbl-cell"><span class="cf-header-lbl">\${L('displacement')}</span></td>
+      <td class="cf-header-lbl-cell"><span class="cf-header-lbl">\${L('family_code')}</span></td>
     </tr>
     <tr>
-      <td class="cf-header-val-cell"><input data-field="importer"     class="cf-header-inp" type="text" placeholder="수입사명"   value="\${E(v('importer'))}"></td>
-      <td class="cf-header-val-cell"><input data-field="cert_year"    class="cf-header-inp" type="text" placeholder="예) 2025"   value="\${E(v('cert_year'))}"></td>
-      <td class="cf-header-val-cell"><input data-field="displacement" class="cf-header-inp" type="text" placeholder="예) 1000cc" value="\${E(v('displacement'))}"></td>
-      <td class="cf-header-val-cell"><input data-field="family_code"  class="cf-header-inp" type="text" placeholder="기호 입력"  value="\${E(v('family_code'))}"></td>
+      <td class="cf-header-val-cell"><input data-field="importer"     class="cf-header-inp" type="text" placeholder="\${L('ph_importer')}"    value="\${E(v('importer'))}"></td>
+      <td class="cf-header-val-cell"><input data-field="cert_year"    class="cf-header-inp" type="text" placeholder="\${L('ph_cert_year')}"   value="\${E(v('cert_year'))}"></td>
+      <td class="cf-header-val-cell"><input data-field="displacement" class="cf-header-inp" type="text" placeholder="\${L('ph_displacement')}" value="\${E(v('displacement'))}"></td>
+      <td class="cf-header-val-cell"><input data-field="family_code"  class="cf-header-inp" type="text" placeholder="\${L('ph_family_code')}"  value="\${E(v('family_code'))}"></td>
     </tr>
   </table>
 

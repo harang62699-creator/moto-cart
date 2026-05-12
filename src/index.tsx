@@ -1617,6 +1617,17 @@ const LANG_DICT = {
     // confirmation
     confirmation_title:'확인서', cf_title:'확인서',
     confirm_content:'확인 내용', confirm_date:'확인일자', confirm_sign:'서명',
+    // emission_test 본문
+    em_main_title:'배출가스 시험내용 보고서(WMTC 모드)',
+    em_test_div:'시험구분', em_test_no:'시험번호', em_driver:'운전자',
+    em_operator:'장비작동자', em_inspector:'검사책임자',
+    em_dynamo:'다이나모 메타', em_analyzer:'분석 장치', em_cooling_fan:'냉각팬',
+    // evap_test 본문
+    ev_main_title:'증발가스 시험내용 보고서',
+    ev_diurnal_test:'주간증발손실시험', ev_hot_soak:'고온소오크시험',
+    // obd_operation 본문
+    oo_main_title:'배출가스자기진단장치 작동 확인시험내용 보고서',
+    oo_sec_general:'□ 시험 일반 내용', oo_sec_vehicle:'□ 시험자동차 제원', oo_sec_result:'□ 시 험 결 과',
     // placeholder
     ph_importer:'수입사명', ph_cert_year:'예) 2025', ph_displacement:'예) 125cc', ph_family_code:'기호 입력',
     ph_maker:'제작사명', ph_model_name:'차종명 입력', ph_appl_no:'인증번호 입력',
@@ -1694,6 +1705,17 @@ const LANG_DICT = {
     drive_noise:'Drive-by Noise(dB(A))', stationary_noise:'Stationary Noise(dB(A))', horn_noise:'Horn Noise',
     confirmation_title:'Confirmation Letter', cf_title:'Confirmation Letter',
     confirm_content:'Confirmation Content', confirm_date:'Date', confirm_sign:'Signature',
+    // emission_test
+    em_main_title:'Emission Test Report (WMTC Mode)',
+    em_test_div:'Test Type', em_test_no:'Test No.', em_driver:'Driver',
+    em_operator:'Equipment Operator', em_inspector:'Inspection Manager',
+    em_dynamo:'Dynamometer', em_analyzer:'Analyzer', em_cooling_fan:'Cooling Fan',
+    // evap_test
+    ev_main_title:'Evaporative Emission Test Report',
+    ev_diurnal_test:'Diurnal Emission Test', ev_hot_soak:'Hot Soak Test',
+    // obd_operation
+    oo_main_title:'OBD Operation Verification Test Report',
+    oo_sec_general:'□ General Test Information', oo_sec_vehicle:'□ Test Vehicle Specifications', oo_sec_result:'□ Test Results',
     ph_importer:'Importer name', ph_cert_year:'e.g. 2025', ph_displacement:'e.g. 125cc', ph_family_code:'Family code',
     ph_maker:'Manufacturer', ph_model_name:'Model name', ph_appl_no:'Cert. number',
   },
@@ -1770,6 +1792,17 @@ const LANG_DICT = {
     drive_noise:'走行騒音(dB(A))', stationary_noise:'定置騒音(dB(A))', horn_noise:'警音器騒音',
     confirmation_title:'確認書', cf_title:'確認書',
     confirm_content:'確認内容', confirm_date:'確認日', confirm_sign:'署名',
+    // emission_test
+    em_main_title:'排出ガス試験内容報告書(WMTCモード)',
+    em_test_div:'試験区分', em_test_no:'試験番号', em_driver:'運転者',
+    em_operator:'装備操作者', em_inspector:'検査責任者',
+    em_dynamo:'ダイナモメーター', em_analyzer:'分析装置', em_cooling_fan:'冷却ファン',
+    // evap_test
+    ev_main_title:'蒸発ガス試験内容報告書',
+    ev_diurnal_test:'昼間蒸発損失試験', ev_hot_soak:'ホットソーク試験',
+    // obd_operation
+    oo_main_title:'排出ガス自己診断装置作動確認試験内容報告書',
+    oo_sec_general:'□ 試験一般内容', oo_sec_vehicle:'□ 試験自動車諸元', oo_sec_result:'□ 試 験 結 果',
     ph_importer:'輸入会社名', ph_cert_year:'例) 2025', ph_displacement:'例) 125cc', ph_family_code:'記号入力',
     ph_maker:'製造社名', ph_model_name:'車種名入力', ph_appl_no:'認証番号入力',
   },
@@ -1846,6 +1879,17 @@ const LANG_DICT = {
     drive_noise:'行驶噪声(dB(A))', stationary_noise:'怠速噪声(dB(A))', horn_noise:'喇叭噪声',
     confirmation_title:'确认书', cf_title:'确认书',
     confirm_content:'确认内容', confirm_date:'确认日期', confirm_sign:'签名',
+    // emission_test
+    em_main_title:'排放气体试验内容报告书(WMTC模式)',
+    em_test_div:'试验区分', em_test_no:'试验编号', em_driver:'驾驶员',
+    em_operator:'设备操作员', em_inspector:'检验负责人',
+    em_dynamo:'测功机', em_analyzer:'分析装置', em_cooling_fan:'冷却风扇',
+    // evap_test
+    ev_main_title:'蒸发排放试验内容报告书',
+    ev_diurnal_test:'日间蒸发损失试验', ev_hot_soak:'热浸泡试验',
+    // obd_operation
+    oo_main_title:'排放自诊断装置运行确认试验内容报告书',
+    oo_sec_general:'□ 试验一般内容', oo_sec_vehicle:'□ 试验车辆规格', oo_sec_result:'□ 试 验 结 果',
     ph_importer:'进口商名称', ph_cert_year:'例) 2025', ph_displacement:'例) 125cc', ph_family_code:'代号输入',
     ph_maker:'制造商名称', ph_model_name:'车型名称', ph_appl_no:'认证编号输入',
   },
@@ -5697,7 +5741,7 @@ if (formType==='detail_plan') return (
   </table>
 
   <div class="em-doc-tag">[별지 제18의2호 서식]</div>
-  <div class="em-main-title">배출가스 시험내용 보고서(WMTC 모드)</div>
+  <div class="em-main-title">\${L('em_main_title')}</div>
 
   <!-- ══════════════════════════════════════════ -->
   <!-- 1. 일반 사항                               -->
@@ -5725,7 +5769,7 @@ if (formType==='detail_plan') return (
       </tr>
       <!-- 시험구분 -->
       <tr>
-        <td class="em-th" colspan="1">시험구분</td>
+        <td class="em-th" colspan="1">\${L('em_test_div')}</td>
         <td colspan="2" style="text-align:center;">
           <label class="em-chk"><input type="checkbox" data-field="em_type_dur" \${v('em_type_dur')?'checked':''}>&nbsp;내구주행시험</label>
         </td>
@@ -5741,13 +5785,13 @@ if (formType==='detail_plan') return (
       </tr>
       <!-- 시험번호 / 운전자 / 장비작동자 / 검사책임자 -->
       <tr>
-        <td class="em-th" colspan="1">시험번호</td>
+        <td class="em-th" colspan="1">\${L('em_test_no')}</td>
         <td colspan="1"><input data-field="em_test_no"   class="em-inp" type="text" value="\${E(v('em_test_no'))}"></td>
-        <td class="em-th" colspan="1">운전자</td>
+        <td class="em-th" colspan="1">\${L('em_driver')}</td>
         <td colspan="1"><input data-field="em_driver"    class="em-inp" type="text" value="\${E(v('em_driver'))}"></td>
-        <td class="em-th" colspan="1">장비작동자</td>
+        <td class="em-th" colspan="1">\${L('em_operator')}</td>
         <td colspan="1"><input data-field="em_operator"  class="em-inp" type="text" value="\${E(v('em_operator'))}"></td>
-        <td class="em-th" colspan="1">검사책임자</td>
+        <td class="em-th" colspan="1">\${L('em_inspector')}</td>
         <td colspan="1"><input data-field="em_inspector" class="em-inp" type="text" value="\${E(v('em_inspector'))}"></td>
       </tr>
     </tbody>
@@ -5883,7 +5927,7 @@ if (formType==='detail_plan') return (
         <th class="em-th" style="text-align:center;">설치장소</th>
       </tr>
       <tr>
-        <td class="em-th">다이나모 메타</td>
+        <td class="em-th">\${L('em_dynamo')}</td>
         <td><input data-field="em_dyn_form"   class="em-inp" type="text" value="\${E(v('em_dyn_form'))}"></td>
         <td><input data-field="em_dyn_maker"  class="em-inp" type="text" value="\${E(v('em_dyn_maker'))}"></td>
         <td><input data-field="em_dyn_model"  class="em-inp" type="text" value="\${E(v('em_dyn_model'))}"></td>
@@ -5891,7 +5935,7 @@ if (formType==='detail_plan') return (
         <td><input data-field="em_dyn_loc"    class="em-inp" type="text" value="\${E(v('em_dyn_loc'))}"></td>
       </tr>
       <tr>
-        <td class="em-th">분석 장치</td>
+        <td class="em-th">\${L('em_analyzer')}</td>
         <td><input data-field="em_ana_form"   class="em-inp" type="text" value="\${E(v('em_ana_form'))}"></td>
         <td><input data-field="em_ana_maker"  class="em-inp" type="text" value="\${E(v('em_ana_maker'))}"></td>
         <td><input data-field="em_ana_model"  class="em-inp" type="text" value="\${E(v('em_ana_model'))}"></td>
@@ -5907,7 +5951,7 @@ if (formType==='detail_plan') return (
         <td><input data-field="em_cvs_loc"    class="em-inp" type="text" value="\${E(v('em_cvs_loc'))}"></td>
       </tr>
       <tr>
-        <td class="em-th">냉각팬</td>
+        <td class="em-th">\${L('em_cooling_fan')}</td>
         <td><input data-field="em_fan_form"   class="em-inp" type="text" value="\${E(v('em_fan_form'))}"></td>
         <td><input data-field="em_fan_maker"  class="em-inp" type="text" value="\${E(v('em_fan_maker'))}"></td>
         <td><input data-field="em_fan_model"  class="em-inp" type="text" value="\${E(v('em_fan_model'))}"></td>
@@ -6319,7 +6363,7 @@ if (formType==='detail_plan') return (
   </table>
 
   <div class="ev-doc-tag">[별지 제23호 서식]</div>
-  <div class="ev-main-title">증발가스 시험내용 보고서</div>
+  <div class="ev-main-title">\${L('ev_main_title')}</div>
 
   <!-- ══════════════════════════════════════════ -->
   <!-- 1. 일반 사항 -->
@@ -6537,7 +6581,7 @@ if (formType==='detail_plan') return (
     <tbody>
       <!-- 주간증발손실시험 -->
       <tr style="height:32px;">
-        <td style="text-align:center; font-weight:600;">주간증발손실시험</td>
+        <td style="text-align:center; font-weight:600;">\${L('ev_diurnal_test')}</td>
         <td><input data-field="ev_diurnal_t1"  class="ev-inp" type="text" value="\${E(v('ev_diurnal_t1'))}"></td>
         <td><input data-field="ev_diurnal_p1"  class="ev-inp" type="text" value="\${E(v('ev_diurnal_p1'))}"></td>
         <td><input data-field="ev_diurnal_c1"  class="ev-inp" type="text" value="\${E(v('ev_diurnal_c1'))}"></td>
@@ -6548,7 +6592,7 @@ if (formType==='detail_plan') return (
       </tr>
       <!-- 고온소오크시험 -->
       <tr style="height:32px;">
-        <td style="text-align:center; font-weight:600;">고온소오크시험</td>
+        <td style="text-align:center; font-weight:600;">\${L('ev_hot_soak')}</td>
         <td><input data-field="ev_soak_t1"  class="ev-inp" type="text" value="\${E(v('ev_soak_t1'))}"></td>
         <td><input data-field="ev_soak_p1"  class="ev-inp" type="text" value="\${E(v('ev_soak_p1'))}"></td>
         <td><input data-field="ev_soak_c1"  class="ev-inp" type="text" value="\${E(v('ev_soak_c1'))}"></td>
@@ -6682,10 +6726,10 @@ if (formType==='detail_plan') return (
 
 <div class="obd-wrap">
   <div class="obd-doc-tag">[별지 제26호서식]</div>
-  <div class="obd-main-title">배출가스자기진단장치 작동 확인시험내용 보고서</div>
+  <div class="obd-main-title">\${L('oo_main_title')}</div>
 
   <!-- ── □ 시험 일반 내용 ── -->
-  <div class="obd-sec-label">□ 시험 일반 내용</div>
+  <div class="obd-sec-label">\${L('oo_sec_general')}</div>
   <table class="obd-tbl">
     <thead>
       <tr>
@@ -6704,7 +6748,7 @@ if (formType==='detail_plan') return (
   </table>
 
   <!-- ── □ 시험자동차 제원 ── -->
-  <div class="obd-sec-label">□ 시험자동차 제원</div>
+  <div class="obd-sec-label">\${L('oo_sec_vehicle')}</div>
   <table class="obd-tbl">
     <!-- 1. 일반제원 -->
     <thead>
@@ -6799,7 +6843,7 @@ if (formType==='detail_plan') return (
   </table>
 
   <!-- ── □ 시 험 결 과 ── -->
-  <div class="obd-sec-label">□ 시 험 결 과</div>
+  <div class="obd-sec-label">\${L('oo_sec_result')}</div>
   <table class="obd-tbl" style="table-layout:fixed;">
     <colgroup>
       <col style="width:13%;"><!-- 장치명 -->

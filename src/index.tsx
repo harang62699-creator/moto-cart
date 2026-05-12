@@ -1337,7 +1337,7 @@ textarea.auto-grow {
       <div class="appl-hero-meta" id="appl-meta"></div>
     </div>
     <div class="appl-hero-right">
-      <div class="appl-pct-label">전체 진행률</div>
+      <div id="appl-pct-label-el" class="appl-pct-label">전체 진행률</div>
       <div class="appl-pct" id="appl-progress-pct">0%</div>
       <div class="progress-track" style="width:140px;height:6px;margin-top:10px;">
         <div id="appl-progress-bar" class="progress-fill" style="height:6px;background:var(--grad-accent);width:0%;"></div>
@@ -1345,7 +1345,7 @@ textarea.auto-grow {
     </div>
   </div>
 
-  <div class="forms-section-title">□ 제출 서류 목록</div>
+  <div id="forms-section-title-el" class="forms-section-title">□ 제출 서류 목록</div>
   <div id="forms-grid" class="forms-grid">
     <!-- 헤더행 -->
     <div class="forms-grid-head">
@@ -1360,15 +1360,15 @@ textarea.auto-grow {
   <!-- 하단 액션 바 -->
   <div class="appl-action-bar no-print">
     <div class="appl-action-bar-left">
-      <button class="btn btn-ghost" onclick="showDashboard()">
+      <button id="btn-back-list" class="btn btn-ghost" onclick="showDashboard()">
         <i class="fas fa-arrow-left"></i>목록으로
       </button>
     </div>
     <div class="appl-action-bar-right">
-      <button class="btn btn-ghost" onclick="printApplicationSummary()">
+      <button id="btn-print" class="btn btn-ghost" onclick="printApplicationSummary()">
         <i class="fas fa-print"></i>인쇄
       </button>
-      <button id="save-all-btn" class="btn btn-success" onclick="saveAllForms()">
+      <button id="btn-save-all" class="btn btn-success" onclick="saveAllForms()">
         <i class="fas fa-save"></i>모두 저장
       </button>
     </div>
@@ -1509,17 +1509,19 @@ let currentForms = [], currentFormType = null, currentApplicationId = null;
 let currentLang = 'ko'; // 'ko' | 'en' | 'ja' | 'zh'
 
 const FORM_META = [
-  { type:'summary',        title:'인증신청 요약서',              icon:'fa-file-alt',       color:'#4f8ef7', bg:'rgba(79,142,247,.12)'   },
-  { type:'gasoline',       title:'휘발유차 인증신청 주요내용',   icon:'fa-gas-pump',       color:'#f97316', bg:'rgba(249,115,22,.12)'   },
-  { type:'detail_plan',    title:'인증에 필요한 세부 계획 서류', icon:'fa-clipboard-list', color:'#a855f7', bg:'rgba(168,85,247,.12)'   },
-  { type:'emission_noise', title:'배출가스·소음 저감 서류',      icon:'fa-wind',           color:'#06b6d4', bg:'rgba(6,182,212,.12)'    },
-  { type:'obd_config',     title:'배출가스자기진단장치(OBD) 구성에 관한 서류', icon:'fa-microchip', color:'#6366f1', bg:'rgba(99,102,241,.12)' },
-  { type:'emission_test',  title:'배출가스 시험보고서',          icon:'fa-flask',          color:'#22c55e', bg:'rgba(34,197,94,.12)'    },
-  { type:'evap_test',      title:'증발가스 시험내용 보고서',     icon:'fa-vials',          color:'#eab308', bg:'rgba(234,179,8,.12)'    },
-  { type:'obd_operation',  title:'OBD 작동 확인시험 보고서',    icon:'fa-cogs',           color:'#ef4444', bg:'rgba(239,68,68,.12)'    },
-  { type:'noise_test',     title:'자동차소음 시험내용 보고서',   icon:'fa-volume-up',      color:'#ec4899', bg:'rgba(236,72,153,.12)'   },
-  { type:'confirmation',   title:'확인서',                       icon:'fa-stamp',          color:'#64748b', bg:'rgba(100,116,139,.12)'  },
+  { type:'summary',        titleKey:'form_summary',        icon:'fa-file-alt',       color:'#4f8ef7', bg:'rgba(79,142,247,.12)'   },
+  { type:'gasoline',       titleKey:'form_gasoline',       icon:'fa-gas-pump',       color:'#f97316', bg:'rgba(249,115,22,.12)'   },
+  { type:'detail_plan',    titleKey:'form_detail_plan',    icon:'fa-clipboard-list', color:'#a855f7', bg:'rgba(168,85,247,.12)'   },
+  { type:'emission_noise', titleKey:'form_emission_noise', icon:'fa-wind',           color:'#06b6d4', bg:'rgba(6,182,212,.12)'    },
+  { type:'obd_config',     titleKey:'form_obd_config',     icon:'fa-microchip',      color:'#6366f1', bg:'rgba(99,102,241,.12)'   },
+  { type:'emission_test',  titleKey:'form_emission_test',  icon:'fa-flask',          color:'#22c55e', bg:'rgba(34,197,94,.12)'    },
+  { type:'evap_test',      titleKey:'form_evap_test',      icon:'fa-vials',          color:'#eab308', bg:'rgba(234,179,8,.12)'    },
+  { type:'obd_operation',  titleKey:'form_obd_operation',  icon:'fa-cogs',           color:'#ef4444', bg:'rgba(239,68,68,.12)'    },
+  { type:'noise_test',     titleKey:'form_noise_test',     icon:'fa-volume-up',      color:'#ec4899', bg:'rgba(236,72,153,.12)'   },
+  { type:'confirmation',   titleKey:'form_confirmation',   icon:'fa-stamp',          color:'#64748b', bg:'rgba(100,116,139,.12)'  },
 ];
+// FORM_META에서 현재 언어 기준 title 반환
+function getFormTitle(m) { return L(m.titleKey) || m.titleKey; }
 // CERT_LABEL / STATUS_LABEL 은 현재 언어에 따라 동적으로 반환
 function CERT_LABEL_FN()   { return { basic:L('cert_basic'), change:L('cert_change'), report:L('cert_report') }; }
 function STATUS_LABEL_FN() { return { draft:L('status_draft'), in_progress:L('status_inprogress'), completed:L('status_completed') }; }
@@ -1867,6 +1869,27 @@ const LANG_DICT = {
     g_obd_g5:'이륜자동차 OBD 기준',
     nt_col_content:'내용',
 
+    saving:'저장 중',
+    save_all_ok_prefix:'전체 ', save_all_ok_suffix:'개 서류가 저장되었습니다.',
+    save_partial_ok:'개 저장 완료', save_partial_fail:'개 실패',
+    save_error:'저장 중 오류가 발생했습니다.',
+    // 제출서류 목록 다국어
+    forms_section_title:'□ 제출 서류 목록',
+    appl_pct_label:'전체 진행률',
+    form_col_no:'번호', form_col_name:'서류명', form_col_status:'상태',
+    form_status_done:'완료', form_status_todo:'미완료',
+    btn_back_list:'목록으로', btn_print:'인쇄', btn_save_all:'모두 저장',
+    // 서류 타입 이름
+    form_summary:'인증신청 요약서',
+    form_gasoline:'휘발유차 인증신청 주요내용',
+    form_detail_plan:'인증에 필요한 세부 계획 서류',
+    form_emission_noise:'배출가스·소음 저감 서류',
+    form_obd_config:'배출가스자기진단장치(OBD) 구성에 관한 서류',
+    form_emission_test:'배출가스 시험보고서',
+    form_evap_test:'증발가스 시험내용 보고서',
+    form_obd_operation:'OBD 작동 확인시험 보고서',
+    form_noise_test:'자동차소음 시험내용 보고서',
+    form_confirmation:'확인서',
     // 대시보드 & 목록 다국어
     cert_basic:'기본인증', cert_change:'변경인증', cert_report:'변경보고',
     status_draft:'임시저장', status_inprogress:'작성중', status_completed:'완료',
@@ -2197,6 +2220,27 @@ const LANG_DICT = {
     g_obd_g5:'Motorcycle OBD Std',
     nt_col_content:'Content',
 
+    saving:'Saving',
+    save_all_ok_prefix:'All ', save_all_ok_suffix:' documents saved.',
+    save_partial_ok:' saved', save_partial_fail:' failed',
+    save_error:'An error occurred while saving.',
+    // 제출서류 목록 다국어
+    forms_section_title:'□ Document Checklist',
+    appl_pct_label:'Overall Progress',
+    form_col_no:'No.', form_col_name:'Document', form_col_status:'Status',
+    form_status_done:'Done', form_status_todo:'Pending',
+    btn_back_list:'Back to List', btn_print:'Print', btn_save_all:'Save All',
+    // 서류 타입 이름
+    form_summary:'Certification Application Summary',
+    form_gasoline:'Gasoline Vehicle Certification Details',
+    form_detail_plan:'Detailed Plan for Certification',
+    form_emission_noise:'Emission & Noise Reduction Documents',
+    form_obd_config:'OBD System Configuration Documents',
+    form_emission_test:'Emission Test Report',
+    form_evap_test:'Evaporative Emission Test Report',
+    form_obd_operation:'OBD Operation Verification Report',
+    form_noise_test:'Vehicle Noise Test Report',
+    form_confirmation:'Confirmation Letter',
     // 대시보드 & 목록 다국어
     cert_basic:'Basic', cert_change:'Change', cert_report:'Report',
     status_draft:'Draft', status_inprogress:'In Progress', status_completed:'Completed',
@@ -2527,6 +2571,27 @@ const LANG_DICT = {
     g_obd_g5:'二輪車OBD基準',
     nt_col_content:'内容',
 
+    saving:'保存中',
+    save_all_ok_prefix:'全', save_all_ok_suffix:'件の書類が保存されました。',
+    save_partial_ok:'件保存完了', save_partial_fail:'件失敗',
+    save_error:'保存中にエラーが発生しました。',
+    // 제출서류 목록 다국어
+    forms_section_title:'□ 提出書類一覧',
+    appl_pct_label:'全体進捗率',
+    form_col_no:'番号', form_col_name:'書類名', form_col_status:'状態',
+    form_status_done:'完了', form_status_todo:'未完了',
+    btn_back_list:'一覧へ', btn_print:'印刷', btn_save_all:'すべて保存',
+    // 서류 타입 이름
+    form_summary:'認証申請概要書',
+    form_gasoline:'ガソリン車認証申請主要内容',
+    form_detail_plan:'認証に必要な詳細計画書類',
+    form_emission_noise:'排出ガス・騒音低減書類',
+    form_obd_config:'OBDシステム構成書類',
+    form_emission_test:'排出ガス試験報告書',
+    form_evap_test:'蒸発ガス試験内容報告書',
+    form_obd_operation:'OBD作動確認試験報告書',
+    form_noise_test:'自動車騒音試験内容報告書',
+    form_confirmation:'確認書',
     // 대시보드 & 목록 다국어
     cert_basic:'基本認証', cert_change:'変更認証', cert_report:'変更報告',
     status_draft:'下書き', status_inprogress:'作成中', status_completed:'完了',
@@ -2855,6 +2920,27 @@ const LANG_DICT = {
     nt_col_item:'项目',
     ph_maker:'制造商名称', ph_model_name:'车型名称', ph_appl_no:'认证编号输入',
 
+    saving:'保存中',
+    save_all_ok_prefix:'共 ', save_all_ok_suffix:' 份文件已保存。',
+    save_partial_ok:' 份已保存', save_partial_fail:' 份失败',
+    save_error:'保存时发生错误。',
+    // 제출서류 목록 다국어
+    forms_section_title:'□ 提交文件清单',
+    appl_pct_label:'整体进度',
+    form_col_no:'编号', form_col_name:'文件名称', form_col_status:'状态',
+    form_status_done:'已完成', form_status_todo:'未完成',
+    btn_back_list:'返回列表', btn_print:'打印', btn_save_all:'全部保存',
+    // 서류 타입 이름
+    form_summary:'认证申请概要书',
+    form_gasoline:'汽油车认证申请主要内容',
+    form_detail_plan:'认证所需详细计划文件',
+    form_emission_noise:'排放与噪声减少文件',
+    form_obd_config:'OBD系统配置文件',
+    form_emission_test:'排放试验报告书',
+    form_evap_test:'蒸发排放试验报告书',
+    form_obd_operation:'OBD运行确认试验报告书',
+    form_noise_test:'汽车噪声试验报告书',
+    form_confirmation:'确认书',
     // 대시보드 & 목록 다국어
     cert_basic:'基本认证', cert_change:'变更认证', cert_report:'变更报告',
     status_draft:'草稿', status_inprogress:'进行中', status_completed:'已完成',
@@ -3127,18 +3213,23 @@ function renderApplicationPage() {
   const pct   = total ? Math.round(done/total*100) : 0;
   document.getElementById('appl-progress-pct').textContent = pct + '%';
   document.getElementById('appl-progress-bar').style.width = pct + '%';
-  // forms-grid 헤더 복원 (innerHTML 덮어쓰기 방지)
+  // forms-grid — 언어에 맞게 렌더링
+  const lang = (currentApplication?.lang && ['ko','en','ja','zh'].includes(currentApplication.lang))
+    ? currentApplication.lang : 'ko';
+  const ld = LANG_DICT[lang] || LANG_DICT.ko;
+  const lt = k => ld[k] || (LANG_DICT.ko[k] || k);
   const formsGrid = document.getElementById('forms-grid');
   formsGrid.innerHTML = \`
     <div class="forms-grid-head">
-      <div style="width:48px;text-align:center;">번호</div>
-      <div>서류명</div>
-      <div style="width:90px;text-align:center;">상태</div>
+      <div style="width:48px;text-align:center;">\${lt('form_col_no')}</div>
+      <div>\${lt('form_col_name')}</div>
+      <div style="width:90px;text-align:center;">\${lt('form_col_status')}</div>
       <div style="width:44px;text-align:center;"></div>
     </div>
     <div class="forms-grid-body">\${FORM_META.map((m,i) => {
       const fd    = currentForms.find(f=>f.form_type===m.type);
       const isDone = !!fd?.completed;
+      const title  = lt(m.titleKey);
       return \`
         <div class="form-card \${isDone?'done':''}" onclick="openForm('\${m.type}')">
           <div class="fc-cell fc-num">\${i+1}</div>
@@ -3147,13 +3238,13 @@ function renderApplicationPage() {
               <div class="form-card-icon" style="background:\${isDone?'rgba(0,200,150,.12)':m.bg};color:\${isDone?'var(--c-success)':m.color};">
                 <i class="fas \${m.icon}"></i>
               </div>
-              <span class="form-card-name">\${m.title}</span>
+              <span class="form-card-name">\${title}</span>
             </div>
           </div>
           <div class="fc-cell fc-status">
             \${isDone
-              ? '<span class="badge badge-green" style="font-size:9pt;"><i class="fas fa-check" style="margin-right:2px;"></i>완료</span>'
-              : '<span class="badge badge-gray" style="font-size:9pt;">미완료</span>'
+              ? \`<span class="badge badge-green" style="font-size:9pt;"><i class="fas fa-check" style="margin-right:2px;"></i>\${lt('form_status_done')}</span>\`
+              : \`<span class="badge badge-gray" style="font-size:9pt;">\${lt('form_status_todo')}</span>\`
             }
           </div>
           <div class="fc-cell fc-action"><i class="fas fa-chevron-right form-card-chevron"></i></div>
@@ -3161,6 +3252,17 @@ function renderApplicationPage() {
       \`;
     }).join('')}</div>
   \`;
+  // 신청서 상세 페이지 UI 텍스트도 언어에 맞게 갱신
+  const setT2 = (id,v) => { const el=document.getElementById(id); if(el) el.textContent=v; };
+  const setH2 = (id,v) => { const el=document.getElementById(id); if(el) el.innerHTML=v; };
+  setT2('forms-section-title-el', lt('forms_section_title'));
+  setT2('appl-pct-label-el',      lt('appl_pct_label'));
+  const btnBack = document.getElementById('btn-back-list');
+  if (btnBack) btnBack.innerHTML = '<i class="fas fa-arrow-left"></i>' + lt('btn_back_list');
+  const btnPrint = document.getElementById('btn-print');
+  if (btnPrint) btnPrint.innerHTML = '<i class="fas fa-print"></i>' + lt('btn_print');
+  const btnSaveAll = document.getElementById('btn-save-all');
+  if (btnSaveAll) btnSaveAll.innerHTML = '<i class="fas fa-save"></i>' + lt('btn_save_all');
 }
 
 // ================================================================
@@ -3184,8 +3286,9 @@ async function openForm(formType) {
   const link = document.getElementById('form-appl-link');
   link.textContent = currentApplication.title;
   link.onclick = () => openApplication(currentApplicationId);
-  document.getElementById('form-breadcrumb').textContent = meta.title;
-  document.getElementById('form-title').textContent      = meta.title;
+  const formTitle = getFormTitle(meta);
+  document.getElementById('form-breadcrumb').textContent = formTitle;
+  document.getElementById('form-title').textContent      = formTitle;
   document.getElementById('form-subtitle').textContent   = getCertLabel(currentApplication.cert_type)+' · '+currentApplication.title;
   const chk = document.getElementById('form-completed-chk');
   chk.checked = !!fd?.completed;
@@ -3195,7 +3298,7 @@ async function openForm(formType) {
   // auto-grow 초기화 (input[type=text] → textarea 자동 교체)
   setTimeout(() => initAutoGrow(document.getElementById('form-content')), 50);
   // QR 코드 비동기 생성 (폼 렌더 직후)
-  setTimeout(() => generateFormQR(formType, meta.title), 100);
+  setTimeout(() => generateFormQR(formType, formTitle), 100);
   // noise_test 첨부파일 기능 초기화
   if (formType === 'noise_test') setTimeout(() => initNoiseAttach(), 150);
   // emission_test 첨부파일 기능 초기화
@@ -3307,7 +3410,7 @@ function printWithQR() {
     const formType = currentFormType;
     const meta = FORM_META.find(m=>m.type===formType);
     if (meta) {
-      generateFormQR(formType, meta.title).then(() => {
+      generateFormQR(formType, getFormTitle(meta)).then(() => {
         setTimeout(() => window.print(), 300);
       });
       return;
@@ -3418,9 +3521,9 @@ async function saveForm() {
 // 신청서 상세 – 모두 저장 / 인쇄
 // ================================================================
 async function saveAllForms() {
-  const btn = document.getElementById('save-all-btn');
+  const btn = document.getElementById('btn-save-all');
   btn.disabled = true;
-  btn.innerHTML = '<div class="spinner"></div>저장 중...';
+  btn.innerHTML = '<div class="spinner"></div>' + L('saving') + '...';
   let successCount = 0;
   let failCount = 0;
   try {
@@ -3437,17 +3540,17 @@ async function saveAllForms() {
       } catch { failCount++; }
     }
     if (failCount === 0) {
-      showToast(\`전체 \${successCount}개 서류가 저장되었습니다.\`, 'success');
+      showToast(\`\${L('save_all_ok_prefix')}\${successCount}\${L('save_all_ok_suffix')}\`, 'success');
     } else {
-      showToast(\`\${successCount}개 저장 완료, \${failCount}개 실패\`, 'error');
+      showToast(\`\${successCount}\${L('save_partial_ok')}, \${failCount}\${L('save_partial_fail')}\`, 'error');
     }
     // 최신 데이터 다시 로드
     await openApplication(currentApplicationId);
   } catch {
-    showToast('저장 중 오류가 발생했습니다.', 'error');
+    showToast(L('save_error'), 'error');
   } finally {
     btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-save"></i>모두 저장';
+    btn.innerHTML = '<i class="fas fa-save"></i>' + L('btn_save_all');
   }
 }
 

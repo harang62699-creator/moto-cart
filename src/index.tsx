@@ -1471,7 +1471,7 @@ textarea.auto-grow {
         <label class="label">기존 인증번호 <span style="color:var(--c-danger);">*</span></label>
         <input id="new-prev-cert" class="input" type="text" placeholder="기존 인증번호 입력">
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;">
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 2.5fr;gap:12px;">
         <div class="field-wrap">
           <label class="label">수입사</label>
           <input id="new-importer" class="input" type="text" placeholder="Honda Korea">
@@ -1485,8 +1485,8 @@ textarea.auto-grow {
           <input id="new-displacement" class="input" type="text" placeholder="125cc">
         </div>
         <div class="field-wrap">
-          <label class="label">동일차종기호</label>
-          <input id="new-family-code" class="input" type="text" placeholder="A1">
+          <label class="label">동일차종기호 <span style="font-size:.75rem;color:var(--c-text3);font-weight:400;">(17자리)</span></label>
+          <input id="new-family-code" class="input" type="text" placeholder="예) ABCDE12345FGHIJ67" maxlength="17">
         </div>
       </div>
       <div id="modal-error" class="auth-error"></div>

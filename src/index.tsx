@@ -4910,7 +4910,7 @@ function buildFormHTML(formType, saved) {
 
 if (formType==='detail_plan') return \`
 <style>
-/* ══════ detail_plan 전용 스타일 (emission_noise 동일 구조) ══════ */
+/* ══════ detail_plan 전용 스타일 ══════ */
 .dp-wrap {
   box-sizing:border-box;
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
@@ -4954,13 +4954,11 @@ if (formType==='detail_plan') return \`
   background:#f5f8ff;
   font-weight:600; color:#111;
   vertical-align:middle;
-  width:28%;
 }
 .dp-lbl2 {
   background:#f5f8ff;
   font-weight:600; color:#111;
   vertical-align:middle;
-  width:20%;
 }
 .dp-inp {
   border:none; background:transparent;
@@ -4973,7 +4971,7 @@ if (formType==='detail_plan') return \`
   width:100%; font-size:8.5pt;
   padding:2px 0; outline:none;
   font-family:inherit; color:#111;
-  resize:vertical; min-height:48px; line-height:1.5;
+  resize:vertical; min-height:40px; line-height:1.5;
 }
 .dp-header-tbl {
   width:100%; border-collapse:collapse;
@@ -5006,250 +5004,329 @@ if (formType==='detail_plan') return \`
 
 <div class="dp-wrap">
 
-<!-- ① 상단 헤더 -->
+<!-- ① 상단 헤더 (수입사/인증연도/배기량/동일차종기호) -->
+<p class="dp-doc-tag">[별지 제4호 서식]</p>
+<p class="dp-main-title">인증에 필요한 세부 계획에 관한 서류</p>
 <table class="dp-header-tbl">
-  <colgroup><col style="width:35%;"><col style="width:12%;"><col style="width:13%;"><col style="width:40%;"></colgroup>
+  <colgroup><col style="width:15%"><col style="width:35%"><col style="width:15%"><col style="width:35%"></colgroup>
   <tr>
-    <td class="dp-header-lbl-cell">\${L('importer')}</td>
-    <td class="dp-header-lbl-cell">\${L('cert_year')}</td>
-    <td class="dp-header-lbl-cell">\${L('displacement')}</td>
-    <td class="dp-header-lbl-cell">\${L('family_code')}</td>
+    <td class="dp-header-lbl-cell">수입사</td>
+    <td class="dp-header-val-cell"><input class="dp-header-inp" data-field="dp_hdr_importer" type="text" value="\${E(v('dp_hdr_importer'))}"></td>
+    <td class="dp-header-lbl-cell">인증연도</td>
+    <td class="dp-header-val-cell"><input class="dp-header-inp" data-field="dp_hdr_year" type="text" value="\${E(v('dp_hdr_year'))}"></td>
   </tr>
   <tr>
-    <td class="dp-header-val-cell"><input data-field="importer"     class="dp-header-inp" type="text" placeholder="\${L('ph_importer')}"    value="\${E(v('importer'))}"></td>
-    <td class="dp-header-val-cell"><input data-field="cert_year"    class="dp-header-inp" type="text" placeholder="\${L('ph_cert_year')}"   value="\${E(v('cert_year'))}"></td>
-    <td class="dp-header-val-cell"><input data-field="displacement" class="dp-header-inp" type="text" placeholder="\${L('ph_displacement')}" value="\${E(v('displacement'))}"></td>
-    <td class="dp-header-val-cell"><input data-field="family_code"  class="dp-header-inp" type="text" placeholder="\${L('ph_family_code')}"  value="\${E(v('family_code'))}"></td>
+    <td class="dp-header-lbl-cell">배기량</td>
+    <td class="dp-header-val-cell"><input class="dp-header-inp" data-field="dp_hdr_cc" type="text" value="\${E(v('dp_hdr_cc'))}"></td>
+    <td class="dp-header-lbl-cell">동일차종기호</td>
+    <td class="dp-header-val-cell"><input class="dp-header-inp" data-field="dp_hdr_code" type="text" value="\${E(v('dp_hdr_code'))}"></td>
   </tr>
 </table>
-
-<div class="dp-doc-tag">[별지 제4호 서식]</div>
-<div class="dp-main-title">인증에 필요한 세부 계획에 관한 서류</div>
 
 <!-- ══ 1. 인증소개 ══ -->
 <table class="dp-tbl">
-  <tr><th class="dp-sec-th" colspan="3">1. 인증소개</th></tr>
-  <tr><th class="dp-sub-th" colspan="3">1.1. 인증대상 자동차 개발배경 및 특성</th></tr>
-  <tr><td colspan="3"><textarea class="dp-ta" data-field="dp_1_1" rows="4" placeholder="개발배경 및 특성 입력">\${E(v('dp_1_1'))}</textarea></td></tr>
-  <tr><th class="dp-sub-th" colspan="3">1.2. 배출가스, 소음관련 신기술</th></tr>
-  <tr><td colspan="3"><textarea class="dp-ta" data-field="dp_1_2" rows="4" placeholder="신기술 내용 입력">\${E(v('dp_1_2'))}</textarea></td></tr>
-  <tr><th class="dp-sub-th" colspan="3">1.3. 개발 목표 (수입차의 경우 외국인증성적 등으로 갈음)</th></tr>
-  <tr>
-    <th class="dp-th">구분</th>
-    <th class="dp-th">CO(g/km) / NOx(g/km) / MHHC(g/km) / 증발가스(g/test) / PM(g/km) / 포름알데히드(g/km) / 매연(%/kWh) / Cold CO(g/km)</th>
-    <th class="dp-th" style="width:15%;">비고</th>
-  </tr>
-  <tr>
-    <td class="dp-lbl">허용기준</td>
-    <td><input class="dp-inp" data-field="dp_1_3_std" type="text" value="\${E(v('dp_1_3_std'))}"></td>
-    <td><input class="dp-inp" data-field="dp_1_3_std_note" type="text" value="\${E(v('dp_1_3_std_note'))}"></td>
-  </tr>
-  <tr>
-    <td class="dp-lbl">개발 목표치</td>
-    <td><input class="dp-inp" data-field="dp_1_3_target" type="text" value="\${E(v('dp_1_3_target'))}"></td>
-    <td><input class="dp-inp" data-field="dp_1_3_target_note" type="text" value="\${E(v('dp_1_3_target_note'))}"></td>
-  </tr>
-  <tr>
-    <td class="dp-lbl">현행기준 만족도(%)</td>
-    <td><input class="dp-inp" data-field="dp_1_3_satisfy" type="text" value="\${E(v('dp_1_3_satisfy'))}"></td>
-    <td><input class="dp-inp" data-field="dp_1_3_satisfy_note" type="text" value="\${E(v('dp_1_3_satisfy_note'))}"></td>
-  </tr>
+  <colgroup><col style="width:30%"><col style="width:70%"></colgroup>
+  <tr><th class="dp-sec-th" colspan="2">1. 인증소개</th></tr>
+  <tr><td class="dp-lbl">1.1. 인증대상 자동차 개발배경 및 특성</td><td><textarea class="dp-ta" data-field="dp_1_1" rows="3" placeholder="개발배경 및 특성 입력">\${E(v('dp_1_1'))}</textarea></td></tr>
+  <tr><td class="dp-lbl">1.2. 배출가스, 소음관련 신기술</td><td><textarea class="dp-ta" data-field="dp_1_2" rows="3" placeholder="신기술 내용 입력">\${E(v('dp_1_2'))}</textarea></td></tr>
+  <tr><td class="dp-lbl" colspan="2" style="font-weight:700;background:#eef3fa;">1.3. 개발 목표(수입차의 경우 외국인증성적 등으로 갈음)</td></tr>
 </table>
 
-<!-- ══ 1.4 인증대상자동차 제원 ══ -->
+<!-- 1.3 개발목표 테이블 -->
 <table class="dp-tbl">
-  <tr><th class="dp-sub-th" colspan="3">1.4. 인증대상자동차 제원</th></tr>
-  <tr><td class="dp-lbl">차명</td><td colspan="2"><input class="dp-inp" data-field="dp_car_name" type="text" value="\${E(v('dp_car_name'))}"></td></tr>
-  <tr><td class="dp-lbl">자동차 형식</td><td colspan="2"><input class="dp-inp" data-field="dp_car_form" type="text" value="\${E(v('dp_car_form'))}"></td></tr>
+  <colgroup>
+    <col style="width:14%">
+    <col style="width:9%">
+    <col style="width:9%">
+    <col style="width:9%">
+    <col style="width:11%">
+    <col style="width:9%">
+    <col style="width:11%">
+    <col style="width:9%">
+    <col style="width:9%">
+  </colgroup>
   <tr>
-    <td class="dp-lbl" rowspan="14">자동차 제원</td>
-    <td class="dp-lbl2">제작사</td><td><input class="dp-inp" data-field="dp_maker" type="text" value="\${E(v('dp_maker'))}"></td>
+    <th class="dp-th" rowspan="2">구분</th>
+    <th class="dp-th">CO</th>
+    <th class="dp-th">NOx</th>
+    <th class="dp-th">MHHC</th>
+    <th class="dp-th">증발가스</th>
+    <th class="dp-th">PM</th>
+    <th class="dp-th">포름알데히드</th>
+    <th class="dp-th">매연</th>
+    <th class="dp-th">Cold CO</th>
   </tr>
-  <tr><td class="dp-lbl2">승차인원</td><td><input class="dp-inp" data-field="dp_seating" type="text" value="\${E(v('dp_seating'))}"></td></tr>
-  <tr><td class="dp-lbl2">모델년도</td><td><input class="dp-inp" data-field="dp_model_year" type="text" value="\${E(v('dp_model_year'))}"></td></tr>
-  <tr><td class="dp-lbl2">제원관리번호</td><td><input class="dp-inp" data-field="dp_spec_no" type="text" value="\${E(v('dp_spec_no'))}"></td></tr>
-  <tr><td class="dp-lbl2">구동형태</td><td><input class="dp-inp" data-field="dp_drive_type" type="text" value="\${E(v('dp_drive_type'))}"></td></tr>
-  <tr><td class="dp-lbl2">차종</td><td><input class="dp-inp" data-field="dp_car_type" type="text" value="\${E(v('dp_car_type'))}"></td></tr>
-  <tr><td class="dp-lbl2">용도</td><td><input class="dp-inp" data-field="dp_purpose" type="text" value="\${E(v('dp_purpose'))}"></td></tr>
-  <tr><td class="dp-lbl2">변속기 종류</td><td><input class="dp-inp" data-field="dp_trans" type="text" value="\${E(v('dp_trans'))}"></td></tr>
-  <tr><td class="dp-lbl2">차체형상</td><td><input class="dp-inp" data-field="dp_body" type="text" value="\${E(v('dp_body'))}"></td></tr>
-  <tr><td class="dp-lbl2">공차중량(kg)</td><td><input class="dp-inp" data-field="dp_curb_wt" type="text" value="\${E(v('dp_curb_wt'))}"></td></tr>
-  <tr><td class="dp-lbl2">차량 총 중량(kg)</td><td><input class="dp-inp" data-field="dp_gvw" type="text" value="\${E(v('dp_gvw'))}"></td></tr>
-  <tr><td class="dp-lbl2">등가관성 중량(kg)</td><td><input class="dp-inp" data-field="dp_inertia" type="text" value="\${E(v('dp_inertia'))}"></td></tr>
-  <tr><td class="dp-lbl2">실제 다이나모 마력(hp)</td><td><input class="dp-inp" data-field="dp_dynamo" type="text" value="\${E(v('dp_dynamo'))}"></td></tr>
+  <tr>
+    <th class="dp-th">(g/km)</th>
+    <th class="dp-th">(g/km)</th>
+    <th class="dp-th">(g/km)</th>
+    <th class="dp-th">(g/test)</th>
+    <th class="dp-th">(g/km)</th>
+    <th class="dp-th">(g/km)</th>
+    <th class="dp-th">(%/kWh)</th>
+    <th class="dp-th">(g/km)</th>
+  </tr>
+  \${['허용기준','개발 목표치','현행기준 만족도(%)'].map((row,ri)=>\`<tr>
+    <td class="dp-lbl" style="text-align:center;">\${row}</td>
+    \${['co','nox','mhhc','evap','pm','form','smoke','cold_co'].map(col=>\`<td><input class="dp-inp" data-field="dp_1_3_\${ri}_\${col}" type="text" value="\${E(v('dp_1_3_\${ri}_\${col}'))}"></td>\`).join('')}
+  </tr>\`).join('')}
+</table>
+
+<!-- 1.4 인증대상자동차 제원 -->
+<table class="dp-tbl">
+  <colgroup><col style="width:22%"><col style="width:14%"><col style="width:30%"><col style="width:34%"></colgroup>
+  <tr><th class="dp-sub-th" colspan="4">1.4. 인증대상자동차 제원</th></tr>
+  <tr>
+    <td class="dp-lbl">차명</td><td colspan="3"><input class="dp-inp" data-field="dp_1_4_carname" type="text" value="\${E(v('dp_1_4_carname'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl">자동차 형식</td><td colspan="3"><input class="dp-inp" data-field="dp_1_4_cartype" type="text" value="\${E(v('dp_1_4_cartype'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl">제작사</td><td colspan="3"><input class="dp-inp" data-field="dp_1_4_maker" type="text" value="\${E(v('dp_1_4_maker'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl">승차인원</td><td><input class="dp-inp" data-field="dp_1_4_seats" type="text" value="\${E(v('dp_1_4_seats'))}"></td>
+    <td class="dp-lbl">모델년도</td><td><input class="dp-inp" data-field="dp_1_4_modelyr" type="text" value="\${E(v('dp_1_4_modelyr'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl">구동형태</td><td><input class="dp-inp" data-field="dp_1_4_drive" type="text" value="\${E(v('dp_1_4_drive'))}"></td>
+    <td class="dp-lbl">차종</td><td><input class="dp-inp" data-field="dp_1_4_carbody" type="text" value="\${E(v('dp_1_4_carbody'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl" rowspan="3">자동차 제원</td>
+    <td class="dp-lbl2">용도</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_purpose" type="text" value="\${E(v('dp_1_4_purpose'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl2">변속기 종류</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_trans" type="text" value="\${E(v('dp_1_4_trans'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl2">차체형상</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_shape" type="text" value="\${E(v('dp_1_4_shape'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl">공차중량(kg)</td><td><input class="dp-inp" data-field="dp_1_4_kerb" type="text" value="\${E(v('dp_1_4_kerb'))}"></td>
+    <td class="dp-lbl">차량 총 중량(kg)</td><td><input class="dp-inp" data-field="dp_1_4_gvw" type="text" value="\${E(v('dp_1_4_gvw'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl">등가관성 중량(kg)</td><td><input class="dp-inp" data-field="dp_1_4_inertia" type="text" value="\${E(v('dp_1_4_inertia'))}"></td>
+    <td class="dp-lbl">실제 다이나모 마력(hp)</td><td><input class="dp-inp" data-field="dp_1_4_dyno" type="text" value="\${E(v('dp_1_4_dyno'))}"></td>
+  </tr>
+  <!-- 치수 -->
   <tr>
     <td class="dp-lbl" rowspan="3">치수</td>
-    <td class="dp-lbl2">전장(mm)</td><td><input class="dp-inp" data-field="dp_length" type="text" value="\${E(v('dp_length'))}"></td>
+    <td class="dp-lbl2">전장(mm)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_len" type="text" value="\${E(v('dp_1_4_len'))}"></td>
   </tr>
-  <tr><td class="dp-lbl2">전폭(mm)</td><td><input class="dp-inp" data-field="dp_width" type="text" value="\${E(v('dp_width'))}"></td></tr>
-  <tr><td class="dp-lbl2">전고(mm)</td><td><input class="dp-inp" data-field="dp_height" type="text" value="\${E(v('dp_height'))}"></td></tr>
   <tr>
-    <td class="dp-lbl" rowspan="15">원동기</td>
-    <td class="dp-lbl2">제작회사</td><td><input class="dp-inp" data-field="dp_eng_maker" type="text" value="\${E(v('dp_eng_maker'))}"></td>
+    <td class="dp-lbl2">전폭(mm)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_width" type="text" value="\${E(v('dp_1_4_width'))}"></td>
   </tr>
-  <tr><td class="dp-lbl2">연소방식</td><td><input class="dp-inp" data-field="dp_combustion" type="text" value="\${E(v('dp_combustion'))}"></td></tr>
-  <tr><td class="dp-lbl2">원동기 형식</td><td><input class="dp-inp" data-field="dp_eng_type" type="text" value="\${E(v('dp_eng_type'))}"></td></tr>
-  <tr><td class="dp-lbl2">배기량(cc)</td><td><input class="dp-inp" data-field="dp_cc" type="text" value="\${E(v('dp_cc'))}"></td></tr>
-  <tr><td class="dp-lbl2">원동기부착위치</td><td><input class="dp-inp" data-field="dp_eng_pos" type="text" value="\${E(v('dp_eng_pos'))}"></td></tr>
-  <tr><td class="dp-lbl2">사용연료</td><td><input class="dp-inp" data-field="dp_fuel" type="text" value="\${E(v('dp_fuel'))}"></td></tr>
-  <tr><td class="dp-lbl2">실린더 수</td><td><input class="dp-inp" data-field="dp_cyl" type="text" value="\${E(v('dp_cyl'))}"></td></tr>
-  <tr><td class="dp-lbl2">실린더 배열</td><td><input class="dp-inp" data-field="dp_cyl_arr" type="text" value="\${E(v('dp_cyl_arr'))}"></td></tr>
-  <tr><td class="dp-lbl2">연소실 형식</td><td><input class="dp-inp" data-field="dp_comb_type" type="text" value="\${E(v('dp_comb_type'))}"></td></tr>
-  <tr><td class="dp-lbl2">최대출력(ps/rpm)</td><td><input class="dp-inp" data-field="dp_max_power" type="text" value="\${E(v('dp_max_power'))}"></td></tr>
-  <tr><td class="dp-lbl2">최대토크(kg-m/rpm)</td><td><input class="dp-inp" data-field="dp_max_torque" type="text" value="\${E(v('dp_max_torque'))}"></td></tr>
-  <tr><td class="dp-lbl2">보어*스트로크(mm)</td><td><input class="dp-inp" data-field="dp_bore" type="text" value="\${E(v('dp_bore'))}"></td></tr>
-  <tr><td class="dp-lbl2">공회전속도(rpm)</td><td><input class="dp-inp" data-field="dp_idle" type="text" value="\${E(v('dp_idle'))}"></td></tr>
-  <tr><td class="dp-lbl2">냉각방식</td><td><input class="dp-inp" data-field="dp_cooling" type="text" value="\${E(v('dp_cooling'))}"></td></tr>
-  <tr><td class="dp-lbl2">공기흡입방식</td><td><input class="dp-inp" data-field="dp_intake" type="text" value="\${E(v('dp_intake'))}"></td></tr>
-
-  <!-- 흡기/배기 매니폴드 -->
   <tr>
-    <td class="dp-lbl" rowspan="4">흡기매니폴드</td>
-    <td class="dp-lbl2">포트형상</td><td><input class="dp-inp" data-field="dp_intake_shape" type="text" value="\${E(v('dp_intake_shape'))}"></td>
+    <td class="dp-lbl2">전고(mm)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_height" type="text" value="\${E(v('dp_1_4_height'))}"></td>
   </tr>
-  <tr><td class="dp-lbl2">포트크기(mm)</td><td><input class="dp-inp" data-field="dp_intake_size" type="text" value="\${E(v('dp_intake_size'))}"></td></tr>
-  <tr><td class="dp-lbl2">압축비</td><td><input class="dp-inp" data-field="dp_compression" type="text" value="\${E(v('dp_compression'))}"></td></tr>
-  <tr><td class="dp-lbl2">점화시기(Degree)</td><td><input class="dp-inp" data-field="dp_ignition" type="text" value="\${E(v('dp_ignition'))}"></td></tr>
+  <!-- 원동기 -->
+  <tr>
+    <td class="dp-lbl" rowspan="12">원동기</td>
+    <td class="dp-lbl2">제작회사</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_eng_maker" type="text" value="\${E(v('dp_1_4_eng_maker'))}"></td>
+  </tr>
+  <tr><td class="dp-lbl2">연소방식</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_comb" type="text" value="\${E(v('dp_1_4_comb'))}"></td></tr>
+  <tr><td class="dp-lbl2">원동기 형식</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_eng_type" type="text" value="\${E(v('dp_1_4_eng_type'))}"></td></tr>
+  <tr><td class="dp-lbl2">배기량(cc)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_cc" type="text" value="\${E(v('dp_1_4_cc'))}"></td></tr>
+  <tr><td class="dp-lbl2">원동기부착위치</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_eng_pos" type="text" value="\${E(v('dp_1_4_eng_pos'))}"></td></tr>
+  <tr><td class="dp-lbl2">사용연료</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_fuel" type="text" value="\${E(v('dp_1_4_fuel'))}"></td></tr>
+  <tr><td class="dp-lbl2">실린더 수</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_cyl" type="text" value="\${E(v('dp_1_4_cyl'))}"></td></tr>
+  <tr><td class="dp-lbl2">실린더 배열</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_cyl_arr" type="text" value="\${E(v('dp_1_4_cyl_arr'))}"></td></tr>
+  <tr><td class="dp-lbl2">연소실 형식</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_chamber" type="text" value="\${E(v('dp_1_4_chamber'))}"></td></tr>
+  <tr><td class="dp-lbl2">최대출력(ps/rpm)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_maxpwr" type="text" value="\${E(v('dp_1_4_maxpwr'))}"></td></tr>
+  <tr><td class="dp-lbl2">최대토크(kg-m/rpm)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_maxtq" type="text" value="\${E(v('dp_1_4_maxtq'))}"></td></tr>
+  <tr><td class="dp-lbl2">보어*스트로크(mm)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_bore" type="text" value="\${E(v('dp_1_4_bore'))}"></td></tr>
+  <tr>
+    <td class="dp-lbl" rowspan="4"></td>
+    <td class="dp-lbl2">공회전속도(rpm)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_idle" type="text" value="\${E(v('dp_1_4_idle'))}"></td>
+  </tr>
+  <tr><td class="dp-lbl2">냉각방식</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_cool" type="text" value="\${E(v('dp_1_4_cool'))}"></td></tr>
+  <tr><td class="dp-lbl2">공기흡입방식</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_intake" type="text" value="\${E(v('dp_1_4_intake'))}"></td></tr>
+  <tr><td class="dp-lbl2">압축비</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_comp" type="text" value="\${E(v('dp_1_4_comp'))}"></td></tr>
+  <!-- 흡기매니폴드 -->
+  <tr>
+    <td class="dp-lbl" rowspan="2">흡기매니폴드</td>
+    <td class="dp-lbl2">포트크기</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_inm_size" type="text" value="\${E(v('dp_1_4_inm_size'))}"></td>
+  </tr>
+  <tr><td class="dp-lbl2">포트형상</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_inm_shape" type="text" value="\${E(v('dp_1_4_inm_shape'))}"></td></tr>
+  <!-- 배기매니폴드 -->
   <tr>
     <td class="dp-lbl" rowspan="2">배기매니폴드</td>
-    <td class="dp-lbl2">포트형상</td><td><input class="dp-inp" data-field="dp_exhaust_shape" type="text" value="\${E(v('dp_exhaust_shape'))}"></td>
+    <td class="dp-lbl2">포트크기(mm)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_exm_size" type="text" value="\${E(v('dp_1_4_exm_size'))}"></td>
   </tr>
-  <tr><td class="dp-lbl2">포트크기(mm)</td><td><input class="dp-inp" data-field="dp_exhaust_size" type="text" value="\${E(v('dp_exhaust_size'))}"></td></tr>
+  <tr><td class="dp-lbl2">포트형상</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_exm_shape" type="text" value="\${E(v('dp_1_4_exm_shape'))}"></td></tr>
+  <!-- 점화 -->
   <tr>
-    <td class="dp-lbl" rowspan="4">연료탱크</td>
-    <td class="dp-lbl2">연료공급방식</td><td><input class="dp-inp" data-field="dp_fuel_supply" type="text" value="\${E(v('dp_fuel_supply'))}"></td>
+    <td class="dp-lbl">점화시기(Degree)</td><td colspan="3"><input class="dp-inp" data-field="dp_1_4_ign_timing" type="text" value="\${E(v('dp_1_4_ign_timing'))}"></td>
   </tr>
-  <tr><td class="dp-lbl2">용량(ℓ)</td><td><input class="dp-inp" data-field="dp_tank_vol" type="text" value="\${E(v('dp_tank_vol'))}"></td></tr>
-  <tr><td class="dp-lbl2">위치</td><td><input class="dp-inp" data-field="dp_tank_loc" type="text" value="\${E(v('dp_tank_loc'))}"></td></tr>
-  <tr><td class="dp-lbl2">재질</td><td><input class="dp-inp" data-field="dp_tank_mat" type="text" value="\${E(v('dp_tank_mat'))}"></td></tr>
   <tr>
-    <td class="dp-lbl" rowspan="2">제어공기 청정기</td>
-    <td class="dp-lbl2">형식</td><td><input class="dp-inp" data-field="dp_air_filter_type" type="text" value="\${E(v('dp_air_filter_type'))}"></td>
+    <td class="dp-lbl">연료공급방식</td><td colspan="3"><input class="dp-inp" data-field="dp_1_4_fuel_supply" type="text" value="\${E(v('dp_1_4_fuel_supply'))}"></td>
   </tr>
-  <tr><td class="dp-lbl2">수</td><td><input class="dp-inp" data-field="dp_air_filter_cnt" type="text" value="\${E(v('dp_air_filter_cnt'))}"></td></tr>
-
-  <!-- 동력전달 장치 -->
+  <!-- 연료탱크 -->
   <tr>
-    <td class="dp-lbl" rowspan="13">동력전달장치</td>
-    <td class="dp-lbl2">클러치 형식</td><td><input class="dp-inp" data-field="dp_clutch_type" type="text" value="\${E(v('dp_clutch_type'))}"></td>
+    <td class="dp-lbl" rowspan="3">연료탱크</td>
+    <td class="dp-lbl2">용량(ℓ)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_tank_vol" type="text" value="\${E(v('dp_1_4_tank_vol'))}"></td>
   </tr>
-  <tr><td class="dp-lbl2">클러치 조작방식</td><td><input class="dp-inp" data-field="dp_clutch_op" type="text" value="\${E(v('dp_clutch_op'))}"></td></tr>
-  <tr><td class="dp-lbl2">변속기 형식(전진)</td><td><input class="dp-inp" data-field="dp_trans_fwd" type="text" value="\${E(v('dp_trans_fwd'))}"></td></tr>
-  <tr><td class="dp-lbl2">변속기 형식(후진)</td><td><input class="dp-inp" data-field="dp_trans_rev" type="text" value="\${E(v('dp_trans_rev'))}"></td></tr>
-  <tr><td class="dp-lbl2">변속기 조작방식</td><td><input class="dp-inp" data-field="dp_trans_op" type="text" value="\${E(v('dp_trans_op'))}"></td></tr>
-  \${['1','2','3','4','5','6','7','후진'].map(g=>\`<tr><td class="dp-lbl2">변속비 \${g}단</td><td><input class="dp-inp" data-field="dp_gear_\${g}" type="text" value="\${E(v('dp_gear_\${g}'))}"></td></tr>\`).join('')}
-  <tr><td class="dp-lbl2">제1 감속비</td><td><input class="dp-inp" data-field="dp_decel1" type="text" value="\${E(v('dp_decel1'))}"></td></tr>
-  <tr><td class="dp-lbl2">제2 감속비</td><td><input class="dp-inp" data-field="dp_decel2" type="text" value="\${E(v('dp_decel2'))}"></td></tr>
-  <tr><td class="dp-lbl2">N/V 비</td><td><input class="dp-inp" data-field="dp_nv" type="text" value="\${E(v('dp_nv'))}"></td></tr>
-
-  <!-- 전기자동차 관련 -->
+  <tr><td class="dp-lbl2">위치</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_tank_pos" type="text" value="\${E(v('dp_1_4_tank_pos'))}"></td></tr>
+  <tr><td class="dp-lbl2">재질</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_tank_mat" type="text" value="\${E(v('dp_1_4_tank_mat'))}"></td></tr>
+  <!-- 제어공기 -->
   <tr>
-    <td class="dp-lbl" rowspan="4">전기자동차 관련 제원</td>
-    <td class="dp-lbl2">전동기 형식</td><td><input class="dp-inp" data-field="dp_motor_type" type="text" value="\${E(v('dp_motor_type'))}"></td>
+    <td class="dp-lbl" rowspan="2">제어공기</td>
+    <td class="dp-lbl2">형식</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_ctlair_type" type="text" value="\${E(v('dp_1_4_ctlair_type'))}"></td>
   </tr>
-  <tr><td class="dp-lbl2">축전지 정격전압 및 용량</td><td><input class="dp-inp" data-field="dp_battery" type="text" value="\${E(v('dp_battery'))}"></td></tr>
-  <tr><td class="dp-lbl2">전동기 최대출력</td><td><input class="dp-inp" data-field="dp_motor_power" type="text" value="\${E(v('dp_motor_power'))}"></td></tr>
-  <tr><td class="dp-lbl2">1회충전 주행거리</td><td><input class="dp-inp" data-field="dp_ev_range" type="text" value="\${E(v('dp_ev_range'))}"></td></tr>
-
+  <tr><td class="dp-lbl2">청정기 수</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_ctlair_cnt" type="text" value="\${E(v('dp_1_4_ctlair_cnt'))}"></td></tr>
+  <!-- 클러치 -->
+  <tr>
+    <td class="dp-lbl" rowspan="2">클러치</td>
+    <td class="dp-lbl2">형식</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_clutch_type" type="text" value="\${E(v('dp_1_4_clutch_type'))}"></td>
+  </tr>
+  <tr><td class="dp-lbl2">조작방식</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_clutch_op" type="text" value="\${E(v('dp_1_4_clutch_op'))}"></td></tr>
+  <!-- 동력전달 변속기 -->
+  <tr>
+    <td class="dp-lbl" rowspan="11">동력전달<br>장치</td>
+    <td class="dp-lbl2" rowspan="2">변속기<br>형식</td>
+    <td class="dp-lbl2">전진</td>
+    <td><input class="dp-inp" data-field="dp_1_4_trans_fwd" type="text" value="\${E(v('dp_1_4_trans_fwd'))}"></td>
+  </tr>
+  <tr><td class="dp-lbl2">후진</td><td><input class="dp-inp" data-field="dp_1_4_trans_rev" type="text" value="\${E(v('dp_1_4_trans_rev'))}"></td></tr>
+  <tr><td class="dp-lbl2">조작방식</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_trans_op" type="text" value="\${E(v('dp_1_4_trans_op'))}"></td></tr>
+  \${['1단','2단','3단','4단','5단','6단','7단','후진'].map((g,gi)=>\`<tr><td class="dp-lbl2">변속비 \${g}</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_gear_\${gi}" type="text" value="\${E(v('dp_1_4_gear_\${gi}'))}"></td></tr>\`).join('')}
+  <tr><td class="dp-lbl2">제1 감속비</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_red1" type="text" value="\${E(v('dp_1_4_red1'))}"></td></tr>
+  <tr><td class="dp-lbl2">제2 감속비</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_red2" type="text" value="\${E(v('dp_1_4_red2'))}"></td></tr>
+  <tr><td class="dp-lbl2">N/V 비</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_nv" type="text" value="\${E(v('dp_1_4_nv'))}"></td></tr>
+  <!-- 전기자동차 -->
+  <tr>
+    <td class="dp-lbl" rowspan="4">전기자동차<br>관련 제원</td>
+    <td class="dp-lbl2">전동기 형식</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_ev_motor" type="text" value="\${E(v('dp_1_4_ev_motor'))}"></td>
+  </tr>
+  <tr><td class="dp-lbl2">축전지 정격전압 및 용량</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_ev_bat" type="text" value="\${E(v('dp_1_4_ev_bat'))}"></td></tr>
+  <tr><td class="dp-lbl2">전동기 최대출력</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_ev_maxpwr" type="text" value="\${E(v('dp_1_4_ev_maxpwr'))}"></td></tr>
+  <tr><td class="dp-lbl2">1회충전 주행거리</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_ev_range" type="text" value="\${E(v('dp_1_4_ev_range'))}"></td></tr>
   <!-- 타이어 -->
   <tr>
-    <td class="dp-lbl" rowspan="5">타이어</td>
-    <td class="dp-lbl2">제조회사</td><td><input class="dp-inp" data-field="dp_tire_maker" type="text" value="\${E(v('dp_tire_maker'))}"></td>
+    <td class="dp-lbl" rowspan="6">타이어</td>
+    <td class="dp-lbl2">타이어 제조회사</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_tire_maker" type="text" value="\${E(v('dp_1_4_tire_maker'))}"></td>
   </tr>
-  <tr><td class="dp-lbl2">타이어 구조</td><td><input class="dp-inp" data-field="dp_tire_struct" type="text" value="\${E(v('dp_tire_struct'))}"></td></tr>
-  <tr><td class="dp-lbl2">타이어 크기(전)</td><td><input class="dp-inp" data-field="dp_tire_f" type="text" value="\${E(v('dp_tire_f'))}"></td></tr>
-  <tr><td class="dp-lbl2">타이어 크기(후)</td><td><input class="dp-inp" data-field="dp_tire_r" type="text" value="\${E(v('dp_tire_r'))}"></td></tr>
-  <tr><td class="dp-lbl2">타이어 공기압(전/후)</td><td><input class="dp-inp" data-field="dp_tire_pres" type="text" value="\${E(v('dp_tire_pres'))}"></td></tr>
-
+  <tr><td class="dp-lbl2">타이어 구조</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_tire_struct" type="text" value="\${E(v('dp_1_4_tire_struct'))}"></td></tr>
+  <tr><td class="dp-lbl2">타이어 크기(전)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_tire_front" type="text" value="\${E(v('dp_1_4_tire_front'))}"></td></tr>
+  <tr><td class="dp-lbl2">타이어 크기(후)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_tire_rear" type="text" value="\${E(v('dp_1_4_tire_rear'))}"></td></tr>
+  <tr><td class="dp-lbl2">공기압(전)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_tire_pf" type="text" value="\${E(v('dp_1_4_tire_pf'))}"></td></tr>
+  <tr><td class="dp-lbl2">공기압(후)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_tire_pr" type="text" value="\${E(v('dp_1_4_tire_pr'))}"></td></tr>
   <!-- 촉매 -->
   <tr>
     <td class="dp-lbl" rowspan="4">촉매</td>
-    <td class="dp-lbl2">종류</td><td><input class="dp-inp" data-field="dp_cat_type" type="text" value="\${E(v('dp_cat_type'))}"></td>
+    <td class="dp-lbl2">종류</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_cat_type" type="text" value="\${E(v('dp_1_4_cat_type'))}"></td>
   </tr>
-  <tr><td class="dp-lbl2">귀금속 성분</td><td><input class="dp-inp" data-field="dp_cat_metal" type="text" value="\${E(v('dp_cat_metal'))}"></td></tr>
-  <tr><td class="dp-lbl2">귀금속량(g)</td><td><input class="dp-inp" data-field="dp_cat_g" type="text" value="\${E(v('dp_cat_g'))}"></td></tr>
-  <tr><td class="dp-lbl2">귀금속 물질비(Pt:Pd:Rh)</td><td><input class="dp-inp" data-field="dp_cat_ratio" type="text" value="\${E(v('dp_cat_ratio'))}"></td></tr>
-
-  <!-- 배출가스 시험 관련 -->
+  <tr><td class="dp-lbl2">귀금속 성분</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_cat_metal" type="text" value="\${E(v('dp_1_4_cat_metal'))}"></td></tr>
+  <tr><td class="dp-lbl2">귀금속량(g)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_cat_amt" type="text" value="\${E(v('dp_1_4_cat_amt'))}"></td></tr>
+  <tr><td class="dp-lbl2">용량(㎤)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_cat_vol" type="text" value="\${E(v('dp_1_4_cat_vol'))}"></td></tr>
+  <tr><td class="dp-lbl">귀금속 물질비(Pt:Pd:Rh)</td><td colspan="3"><input class="dp-inp" data-field="dp_1_4_cat_ratio" type="text" value="\${E(v('dp_1_4_cat_ratio'))}"></td></tr>
+  <!-- 배출가스 시험 -->
   <tr>
-    <td class="dp-lbl" rowspan="3">배출가스 시험에 관한 사항</td>
-    <td class="dp-lbl2">실 도로 부하력(hp)</td><td><input class="dp-inp" data-field="dp_road_load" type="text" value="\${E(v('dp_road_load'))}"></td>
+    <td class="dp-lbl" rowspan="3">배출가스 시험에<br>관한 사항</td>
+    <td class="dp-lbl2">실 도로 부하력(hp)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_rload" type="text" value="\${E(v('dp_1_4_rload'))}"></td>
   </tr>
-  <tr><td class="dp-lbl2">도로흡력력계수</td><td><input class="dp-inp" data-field="dp_road_coef" type="text" value="\${E(v('dp_road_coef'))}"></td></tr>
-  <tr><td class="dp-lbl2">코스트다운 시간(sec)</td><td><input class="dp-inp" data-field="dp_coastdown" type="text" value="\${E(v('dp_coastdown'))}"></td></tr>
-
+  <tr><td class="dp-lbl2">도로흡력력계수</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_rcoef" type="text" value="\${E(v('dp_1_4_rcoef'))}"></td></tr>
+  <tr><td class="dp-lbl2">코스트다운 시간(sec)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_coast" type="text" value="\${E(v('dp_1_4_coast'))}"></td></tr>
   <!-- 캐니스터 -->
   <tr>
     <td class="dp-lbl" rowspan="4">캐니스터</td>
-    <td class="dp-lbl2">캐니스터의 흡수 용량</td><td><input class="dp-inp" data-field="dp_canister_cap" type="text" value="\${E(v('dp_canister_cap'))}"></td>
+    <td class="dp-lbl2">캐니스터의 흡수 용량</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_can_cap" type="text" value="\${E(v('dp_1_4_can_cap'))}"></td>
   </tr>
-  <tr><td class="dp-lbl2">캐니스터의 크기(cc)</td><td><input class="dp-inp" data-field="dp_canister_size" type="text" value="\${E(v('dp_canister_size'))}"></td></tr>
-  <tr><td class="dp-lbl2">캐니스터의 매체</td><td><input class="dp-inp" data-field="dp_canister_media" type="text" value="\${E(v('dp_canister_media'))}"></td></tr>
-  <tr><td class="dp-lbl2">40%연료시 탱크의 최대 증발가스 용량</td><td><input class="dp-inp" data-field="dp_evap_cap" type="text" value="\${E(v('dp_evap_cap'))}"></td></tr>
-
+  <tr><td class="dp-lbl2">캐니스터의 크기(cc)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_can_size" type="text" value="\${E(v('dp_1_4_can_size'))}"></td></tr>
+  <tr><td class="dp-lbl2">캐니스터의 매체</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_can_media" type="text" value="\${E(v('dp_1_4_can_media'))}"></td></tr>
+  <tr><td class="dp-lbl2">40%연료시 탱크의 최대 증발가스 용량</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_can_evap" type="text" value="\${E(v('dp_1_4_can_evap'))}"></td></tr>
   <!-- 소음기 -->
   <tr>
     <td class="dp-lbl" rowspan="4">소음기</td>
-    <td class="dp-lbl2">주 소음기 재질</td><td><input class="dp-inp" data-field="dp_muff_main_mat" type="text" value="\${E(v('dp_muff_main_mat'))}"></td>
+    <td class="dp-lbl2">주 소음기 재질</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_muf_mat" type="text" value="\${E(v('dp_1_4_muf_mat'))}"></td>
   </tr>
-  <tr><td class="dp-lbl2">주 소음기 용량(L)</td><td><input class="dp-inp" data-field="dp_muff_main_vol" type="text" value="\${E(v('dp_muff_main_vol'))}"></td></tr>
-  <tr><td class="dp-lbl2">보조 소음기 재질</td><td><input class="dp-inp" data-field="dp_muff_sub_mat" type="text" value="\${E(v('dp_muff_sub_mat'))}"></td></tr>
-  <tr><td class="dp-lbl2">보조 소음기 용량(L)</td><td><input class="dp-inp" data-field="dp_muff_sub_vol" type="text" value="\${E(v('dp_muff_sub_vol'))}"></td></tr>
-
+  <tr><td class="dp-lbl2">주 소음기 용량(L)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_muf_vol" type="text" value="\${E(v('dp_1_4_muf_vol'))}"></td></tr>
+  <tr><td class="dp-lbl2">보조 소음기 재질</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_smuf_mat" type="text" value="\${E(v('dp_1_4_smuf_mat'))}"></td></tr>
+  <tr><td class="dp-lbl2">보조 소음기 용량(L)</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_smuf_vol" type="text" value="\${E(v('dp_1_4_smuf_vol'))}"></td></tr>
   <!-- 경보장치 -->
   <tr>
     <td class="dp-lbl" rowspan="2">경보장치</td>
-    <td class="dp-lbl2">경음기 형식</td><td><input class="dp-inp" data-field="dp_horn_type" type="text" value="\${E(v('dp_horn_type'))}"></td>
+    <td class="dp-lbl2">경음기 형식</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_horn_type" type="text" value="\${E(v('dp_1_4_horn_type'))}"></td>
   </tr>
-  <tr><td class="dp-lbl2">경음기 성능 dB(C)</td><td><input class="dp-inp" data-field="dp_horn_db" type="text" value="\${E(v('dp_horn_db'))}"></td></tr>
+  <tr><td class="dp-lbl2">경음기 성능(dB(C))</td><td colspan="2"><input class="dp-inp" data-field="dp_1_4_horn_db" type="text" value="\${E(v('dp_1_4_horn_db'))}"></td></tr>
 </table>
 
 <!-- ══ 2. 기밀사항 ══ -->
 <table class="dp-tbl">
+  <colgroup><col style="width:30%"><col style="width:70%"></colgroup>
   <tr><th class="dp-sec-th" colspan="2">2. 기밀사항</th></tr>
-  <tr><th class="dp-sub-th" colspan="2">2.1. 기밀에 대한 요청</th></tr>
-  <tr><td colspan="2"><textarea class="dp-ta" data-field="dp_2_1" rows="3" placeholder="기밀 요청 내용 입력">\${E(v('dp_2_1'))}</textarea></td></tr>
+  <tr><td class="dp-lbl">2.1. 기밀에 대한 요청</td><td><textarea class="dp-ta" data-field="dp_2_1" rows="3" placeholder="기밀사항 내용 입력">\${E(v('dp_2_1'))}</textarea></td></tr>
 </table>
 
 <!-- ══ 3. 인증시험 연료 ══ -->
 <table class="dp-tbl">
+  <colgroup><col style="width:12%"><col style="width:23%"><col style="width:32%"><col style="width:33%"></colgroup>
   <tr><th class="dp-sec-th" colspan="4">3. 인증시험 연료</th></tr>
   <tr>
-    <th class="dp-th" style="width:10%;">구분</th>
-    <th class="dp-th" style="width:30%;">항목</th>
-    <th class="dp-th" style="width:30%;">시험용연료</th>
-    <th class="dp-th" style="width:30%;">주행거리 축적용 연료</th>
+    <th class="dp-th">구분</th><th class="dp-th">항목</th>
+    <th class="dp-th">시험용연료</th><th class="dp-th">주행거리 축적용 연료</th>
   </tr>
+  <!-- 휘발유 -->
   \${[
-    ['휘발유','옥탄가(리서치법)','dp_f_gasoline_octane'],
-    ['','방향족화합물함량(부피%)','dp_f_gasoline_aromatic'],
-    ['','벤젠함량(부피%)','dp_f_gasoline_benzene'],
-    ['','산소함량(무게%)','dp_f_gasoline_oxygen'],
-    ['','납함량(g/ℓ)','dp_f_gasoline_lead'],
-    ['','인함량(g/ℓ)','dp_f_gasoline_phosphorus'],
-    ['','올레핀함량(부피%)','dp_f_gasoline_olefin'],
-    ['','증기압(kPa)','dp_f_gasoline_vp'],
-    ['','90%유출온도(℃)','dp_f_gasoline_t90'],
-    ['','황함량(무게%)','dp_f_gasoline_sulfur'],
-    ['경유','10% 잔류탄소량(%)','dp_f_diesel_carbon'],
-    ['','황함량(무게%)','dp_f_diesel_sulfur'],
-    ['','세탄지수','dp_f_diesel_cetane'],
-    ['','90%유출온도(℃)','dp_f_diesel_t90'],
-    ['','방향족화합물함량(부피%)','dp_f_diesel_aromatic'],
-    ['LPG','10% 잔류탄소량(%)','dp_f_lpg_carbon'],
-    ['','황함량(무게%)','dp_f_lpg_sulfur'],
-    ['연료구입처','','dp_f_source'],
-  ].map(([cat,item,key])=>\`
-  <tr>
-    <td class="dp-lbl" style="text-align:center;">\${cat}</td>
-    <td class="dp-lbl2">\${item}</td>
-    <td><input class="dp-inp" data-field="\${key}_test" type="text" value="\${E(v(key+'_test'))}"></td>
-    <td><input class="dp-inp" data-field="\${key}_acc" type="text" value="\${E(v(key+'_acc'))}"></td>
+    ['옥탄가(리서치법)','gas_octane'],
+    ['방향족화합물함량(부피%)','gas_arom'],
+    ['벤젠함량(부피%)','gas_benz'],
+    ['산소함량(무게%)','gas_oxy'],
+    ['납함량(g/ℓ)','gas_pb'],
+    ['인함량(g/ℓ)','gas_p'],
+    ['올레핀함량(부피%)','gas_olefin'],
+    ['증기압(kPa)','gas_vp'],
+    ['90%유출온도(℃)','gas_t90'],
+    ['황함량(무게%)','gas_s'],
+  ].map(([lbl,fld],ri)=>\`<tr>
+    \${ri===0?\`<td class="dp-lbl" rowspan="10" style="text-align:center;">휘발유</td>\`:''}
+    <td class="dp-lbl2">\${lbl}</td>
+    <td><input class="dp-inp" data-field="dp_3_\${fld}_test" type="text" value="\${E(v('dp_3_\${fld}_test'))}"></td>
+    <td><input class="dp-inp" data-field="dp_3_\${fld}_acc" type="text" value="\${E(v('dp_3_\${fld}_acc'))}"></td>
   </tr>\`).join('')}
+  <!-- 경유 -->
+  \${[
+    ['10% 잔류탄소량(%)','diesel_res10'],
+    ['황함량(무게%)','diesel_s'],
+    ['세탄지수','diesel_cetane'],
+    ['90%유출온도(℃)','diesel_t90'],
+    ['방향족화합물함량(부피%)','diesel_arom'],
+  ].map(([lbl,fld],ri)=>\`<tr>
+    \${ri===0?\`<td class="dp-lbl" rowspan="5" style="text-align:center;">경유</td>\`:''}
+    <td class="dp-lbl2">\${lbl}</td>
+    <td><input class="dp-inp" data-field="dp_3_\${fld}_test" type="text" value="\${E(v('dp_3_\${fld}_test'))}"></td>
+    <td><input class="dp-inp" data-field="dp_3_\${fld}_acc" type="text" value="\${E(v('dp_3_\${fld}_acc'))}"></td>
+  </tr>\`).join('')}
+  <!-- LPG -->
+  \${[
+    ['10% 잔류탄소량(%)','lpg_res10'],
+    ['황함량(무게%)','lpg_s'],
+  ].map(([lbl,fld],ri)=>\`<tr>
+    \${ri===0?\`<td class="dp-lbl" rowspan="2" style="text-align:center;">LPG</td>\`:''}
+    <td class="dp-lbl2">\${lbl}</td>
+    <td><input class="dp-inp" data-field="dp_3_\${fld}_test" type="text" value="\${E(v('dp_3_\${fld}_test'))}"></td>
+    <td><input class="dp-inp" data-field="dp_3_\${fld}_acc" type="text" value="\${E(v('dp_3_\${fld}_acc'))}"></td>
+  </tr>\`).join('')}
+  <tr>
+    <td class="dp-lbl" colspan="2">연료구입처</td>
+    <td colspan="2"><input class="dp-inp" data-field="dp_3_fuel_src" type="text" value="\${E(v('dp_3_fuel_src'))}"></td>
+  </tr>
+  <tr>
+    <td colspan="4" style="font-size:7.5pt;color:#555;padding:4px 6px;">
+      비고 : 자동차 인증시험연료는 국내에서 시판되는 자동차 연료를 원칙으로 하되, 대기규칙 별표 30 규정에 의한 자동차연료 제조기준에 해당하는 항목의 경우 이의 기재로 갈음한다.
+    </td>
+  </tr>
 </table>
 
-<!-- ══ 4. 시험설비 및 측정장비 ══ -->
+<!-- ══ 4. 시험설비 및 배출가스·소음 측정장비 ══ -->
 <table class="dp-tbl">
+  <colgroup>
+    <col style="width:18%"><col style="width:10%"><col style="width:13%">
+    <col style="width:13%"><col style="width:10%"><col style="width:10%"><col style="width:26%">
+  </colgroup>
   <tr><th class="dp-sec-th" colspan="7">4. 시험설비 및 배출가스·소음 측정장비</th></tr>
   <tr><th class="dp-sub-th" colspan="7">4.1. 배출가스 측정장비</th></tr>
   <tr>
@@ -5257,13 +5334,13 @@ if (formType==='detail_plan') return \`
     <th class="dp-th">형식승인번호</th><th class="dp-th">형식승인일자</th><th class="dp-th">최종정도검사일</th><th class="dp-th">실험실명</th>
   </tr>
   \${[1,2,3].map(i=>\`<tr>
-    <td><input class="dp-inp" data-field="dp_em_eq_name_\${i}" type="text" value="\${E(v('dp_em_eq_name_\${i}'))}"></td>
-    <td><input class="dp-inp" data-field="dp_em_eq_maker_\${i}" type="text" value="\${E(v('dp_em_eq_maker_\${i}'))}"></td>
-    <td><input class="dp-inp" data-field="dp_em_eq_model_\${i}" type="text" value="\${E(v('dp_em_eq_model_\${i}'))}"></td>
-    <td><input class="dp-inp" data-field="dp_em_eq_appr_\${i}" type="text" value="\${E(v('dp_em_eq_appr_\${i}'))}"></td>
-    <td><input class="dp-inp" data-field="dp_em_eq_date_\${i}" type="text" value="\${E(v('dp_em_eq_date_\${i}'))}"></td>
-    <td><input class="dp-inp" data-field="dp_em_eq_cal_\${i}" type="text" value="\${E(v('dp_em_eq_cal_\${i}'))}"></td>
-    <td><input class="dp-inp" data-field="dp_em_eq_lab_\${i}" type="text" value="\${E(v('dp_em_eq_lab_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_4_1_name_\${i}" type="text" value="\${E(v('dp_4_1_name_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_4_1_maker_\${i}" type="text" value="\${E(v('dp_4_1_maker_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_4_1_model_\${i}" type="text" value="\${E(v('dp_4_1_model_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_4_1_appno_\${i}" type="text" value="\${E(v('dp_4_1_appno_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_4_1_appdt_\${i}" type="text" value="\${E(v('dp_4_1_appdt_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_4_1_insdt_\${i}" type="text" value="\${E(v('dp_4_1_insdt_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_4_1_lab_\${i}" type="text" value="\${E(v('dp_4_1_lab_\${i}'))}"></td>
   </tr>\`).join('')}
   <tr><th class="dp-sub-th" colspan="7">4.2. 소음 측정장비</th></tr>
   <tr>
@@ -5271,73 +5348,82 @@ if (formType==='detail_plan') return \`
     <th class="dp-th">형식승인번호</th><th class="dp-th">형식승인일자</th><th class="dp-th">최종정도검사일</th><th class="dp-th">실험실명</th>
   </tr>
   \${[1,2,3].map(i=>\`<tr>
-    <td><input class="dp-inp" data-field="dp_no_eq_name_\${i}" type="text" value="\${E(v('dp_no_eq_name_\${i}'))}"></td>
-    <td><input class="dp-inp" data-field="dp_no_eq_maker_\${i}" type="text" value="\${E(v('dp_no_eq_maker_\${i}'))}"></td>
-    <td><input class="dp-inp" data-field="dp_no_eq_model_\${i}" type="text" value="\${E(v('dp_no_eq_model_\${i}'))}"></td>
-    <td><input class="dp-inp" data-field="dp_no_eq_appr_\${i}" type="text" value="\${E(v('dp_no_eq_appr_\${i}'))}"></td>
-    <td><input class="dp-inp" data-field="dp_no_eq_date_\${i}" type="text" value="\${E(v('dp_no_eq_date_\${i}'))}"></td>
-    <td><input class="dp-inp" data-field="dp_no_eq_cal_\${i}" type="text" value="\${E(v('dp_no_eq_cal_\${i}'))}"></td>
-    <td><input class="dp-inp" data-field="dp_no_eq_lab_\${i}" type="text" value="\${E(v('dp_no_eq_lab_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_4_2_name_\${i}" type="text" value="\${E(v('dp_4_2_name_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_4_2_maker_\${i}" type="text" value="\${E(v('dp_4_2_maker_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_4_2_model_\${i}" type="text" value="\${E(v('dp_4_2_model_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_4_2_appno_\${i}" type="text" value="\${E(v('dp_4_2_appno_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_4_2_appdt_\${i}" type="text" value="\${E(v('dp_4_2_appdt_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_4_2_insdt_\${i}" type="text" value="\${E(v('dp_4_2_insdt_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_4_2_lab_\${i}" type="text" value="\${E(v('dp_4_2_lab_\${i}'))}"></td>
   </tr>\`).join('')}
   <tr><td colspan="7" style="font-size:7.5pt;color:#555;padding:4px 6px;">비고 : 외국 제작자의 설비·장비를 사용하는 경우에는 해당국 설정에 부합되는 공인 검정 또는 승인번호 등을 형식승인번호에 갈음하여 기재할 수 있음</td></tr>
 </table>
 
 <!-- ══ 5. 시험절차 ══ -->
 <table class="dp-tbl">
+  <colgroup><col style="width:30%"><col style="width:70%"></colgroup>
   <tr><th class="dp-sec-th" colspan="2">5. 시험절차</th></tr>
   <tr><th class="dp-sub-th" colspan="2">5.1. 배출가스 시험</th></tr>
   <tr><td class="dp-lbl">5.1.1. 시험장소</td><td><input class="dp-inp" data-field="dp_5_1_1" type="text" value="\${E(v('dp_5_1_1'))}"></td></tr>
-  <tr><td class="dp-lbl">5.1.2. 시험절차</td><td><textarea class="dp-ta" data-field="dp_5_1_2" rows="2">\${E(v('dp_5_1_2'))}</textarea></td></tr>
+  <tr><td class="dp-lbl">5.1.2. 시험절차</td><td><textarea class="dp-ta" data-field="dp_5_1_2" rows="3">\${E(v('dp_5_1_2'))}</textarea></td></tr>
   <tr><th class="dp-sub-th" colspan="2">5.2. 주행거리축적</th></tr>
   <tr><td class="dp-lbl">5.2.1. 내구성시험 주행여부</td><td><input class="dp-inp" data-field="dp_5_2_1" type="text" value="\${E(v('dp_5_2_1'))}"></td></tr>
   <tr><td class="dp-lbl">5.2.2. 길들이기 주행여부</td><td><input class="dp-inp" data-field="dp_5_2_2" type="text" value="\${E(v('dp_5_2_2'))}"></td></tr>
   <tr><td class="dp-lbl">5.2.3. 주행예정 기간</td><td><input class="dp-inp" data-field="dp_5_2_3" type="text" value="\${E(v('dp_5_2_3'))}"></td></tr>
   <tr><td class="dp-lbl">5.2.4. 주행장소</td><td><input class="dp-inp" data-field="dp_5_2_4" type="text" value="\${E(v('dp_5_2_4'))}"></td></tr>
-  <tr><td class="dp-lbl">5.2.5. 주행절차</td><td><textarea class="dp-ta" data-field="dp_5_2_5" rows="2">\${E(v('dp_5_2_5'))}</textarea></td></tr>
+  <tr><td class="dp-lbl">5.2.5. 주행절차</td><td><textarea class="dp-ta" data-field="dp_5_2_5" rows="3">\${E(v('dp_5_2_5'))}</textarea></td></tr>
   <tr><th class="dp-sub-th" colspan="2">5.3. 소음시험</th></tr>
   <tr><td class="dp-lbl">5.3.1. 시험장소</td><td><input class="dp-inp" data-field="dp_5_3_1" type="text" value="\${E(v('dp_5_3_1'))}"></td></tr>
-  <tr><td class="dp-lbl">5.3.2. 시험절차</td><td><textarea class="dp-ta" data-field="dp_5_3_2" rows="2">\${E(v('dp_5_3_2'))}</textarea></td></tr>
+  <tr><td class="dp-lbl">5.3.2. 시험절차</td><td><textarea class="dp-ta" data-field="dp_5_3_2" rows="3">\${E(v('dp_5_3_2'))}</textarea></td></tr>
   <tr><th class="dp-sub-th" colspan="2">5.4. 전기자동차 1회 충전주행거리 시험</th></tr>
   <tr><td class="dp-lbl">5.4.1. 시험장소</td><td><input class="dp-inp" data-field="dp_5_4_1" type="text" value="\${E(v('dp_5_4_1'))}"></td></tr>
-  <tr><td class="dp-lbl">5.4.2. 시험절차</td><td><textarea class="dp-ta" data-field="dp_5_4_2" rows="2">\${E(v('dp_5_4_2'))}</textarea></td></tr>
+  <tr><td class="dp-lbl">5.4.2. 시험절차</td><td><textarea class="dp-ta" data-field="dp_5_4_2" rows="3">\${E(v('dp_5_4_2'))}</textarea></td></tr>
 </table>
 
 <!-- ══ 6. 정비 및 보증 ══ -->
 <table class="dp-tbl">
-  <tr><th class="dp-sec-th" colspan="9">6. 정비 및 보증</th></tr>
-  <tr><th class="dp-sub-th" colspan="9">6.1. 시험차량의 정비계획 / 6.1.1. 정기정비</th></tr>
+  <colgroup>
+    <col style="width:12%"><col style="width:16%">
+    <col style="width:9%"><col style="width:9%"><col style="width:9%"><col style="width:9%"><col style="width:9%"><col style="width:27%">
+  </colgroup>
+  <tr><th class="dp-sec-th" colspan="8">6. 정비 및 보증</th></tr>
+  <tr><th class="dp-sub-th" colspan="8">6.1.1. 시험차량의 정기정비</th></tr>
   <tr>
     <th class="dp-th">구분</th><th class="dp-th">항목</th>
     <th class="dp-th">km</th><th class="dp-th">km</th><th class="dp-th">km</th><th class="dp-th">km</th><th class="dp-th">km</th><th class="dp-th">비고</th>
   </tr>
-  \${['엔진','점화장치','샤시','기타'].map(cat=>\`<tr>
+  \${['엔진','점화장치','샤시','기타'].map((cat,ci)=>\`<tr>
     <td class="dp-lbl" style="text-align:center;">\${cat}</td>
-    <td><input class="dp-inp" data-field="dp_maint1_\${cat}_item" type="text" value="\${E(v('dp_maint1_\${cat}_item'))}"></td>
-    \${[1,2,3,4,5].map(n=>\`<td><input class="dp-inp" data-field="dp_maint1_\${cat}_\${n}" type="text" value="\${E(v('dp_maint1_\${cat}_\${n}'))}"></td>\`).join('')}
-    <td><input class="dp-inp" data-field="dp_maint1_\${cat}_note" type="text" value="\${E(v('dp_maint1_\${cat}_note'))}"></td>
+    <td><input class="dp-inp" data-field="dp_6_1_\${ci}_item" type="text" value="\${E(v('dp_6_1_\${ci}_item'))}"></td>
+    \${[1,2,3,4,5].map(n=>\`<td><input class="dp-inp" data-field="dp_6_1_\${ci}_km\${n}" type="text" value="\${E(v('dp_6_1_\${ci}_km\${n}'))}"></td>\`).join('')}
+    <td><input class="dp-inp" data-field="dp_6_1_\${ci}_note" type="text" value="\${E(v('dp_6_1_\${ci}_note'))}"></td>
   </tr>\`).join('')}
-  <tr><th class="dp-sub-th" colspan="9">6.1.2. 정기정비 내용</th></tr>
-  <tr><td colspan="9"><textarea class="dp-ta" data-field="dp_6_1_2" rows="4" placeholder="A. 엔진 / B. 점화장치 / C. 샤시 / D. 기타">\${E(v('dp_6_1_2'))}</textarea></td></tr>
-  <tr><th class="dp-sub-th" colspan="9">6.2. 차량구입자에 대한 추천정비</th></tr>
+  <tr><th class="dp-sub-th" colspan="8">6.1.2. 정기정비 상세</th></tr>
+  <tr><td class="dp-lbl" style="width:10%;">A. 엔진</td><td colspan="7"><textarea class="dp-ta" data-field="dp_6_1_2_eng" rows="2">\${E(v('dp_6_1_2_eng'))}</textarea></td></tr>
+  <tr><td class="dp-lbl">B. 점화장치</td><td colspan="7"><textarea class="dp-ta" data-field="dp_6_1_2_ign" rows="2">\${E(v('dp_6_1_2_ign'))}</textarea></td></tr>
+  <tr><td class="dp-lbl">C. 샤시</td><td colspan="7"><textarea class="dp-ta" data-field="dp_6_1_2_chassis" rows="2">\${E(v('dp_6_1_2_chassis'))}</textarea></td></tr>
+  <tr><td class="dp-lbl">D. 기타</td><td colspan="7"><textarea class="dp-ta" data-field="dp_6_1_2_etc" rows="2">\${E(v('dp_6_1_2_etc'))}</textarea></td></tr>
+  <tr><th class="dp-sub-th" colspan="8">6.2. 차량구입자에 대한 추천정비</th></tr>
   <tr>
     <th class="dp-th">구분</th><th class="dp-th">항목</th>
     <th class="dp-th">km</th><th class="dp-th">km</th><th class="dp-th">km</th><th class="dp-th">km</th><th class="dp-th">km</th><th class="dp-th">비고</th>
   </tr>
-  \${['엔진','점화장치','샤시','기타'].map(cat=>\`<tr>
+  \${['엔진','점화장치','샤시','기타'].map((cat,ci)=>\`<tr>
     <td class="dp-lbl" style="text-align:center;">\${cat}</td>
-    <td><input class="dp-inp" data-field="dp_maint2_\${cat}_item" type="text" value="\${E(v('dp_maint2_\${cat}_item'))}"></td>
-    \${[1,2,3,4,5].map(n=>\`<td><input class="dp-inp" data-field="dp_maint2_\${cat}_\${n}" type="text" value="\${E(v('dp_maint2_\${cat}_\${n}'))}"></td>\`).join('')}
-    <td><input class="dp-inp" data-field="dp_maint2_\${cat}_note" type="text" value="\${E(v('dp_maint2_\${cat}_note'))}"></td>
+    <td><input class="dp-inp" data-field="dp_6_2_\${ci}_item" type="text" value="\${E(v('dp_6_2_\${ci}_item'))}"></td>
+    \${[1,2,3,4,5].map(n=>\`<td><input class="dp-inp" data-field="dp_6_2_\${ci}_km\${n}" type="text" value="\${E(v('dp_6_2_\${ci}_km\${n}'))}"></td>\`).join('')}
+    <td><input class="dp-inp" data-field="dp_6_2_\${ci}_note" type="text" value="\${E(v('dp_6_2_\${ci}_note'))}"></td>
   </tr>\`).join('')}
-  <tr><th class="dp-sub-th" colspan="9">6.3. 보증에 관한 설명</th></tr>
-  <tr><td class="dp-lbl">6.3.1. 보증내용</td><td colspan="8"><textarea class="dp-ta" data-field="dp_6_3_1" rows="2">\${E(v('dp_6_3_1'))}</textarea></td></tr>
-  <tr><td class="dp-lbl">6.3.2. 보증기간</td><td colspan="8"><input class="dp-inp" data-field="dp_6_3_2" type="text" value="\${E(v('dp_6_3_2'))}"></td></tr>
-  <tr><td class="dp-lbl">6.3.3. 보증에서 제외되는 사항</td><td colspan="8"><textarea class="dp-ta" data-field="dp_6_3_3" rows="2">\${E(v('dp_6_3_3'))}</textarea></td></tr>
-  <tr><td class="dp-lbl">6.3.4. 차량소유자의 의무</td><td colspan="8"><textarea class="dp-ta" data-field="dp_6_3_4" rows="2">\${E(v('dp_6_3_4'))}</textarea></td></tr>
+  <tr><th class="dp-sub-th" colspan="8">6.3. 보증에 관한 설명</th></tr>
+  <tr><td class="dp-lbl">6.3.1. 보증내용</td><td colspan="7"><textarea class="dp-ta" data-field="dp_6_3_1" rows="2">\${E(v('dp_6_3_1'))}</textarea></td></tr>
+  <tr><td class="dp-lbl">6.3.2. 보증기간</td><td colspan="7"><input class="dp-inp" data-field="dp_6_3_2" type="text" value="\${E(v('dp_6_3_2'))}"></td></tr>
+  <tr><td class="dp-lbl">6.3.3. 보증에서 제외되는 사항</td><td colspan="7"><textarea class="dp-ta" data-field="dp_6_3_3" rows="2">\${E(v('dp_6_3_3'))}</textarea></td></tr>
+  <tr><td class="dp-lbl">6.3.4. 차량소유자의 의무</td><td colspan="7"><textarea class="dp-ta" data-field="dp_6_3_4" rows="2">\${E(v('dp_6_3_4'))}</textarea></td></tr>
 </table>
 
 <!-- ══ 7. 배출가스 표지판 ══ -->
 <table class="dp-tbl">
+  <colgroup><col style="width:30%"><col style="width:70%"></colgroup>
   <tr><th class="dp-sec-th" colspan="2">7. 배출가스 표지판</th></tr>
   <tr><td class="dp-lbl">7.1. 견본</td><td><textarea class="dp-ta" data-field="dp_7_1" rows="3" placeholder="견본 내용 입력">\${E(v('dp_7_1'))}</textarea></td></tr>
   <tr><td class="dp-lbl">7.2. 부착위치 등</td><td><textarea class="dp-ta" data-field="dp_7_2" rows="3">\${E(v('dp_7_2'))}</textarea></td></tr>
@@ -5345,14 +5431,10 @@ if (formType==='detail_plan') return \`
 
 <!-- ══ 8. 배출가스 제어기술 ══ -->
 <table class="dp-tbl">
+  <colgroup>
+    <col style="width:13%"><col style="width:14%"><col style="width:28%"><col style="width:27%"><col style="width:18%">
+  </colgroup>
   <tr><th class="dp-sec-th" colspan="5">8. 배출가스 제어기술</th></tr>
-  <tr>
-    <th class="dp-th" style="width:15%;">항목</th>
-    <th class="dp-th" style="width:15%;">세부항목</th>
-    <th class="dp-th" style="width:30%;">구조/업체/크기/용량 등</th>
-    <th class="dp-th" style="width:25%;">제어기술/제어원리</th>
-    <th class="dp-th" style="width:15%;">배출가스 저감효과</th>
-  </tr>
   \${[
     ['8.1. 연료장치','dp_8_1',['연료공급계','연료제어계','연료분사계']],
     ['8.2. 흡배기장치','dp_8_2',['흡기장치','배기장치']],
@@ -5365,14 +5447,20 @@ if (formType==='detail_plan') return \`
     ['8.9. 기타 배출가스 제어장치','dp_8_9',['기타 장치']],
   ].map(([sec,pfx,rows])=>\`
   <tr><th class="dp-sub-th" colspan="5">\${sec}</th></tr>
+  <tr>
+    <th class="dp-th">항목</th><th class="dp-th">세부항목</th>
+    <th class="dp-th">구조/업체/크기/용량 등</th>
+    <th class="dp-th">제어기술/제어원리</th>
+    <th class="dp-th">배출가스 저감효과</th>
+  </tr>
   \${rows.map((row,ri)=>\`<tr>
-    \${ri===0?\`<td class="dp-lbl" rowspan="\${rows.length}">\${sec.replace(/^[0-9.]+\s*/,'')}</td>\`:''}
+    \${ri===0?\`<td class="dp-lbl" rowspan="\${rows.length}">\${sec.replace(/^[\\d.]+\\s*/,'')}</td>\`:''}
     <td class="dp-lbl2">\${row}</td>
     <td><input class="dp-inp" data-field="\${pfx}_\${ri}_struct" type="text" value="\${E(v('\${pfx}_\${ri}_struct'))}"></td>
     <td><input class="dp-inp" data-field="\${pfx}_\${ri}_ctrl" type="text" value="\${E(v('\${pfx}_\${ri}_ctrl'))}"></td>
     <td><input class="dp-inp" data-field="\${pfx}_\${ri}_eff" type="text" value="\${E(v('\${pfx}_\${ri}_eff'))}"></td>
   </tr>\`).join('')}
-  <tr><td colspan="4" style="padding:3px 5px;font-size:7.5pt;color:#666;">\${sec.replace(/^[0-9.]+\s*/,'')} 구성도 첨부:</td>
+  <tr><td colspan="4" style="padding:3px 5px;font-size:7.5pt;color:#666;">\${sec.replace(/^[\\d.]+\\s*/,'')} 구성도 첨부:</td>
     <td><input class="dp-inp" data-field="\${pfx}_diagram" type="text" value="\${E(v('\${pfx}_diagram'))}" placeholder="도면/파일명"></td>
   </tr>\`).join('')}
 
@@ -5408,6 +5496,12 @@ if (formType==='detail_plan') return \`
 
   <!-- 8.12 SCR -->
   <tr><th class="dp-sub-th" colspan="5">8.12. 선택적촉매장치(SCR) 성능 및 원리 등 설명</th></tr>
+  <tr>
+    <th class="dp-th">항목</th><th class="dp-th">세부항목</th>
+    <th class="dp-th">구조/업체/크기/용량 등</th>
+    <th class="dp-th">제어기술/제어원리</th>
+    <th class="dp-th">배출가스 저감효과</th>
+  </tr>
   \${['공급계','제어계','분사계','충전경고 시스템'].map((row,ri)=>\`<tr>
     \${ri===0?\`<td class="dp-lbl" rowspan="4">SCR</td>\`:''}
     <td class="dp-lbl2">\${row}</td>
@@ -5415,29 +5509,50 @@ if (formType==='detail_plan') return \`
     <td><input class="dp-inp" data-field="dp_8_12_\${ri}_ctrl" type="text" value="\${E(v('dp_8_12_\${ri}_ctrl'))}"></td>
     <td><input class="dp-inp" data-field="dp_8_12_\${ri}_eff" type="text" value="\${E(v('dp_8_12_\${ri}_eff'))}"></td>
   </tr>\`).join('')}
+
+  <!-- 8.13 SCR 요소수 -->
+  <tr><th class="dp-sub-th" colspan="5">8.13. 선택적촉매장치(SCR)용 요소수용액 성분분석 결과</th></tr>
+  <tr>
+    <th class="dp-th" colspan="2">항목</th>
+    <th class="dp-th">분석결과 / 분석기관</th>
+    <th class="dp-th">분석방법 / 분석년월일</th>
+    <th class="dp-th">증빙번호</th>
+  </tr>
+  \${[1,2,3].map(i=>\`<tr>
+    <td colspan="2"><input class="dp-inp" data-field="dp_8_13_item_\${i}" type="text" value="\${E(v('dp_8_13_item_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_8_13_result_\${i}" type="text" value="\${E(v('dp_8_13_result_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_8_13_method_\${i}" type="text" value="\${E(v('dp_8_13_method_\${i}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_8_13_evid_\${i}" type="text" value="\${E(v('dp_8_13_evid_\${i}'))}"></td>
+  </tr>\`).join('')}
+
+  <!-- 8.14 전기자동차 -->
+  <tr><th class="dp-sub-th" colspan="5">8.14. 전기자동차 제어장치</th></tr>
+  <tr><td class="dp-lbl" colspan="2">8.14.1. 전동기 및 전동기 제어장치</td><td colspan="3"><textarea class="dp-ta" data-field="dp_8_14_1" rows="2">\${E(v('dp_8_14_1'))}</textarea></td></tr>
+  <tr><td class="dp-lbl" colspan="2">8.14.2. 축전지 및 축전지 제어장치</td><td colspan="3"><textarea class="dp-ta" data-field="dp_8_14_2" rows="2">\${E(v('dp_8_14_2'))}</textarea></td></tr>
 </table>
 
 <!-- ══ 9. 증발가스 및 브로바이가스 ══ -->
 <table class="dp-tbl">
+  <colgroup><col style="width:25%"><col style="width:37%"><col style="width:38%"></colgroup>
   <tr><th class="dp-sec-th" colspan="3">9. 증발가스 및 브로바이 가스</th></tr>
   <tr><th class="dp-sub-th" colspan="3">9.1. 증발가스 제어장치 설명</th></tr>
   <tr>
-    <th class="dp-th" style="width:25%;">저장 장치</th>
-    <th class="dp-th" style="width:37%;">흡수용량(C)</th>
-    <th class="dp-th" style="width:38%;">크기(㎤)/매체</th>
+    <th class="dp-th">저장 장치</th>
+    <th class="dp-th">흡수용량(C)</th>
+    <th class="dp-th">크기(㎤)/매체</th>
   </tr>
   \${['캐니스터','에어클리너','크랭크케이스','기타'].map((row,ri)=>\`<tr>
     <td class="dp-lbl">\${row}</td>
     <td><input class="dp-inp" data-field="dp_9_cap_\${ri}" type="text" value="\${E(v('dp_9_cap_\${ri}'))}"></td>
     <td><input class="dp-inp" data-field="dp_9_size_\${ri}" type="text" value="\${E(v('dp_9_size_\${ri}'))}"></td>
   </tr>\`).join('')}
-  <tr><td colspan="3" style="padding:3px 6px;font-size:8pt;font-weight:600;">증발가스 제어장치 부품리스트</td></tr>
+  <tr><td colspan="3" style="padding:3px 6px;font-size:8pt;font-weight:700;background:#eef3fa;">증발가스 제어장치 부품리스트(보조배출가스 제어장치 포함)</td></tr>
   <tr>
     <th class="dp-th">증발가스 Code</th>
     <th class="dp-th">공칭탱크 용량(L) / 40%연료시 탱크의 최대 증발가스 용량</th>
     <th class="dp-th">기화기/연료분사장치의 reservoir의 최대용량 / 적용차명</th>
   </tr>
-  \${[1,2].map(i=>\`<tr>
+  \${[1,2,3].map(i=>\`<tr>
     <td><input class="dp-inp" data-field="dp_9_code_\${i}" type="text" value="\${E(v('dp_9_code_\${i}'))}"></td>
     <td><input class="dp-inp" data-field="dp_9_tank_\${i}" type="text" value="\${E(v('dp_9_tank_\${i}'))}"></td>
     <td><input class="dp-inp" data-field="dp_9_res_\${i}" type="text" value="\${E(v('dp_9_res_\${i}'))}"></td>
@@ -5445,8 +5560,9 @@ if (formType==='detail_plan') return \`
   <tr><td class="dp-lbl">9.2. 제어장치 구성도</td><td colspan="2"><textarea class="dp-ta" data-field="dp_9_2" rows="2" placeholder="구성도 파일명 또는 내용">\${E(v('dp_9_2'))}</textarea></td></tr>
 </table>
 
-<!-- ══ 10. 동일차종 ══ -->
+<!-- ══ 10. 동일차종(원동기) ══ -->
 <table class="dp-tbl">
+  <colgroup><col style="width:28%"><col style="width:8%"><col style="width:32%"><col style="width:32%"></colgroup>
   <tr><th class="dp-sec-th" colspan="4">10. 동일차종(원동기)</th></tr>
   <tr><th class="dp-sub-th" colspan="4">10.1. 배출가스 및 소음 동일차종(원동기) 설명</th></tr>
   <tr>
@@ -5459,24 +5575,141 @@ if (formType==='detail_plan') return \`
     <td><input class="dp-inp" data-field="dp_10_1_base_\${ri}" type="text" value="\${E(v('dp_10_1_base_\${ri}'))}"></td>
     <td><input class="dp-inp" data-field="dp_10_1_same_\${ri}" type="text" value="\${E(v('dp_10_1_same_\${ri}'))}"></td>
   </tr>\`).join('')}
+  <!-- 흡기 매니폴드 -->
+  <tr>
+    <td class="dp-lbl" rowspan="2">흡기 매니폴드</td>
+    <td class="dp-lbl2">흡입포트크기</td>
+    <td><input class="dp-inp" data-field="dp_10_1_inm_size_base" type="text" value="\${E(v('dp_10_1_inm_size_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_inm_size_same" type="text" value="\${E(v('dp_10_1_inm_size_same'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl2">흡입포트 형상</td>
+    <td><input class="dp-inp" data-field="dp_10_1_inm_shape_base" type="text" value="\${E(v('dp_10_1_inm_shape_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_inm_shape_same" type="text" value="\${E(v('dp_10_1_inm_shape_same'))}"></td>
+  </tr>
+  <!-- 배기 매니폴드 -->
+  <tr>
+    <td class="dp-lbl" rowspan="2">배기 매니폴드</td>
+    <td class="dp-lbl2">배기포트크기</td>
+    <td><input class="dp-inp" data-field="dp_10_1_exm_size_base" type="text" value="\${E(v('dp_10_1_exm_size_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_exm_size_same" type="text" value="\${E(v('dp_10_1_exm_size_same'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl2">배기포트 형상</td>
+    <td><input class="dp-inp" data-field="dp_10_1_exm_shape_base" type="text" value="\${E(v('dp_10_1_exm_shape_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_exm_shape_same" type="text" value="\${E(v('dp_10_1_exm_shape_same'))}"></td>
+  </tr>
+  <!-- 흡배기 밸브 -->
+  <tr>
+    <td class="dp-lbl" rowspan="4">흡배기 밸브 시기</td>
+    <td class="dp-lbl2">흡입 열기</td>
+    <td><input class="dp-inp" data-field="dp_10_1_vin_open_base" type="text" value="\${E(v('dp_10_1_vin_open_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_vin_open_same" type="text" value="\${E(v('dp_10_1_vin_open_same'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl2">흡입 닫기</td>
+    <td><input class="dp-inp" data-field="dp_10_1_vin_close_base" type="text" value="\${E(v('dp_10_1_vin_close_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_vin_close_same" type="text" value="\${E(v('dp_10_1_vin_close_same'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl2">배기 열기</td>
+    <td><input class="dp-inp" data-field="dp_10_1_vex_open_base" type="text" value="\${E(v('dp_10_1_vex_open_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_vex_open_same" type="text" value="\${E(v('dp_10_1_vex_open_same'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl2">배기 닫기</td>
+    <td><input class="dp-inp" data-field="dp_10_1_vex_close_base" type="text" value="\${E(v('dp_10_1_vex_close_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_vex_close_same" type="text" value="\${E(v('dp_10_1_vex_close_same'))}"></td>
+  </tr>
+  <!-- 기통별 밸브수 -->
+  <tr>
+    <td class="dp-lbl" rowspan="2">기통별 밸브수</td>
+    <td class="dp-lbl2">흡기</td>
+    <td><input class="dp-inp" data-field="dp_10_1_vcnt_in_base" type="text" value="\${E(v('dp_10_1_vcnt_in_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_vcnt_in_same" type="text" value="\${E(v('dp_10_1_vcnt_in_same'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl2">배기</td>
+    <td><input class="dp-inp" data-field="dp_10_1_vcnt_ex_base" type="text" value="\${E(v('dp_10_1_vcnt_ex_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_vcnt_ex_same" type="text" value="\${E(v('dp_10_1_vcnt_ex_same'))}"></td>
+  </tr>
+  <!-- 밸브크기 -->
+  <tr>
+    <td class="dp-lbl" rowspan="2">밸브크기</td>
+    <td class="dp-lbl2">흡기</td>
+    <td><input class="dp-inp" data-field="dp_10_1_vsz_in_base" type="text" value="\${E(v('dp_10_1_vsz_in_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_vsz_in_same" type="text" value="\${E(v('dp_10_1_vsz_in_same'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl2">배기</td>
+    <td><input class="dp-inp" data-field="dp_10_1_vsz_ex_base" type="text" value="\${E(v('dp_10_1_vsz_ex_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_vsz_ex_same" type="text" value="\${E(v('dp_10_1_vsz_ex_same'))}"></td>
+  </tr>
+  <!-- 촉매 -->
+  <tr>
+    <td class="dp-lbl" rowspan="5">촉매</td>
+    <td class="dp-lbl2">종류</td>
+    <td><input class="dp-inp" data-field="dp_10_1_cat_type_base" type="text" value="\${E(v('dp_10_1_cat_type_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_cat_type_same" type="text" value="\${E(v('dp_10_1_cat_type_same'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl2">귀금속 성분</td>
+    <td><input class="dp-inp" data-field="dp_10_1_cat_metal_base" type="text" value="\${E(v('dp_10_1_cat_metal_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_cat_metal_same" type="text" value="\${E(v('dp_10_1_cat_metal_same'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl2">귀금속량(g)</td>
+    <td><input class="dp-inp" data-field="dp_10_1_cat_amt_base" type="text" value="\${E(v('dp_10_1_cat_amt_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_cat_amt_same" type="text" value="\${E(v('dp_10_1_cat_amt_same'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl2">용량(㎤)</td>
+    <td><input class="dp-inp" data-field="dp_10_1_cat_vol_base" type="text" value="\${E(v('dp_10_1_cat_vol_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_cat_vol_same" type="text" value="\${E(v('dp_10_1_cat_vol_same'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl2">귀금속물질비(Pt:Pd:Rh)</td>
+    <td><input class="dp-inp" data-field="dp_10_1_cat_ratio_base" type="text" value="\${E(v('dp_10_1_cat_ratio_base'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_cat_ratio_same" type="text" value="\${E(v('dp_10_1_cat_ratio_same'))}"></td>
+  </tr>
+  <!-- 기타 -->
+  \${['크랭크 축 중심선에서 캠축 중심선까지의 거리(mm)','크랭크 축 중심선에서 실린더 블록 헤드 면 상부까지의 거리(mm)','TDC 상태에서 연소실 표면적 체적비율','연료 공급 방식','분사 시기 제어범위','캠축타이밍','등가관성 중량','도로부하마력'].map((row,ri)=>\`<tr>
+    <td class="dp-lbl" colspan="2">\${row}</td>
+    <td><input class="dp-inp" data-field="dp_10_1_ext_base_\${ri}" type="text" value="\${E(v('dp_10_1_ext_base_\${ri}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_1_ext_same_\${ri}" type="text" value="\${E(v('dp_10_1_ext_same_\${ri}'))}"></td>
+  </tr>\`).join('')}
 
+  <!-- 10.2 증발가스 동일차종 -->
   <tr><th class="dp-sub-th" colspan="4">10.2. 증발가스 동일차종 설명</th></tr>
   <tr>
     <th class="dp-th" colspan="2">구 분</th>
     <th class="dp-th">기본 차종</th>
     <th class="dp-th">증발가스 동일차종</th>
   </tr>
-  \${['배출가스 인증번호','자동차 명칭','자동차 형식','원동기 형식','차종','사용연료','증발가스 저장형식','증발가스 흡수용량','캐니스터 개수 및 연결방법','캐니스터 형상','캐니스터 구조','캐니스터 재질','연료시스템','주유관 밀폐구조','증발가스 제어시스템','퍼지제어 시스템','증발가스 호스 재질','연료탱크 재질'].map((row,ri)=>\`<tr>
+  \${['배출가스 인증번호','자동차 명칭','자동차 형식','원동기 형식','차종','사용연료','증발가스 저장형식'].map((row,ri)=>\`<tr>
     <td class="dp-lbl" colspan="2">\${row}</td>
     <td><input class="dp-inp" data-field="dp_10_2_base_\${ri}" type="text" value="\${E(v('dp_10_2_base_\${ri}'))}"></td>
     <td><input class="dp-inp" data-field="dp_10_2_same_\${ri}" type="text" value="\${E(v('dp_10_2_same_\${ri}'))}"></td>
   </tr>\`).join('')}
+  <!-- 캐니스터 설계특성 -->
+  \${['증발가스 흡수용량','캐니스터 개수 및 연결방법','캐니스터 형상','캐니스터 구조','캐니스터 재질'].map((row,ri)=>\`<tr>
+    \${ri===0?\`<td class="dp-lbl" rowspan="5">캐니스터<br>설계 특성</td>\`:''}
+    <td class="dp-lbl2">\${row}</td>
+    <td><input class="dp-inp" data-field="dp_10_2_can_base_\${ri}" type="text" value="\${E(v('dp_10_2_can_base_\${ri}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_2_can_same_\${ri}" type="text" value="\${E(v('dp_10_2_can_same_\${ri}'))}"></td>
+  </tr>\`).join('')}
+  \${['연료시스템','주유관 밀폐구조','증발가스 제어시스템','퍼지제어 시스템','증발가스 호스 재질','연료탱크 재질'].map((row,ri)=>\`<tr>
+    <td class="dp-lbl" colspan="2">\${row}</td>
+    <td><input class="dp-inp" data-field="dp_10_2_etc_base_\${ri}" type="text" value="\${E(v('dp_10_2_etc_base_\${ri}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_10_2_etc_same_\${ri}" type="text" value="\${E(v('dp_10_2_etc_same_\${ri}'))}"></td>
+  </tr>\`).join('')}
 
+  <!-- 10.3 OBD 동일차종 -->
   <tr><th class="dp-sub-th" colspan="4">10.3. 배출가스자기진단장치 동일차종 설명</th></tr>
   <tr>
     <th class="dp-th" colspan="2">구 분</th>
     <th class="dp-th">기본 차종</th>
-    <th class="dp-th">OBD 동일차종</th>
+    <th class="dp-th">배출가스자기진단장치 동일차종</th>
   </tr>
   \${['배출가스 인증번호','자동차 명칭','자동차 형식','원동기 형식','차종','사용연료','배출가스 자가진단 장치의 작동법','배출가스 허용기준','연소싸이클','연료공급방식','촉매전환장치 형태','입자상물질 포집장치 형태','2차 공기 분사 유무','배출가스 재순환장치 유무'].map((row,ri)=>\`<tr>
     <td class="dp-lbl" colspan="2">\${row}</td>
@@ -5487,32 +5720,112 @@ if (formType==='detail_plan') return \`
 
 <!-- ══ 11. 시험차량 ══ -->
 <table class="dp-tbl">
+  <colgroup><col style="width:28%"><col style="width:8%"><col style="width:32%"><col style="width:32%"></colgroup>
   <tr><th class="dp-sec-th" colspan="4">11. 시험차량</th></tr>
   <tr><th class="dp-sub-th" colspan="4">11.1. 시험차량 선정</th></tr>
   <tr>
     <th class="dp-th" colspan="2">구 분</th>
     <th class="dp-th">내구성 시험차량</th>
-    <th class="dp-th">배출가스 시험차량</th>
+    <th class="dp-th">배출가스시험차량</th>
   </tr>
-  \${['차대번호(엔진번호)','배기량(cc)','엔진코드','증발가스 코드','촉매코드','배출가스 제어장치(배출가스)','배출가스 제어장치(증발가스)','모델명','변속기 형태','변속 절차','등가관성 중량(kg)','종 감속기','N/V 비 RRM/KPH','타이어(전륜)','타이어(후륜)','비고'].map((row,ri)=>\`<tr>
+  <tr>
+    <td class="dp-lbl" colspan="2">차대번호(엔진번호)</td>
+    <td><input class="dp-inp" data-field="dp_11_1_vin_dur" type="text" value="\${E(v('dp_11_1_vin_dur'))}"></td>
+    <td><input class="dp-inp" data-field="dp_11_1_vin_em" type="text" value="\${E(v('dp_11_1_vin_em'))}"></td>
+  </tr>
+  \${['배기량(cc)','엔진코드','증발가스 코드','촉매코드'].map((row,ri)=>\`<tr>
     <td class="dp-lbl" colspan="2">\${row}</td>
-    <td><input class="dp-inp" data-field="dp_11_dur_\${ri}" type="text" value="\${E(v('dp_11_dur_\${ri}'))}"></td>
-    <td><input class="dp-inp" data-field="dp_11_em_\${ri}" type="text" value="\${E(v('dp_11_em_\${ri}'))}"></td>
+    <td><input class="dp-inp" data-field="dp_11_1_\${ri}_dur" type="text" value="\${E(v('dp_11_1_\${ri}_dur'))}"></td>
+    <td><input class="dp-inp" data-field="dp_11_1_\${ri}_em" type="text" value="\${E(v('dp_11_1_\${ri}_em'))}"></td>
   </tr>\`).join('')}
+  <!-- 배출가스 제어장치 -->
+  <tr>
+    <td class="dp-lbl" rowspan="2">배출가스<br>제어장치</td>
+    <td class="dp-lbl2">배출가스</td>
+    <td><input class="dp-inp" data-field="dp_11_1_ctrl_em_dur" type="text" value="\${E(v('dp_11_1_ctrl_em_dur'))}"></td>
+    <td><input class="dp-inp" data-field="dp_11_1_ctrl_em_em" type="text" value="\${E(v('dp_11_1_ctrl_em_em'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl2">증발가스</td>
+    <td><input class="dp-inp" data-field="dp_11_1_ctrl_evap_dur" type="text" value="\${E(v('dp_11_1_ctrl_evap_dur'))}"></td>
+    <td><input class="dp-inp" data-field="dp_11_1_ctrl_evap_em" type="text" value="\${E(v('dp_11_1_ctrl_evap_em'))}"></td>
+  </tr>
+  \${['모델명','변속기 형태','변속 절차','등가관성 중량(kg)','종 감속기','N/V 비, RRM/KPH'].map((row,ri)=>\`<tr>
+    <td class="dp-lbl" colspan="2">\${row}</td>
+    <td><input class="dp-inp" data-field="dp_11_1_b\${ri}_dur" type="text" value="\${E(v('dp_11_1_b\${ri}_dur'))}"></td>
+    <td><input class="dp-inp" data-field="dp_11_1_b\${ri}_em" type="text" value="\${E(v('dp_11_1_b\${ri}_em'))}"></td>
+  </tr>\`).join('')}
+  <!-- 타이어 -->
+  <tr>
+    <td class="dp-lbl" rowspan="2">타이어</td>
+    <td class="dp-lbl2">전륜</td>
+    <td><input class="dp-inp" data-field="dp_11_1_tire_f_dur" type="text" value="\${E(v('dp_11_1_tire_f_dur'))}"></td>
+    <td><input class="dp-inp" data-field="dp_11_1_tire_f_em" type="text" value="\${E(v('dp_11_1_tire_f_em'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl2">후륜</td>
+    <td><input class="dp-inp" data-field="dp_11_1_tire_r_dur" type="text" value="\${E(v('dp_11_1_tire_r_dur'))}"></td>
+    <td><input class="dp-inp" data-field="dp_11_1_tire_r_em" type="text" value="\${E(v('dp_11_1_tire_r_em'))}"></td>
+  </tr>
+  <tr>
+    <td class="dp-lbl" colspan="2">비고</td>
+    <td colspan="2"><input class="dp-inp" data-field="dp_11_1_note" type="text" value="\${E(v('dp_11_1_note'))}"></td>
+  </tr>
+
+  <!-- 11.2 내구성 시험차량 선정 -->
   <tr><th class="dp-sub-th" colspan="4">11.2. 내구성 시험차량 선정</th></tr>
-  <tr><td colspan="4"><textarea class="dp-ta" data-field="dp_11_2" rows="3">\${E(v('dp_11_2'))}</textarea></td></tr>
+  <tr>
+    <th class="dp-th" colspan="2">구 분</th>
+    <th class="dp-th" colspan="2">내용</th>
+  </tr>
+  \${['자동차 형식','변속기','원동기 형식','배기량','공차중량','등가관성중량','도로부하마력','연료탱크용량','종 감속비(제1감속비)','판매대수'].map((row,ri)=>\`<tr>
+    <td class="dp-lbl" colspan="2">\${row}</td>
+    <td colspan="2"><input class="dp-inp" data-field="dp_11_2_\${ri}" type="text" value="\${E(v('dp_11_2_\${ri}'))}"></td>
+  </tr>\`).join('')}
+
+  <!-- 11.3 배출가스 시험차량 선정 -->
   <tr><th class="dp-sub-th" colspan="4">11.3. 배출가스 시험차량 선정</th></tr>
-  <tr><td colspan="4"><textarea class="dp-ta" data-field="dp_11_3" rows="3">\${E(v('dp_11_3'))}</textarea></td></tr>
+  <tr><td class="dp-lbl" style="font-size:8pt;" colspan="2">A. 차대 동력계를 사용하는 경우</td><td colspan="2"></td></tr>
+  <tr>
+    <th class="dp-th" colspan="2">항 목</th>
+    <th class="dp-th" colspan="2">자동차 형식</th>
+  </tr>
+  \${['동일차종 중 등가관성중량이 가장 큰 것','상기 조건 내에서 도로 부하력이 가장 큰 것','상기 조건 내에서 배기량이 가장 큰 것','상기 조건 내에서 가장 높은 최종기어비를 갖는 변속기','상기 조건 내에서 연료탱크 용량이 가장 큰 것'].map((row,ri)=>\`<tr>
+    <td class="dp-lbl" colspan="2">\${row}</td>
+    <td colspan="2"><input class="dp-inp" data-field="dp_11_3a_\${ri}" type="text" value="\${E(v('dp_11_3a_\${ri}'))}"></td>
+  </tr>\`).join('')}
+  <tr><td class="dp-lbl" style="font-size:8pt;" colspan="2">B. 원동기동력계를 사용하는 경우</td><td colspan="2"></td></tr>
+  <tr>
+    <th class="dp-th" colspan="2">항 목</th>
+    <th class="dp-th" colspan="2">자동차 형식</th>
+  </tr>
+  \${['최고 토오크 시 속도에서 행정당 연료배분율이 가장 큰 원동기','최고 속도 시 행정당 연료배분율이 가장 큰 원동기'].map((row,ri)=>\`<tr>
+    <td class="dp-lbl" colspan="2">\${row}</td>
+    <td colspan="2"><input class="dp-inp" data-field="dp_11_3b_\${ri}" type="text" value="\${E(v('dp_11_3b_\${ri}'))}"></td>
+  </tr>\`).join('')}
+
+  <!-- 11.4 소음 시험차량 선정 -->
   <tr><th class="dp-sub-th" colspan="4">11.4. 소음 시험차량 선정</th></tr>
-  <tr><td colspan="4"><textarea class="dp-ta" data-field="dp_11_4" rows="3">\${E(v('dp_11_4'))}</textarea></td></tr>
+  <tr>
+    <th class="dp-th" colspan="2">항 목</th>
+    <th class="dp-th" colspan="2">자동차 형식</th>
+  </tr>
+  \${['공차중량이 가장 무거운 자동차','배기량이 가장 큰 자동차','최종기어비율(오버드라이브를 포함한다)이 가장 높은 변속기를 장착한 자동차','차축비가 가장 높은 자동차'].map((row,ri)=>\`<tr>
+    <td class="dp-lbl" colspan="2">\${row}</td>
+    <td colspan="2"><input class="dp-inp" data-field="dp_11_4_\${ri}" type="text" value="\${E(v('dp_11_4_\${ri}'))}"></td>
+  </tr>\`).join('')}
 </table>
 
 <!-- ══ 12. 교정정보 ══ -->
 <table class="dp-tbl">
-  <tr><th class="dp-sec-th" colspan="2">12. 교정정보 및 사후확정정보 제출협약</th></tr>
-  <tr><td colspan="2"><textarea class="dp-ta" data-field="dp_12" rows="4" placeholder="불가피한 사유로 최초 제출 신청서류에 기재할 수 없는 사항 명시">\${E(v('dp_12'))}</textarea></td></tr>
-  <tr><th class="dp-sec-th" colspan="2">13. 기타</th></tr>
-  <tr><td colspan="2"><textarea class="dp-ta" data-field="dp_13" rows="3">\${E(v('dp_13'))}</textarea></td></tr>
+  <colgroup><col style="width:100%"></colgroup>
+  <tr><th class="dp-sec-th">12. 교정정보 및 사후확정정보 제출협약</th></tr>
+  <tr><td style="font-size:7.5pt;color:#555;padding:5px 8px;line-height:1.7;">
+    내구성 시험을 실시하는 경우로서 인증신청 당시까지 세부개발계획이 확정되지 않는 등 불가피한 사유로 최초 제출하는 신청서류에 기재할 수 없는 사항이 있는 경우 본란에 그 사유를 명시하고, 내구성시험 최종보고서 제출 시 확정된 사항을 일괄적으로 제출할 수 있다.
+  </td></tr>
+  <tr><td><textarea class="dp-ta" data-field="dp_12" rows="4" placeholder="불가피한 사유 명시">\${E(v('dp_12'))}</textarea></td></tr>
+  <tr><th class="dp-sec-th">13. 기타</th></tr>
+  <tr><td><textarea class="dp-ta" data-field="dp_13" rows="3">\${E(v('dp_13'))}</textarea></td></tr>
 </table>
 
 <div id="qr-footer-wrap" style="margin-top:12px;"></div>

@@ -474,9 +474,7 @@ body {
 #page-dashboard.active,
 #page-application.active,
 #page-form.active {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+  display:block;
   width:100%;
 }
 
@@ -745,7 +743,7 @@ textarea.auto-grow {
 }
 
 /* ── 대시보드 ───────────────────────────────── */
-#page-dashboard { max-width:1200px; width:100%; padding:36px 24px; }
+#page-dashboard { max-width:1200px; width:100%; padding:36px 24px; margin:0 auto; }
 .dash-header {
   display:flex; align-items:center; justify-content:space-between;
   flex-wrap:wrap; gap:12px; margin-bottom:32px;
@@ -825,7 +823,7 @@ textarea.auto-grow {
 .empty-desc  { font-size:.875rem; color:var(--c-text2); line-height:1.7; margin-bottom:24px; }
 
 /* ── 신청서 상세 ─────────────────────────────── */
-#page-application { max-width:1200px; width:100%; padding:36px 24px; }
+#page-application { max-width:1200px; width:100%; padding:36px 24px; margin:0 auto; }
 .breadcrumb {
   display:flex; align-items:center; gap:8px;
   font-size:.82rem; color:var(--c-text3); margin-bottom:24px; flex-wrap:wrap;
@@ -940,7 +938,7 @@ textarea.auto-grow {
 .form-card:hover .form-card-chevron { transform:translateX(3px); color:var(--c-accent); }
 
 /* ── 서류 폼 페이지 ──────────────────────────── */
-#page-form { max-width:860px; width:100%; padding:36px 24px; }
+#page-form { max-width:860px; width:100%; padding:36px 24px; margin:0 auto; }
 .form-page-header {
   background:var(--grad-card);
   border:1px solid var(--c-border); border-radius:var(--r-xl);
@@ -1124,7 +1122,7 @@ textarea.auto-grow {
 
 /* ── 반응형 ─────────────────────────────────── */
 @media(max-width:768px) {
-  #page-dashboard, #page-application, #page-form { padding:20px 16px; }
+  #page-dashboard, #page-application, #page-form { padding:20px 16px; margin:0 auto; }
   .appl-hero { padding:20px; }
   .fc-main { min-width:0; }
   .form-card-name { font-size:9pt; }

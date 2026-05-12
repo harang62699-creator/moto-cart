@@ -1272,10 +1272,10 @@ textarea.auto-grow {
 <div id="page-dashboard" class="page">
   <div class="dash-header">
     <div>
-      <div class="dash-title">인증신청 목록</div>
+      <div id="dash-title" class="dash-title">인증신청 목록</div>
       <div id="dash-subtitle" class="dash-sub"></div>
     </div>
-    <button class="btn btn-primary" onclick="showNewAppModal()">
+    <button id="btn-new-appl" class="btn btn-primary" onclick="showNewAppModal()">
       <i class="fas fa-plus"></i>새 신청서 작성
     </button>
   </div>
@@ -1285,22 +1285,22 @@ textarea.auto-grow {
     <div class="stat-card total">
       <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
       <div id="stat-total" class="stat-num total">0</div>
-      <div class="stat-label">전체 신청서</div>
+      <div id="stat-total-lbl" class="stat-label">전체 신청서</div>
     </div>
     <div class="stat-card prog">
       <div class="stat-icon"><i class="fas fa-pen-nib"></i></div>
       <div id="stat-inprogress" class="stat-num prog">0</div>
-      <div class="stat-label">작성중</div>
+      <div id="stat-prog-lbl" class="stat-label">작성중</div>
     </div>
     <div class="stat-card done">
       <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
       <div id="stat-completed" class="stat-num done">0</div>
-      <div class="stat-label">완료</div>
+      <div id="stat-done-lbl" class="stat-label">완료</div>
     </div>
     <div class="stat-card draft">
       <div class="stat-icon"><i class="fas fa-save"></i></div>
       <div id="stat-draft" class="stat-num draft">0</div>
-      <div class="stat-label">임시저장</div>
+      <div id="stat-draft-lbl" class="stat-label">임시저장</div>
     </div>
   </div>
 
@@ -1308,9 +1308,9 @@ textarea.auto-grow {
   <div id="app-list" style="display:flex;flex-direction:column;gap:12px;"></div>
   <div id="app-empty" class="empty-state" style="display:none;">
     <div class="empty-icon"><i class="fas fa-file-signature"></i></div>
-    <div class="empty-title">아직 신청서가 없습니다</div>
-    <div class="empty-desc">새 신청서를 작성하여<br>인증 절차를 시작해보세요.</div>
-    <button class="btn btn-primary btn-lg" onclick="showNewAppModal()">
+    <div id="empty-title" class="empty-title">아직 신청서가 없습니다</div>
+    <div id="empty-desc" class="empty-desc">새 신청서를 작성하여<br>인증 절차를 시작해보세요.</div>
+    <button id="btn-first-appl" class="btn btn-primary btn-lg" onclick="showNewAppModal()">
       <i class="fas fa-plus"></i>첫 신청서 작성하기
     </button>
   </div>
@@ -1520,8 +1520,13 @@ const FORM_META = [
   { type:'noise_test',     title:'자동차소음 시험내용 보고서',   icon:'fa-volume-up',      color:'#ec4899', bg:'rgba(236,72,153,.12)'   },
   { type:'confirmation',   title:'확인서',                       icon:'fa-stamp',          color:'#64748b', bg:'rgba(100,116,139,.12)'  },
 ];
-const CERT_LABEL   = { basic:'기본인증', change:'변경인증', report:'변경보고' };
-const STATUS_LABEL = { draft:'임시저장', in_progress:'작성중', completed:'완료' };
+// CERT_LABEL / STATUS_LABEL 은 현재 언어에 따라 동적으로 반환
+function CERT_LABEL_FN()   { return { basic:L('cert_basic'), change:L('cert_change'), report:L('cert_report') }; }
+function STATUS_LABEL_FN() { return { draft:L('status_draft'), in_progress:L('status_inprogress'), completed:L('status_completed') }; }
+// 하위 호환: CERT_LABEL[x] → getCertLabel(x)
+function getCertLabel(type)   { return CERT_LABEL_FN()[type]   || type; }
+function getStatusLabel(type) { return STATUS_LABEL_FN()[type] || type; }
+// 배지 클래스는 언어 무관
 const STATUS_BADGE = { draft:'badge-gray', in_progress:'badge-yellow', completed:'badge-green' };
 
 // ================================================================
@@ -1861,6 +1866,17 @@ const LANG_DICT = {
     ph_maker:'제작사명', ph_model_name:'차종명 입력', ph_appl_no:'인증번호 입력',
     g_obd_g5:'이륜자동차 OBD 기준',
     nt_col_content:'내용',
+
+    // 대시보드 & 목록 다국어
+    cert_basic:'기본인증', cert_change:'변경인증', cert_report:'변경보고',
+    status_draft:'임시저장', status_inprogress:'작성중', status_completed:'완료',
+    dash_title:'인증신청 목록',
+    stat_total_lbl:'전체 신청서', stat_prog_lbl:'작성중', stat_done_lbl:'완료', stat_draft_lbl:'임시저장',
+    btn_new_appl:'새 신청서 작성', btn_first_appl:'첫 신청서 작성하기',
+    btn_write:'작성', btn_delete:'삭제',
+    empty_title:'아직 신청서가 없습니다',
+    empty_desc:'새 신청서를 작성하여<br>인증 절차를 시작해보세요.',
+    meta_modified:'수정',
   },
   en: {
     importer:'Importer', cert_year:'Cert. Year', displacement:'Displacement', family_code:'Family Code',
@@ -2180,6 +2196,17 @@ const LANG_DICT = {
     ph_maker:'Manufacturer', ph_model_name:'Model name', ph_appl_no:'Cert. number',
     g_obd_g5:'Motorcycle OBD Std',
     nt_col_content:'Content',
+
+    // 대시보드 & 목록 다국어
+    cert_basic:'Basic', cert_change:'Change', cert_report:'Report',
+    status_draft:'Draft', status_inprogress:'In Progress', status_completed:'Completed',
+    dash_title:'Application List',
+    stat_total_lbl:'Total', stat_prog_lbl:'In Progress', stat_done_lbl:'Completed', stat_draft_lbl:'Draft',
+    btn_new_appl:'New Application', btn_first_appl:'Create First Application',
+    btn_write:'Edit', btn_delete:'Delete',
+    empty_title:'No applications yet',
+    empty_desc:'Create a new application to<br>start the certification process.',
+    meta_modified:'Modified',
   },
   ja: {
     importer:'輸入会社', cert_year:'認証年度', displacement:'排気量', family_code:'同一車種記号',
@@ -2499,6 +2526,17 @@ const LANG_DICT = {
     ph_maker:'製造社名', ph_model_name:'車種名入力', ph_appl_no:'認証番号入力',
     g_obd_g5:'二輪車OBD基準',
     nt_col_content:'内容',
+
+    // 대시보드 & 목록 다국어
+    cert_basic:'基本認証', cert_change:'変更認証', cert_report:'変更報告',
+    status_draft:'下書き', status_inprogress:'作成中', status_completed:'完了',
+    dash_title:'認証申請一覧',
+    stat_total_lbl:'全申請書', stat_prog_lbl:'作成中', stat_done_lbl:'完了', stat_draft_lbl:'下書き',
+    btn_new_appl:'新規申請書作成', btn_first_appl:'最初の申請書を作成',
+    btn_write:'編集', btn_delete:'削除',
+    empty_title:'申請書がありません',
+    empty_desc:'新しい申請書を作成して<br>認証手続きを開始してください。',
+    meta_modified:'更新',
   },
   zh: {
     importer:'进口商', cert_year:'认证年度', displacement:'排量', family_code:'同一车型代号',
@@ -2816,6 +2854,17 @@ const LANG_DICT = {
     nt_raw_data_note:'原始数据附件',
     nt_col_item:'项目',
     ph_maker:'制造商名称', ph_model_name:'车型名称', ph_appl_no:'认证编号输入',
+
+    // 대시보드 & 목록 다국어
+    cert_basic:'基本认证', cert_change:'变更认证', cert_report:'变更报告',
+    status_draft:'草稿', status_inprogress:'进行中', status_completed:'已完成',
+    dash_title:'认证申请列表',
+    stat_total_lbl:'全部申请', stat_prog_lbl:'进行中', stat_done_lbl:'已完成', stat_draft_lbl:'草稿',
+    btn_new_appl:'新建申请', btn_first_appl:'创建第一份申请',
+    btn_write:'编辑', btn_delete:'删除',
+    empty_title:'暂无申请书',
+    empty_desc:'创建新申请书以<br>开始认证流程。',
+    meta_modified:'修改',
   },
 };
 // LANG_DICT 헬퍼: 현재 언어로 라벨 반환 (fallback: ko)
@@ -2971,6 +3020,21 @@ async function loadApplications() {
 }
 
 function renderAppList() {
+  // ── 대시보드 UI 텍스트 갱신 (언어 전환 대응) ──
+  const setT = (id,v) => { const el=document.getElementById(id); if(el) el.textContent=v; };
+  const setH = (id,v) => { const el=document.getElementById(id); if(el) el.innerHTML=v; };
+  setT('dash-title',       L('dash_title'));
+  setT('stat-total-lbl',   L('stat_total_lbl'));
+  setT('stat-prog-lbl',    L('stat_prog_lbl'));
+  setT('stat-done-lbl',    L('stat_done_lbl'));
+  setT('stat-draft-lbl',   L('stat_draft_lbl'));
+  setT('empty-title',      L('empty_title'));
+  setH('empty-desc',       L('empty_desc'));
+  const btnNew   = document.getElementById('btn-new-appl');
+  if (btnNew)   btnNew.innerHTML   = '<i class="fas fa-plus"></i>' + L('btn_new_appl');
+  const btnFirst = document.getElementById('btn-first-appl');
+  if (btnFirst) btnFirst.innerHTML = '<i class="fas fa-plus"></i>' + L('btn_first_appl');
+
   const total = currentApplications.length;
   const prog  = currentApplications.filter(a=>a.status==='in_progress').length;
   const done  = currentApplications.filter(a=>a.status==='completed').length;
@@ -2983,23 +3047,31 @@ function renderAppList() {
   const emptyEl = document.getElementById('app-empty');
   if (!total) { listEl.innerHTML=''; emptyEl.style.display='block'; return; }
   emptyEl.style.display = 'none';
+  // 신청서별 언어에 맞게 라벨을 반환하는 헬퍼
+  const localeMap = { ko:'ko-KR', en:'en-US', ja:'ja-JP', zh:'zh-CN' };
+  const certLabelFor   = (lang,type) => (LANG_DICT[lang]||LANG_DICT.ko)['cert_'+type]   || (LANG_DICT.ko['cert_'+type]||type);
+  const statusLabelFor = (lang,st)   => { const k={draft:'status_draft',in_progress:'status_inprogress',completed:'status_completed'}[st]||st; return (LANG_DICT[lang]||LANG_DICT.ko)[k]||(LANG_DICT.ko[k]||st); };
+  const modifiedFor    = (lang)      => (LANG_DICT[lang]||LANG_DICT.ko)['meta_modified'] || (LANG_DICT.ko['meta_modified']||'수정');
   listEl.innerHTML = currentApplications.map(a => {
+    const lang    = (a.lang && ['ko','en','ja','zh'].includes(a.lang)) ? a.lang : 'ko';
+    const locale  = localeMap[lang] || 'ko-KR';
     const done_f  = a.completed_forms || 0;
     const total_f = a.total_forms || 10;
     const pct     = Math.round(done_f/total_f*100);
-    const date    = new Date(a.updated_at).toLocaleDateString('ko-KR',{month:'short',day:'numeric'});
-    const metaStr = [a.importer,a.cert_year?a.cert_year+'년':'',a.displacement?a.displacement+'cc':''].filter(Boolean).join(' ');
+    const date    = new Date(a.updated_at).toLocaleDateString(locale,{month:'short',day:'numeric'});
+    const yearSfx = lang==='ko' ? '년' : lang==='ja' ? '年' : '';
+    const metaStr = [a.importer,a.cert_year?(a.cert_year+yearSfx):'',a.displacement?(a.displacement+'cc'):''].filter(Boolean).join(' ');
     const certBadge = { basic:'badge-blue', change:'badge-violet', report:'badge-yellow' }[a.cert_type] || 'badge-gray';
     return \`
       <div class="app-item">
         <div class="app-item-icon"><i class="fas fa-file-alt"></i></div>
         <div class="app-item-body">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
-            <span class="badge \${certBadge}">\${CERT_LABEL[a.cert_type]||a.cert_type}</span>
-            <span class="badge \${STATUS_BADGE[a.status]||'badge-gray'}">\${STATUS_LABEL[a.status]||a.status}</span>
+            <span class="badge \${certBadge}">\${certLabelFor(lang,a.cert_type)}</span>
+            <span class="badge \${STATUS_BADGE[a.status]||'badge-gray'}">\${statusLabelFor(lang,a.status)}</span>
           </div>
           <div class="app-item-title">\${esc(a.title)}</div>
-          <div class="app-item-meta">\${esc(metaStr)} &nbsp;·&nbsp; \${date} 수정</div>
+          <div class="app-item-meta">\${esc(metaStr)} &nbsp;·&nbsp; \${date} \${modifiedFor(lang)}</div>
           <div style="display:flex;align-items:center;gap:10px;">
             <div class="progress-track" style="flex:1;height:4px;">
               <div class="progress-fill" style="height:4px;background:var(--grad-accent);width:\${pct}%;"></div>
@@ -3009,9 +3081,9 @@ function renderAppList() {
         </div>
         <div class="app-item-actions">
           <button class="btn btn-primary btn-sm" onclick="openApplication(\${a.id})">
-            <i class="fas fa-edit"></i>작성
+            <i class="fas fa-edit"></i>\${(LANG_DICT[lang]||LANG_DICT.ko)['btn_write']||L('btn_write')}
           </button>
-          <button class="btn btn-danger btn-sm btn-icon" onclick="deleteApplication(event,\${a.id})" title="삭제">
+          <button class="btn btn-danger btn-sm btn-icon" onclick="deleteApplication(event,\${a.id})" title="\${(LANG_DICT[lang]||LANG_DICT.ko)['btn_delete']||L('btn_delete')}">
             <i class="fas fa-trash-alt"></i>
           </button>
         </div>
@@ -3044,10 +3116,10 @@ function renderApplicationPage() {
   document.getElementById('appl-breadcrumb').textContent = a.title;
   const certBadge  = { basic:'badge-blue', change:'badge-violet', report:'badge-yellow' }[a.cert_type]||'badge-gray';
   document.getElementById('appl-cert-badge').className   = 'badge ' + certBadge;
-  document.getElementById('appl-cert-badge').textContent = CERT_LABEL[a.cert_type]||a.cert_type;
+  document.getElementById('appl-cert-badge').textContent = getCertLabel(a.cert_type);
   const sb = document.getElementById('appl-status-badge');
   sb.className   = 'badge ' + (STATUS_BADGE[a.status]||'badge-gray');
-  sb.textContent = STATUS_LABEL[a.status]||a.status;
+  sb.textContent = getStatusLabel(a.status);
   document.getElementById('appl-title').textContent = a.title;
   document.getElementById('appl-meta').textContent  = [a.importer,a.cert_year?a.cert_year+'년':'',a.displacement?a.displacement+'cc':''].filter(Boolean).join(' · ');
   const done  = currentForms.filter(f=>f.completed).length;
@@ -3114,7 +3186,7 @@ async function openForm(formType) {
   link.onclick = () => openApplication(currentApplicationId);
   document.getElementById('form-breadcrumb').textContent = meta.title;
   document.getElementById('form-title').textContent      = meta.title;
-  document.getElementById('form-subtitle').textContent   = CERT_LABEL[currentApplication.cert_type]+' · '+currentApplication.title;
+  document.getElementById('form-subtitle').textContent   = getCertLabel(currentApplication.cert_type)+' · '+currentApplication.title;
   const chk = document.getElementById('form-completed-chk');
   chk.checked = !!fd?.completed;
   updateCompleteCard();
@@ -3453,7 +3525,7 @@ async function deleteApplication(e, id) {
 // ================================================================
 function buildFormHTML(formType, saved) {
   // cert_type → 구분 기본값: 저장값이 없으면 현재 신청서의 cert_type 한글 라벨로 자동 채움
-  const _certDefault = CERT_LABEL[currentApplication?.cert_type] || '';
+  const _certDefault = getCertLabel(currentApplication?.cert_type) || '';
   const v   = (k,def='') => {
     if (saved[k]!==undefined) return saved[k];
     if (k==='appl_div') return _certDefault;

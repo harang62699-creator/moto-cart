@@ -1537,12 +1537,41 @@ const LANG_DICT = {
     address:'주소', phone:'전화번호', model_name:'차종명', engine_no:'엔진번호',
     // summary
     summary_title:'인증신청 요약서',
+    sv_title:'인증신청 요약서',
+    sv_th_div:'구분', sv_th_item:'항목', sv_th_content:'내용',
+    sv_maker:'제작사(제작국)', sv_vehicle_name:'시험자동차 명칭(형식)', sv_vehicle_name_simple:'자동차 명칭',
+    sv_fuel:'사용연료', sv_std:'적용기준', sv_emission:'배출가스', sv_noise_simple:'소음',
+    sv_foreign_std:'외국 기준', sv_foreign_std_note:'(해당되는 경우)',
+    sv_evap_rep_title:'증발가스 대표차 여부 및', sv_obd_rep_title:'OBD 대표차 여부 및',
+    sv_rep_vehicle:'대표/비대표', sv_model_type:'차종 형식',
+    sv_warranty:'보증 기간', sv_self_test:'자체시험실시 내역', sv_key_tech:'대표 기술',
+    unit_year:'년', fuel_gasoline:'휘발유', fuel_diesel:'경유',
     // gasoline
     gasoline_title:'휘발유차 인증신청 주요내용',
     maker:'제작사', engine_type:'엔진형식', fuel:'연료',
     max_power:'최고출력(ps/rpm)', max_torque:'최대토크(N·m/rpm)',
     transmission:'변속기', drive_type:'구동방식', fuel_tank:'연료탱크용량(L)',
     curb_weight:'공차중량(kg)', wheelbase:'축간거리(mm)',
+    // gasoline 섹션 라벨
+    g_app_overview:'인증신청 개요', g_app_type:'인증신청 유형',
+    g_appl_date:'신청일자', g_maker:'제작사', g_vehicle_form:'차종(형식)',
+    g_vehicle_fuel:'연료', g_power_cc:'출력/배기량', g_std_emission:'기준(배출가스)',
+    g_cert_no:'인증번호', g_note:'비고',
+    g_cert_content:'인증 내용', g_applicable:'해당', g_evap:'증발가스',
+    g_warranty:'보증', g_detail:'세부 내역', g_tech:'기술적 특징',
+    g_self_result:'자체시험 결과', g_emission_colon:'배출가스:', g_noise_colon:'소음:',
+    g_hc:'HC', g_co_full:'CO(g/km)', g_hc_exhaust:'HC 배기(g/km)', g_nox_full:'NOx(g/km)', g_hc_evap:'HC 증발(g/Test)',
+    g_accel_noise:'가속주행소음(dB(A))', g_exhaust_noise:'배기소음(dB(A))', g_horn_noise:'경적소음(dB(A))',
+    g_allowable_std:'허용기준', g_test_result:'시험결과', g_compliance_rate:'적합여부',
+    g_monitor_device:'모니터링 장치', g_fault_cond:'결함 조건', g_wmtc_result:'WMTC 결과',
+    g_mil_lamp:'MIL 점등', g_fault_std:'고장 기준', g_monitor_pass:'모니터 통과',
+    g_catalyst:'촉매장치', g_catalyst_dpf:'촉매장치(DPF)',
+    g_spec_result:'기술 사양 및 시험결과',
+    g_blowby:'블로바이 제어', g_obd_std_name:'OBD 기준명', g_monitor_item:'모니터 항목',
+    g_tested:'시험여부', g_test_car_name:'시험차 명칭', g_test_facility:'시험 시설',
+    g_test_car_basis:'시험차 선정 근거', g_evap_test:'증발가스 시험',
+    g_warranty_df:'보증 및 악화계수', g_df_applied:'악화계수 적용',
+    g_durability:'내구성 시험', g_ki_test:'KI 시험', g_noise_test:'소음시험',
     // detail_plan
     detail_plan_title:'인증에 필요한 세부 계획 서류',
     vehicle_type:'차종', model_year:'연식', color:'색상',
@@ -1551,11 +1580,25 @@ const LANG_DICT = {
     emission_noise_title:'배출가스·소음 저감 서류',
     emission_std:'배출가스 기준', noise_std:'소음 기준',
     catalyst:'촉매장치', muffler:'소음기', air_filter:'공기청정기',
+    // emission_noise 세부 라벨
+    en_main_title:'배출가스 소음 저감장치 자료',
+    en_muffler:'1. 소음기(머플러)',
+    en_muffler_comp_title:'1.1 머플러 구성 내역',
+    en_muffler_diagram_title:'1.2 머플러 도면',
+    en_muffler_spec_title:'1.3 머플러 사양',
+    en_1_3_1:'구조 및 소음저감 원리', en_1_3_2:'흐름도', en_1_3_3:'제작사',
+    en_1_3_4:'내외부 재질', en_1_3_5:'치수 도면',
+    en_cat_spec_title:'1.4 촉매장치 사양',
+    en_1_4_1:'촉매 제작사', en_1_4_2:'촉매 재질', en_1_4_3:'촉매 성능 및 치수',
+    en_1_4_4:'치수 도면', en_1_4_5:'원리 또는 효과', en_1_4_6:'부착 위치',
+    img_hint:'이미지를 드래그하거나 클릭하여 업로드',
     // obd_config
     obd_config_title:'OBD 구성에 관한 서류',
     obd_system:'OBD시스템 유형', ecu_maker:'ECU 제조사', ecu_model:'ECU 모델',
     sensor_o2:'O2 센서', sensor_map:'MAP 센서', sensor_tps:'TPS 센서',
     dtc_code:'고장코드(DTC)', mil:'MIL 경고등', readiness:'준비완료 모니터',
+    // obd_config 세부 라벨 (th_*)
+    th_div:'구분', th_item:'항목', th_content:'내용', th_fuel:'연료',
     // emission_test
     emission_test_title:'배출가스 시험보고서',
     co:'CO(g/km)', hc:'HC(g/km)', nox:'NOx(g/km)', co2:'CO₂(g/km)',
@@ -1569,9 +1612,10 @@ const LANG_DICT = {
     freeze_frame:'Freeze Frame 확인',
     // noise_test
     noise_test_title:'자동차소음 시험내용 보고서',
+    nt_main_title:'자동차소음 시험내용 보고서', nt_sec1:'1. 시험관련 규정',
     drive_noise:'주행소음(dB(A))', stationary_noise:'정지소음(dB(A))', horn_noise:'경음기 소음',
     // confirmation
-    confirmation_title:'확인서',
+    confirmation_title:'확인서', cf_title:'확인서',
     confirm_content:'확인 내용', confirm_date:'확인일자', confirm_sign:'서명',
     // placeholder
     ph_importer:'수입사명', ph_cert_year:'예) 2025', ph_displacement:'예) 125cc', ph_family_code:'기호 입력',
@@ -1582,21 +1626,61 @@ const LANG_DICT = {
     appl_div:'Type', appl_no:'Cert. No.', cert_date:'Cert. Date', representative:'Representative',
     address:'Address', phone:'Phone', model_name:'Model Name', engine_no:'Engine No.',
     summary_title:'Certification Application Summary',
+    sv_title:'Certification Application Summary',
+    sv_th_div:'No.', sv_th_item:'Item', sv_th_content:'Content',
+    sv_maker:'Manufacturer (Country)', sv_vehicle_name:'Test Vehicle Name (Type)', sv_vehicle_name_simple:'Vehicle Name',
+    sv_fuel:'Fuel Type', sv_std:'Applicable Standard', sv_emission:'Emission', sv_noise_simple:'Noise',
+    sv_foreign_std:'Foreign Standard', sv_foreign_std_note:'(if applicable)',
+    sv_evap_rep_title:'Evap. Representative Vehicle &', sv_obd_rep_title:'OBD Representative Vehicle &',
+    sv_rep_vehicle:'Rep./Non-rep.', sv_model_type:'Vehicle Type',
+    sv_warranty:'Warranty Period', sv_self_test:'In-house Test Records', sv_key_tech:'Key Technology',
+    unit_year:'yr', fuel_gasoline:'Gasoline', fuel_diesel:'Diesel',
     gasoline_title:'Gasoline Vehicle Certification Key Information',
     maker:'Manufacturer', engine_type:'Engine Type', fuel:'Fuel',
     max_power:'Max Power(ps/rpm)', max_torque:'Max Torque(N·m/rpm)',
     transmission:'Transmission', drive_type:'Drive Type', fuel_tank:'Fuel Tank(L)',
     curb_weight:'Curb Weight(kg)', wheelbase:'Wheelbase(mm)',
+    g_app_overview:'Application Overview', g_app_type:'Application Type',
+    g_appl_date:'Application Date', g_maker:'Manufacturer', g_vehicle_form:'Vehicle Type(Form)',
+    g_vehicle_fuel:'Fuel', g_power_cc:'Power/Displacement', g_std_emission:'Emission Standard',
+    g_cert_no:'Cert. No.', g_note:'Remarks',
+    g_cert_content:'Certification Content', g_applicable:'Applicable', g_evap:'Evap.',
+    g_warranty:'Warranty', g_detail:'Details', g_tech:'Technical Features',
+    g_self_result:'Self-Test Results', g_emission_colon:'Emission:', g_noise_colon:'Noise:',
+    g_hc:'HC', g_co_full:'CO(g/km)', g_hc_exhaust:'HC Exhaust(g/km)', g_nox_full:'NOx(g/km)', g_hc_evap:'HC Evap.(g/Test)',
+    g_accel_noise:'Accel. Noise(dB(A))', g_exhaust_noise:'Exhaust Noise(dB(A))', g_horn_noise:'Horn Noise(dB(A))',
+    g_allowable_std:'Allowable Std.', g_test_result:'Test Result', g_compliance_rate:'Compliance',
+    g_monitor_device:'Monitor Device', g_fault_cond:'Fault Condition', g_wmtc_result:'WMTC Result',
+    g_mil_lamp:'MIL Lamp', g_fault_std:'Fault Standard', g_monitor_pass:'Monitor Pass',
+    g_catalyst:'Catalyst', g_catalyst_dpf:'Catalyst(DPF)',
+    g_spec_result:'Technical Spec. & Test Results',
+    g_blowby:'Blow-by Control', g_obd_std_name:'OBD Standard Name', g_monitor_item:'Monitor Item',
+    g_tested:'Tested', g_test_car_name:'Test Car Name', g_test_facility:'Test Facility',
+    g_test_car_basis:'Test Car Selection Basis', g_evap_test:'Evap. Test',
+    g_warranty_df:'Warranty & Deterioration Factor', g_df_applied:'DF Applied',
+    g_durability:'Durability Test', g_ki_test:'KI Test', g_noise_test:'Noise Test',
     detail_plan_title:'Detailed Plan Documents',
     vehicle_type:'Vehicle Type', model_year:'Model Year', color:'Color',
     test_org:'Test Organization', test_date:'Test Date', test_result:'Test Result',
     emission_noise_title:'Emission & Noise Reduction Documents',
     emission_std:'Emission Standard', noise_std:'Noise Standard',
     catalyst:'Catalyst', muffler:'Muffler', air_filter:'Air Filter',
+    en_main_title:'Emission & Noise Reduction Device Data',
+    en_muffler:'1. Muffler',
+    en_muffler_comp_title:'1.1 Muffler Composition',
+    en_muffler_diagram_title:'1.2 Muffler Diagram',
+    en_muffler_spec_title:'1.3 Muffler Specifications',
+    en_1_3_1:'Structure & Noise Reduction Principle', en_1_3_2:'Flow Diagram', en_1_3_3:'Manufacturer',
+    en_1_3_4:'Inner/Outer Material', en_1_3_5:'Dimensional Drawing',
+    en_cat_spec_title:'1.4 Catalyst Specifications',
+    en_1_4_1:'Catalyst Manufacturer', en_1_4_2:'Catalyst Material', en_1_4_3:'Catalyst Performance & Dimensions',
+    en_1_4_4:'Dimensional Drawing', en_1_4_5:'Principle or Effect', en_1_4_6:'Mounting Position',
+    img_hint:'Drag or click to upload image',
     obd_config_title:'OBD Configuration Documents',
     obd_system:'OBD System Type', ecu_maker:'ECU Manufacturer', ecu_model:'ECU Model',
     sensor_o2:'O2 Sensor', sensor_map:'MAP Sensor', sensor_tps:'TPS Sensor',
     dtc_code:'DTC Code', mil:'MIL Warning Light', readiness:'Readiness Monitor',
+    th_div:'No.', th_item:'Item', th_content:'Content', th_fuel:'Fuel',
     emission_test_title:'Emission Test Report',
     co:'CO(g/km)', hc:'HC(g/km)', nox:'NOx(g/km)', co2:'CO₂(g/km)',
     test_mode:'Test Mode', fuel_consumption:'Fuel Economy(km/L)',
@@ -1606,8 +1690,9 @@ const LANG_DICT = {
     fault_insert:'Fault Insertion Method', mil_check:'MIL Activation Check', dtc_check:'DTC Storage Check',
     freeze_frame:'Freeze Frame Check',
     noise_test_title:'Vehicle Noise Test Report',
+    nt_main_title:'Vehicle Noise Test Report', nt_sec1:'1. Test Regulations',
     drive_noise:'Drive-by Noise(dB(A))', stationary_noise:'Stationary Noise(dB(A))', horn_noise:'Horn Noise',
-    confirmation_title:'Confirmation Letter',
+    confirmation_title:'Confirmation Letter', cf_title:'Confirmation Letter',
     confirm_content:'Confirmation Content', confirm_date:'Date', confirm_sign:'Signature',
     ph_importer:'Importer name', ph_cert_year:'e.g. 2025', ph_displacement:'e.g. 125cc', ph_family_code:'Family code',
     ph_maker:'Manufacturer', ph_model_name:'Model name', ph_appl_no:'Cert. number',
@@ -1617,21 +1702,61 @@ const LANG_DICT = {
     appl_div:'区分', appl_no:'認証番号', cert_date:'認証日', representative:'代表者',
     address:'住所', phone:'電話番号', model_name:'車種名', engine_no:'エンジン番号',
     summary_title:'認証申請概要書',
+    sv_title:'認証申請概要書',
+    sv_th_div:'区分', sv_th_item:'項目', sv_th_content:'内容',
+    sv_maker:'製造社(製造国)', sv_vehicle_name:'試験自動車名称(形式)', sv_vehicle_name_simple:'自動車名称',
+    sv_fuel:'使用燃料', sv_std:'適用基準', sv_emission:'排出ガス', sv_noise_simple:'騒音',
+    sv_foreign_std:'外国基準', sv_foreign_std_note:'(該当する場合)',
+    sv_evap_rep_title:'蒸発ガス代表車有無及び', sv_obd_rep_title:'OBD代表車有無及び',
+    sv_rep_vehicle:'代表/非代表', sv_model_type:'車種形式',
+    sv_warranty:'保証期間', sv_self_test:'自社試験実施内訳', sv_key_tech:'代表技術',
+    unit_year:'年', fuel_gasoline:'ガソリン', fuel_diesel:'軽油',
     gasoline_title:'ガソリン車認証申請主要内容',
     maker:'製造社', engine_type:'エンジン形式', fuel:'燃料',
     max_power:'最高出力(ps/rpm)', max_torque:'最大トルク(N·m/rpm)',
     transmission:'変速機', drive_type:'駆動方式', fuel_tank:'燃料タンク容量(L)',
     curb_weight:'車両重量(kg)', wheelbase:'軸距(mm)',
+    g_app_overview:'認証申請概要', g_app_type:'認証申請タイプ',
+    g_appl_date:'申請日', g_maker:'製造社', g_vehicle_form:'車種(形式)',
+    g_vehicle_fuel:'燃料', g_power_cc:'出力/排気量', g_std_emission:'排出ガス基準',
+    g_cert_no:'認証番号', g_note:'備考',
+    g_cert_content:'認証内容', g_applicable:'該当', g_evap:'蒸発ガス',
+    g_warranty:'保証', g_detail:'詳細', g_tech:'技術的特徴',
+    g_self_result:'自社試験結果', g_emission_colon:'排出ガス:', g_noise_colon:'騒音:',
+    g_hc:'HC', g_co_full:'CO(g/km)', g_hc_exhaust:'HC排気(g/km)', g_nox_full:'NOx(g/km)', g_hc_evap:'HC蒸発(g/Test)',
+    g_accel_noise:'加速走行騒音(dB(A))', g_exhaust_noise:'排気騒音(dB(A))', g_horn_noise:'警音器騒音(dB(A))',
+    g_allowable_std:'許容基準', g_test_result:'試験結果', g_compliance_rate:'適合可否',
+    g_monitor_device:'モニタリング装置', g_fault_cond:'故障条件', g_wmtc_result:'WMTC結果',
+    g_mil_lamp:'MIL点灯', g_fault_std:'故障基準', g_monitor_pass:'モニター通過',
+    g_catalyst:'触媒装置', g_catalyst_dpf:'触媒装置(DPF)',
+    g_spec_result:'技術仕様及び試験結果',
+    g_blowby:'ブローバイ制御', g_obd_std_name:'OBD基準名', g_monitor_item:'モニター項目',
+    g_tested:'試験有無', g_test_car_name:'試験車名称', g_test_facility:'試験施設',
+    g_test_car_basis:'試験車選定根拠', g_evap_test:'蒸発ガス試験',
+    g_warranty_df:'保証及び劣化係数', g_df_applied:'劣化係数適用',
+    g_durability:'耐久試験', g_ki_test:'KI試験', g_noise_test:'騒音試験',
     detail_plan_title:'認証に必要な詳細計画書類',
     vehicle_type:'車種', model_year:'年式', color:'色',
     test_org:'試験機関', test_date:'試験日', test_result:'試験結果',
     emission_noise_title:'排出ガス・騒音低減書類',
     emission_std:'排出ガス基準', noise_std:'騒音基準',
     catalyst:'触媒装置', muffler:'消音器', air_filter:'エアフィルター',
+    en_main_title:'排出ガス・騒音低減装置資料',
+    en_muffler:'1. 消音器（マフラー）',
+    en_muffler_comp_title:'1.1 マフラー構成内訳',
+    en_muffler_diagram_title:'1.2 マフラー図面',
+    en_muffler_spec_title:'1.3 マフラー仕様',
+    en_1_3_1:'構造及び騒音低減原理', en_1_3_2:'フロー図', en_1_3_3:'製造社',
+    en_1_3_4:'内外部材質', en_1_3_5:'寸法図面',
+    en_cat_spec_title:'1.4 触媒装置仕様',
+    en_1_4_1:'触媒製造社', en_1_4_2:'触媒材質', en_1_4_3:'触媒性能及び寸法',
+    en_1_4_4:'寸法図面', en_1_4_5:'原理または効果', en_1_4_6:'取付位置',
+    img_hint:'画像をドラッグまたはクリックしてアップロード',
     obd_config_title:'OBD構成に関する書類',
     obd_system:'OBDシステムタイプ', ecu_maker:'ECUメーカー', ecu_model:'ECUモデル',
     sensor_o2:'O2センサー', sensor_map:'MAPセンサー', sensor_tps:'TPSセンサー',
     dtc_code:'故障コード(DTC)', mil:'MIL警告灯', readiness:'レディネスモニター',
+    th_div:'区分', th_item:'項目', th_content:'内容', th_fuel:'燃料',
     emission_test_title:'排出ガス試験報告書',
     co:'CO(g/km)', hc:'HC(g/km)', nox:'NOx(g/km)', co2:'CO₂(g/km)',
     test_mode:'試験モード', fuel_consumption:'燃費(km/L)',
@@ -1641,8 +1766,9 @@ const LANG_DICT = {
     fault_insert:'故障挿入方法', mil_check:'MIL点灯確認', dtc_check:'DTC保存確認',
     freeze_frame:'フリーズフレーム確認',
     noise_test_title:'自動車騒音試験内容報告書',
+    nt_main_title:'自動車騒音試験内容報告書', nt_sec1:'1. 試験関連規定',
     drive_noise:'走行騒音(dB(A))', stationary_noise:'定置騒音(dB(A))', horn_noise:'警音器騒音',
-    confirmation_title:'確認書',
+    confirmation_title:'確認書', cf_title:'確認書',
     confirm_content:'確認内容', confirm_date:'確認日', confirm_sign:'署名',
     ph_importer:'輸入会社名', ph_cert_year:'例) 2025', ph_displacement:'例) 125cc', ph_family_code:'記号入力',
     ph_maker:'製造社名', ph_model_name:'車種名入力', ph_appl_no:'認証番号入力',
@@ -1652,21 +1778,61 @@ const LANG_DICT = {
     appl_div:'类别', appl_no:'认证编号', cert_date:'认证日期', representative:'代表人',
     address:'地址', phone:'电话', model_name:'车型名称', engine_no:'发动机编号',
     summary_title:'认证申请概要书',
+    sv_title:'认证申请概要书',
+    sv_th_div:'序号', sv_th_item:'项目', sv_th_content:'内容',
+    sv_maker:'制造商（制造国）', sv_vehicle_name:'试验车辆名称（型式）', sv_vehicle_name_simple:'车辆名称',
+    sv_fuel:'使用燃料', sv_std:'适用标准', sv_emission:'排放', sv_noise_simple:'噪声',
+    sv_foreign_std:'外国标准', sv_foreign_std_note:'（如适用）',
+    sv_evap_rep_title:'蒸发排放代表车辆及', sv_obd_rep_title:'OBD代表车辆及',
+    sv_rep_vehicle:'代表/非代表', sv_model_type:'车型型式',
+    sv_warranty:'保修期', sv_self_test:'自检实施内容', sv_key_tech:'核心技术',
+    unit_year:'年', fuel_gasoline:'汽油', fuel_diesel:'柴油',
     gasoline_title:'汽油车认证申请主要内容',
     maker:'制造商', engine_type:'发动机型式', fuel:'燃料',
     max_power:'最大功率(ps/rpm)', max_torque:'最大扭矩(N·m/rpm)',
     transmission:'变速器', drive_type:'驱动方式', fuel_tank:'油箱容量(L)',
     curb_weight:'整备质量(kg)', wheelbase:'轴距(mm)',
+    g_app_overview:'认证申请概述', g_app_type:'认证申请类型',
+    g_appl_date:'申请日期', g_maker:'制造商', g_vehicle_form:'车种（型式）',
+    g_vehicle_fuel:'燃料', g_power_cc:'功率/排量', g_std_emission:'排放标准',
+    g_cert_no:'认证编号', g_note:'备注',
+    g_cert_content:'认证内容', g_applicable:'适用', g_evap:'蒸发排放',
+    g_warranty:'保修', g_detail:'详细内容', g_tech:'技术特征',
+    g_self_result:'自检结果', g_emission_colon:'排放:', g_noise_colon:'噪声:',
+    g_hc:'HC', g_co_full:'CO(g/km)', g_hc_exhaust:'HC排气(g/km)', g_nox_full:'NOx(g/km)', g_hc_evap:'HC蒸发(g/Test)',
+    g_accel_noise:'加速行驶噪声(dB(A))', g_exhaust_noise:'排气噪声(dB(A))', g_horn_noise:'喇叭噪声(dB(A))',
+    g_allowable_std:'允许标准', g_test_result:'试验结果', g_compliance_rate:'合规与否',
+    g_monitor_device:'监控装置', g_fault_cond:'故障条件', g_wmtc_result:'WMTC结果',
+    g_mil_lamp:'MIL点亮', g_fault_std:'故障标准', g_monitor_pass:'监控通过',
+    g_catalyst:'催化装置', g_catalyst_dpf:'催化装置(DPF)',
+    g_spec_result:'技术规格及试验结果',
+    g_blowby:'曲轴箱通风控制', g_obd_std_name:'OBD标准名称', g_monitor_item:'监控项目',
+    g_tested:'试验与否', g_test_car_name:'试验车名称', g_test_facility:'试验设施',
+    g_test_car_basis:'试验车选定依据', g_evap_test:'蒸发排放试验',
+    g_warranty_df:'保修及劣化系数', g_df_applied:'劣化系数适用',
+    g_durability:'耐久试验', g_ki_test:'KI试验', g_noise_test:'噪声试验',
     detail_plan_title:'认证所需详细计划文件',
     vehicle_type:'车种', model_year:'年款', color:'颜色',
     test_org:'检测机构', test_date:'检测日期', test_result:'检测结果',
     emission_noise_title:'排放及噪音减排文件',
     emission_std:'排放标准', noise_std:'噪音标准',
     catalyst:'催化装置', muffler:'消音器', air_filter:'空气滤清器',
+    en_main_title:'排放及噪声减排装置资料',
+    en_muffler:'1. 消音器（排气管）',
+    en_muffler_comp_title:'1.1 消音器构成内容',
+    en_muffler_diagram_title:'1.2 消音器图纸',
+    en_muffler_spec_title:'1.3 消音器规格',
+    en_1_3_1:'结构及降噪原理', en_1_3_2:'流程图', en_1_3_3:'制造商',
+    en_1_3_4:'内外部材质', en_1_3_5:'尺寸图纸',
+    en_cat_spec_title:'1.4 催化装置规格',
+    en_1_4_1:'催化制造商', en_1_4_2:'催化材质', en_1_4_3:'催化性能及尺寸',
+    en_1_4_4:'尺寸图纸', en_1_4_5:'原理或效果', en_1_4_6:'安装位置',
+    img_hint:'拖拽或点击上传图片',
     obd_config_title:'OBD配置相关文件',
     obd_system:'OBD系统类型', ecu_maker:'ECU制造商', ecu_model:'ECU型号',
     sensor_o2:'O2传感器', sensor_map:'MAP传感器', sensor_tps:'TPS传感器',
     dtc_code:'故障码(DTC)', mil:'MIL警告灯', readiness:'就绪监测器',
+    th_div:'序号', th_item:'项目', th_content:'内容', th_fuel:'燃料',
     emission_test_title:'排放气体试验报告书',
     co:'CO(g/km)', hc:'HC(g/km)', nox:'NOx(g/km)', co2:'CO₂(g/km)',
     test_mode:'试验模式', fuel_consumption:'油耗(km/L)',
@@ -1676,8 +1842,9 @@ const LANG_DICT = {
     fault_insert:'故障插入方法', mil_check:'MIL点亮确认', dtc_check:'DTC存储确认',
     freeze_frame:'冻结帧确认',
     noise_test_title:'汽车噪声试验内容报告书',
+    nt_main_title:'汽车噪声试验内容报告书', nt_sec1:'1. 试验相关规定',
     drive_noise:'行驶噪声(dB(A))', stationary_noise:'怠速噪声(dB(A))', horn_noise:'喇叭噪声',
-    confirmation_title:'确认书',
+    confirmation_title:'确认书', cf_title:'确认书',
     confirm_content:'确认内容', confirm_date:'确认日期', confirm_sign:'签名',
     ph_importer:'进口商名称', ph_cert_year:'例) 2025', ph_displacement:'例) 125cc', ph_family_code:'代号输入',
     ph_maker:'制造商名称', ph_model_name:'车型名称', ph_appl_no:'认证编号输入',
@@ -2652,7 +2819,7 @@ function buildFormHTML(formType, saved) {
   </table>
 
   <!-- ② 제목 -->
-  <div class="sv-title">배출가스 및 소음 인증신청 요약</div>
+  <div class="sv-title">\${L('sv_title')}</div>
 
   <!-- ③ 본문 테이블 -->
   <table class="sv-tbl">
@@ -2663,16 +2830,16 @@ function buildFormHTML(formType, saved) {
     </colgroup>
     <thead>
       <tr>
-        <th>구&nbsp;&nbsp;분</th>
-        <th>항&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
-        <th>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</th>
+        <th>\${L('sv_th_div')}</th>
+        <th>\${L('sv_th_item')}</th>
+        <th>\${L('sv_th_content')}</th>
       </tr>
     </thead>
     <tbody>
       <!-- 1. 제작사(제작국) -->
       <tr>
         <td class="sv-num">1</td>
-        <td class="sv-lbl">제작사(제작국)</td>
+        <td class="sv-lbl">\${L('sv_maker')}</td>
         <td class="sv-val">
           <input data-field="maker" class="sv-inp" type="text" placeholder="예) PIAGGIO C.S.P.A(이태리)" value="\${E(v('maker'))}">
         </td>
@@ -2680,7 +2847,7 @@ function buildFormHTML(formType, saved) {
       <!-- 2. 시험자동차 명칭(형식) -->
       <tr>
         <td class="sv-num">2</td>
-        <td class="sv-lbl">시험자동차 명칭(형식)</td>
+        <td class="sv-lbl">\${L('sv_vehicle_name')}</td>
         <td class="sv-val">
           <input data-field="vehicle_name" class="sv-inp" type="text" placeholder="예) RSV4 1000 RR" value="\${E(v('vehicle_name'))}">
         </td>
@@ -2688,12 +2855,12 @@ function buildFormHTML(formType, saved) {
       <!-- 3. 사용연료 -->
       <tr>
         <td class="sv-num">3</td>
-        <td class="sv-lbl">사용연료</td>
+        <td class="sv-lbl">\${L('sv_fuel')}</td>
         <td class="sv-val">
           <select data-field="fuel" class="sv-sel">
             <option value="" \${!v('fuel')?'selected':''}>선택</option>
-            <option value="휘발유" \${v('fuel')==='휘발유'?'selected':''}>휘발유</option>
-            <option value="경유"   \${v('fuel')==='경유'?'selected':''}>경유</option>
+            <option value="휘발유" \${v('fuel')==='휘발유'?'selected':''}>\${L('fuel_gasoline')}</option>
+            <option value="경유"   \${v('fuel')==='경유'?'selected':''}>\${L('fuel_diesel')}</option>
             <option value="전기"   \${v('fuel')==='전기'?'selected':''}>전기</option>
             <option value="LPG"   \${v('fuel')==='LPG'?'selected':''}>LPG</option>
           </select>
@@ -2702,10 +2869,10 @@ function buildFormHTML(formType, saved) {
       <!-- 4. 적용 기준 (배출가스 / 소음 2분할) -->
       <tr>
         <td class="sv-num" rowspan="2">4</td>
-        <td class="sv-lbl" rowspan="2">적용 기준</td>
+        <td class="sv-lbl" rowspan="2">\${L('sv_std')}</td>
         <td style="padding:0;">
           <div class="sv-sub-row">
-            <span class="sv-sub-lbl">배출가스</span>
+            <span class="sv-sub-lbl">\${L('sv_emission')}</span>
             <input data-field="emission_std" class="sv-inp" type="text" placeholder="예) EURO 5" value="\${E(v('emission_std'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -2713,7 +2880,7 @@ function buildFormHTML(formType, saved) {
       <tr>
         <td style="padding:0;">
           <div class="sv-sub-row" style="border-top:1px solid var(--c-border);">
-            <span class="sv-sub-lbl">소음</span>
+            <span class="sv-sub-lbl">\${L('sv_noise_simple')}</span>
             <input data-field="noise_std" class="sv-inp" type="text" placeholder="예) ECE R41-04" value="\${E(v('noise_std'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -2721,7 +2888,7 @@ function buildFormHTML(formType, saved) {
       <!-- 5. 외국 기준 -->
       <tr>
         <td class="sv-num">5</td>
-        <td class="sv-lbl">외국 기준<br><span style="font-weight:400;font-size:.88em;opacity:.7;">(유럽 또는 미국 기준)</span></td>
+        <td class="sv-lbl">\${L('sv_foreign_std')}<br><span style="font-weight:400;font-size:.88em;opacity:.7;">\${L('sv_foreign_std_note')}</span></td>
         <td class="sv-val">
           <input data-field="foreign_std" class="sv-inp" type="text" placeholder="예) EURO 5" value="\${E(v('foreign_std'))}">
         </td>
@@ -2729,15 +2896,15 @@ function buildFormHTML(formType, saved) {
       <!-- 6. 증발가스 대표차 여부 및 자동차 명칭 -->
       <tr>
         <td class="sv-num">6</td>
-        <td class="sv-lbl">증발가스 대표차 여부 및<br>자동차 명칭</td>
+        <td class="sv-lbl">\${L('sv_evap_rep_title')}<br>\${L('sv_vehicle_name_simple')}</td>
         <td style="padding:0;">
           <div class="sv-rep-inline">
             <div class="sv-rep-item">
-              <span class="sv-rep-item-lbl">대표차량 :</span>
+              <span class="sv-rep-item-lbl">\${L('sv_rep_vehicle')}</span>
               <input data-field="evap_is_rep" class="sv-rep-item-inp" type="text" placeholder="대표/비대표" value="\${E(v('evap_is_rep'))}" style="width:90px;">
             </div>
             <div class="sv-rep-item">
-              <span class="sv-rep-item-lbl">형식 :</span>
+              <span class="sv-rep-item-lbl">\${L('sv_model_type')}</span>
               <input data-field="evap_rep_model" class="sv-rep-item-inp" type="text" placeholder="차종 형식" value="\${E(v('evap_rep_model'))}" style="width:120px;">
             </div>
           </div>
@@ -2746,15 +2913,15 @@ function buildFormHTML(formType, saved) {
       <!-- 7. OBD 대표차 여부 및 자동차 명칭 -->
       <tr>
         <td class="sv-num">7</td>
-        <td class="sv-lbl">OBD 대표차 여부 및<br>자동차 명칭</td>
+        <td class="sv-lbl">\${L('sv_obd_rep_title')}<br>\${L('sv_vehicle_name_simple')}</td>
         <td style="padding:0;">
           <div class="sv-rep-inline">
             <div class="sv-rep-item">
-              <span class="sv-rep-item-lbl">대표차량 :</span>
+              <span class="sv-rep-item-lbl">\${L('sv_rep_vehicle')}</span>
               <input data-field="obd_is_rep" class="sv-rep-item-inp" type="text" placeholder="대표/비대표" value="\${E(v('obd_is_rep'))}" style="width:90px;">
             </div>
             <div class="sv-rep-item">
-              <span class="sv-rep-item-lbl">형식 :</span>
+              <span class="sv-rep-item-lbl">\${L('sv_model_type')}</span>
               <input data-field="obd_rep_model" class="sv-rep-item-inp" type="text" placeholder="차종 형식" value="\${E(v('obd_rep_model'))}" style="width:120px;">
             </div>
           </div>
@@ -2763,11 +2930,11 @@ function buildFormHTML(formType, saved) {
       <!-- 8. 보증 기간 -->
       <tr>
         <td class="sv-num">8</td>
-        <td class="sv-lbl">보증 기간</td>
+        <td class="sv-lbl">\${L('sv_warranty')}</td>
         <td style="padding:0;">
           <div class="sv-warranty-row">
             <input data-field="warranty_year" class="sv-rep-item-inp" type="text" placeholder="년" value="\${E(v('warranty_year'))}" style="width:50px;text-align:right;">
-            <span style="font-size:10pt;">년</span>
+            <span style="font-size:10pt;">\${L('unit_year')}</span>
             <span style="font-size:10pt;">&nbsp;/&nbsp;</span>
             <input data-field="warranty_km" class="sv-rep-item-inp" type="text" placeholder="km" value="\${E(v('warranty_km'))}" style="width:90px;text-align:right;">
             <span style="font-size:10pt;">km</span>
@@ -2777,7 +2944,7 @@ function buildFormHTML(formType, saved) {
       <!-- 9. 자체시험실시 내역 -->
       <tr>
         <td class="sv-num">9</td>
-        <td class="sv-lbl">자체시험실시 내역</td>
+        <td class="sv-lbl">\${L('sv_self_test')}</td>
         <td class="sv-val">
           <input data-field="self_test" class="sv-inp" type="text" placeholder="예) OBD, 소음, 증발가스" value="\${E(v('self_test'))}">
         </td>
@@ -2785,7 +2952,7 @@ function buildFormHTML(formType, saved) {
       <!-- 10. 대표 기술 -->
       <tr>
         <td class="sv-num">10</td>
-        <td class="sv-lbl">대표 기술</td>
+        <td class="sv-lbl">\${L('sv_key_tech')}</td>
         <td class="sv-val">
           <textarea data-field="key_tech" class="sv-ta" rows="3" placeholder="예) 산소센서, 삼원촉매, OBD, ECU, Idle control, 전자식 연료주입">\${E(v('key_tech'))}</textarea>
         </td>
@@ -2975,7 +3142,7 @@ function buildFormHTML(formType, saved) {
 
 <!-- ■ PAGE 1 : 신청 개요 -->
 <div class="form-section g-wrap g-overview-section" style="padding:0;overflow:hidden;margin-top:10px;">
-  <div class="g-sec-title">□ 신청 개요</div>
+  <div class="g-sec-title">\${L('g_app_overview')}</div>
   <div style="overflow-x:auto;padding:4px 6px 8px;">
     <table class="g-tbl g-overview-tbl" style="width:100%;table-layout:fixed;">
       <colgroup>
@@ -2992,16 +3159,16 @@ function buildFormHTML(formType, saved) {
       </colgroup>
       <thead>
         <tr>
-          <th>구분</th>
-          <th>신청일</th>
-          <th>제작사</th>
-          <th>차명<br>(형식)</th>
-          <th>차종<br>(연료)</th>
-          <th>출력(ps/rpm)<br>(배기량cc)</th>
-          <th>적용기준<br>배출</th>
-          <th>적용기준<br>소음</th>
-          <th>인증번호</th>
-          <th>비고</th>
+          <th>\${L('th_div')}</th>
+          <th>\${L('g_appl_date')}</th>
+          <th>\${L('g_maker')}</th>
+          <th>\${L('g_vehicle_form')}</th>
+          <th>\${L('g_vehicle_fuel')}</th>
+          <th>\${L('g_power_cc')}</th>
+          <th>\${L('g_std_emission')}</th>
+          <th>적용기준<br>\${L('sv_noise_simple')}</th>
+          <th>\${L('g_cert_no')}</th>
+          <th>\${L('g_note')}</th>
         </tr>
       </thead>
       <tbody>
@@ -3036,7 +3203,7 @@ function buildFormHTML(formType, saved) {
 
 <!-- ■ PAGE 1 : 신청 유형 -->
 <div class="form-section g-wrap" style="padding:0;overflow:hidden;margin-top:10px;">
-  <div class="g-sec-title">□ 신청 유형</div>
+  <div class="g-sec-title">\${L('g_app_type')}</div>
   <!-- ★ 신청유형 아래 대표차종 안내 문구 (PDF 예시 반영) -->
   <div style="padding:4px 12px 6px;font-size:10pt;line-height:2.0;">
     <div style="display:flex;align-items:center;gap:0;">
@@ -3058,17 +3225,17 @@ function buildFormHTML(formType, saved) {
     <table class="g-tbl" style="min-width:460px;table-layout:auto;">
       <thead>
         <tr>
-          <th style="width:55px;">구분</th>
-          <th style="width:42px;">연료</th>
-          <th>인증서 기재 내용</th>
-          <th style="width:58px;">해당여부</th>
+          <th style="width:55px;">\${L('th_div')}</th>
+          <th style="width:42px;">\${L('th_fuel')}</th>
+          <th>\${L('g_cert_content')}</th>
+          <th style="width:58px;">\${L('g_applicable')}</th>
         </tr>
       </thead>
       <tbody>
         <!-- ★ 배출가스 (휘발유 4행 통합 + 경유 1행) -->
         <tr>
-          <td class="g-td-c" rowspan="5">배출가스</td>
-          <td class="g-td-sub" rowspan="4">휘발유</td>
+          <td class="g-td-c" rowspan="5">\${L('sv_emission')}</td>
+          <td class="g-td-sub" rowspan="4">\${L('fuel_gasoline')}</td>
           <td style="font-size:10pt;">* 13년 휘발유 기준2의 나</td>
           <td class="g-ok-td"><select data-field="t_emis_g1" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_g1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
@@ -3085,14 +3252,14 @@ function buildFormHTML(formType, saved) {
           <td class="g-ok-td"><select data-field="t_emis_g4" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_g4')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <tr>
-          <td class="g-td-sub">경유</td>
+          <td class="g-td-sub">\${L('fuel_diesel')}</td>
           <td style="font-size:10pt;">* 14년 9월 경유 소형승용 기준</td>
           <td class="g-ok-td"><select data-field="t_emis_d1" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_emis_d1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <!-- ★ OBD2 (휘발유 5행 통합 + 경유 2행 통합) -->
         <tr>
           <td class="g-td-c" rowspan="7">OBD2</td>
-          <td class="g-td-sub" rowspan="5">휘발유</td>
+          <td class="g-td-sub" rowspan="5">\${L('fuel_gasoline')}</td>
           <td style="font-size:10pt;">* OBD2 휘발유 기준 적용 대표(IUPR 1st 기준)</td>
           <td class="g-ok-td"><select data-field="t_obd_g1" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
@@ -3113,7 +3280,7 @@ function buildFormHTML(formType, saved) {
           <td class="g-ok-td"><select data-field="t_obd_g5" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_g5')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <tr>
-          <td class="g-td-sub" rowspan="2">경유</td>
+          <td class="g-td-sub" rowspan="2">\${L('fuel_diesel')}</td>
           <td style="font-size:10pt;">* OBD2 경유 (다)기준 적용 대표 (IUPR 2nd 기준)</td>
           <td class="g-ok-td"><select data-field="t_obd_d1" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_obd_d1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
@@ -3123,7 +3290,7 @@ function buildFormHTML(formType, saved) {
         </tr>
         <!-- 증발가스 -->
         <tr>
-          <td class="g-td-c" rowspan="2">증발가스</td>
+          <td class="g-td-c" rowspan="2">\${L('g_evap')}</td>
           <td colspan="2" style="font-size:10pt;">* 증발가스 대표</td>
           <td class="g-ok-td"><select data-field="t_evap1" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_evap1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
@@ -3133,8 +3300,8 @@ function buildFormHTML(formType, saved) {
         </tr>
         <!-- ★ 보증기간 (휘발유 5행 통합 + 경유 1행) -->
         <tr>
-          <td class="g-td-c" rowspan="6">보증기간</td>
-          <td class="g-td-sub" rowspan="5">휘발유</td>
+          <td class="g-td-c" rowspan="6">\${L('g_warranty')}</td>
+          <td class="g-td-sub" rowspan="5">\${L('fuel_gasoline')}</td>
           <td style="font-size:10pt;">* 보증기간 : 10년 / 19만2천km</td>
           <td class="g-ok-td"><select data-field="t_warr_g1" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
@@ -3155,7 +3322,7 @@ function buildFormHTML(formType, saved) {
           <td class="g-ok-td"><select data-field="t_warr_g5" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_g5')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
         <tr>
-          <td class="g-td-sub">경유</td>
+          <td class="g-td-sub">\${L('fuel_diesel')}</td>
           <td style="font-size:10pt;">* 보증기간 : 10년 / 16만km</td>
           <td class="g-ok-td"><select data-field="t_warr_d1" class="input g-sel" style="width:56px;">\${ ['','해당','미해당'].map(o=>\`<option value="\${o}" \${v('t_warr_d1')===o?'selected':''}>\${o}</option>\`).join('') }</select></td>
         </tr>
@@ -3166,10 +3333,10 @@ function buildFormHTML(formType, saved) {
 
 <!-- ■ PAGE 2 : 상세 내역 -->
 <div class="form-section g-wrap" style="padding:0;overflow:hidden;margin-top:10px;">
-  <div class="g-sec-title">□ 상세 내역</div>
+  <div class="g-sec-title">\${L('g_detail')}</div>
 
   <!-- 가. 적용기술 -->
-  <div class="g-sub-title">가. 적용기술</div>
+  <div class="g-sub-title">\${L('g_tech')}</div>
   <div class="g-sec-inner">
     <div style="display:flex;gap:4px;align-items:flex-start;margin-bottom:4px;">
       <span style="flex-shrink:0;font-weight:600;font-size:10pt;">-</span>
@@ -3182,14 +3349,14 @@ function buildFormHTML(formType, saved) {
   </div>
 
   <!-- 나. 자체시험 결과 -->
-  <div class="g-sub-title">나. 자체시험 결과</div>
+  <div class="g-sub-title">\${L('g_self_result')}</div>
   <div class="g-sec-inner">
     <div style="font-size:10pt;margin-bottom:3px;">
-      <span style="font-weight:700;">- 배출가스 :</span>
+      <span style="font-weight:700;">- \${L('g_emission_colon')}</span>
       <input data-field="self_test_emis" class="input g-inp" type="text" value="\${E(v('self_test_emis'))}" style="width:calc(100% - 90px);margin-left:4px;">
     </div>
     <div style="font-size:10pt;margin-bottom:6px;">
-      <span style="font-weight:700;">- 소&nbsp;&nbsp;&nbsp;음 :</span>
+      <span style="font-weight:700;">- \${L('g_noise_colon')}</span>
       <input data-field="self_test_noise" class="input g-inp" type="text" value="\${E(v('self_test_noise'))}" style="width:calc(100% - 90px);margin-left:4px;">
     </div>
 
@@ -3210,14 +3377,14 @@ function buildFormHTML(formType, saved) {
         </colgroup>
         <thead>
           <tr>
-            <th rowspan="2">구분</th>
+            <th rowspan="2">\${L('th_div')}</th>
             <th>CO</th>
             <th>NOx</th>
-            <th colspan="3" style="text-align:center;">탄화수소</th>
+            <th colspan="3" style="text-align:center;">\${L('g_hc')}</th>
             <th>CO₂</th>
-            <th>가속주행</th>
-            <th>배기소음</th>
-            <th>경적소음</th>
+            <th>\${L('g_accel_noise')}</th>
+            <th>\${L('g_exhaust_noise')}</th>
+            <th>\${L('g_horn_noise')}</th>
           </tr>
           <tr>
             <th>(g/km)</th>
@@ -3233,7 +3400,7 @@ function buildFormHTML(formType, saved) {
         </thead>
         <tbody>
           <tr>
-            <td class="g-td-c">허용기준</td>
+            <td class="g-td-c">\${L('g_allowable_std')}</td>
             <td class="g-td-val"><input data-field="std_co" class="input g-inp" type="text" value="\${E(v('std_co'))}" style="width:100%;"></td>
             <td class="g-td-val"><input data-field="std_nox" class="input g-inp" type="text" value="\${E(v('std_nox'))}" style="width:100%;"></td>
             <td class="g-td-val"><input data-field="std_thc" class="input g-inp" type="text" value="\${E(v('std_thc'))}" style="width:100%;"></td>
@@ -3245,7 +3412,7 @@ function buildFormHTML(formType, saved) {
             <td class="g-td-val"><input data-field="std_horn" class="input g-inp" type="text" value="\${E(v('std_horn'))}" style="width:100%;"></td>
           </tr>
           <tr>
-            <td class="g-td-c">시험결과</td>
+            <td class="g-td-c">\${L('g_test_result')}</td>
             <td class="g-td-val"><input data-field="res_co" class="input g-inp" type="text" value="\${E(v('res_co'))}" style="width:100%;"></td>
             <td class="g-td-val"><input data-field="res_nox" class="input g-inp" type="text" value="\${E(v('res_nox'))}" style="width:100%;"></td>
             <td class="g-td-val"><input data-field="res_thc" class="input g-inp" type="text" value="\${E(v('res_thc'))}" style="width:100%;"></td>
@@ -3257,7 +3424,7 @@ function buildFormHTML(formType, saved) {
             <td class="g-td-val"><input data-field="res_horn" class="input g-inp" type="text" value="\${E(v('res_horn'))}" style="width:100%;"></td>
           </tr>
           <tr>
-            <td class="g-td-c">기준만족도</td>
+            <td class="g-td-c">\${L('g_compliance_rate')}</td>
             <td class="g-td-val"><input data-field="rate_co" class="input g-inp" type="text" value="\${E(v('rate_co'))}" style="width:100%;"></td>
             <td class="g-td-val"><input data-field="rate_nox" class="input g-inp" type="text" value="\${E(v('rate_nox'))}" style="width:100%;"></td>
             <td class="g-td-val"><input data-field="rate_thc" class="input g-inp" type="text" value="\${E(v('rate_thc'))}" style="width:100%;"></td>
@@ -3291,12 +3458,12 @@ function buildFormHTML(formType, saved) {
         </colgroup>
         <thead>
           <tr>
-            <th rowspan="2">시험대상<br>감시장치</th>
-            <th rowspan="2">오작동<br>재현조건</th>
-            <th colspan="3">WMTC 모드 결과 (g/km)</th>
-            <th rowspan="2">오작동<br>표시등<br>점등여부</th>
-            <th colspan="3">오작동 판단 기준 (g/km)</th>
-            <th rowspan="2">감시장치<br>적부판정</th>
+            <th rowspan="2">\${L('g_monitor_device')}</th>
+            <th rowspan="2">\${L('g_fault_cond')}</th>
+            <th colspan="3">\${L('g_wmtc_result')}</th>
+            <th rowspan="2">\${L('g_mil_lamp')}</th>
+            <th colspan="3">\${L('g_fault_std')}</th>
+            <th rowspan="2">\${L('g_monitor_pass')}</th>
           </tr>
           <tr>
             <th>CO</th><th>NOx</th><th>HC</th>
@@ -3306,7 +3473,7 @@ function buildFormHTML(formType, saved) {
         <tbody>
           <!-- 촉매 행 -->
           <tr>
-            <td class="g-td-sub" style="font-size:10pt;">촉매</td>
+            <td class="g-td-sub" style="font-size:10pt;">\${L('g_catalyst')}</td>
             <td class="g-td-val"><input data-field="obd_cat_cond" class="input g-inp" type="text" value="\${E(v('obd_cat_cond'))}" style="width:100%;"></td>
             <td class="g-td-val"><input data-field="obd_cat_co" class="input g-inp" type="text" value="\${E(v('obd_cat_co'))}" style="width:100%;"></td>
             <td class="g-td-val"><input data-field="obd_cat_nox" class="input g-inp" type="text" value="\${E(v('obd_cat_nox'))}" style="width:100%;"></td>
@@ -3347,7 +3514,7 @@ function buildFormHTML(formType, saved) {
 
 <!-- ■ 다. 항목별 제원 및 시험결과 등 -->
 <div class="form-section g-wrap" style="padding:0;overflow:hidden;margin-top:10px;">
-  <div class="g-sec-title">다. 항목별 제원 및 시험결과 등</div>
+  <div class="g-sec-title">\${L('g_spec_result')}</div>
   <div style="overflow-x:auto;padding:6px 10px 10px;">
     <table class="g-tbl" style="min-width:500px;table-layout:fixed;">
       <colgroup>
@@ -3357,7 +3524,7 @@ function buildFormHTML(formType, saved) {
       </colgroup>
       <thead>
         <tr>
-          <th>구분</th><th>항 목</th><th>내 용</th>
+          <th>\${L('th_div')}</th><th>\${L('th_item')}</th><th>\${L('th_content')}</th>
         </tr>
       </thead>
       <tbody>
@@ -3365,7 +3532,7 @@ function buildFormHTML(formType, saved) {
         <!-- 1. 촉매,DPF 등 후처리장치 -->
         <tr>
           <td class="g-td-n">1</td>
-          <td class="g-td-sub">촉매, DPF 등<br>후처리장치</td>
+          <td class="g-td-sub">\${L('g_catalyst_dpf')}</td>
           <td class="g-td-val">
             <textarea data-field="item1_cat_spec" class="input" rows="3" style="width:100%;font-size:10pt;" placeholder="후처리장치 내용 입력">\${E(v('item1_cat_spec'))}</textarea>
           </td>
@@ -3374,7 +3541,7 @@ function buildFormHTML(formType, saved) {
         <!-- 2. 증발가스 -->
         <tr>
           <td class="g-td-n">2</td>
-          <td class="g-td-sub">증발가스</td>
+          <td class="g-td-sub">\${L('g_evap')}</td>
           <td class="g-td-val">
             <div style="font-size:10pt;font-weight:700;margin-bottom:2px;">□ 증발가스 대표/동일 여부</div>
             <div style="font-size:10pt;">- <input data-field="item2_evap_rep" class="input g-inp" type="text" style="width:calc(100% - 14px);" value="\${E(v('item2_evap_rep'))}"></div>
@@ -3384,7 +3551,7 @@ function buildFormHTML(formType, saved) {
         <!-- 3. 블로바이가스 -->
         <tr>
           <td class="g-td-n">3</td>
-          <td class="g-td-sub">블로바이가스</td>
+          <td class="g-td-sub">\${L('g_blowby')}</td>
           <td class="g-td-val">
             <div style="font-size:10pt;font-weight:700;margin-bottom:2px;">□ 블로바이가스 제어장치</div>
             <div style="font-size:10pt;">- <input data-field="item3_blowby" class="input g-inp" type="text" style="width:calc(100% - 14px);" value="\${E(v('item3_blowby'))}"></div>
@@ -3394,7 +3561,7 @@ function buildFormHTML(formType, saved) {
         <!-- 4. 배출가스자기진단장치(OBD2) -->
         <tr>
           <td class="g-td-n" rowspan="3">4</td>
-          <td class="g-td-sub" rowspan="3">배출가스<br>자기진단<br>장치(OBD2)</td>
+          <td class="g-td-sub" rowspan="3">\${L('sv_emission')}<br>자기진단<br>장치(OBD2)</td>
           <td class="g-td-val">
             <div style="font-size:10pt;font-weight:700;margin-bottom:2px;">□ OBD2 대표/동일 여부</div>
             <div style="font-size:10pt;">- <input data-field="item4_obd_rep" class="input g-inp" type="text" style="width:calc(100% - 14px);" value="\${E(v('item4_obd_rep'))}"></div>
@@ -3404,7 +3571,7 @@ function buildFormHTML(formType, saved) {
           <td class="g-td-val">
             <div style="font-size:10pt;font-weight:700;margin-bottom:3px;">□ 배출가스자기진단장치 기준</div>
             <table class="g-tbl" style="width:100%;">
-              <thead><tr><th>OBD 기준명</th><th style="width:52px;">해당여부</th></tr></thead>
+              <thead><tr><th>\${L('g_obd_std_name')}</th><th style="width:52px;">\${L('g_applicable')}</th></tr></thead>
               <tbody>
                 \${ [
                   ['obd_std_g1','휘발유 2006년 OBD 기준'],
@@ -3430,7 +3597,7 @@ function buildFormHTML(formType, saved) {
             <div style="font-size:10pt;margin-top:2px;">- <input data-field="item4_obd_fault2" class="input g-inp" type="text" style="width:calc(100% - 14px);" value="\${E(v('item4_obd_fault2'))}"></div>
             <div style="font-size:10pt;font-weight:700;margin:4px 0 3px;">□ OBD2 감시항목별 시험여부</div>
             <table class="g-tbl" style="width:100%;">
-              <thead><tr><th>감시항목</th><th style="width:50px;">시험여부</th><th>시험차명</th></tr></thead>
+              <thead><tr><th>\${L('g_monitor_item')}</th><th style="width:50px;">\${L('g_tested')}</th><th>\${L('g_test_car_name')}</th></tr></thead>
               <tbody>
                 \${ [
                   ['mon_o2','산소센서'],
@@ -3452,7 +3619,7 @@ function buildFormHTML(formType, saved) {
         <!-- 5. 시험시설 -->
         <tr>
           <td class="g-td-n">5</td>
-          <td class="g-td-sub">시험시설</td>
+          <td class="g-td-sub">\${L('g_test_facility')}</td>
           <td class="g-td-val">
             <div style="font-size:10pt;font-weight:700;margin-bottom:2px;">□ 자체시험을 실시한 시설에 대한 시설확인 내역</div>
             <div style="font-size:10pt;">- <input data-field="item5_fac1" class="input g-inp" type="text" style="width:calc(100% - 14px);" value="\${E(v('item5_fac1'))}"></div>
@@ -3463,7 +3630,7 @@ function buildFormHTML(formType, saved) {
         <!-- 6. 시험차 선정근거 -->
         <tr>
           <td class="g-td-n">6</td>
-          <td class="g-td-sub">시험차<br>선정근거</td>
+          <td class="g-td-sub">\${L('g_test_car_basis')}</td>
           <td class="g-td-val">
             <div style="font-size:10pt;font-weight:700;margin-bottom:2px;">□ 배출가스 시험자동차 선정근거</div>
             <textarea data-field="item6_emis_basis" class="input" rows="2" style="width:100%;font-size:10pt;">\${E(v('item6_emis_basis'))}</textarea>
@@ -3477,7 +3644,7 @@ function buildFormHTML(formType, saved) {
         <!-- 7. 배출가스 시험 -->
         <tr>
           <td class="g-td-n">7</td>
-          <td class="g-td-sub">배출가스<br>시험</td>
+          <td class="g-td-sub">\${L('sv_emission')}<br>시험</td>
           <td class="g-td-val">
             <div style="font-size:10pt;font-weight:700;margin-bottom:2px;">□ 배출가스 시험모드 및 시험 회수</div>
             <div style="font-size:10pt;">- <input data-field="item7_mode" class="input g-inp" type="text" style="width:calc(100% - 14px);" value="\${E(v('item7_mode'))}"></div>
@@ -3490,7 +3657,7 @@ function buildFormHTML(formType, saved) {
         <!-- 8. 증발가스 시험 -->
         <tr>
           <td class="g-td-n">8</td>
-          <td class="g-td-sub">증발가스<br>시험</td>
+          <td class="g-td-sub">\${L('g_evap_test')}</td>
           <td class="g-td-val">
             <div style="font-size:10pt;font-weight:700;margin-bottom:2px;">□ 증발가스 자체시험 성적서 제출 내역</div>
             <div style="font-size:10pt;">- <input data-field="item8_cert" class="input g-inp" type="text" style="width:calc(100% - 14px);" value="\${E(v('item8_cert'))}"></div>
@@ -3500,7 +3667,7 @@ function buildFormHTML(formType, saved) {
         <!-- 9. 보증기간 및 열화계수 -->
         <tr>
           <td class="g-td-n" rowspan="2">9</td>
-          <td class="g-td-sub" rowspan="2">보증기간 및<br>열화계수</td>
+          <td class="g-td-sub" rowspan="2">\${L('g_warranty_df')}</td>
           <td class="g-td-val">
             <div style="font-size:10pt;font-weight:700;margin-bottom:2px;">□ 보증기간 및 열화계수 적용 내역</div>
             <div style="font-size:10pt;">- 보증기간 : <input data-field="item9_warr_km" class="input g-inp" type="text" style="width:60px;" value="\${E(v('item9_warr_km'))}"> km</div>
@@ -3510,12 +3677,12 @@ function buildFormHTML(formType, saved) {
         <tr>
           <td class="g-td-val">
             <table class="g-tbl" style="width:100%;">
-              <thead><tr><th>항목</th><th>적용 열화계수</th></tr></thead>
+              <thead><tr><th>\${L('th_item')}</th><th>\${L('g_df_applied')}</th></tr></thead>
               <tbody>
-                <tr><td class="g-td-sub" style="font-size:10pt;">일산화탄소(CO)</td><td class="g-td-val"><input data-field="item9_df_co" class="input g-inp" type="text" style="width:100%;font-size:10pt;" value="\${E(v('item9_df_co'))}"></td></tr>
-                <tr><td class="g-td-sub" style="font-size:10pt;">배기관 탄화수소</td><td class="g-td-val"><input data-field="item9_df_hc" class="input g-inp" type="text" style="width:100%;font-size:10pt;" value="\${E(v('item9_df_hc'))}"></td></tr>
-                <tr><td class="g-td-sub" style="font-size:10pt;">질소산화물</td><td class="g-td-val"><input data-field="item9_df_nox" class="input g-inp" type="text" style="width:100%;font-size:10pt;" value="\${E(v('item9_df_nox'))}"></td></tr>
-                <tr><td class="g-td-sub" style="font-size:10pt;">증발 탄화수소</td><td class="g-td-val"><input data-field="item9_df_evap" class="input g-inp" type="text" style="width:100%;font-size:10pt;" value="\${E(v('item9_df_evap'))}"></td></tr>
+                <tr><td class="g-td-sub" style="font-size:10pt;">\${L('g_co_full')}</td><td class="g-td-val"><input data-field="item9_df_co" class="input g-inp" type="text" style="width:100%;font-size:10pt;" value="\${E(v('item9_df_co'))}"></td></tr>
+                <tr><td class="g-td-sub" style="font-size:10pt;">\${L('g_hc_exhaust')}</td><td class="g-td-val"><input data-field="item9_df_hc" class="input g-inp" type="text" style="width:100%;font-size:10pt;" value="\${E(v('item9_df_hc'))}"></td></tr>
+                <tr><td class="g-td-sub" style="font-size:10pt;">\${L('g_nox_full')}</td><td class="g-td-val"><input data-field="item9_df_nox" class="input g-inp" type="text" style="width:100%;font-size:10pt;" value="\${E(v('item9_df_nox'))}"></td></tr>
+                <tr><td class="g-td-sub" style="font-size:10pt;">\${L('g_hc_evap')}</td><td class="g-td-val"><input data-field="item9_df_evap" class="input g-inp" type="text" style="width:100%;font-size:10pt;" value="\${E(v('item9_df_evap'))}"></td></tr>
               </tbody>
             </table>
           </td>
@@ -3524,7 +3691,7 @@ function buildFormHTML(formType, saved) {
         <!-- 10. 내구 시험 -->
         <tr>
           <td class="g-td-n">10</td>
-          <td class="g-td-sub">내구 시험</td>
+          <td class="g-td-sub">\${L('g_durability')}</td>
           <td class="g-td-val">
             <div style="font-size:10pt;font-weight:700;margin-bottom:2px;">□ 내구시험 내역</div>
             <textarea data-field="item10_dur" class="input" rows="2" style="width:100%;font-size:10pt;">\${E(v('item10_dur'))}</textarea>
@@ -3534,7 +3701,7 @@ function buildFormHTML(formType, saved) {
         <!-- 11. 주기적재생지수(ki) 시험 -->
         <tr>
           <td class="g-td-n">11</td>
-          <td class="g-td-sub">주기적재생<br>지수(ki)시험</td>
+          <td class="g-td-sub">\${L('g_ki_test')}</td>
           <td class="g-td-val">
             <div style="font-size:10pt;font-weight:700;margin-bottom:2px;">□</div>
             <textarea data-field="item11_ki" class="input" rows="2" style="width:100%;font-size:10pt;">\${E(v('item11_ki'))}</textarea>
@@ -3544,7 +3711,7 @@ function buildFormHTML(formType, saved) {
         <!-- 12. 소음시험 -->
         <tr>
           <td class="g-td-n">12</td>
-          <td class="g-td-sub">소음시험</td>
+          <td class="g-td-sub">\${L('g_noise_test')}</td>
           <td class="g-td-val" style="min-height:120px;">
             <div style="font-size:10pt;font-weight:700;margin-bottom:2px;">□ 소음시험 성적서 제출 내역</div>
             <table style="width:100%;border:none;border-collapse:collapse;">
@@ -3803,7 +3970,7 @@ if (formType==='detail_plan') return (
   </table>
 
   <div class="en-doc-tag">[별지 제5호 서식]</div>
-  <div class="en-main-title">이륜자동차 배출가스·소음 저감에 관한 서류</div>
+  <div class="en-main-title">\${L('en_main_title')}</div>
 
   <!-- ══════════════════════════════════════════════════════ -->
   <!-- 1. 머플러                                              -->
@@ -3811,65 +3978,65 @@ if (formType==='detail_plan') return (
   <table class="en-tbl" style="table-layout:fixed; width:100%;">
     <colgroup><col style="width:22%;"><col style="width:78%;"></colgroup>
     <tbody>
-      <tr><th class="en-sec-th" colspan="2">1. 머플러</th></tr>
+      <tr><th class="en-sec-th" colspan="2">\${L('en_muffler')}</th></tr>
 
       <!-- 1.1 머플러 구성 내역 -->
-      <tr><td class="en-sub-th" colspan="2">1.1. 머플러 구성 내역</td></tr>
+      <tr><td class="en-sub-th" colspan="2">\${L('en_muffler_comp_title')}</td></tr>
       <tr>
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_muffler_comp" rows="3" placeholder="머플러 구성 내역을 기재하세요">\${E(v('en_muffler_comp'))}</textarea>
-            <input type="hidden" data-field="en_muffler_comp_imgs" value="\${E(v('en_muffler_comp_imgs'))}"><div class="en-drop" data-field-img="en_muffler_comp"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_comp_imgs" value="\${E(v('en_muffler_comp_imgs'))}"><div class="en-drop" data-field-img="en_muffler_comp"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 1.2 머플러 내부 구조도 -->
-      <tr><td class="en-sub-th" colspan="2">1.2. 머플러 내부 구조도</td></tr>
+      <tr><td class="en-sub-th" colspan="2">\${L('en_muffler_diagram_title')}</td></tr>
       <tr>
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_muffler_diagram" rows="2" placeholder="내부 구조 설명">\${E(v('en_muffler_diagram'))}</textarea>
-            <input type="hidden" data-field="en_muffler_diagram_imgs" value="\${E(v('en_muffler_diagram_imgs'))}"><div class="en-drop" data-field-img="en_muffler_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_diagram_imgs" value="\${E(v('en_muffler_diagram_imgs'))}"><div class="en-drop" data-field-img="en_muffler_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 1.3 소음기 상세제원 -->
-      <tr><td class="en-sub-th" colspan="2">1.3. 소음기 상세제원</td></tr>
+      <tr><td class="en-sub-th" colspan="2">\${L('en_muffler_spec_title')}</td></tr>
 
       <!-- 1.3.1 구조 및 소음저감 원리 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">1.3.1. 구조 및 소음저감 원리</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${L('en_1_3_1')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_muffler_principle" rows="3" placeholder="구조 및 소음저감 원리를 기재하세요">\${E(v('en_muffler_principle'))}</textarea>
-            <input type="hidden" data-field="en_muffler_principle_imgs" value="\${E(v('en_muffler_principle_imgs'))}"><div class="en-drop" data-field-img="en_muffler_principle"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_principle_imgs" value="\${E(v('en_muffler_principle_imgs'))}"><div class="en-drop" data-field-img="en_muffler_principle"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 1.3.2 소음기내의 배출가스 흐름도 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">1.3.2. 소음기내의 배출가스 흐름도</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${L('en_1_3_2')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_muffler_flow" rows="2" placeholder="흐름도 설명">\${E(v('en_muffler_flow'))}</textarea>
-            <input type="hidden" data-field="en_muffler_flow_imgs" value="\${E(v('en_muffler_flow_imgs'))}"><div class="en-drop" data-field-img="en_muffler_flow"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_flow_imgs" value="\${E(v('en_muffler_flow_imgs'))}"><div class="en-drop" data-field-img="en_muffler_flow"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 1.3.3 소음기 제작사 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">1.3.3. 소음기 제작사</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${L('en_1_3_3')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_muffler_maker" rows="2" placeholder="제작사명">\${E(v('en_muffler_maker'))}</textarea>
-            <input type="hidden" data-field="en_muffler_maker_imgs" value="\${E(v('en_muffler_maker_imgs'))}"><div class="en-drop" data-field-img="en_muffler_maker"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_maker_imgs" value="\${E(v('en_muffler_maker_imgs'))}"><div class="en-drop" data-field-img="en_muffler_maker"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 1.3.4 소음기 내부/외부 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">1.3.4. 소음기 내부 / 소음기 외부</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${L('en_1_3_4')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
             <div style="display:flex; gap:8px; align-items:flex-start; flex-wrap:wrap;">
@@ -3878,80 +4045,80 @@ if (formType==='detail_plan') return (
               <label style="font-size:8pt; white-space:nowrap; margin-top:4px;">외부 :</label>
               <textarea class="en-field-text" data-field="en_muffler_outside" rows="2" placeholder="외부 재질/사양" style="flex:1; min-width:80px;">\${E(v('en_muffler_outside'))}</textarea>
             </div>
-            <input type="hidden" data-field="en_muffler_inout_imgs" value="\${E(v('en_muffler_inout_imgs'))}"><div class="en-drop" data-field-img="en_muffler_inout"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_inout_imgs" value="\${E(v('en_muffler_inout_imgs'))}"><div class="en-drop" data-field-img="en_muffler_inout"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 1.3.5 소음기 치수 도면 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">1.3.5. 소음기 치수 도면</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${L('en_1_3_5')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_muffler_dim" rows="2" placeholder="치수 도면 설명">\${E(v('en_muffler_dim'))}</textarea>
-            <input type="hidden" data-field="en_muffler_dim_imgs" value="\${E(v('en_muffler_dim_imgs'))}"><div class="en-drop" data-field-img="en_muffler_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_dim_imgs" value="\${E(v('en_muffler_dim_imgs'))}"><div class="en-drop" data-field-img="en_muffler_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 1.4 촉매 상세제원 -->
-      <tr><td class="en-sub-th" colspan="2">1.4. 촉매 상세제원</td></tr>
+      <tr><td class="en-sub-th" colspan="2">\${L('en_cat_spec_title')}</td></tr>
 
       <!-- 1.4.1 촉매 제작사 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">1.4.1. 촉매 제작사</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${L('en_1_4_1')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cat_maker" rows="2" placeholder="제작사명">\${E(v('en_cat_maker'))}</textarea>
-            <input type="hidden" data-field="en_cat_maker_imgs" value="\${E(v('en_cat_maker_imgs'))}"><div class="en-drop" data-field-img="en_cat_maker"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cat_maker_imgs" value="\${E(v('en_cat_maker_imgs'))}"><div class="en-drop" data-field-img="en_cat_maker"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 1.4.2 촉매 재질 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">1.4.2. 촉매 재질</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${L('en_1_4_2')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cat_material" rows="2" placeholder="촉매 재질">\${E(v('en_cat_material'))}</textarea>
-            <input type="hidden" data-field="en_cat_material_imgs" value="\${E(v('en_cat_material_imgs'))}"><div class="en-drop" data-field-img="en_cat_material"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cat_material_imgs" value="\${E(v('en_cat_material_imgs'))}"><div class="en-drop" data-field-img="en_cat_material"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 1.4.3 촉매 성능 및 치수 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">1.4.3. 촉매 성능 및 치수</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${L('en_1_4_3')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cat_spec" rows="2" placeholder="촉매 성능 및 치수">\${E(v('en_cat_spec'))}</textarea>
-            <input type="hidden" data-field="en_cat_spec_imgs" value="\${E(v('en_cat_spec_imgs'))}"><div class="en-drop" data-field-img="en_cat_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cat_spec_imgs" value="\${E(v('en_cat_spec_imgs'))}"><div class="en-drop" data-field-img="en_cat_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 1.4.4 촉매 치수 도면 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">1.4.4. 촉매 치수 도면</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${L('en_1_4_4')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cat_dim" rows="2" placeholder="치수 도면 설명">\${E(v('en_cat_dim'))}</textarea>
-            <input type="hidden" data-field="en_cat_dim_imgs" value="\${E(v('en_cat_dim_imgs'))}"><div class="en-drop" data-field-img="en_cat_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cat_dim_imgs" value="\${E(v('en_cat_dim_imgs'))}"><div class="en-drop" data-field-img="en_cat_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 1.4.5 촉매 원리 또는 효과 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">1.4.5. 촉매 원리 또는 효과</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${L('en_1_4_5')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cat_principle" rows="3" placeholder="촉매 원리 또는 효과를 기재하세요">\${E(v('en_cat_principle'))}</textarea>
-            <input type="hidden" data-field="en_cat_principle_imgs" value="\${E(v('en_cat_principle_imgs'))}"><div class="en-drop" data-field-img="en_cat_principle"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cat_principle_imgs" value="\${E(v('en_cat_principle_imgs'))}"><div class="en-drop" data-field-img="en_cat_principle"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 1.4.6 촉매 부착위치 도면 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">1.4.6. 촉매 부착위치 도면</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${L('en_1_4_6')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cat_pos" rows="2" placeholder="부착위치 설명">\${E(v('en_cat_pos'))}</textarea>
-            <input type="hidden" data-field="en_cat_pos_imgs" value="\${E(v('en_cat_pos_imgs'))}"><div class="en-drop" data-field-img="en_cat_pos"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cat_pos_imgs" value="\${E(v('en_cat_pos_imgs'))}"><div class="en-drop" data-field-img="en_cat_pos"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3964,7 +4131,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_sensor_maker" rows="2" placeholder="제작사명">\${E(v('en_sensor_maker'))}</textarea>
-            <input type="hidden" data-field="en_sensor_maker_imgs" value="\${E(v('en_sensor_maker_imgs'))}"><div class="en-drop" data-field-img="en_sensor_maker"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_sensor_maker_imgs" value="\${E(v('en_sensor_maker_imgs'))}"><div class="en-drop" data-field-img="en_sensor_maker"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3974,7 +4141,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_sensor_material" rows="2" placeholder="센서 재질">\${E(v('en_sensor_material'))}</textarea>
-            <input type="hidden" data-field="en_sensor_material_imgs" value="\${E(v('en_sensor_material_imgs'))}"><div class="en-drop" data-field-img="en_sensor_material"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_sensor_material_imgs" value="\${E(v('en_sensor_material_imgs'))}"><div class="en-drop" data-field-img="en_sensor_material"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3984,7 +4151,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_sensor_dim" rows="2" placeholder="치수 도면 설명">\${E(v('en_sensor_dim'))}</textarea>
-            <input type="hidden" data-field="en_sensor_dim_imgs" value="\${E(v('en_sensor_dim_imgs'))}"><div class="en-drop" data-field-img="en_sensor_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_sensor_dim_imgs" value="\${E(v('en_sensor_dim_imgs'))}"><div class="en-drop" data-field-img="en_sensor_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -3995,7 +4162,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_muffler_drawing" rows="2" placeholder="머플러 도면 설명">\${E(v('en_muffler_drawing'))}</textarea>
-            <input type="hidden" data-field="en_muffler_drawing_imgs" value="\${E(v('en_muffler_drawing_imgs'))}"><div class="en-drop" data-field-img="en_muffler_drawing"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_drawing_imgs" value="\${E(v('en_muffler_drawing_imgs'))}"><div class="en-drop" data-field-img="en_muffler_drawing"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4006,7 +4173,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_muffler_photo" rows="2" placeholder="머플러 사진 설명">\${E(v('en_muffler_photo'))}</textarea>
-            <input type="hidden" data-field="en_muffler_photo_imgs" value="\${E(v('en_muffler_photo_imgs'))}"><div class="en-drop" data-field-img="en_muffler_photo"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_muffler_photo_imgs" value="\${E(v('en_muffler_photo_imgs'))}"><div class="en-drop" data-field-img="en_muffler_photo"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4027,7 +4194,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_valve_inertia" rows="3" placeholder="밸브 기구의 관성력에 관한 내용을 기재하세요">\${E(v('en_valve_inertia'))}</textarea>
-            <input type="hidden" data-field="en_valve_inertia_imgs" value="\${E(v('en_valve_inertia_imgs'))}"><div class="en-drop" data-field-img="en_valve_inertia"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_valve_inertia_imgs" value="\${E(v('en_valve_inertia_imgs'))}"><div class="en-drop" data-field-img="en_valve_inertia"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4038,7 +4205,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_valve_surging" rows="3" placeholder="Surging 현상 대응기술을 기재하세요">\${E(v('en_valve_surging'))}</textarea>
-            <input type="hidden" data-field="en_valve_surging_imgs" value="\${E(v('en_valve_surging_imgs'))}"><div class="en-drop" data-field-img="en_valve_surging"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_valve_surging_imgs" value="\${E(v('en_valve_surging_imgs'))}"><div class="en-drop" data-field-img="en_valve_surging"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4051,7 +4218,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_valve_spec" rows="2" placeholder="밸브 제원을 기재하세요">\${E(v('en_valve_spec'))}</textarea>
-            <input type="hidden" data-field="en_valve_spec_imgs" value="\${E(v('en_valve_spec_imgs'))}"><div class="en-drop" data-field-img="en_valve_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_valve_spec_imgs" value="\${E(v('en_valve_spec_imgs'))}"><div class="en-drop" data-field-img="en_valve_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4061,7 +4228,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cam_spec" rows="2" placeholder="Cam 제원을 기재하세요">\${E(v('en_cam_spec'))}</textarea>
-            <input type="hidden" data-field="en_cam_spec_imgs" value="\${E(v('en_cam_spec_imgs'))}"><div class="en-drop" data-field-img="en_cam_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cam_spec_imgs" value="\${E(v('en_cam_spec_imgs'))}"><div class="en-drop" data-field-img="en_cam_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4071,7 +4238,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cam_dim" rows="2" placeholder="Cam 치수 도면 설명">\${E(v('en_cam_dim'))}</textarea>
-            <input type="hidden" data-field="en_cam_dim_imgs" value="\${E(v('en_cam_dim_imgs'))}"><div class="en-drop" data-field-img="en_cam_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cam_dim_imgs" value="\${E(v('en_cam_dim_imgs'))}"><div class="en-drop" data-field-img="en_cam_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4082,7 +4249,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_valve_material" rows="3" placeholder="Valve 기구의 재질 등에 관한 내용을 기재하세요">\${E(v('en_valve_material'))}</textarea>
-            <input type="hidden" data-field="en_valve_material_imgs" value="\${E(v('en_valve_material_imgs'))}"><div class="en-drop" data-field-img="en_valve_material"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_valve_material_imgs" value="\${E(v('en_valve_material_imgs'))}"><div class="en-drop" data-field-img="en_valve_material"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4093,7 +4260,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_valve_clearance" rows="2" placeholder="밸브 간극 수치 또는 설명">\${E(v('en_valve_clearance'))}</textarea>
-            <input type="hidden" data-field="en_valve_clearance_imgs" value="\${E(v('en_valve_clearance_imgs'))}"><div class="en-drop" data-field-img="en_valve_clearance"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_valve_clearance_imgs" value="\${E(v('en_valve_clearance_imgs'))}"><div class="en-drop" data-field-img="en_valve_clearance"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4114,7 +4281,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_ign_diagram" rows="2" placeholder="점화장치 구성 설명">\${E(v('en_ign_diagram'))}</textarea>
-            <input type="hidden" data-field="en_ign_diagram_imgs" value="\${E(v('en_ign_diagram_imgs'))}"><div class="en-drop" data-field-img="en_ign_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_ign_diagram_imgs" value="\${E(v('en_ign_diagram_imgs'))}"><div class="en-drop" data-field-img="en_ign_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4125,7 +4292,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_ign_control" rows="3" placeholder="점화장치 제어특성을 기재하세요">\${E(v('en_ign_control'))}</textarea>
-            <input type="hidden" data-field="en_ign_control_imgs" value="\${E(v('en_ign_control_imgs'))}"><div class="en-drop" data-field-img="en_ign_control"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_ign_control_imgs" value="\${E(v('en_ign_control_imgs'))}"><div class="en-drop" data-field-img="en_ign_control"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4139,7 +4306,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_gen_spec" rows="2" placeholder="제너레이터 상세제원">\${E(v('en_gen_spec'))}</textarea>
-            <input type="hidden" data-field="en_gen_spec_imgs" value="\${E(v('en_gen_spec_imgs'))}"><div class="en-drop" data-field-img="en_gen_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_gen_spec_imgs" value="\${E(v('en_gen_spec_imgs'))}"><div class="en-drop" data-field-img="en_gen_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4147,7 +4314,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_gen_dim" rows="2" placeholder="형상 및 치수 설명">\${E(v('en_gen_dim'))}</textarea>
-            <input type="hidden" data-field="en_gen_dim_imgs" value="\${E(v('en_gen_dim_imgs'))}"><div class="en-drop" data-field-img="en_gen_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_gen_dim_imgs" value="\${E(v('en_gen_dim_imgs'))}"><div class="en-drop" data-field-img="en_gen_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4158,7 +4325,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cdi_spec" rows="2" placeholder="CDI UNIT 상세제원">\${E(v('en_cdi_spec'))}</textarea>
-            <input type="hidden" data-field="en_cdi_spec_imgs" value="\${E(v('en_cdi_spec_imgs'))}"><div class="en-drop" data-field-img="en_cdi_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cdi_spec_imgs" value="\${E(v('en_cdi_spec_imgs'))}"><div class="en-drop" data-field-img="en_cdi_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4166,7 +4333,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_cdi_dim" rows="2" placeholder="형상 및 치수 설명">\${E(v('en_cdi_dim'))}</textarea>
-            <input type="hidden" data-field="en_cdi_dim_imgs" value="\${E(v('en_cdi_dim_imgs'))}"><div class="en-drop" data-field-img="en_cdi_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_cdi_dim_imgs" value="\${E(v('en_cdi_dim_imgs'))}"><div class="en-drop" data-field-img="en_cdi_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4177,7 +4344,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_coil_spec" rows="2" placeholder="점화코일 상세제원">\${E(v('en_coil_spec'))}</textarea>
-            <input type="hidden" data-field="en_coil_spec_imgs" value="\${E(v('en_coil_spec_imgs'))}"><div class="en-drop" data-field-img="en_coil_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_coil_spec_imgs" value="\${E(v('en_coil_spec_imgs'))}"><div class="en-drop" data-field-img="en_coil_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4185,7 +4352,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_coil_dim" rows="2" placeholder="형상 및 치수 설명">\${E(v('en_coil_dim'))}</textarea>
-            <input type="hidden" data-field="en_coil_dim_imgs" value="\${E(v('en_coil_dim_imgs'))}"><div class="en-drop" data-field-img="en_coil_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_coil_dim_imgs" value="\${E(v('en_coil_dim_imgs'))}"><div class="en-drop" data-field-img="en_coil_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4196,7 +4363,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_plug_spec" rows="2" placeholder="점화플러그 상세제원">\${E(v('en_plug_spec'))}</textarea>
-            <input type="hidden" data-field="en_plug_spec_imgs" value="\${E(v('en_plug_spec_imgs'))}"><div class="en-drop" data-field-img="en_plug_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_plug_spec_imgs" value="\${E(v('en_plug_spec_imgs'))}"><div class="en-drop" data-field-img="en_plug_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4204,7 +4371,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_plug_dim" rows="2" placeholder="형상 및 치수 설명">\${E(v('en_plug_dim'))}</textarea>
-            <input type="hidden" data-field="en_plug_dim_imgs" value="\${E(v('en_plug_dim_imgs'))}"><div class="en-drop" data-field-img="en_plug_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_plug_dim_imgs" value="\${E(v('en_plug_dim_imgs'))}"><div class="en-drop" data-field-img="en_plug_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4215,7 +4382,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_ecu_spec" rows="2" placeholder="ECU 상세제원">\${E(v('en_ecu_spec'))}</textarea>
-            <input type="hidden" data-field="en_ecu_spec_imgs" value="\${E(v('en_ecu_spec_imgs'))}"><div class="en-drop" data-field-img="en_ecu_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_ecu_spec_imgs" value="\${E(v('en_ecu_spec_imgs'))}"><div class="en-drop" data-field-img="en_ecu_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4223,7 +4390,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_ecu_dim" rows="2" placeholder="형상 및 치수 설명">\${E(v('en_ecu_dim'))}</textarea>
-            <input type="hidden" data-field="en_ecu_dim_imgs" value="\${E(v('en_ecu_dim_imgs'))}"><div class="en-drop" data-field-img="en_ecu_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_ecu_dim_imgs" value="\${E(v('en_ecu_dim_imgs'))}"><div class="en-drop" data-field-img="en_ecu_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4234,7 +4401,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_ign_photo" rows="2" placeholder="점화장치 사진 설명">\${E(v('en_ign_photo'))}</textarea>
-            <input type="hidden" data-field="en_ign_photo_imgs" value="\${E(v('en_ign_photo_imgs'))}"><div class="en-drop" data-field-img="en_ign_photo"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_ign_photo_imgs" value="\${E(v('en_ign_photo_imgs'))}"><div class="en-drop" data-field-img="en_ign_photo"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4255,7 +4422,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_fuel_sys" rows="3" placeholder="연료장치 구성 및 제어방식을 기재하세요">\${E(v('en_fuel_sys'))}</textarea>
-            <input type="hidden" data-field="en_fuel_sys_imgs" value="\${E(v('en_fuel_sys_imgs'))}"><div class="en-drop" data-field-img="en_fuel_sys"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_fuel_sys_imgs" value="\${E(v('en_fuel_sys_imgs'))}"><div class="en-drop" data-field-img="en_fuel_sys"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4266,7 +4433,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_fuel_drawing" rows="2" placeholder="도면 및 치수 설명">\${E(v('en_fuel_drawing'))}</textarea>
-            <input type="hidden" data-field="en_fuel_drawing_imgs" value="\${E(v('en_fuel_drawing_imgs'))}"><div class="en-drop" data-field-img="en_fuel_drawing"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_fuel_drawing_imgs" value="\${E(v('en_fuel_drawing_imgs'))}"><div class="en-drop" data-field-img="en_fuel_drawing"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4280,7 +4447,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_tank_spec" rows="2" placeholder="연료탱크 상세제원">\${E(v('en_tank_spec'))}</textarea>
-            <input type="hidden" data-field="en_tank_spec_imgs" value="\${E(v('en_tank_spec_imgs'))}"><div class="en-drop" data-field-img="en_tank_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_tank_spec_imgs" value="\${E(v('en_tank_spec_imgs'))}"><div class="en-drop" data-field-img="en_tank_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4288,7 +4455,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_tank_pos" rows="2" placeholder="위치 설명">\${E(v('en_tank_pos'))}</textarea>
-            <input type="hidden" data-field="en_tank_pos_imgs" value="\${E(v('en_tank_pos_imgs'))}"><div class="en-drop" data-field-img="en_tank_pos"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_tank_pos_imgs" value="\${E(v('en_tank_pos_imgs'))}"><div class="en-drop" data-field-img="en_tank_pos"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4296,7 +4463,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_tank_shape" rows="2" placeholder="형상 설명">\${E(v('en_tank_shape'))}</textarea>
-            <input type="hidden" data-field="en_tank_shape_imgs" value="\${E(v('en_tank_shape_imgs'))}"><div class="en-drop" data-field-img="en_tank_shape"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_tank_shape_imgs" value="\${E(v('en_tank_shape_imgs'))}"><div class="en-drop" data-field-img="en_tank_shape"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4307,7 +4474,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_throttle_spec" rows="2" placeholder="스로틀바디 상세제원">\${E(v('en_throttle_spec'))}</textarea>
-            <input type="hidden" data-field="en_throttle_spec_imgs" value="\${E(v('en_throttle_spec_imgs'))}"><div class="en-drop" data-field-img="en_throttle_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_throttle_spec_imgs" value="\${E(v('en_throttle_spec_imgs'))}"><div class="en-drop" data-field-img="en_throttle_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4315,7 +4482,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_throttle_dim" rows="2" placeholder="형상 및 치수 설명">\${E(v('en_throttle_dim'))}</textarea>
-            <input type="hidden" data-field="en_throttle_dim_imgs" value="\${E(v('en_throttle_dim_imgs'))}"><div class="en-drop" data-field-img="en_throttle_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_throttle_dim_imgs" value="\${E(v('en_throttle_dim_imgs'))}"><div class="en-drop" data-field-img="en_throttle_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4326,7 +4493,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_injector_spec" rows="2" placeholder="연료인젝터 상세제원">\${E(v('en_injector_spec'))}</textarea>
-            <input type="hidden" data-field="en_injector_spec_imgs" value="\${E(v('en_injector_spec_imgs'))}"><div class="en-drop" data-field-img="en_injector_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_injector_spec_imgs" value="\${E(v('en_injector_spec_imgs'))}"><div class="en-drop" data-field-img="en_injector_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4334,7 +4501,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_injector_dim" rows="2" placeholder="형상 및 치수 설명">\${E(v('en_injector_dim'))}</textarea>
-            <input type="hidden" data-field="en_injector_dim_imgs" value="\${E(v('en_injector_dim_imgs'))}"><div class="en-drop" data-field-img="en_injector_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_injector_dim_imgs" value="\${E(v('en_injector_dim_imgs'))}"><div class="en-drop" data-field-img="en_injector_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4345,7 +4512,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_pump_spec" rows="2" placeholder="연료펌프 상세제원">\${E(v('en_pump_spec'))}</textarea>
-            <input type="hidden" data-field="en_pump_spec_imgs" value="\${E(v('en_pump_spec_imgs'))}"><div class="en-drop" data-field-img="en_pump_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_pump_spec_imgs" value="\${E(v('en_pump_spec_imgs'))}"><div class="en-drop" data-field-img="en_pump_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4353,7 +4520,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_pump_dim" rows="2" placeholder="형상 및 치수 설명">\${E(v('en_pump_dim'))}</textarea>
-            <input type="hidden" data-field="en_pump_dim_imgs" value="\${E(v('en_pump_dim_imgs'))}"><div class="en-drop" data-field-img="en_pump_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_pump_dim_imgs" value="\${E(v('en_pump_dim_imgs'))}"><div class="en-drop" data-field-img="en_pump_dim"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4364,7 +4531,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_fuel_photo" rows="2" placeholder="연료장치 사진 설명">\${E(v('en_fuel_photo'))}</textarea>
-            <input type="hidden" data-field="en_fuel_photo_imgs" value="\${E(v('en_fuel_photo_imgs'))}"><div class="en-drop" data-field-img="en_fuel_photo"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_fuel_photo_imgs" value="\${E(v('en_fuel_photo_imgs'))}"><div class="en-drop" data-field-img="en_fuel_photo"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4387,7 +4554,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_intake_diagram" rows="2" placeholder="흡기다기관 구성 설명">\${E(v('en_intake_diagram'))}</textarea>
-            <input type="hidden" data-field="en_intake_diagram_imgs" value="\${E(v('en_intake_diagram_imgs'))}"><div class="en-drop" data-field-img="en_intake_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_intake_diagram_imgs" value="\${E(v('en_intake_diagram_imgs'))}"><div class="en-drop" data-field-img="en_intake_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4397,7 +4564,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_intake_manifold" rows="2" placeholder="흡기메니폴드 제원 또는 설명">\${E(v('en_intake_manifold'))}</textarea>
-            <input type="hidden" data-field="en_intake_manifold_imgs" value="\${E(v('en_intake_manifold_imgs'))}"><div class="en-drop" data-field-img="en_intake_manifold"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_intake_manifold_imgs" value="\${E(v('en_intake_manifold_imgs'))}"><div class="en-drop" data-field-img="en_intake_manifold"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4407,7 +4574,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_air_filter" rows="2" placeholder="에어필터 제원 또는 설명">\${E(v('en_air_filter'))}</textarea>
-            <input type="hidden" data-field="en_air_filter_imgs" value="\${E(v('en_air_filter_imgs'))}"><div class="en-drop" data-field-img="en_air_filter"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_air_filter_imgs" value="\${E(v('en_air_filter_imgs'))}"><div class="en-drop" data-field-img="en_air_filter"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4420,7 +4587,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_exhaust_diagram" rows="2" placeholder="배기다기관 구성 설명">\${E(v('en_exhaust_diagram'))}</textarea>
-            <input type="hidden" data-field="en_exhaust_diagram_imgs" value="\${E(v('en_exhaust_diagram_imgs'))}"><div class="en-drop" data-field-img="en_exhaust_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_exhaust_diagram_imgs" value="\${E(v('en_exhaust_diagram_imgs'))}"><div class="en-drop" data-field-img="en_exhaust_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4430,7 +4597,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_exhaust_manifold" rows="2" placeholder="배기메니폴드 제원 또는 설명">\${E(v('en_exhaust_manifold'))}</textarea>
-            <input type="hidden" data-field="en_exhaust_manifold_imgs" value="\${E(v('en_exhaust_manifold_imgs'))}"><div class="en-drop" data-field-img="en_exhaust_manifold"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_exhaust_manifold_imgs" value="\${E(v('en_exhaust_manifold_imgs'))}"><div class="en-drop" data-field-img="en_exhaust_manifold"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4453,7 +4620,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_veh_front" rows="2" placeholder="차량 전면 설명">\${E(v('en_veh_front'))}</textarea>
-            <input type="hidden" data-field="en_veh_front_imgs" value="\${E(v('en_veh_front_imgs'))}"><div class="en-drop" data-field-img="en_veh_front"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_veh_front_imgs" value="\${E(v('en_veh_front_imgs'))}"><div class="en-drop" data-field-img="en_veh_front"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4463,7 +4630,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_veh_rear" rows="2" placeholder="차량 후면 설명">\${E(v('en_veh_rear'))}</textarea>
-            <input type="hidden" data-field="en_veh_rear_imgs" value="\${E(v('en_veh_rear_imgs'))}"><div class="en-drop" data-field-img="en_veh_rear"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_veh_rear_imgs" value="\${E(v('en_veh_rear_imgs'))}"><div class="en-drop" data-field-img="en_veh_rear"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4473,7 +4640,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_veh_side" rows="2" placeholder="차량 측면 설명">\${E(v('en_veh_side'))}</textarea>
-            <input type="hidden" data-field="en_veh_side_imgs" value="\${E(v('en_veh_side_imgs'))}"><div class="en-drop" data-field-img="en_veh_side"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_veh_side_imgs" value="\${E(v('en_veh_side_imgs'))}"><div class="en-drop" data-field-img="en_veh_side"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4483,7 +4650,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_veh_top" rows="2" placeholder="차량 상면 설명">\${E(v('en_veh_top'))}</textarea>
-            <input type="hidden" data-field="en_veh_top_imgs" value="\${E(v('en_veh_top_imgs'))}"><div class="en-drop" data-field-img="en_veh_top"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_veh_top_imgs" value="\${E(v('en_veh_top_imgs'))}"><div class="en-drop" data-field-img="en_veh_top"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4496,7 +4663,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_ext_side" rows="2" placeholder="외형 측면 설명">\${E(v('en_ext_side'))}</textarea>
-            <input type="hidden" data-field="en_ext_side_imgs" value="\${E(v('en_ext_side_imgs'))}"><div class="en-drop" data-field-img="en_ext_side"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_ext_side_imgs" value="\${E(v('en_ext_side_imgs'))}"><div class="en-drop" data-field-img="en_ext_side"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4506,7 +4673,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_ext_top" rows="2" placeholder="외형 상면 설명">\${E(v('en_ext_top'))}</textarea>
-            <input type="hidden" data-field="en_ext_top_imgs" value="\${E(v('en_ext_top_imgs'))}"><div class="en-drop" data-field-img="en_ext_top"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_ext_top_imgs" value="\${E(v('en_ext_top_imgs'))}"><div class="en-drop" data-field-img="en_ext_top"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4516,7 +4683,7 @@ if (formType==='detail_plan') return (
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_ext_rear" rows="2" placeholder="외형 뒷면 설명">\${E(v('en_ext_rear'))}</textarea>
-            <input type="hidden" data-field="en_ext_rear_imgs" value="\${E(v('en_ext_rear_imgs'))}"><div class="en-drop" data-field-img="en_ext_rear"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_ext_rear_imgs" value="\${E(v('en_ext_rear_imgs'))}"><div class="en-drop" data-field-img="en_ext_rear"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4537,7 +4704,7 @@ if (formType==='detail_plan') return (
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_other_tech" rows="4" placeholder="그 외 배출가스 및 소음 저감기술을 기재하세요">\${E(v('en_other_tech'))}</textarea>
-            <input type="hidden" data-field="en_other_tech_imgs" value="\${E(v('en_other_tech_imgs'))}"><div class="en-drop" data-field-img="en_other_tech"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> 이미지 첨부 (클릭 또는 드래그)</div><div class="en-img-list"></div></div>
+            <input type="hidden" data-field="en_other_tech_imgs" value="\${E(v('en_other_tech_imgs'))}"><div class="en-drop" data-field-img="en_other_tech"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${L('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -4703,7 +4870,7 @@ if (formType==='detail_plan') return (
 <table class="obd-tbl">
   <colgroup><col style="width:14%"><col style="width:38%"><col style="width:48%"></colgroup>
   <tr>
-    <th class="obd-th">구분</th>
+    <th class="obd-th">\${L('th_div')}</th>
     <th class="obd-th">자동차 배출가스 관련 부품</th>
     <th class="obd-th">기능적인 작동 특성</th>
   </tr>
@@ -4970,7 +5137,7 @@ if (formType==='detail_plan') return (
 <table class="obd-tbl">
   <colgroup><col style="width:24%"><col style="width:18%"><col style="width:12%"><col style="width:12%"><col style="width:18%"><col style="width:16%"></colgroup>
   <tr>
-    <th class="obd-th">항목</th>
+    <th class="obd-th">\${L('th_item')}</th>
     <th class="obd-th">부품/하네스</th>
     <th class="obd-th">스위치</th>
     <th class="obd-th">시동</th>
@@ -5058,7 +5225,7 @@ if (formType==='detail_plan') return (
     <th class="obd-th">차명</th>
     <th class="obd-th">형식</th>
     <th class="obd-th">차종</th>
-    <th class="obd-th">사용연료</th>
+    <th class="obd-th">\${L('sv_fuel')}</th>
     <th class="obd-th">변속기 종류</th>
     <th class="obd-th">총중량(공차중량, kg)</th>
   </tr>
@@ -5157,7 +5324,7 @@ if (formType==='detail_plan') return (
 <table class="obd-tbl">
   <colgroup><col style="width:22%"><col style="width:28%"><col style="width:50%"></colgroup>
   <tr>
-    <th class="obd-th" colspan="2">항목</th>
+    <th class="obd-th" colspan="2">\${L('th_item')}</th>
     <th class="obd-th">배출가스자기진단장치 동일차종</th>
   </tr>
   <tr>
@@ -5174,7 +5341,7 @@ if (formType==='detail_plan') return (
     <td><textarea class="obd-field-text" data-field="obd_2_3_fuel_supply" placeholder="예) 연료분사식(EFI)"></textarea></td>
   </tr>
   <tr>
-    <td class="obd-lbl" rowspan="4">배출가스<br>제어장치</td>
+    <td class="obd-lbl" rowspan="4">\${L('sv_emission')}<br>제어장치</td>
     <td class="obd-lbl">촉매전환기의 형식<br><small style="font-weight:400;">(산화촉매, 삼원촉매, 가열식촉매 등)</small></td>
     <td><textarea class="obd-field-text" data-field="obd_2_3_cat_type" placeholder="예) 삼원촉매"></textarea></td>
   </tr>
@@ -5201,7 +5368,7 @@ if (formType==='detail_plan') return (
     </td>
   </tr>
   <tr>
-    <td class="obd-lbl" rowspan="3">배출가스<br>자기진단장치의<br>구성 및 기능</td>
+    <td class="obd-lbl" rowspan="3">\${L('sv_emission')}<br>자기진단장치의<br>구성 및 기능</td>
     <td class="obd-lbl">배출가스 자기진단장치의 작동방법</td>
     <td><textarea class="obd-field-text" data-field="obd_2_3_obd_method" placeholder="작동방법 입력"></textarea></td>
   </tr>
@@ -5223,7 +5390,7 @@ if (formType==='detail_plan') return (
 <table class="obd-tbl">
   <colgroup><col style="width:25%"><col style="width:25%"><col style="width:50%"></colgroup>
   <tr>
-    <th class="obd-th" colspan="2">항목</th>
+    <th class="obd-th" colspan="2">\${L('th_item')}</th>
     <th class="obd-th">배출가스자기진단장치 시험차량</th>
   </tr>
   <tr>
@@ -5272,7 +5439,7 @@ if (formType==='detail_plan') return (
     <td><textarea class="obd-field-text" data-field="obd_3_1_tire_r" placeholder="후 타이어 규격"></textarea></td>
   </tr>
   <tr>
-    <td class="obd-lbl" rowspan="5">배출가스<br>제어장치</td>
+    <td class="obd-lbl" rowspan="5">\${L('sv_emission')}<br>제어장치</td>
     <td class="obd-lbl">촉매 전환기의 형식<br><small style="font-weight:400;">(산화촉매, 삼원촉매, 가열식 촉매 등)</small></td>
     <td><textarea class="obd-field-text" data-field="obd_3_1_cat" placeholder="촉매 전환기의 형식"></textarea></td>
   </tr>
@@ -5316,11 +5483,11 @@ if (formType==='detail_plan') return (
     <td><textarea class="obd-field-text" data-field="obd_3_1_obd_display" placeholder="오작동 표시방법 입력"></textarea></td>
   </tr>
   <tr>
-    <td class="obd-lbl">감시항목</td>
+    <td class="obd-lbl">\${L('g_monitor_item')}</td>
     <td><textarea class="obd-field-text" data-field="obd_3_1_monitor" placeholder="감시항목 입력" style="min-height:40px;"></textarea></td>
   </tr>
   <tr>
-    <td class="obd-lbl" colspan="2">비고</td>
+    <td class="obd-lbl" colspan="2">\${L('g_note')}</td>
     <td><textarea class="obd-field-text" data-field="obd_3_1_note" placeholder="비고" style="min-height:36px;"></textarea></td>
   </tr>
 </table>
@@ -5710,7 +5877,7 @@ if (formType==='detail_plan') return (
       <tr>
         <th class="em-th" style="text-align:center;">명&nbsp;&nbsp;&nbsp;칭</th>
         <th class="em-th" style="text-align:center;">형&nbsp;&nbsp;&nbsp;식</th>
-        <th class="em-th" style="text-align:center;">제작사</th>
+        <th class="em-th" style="text-align:center;">\${L('g_maker')}</th>
         <th class="em-th" style="text-align:center;">모델</th>
         <th class="em-th" style="text-align:center;">형식승인일자</th>
         <th class="em-th" style="text-align:center;">설치장소</th>
@@ -5773,7 +5940,7 @@ if (formType==='detail_plan') return (
         <th class="em-th" style="text-align:center;">1BAG</th>
         <th class="em-th" style="text-align:center;">2BAG</th>
         <th class="em-th" style="text-align:center;">3BAG</th>
-        <th class="em-th" style="text-align:center;">비고</th>
+        <th class="em-th" style="text-align:center;">\${L('g_note')}</th>
       </tr>
       <tr>
         <td class="em-th">압&nbsp;&nbsp;&nbsp;력 &nbsp;&nbsp;&nbsp;mmHg</td>
@@ -5959,7 +6126,7 @@ if (formType==='detail_plan') return (
     </thead>
     <tbody>
       <tr>
-        <td class="em-th" style="font-size:7.5pt;">시험결과<br>(g/km)</td>
+        <td class="em-th" style="font-size:7.5pt;">\${L('g_test_result')}<br>(g/km)</td>
         <td><input data-field="em_r_co"       class="em-inp" type="text" value="\${E(v('em_r_co'))}"></td>
         <td><input data-field="em_r_nox"      class="em-inp" type="text" value="\${E(v('em_r_nox'))}"></td>
         <td><input data-field="em_r_hc"       class="em-inp" type="text" value="\${E(v('em_r_hc'))}"></td>
@@ -6548,7 +6715,7 @@ if (formType==='detail_plan') return (
         <th class="obd-th" style="width:13%;">차 명</th>
         <th class="obd-th" style="width:16%;">형 식</th>
         <th class="obd-th" style="width:13%;">차 종</th>
-        <th class="obd-th" style="width:14%;">사용연료</th>
+        <th class="obd-th" style="width:14%;">\${L('sv_fuel')}</th>
         <th class="obd-th" style="width:16%;">변속기 종류</th>
         <th class="obd-th" style="width:28%;">총중량(공차중량)<br>(kg)</th>
       </tr>
@@ -6650,20 +6817,20 @@ if (formType==='detail_plan') return (
       <!-- 1행: 대분류 -->
       <tr>
         <th class="obd-result-th-top" colspan="2" rowspan="2" style="vertical-align:middle;">시험대상 감시장치</th>
-        <th class="obd-result-th-top" colspan="4">시험결과</th>
+        <th class="obd-result-th-top" colspan="4">\${L('g_test_result')}</th>
         <th class="obd-result-th-top" colspan="4">결과판정</th>
       </tr>
       <!-- 2행: 중분류 -->
       <tr>
         <th class="obd-result-th-mid" colspan="3">CVS-75모드<br>결과 (g/km)</th>
-        <th class="obd-result-th-mid" rowspan="2" style="vertical-align:middle; font-size:7pt;">오작동<br>표시등<br>점등여부</th>
+        <th class="obd-result-th-mid" rowspan="2" style="vertical-align:middle; font-size:7pt;">\${L('g_mil_lamp')}</th>
         <th class="obd-result-th-mid" colspan="3">오작동 판단 기준<br>(g/km)</th>
-        <th class="obd-result-th-mid" rowspan="2" style="vertical-align:middle; font-size:7pt;">감시장치<br>적부판정</th>
+        <th class="obd-result-th-mid" rowspan="2" style="vertical-align:middle; font-size:7pt;">\${L('g_monitor_pass')}</th>
       </tr>
       <!-- 3행: 장치명/재현조건 + CO·NOx·HC 소분류 — 모두 같은 행 -->
       <tr>
         <th class="obd-result-th-mid" style="vertical-align:middle;">장치명</th>
-        <th class="obd-result-th-mid" style="vertical-align:middle;">오작동<br>재현조건</th>
+        <th class="obd-result-th-mid" style="vertical-align:middle;">\${L('g_fault_cond')}</th>
         <th class="obd-result-th-mid">CO</th>
         <th class="obd-result-th-mid">NOx</th>
         <th class="obd-result-th-mid">HC</th>
@@ -6863,10 +7030,10 @@ if (formType==='detail_plan') return (
 </table>
 
 <div class="nt-form-tag">[별지 제27의2호 서식]</div>
-<div class="nt-main-title">자동차소음 세부내용 보고서(ECE)</div>
+<div class="nt-main-title">\${L('nt_main_title')}</div>
 
 <!-- 1. 시험관련 규정 -->
-<div class="nt-sec-title">1. 시험관련 규정(ECE)</div>
+<div class="nt-sec-title">\${L('nt_sec1')}</div>
 <div style="padding:4px 8px; font-size:9pt; color:var(--c-text2);">
   가속주행 소음시험은 ECE 시험방법으로 측정함
 </div>
@@ -7057,7 +7224,7 @@ if (formType==='detail_plan') return (
   </colgroup>
   <thead>
     <tr>
-      <th>구분</th><th>제작사</th><th>형식</th><th>기기번호</th><th>검/교정일</th>
+      <th>\${L('th_div')}</th><th>\${L('g_maker')}</th><th>형식</th><th>기기번호</th><th>검/교정일</th>
     </tr>
   </thead>
   <tbody>
@@ -7204,7 +7371,7 @@ if (formType==='detail_plan') return (
     <!-- ② 헤더: 1행=가속/정속 구분, 2행=컬럼명, 3행=단위 (사용변속기어·구분은 rowspan=4) -->
     <tr>
       <th class="nt-th" rowspan="3" style="font-size:5pt;">사용<br>변속<br>기어</th>
-      <th class="nt-th" rowspan="3" style="font-size:5pt;">구분</th>
+      <th class="nt-th" rowspan="3" style="font-size:5pt;">\${L('th_div')}</th>
       <th class="nt-th" colspan="8" style="font-size:6pt;">가속주행시험</th>
       <th class="nt-th" colspan="2" style="font-size:6pt;">정속주행시험</th>
     </tr>
@@ -7214,11 +7381,11 @@ if (formType==='detail_plan') return (
       <th class="nt-th" style="font-size:5pt;">탈출속도<br>(V<sub>BB′</sub>)</th>
       <th class="nt-th" style="font-size:5pt;">탈출엔진<br>회전수<br>(N<sub>BB′</sub>)</th>
       <th class="nt-th" style="font-size:5pt;">가속<br>시작위치</th>
-      <th class="nt-th" style="font-size:5pt;">좌측<br>소음</th>
-      <th class="nt-th" style="font-size:5pt;">우측<br>소음</th>
+      <th class="nt-th" style="font-size:5pt;">좌측<br>\${L('sv_noise_simple')}</th>
+      <th class="nt-th" style="font-size:5pt;">우측<br>\${L('sv_noise_simple')}</th>
       <th class="nt-th" style="font-size:5pt;">가속도<br>(a<sub>wot</sub>)</th>
-      <th class="nt-th" style="font-size:5pt;">좌측<br>소음</th>
-      <th class="nt-th" style="font-size:5pt;">우측<br>소음</th>
+      <th class="nt-th" style="font-size:5pt;">좌측<br>\${L('sv_noise_simple')}</th>
+      <th class="nt-th" style="font-size:5pt;">우측<br>\${L('sv_noise_simple')}</th>
     </tr>
     <tr>
       <th class="nt-th" style="font-size:5pt;">kph</th>
@@ -7406,7 +7573,7 @@ if (formType==='detail_plan') return (
   </colgroup>
   <thead>
     <tr>
-      <th rowspan="2" colspan="2">배기<br>소음<br>시험</th>
+      <th rowspan="2" colspan="2">배기<br>\${L('sv_noise_simple')}<br>시험</th>
       <th rowspan="2">원동기 최고 출력<br>회전속도의<br><input data-field="nt_ex_pct" class="nt-inp" type="text" style="width:2.2em;text-align:right;" value="\${E(v('nt_ex_pct'))}">% 회전속도(rpm)</th>
       <th rowspan="2">암소음<br>(dB(A))</th>
       <th colspan="2">배기소음(dB(A))</th>
@@ -7419,7 +7586,7 @@ if (formType==='detail_plan') return (
   </thead>
   <tbody>
     <tr>
-      <td class="nt-lbl" rowspan="3">배기<br>소음<br>시험</td>
+      <td class="nt-lbl" rowspan="3">배기<br>\${L('sv_noise_simple')}<br>시험</td>
       <td class="nt-lbl">1</td>
       <td class="nt-val"><input data-field="nt_ex1_rpm"  class="nt-inp" type="text" value="\${E(v('nt_ex1_rpm'))}"></td>
       <td class="nt-val"><input data-field="nt_ex1_amb"  class="nt-inp" type="text" value="\${E(v('nt_ex1_amb'))}"></td>
@@ -7453,7 +7620,7 @@ if (formType==='detail_plan') return (
   </colgroup>
   <thead>
     <tr>
-      <th rowspan="2" colspan="2">경적<br>소음<br>시험</th>
+      <th rowspan="2" colspan="2">경적<br>\${L('sv_noise_simple')}<br>시험</th>
       <th rowspan="2">경음기<br>형식</th>
       <th rowspan="2">경음기 수</th>
       <th rowspan="2">암소음<br>(dB(C))</th>
@@ -7467,7 +7634,7 @@ if (formType==='detail_plan') return (
   </thead>
   <tbody>
     <tr>
-      <td class="nt-lbl" rowspan="2">경적<br>소음<br>시험</td>
+      <td class="nt-lbl" rowspan="2">경적<br>\${L('sv_noise_simple')}<br>시험</td>
       <td class="nt-lbl">1</td>
       <td class="nt-val"><input data-field="nt_horn1_type" class="nt-inp" type="text" value="\${E(v('nt_horn1_type'))}"></td>
       <td class="nt-val"><input data-field="nt_horn1_cnt"  class="nt-inp" type="text" value="\${E(v('nt_horn1_cnt'))}"></td>
@@ -7788,7 +7955,7 @@ if (formType==='detail_plan') return (
   </table>
 
   <!-- ② 제목 (PDF 원본: 전체 너비 단독 셀) -->
-  <div class="cf-title">확 &nbsp;&nbsp; 인 &nbsp;&nbsp; 서</div>
+  <div class="cf-title">\${L('cf_title')}</div>
 
   <!-- ③ 본문 — PDF 원본: 단일 셀 안에 1~5번 항목 나열 (3열 구조 없음) -->
   <table class="cf-body-tbl">

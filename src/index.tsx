@@ -1502,6 +1502,168 @@ textarea.auto-grow {
 
 <script>
 // ================================================================
+// 이미지 첨부 시스템 (detail_plan 지정 섹션 전용)
+// ================================================================
+(function() {
+  // ── CSS ──────────────────────────────────────────────────────────
+  var _css = document.createElement('style');
+  _css.textContent = [
+    '.img-att-btn{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;',
+    'margin-left:5px;background:#2563eb;color:#fff;border:none;border-radius:5px;',
+    'font-size:8.5pt;cursor:pointer;vertical-align:middle;flex-shrink:0;}',
+    '.img-att-btn:hover{background:#1d4ed8;}',
+    '.img-att-btn.has-img{background:#16a34a;}',
+    '.img-att-btn.has-img:hover{background:#15803d;}',
+    '.img-att-thumbs{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;}',
+    '.img-att-thumbs img{width:52px;height:52px;object-fit:cover;border-radius:4px;',
+    'border:1px solid #b0c4de;cursor:pointer;}',
+    '#_img_att_ov{display:none;position:fixed;inset:0;z-index:9999;',
+    'background:rgba(0,0,0,.55);align-items:center;justify-content:center;}',
+    '@media print{.img-att-btn{display:none!important;}',
+    '.img-att-thumbs{display:flex!important;}}'
+  ].join('');
+  document.head.appendChild(_css);
+
+  // ── 모달 ─────────────────────────────────────────────────────────
+  var ov = document.createElement('div'); ov.id = '_img_att_ov';
+  ov.innerHTML =
+    '<div style="background:#fff;border-radius:12px;padding:22px 26px;width:460px;max-width:94vw;' +
+    'box-shadow:0 8px 40px rgba(0,0,0,.35);max-height:85vh;overflow-y:auto;">' +
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">' +
+        '<span id="_iat_lbl" style="font-size:12pt;font-weight:700;color:#1e3a5f;">' +
+          '<i class="fas fa-image" style="color:#2563eb;margin-right:6px;"></i>이미지 첨부' +
+        '</span>' +
+        '<button id="_iat_x" style="background:none;border:none;font-size:20px;cursor:pointer;color:#666;">&times;</button>' +
+      '</div>' +
+      '<div id="_iat_drop" style="border:2px dashed #b0c4de;border-radius:8px;padding:20px;' +
+      'text-align:center;cursor:pointer;background:#f7faff;margin-bottom:12px;">' +
+        '<input type="file" id="_iat_fi" accept="image/*" multiple style="display:none;">' +
+        '<i class="fas fa-cloud-upload-alt" style="font-size:22px;color:#7a9cc0;display:block;margin-bottom:6px;"></i>' +
+        '<span style="color:#7a9cc0;font-size:9pt;">클릭하거나 이미지를 드래그하세요</span>' +
+      '</div>' +
+      '<div id="_iat_list" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;"></div>' +
+      '<div style="display:flex;gap:8px;justify-content:flex-end;">' +
+        '<button id="_iat_cancel" style="padding:7px 18px;border:1px solid #ccc;border-radius:6px;' +
+        'background:#fff;cursor:pointer;font-size:9pt;">취소</button>' +
+        '<button id="_iat_ok" style="padding:7px 18px;background:#2563eb;color:#fff;' +
+        'border:none;border-radius:6px;cursor:pointer;font-size:9pt;font-weight:600;">확인</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(ov);
+
+  // ── 상태 ─────────────────────────────────────────────────────────
+  var _curHid = null, _curThumb = null, _curBtn = null, _imgs = [];
+
+  function _renderList() {
+    var list = document.getElementById('_iat_list');
+    list.innerHTML = '';
+    _imgs.forEach(function(src, idx) {
+      var wrap = document.createElement('div');
+      wrap.style.cssText = 'position:relative;width:88px;height:88px;';
+      var img = document.createElement('img');
+      img.src = src;
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:6px;border:1px solid #ccc;';
+      var del = document.createElement('button');
+      del.textContent = '\xd7';
+      del.style.cssText = 'position:absolute;top:-6px;right:-6px;width:18px;height:18px;' +
+        'background:#ef4444;color:#fff;border:none;border-radius:50%;font-size:11px;cursor:pointer;' +
+        'display:flex;align-items:center;justify-content:center;line-height:1;';
+      del.onclick = function(e) { e.stopPropagation(); _imgs.splice(idx, 1); _renderList(); };
+      wrap.appendChild(img); wrap.appendChild(del);
+      list.appendChild(wrap);
+    });
+  }
+
+  function _renderThumbs() {
+    if (!_curThumb) return;
+    _curThumb.innerHTML = '';
+    _imgs.forEach(function(src) {
+      var img = document.createElement('img');
+      img.src = src; img.title = '클릭하여 크게 보기';
+      img.onclick = function() { window.open(src, '_blank'); };
+      _curThumb.appendChild(img);
+    });
+  }
+
+  function _syncState() {
+    if (_curHid) _curHid.value = JSON.stringify(_imgs);
+    if (_curBtn) {
+      _curBtn.classList.toggle('has-img', _imgs.length > 0);
+      _curBtn.innerHTML = '<i class="fas fa-paperclip"></i> ' +
+        (_imgs.length > 0 ? '사진 ' + _imgs.length + '장' : '사진 첨부');
+    }
+  }
+
+  function _addFiles(files) {
+    Array.from(files).forEach(function(f) {
+      if (!f.type.startsWith('image/')) return;
+      var fr = new FileReader();
+      fr.onload = function(e) { _imgs.push(e.target.result); _renderList(); };
+      fr.readAsDataURL(f);
+    });
+  }
+
+  function _open(hidId, thumbId, btnEl, label) {
+    _curHid   = document.getElementById(hidId);
+    _curThumb = document.getElementById(thumbId);
+    _curBtn   = btnEl;
+    try { _imgs = JSON.parse((_curHid && _curHid.value) || '[]'); } catch(e) { _imgs = []; }
+    document.getElementById('_iat_lbl').innerHTML =
+      '<i class="fas fa-image" style="color:#2563eb;margin-right:6px;"></i>' + (label || '이미지 첨부');
+    _renderList();
+    ov.style.display = 'flex';
+  }
+
+  function _close(apply) {
+    if (apply) { _renderThumbs(); _syncState(); }
+    ov.style.display = 'none';
+  }
+
+  // 이벤트
+  document.getElementById('_iat_x').onclick      = function() { _close(false); };
+  document.getElementById('_iat_cancel').onclick  = function() { _close(false); };
+  document.getElementById('_iat_ok').onclick      = function() { _close(true); };
+  ov.addEventListener('click', function(e) { if (e.target === ov) _close(false); });
+  var _drop = document.getElementById('_iat_drop');
+  var _fi   = document.getElementById('_iat_fi');
+  _drop.onclick = function() { _fi.click(); };
+  _fi.onchange  = function() { _addFiles(_fi.files); _fi.value = ''; };
+  _drop.addEventListener('dragover',  function(e) { e.preventDefault(); _drop.style.borderColor='#2563eb'; });
+  _drop.addEventListener('dragleave', function()  { _drop.style.borderColor='#b0c4de'; });
+  _drop.addEventListener('drop', function(e) {
+    e.preventDefault(); _drop.style.borderColor='#b0c4de';
+    _addFiles(e.dataTransfer.files);
+  });
+
+  // ── 공개 API ─────────────────────────────────────────────────────
+  window._imgAtt = {
+    open: _open,
+    // 저장된 이미지 복원 (폼 로드 시 호출)
+    restore: function(hidId, thumbId) {
+      var hid = document.getElementById(hidId);
+      var th  = document.getElementById(thumbId);
+      if (!hid || !th) return;
+      var imgs = [];
+      try { imgs = JSON.parse(hid.value || '[]'); } catch(e) {}
+      th.innerHTML = '';
+      imgs.forEach(function(src) {
+        var img = document.createElement('img');
+        img.src = src; img.title = '클릭하여 크게 보기';
+        img.onclick = function() { window.open(src, '_blank'); };
+        th.appendChild(img);
+      });
+      // 버튼 상태 갱신
+      var btn = document.getElementById(hidId + '_btn');
+      if (btn) {
+        btn.classList.toggle('has-img', imgs.length > 0);
+        btn.innerHTML = '<i class="fas fa-paperclip"></i> ' +
+          (imgs.length > 0 ? '사진 ' + imgs.length + '장' : '사진 첨부');
+      }
+    }
+  };
+})();
+
+// ================================================================
 // 상태
 // ================================================================
 let currentUser = null, currentApplications = [], currentApplication = null;
@@ -3309,7 +3471,18 @@ async function openForm(formType) {
   if (formType === 'emission_noise') setTimeout(() => initEnFields(), 150);
   // obd_config 이미지 드롭존 초기화
   if (formType === 'obd_config') setTimeout(() => initObdImgDrops(), 150);
-  // 모든 폼 텍스트 입력 칸 이미지 첨부 버튼 초기화
+  // detail_plan 이미지 첨부 복원 (저장된 이미지 썸네일 재표시)
+  if (formType === 'detail_plan') setTimeout(() => {
+    if (!window._imgAtt) return;
+    // fixed id 섹션 복원
+    ['dp_1_1','dp_1_2','dp_7_1','dp_7_2','dp_9_1','dp_9_2','dp_13'].forEach(function(fld){
+      window._imgAtt.restore(fld+'_imgs', fld+'_imgs_th');
+    });
+    // 8.x diagram 섹션 복원
+    ['dp_8_1','dp_8_2','dp_8_3','dp_8_4','dp_8_5','dp_8_6','dp_8_7','dp_8_8','dp_8_9'].forEach(function(pfx){
+      window._imgAtt.restore(pfx+'_diagram_imgs', pfx+'_diagram_imgs_th');
+    });
+  }, 200);
 }
 
 // ── Auto-grow: input[type=text] → textarea 동적 교체 ──────────────
@@ -5028,8 +5201,22 @@ if (formType==='detail_plan') return \`
 <table class="dp-tbl">
   <colgroup><col style="width:30%"><col style="width:70%"></colgroup>
   <tr><th class="dp-sec-th" colspan="2">1. 인증소개</th></tr>
-  <tr><td class="dp-lbl">1.1. 인증대상 자동차 개발배경 및 특성</td><td><textarea class="dp-ta" data-field="dp_1_1" rows="3" placeholder="개발배경 및 특성 입력">\${E(v('dp_1_1'))}</textarea></td></tr>
-  <tr><td class="dp-lbl">1.2. 배출가스, 소음관련 신기술</td><td><textarea class="dp-ta" data-field="dp_1_2" rows="3" placeholder="신기술 내용 입력">\${E(v('dp_1_2'))}</textarea></td></tr>
+  <tr><td class="dp-lbl">1.1. 인증대상 자동차 개발배경 및 특성</td><td>
+    <textarea class="dp-ta" data-field="dp_1_1" rows="3" placeholder="개발배경 및 특성 입력">\${E(v('dp_1_1'))}</textarea>
+    <input type="hidden" id="dp_1_1_imgs" data-field="dp_1_1_imgs" value="\${E(v('dp_1_1_imgs'))}">
+    <div style="display:flex;align-items:center;margin-top:4px;">
+      <button type="button" id="dp_1_1_imgs_btn" class="img-att-btn" onclick="_imgAtt.open('dp_1_1_imgs','dp_1_1_imgs_th',this,'1.1. 개발배경 및 특성');"><i class="fas fa-paperclip"></i> 사진 첨부</button>
+    </div>
+    <div id="dp_1_1_imgs_th" class="img-att-thumbs"></div>
+  </td></tr>
+  <tr><td class="dp-lbl">1.2. 배출가스, 소음관련 신기술</td><td>
+    <textarea class="dp-ta" data-field="dp_1_2" rows="3" placeholder="신기술 내용 입력">\${E(v('dp_1_2'))}</textarea>
+    <input type="hidden" id="dp_1_2_imgs" data-field="dp_1_2_imgs" value="\${E(v('dp_1_2_imgs'))}">
+    <div style="display:flex;align-items:center;margin-top:4px;">
+      <button type="button" id="dp_1_2_imgs_btn" class="img-att-btn" onclick="_imgAtt.open('dp_1_2_imgs','dp_1_2_imgs_th',this,'1.2. 소음관련 신기술');"><i class="fas fa-paperclip"></i> 사진 첨부</button>
+    </div>
+    <div id="dp_1_2_imgs_th" class="img-att-thumbs"></div>
+  </td></tr>
   <tr><td class="dp-lbl" colspan="2" style="font-weight:700;background:#eef3fa;">1.3. 개발 목표(수입차의 경우 외국인증성적 등으로 갈음)</td></tr>
 </table>
 
@@ -5426,8 +5613,22 @@ if (formType==='detail_plan') return \`
 <table class="dp-tbl">
   <colgroup><col style="width:30%"><col style="width:70%"></colgroup>
   <tr><th class="dp-sec-th" colspan="2">7. 배출가스 표지판</th></tr>
-  <tr><td class="dp-lbl">7.1. 견본</td><td><textarea class="dp-ta" data-field="dp_7_1" rows="3" placeholder="견본 내용 입력">\${E(v('dp_7_1'))}</textarea></td></tr>
-  <tr><td class="dp-lbl">7.2. 부착위치 등</td><td><textarea class="dp-ta" data-field="dp_7_2" rows="3">\${E(v('dp_7_2'))}</textarea></td></tr>
+  <tr><td class="dp-lbl">7.1. 견본</td><td>
+    <textarea class="dp-ta" data-field="dp_7_1" rows="3" placeholder="견본 내용 입력">\${E(v('dp_7_1'))}</textarea>
+    <input type="hidden" id="dp_7_1_imgs" data-field="dp_7_1_imgs" value="\${E(v('dp_7_1_imgs'))}">
+    <div style="display:flex;align-items:center;margin-top:4px;">
+      <button type="button" id="dp_7_1_imgs_btn" class="img-att-btn" onclick="_imgAtt.open('dp_7_1_imgs','dp_7_1_imgs_th',this,'7.1. 표지판 견본');"><i class="fas fa-paperclip"></i> 사진 첨부</button>
+    </div>
+    <div id="dp_7_1_imgs_th" class="img-att-thumbs"></div>
+  </td></tr>
+  <tr><td class="dp-lbl">7.2. 부착위치 등</td><td>
+    <textarea class="dp-ta" data-field="dp_7_2" rows="3">\${E(v('dp_7_2'))}</textarea>
+    <input type="hidden" id="dp_7_2_imgs" data-field="dp_7_2_imgs" value="\${E(v('dp_7_2_imgs'))}">
+    <div style="display:flex;align-items:center;margin-top:4px;">
+      <button type="button" id="dp_7_2_imgs_btn" class="img-att-btn" onclick="_imgAtt.open('dp_7_2_imgs','dp_7_2_imgs_th',this,'7.2. 부착위치 등');"><i class="fas fa-paperclip"></i> 사진 첨부</button>
+    </div>
+    <div id="dp_7_2_imgs_th" class="img-att-thumbs"></div>
+  </td></tr>
 </table>
 
 <!-- ══ 8. 배출가스 제어기술 ══ -->
@@ -5461,8 +5662,18 @@ if (formType==='detail_plan') return \`
     <td><input class="dp-inp" data-field="\${pfx}_\${ri}_ctrl" type="text" value="\${E(v('\${pfx}_\${ri}_ctrl'))}"></td>
     <td><input class="dp-inp" data-field="\${pfx}_\${ri}_eff" type="text" value="\${E(v('\${pfx}_\${ri}_eff'))}"></td>
   </tr>\`).join('')}
-  <tr><td colspan="4" style="padding:3px 5px;font-size:7.5pt;color:#666;">\${sec.replace(/^[\\d.]+\\s*/,'')} 구성도 첨부:</td>
-    <td><input class="dp-inp" data-field="\${pfx}_diagram" type="text" value="\${E(v('\${pfx}_diagram'))}" placeholder="도면/파일명"></td>
+  <tr>
+    <td colspan="4" style="padding:3px 5px;font-size:7.5pt;color:#666;">\${sec.replace(/^[\\d.]+\\s*/,'')} 구성도 첨부:</td>
+    <td>
+      <input class="dp-inp" data-field="\${pfx}_diagram" type="text" value="\${E(v('\${pfx}_diagram'))}" placeholder="도면/파일명">
+      <input type="hidden" id="\${pfx}_diagram_imgs" data-field="\${pfx}_diagram_imgs" value="\${E(v('\${pfx}_diagram_imgs'))}">
+      <div style="display:flex;align-items:center;margin-top:3px;">
+        <button type="button" id="\${pfx}_diagram_imgs_btn" class="img-att-btn" onclick="_imgAtt.open('\${pfx}_diagram_imgs','\${pfx}_diagram_imgs_th',this,sec+' 구성도');">
+          <i class="fas fa-paperclip"></i> 사진 첨부
+        </button>
+      </div>
+      <div id="\${pfx}_diagram_imgs_th" class="img-att-thumbs"></div>
+    </td>
   </tr>\`).join('')}
 
   <!-- 8.10. 감지변수 대 제어변수 -->
@@ -5536,7 +5747,13 @@ if (formType==='detail_plan') return \`
 <table class="dp-tbl">
   <colgroup><col style="width:25%"><col style="width:37%"><col style="width:38%"></colgroup>
   <tr><th class="dp-sec-th" colspan="3">9. 증발가스 및 브로바이 가스</th></tr>
-  <tr><th class="dp-sub-th" colspan="3">9.1. 증발가스 제어장치 설명</th></tr>
+  <tr><th class="dp-sub-th" colspan="3">9.1. 증발가스 제어장치 설명
+    <span style="float:right;font-weight:400;">
+      <input type="hidden" id="dp_9_1_imgs" data-field="dp_9_1_imgs" value="\${E(v('dp_9_1_imgs'))}">
+      <button type="button" id="dp_9_1_imgs_btn" class="img-att-btn" onclick="_imgAtt.open('dp_9_1_imgs','dp_9_1_imgs_th',this,'9.1. 증발가스 제어장치');"><i class="fas fa-paperclip"></i> 사진 첨부</button>
+    </span>
+  </th></tr>
+  <tr><td colspan="3"><div id="dp_9_1_imgs_th" class="img-att-thumbs"></div></td></tr>
   <tr>
     <th class="dp-th">저장 장치</th>
     <th class="dp-th">흡수용량(C)</th>
@@ -5558,7 +5775,14 @@ if (formType==='detail_plan') return \`
     <td><input class="dp-inp" data-field="dp_9_tank_\${i}" type="text" value="\${E(v('dp_9_tank_\${i}'))}"></td>
     <td><input class="dp-inp" data-field="dp_9_res_\${i}" type="text" value="\${E(v('dp_9_res_\${i}'))}"></td>
   </tr>\`).join('')}
-  <tr><td class="dp-lbl">9.2. 제어장치 구성도</td><td colspan="2"><textarea class="dp-ta" data-field="dp_9_2" rows="2" placeholder="구성도 파일명 또는 내용">\${E(v('dp_9_2'))}</textarea></td></tr>
+  <tr><td class="dp-lbl">9.2. 제어장치 구성도</td><td colspan="2">
+    <textarea class="dp-ta" data-field="dp_9_2" rows="2" placeholder="구성도 파일명 또는 내용">\${E(v('dp_9_2'))}</textarea>
+    <input type="hidden" id="dp_9_2_imgs" data-field="dp_9_2_imgs" value="\${E(v('dp_9_2_imgs'))}">
+    <div style="display:flex;align-items:center;margin-top:4px;">
+      <button type="button" id="dp_9_2_imgs_btn" class="img-att-btn" onclick="_imgAtt.open('dp_9_2_imgs','dp_9_2_imgs_th',this,'9.2. 제어장치 구성도');"><i class="fas fa-paperclip"></i> 사진 첨부</button>
+    </div>
+    <div id="dp_9_2_imgs_th" class="img-att-thumbs"></div>
+  </td></tr>
 </table>
 
 <!-- ══ 10. 동일차종(원동기) ══ -->
@@ -5826,7 +6050,14 @@ if (formType==='detail_plan') return \`
   </td></tr>
   <tr><td><textarea class="dp-ta" data-field="dp_12" rows="4" placeholder="불가피한 사유 명시">\${E(v('dp_12'))}</textarea></td></tr>
   <tr><th class="dp-sec-th">13. 기타</th></tr>
-  <tr><td><textarea class="dp-ta" data-field="dp_13" rows="3">\${E(v('dp_13'))}</textarea></td></tr>
+  <tr><td>
+    <textarea class="dp-ta" data-field="dp_13" rows="3">\${E(v('dp_13'))}</textarea>
+    <input type="hidden" id="dp_13_imgs" data-field="dp_13_imgs" value="\${E(v('dp_13_imgs'))}">
+    <div style="display:flex;align-items:center;margin-top:4px;">
+      <button type="button" id="dp_13_imgs_btn" class="img-att-btn" onclick="_imgAtt.open('dp_13_imgs','dp_13_imgs_th',this,'13. 기타');"><i class="fas fa-paperclip"></i> 사진 첨부</button>
+    </div>
+    <div id="dp_13_imgs_th" class="img-att-thumbs"></div>
+  </td></tr>
 </table>
 
 <div id="qr-footer-wrap" style="margin-top:12px;"></div>

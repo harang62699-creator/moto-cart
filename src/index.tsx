@@ -3457,6 +3457,21 @@ function buildFormHTML(formType, saved) {
   const v   = (k,def='') => {
     if (saved[k]!==undefined) return saved[k];
     if (k==='appl_div') return _certDefault;
+    // 수입사/인증연도/배기량/동일차종기호: 저장값 없으면 신청서 메타에서 자동채움
+    if (k==='importer')    return currentApplication?.importer    || def;
+    if (k==='cert_year')   return currentApplication?.cert_year   || def;
+    if (k==='displacement') return currentApplication?.displacement || def;
+    if (k==='family_code') return currentApplication?.family_code  || def;
+    // 각 폼별 prefix 필드도 동일하게 자동채움
+    if (/^(en|em|ev|nt)_importer$/.test(k))  return currentApplication?.importer    || def;
+    if (/^(en|em|ev|nt)_cert_year$/.test(k)) return currentApplication?.cert_year   || def;
+    if (/^(en|em|ev)_disp$/.test(k))         return currentApplication?.displacement || def;
+    if (/^(en|em|ev|nt)_fam_code$/.test(k))  return currentApplication?.family_code  || def;
+    if (k==='obd_header_importer') return currentApplication?.importer    || def;
+    if (k==='obd_header_year')     return currentApplication?.cert_year   || def;
+    if (k==='obd_header_cc')       return currentApplication?.displacement || def;
+    if (k==='obd_header_code')     return currentApplication?.family_code  || def;
+    if (k==='displacement_cc')     return currentApplication?.displacement || def;
     return def;
   };
   const E   = esc;
@@ -3497,12 +3512,12 @@ function buildFormHTML(formType, saved) {
   border:1px solid #888;
 }
 .sv-header-lbl-cell {
-  width:25%; border:1px solid #888;
+  border:1px solid #888;
   padding:4px 8px; vertical-align:middle;
   background:rgba(79,142,247,.08);
 }
 .sv-header-val-cell {
-  width:25%; border:1px solid #888;
+  border:1px solid #888;
   padding:4px 8px; vertical-align:middle;
 }
 .sv-header-lbl {
@@ -3770,6 +3785,7 @@ function buildFormHTML(formType, saved) {
 <div class="sv-wrap">
   <!-- ① 상단 헤더 테이블 (4칸 균등 · PDF 동일 2행 구조) -->
   <table class="sv-header-tbl">
+    <colgroup><col style="width:35%;"><col style="width:12%;"><col style="width:13%;"><col style="width:40%;"></colgroup>
     <!-- 레이블 행 (배경색) -->
     <tr class="sv-header-row-lbl">
       <td class="sv-header-lbl-cell"><span class="sv-header-lbl">\${L('importer')}</span></td>
@@ -3954,7 +3970,7 @@ function buildFormHTML(formType, saved) {
     border-bottom:1px solid var(--c-border2); background:rgba(79,142,247,.06);
   }
   .g-header-grid {
-    display:grid; grid-template-columns:repeat(4,1fr);
+    display:grid; grid-template-columns:35% 12% 13% 40%;
     border-bottom:1px solid var(--c-border2);
   }
   .g-header-cell { padding:4px 6px; border-right:1px solid var(--c-border); }
@@ -4012,8 +4028,12 @@ function buildFormHTML(formType, saved) {
     display:table; width:100%; border:1px solid #000; margin-bottom:3px;
   }
   .g-header-cell {
-    display:table-cell; width:25%; padding:2px 5px; border-right:1px solid #000;
+    display:table-cell; padding:2px 5px; border-right:1px solid #000;
   }
+  .g-header-cell:nth-child(1) { width:35%; }
+  .g-header-cell:nth-child(2) { width:12%; }
+  .g-header-cell:nth-child(3) { width:13%; }
+  .g-header-cell:nth-child(4) { width:40%; }
   .g-header-cell:last-child { border-right:none; }
   .g-header-label { font-size:6pt; color:#444; display:block; }
   .g-sec-title {
@@ -4917,7 +4937,7 @@ if (formType==='detail_plan') return (
   <!-- ── 상단 헤더 (수입사/인증연도/배기량/동일차종기호) ── -->
   <table class="en-tbl" style="margin-bottom:12px; table-layout:fixed;">
     <colgroup>
-      <col style="width:25%;"><col style="width:25%;"><col style="width:25%;"><col style="width:25%;">
+      <col style="width:35%;"><col style="width:12%;"><col style="width:13%;"><col style="width:40%;">
     </colgroup>
     <thead>
       <tr>
@@ -5808,7 +5828,7 @@ if (formType==='detail_plan') return (
 
 <!-- ══ 헤더 식별 정보 (맨 위) ══ -->
 <table class="obd-tbl" style="margin-bottom:8px;">
-  <colgroup><col style="width:25%"><col style="width:25%"><col style="width:25%"><col style="width:25%"></colgroup>
+  <colgroup><col style="width:35%"><col style="width:12%"><col style="width:13%"><col style="width:40%"></colgroup>
   <tr>
     <th class="obd-th">\${L('importer')}</th>
     <th class="obd-th">\${L('cert_year')}</th>
@@ -6644,7 +6664,7 @@ if (formType==='detail_plan') return (
   <!-- PDF 실측: 4등분 25.2%/24.7%/24.8%/25.2% -->
   <table class="em-tbl" style="margin-bottom:12px; table-layout:fixed;">
     <colgroup>
-      <col style="width:25.2%;"><col style="width:24.7%;"><col style="width:24.9%;"><col style="width:25.2%;">
+      <col style="width:35%;"><col style="width:12%;"><col style="width:13%;"><col style="width:40%;">
     </colgroup>
     <thead>
       <tr>
@@ -7270,10 +7290,10 @@ if (formType==='detail_plan') return (
   <table class="ev-tbl" style="margin-bottom:14px;">
     <thead>
       <tr>
-        <th class="ev-th" style="width:25%;">\${L('importer')}</th>
-        <th class="ev-th" style="width:25%;">\${L('cert_year')}</th>
-        <th class="ev-th" style="width:25%;">\${L('displacement')}</th>
-        <th class="ev-th" style="width:25%;">\${L('family_code')}</th>
+        <th class="ev-th" style="width:35%;">\${L('importer')}</th>
+        <th class="ev-th" style="width:12%;">\${L('cert_year')}</th>
+        <th class="ev-th" style="width:13%;">\${L('displacement')}</th>
+        <th class="ev-th" style="width:40%;">\${L('family_code')}</th>
       </tr>
     </thead>
     <tbody>
@@ -7983,6 +8003,7 @@ if (formType==='detail_plan') return (
 
 <!-- ① 상단 헤더 -->
 <table class="nt-header-tbl">
+  <colgroup><col style="width:35%;"><col style="width:12%;"><col style="width:13%;"><col style="width:40%;"></colgroup>
   <tr>
     <td class="nt-header-lbl-cell"><span class="nt-header-lbl">\${L('importer')}</span></td>
     <td class="nt-header-lbl-cell"><span class="nt-header-lbl">\${L('cert_year')}</span></td>
@@ -8908,6 +8929,7 @@ if (formType==='detail_plan') return (
 
   <!-- ① 상단 헤더 (요약서와 동일 2행 구조) -->
   <table class="cf-header-tbl">
+    <colgroup><col style="width:35%;"><col style="width:12%;"><col style="width:13%;"><col style="width:40%;"></colgroup>
     <tr>
       <td class="cf-header-lbl-cell"><span class="cf-header-lbl">\${L('importer')}</span></td>
       <td class="cf-header-lbl-cell"><span class="cf-header-lbl">\${L('cert_year')}</span></td>

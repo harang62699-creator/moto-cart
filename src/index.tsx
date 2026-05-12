@@ -5259,7 +5259,7 @@ if (formType==='detail_plan') return \`
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:28%;"><col style="width:72%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="2">1. 인증소개</th></tr>
+    <tr><th class="dp-sec-th" colspan="2">1.  인증소개</th></tr>
 
     <!-- 1.1 개발배경 및 특성 -->
     <tr>
@@ -5438,7 +5438,7 @@ if (formType==='detail_plan') return \`
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:100%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th">2. 기밀사항</th></tr>
+    <tr><th class="dp-sec-th">2.  기밀사항</th></tr>
     <tr><td class="dp-sub-th">2.1. 기밀에 대한 요청</td></tr>
     <tr><td>
       <div class="dp-field">
@@ -5452,7 +5452,7 @@ if (formType==='detail_plan') return \`
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:18%;"><col style="width:27%;"><col style="width:27%;"><col style="width:28%;"></colgroup>
   <thead>
-    <tr><th class="dp-sec-th" colspan="4">3. 인증시험 연료</th></tr>
+    <tr><th class="dp-sec-th" colspan="4">3.  인증시험 연료</th></tr>
     <tr>
       <th class="dp-th">구분</th>
       <th class="dp-th">항목</th>
@@ -5520,7 +5520,7 @@ if (formType==='detail_plan') return \`
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:22%;"><col style="width:13%;"><col style="width:13%;"><col style="width:13%;"><col style="width:16%;"><col style="width:13%;"><col style="width:10%;"></colgroup>
   <thead>
-    <tr><th class="dp-sec-th" colspan="7">4. 시험설비 및 배출가스·소음 측정장비</th></tr>
+    <tr><th class="dp-sec-th" colspan="7">4.  시험설비 및 배출가스·소음 측정장비</th></tr>
     <tr><th class="dp-sub-th" colspan="7">4.1. 배출가스 측정장비</th></tr>
     <tr>
       <th class="dp-th">설비, 장비명</th>
@@ -5568,22 +5568,22 @@ if (formType==='detail_plan') return \`
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:28%;"><col style="width:72%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="2">5. 시험절차</th></tr>
+    <tr><th class="dp-sec-th" colspan="2">5.  시험절차</th></tr>
     <tr><th class="dp-sub-th" colspan="2">5.1. 배출가스 시험</th></tr>
-    <tr><td class="dp-lbl">5.1.1. 시험장소</td><td><input class="dp-inp" data-field="dp_5_1_1" type="text" value="\${E(v('dp_5_1_1'))}"></td></tr>
-    <tr><td class="dp-lbl">5.1.2. 시험절차</td><td><input class="dp-inp" data-field="dp_5_1_2" type="text" value="\${E(v('dp_5_1_2'))}"></td></tr>
+    <tr><td class="dp-lbl">5.1.1. 시험장소</td><td><input class="dp-inp" data-field="dp_5_1_1" type="text" value="\${E(v('dp_5_1_1'))}"></td></tr>
+    <tr><td class="dp-lbl">5.1.2. 시험절차</td><td><input class="dp-inp" data-field="dp_5_1_2" type="text" value="\${E(v('dp_5_1_2'))}"></td></tr>
     <tr><th class="dp-sub-th" colspan="2">5.2. 주행거리축적</th></tr>
-    <tr><td class="dp-lbl">5.2.1. 내구성시험 주행여부</td><td><input class="dp-inp" data-field="dp_5_2_1" type="text" value="\${E(v('dp_5_2_1'))}"></td></tr>
-    <tr><td class="dp-lbl">5.2.2. 길들이기 주행여부</td><td><input class="dp-inp" data-field="dp_5_2_2" type="text" value="\${E(v('dp_5_2_2'))}"></td></tr>
-    <tr><td class="dp-lbl">5.2.3. 주행예정 기간</td><td><input class="dp-inp" data-field="dp_5_2_3" type="text" value="\${E(v('dp_5_2_3'))}"></td></tr>
-    <tr><td class="dp-lbl">5.2.4. 주행장소</td><td><input class="dp-inp" data-field="dp_5_2_4" type="text" value="\${E(v('dp_5_2_4'))}"></td></tr>
-    <tr><td class="dp-lbl">5.2.5. 주행절차</td><td><input class="dp-inp" data-field="dp_5_2_5" type="text" value="\${E(v('dp_5_2_5'))}"></td></tr>
+    <tr><td class="dp-lbl">5.2.1. 내구성시험 주행여부</td><td><input class="dp-inp" data-field="dp_5_2_1" type="text" value="\${E(v('dp_5_2_1'))}"></td></tr>
+    <tr><td class="dp-lbl">5.2.2. 길들이기 주행여부</td><td><input class="dp-inp" data-field="dp_5_2_2" type="text" value="\${E(v('dp_5_2_2'))}"></td></tr>
+    <tr><td class="dp-lbl">5.2.3. 주행예정 기간</td><td><input class="dp-inp" data-field="dp_5_2_3" type="text" value="\${E(v('dp_5_2_3'))}"></td></tr>
+    <tr><td class="dp-lbl">5.2.4. 주행장소</td><td><input class="dp-inp" data-field="dp_5_2_4" type="text" value="\${E(v('dp_5_2_4'))}"></td></tr>
+    <tr><td class="dp-lbl">5.2.5. 주행절차</td><td><input class="dp-inp" data-field="dp_5_2_5" type="text" value="\${E(v('dp_5_2_5'))}"></td></tr>
     <tr><th class="dp-sub-th" colspan="2">5.3. 소음시험</th></tr>
-    <tr><td class="dp-lbl">5.3.1. 시험장소</td><td><input class="dp-inp" data-field="dp_5_3_1" type="text" value="\${E(v('dp_5_3_1'))}"></td></tr>
-    <tr><td class="dp-lbl">5.3.2. 시험절차</td><td><input class="dp-inp" data-field="dp_5_3_2" type="text" value="\${E(v('dp_5_3_2'))}"></td></tr>
+    <tr><td class="dp-lbl">5.3.1. 시험장소</td><td><input class="dp-inp" data-field="dp_5_3_1" type="text" value="\${E(v('dp_5_3_1'))}"></td></tr>
+    <tr><td class="dp-lbl">5.3.2. 시험절차</td><td><input class="dp-inp" data-field="dp_5_3_2" type="text" value="\${E(v('dp_5_3_2'))}"></td></tr>
     <tr><th class="dp-sub-th" colspan="2">5.4. 전기자동차 1회 충전주행거리 시험</th></tr>
-    <tr><td class="dp-lbl">5.4.1. 시험장소</td><td><input class="dp-inp" data-field="dp_5_4_1" type="text" value="\${E(v('dp_5_4_1'))}"></td></tr>
-    <tr><td class="dp-lbl">5.4.2. 시험절차</td><td><input class="dp-inp" data-field="dp_5_4_2" type="text" value="\${E(v('dp_5_4_2'))}"></td></tr>
+    <tr><td class="dp-lbl">5.4.1. 시험장소</td><td><input class="dp-inp" data-field="dp_5_4_1" type="text" value="\${E(v('dp_5_4_1'))}"></td></tr>
+    <tr><td class="dp-lbl">5.4.2. 시험절차</td><td><input class="dp-inp" data-field="dp_5_4_2" type="text" value="\${E(v('dp_5_4_2'))}"></td></tr>
   </tbody>
 </table>
 
@@ -5591,8 +5591,8 @@ if (formType==='detail_plan') return \`
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:15%;"><col style="width:15%;"><col style="width:10%;"><col style="width:10%;"><col style="width:10%;"><col style="width:10%;"><col style="width:10%;"><col style="width:20%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="8">6. 정비 및 보증</th></tr>
-    <tr><th class="dp-sub-th" colspan="8">6.1.1. 시험차량의 정기정비</th></tr>
+    <tr><th class="dp-sec-th" colspan="8">6.  정비 및 보증</th></tr>
+    <tr><th class="dp-sub-th" colspan="8">6.1.1. 시험차량의 정기정비</th></tr>
     <tr>
       <th class="dp-th">구분</th><th class="dp-th">항목</th>
       \${[0,1,2,3,4].map(ki=>\`<th class="dp-th"><input class="dp-inp" data-field="dp_6_1_1_km_\${ki}" type="text" value="\${E(v(\`dp_6_1_1_km_\${ki}\`))}" placeholder="km" style="text-align:center;width:100%;"></th>\`).join('')}
@@ -5603,7 +5603,7 @@ if (formType==='detail_plan') return \`
       \${[0,1,2,3,4].map(ki=>\`<td><input class="dp-inp" data-field="dp_6_1_1_\${ci}_\${ki}" type="text" value="\${E(v(\`dp_6_1_1_\${ci}_\${ki}\`))}"></td>\`).join('')}
       <td><input class="dp-inp" data-field="dp_6_1_1_\${ci}_note" type="text" value="\${E(v(\`dp_6_1_1_\${ci}_note\`))}"></td>
     </tr>\`).join('')}
-    <tr><th class="dp-sub-th" colspan="8">6.1.2. 정기정비 세부사항</th></tr>
+    <tr><th class="dp-sub-th" colspan="8">6.1.2. 정기정비 세부사항</th></tr>
     \${['A. 엔진','B. 점화장치','C. 샤시','D. 기타'].map((lbl,li)=>\`<tr>
       <td class="dp-lbl">\${lbl}</td><td class="dp-lbl"></td>
       <td colspan="6">
@@ -5635,7 +5635,7 @@ if (formType==='detail_plan') return \`
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:28%;"><col style="width:72%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="2">7. 배출가스 표지판</th></tr>
+    <tr><th class="dp-sec-th" colspan="2">7.  배출가스 표지판</th></tr>
     <tr>
       <td class="dp-lbl">7.1. 견본</td>
       <td>
@@ -5673,7 +5673,7 @@ if (formType==='detail_plan') return \`
     <col style="width:13%;"><col style="width:14%;"><col style="width:28%;"><col style="width:27%;"><col style="width:18%;">
   </colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="5">8. 배출가스 제어기술</th></tr>
+    <tr><th class="dp-sec-th" colspan="5">8.  배출가스 제어기술</th></tr>
     \${[
       ['8.1. 연료장치','dp_8_1',['연료공급계','연료제어계','연료분사계']],
       ['8.2. 흡배기장치','dp_8_2',['흡기장치','배기장치']],
@@ -5810,10 +5810,10 @@ if (formType==='detail_plan') return \`
   <colgroup><col style="width:35%;"><col style="width:65%;"></colgroup>
   <tbody>
     <tr><th class="dp-sub-th" colspan="2">8.14. 전기자동차 제어장치</th></tr>
-    <tr><td class="dp-lbl">8.14.1. 전동기 및 전동기 제어장치</td><td>
+    <tr><td class="dp-lbl">8.14.1. 전동기 및 전동기 제어장치</td><td>
       <div class="dp-field"><textarea class="dp-field-text" data-field="dp_8_14_1" rows="2" placeholder="전동기 및 전동기 제어장치 설명">\${E(v('dp_8_14_1'))}</textarea></div>
     </td></tr>
-    <tr><td class="dp-lbl">8.14.2. 축전지 및 축전지 제어장치</td><td>
+    <tr><td class="dp-lbl">8.14.2. 축전지 및 축전지 제어장치</td><td>
       <div class="dp-field"><textarea class="dp-field-text" data-field="dp_8_14_2" rows="2" placeholder="축전지 및 축전지 제어장치 설명">\${E(v('dp_8_14_2'))}</textarea></div>
     </td></tr>
   </tbody>
@@ -5823,7 +5823,7 @@ if (formType==='detail_plan') return \`
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:20%;"><col style="width:20%;"><col style="width:20%;"><col style="width:40%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="4">9. 증발가스 및 브로바이 가스</th></tr>
+    <tr><th class="dp-sec-th" colspan="4">9.  증발가스 및 브로바이 가스</th></tr>
     <tr><th class="dp-sub-th" colspan="4">9.1. 증발가스 제어장치 설명</th></tr>
     <tr>
       <th class="dp-th">저장 장치</th>
@@ -5875,7 +5875,7 @@ if (formType==='detail_plan') return \`
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:35%;"><col style="width:32.5%;"><col style="width:32.5%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="3">10. 동일차종(원동기)</th></tr>
+    <tr><th class="dp-sec-th" colspan="3">10.  동일차종(원동기)</th></tr>
     <tr><th class="dp-sub-th" colspan="3">10.1. 배출가스 및 소음 동일차종(원동기) 설명</th></tr>
     <tr>
       <th class="dp-th">구 분</th>
@@ -5970,7 +5970,7 @@ if (formType==='detail_plan') return \`
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:30%;"><col style="width:35%;"><col style="width:35%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="3">11. 시험차량</th></tr>
+    <tr><th class="dp-sec-th" colspan="3">11.  시험차량</th></tr>
     <tr><th class="dp-sub-th" colspan="3">11.1. 시험차량 선정</th></tr>
     <tr>
       <th class="dp-th">구 분</th>
@@ -6040,7 +6040,7 @@ if (formType==='detail_plan') return \`
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:100%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th">12. 교정정보 및 사후확정정보 제출협약</th></tr>
+    <tr><th class="dp-sec-th">12.  교정정보 및 사후확정정보 제출협약</th></tr>
     <tr><td style="font-size:7.5pt;color:#555;padding:4px 6px;">
       내구성 시험을 실시하는 경우로서 인증신청 당시까지 세부개발계획이 확정되지 않는 등 불가피한 사유로 최초 제출하는 신청서류에 기재할 수 없는 사항이 있는 경우 그 사유를 명시하고, 내구성시험 최종보고서 제출 시 확정된 사항을 일괄적으로 제출할 수 있다.
     </td></tr>
@@ -6054,7 +6054,7 @@ if (formType==='detail_plan') return \`
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:100%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th">13. 기타</th></tr>
+    <tr><th class="dp-sec-th">13.  기타</th></tr>
     <tr><td>
       <div class="dp-field">
         <textarea class="dp-field-text" data-field="dp_13" rows="3" placeholder="기타 사항">\${E(v('dp_13'))}</textarea>

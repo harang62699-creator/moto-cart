@@ -10243,7 +10243,7 @@ function showToast(msg, type='info') {
     '  .field-img-thumbs { display:flex !important; }',
     '  .field-img-thumbs img { width:60px;height:60px; }',
     '}'
-  ].join('\n');
+  ].join(' ');
   document.head.appendChild(style);
 
   // ── 상태 ─────────────────────────────────────────────────────────
@@ -10944,7 +10944,15 @@ document.addEventListener('DOMContentLoaded', () => {
 </body>
 </html>`;
 
-app.get('/', (c) => c.html(HTML))
-app.get('*', (c) => c.html(HTML))
+app.get('/', (c) => {
+  c.header('Cache-Control', 'no-store, no-cache, must-revalidate')
+  c.header('Pragma', 'no-cache')
+  return c.html(HTML)
+})
+app.get('*', (c) => {
+  c.header('Cache-Control', 'no-store, no-cache, must-revalidate')
+  c.header('Pragma', 'no-cache')
+  return c.html(HTML)
+})
 
 export default app

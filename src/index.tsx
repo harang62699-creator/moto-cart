@@ -6278,71 +6278,155 @@ if (formType==='detail_plan') return \`
 </table>
 
 <!-- ══ 11. 시험차량 ══ -->
+<!-- ── 11.1 시험차량 선정 (4컬럼, 배출가스제어장치 rowspan=2) ── -->
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
-  <colgroup><col style="width:30%;"><col style="width:35%;"><col style="width:35%;"></colgroup>
+  <colgroup>
+    <col style="width:20%;"><col style="width:15%;"><col style="width:32.5%;"><col style="width:32.5%;">
+  </colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="3">11.  시험차량</th></tr>
-    <tr><th class="dp-sub-th" colspan="3">11.1. 시험차량 선정</th></tr>
+    <tr><th class="dp-sec-th" colspan="4">11.  시험차량</th></tr>
+    <tr><th class="dp-sub-th" colspan="4">11.1. 시험차량 선정</th></tr>
     <tr>
-      <th class="dp-th">구 분</th>
+      <th class="dp-th" colspan="2">구 분</th>
       <th class="dp-th">내구성 시험차량</th>
       <th class="dp-th">배출가스시험차량</th>
     </tr>
+    <!-- 단순 1행 항목들 -->
     \${[
       ['차대번호(엔진번호)','dp_11_1_vin'],['배기량(cc)','dp_11_1_disp'],
       ['엔진코드','dp_11_1_eng_code'],['증발가스 코드','dp_11_1_evap_code'],
       ['촉매코드','dp_11_1_cat_code'],
-      ['배출가스 제어장치 배출가스','dp_11_1_ctrl_em'],
-      ['배출가스 제어장치 증발가스','dp_11_1_ctrl_evap'],
+    ].map(([lbl,fld])=>\`<tr>
+      <td class="dp-lbl" colspan="2">\${lbl}</td>
+      <td><input class="dp-inp" data-field="\${fld}_dur" type="text" value="\${E(v(\`\${fld}_dur\`))}"></td>
+      <td><input class="dp-inp" data-field="\${fld}_em" type="text" value="\${E(v(\`\${fld}_em\`))}"></td>
+    </tr>\`).join('')}
+    <!-- 배출가스 제어장치 rowspan=2 -->
+    <tr>
+      <td class="dp-lbl" rowspan="2">배출가스<br>제어장치</td>
+      <td class="dp-lbl">배출가스</td>
+      <td><input class="dp-inp" data-field="dp_11_1_ctrl_em_dur" type="text" value="\${E(v('dp_11_1_ctrl_em_dur'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_1_ctrl_em_em" type="text" value="\${E(v('dp_11_1_ctrl_em_em'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">증발가스</td>
+      <td><input class="dp-inp" data-field="dp_11_1_ctrl_evap_dur" type="text" value="\${E(v('dp_11_1_ctrl_evap_dur'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_1_ctrl_evap_em" type="text" value="\${E(v('dp_11_1_ctrl_evap_em'))}"></td>
+    </tr>
+    <!-- 나머지 단순 항목들 -->
+    \${[
       ['모델명','dp_11_1_model'],['변속기 형태','dp_11_1_trans'],
       ['변속 절차','dp_11_1_trans_proc'],['등가관성 중량(kg)','dp_11_1_inertia'],
       ['종 감속기','dp_11_1_final_red'],['N/V 비, RRM/KPH','dp_11_1_nv'],
-      ['전륜 타이어','dp_11_1_tire_f'],['후륜 타이어','dp_11_1_tire_r'],
+      ['타이어','dp_11_1_tire'],
+      ['비고','dp_11_1_note'],
     ].map(([lbl,fld])=>\`<tr>
-      <td class="dp-lbl">\${lbl}</td>
-      <td><input class="dp-inp" data-field="\${fld}_dur" type="text" value="\${E(v('\${fld}_dur'))}"></td>
-      <td><input class="dp-inp" data-field="\${fld}_em" type="text" value="\${E(v('\${fld}_em'))}"></td>
+      <td class="dp-lbl" colspan="2">\${lbl}</td>
+      <td><input class="dp-inp" data-field="\${fld}_dur" type="text" value="\${E(v(\`\${fld}_dur\`))}"></td>
+      <td><input class="dp-inp" data-field="\${fld}_em" type="text" value="\${E(v(\`\${fld}_em\`))}"></td>
     </tr>\`).join('')}
+  </tbody>
+</table>
+
+<!-- ── 11.2 내구성 시험차량 선정 ── -->
+<table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
+  <colgroup>
+    <col style="width:34%;"><col style="width:33%;"><col style="width:33%;">
+  </colgroup>
+  <tbody>
     <tr><th class="dp-sub-th" colspan="3">11.2. 내구성 시험차량 선정</th></tr>
     <tr>
       <th class="dp-th">구 분</th>
-      <th class="dp-th">자동차 형식</th>
-      <th class="dp-th">비고</th>
+      <th class="dp-th">자동차 형식 1</th>
+      <th class="dp-th">자동차 형식 2</th>
     </tr>
-    \${[0,1,2].map(i=>\`<tr>
-      <td class="dp-lbl">내구성차량 \${i+1}</td>
-      <td><input class="dp-inp" data-field="dp_11_2_\${i}_type" type="text" value="\${E(v(\`dp_11_2_\${i}_type\`))}"></td>
-      <td><input class="dp-inp" data-field="dp_11_2_\${i}_note" type="text" value="\${E(v(\`dp_11_2_\${i}_note\`))}"></td>
-    </tr>\`).join('')}
-    <tr><th class="dp-sub-th" colspan="3">11.3. 배출가스 시험차량 선정 (A. 차대 동력계를 사용하는 경우)</th></tr>
-    <tr><th class="dp-th">항 목</th><th class="dp-th" colspan="2">자동차 형식</th></tr>
     \${[
-      '동일차종 중 등가관성중량이 가장 큰 것',
-      '상기 조건 내에서 도로 부하력이 가장 큰 것',
-      '상기 조건 내에서 배기량이 가장 큰 것',
-      '상기 조건 내에서 가장 높은 최종기어비를 갖는 변속기',
-      '상기 조건 내에서 연료탱크 용량이 가장 큰 것',
-    ].map((item,ii)=>\`<tr>
-      <td class="dp-lbl">\${item}</td>
-      <td colspan="2"><input class="dp-inp" data-field="dp_11_3_a_\${ii}" type="text" value="\${E(v(\`dp_11_3_a_\${ii}\`))}"></td>
+      ['자동차 형식','dp_11_2_type'],['변속기','dp_11_2_trans'],
+      ['원동기 형식','dp_11_2_eng'],['배기량','dp_11_2_disp'],
+      ['공차중량','dp_11_2_weight'],['등가관성중량','dp_11_2_inertia'],
+      ['도로부하마력','dp_11_2_roadload'],['연료탱크용량','dp_11_2_tankVol'],
+      ['종 감속비(제1감속비)','dp_11_2_finalRed'],['판매대수','dp_11_2_sales'],
+    ].map(([lbl,fld])=>\`<tr>
+      <td class="dp-lbl">\${lbl}</td>
+      <td><input class="dp-inp" data-field="\${fld}_1" type="text" value="\${E(v(\`\${fld}_1\`))}"></td>
+      <td><input class="dp-inp" data-field="\${fld}_2" type="text" value="\${E(v(\`\${fld}_2\`))}"></td>
     </tr>\`).join('')}
-    <tr><th class="dp-sub-th" colspan="3">11.3. 배출가스 시험차량 선정 (B. 원동기동력계를 사용하는 경우)</th></tr>
+  </tbody>
+</table>
+
+<!-- ── 11.3 배출가스 시험차량 선정 ── -->
+<table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
+  <colgroup>
+    <col style="width:40%;"><col style="width:30%;"><col style="width:30%;">
+  </colgroup>
+  <tbody>
+    <tr><th class="dp-sub-th" colspan="3">11.3. 배출가스 시험차량 선정</th></tr>
+    <!-- A. 차대 동력계 -->
+    <tr>
+      <td class="dp-lbl" colspan="3" style="font-weight:600; background:#f5f5f5;">
+        A. 차대 동력계를 사용하는 경우 :
+      </td>
+    </tr>
+    <tr>
+      <th class="dp-th">항 목</th>
+      <th class="dp-th">자동차 형식 1</th>
+      <th class="dp-th">자동차 형식 2</th>
+    </tr>
     \${[
-      '최고 토오크 시 속도에서 행정당 연료배분율이 가장 큰 원동기',
-      '최고 속도 시 행정당 연료배분율이 가장 큰 원동기',
-    ].map((item,ii)=>\`<tr>
-      <td class="dp-lbl">\${item}</td>
-      <td colspan="2"><input class="dp-inp" data-field="dp_11_3_b_\${ii}" type="text" value="\${E(v(\`dp_11_3_b_\${ii}\`))}"></td>
+      ['자동차 형식','dp_11_3_a_type'],
+      ['동일차종 중 등가관성중량이 가장 큰 것','dp_11_3_a_0'],
+      ['상기 조건 내에서 도로 부하력이 가장 큰 것','dp_11_3_a_1'],
+      ['상기 조건 내에서 배기량이 가장 큰 것','dp_11_3_a_2'],
+      ['상기 조건 내에서 가장 높은 최종기어비를 갖는 변속기','dp_11_3_a_3'],
+      ['상기 조건 내에서 연료탱크 용량이 가장 큰 것','dp_11_3_a_4'],
+    ].map(([lbl,fld])=>\`<tr>
+      <td class="dp-lbl">\${lbl}</td>
+      <td><input class="dp-inp" data-field="\${fld}_1" type="text" value="\${E(v(\`\${fld}_1\`))}"></td>
+      <td><input class="dp-inp" data-field="\${fld}_2" type="text" value="\${E(v(\`\${fld}_2\`))}"></td>
     </tr>\`).join('')}
+    <!-- B. 원동기 동력계 -->
+    <tr>
+      <td class="dp-lbl" colspan="3" style="font-weight:600; background:#f5f5f5;">
+        B. 원동기동력계를 사용하는 경우 :
+      </td>
+    </tr>
+    <tr>
+      <th class="dp-th">항 목</th>
+      <th class="dp-th">자동차 형식 1</th>
+      <th class="dp-th">자동차 형식 2</th>
+    </tr>
+    \${[
+      ['최고 토오크 시 속도에서 행정당 연료배분율이 가장 큰 원동기','dp_11_3_b_0'],
+      ['최고 속도 시 행정당 연료배분율이 가장 큰 원동기','dp_11_3_b_1'],
+    ].map(([lbl,fld])=>\`<tr>
+      <td class="dp-lbl">\${lbl}</td>
+      <td><input class="dp-inp" data-field="\${fld}_1" type="text" value="\${E(v(\`\${fld}_1\`))}"></td>
+      <td><input class="dp-inp" data-field="\${fld}_2" type="text" value="\${E(v(\`\${fld}_2\`))}"></td>
+    </tr>\`).join('')}
+  </tbody>
+</table>
+
+<!-- ── 11.4 소음 시험차량 선정 ── -->
+<table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
+  <colgroup>
+    <col style="width:40%;"><col style="width:30%;"><col style="width:30%;">
+  </colgroup>
+  <tbody>
     <tr><th class="dp-sub-th" colspan="3">11.4. 소음 시험차량 선정</th></tr>
+    <tr>
+      <th class="dp-th">항 목</th>
+      <th class="dp-th">자동차 형식 1</th>
+      <th class="dp-th">자동차 형식 2</th>
+    </tr>
     \${[
-      '공차중량이 가장 무거운 자동차',
-      '배기량이 가장 큰 자동차',
-      '최종기어비율이 가장 높은 변속기를 장착한 자동차',
-      '차축비가 가장 높은 자동차',
-    ].map((item,ii)=>\`<tr>
-      <td class="dp-lbl">\${item}</td>
-      <td colspan="2"><input class="dp-inp" data-field="dp_11_4_\${ii}" type="text" value="\${E(v(\`dp_11_4_\${ii}\`))}"></td>
+      ['공차중량이 가장 무거운 자동차','dp_11_4_0'],
+      ['배기량이 가장 큰 자동차','dp_11_4_1'],
+      ['최종기어비율(오버드라이브를 포함한다)이 가장 높은 변속기를 장착한 자동차','dp_11_4_2'],
+      ['차축비가 가장 높은 자동차','dp_11_4_3'],
+    ].map(([lbl,fld])=>\`<tr>
+      <td class="dp-lbl">\${lbl}</td>
+      <td><input class="dp-inp" data-field="\${fld}_1" type="text" value="\${E(v(\`\${fld}_1\`))}"></td>
+      <td><input class="dp-inp" data-field="\${fld}_2" type="text" value="\${E(v(\`\${fld}_2\`))}"></td>
     </tr>\`).join('')}
   </tbody>
 </table>

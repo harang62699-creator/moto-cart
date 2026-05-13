@@ -3911,7 +3911,6 @@ function printDetailPlanToc() {
     + '</tr></tbody></table>'
     + '<div class="tag">'+LL('dp_doc_tag')+'</div>'
     + '<div class="main-title">'+LL('dp_doc_title')+'</div>'
-    + '<div class="sec-title">'+LL('dp_toc_title')+'</div>'
     + '<table><colgroup><col style="width:18%;"><col style="width:82%;"></colgroup>'
     + '<thead><tr>'
     + '<th style="background:#dbe8f8;border:1px solid #aac;padding:4px 8px;font-size:9pt;">'+LL('dp_toc_num')+'</th>'

@@ -5330,13 +5330,14 @@ if (formType==='detail_plan') return \`
 </table>
 
 <!-- ══ 1.4 인증대상자동차 제원 ══ -->
+<!-- ── Page 1: 자동차 제원 + 치수 ── -->
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:20%;"><col style="width:20%;"><col style="width:60%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sub-th" colspan="3">1.4. 인증대상자동차 제원</th></tr>
-    <tr><td class="dp-lbl" rowspan="15">자동차 제원</td><td class="dp-lbl">차명</td><td><input class="dp-inp" data-field="dp_1_4_carname" type="text" value="\${E(v('dp_1_4_carname'))}"></td></tr>
-    <tr><td class="dp-lbl">자동차 형식</td><td><input class="dp-inp" data-field="dp_1_4_type" type="text" value="\${E(v('dp_1_4_type'))}"></td></tr>
-    <tr><td class="dp-lbl">제작사</td><td><input class="dp-inp" data-field="dp_1_4_maker" type="text" value="\${E(v('dp_1_4_maker'))}"></td></tr>
+    <tr><th class="dp-sub-th" colspan="3">1.4.&nbsp;인증대상자동차 제원</th></tr>
+    <tr><td class="dp-lbl" colspan="2">차명</td><td><input class="dp-inp" data-field="dp_1_4_carname" type="text" value="\${E(v('dp_1_4_carname'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">자동차 형식</td><td><input class="dp-inp" data-field="dp_1_4_type" type="text" value="\${E(v('dp_1_4_type'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="13">자동차 제원</td><td class="dp-lbl">제작사</td><td><input class="dp-inp" data-field="dp_1_4_maker" type="text" value="\${E(v('dp_1_4_maker'))}"></td></tr>
     <tr><td class="dp-lbl">승차인원</td><td><input class="dp-inp" data-field="dp_1_4_passenger" type="text" value="\${E(v('dp_1_4_passenger'))}"></td></tr>
     <tr><td class="dp-lbl">모델년도</td><td><input class="dp-inp" data-field="dp_1_4_modelyear" type="text" value="\${E(v('dp_1_4_modelyear'))}"></td></tr>
     <tr><td class="dp-lbl">제원관리번호</td><td><input class="dp-inp" data-field="dp_1_4_specno" type="text" value="\${E(v('dp_1_4_specno'))}"></td></tr>
@@ -5352,73 +5353,80 @@ if (formType==='detail_plan') return \`
     <tr><td class="dp-lbl" rowspan="3">치수</td><td class="dp-lbl">전장(mm)</td><td><input class="dp-inp" data-field="dp_1_4_len" type="text" value="\${E(v('dp_1_4_len'))}"></td></tr>
     <tr><td class="dp-lbl">전폭(mm)</td><td><input class="dp-inp" data-field="dp_1_4_width" type="text" value="\${E(v('dp_1_4_width'))}"></td></tr>
     <tr><td class="dp-lbl">전고(mm)</td><td><input class="dp-inp" data-field="dp_1_4_height" type="text" value="\${E(v('dp_1_4_height'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="18">원동기</td><td class="dp-lbl">제작회사</td><td><input class="dp-inp" data-field="dp_1_4_eng_maker" type="text" value="\${E(v('dp_1_4_eng_maker'))}"></td></tr>
-    <tr><td class="dp-lbl">연소방식</td><td><input class="dp-inp" data-field="dp_1_4_eng_comb" type="text" value="\${E(v('dp_1_4_eng_comb'))}"></td></tr>
-    <tr><td class="dp-lbl">원동기 형식</td><td><input class="dp-inp" data-field="dp_1_4_eng_type" type="text" value="\${E(v('dp_1_4_eng_type'))}"></td></tr>
-    <tr><td class="dp-lbl">배기량(cc)</td><td><input class="dp-inp" data-field="dp_1_4_eng_disp" type="text" value="\${E(v('dp_1_4_eng_disp'))}"></td></tr>
-    <tr><td class="dp-lbl">원동기부착위치</td><td><input class="dp-inp" data-field="dp_1_4_eng_pos" type="text" value="\${E(v('dp_1_4_eng_pos'))}"></td></tr>
-    <tr><td class="dp-lbl">사용연료</td><td><input class="dp-inp" data-field="dp_1_4_eng_fuel" type="text" value="\${E(v('dp_1_4_eng_fuel'))}"></td></tr>
-    <tr><td class="dp-lbl">실린더 수</td><td><input class="dp-inp" data-field="dp_1_4_eng_cyl" type="text" value="\${E(v('dp_1_4_eng_cyl'))}"></td></tr>
-    <tr><td class="dp-lbl">실린더 배열</td><td><input class="dp-inp" data-field="dp_1_4_eng_cylarr" type="text" value="\${E(v('dp_1_4_eng_cylarr'))}"></td></tr>
-    <tr><td class="dp-lbl">연소실 형식</td><td><input class="dp-inp" data-field="dp_1_4_eng_chamber" type="text" value="\${E(v('dp_1_4_eng_chamber'))}"></td></tr>
-    <tr><td class="dp-lbl">최대출력(ps/rpm)</td><td><input class="dp-inp" data-field="dp_1_4_eng_maxpow" type="text" value="\${E(v('dp_1_4_eng_maxpow'))}"></td></tr>
-    <tr><td class="dp-lbl">최대토크(kg-m/rpm)</td><td><input class="dp-inp" data-field="dp_1_4_eng_maxtq" type="text" value="\${E(v('dp_1_4_eng_maxtq'))}"></td></tr>
-    <tr><td class="dp-lbl">보어*스트로크(mm)</td><td><input class="dp-inp" data-field="dp_1_4_eng_bore" type="text" value="\${E(v('dp_1_4_eng_bore'))}"></td></tr>
-    <tr><td class="dp-lbl">공회전속도(rpm)</td><td><input class="dp-inp" data-field="dp_1_4_eng_idle" type="text" value="\${E(v('dp_1_4_eng_idle'))}"></td></tr>
-    <tr><td class="dp-lbl">냉각방식</td><td><input class="dp-inp" data-field="dp_1_4_eng_cool" type="text" value="\${E(v('dp_1_4_eng_cool'))}"></td></tr>
-    <tr><td class="dp-lbl">공기흡입방식</td><td><input class="dp-inp" data-field="dp_1_4_eng_intake" type="text" value="\${E(v('dp_1_4_eng_intake'))}"></td></tr>
-    <tr><td class="dp-lbl">압축비</td><td><input class="dp-inp" data-field="dp_1_4_compress" type="text" value="\${E(v('dp_1_4_compress'))}"></td></tr>
-    <tr><td class="dp-lbl">점화시기(Degree)</td><td><input class="dp-inp" data-field="dp_1_4_ign_timing" type="text" value="\${E(v('dp_1_4_ign_timing'))}"></td></tr>
-    <tr><td class="dp-lbl">연료공급방식</td><td><input class="dp-inp" data-field="dp_1_4_fuel_supply" type="text" value="\${E(v('dp_1_4_fuel_supply'))}"></td></tr>
+  </tbody>
+</table>
+
+<!-- ── Page 2: 원동기 + 연료장치 ── -->
+<table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
+  <colgroup><col style="width:20%;"><col style="width:20%;"><col style="width:20%;"><col style="width:40%;"></colgroup>
+  <tbody>
+    <tr><td class="dp-lbl" rowspan="19">원동기</td><td class="dp-lbl" colspan="2">제작회사</td><td><input class="dp-inp" data-field="dp_1_4_eng_maker" type="text" value="\${E(v('dp_1_4_eng_maker'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">연소방식</td><td><input class="dp-inp" data-field="dp_1_4_eng_comb" type="text" value="\${E(v('dp_1_4_eng_comb'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">원동기 형식</td><td><input class="dp-inp" data-field="dp_1_4_eng_type" type="text" value="\${E(v('dp_1_4_eng_type'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">배기량(cc)</td><td><input class="dp-inp" data-field="dp_1_4_eng_disp" type="text" value="\${E(v('dp_1_4_eng_disp'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">원동기부착위치</td><td><input class="dp-inp" data-field="dp_1_4_eng_pos" type="text" value="\${E(v('dp_1_4_eng_pos'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">사용연료</td><td><input class="dp-inp" data-field="dp_1_4_eng_fuel" type="text" value="\${E(v('dp_1_4_eng_fuel'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">실린더 수</td><td><input class="dp-inp" data-field="dp_1_4_eng_cyl" type="text" value="\${E(v('dp_1_4_eng_cyl'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">실린더 배열</td><td><input class="dp-inp" data-field="dp_1_4_eng_cylarr" type="text" value="\${E(v('dp_1_4_eng_cylarr'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">연소실 형식</td><td><input class="dp-inp" data-field="dp_1_4_eng_chamber" type="text" value="\${E(v('dp_1_4_eng_chamber'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">최대출력(ps/rpm)</td><td><input class="dp-inp" data-field="dp_1_4_eng_maxpow" type="text" value="\${E(v('dp_1_4_eng_maxpow'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">최대토크(kg-m/rpm)</td><td><input class="dp-inp" data-field="dp_1_4_eng_maxtq" type="text" value="\${E(v('dp_1_4_eng_maxtq'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">보어*스트로크(mm)</td><td><input class="dp-inp" data-field="dp_1_4_eng_bore" type="text" value="\${E(v('dp_1_4_eng_bore'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">공회전속도(rpm)</td><td><input class="dp-inp" data-field="dp_1_4_eng_idle" type="text" value="\${E(v('dp_1_4_eng_idle'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">냉각방식</td><td><input class="dp-inp" data-field="dp_1_4_eng_cool" type="text" value="\${E(v('dp_1_4_eng_cool'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">공기흡입방식</td><td><input class="dp-inp" data-field="dp_1_4_eng_intake" type="text" value="\${E(v('dp_1_4_eng_intake'))}"></td></tr>
     <tr><td class="dp-lbl" rowspan="2">흡기매니폴드</td><td class="dp-lbl">포트크기</td><td><input class="dp-inp" data-field="dp_1_4_inm_size" type="text" value="\${E(v('dp_1_4_inm_size'))}"></td></tr>
     <tr><td class="dp-lbl">포트형상</td><td><input class="dp-inp" data-field="dp_1_4_inm_shape" type="text" value="\${E(v('dp_1_4_inm_shape'))}"></td></tr>
     <tr><td class="dp-lbl" rowspan="2">배기매니폴드</td><td class="dp-lbl">포트크기(mm)</td><td><input class="dp-inp" data-field="dp_1_4_exm_size" type="text" value="\${E(v('dp_1_4_exm_size'))}"></td></tr>
     <tr><td class="dp-lbl">포트형상</td><td><input class="dp-inp" data-field="dp_1_4_exm_shape" type="text" value="\${E(v('dp_1_4_exm_shape'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="5">연료탱크</td><td class="dp-lbl">용량(ℓ)</td><td><input class="dp-inp" data-field="dp_1_4_tank_vol" type="text" value="\${E(v('dp_1_4_tank_vol'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="8">연료장치</td><td class="dp-lbl" colspan="2">압축비</td><td><input class="dp-inp" data-field="dp_1_4_compress" type="text" value="\${E(v('dp_1_4_compress'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">점화시기(Degree)</td><td><input class="dp-inp" data-field="dp_1_4_ign_timing" type="text" value="\${E(v('dp_1_4_ign_timing'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">연료공급방식</td><td><input class="dp-inp" data-field="dp_1_4_fuel_supply" type="text" value="\${E(v('dp_1_4_fuel_supply'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="3">연료탱크</td><td class="dp-lbl">용량(ℓ)</td><td><input class="dp-inp" data-field="dp_1_4_tank_vol" type="text" value="\${E(v('dp_1_4_tank_vol'))}"></td></tr>
     <tr><td class="dp-lbl">위치</td><td><input class="dp-inp" data-field="dp_1_4_tank_pos" type="text" value="\${E(v('dp_1_4_tank_pos'))}"></td></tr>
     <tr><td class="dp-lbl">재질</td><td><input class="dp-inp" data-field="dp_1_4_tank_mat" type="text" value="\${E(v('dp_1_4_tank_mat'))}"></td></tr>
-    <tr><td class="dp-lbl">제어공기 형식</td><td><input class="dp-inp" data-field="dp_1_4_air_type" type="text" value="\${E(v('dp_1_4_air_type'))}"></td></tr>
-    <tr><td class="dp-lbl">청정기 수</td><td><input class="dp-inp" data-field="dp_1_4_filter_cnt" type="text" value="\${E(v('dp_1_4_filter_cnt'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="2">클러치</td><td class="dp-lbl">형식</td><td><input class="dp-inp" data-field="dp_1_4_clutch_type" type="text" value="\${E(v('dp_1_4_clutch_type'))}"></td></tr>
+    <tr><td class="dp-lbl">제어공기</td><td class="dp-lbl">형식</td><td><input class="dp-inp" data-field="dp_1_4_air_type" type="text" value="\${E(v('dp_1_4_air_type'))}"></td></tr>
+    <tr><td class="dp-lbl">청정기</td><td class="dp-lbl">수</td><td><input class="dp-inp" data-field="dp_1_4_filter_cnt" type="text" value="\${E(v('dp_1_4_filter_cnt'))}"></td></tr>
+  </tbody>
+</table>
+
+<!-- ── Page 3: 동력전달장치 + 전기자동차 + 타이어 ── -->
+<table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
+  <colgroup><col style="width:20%;"><col style="width:20%;"><col style="width:20%;"><col style="width:40%;"></colgroup>
+  <tbody>
+    <tr><td class="dp-lbl" rowspan="16">동력전달장치</td><td class="dp-lbl" rowspan="2">클러치</td><td class="dp-lbl">형식</td><td><input class="dp-inp" data-field="dp_1_4_clutch_type" type="text" value="\${E(v('dp_1_4_clutch_type'))}"></td></tr>
     <tr><td class="dp-lbl">조작방식</td><td><input class="dp-inp" data-field="dp_1_4_clutch_op" type="text" value="\${E(v('dp_1_4_clutch_op'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="3">변속기</td><td class="dp-lbl">형식 전진</td><td><input class="dp-inp" data-field="dp_1_4_trans_fwd" type="text" value="\${E(v('dp_1_4_trans_fwd'))}"></td></tr>
+    <tr><td class="dp-lbl">형식 후진</td><td><input class="dp-inp" data-field="dp_1_4_trans_rev" type="text" value="\${E(v('dp_1_4_trans_rev'))}"></td></tr>
+    <tr><td class="dp-lbl">조작방식</td><td><input class="dp-inp" data-field="dp_1_4_trans_op" type="text" value="\${E(v('dp_1_4_trans_op'))}"></td></tr>
+    <tr><td class="dp-lbl">변속비</td><td class="dp-lbl">1단</td><td><input class="dp-inp" data-field="dp_1_4_gear_1" type="text" value="\${E(v('dp_1_4_gear_1'))}"></td></tr>
+    <tr><td class="dp-lbl">변속비</td><td class="dp-lbl">2단</td><td><input class="dp-inp" data-field="dp_1_4_gear_2" type="text" value="\${E(v('dp_1_4_gear_2'))}"></td></tr>
+    <tr><td class="dp-lbl">변속비</td><td class="dp-lbl">3단</td><td><input class="dp-inp" data-field="dp_1_4_gear_3" type="text" value="\${E(v('dp_1_4_gear_3'))}"></td></tr>
+    <tr><td class="dp-lbl">변속비</td><td class="dp-lbl">4단</td><td><input class="dp-inp" data-field="dp_1_4_gear_4" type="text" value="\${E(v('dp_1_4_gear_4'))}"></td></tr>
+    <tr><td class="dp-lbl">변속비</td><td class="dp-lbl">5단</td><td><input class="dp-inp" data-field="dp_1_4_gear_5" type="text" value="\${E(v('dp_1_4_gear_5'))}"></td></tr>
+    <tr><td class="dp-lbl">변속비</td><td class="dp-lbl">6단</td><td><input class="dp-inp" data-field="dp_1_4_gear_6" type="text" value="\${E(v('dp_1_4_gear_6'))}"></td></tr>
+    <tr><td class="dp-lbl">변속비</td><td class="dp-lbl">7단</td><td><input class="dp-inp" data-field="dp_1_4_gear_7" type="text" value="\${E(v('dp_1_4_gear_7'))}"></td></tr>
+    <tr><td class="dp-lbl">변속비</td><td class="dp-lbl">후진</td><td><input class="dp-inp" data-field="dp_1_4_gear_8" type="text" value="\${E(v('dp_1_4_gear_8'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="2">감속비</td><td class="dp-lbl">제1 감속비</td><td><input class="dp-inp" data-field="dp_1_4_red1" type="text" value="\${E(v('dp_1_4_red1'))}"></td></tr>
+    <tr><td class="dp-lbl">제2 감속비</td><td><input class="dp-inp" data-field="dp_1_4_red2" type="text" value="\${E(v('dp_1_4_red2'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">N/V 비</td><td><input class="dp-inp" data-field="dp_1_4_nv" type="text" value="\${E(v('dp_1_4_nv'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="4">전기자동차 관련 제원</td><td class="dp-lbl" colspan="2">전동기 형식</td><td><input class="dp-inp" data-field="dp_1_4_ev_motor" type="text" value="\${E(v('dp_1_4_ev_motor'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">축전지 정격전압 및 용량</td><td><input class="dp-inp" data-field="dp_1_4_ev_batt" type="text" value="\${E(v('dp_1_4_ev_batt'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">전동기 최대출력</td><td><input class="dp-inp" data-field="dp_1_4_ev_pow" type="text" value="\${E(v('dp_1_4_ev_pow'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">1회충전 주행거리</td><td><input class="dp-inp" data-field="dp_1_4_ev_range" type="text" value="\${E(v('dp_1_4_ev_range'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="4">타이어</td><td class="dp-lbl" colspan="2">타이어 제조회사</td><td><input class="dp-inp" data-field="dp_1_4_tire_maker" type="text" value="\${E(v('dp_1_4_tire_maker'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">타이어 구조</td><td><input class="dp-inp" data-field="dp_1_4_tire_struct" type="text" value="\${E(v('dp_1_4_tire_struct'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="2">타이어 크기</td><td class="dp-lbl">전</td><td><input class="dp-inp" data-field="dp_1_4_tire_fsize" type="text" value="\${E(v('dp_1_4_tire_fsize'))}"></td></tr>
+    <tr><td class="dp-lbl">후</td><td><input class="dp-inp" data-field="dp_1_4_tire_rsize" type="text" value="\${E(v('dp_1_4_tire_rsize'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="2">타이어 공기압</td><td class="dp-lbl" colspan="2">전</td><td><input class="dp-inp" data-field="dp_1_4_tire_fpres" type="text" value="\${E(v('dp_1_4_tire_fpres'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">후</td><td><input class="dp-inp" data-field="dp_1_4_tire_rpres" type="text" value="\${E(v('dp_1_4_tire_rpres'))}"></td></tr>
   </tbody>
 </table>
 
-<!-- 1.4 동력전달장치 변속비 -->
+<!-- ── Page 4: 촉매/배출가스/캐니스터/소음기/경보장치 ── -->
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:20%;"><col style="width:20%;"><col style="width:60%;"></colgroup>
   <tbody>
-    <tr><td class="dp-lbl" rowspan="10">동력전달 장치</td><td class="dp-lbl" rowspan="2">변속기</td><td class="dp-lbl">전진 형식</td></tr>
-    <tr><td><input class="dp-inp" data-field="dp_1_4_trans_fwd" type="text" value="\${E(v('dp_1_4_trans_fwd'))}"></td></tr>
-    \${['1단','2단','3단','4단','5단','6단','7단','후진'].map((g,i)=>\`<tr>
-      <td class="dp-lbl">변속비 \${g}</td>
-      <td><input class="dp-inp" data-field="dp_1_4_gear_\${i+1}" type="text" value="\${E(v(\`dp_1_4_gear_\${i+1}\`))}"></td>
-    </tr>\`).join('')}
-    \${[
-      ['제1 감속비','dp_1_4_red1'],
-      ['제2 감속비','dp_1_4_red2'],
-      ['N/V 비','dp_1_4_nv'],
-    ].map(([lbl,fld])=>\`<tr>
-      <td class="dp-lbl" colspan="1">\${lbl}</td>
-      <td><input class="dp-inp" data-field="\${fld}" type="text" value="\${E(v('\${fld}'))}"></td>
-    </tr>\`).join('')}
-  </tbody>
-</table>
-
-<!-- 1.4 전기자동차/타이어/촉매/기타 제원 -->
-<table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
-  <colgroup><col style="width:20%;"><col style="width:20%;"><col style="width:60%;"></colgroup>
-  <tbody>
-    <tr><td class="dp-lbl" rowspan="4">전기자동차 관련 제원</td><td class="dp-lbl">전동기 형식</td><td><input class="dp-inp" data-field="dp_1_4_ev_motor" type="text" value="\${E(v('dp_1_4_ev_motor'))}"></td></tr>
-    <tr><td class="dp-lbl">축전지 정격전압 및 용량</td><td><input class="dp-inp" data-field="dp_1_4_ev_batt" type="text" value="\${E(v('dp_1_4_ev_batt'))}"></td></tr>
-    <tr><td class="dp-lbl">전동기 최대출력</td><td><input class="dp-inp" data-field="dp_1_4_ev_pow" type="text" value="\${E(v('dp_1_4_ev_pow'))}"></td></tr>
-    <tr><td class="dp-lbl">1회충전 주행거리</td><td><input class="dp-inp" data-field="dp_1_4_ev_range" type="text" value="\${E(v('dp_1_4_ev_range'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="4">타이어</td><td class="dp-lbl">타이어 제조회사</td><td><input class="dp-inp" data-field="dp_1_4_tire_maker" type="text" value="\${E(v('dp_1_4_tire_maker'))}"></td></tr>
-    <tr><td class="dp-lbl">타이어 구조</td><td><input class="dp-inp" data-field="dp_1_4_tire_struct" type="text" value="\${E(v('dp_1_4_tire_struct'))}"></td></tr>
-    <tr><td class="dp-lbl">전 타이어 크기</td><td><input class="dp-inp" data-field="dp_1_4_tire_fsize" type="text" value="\${E(v('dp_1_4_tire_fsize'))}"></td></tr>
-    <tr><td class="dp-lbl">후 타이어 크기</td><td><input class="dp-inp" data-field="dp_1_4_tire_rsize" type="text" value="\${E(v('dp_1_4_tire_rsize'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="2">타이어 공기압</td><td class="dp-lbl">전</td><td><input class="dp-inp" data-field="dp_1_4_tire_fpres" type="text" value="\${E(v('dp_1_4_tire_fpres'))}"></td></tr>
-    <tr><td class="dp-lbl">후</td><td><input class="dp-inp" data-field="dp_1_4_tire_rpres" type="text" value="\${E(v('dp_1_4_tire_rpres'))}"></td></tr>
     <tr><td class="dp-lbl" rowspan="5">촉매</td><td class="dp-lbl">종류</td><td><input class="dp-inp" data-field="dp_1_4_cat_type" type="text" value="\${E(v('dp_1_4_cat_type'))}"></td></tr>
     <tr><td class="dp-lbl">귀금속 성분</td><td><input class="dp-inp" data-field="dp_1_4_cat_pm" type="text" value="\${E(v('dp_1_4_cat_pm'))}"></td></tr>
     <tr><td class="dp-lbl">귀금속량(g)</td><td><input class="dp-inp" data-field="dp_1_4_cat_pmg" type="text" value="\${E(v('dp_1_4_cat_pmg'))}"></td></tr>
@@ -5427,13 +5435,13 @@ if (formType==='detail_plan') return \`
     <tr><td class="dp-lbl" rowspan="3">배출가스 시험에 관한 사항</td><td class="dp-lbl">실 도로 부하력(hp)</td><td><input class="dp-inp" data-field="dp_1_4_roadload" type="text" value="\${E(v('dp_1_4_roadload'))}"></td></tr>
     <tr><td class="dp-lbl">도로흡력력계수</td><td><input class="dp-inp" data-field="dp_1_4_roadcoef" type="text" value="\${E(v('dp_1_4_roadcoef'))}"></td></tr>
     <tr><td class="dp-lbl">코스트다운 시간(sec)</td><td><input class="dp-inp" data-field="dp_1_4_coastdown" type="text" value="\${E(v('dp_1_4_coastdown'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="5">캐니스터</td><td class="dp-lbl">캐니스터의 흡수 용량</td><td><input class="dp-inp" data-field="dp_1_4_can_cap" type="text" value="\${E(v('dp_1_4_can_cap'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="4">캐니스터</td><td class="dp-lbl">캐니스터의 흡수 용량</td><td><input class="dp-inp" data-field="dp_1_4_can_cap" type="text" value="\${E(v('dp_1_4_can_cap'))}"></td></tr>
     <tr><td class="dp-lbl">캐니스터의 크기(cc)</td><td><input class="dp-inp" data-field="dp_1_4_can_size" type="text" value="\${E(v('dp_1_4_can_size'))}"></td></tr>
     <tr><td class="dp-lbl">캐니스터의 매체</td><td><input class="dp-inp" data-field="dp_1_4_can_media" type="text" value="\${E(v('dp_1_4_can_media'))}"></td></tr>
     <tr><td class="dp-lbl">40%연료시 탱크의 최대 증발가스 용량</td><td><input class="dp-inp" data-field="dp_1_4_can_evap" type="text" value="\${E(v('dp_1_4_can_evap'))}"></td></tr>
-    <tr><td class="dp-lbl">재질</td><td><input class="dp-inp" data-field="dp_1_4_can_mat" type="text" value="\${E(v('dp_1_4_can_mat'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="3">소음기</td><td class="dp-lbl">주 소음기 용량(L)</td><td><input class="dp-inp" data-field="dp_1_4_muf_main_vol" type="text" value="\${E(v('dp_1_4_muf_main_vol'))}"></td></tr>
-    <tr><td class="dp-lbl">주 소음기 재질</td><td><input class="dp-inp" data-field="dp_1_4_muf_main_mat" type="text" value="\${E(v('dp_1_4_muf_main_mat'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="4">소음기</td><td class="dp-lbl">주 소음기 재질</td><td><input class="dp-inp" data-field="dp_1_4_muf_main_mat" type="text" value="\${E(v('dp_1_4_muf_main_mat'))}"></td></tr>
+    <tr><td class="dp-lbl">주 소음기 용량(L)</td><td><input class="dp-inp" data-field="dp_1_4_muf_main_vol" type="text" value="\${E(v('dp_1_4_muf_main_vol'))}"></td></tr>
+    <tr><td class="dp-lbl">보조 소음기 재질</td><td><input class="dp-inp" data-field="dp_1_4_muf_sub_mat" type="text" value="\${E(v('dp_1_4_muf_sub_mat'))}"></td></tr>
     <tr><td class="dp-lbl">보조 소음기 용량(L)</td><td><input class="dp-inp" data-field="dp_1_4_muf_sub_vol" type="text" value="\${E(v('dp_1_4_muf_sub_vol'))}"></td></tr>
     <tr><td class="dp-lbl" rowspan="2">경보장치</td><td class="dp-lbl">경음기 형식</td><td><input class="dp-inp" data-field="dp_1_4_horn_type" type="text" value="\${E(v('dp_1_4_horn_type'))}"></td></tr>
     <tr><td class="dp-lbl">경음기 성능(dB(C))</td><td><input class="dp-inp" data-field="dp_1_4_horn_db" type="text" value="\${E(v('dp_1_4_horn_db'))}"></td></tr>

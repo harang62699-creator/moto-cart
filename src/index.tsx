@@ -6369,8 +6369,8 @@ if (formType==='detail_plan') return \`
     </tr>
     <tr>
       <th class="dp-th">항 목</th>
-      <th class="dp-th">자동차 형식 1</th>
-      <th class="dp-th">자동차 형식 2</th>
+      <td><input class="dp-inp" data-field="dp_11_3_a_hdr1" type="text" placeholder="자동차 형식" value="\${E(v('dp_11_3_a_hdr1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_3_a_hdr2" type="text" placeholder="자동차 형식" value="\${E(v('dp_11_3_a_hdr2'))}"></td>
     </tr>
     \${[
       ['자동차 형식','dp_11_3_a_type'],
@@ -6392,8 +6392,8 @@ if (formType==='detail_plan') return \`
     </tr>
     <tr>
       <th class="dp-th">항 목</th>
-      <th class="dp-th">자동차 형식 1</th>
-      <th class="dp-th">자동차 형식 2</th>
+      <td><input class="dp-inp" data-field="dp_11_3_b_hdr1" type="text" placeholder="자동차 형식" value="\${E(v('dp_11_3_b_hdr1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_3_b_hdr2" type="text" placeholder="자동차 형식" value="\${E(v('dp_11_3_b_hdr2'))}"></td>
     </tr>
     \${[
       ['최고 토오크 시 속도에서 행정당 연료배분율이 가장 큰 원동기','dp_11_3_b_0'],
@@ -6415,8 +6415,8 @@ if (formType==='detail_plan') return \`
     <tr><th class="dp-sub-th" colspan="3">11.4. 소음 시험차량 선정</th></tr>
     <tr>
       <th class="dp-th">항 목</th>
-      <th class="dp-th">자동차 형식 1</th>
-      <th class="dp-th">자동차 형식 2</th>
+      <td><input class="dp-inp" data-field="dp_11_4_hdr1" type="text" placeholder="자동차 형식" value="\${E(v('dp_11_4_hdr1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_4_hdr2" type="text" placeholder="자동차 형식" value="\${E(v('dp_11_4_hdr2'))}"></td>
     </tr>
     \${[
       ['공차중량이 가장 무거운 자동차','dp_11_4_0'],

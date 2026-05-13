@@ -1342,7 +1342,7 @@ textarea.auto-grow {
 ════════════════════════════════════════════════ -->
 <div id="page-application" class="page">
   <nav class="breadcrumb no-print">
-    <button onclick="showDashboard()"><i class="fas fa-home"></i> 목록</button>
+    <button id="btn-breadcrumb-home-appl" onclick="showDashboard()"><i class="fas fa-home"></i> 목록</button>
     <span class="breadcrumb-sep"><i class="fas fa-chevron-right" style="font-size:10pt;"></i></span>
     <span id="appl-breadcrumb" style="color:var(--c-text2);"></span>
   </nav>
@@ -1401,7 +1401,7 @@ textarea.auto-grow {
 ════════════════════════════════════════════════ -->
 <div id="page-form" class="page">
   <nav class="breadcrumb no-print">
-    <button onclick="showDashboard()"><i class="fas fa-home"></i> 목록</button>
+    <button id="btn-breadcrumb-home-form" onclick="showDashboard()"><i class="fas fa-home"></i> 목록</button>
     <span class="breadcrumb-sep"><i class="fas fa-chevron-right" style="font-size:10pt;"></i></span>
     <button id="form-appl-link"></button>
     <span class="breadcrumb-sep"><i class="fas fa-chevron-right" style="font-size:10pt;"></i></span>
@@ -3590,25 +3590,31 @@ async function openApplication(id) {
 
 function renderApplicationPage() {
   const a = currentApplication;
+  // ── 언어 헬퍼를 맨 먼저 설정 ──
+  const lang = (a?.lang && ['ko','en','ja','zh'].includes(a.lang)) ? a.lang : 'ko';
+  const ld = LANG_DICT[lang] || LANG_DICT.ko;
+  const lt = k => ld[k] || (LANG_DICT.ko[k] || k);
+  // ── breadcrumb 홈 버튼 ──
+  const btnHomeAppl = document.getElementById('btn-breadcrumb-home-appl');
+  if (btnHomeAppl) btnHomeAppl.innerHTML = '<i class="fas fa-home"></i> ' + lt('dash_title');
   document.getElementById('appl-breadcrumb').textContent = a.title;
+  // ── 배지: 인증 구분 / 상태 ──
   const certBadge  = { basic:'badge-blue', change:'badge-violet', report:'badge-yellow' }[a.cert_type]||'badge-gray';
   document.getElementById('appl-cert-badge').className   = 'badge ' + certBadge;
-  document.getElementById('appl-cert-badge').textContent = getCertLabel(a.cert_type);
+  document.getElementById('appl-cert-badge').textContent = lt('cert_'+a.cert_type) || getCertLabel(a.cert_type);
   const sb = document.getElementById('appl-status-badge');
   sb.className   = 'badge ' + (STATUS_BADGE[a.status]||'badge-gray');
-  sb.textContent = getStatusLabel(a.status);
+  const statusKey = {draft:'status_draft',in_progress:'status_inprogress',completed:'status_completed'}[a.status]||a.status;
+  sb.textContent = lt(statusKey) || getStatusLabel(a.status);
+  // ── 제목 / 메타 ──
   document.getElementById('appl-title').textContent = a.title;
-  document.getElementById('appl-meta').textContent  = [a.importer,a.cert_year?a.cert_year+'년':'',a.displacement?a.displacement+'cc':''].filter(Boolean).join(' · ');
+  const yearSfx = lang==='ko'?'년':lang==='ja'?'年':'';
+  document.getElementById('appl-meta').textContent  = [a.importer,a.cert_year?a.cert_year+yearSfx:'',a.displacement?a.displacement+'cc':''].filter(Boolean).join(' · ');
   const done  = currentForms.filter(f=>f.completed).length;
   const total = currentForms.length;
   const pct   = total ? Math.round(done/total*100) : 0;
   document.getElementById('appl-progress-pct').textContent = pct + '%';
   document.getElementById('appl-progress-bar').style.width = pct + '%';
-  // forms-grid — 언어에 맞게 렌더링
-  const lang = (currentApplication?.lang && ['ko','en','ja','zh'].includes(currentApplication.lang))
-    ? currentApplication.lang : 'ko';
-  const ld = LANG_DICT[lang] || LANG_DICT.ko;
-  const lt = k => ld[k] || (LANG_DICT.ko[k] || k);
   const formsGrid = document.getElementById('forms-grid');
   formsGrid.innerHTML = \`
     <div class="forms-grid-head">
@@ -3674,13 +3680,18 @@ async function openForm(formType) {
   const fd     = currentForms.find(f=>f.form_type===formType);
   let saved = {};
   try { saved = JSON.parse(fd?.data||'{}'); } catch {}
+  const _fLang = (currentApplication?.lang && ['ko','en','ja','zh'].includes(currentApplication.lang)) ? currentApplication.lang : 'ko';
+  const _fLd   = LANG_DICT[_fLang] || LANG_DICT.ko;
+  const _fLt   = k => _fLd[k] || (LANG_DICT.ko[k] || k);
+  const btnHomeForm = document.getElementById('btn-breadcrumb-home-form');
+  if (btnHomeForm) btnHomeForm.innerHTML = '<i class="fas fa-home"></i> ' + _fLt('dash_title');
   const link = document.getElementById('form-appl-link');
   link.textContent = currentApplication.title;
   link.onclick = () => openApplication(currentApplicationId);
   const formTitle = getFormTitle(meta);
   document.getElementById('form-breadcrumb').textContent = formTitle;
   document.getElementById('form-title').textContent      = formTitle;
-  document.getElementById('form-subtitle').textContent   = getCertLabel(currentApplication.cert_type)+' · '+currentApplication.title;
+  document.getElementById('form-subtitle').textContent   = _fLt('cert_'+currentApplication.cert_type)+' · '+currentApplication.title;
   const chk = document.getElementById('form-completed-chk');
   chk.checked = !!fd?.completed;
   updateCompleteCard();

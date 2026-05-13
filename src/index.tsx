@@ -3594,144 +3594,110 @@ function printWithQR() {
 
 // ── 목차인쇄 (detail_plan 전용) ──────────────────────────────────────────
 function printDetailPlanToc() {
-  // 헤더 메타값 수집
-  const importer  = (document.querySelector('[data-field="dp_importer"]')  || {}).value  || (currentApplication && currentApplication.importer    || '');
-  const certYear  = (document.querySelector('[data-field="dp_cert_year"]') || {}).value  || (currentApplication && currentApplication.cert_year   || '');
-  const disp      = (document.querySelector('[data-field="dp_disp"]')      || {}).value  || (currentApplication && currentApplication.displacement || '');
-  const famCode   = (document.querySelector('[data-field="dp_fam_code"]')  || {}).value  || (currentApplication && currentApplication.family_code  || '');
+  var imp  = ((document.querySelector('[data-field="dp_importer"]')  || {}).value  || (currentApplication && currentApplication.importer    || '')).replace(/</g,'&lt;');
+  var cy   = ((document.querySelector('[data-field="dp_cert_year"]') || {}).value  || (currentApplication && currentApplication.cert_year   || '')).replace(/</g,'&lt;');
+  var dsp  = ((document.querySelector('[data-field="dp_disp"]')      || {}).value  || (currentApplication && currentApplication.displacement || '')).replace(/</g,'&lt;');
+  var fam  = ((document.querySelector('[data-field="dp_fam_code"]')  || {}).value  || (currentApplication && currentApplication.family_code  || '')).replace(/</g,'&lt;');
 
-  const tocItems = [
-    { no:'1.',    title:'인증 소개' },
-    { no:'1.1.',  title:'인증대상 자동차 개발배경 및 특성' },
-    { no:'1.2.',  title:'배출가스, 소음관련 신기술' },
-    { no:'1.3.',  title:'개발 목표' },
-    { no:'1.4.',  title:'인증대상자동차 제원' },
-    { no:'2.',    title:'기밀 사항' },
-    { no:'2.1.',  title:'기밀에 대한 요청' },
-    { no:'3.',    title:'인증시험 연료' },
-    { no:'4.',    title:'시험설비 및 배출가스‧소음 측정장비' },
-    { no:'5.',    title:'시험절차' },
-    { no:'5.1.',  title:'배출가스 시험' },
-    { no:'5.2.',  title:'주행거리 축적' },
-    { no:'5.3.',  title:'소음시험' },
-    { no:'6.',    title:'정비 및 보증' },
-    { no:'6.1.',  title:'시험차량의 정비계획(정기 정비/비 정기 정비)' },
-    { no:'6.2.',  title:'차량 구입자에 대한 추천 정비' },
-    { no:'6.3.',  title:'보증에 관한 설명' },
-    { no:'7.',    title:'배출가스 표지판(LABEL)' },
-    { no:'7.1.',  title:'견본(SAMPLE)' },
-    { no:'7.2.',  title:'부착위치 등' },
-    { no:'8.',    title:'배출가스 제어기술' },
-    { no:'8.1.',  title:'연료시스템' },
-    { no:'8.2.',  title:'흡‧배기장치' },
-    { no:'8.3.',  title:'크랭크케이스 제어장치' },
-    { no:'8.4.',  title:'엔진' },
-    { no:'8.5.',  title:'변속기' },
-    { no:'8.6.',  title:'촉매 전환 시스템' },
-    { no:'8.7.',  title:'배출가스 재 순환 장치(EGR)' },
-    { no:'8.8.',  title:'전자제어 장치' },
-    { no:'8.9.',  title:'기타 배출가스 제어장치' },
-    { no:'8.10.', title:'감지변수 대 제어변수' },
-    { no:'8.11',  title:'부품목록' },
-    { no:'8.12',  title:'선택적 촉매장치 성능 및 원리 등 설명' },
-    { no:'8.13',  title:'선택적 촉매장치(SCR)용 요소수 용액 성분 분석 결과' },
-    { no:'8.14',  title:'전기자동차 제어장치' },
-    { no:'9.',    title:'증발가스 및 블로바이가스' },
-    { no:'9.1.',  title:'증발가스 제어장치 설명' },
-    { no:'9.2.',  title:'제어장치 구성도 등' },
-    { no:'10.',   title:'동일차종(원동기)' },
-    { no:'10.1.', title:'동일차종 설명' },
-    { no:'11.',   title:'시험차량' },
-    { no:'11.1.', title:'시험차량 선정' },
-    { no:'11.2.', title:'내구성 시험차량 선정근거' },
-    { no:'11.3.', title:'배출가스 시험차량 선정근거' },
-    { no:'11.4.', title:'소음 시험차량 선정 근거' },
-    { no:'12.',   title:'교정정보 및 사후 확정정보 제출협약' },
-    { no:'13.',   title:'기타' },
+  var toc = [
+    ['1.',    '인증 소개'],
+    ['1.1.',  '인증대상 자동차 개발배경 및 특성'],
+    ['1.2.',  '배출가스, 소음관련 신기술'],
+    ['1.3.',  '개발 목표'],
+    ['1.4.',  '인증대상자동차 제원'],
+    ['2.',    '기밀 사항'],
+    ['2.1.',  '기밀에 대한 요청'],
+    ['3.',    '인증시험 연료'],
+    ['4.',    '시험설비 및 배출가스\u2027소음 측정장비'],
+    ['5.',    '시험절차'],
+    ['5.1.',  '배출가스 시험'],
+    ['5.2.',  '주행거리 축적'],
+    ['5.3.',  '소음시험'],
+    ['6.',    '정비 및 보증'],
+    ['6.1.',  '시험차량의 정비계획(정기 정비/비 정기 정비)'],
+    ['6.2.',  '차량 구입자에 대한 추천 정비'],
+    ['6.3.',  '보증에 관한 설명'],
+    ['7.',    '배출가스 표지판(LABEL)'],
+    ['7.1.',  '견본(SAMPLE)'],
+    ['7.2.',  '부착위치 등'],
+    ['8.',    '배출가스 제어기술'],
+    ['8.1.',  '연료시스템'],
+    ['8.2.',  '흡\u2027배기장치'],
+    ['8.3.',  '크랭크케이스 제어장치'],
+    ['8.4.',  '엔진'],
+    ['8.5.',  '변속기'],
+    ['8.6.',  '촉매 전환 시스템'],
+    ['8.7.',  '배출가스 재 순환 장치(EGR)'],
+    ['8.8.',  '전자제어 장치'],
+    ['8.9.',  '기타 배출가스 제어장치'],
+    ['8.10.', '감지변수 대 제어변수'],
+    ['8.11',  '부품목록'],
+    ['8.12',  '선택적 촉매장치 성능 및 원리 등 설명'],
+    ['8.13',  '선택적 촉매장치(SCR)용 요소수 용액 성분 분석 결과'],
+    ['8.14',  '전기자동차 제어장치'],
+    ['9.',    '증발가스 및 블로바이가스'],
+    ['9.1.',  '증발가스 제어장치 설명'],
+    ['9.2.',  '제어장치 구성도 등'],
+    ['10.',   '동일차종(원동기)'],
+    ['10.1.', '동일차종 설명'],
+    ['11.',   '시험차량'],
+    ['11.1.', '시험차량 선정'],
+    ['11.2.', '내구성 시험차량 선정근거'],
+    ['11.3.', '배출가스 시험차량 선정근거'],
+    ['11.4.', '소음 시험차량 선정 근거'],
+    ['12.',   '교정정보 및 사후 확정정보 제출협약'],
+    ['13.',   '기타']
   ];
 
-  const rowsHtml = tocItems.map(item => {
-    const isMajor = /^\d+\.$/.test(item.no.trim());
-    const indent  = isMajor ? '' : 'padding-left:1.8em;';
-    const weight  = isMajor ? 'font-weight:700;' : 'font-weight:400;';
-    return \`<tr>
-      <td style="padding:3px 8px;\${indent}\${weight}border:1px solid #bbb;">\${item.no}</td>
-      <td style="padding:3px 8px;\${indent}\${weight}border:1px solid #bbb;">\${item.title}</td>
-    </tr>\`;
-  }).join('');
+  var rows = '';
+  for (var i = 0; i < toc.length; i++) {
+    var no = toc[i][0], title = toc[i][1];
+    var isMajor = /^\d+\.$/.test(no.trim());
+    var ind = isMajor ? '' : 'padding-left:1.8em;';
+    var wt  = isMajor ? 'font-weight:700;' : 'font-weight:400;';
+    var bg  = (i % 2 === 0) ? '' : 'background:#f6f9ff;';
+    rows += '<tr>'
+          + '<td style="padding:3px 8px;border:1px solid #bbb;' + ind + wt + bg + '">' + no + '</td>'
+          + '<td style="padding:3px 8px;border:1px solid #bbb;' + ind + wt + bg + '">' + title + '</td>'
+          + '</tr>';
+  }
 
-  const html = \`<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>목차 – 인증에 필요한 세부 계획에 관한 서류</title>
-  <style>
-    @page { size: A4; margin: 18mm 20mm 18mm 20mm; }
-    body { font-family: '맑은 고딕', 'Malgun Gothic', sans-serif; font-size: 10pt; color: #111; margin:0; padding:0; }
-    .toc-header-tbl { width:100%; border-collapse:collapse; margin-bottom:10px; }
-    .toc-header-tbl th { background:#dbe8f8; border:1px solid #aac; padding:4px 8px; font-size:9pt; font-weight:600; text-align:center; }
-    .toc-header-tbl td { border:1px solid #aac; padding:4px 8px; font-size:9pt; text-align:center; }
-    .toc-tag  { font-size:9pt; color:#555; margin-bottom:2px; }
-    .toc-main-title { font-size:14pt; font-weight:800; text-align:center; margin:8px 0 14px; letter-spacing:.03em; }
-    .toc-meta-tbl { width:100%; border-collapse:collapse; margin-bottom:16px; }
-    .toc-meta-tbl th { background:#dbe8f8; border:1px solid #aac; padding:4px 8px; font-size:9pt; font-weight:600; text-align:center; }
-    .toc-meta-tbl td { border:1px solid #aac; padding:4px 8px; font-size:9pt; text-align:center; min-width:60px; }
-    .toc-section-title { font-size:10pt; font-weight:700; margin:0 0 6px; }
-    .toc-tbl { width:100%; border-collapse:collapse; }
-    .toc-tbl tr:nth-child(even) td { background:#f6f9ff; }
-    @media print {
-      body { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-      .no-print { display:none !important; }
-    }
-  </style>
-</head>
-<body>
-  <!-- 헤더 메타 -->
-  <table class="toc-header-tbl">
-    <thead><tr>
-      <th>수입사</th><th>인증연도</th><th>배기량</th><th>동일차종기호</th>
-    </tr></thead>
-    <tbody><tr>
-      <td>\${importer || '&nbsp;'}</td>
-      <td>\${certYear || '&nbsp;'}</td>
-      <td>\${disp    || '&nbsp;'}</td>
-      <td>\${famCode  || '&nbsp;'}</td>
-    </tr></tbody>
-  </table>
+  var html = '<!DOCTYPE html>'
+    + '<html lang="ko"><head><meta charset="UTF-8">'
+    + '<title>목차 - 인증에 필요한 세부 계획에 관한 서류</title>'
+    + '<style>'
+    + '@page{size:A4;margin:18mm 20mm 18mm 20mm;}'
+    + 'body{font-family:"맑은 고딕","Malgun Gothic",sans-serif;font-size:10pt;color:#111;margin:0;padding:0;}'
+    + 'table{width:100%;border-collapse:collapse;margin-bottom:10px;}'
+    + 'th{background:#dbe8f8;border:1px solid #aac;padding:4px 8px;font-size:9pt;font-weight:600;text-align:center;}'
+    + 'td{border:1px solid #aac;padding:4px 8px;font-size:9pt;text-align:center;}'
+    + '.tag{font-size:9pt;color:#555;margin-bottom:2px;}'
+    + '.main-title{font-size:14pt;font-weight:800;text-align:center;margin:8px 0 14px;}'
+    + '.sec-title{font-size:10pt;font-weight:700;margin:0 0 6px;}'
+    + '@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}'
+    + '</style></head><body>'
+    + '<table><thead><tr><th>수입사</th><th>인증연도</th><th>배기량</th><th>동일차종기호</th></tr></thead>'
+    + '<tbody><tr>'
+    + '<td>' + (imp||'&nbsp;') + '</td>'
+    + '<td>' + (cy ||'&nbsp;') + '</td>'
+    + '<td>' + (dsp||'&nbsp;') + '</td>'
+    + '<td>' + (fam||'&nbsp;') + '</td>'
+    + '</tr></tbody></table>'
+    + '<div class="tag">[별지 제4호 서식]</div>'
+    + '<div class="main-title">인증에 필요한 세부 계획에 관한 서류</div>'
+    + '<table><thead><tr><th style="width:50%;">작성 번호</th><th style="width:50%;">순 서</th></tr></thead>'
+    + '<tbody><tr><td>&nbsp;</td><td style="text-align:left;padding-left:12px;">아래 목차 참조</td></tr></tbody></table>'
+    + '<div class="sec-title">목 차</div>'
+    + '<table><colgroup><col style="width:18%;"><col style="width:82%;"></colgroup>'
+    + '<thead><tr>'
+    + '<th style="background:#dbe8f8;border:1px solid #aac;padding:4px 8px;font-size:9pt;">번 호</th>'
+    + '<th style="background:#dbe8f8;border:1px solid #aac;padding:4px 8px;font-size:9pt;">항 목</th>'
+    + '</tr></thead>'
+    + '<tbody>' + rows + '</tbody></table>'
+    + '<script>window.onload=function(){window.print();};<' + '/script>'
+    + '</body></html>';
 
-  <div class="toc-tag">[별지 제4호 서식]</div>
-  <div class="toc-main-title">인증에 필요한 세부 계획에 관한 서류</div>
-
-  <!-- 작성번호 / 순서 안내행 -->
-  <table class="toc-meta-tbl">
-    <thead><tr>
-      <th style="width:50%;">작성 번호</th>
-      <th style="width:50%;">순 서</th>
-    </tr></thead>
-    <tbody><tr>
-      <td>&nbsp;</td>
-      <td style="text-align:left;padding-left:12px;">아래 목차 참조</td>
-    </tr></tbody>
-  </table>
-
-  <!-- 목차 본문 -->
-  <div class="toc-section-title">목 차</div>
-  <table class="toc-tbl">
-    <colgroup><col style="width:18%;"><col style="width:82%;"></colgroup>
-    <thead>
-      <tr>
-        <th style="background:#dbe8f8;border:1px solid #aac;padding:4px 8px;font-size:9pt;">번 호</th>
-        <th style="background:#dbe8f8;border:1px solid #aac;padding:4px 8px;font-size:9pt;">항 목</th>
-      </tr>
-    </thead>
-    <tbody>\${rowsHtml}</tbody>
-  </table>
-
-  <script>window.onload = function(){ window.print(); };<\/script>
-</body>
-</html>\`;
-
-  const w = window.open('', '_blank', 'width=800,height=900');
+  var w = window.open('', '_blank', 'width=800,height=900');
   if (!w) { alert('팝업이 차단되었습니다. 팝업 허용 후 다시 시도하세요.'); return; }
   w.document.open();
   w.document.write(html);

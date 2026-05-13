@@ -5847,18 +5847,26 @@ if (formType==='detail_plan') return \`
 
 <!-- ══ 8.11. 부품목록 ══ -->
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
-  <colgroup><col style="width:28%;"><col style="width:17%;"><col style="width:17%;"><col style="width:17%;"><col style="width:21%;"></colgroup>
+  <colgroup>
+    <col style="width:20%;"><col style="width:18%;"><col style="width:15%;">
+    <col style="width:17%;"><col style="width:14%;"><col style="width:16%;">
+  </colgroup>
   <tbody>
-    <tr><th class="dp-sub-th" colspan="5">8.11. 부품목록</th></tr>
+    <tr><th class="dp-sub-th" colspan="6">8.11. 부품목록</th></tr>
     <tr>
-      <th class="dp-th">항목</th>
-      <th class="dp-th">부품번호</th>
+      <th class="dp-th" rowspan="2">항목</th>
+      <th class="dp-th" rowspan="2">세부항목</th>
+      <th class="dp-th" rowspan="2">부품번호</th>
+      <th class="dp-th" colspan="2">제조사</th>
+      <th class="dp-th" rowspan="2">비고</th>
+    </tr>
+    <tr>
       <th class="dp-th">제조업체명</th>
       <th class="dp-th">제조국</th>
-      <th class="dp-th">비고</th>
     </tr>
     \${['점화장치','연료공급장치','배출가스 전환장치','배출가스 재순환장치','연료증발가스 방지장치','브로바이가스 환원장치','2차공기 분사장치'].map((item,ii)=>\`<tr>
       <td class="dp-lbl">\${item}</td>
+      <td><input class="dp-inp" data-field="dp_8_11_\${ii}_sub" type="text" value="\${E(v(\`dp_8_11_\${ii}_sub\`))}"></td>
       <td><input class="dp-inp" data-field="dp_8_11_\${ii}_partno" type="text" value="\${E(v(\`dp_8_11_\${ii}_partno\`))}"></td>
       <td><input class="dp-inp" data-field="dp_8_11_\${ii}_maker" type="text" value="\${E(v(\`dp_8_11_\${ii}_maker\`))}"></td>
       <td><input class="dp-inp" data-field="dp_8_11_\${ii}_country" type="text" value="\${E(v(\`dp_8_11_\${ii}_country\`))}"></td>

@@ -5603,45 +5603,136 @@ if (formType==='detail_plan') return \`
 
 <!-- ══ 6. 정비 및 보증 ══ -->
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
-  <colgroup><col style="width:15%;"><col style="width:15%;"><col style="width:10%;"><col style="width:10%;"><col style="width:10%;"><col style="width:10%;"><col style="width:10%;"><col style="width:20%;"></colgroup>
+  <colgroup><col style="width:12%;"><col style="width:18%;"><col style="width:10%;"><col style="width:10%;"><col style="width:10%;"><col style="width:10%;"><col style="width:10%;"><col style="width:20%;"></colgroup>
   <tbody>
     <tr><th class="dp-sec-th" colspan="8">6.  정비 및 보증</th></tr>
-    <tr><th class="dp-sub-th" colspan="8">6.1.1. 시험차량의 정기정비</th></tr>
+    <tr><th class="dp-sub-th" colspan="8">6.1.&#8194;시험차량의 정비계획</th></tr>
+    <tr><th class="dp-sub-th" colspan="8">6.1.1.&#8202;정기정비</th></tr>
     <tr>
       <th class="dp-th">구분</th><th class="dp-th">항목</th>
-      \${[0,1,2,3,4].map(ki=>\`<th class="dp-th"><input class="dp-inp" data-field="dp_6_1_1_km_\${ki}" type="text" value="\${E(v(\`dp_6_1_1_km_\${ki}\`))}" placeholder="km" style="text-align:center;width:100%;"></th>\`).join('')}
+      <th class="dp-th"><input class="dp-inp" data-field="dp_6_1_1_km_0" type="text" value="\${E(v('dp_6_1_1_km_0'))}" placeholder="km" style="text-align:center;width:100%;"></th>
+      <th class="dp-th"><input class="dp-inp" data-field="dp_6_1_1_km_1" type="text" value="\${E(v('dp_6_1_1_km_1'))}" placeholder="km" style="text-align:center;width:100%;"></th>
+      <th class="dp-th"><input class="dp-inp" data-field="dp_6_1_1_km_2" type="text" value="\${E(v('dp_6_1_1_km_2'))}" placeholder="km" style="text-align:center;width:100%;"></th>
+      <th class="dp-th"><input class="dp-inp" data-field="dp_6_1_1_km_3" type="text" value="\${E(v('dp_6_1_1_km_3'))}" placeholder="km" style="text-align:center;width:100%;"></th>
+      <th class="dp-th"><input class="dp-inp" data-field="dp_6_1_1_km_4" type="text" value="\${E(v('dp_6_1_1_km_4'))}" placeholder="km" style="text-align:center;width:100%;"></th>
       <th class="dp-th">비고</th>
     </tr>
-    \${['엔진','점화장치','샤시','기타'].map((cat,ci)=>\`<tr>
-      <td class="dp-lbl">\${cat}</td><td class="dp-lbl"></td>
-      \${[0,1,2,3,4].map(ki=>\`<td><input class="dp-inp" data-field="dp_6_1_1_\${ci}_\${ki}" type="text" value="\${E(v(\`dp_6_1_1_\${ci}_\${ki}\`))}"></td>\`).join('')}
-      <td><input class="dp-inp" data-field="dp_6_1_1_\${ci}_note" type="text" value="\${E(v(\`dp_6_1_1_\${ci}_note\`))}"></td>
-    </tr>\`).join('')}
-    <tr><th class="dp-sub-th" colspan="8">6.1.2. 정기정비 세부사항</th></tr>
-    \${['A. 엔진','B. 점화장치','C. 샤시','D. 기타'].map((lbl,li)=>\`<tr>
-      <td class="dp-lbl">\${lbl}</td><td class="dp-lbl"></td>
-      <td colspan="6">
-        <div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_1_2_\${li}" rows="2" placeholder="\${lbl} 내용">\${E(v(\`dp_6_1_2_\${li}\`))}</textarea></div>
-      </td>
-    </tr>\`).join('')}
-    <tr><th class="dp-sub-th" colspan="8">6.2. 차량구입자에 대한 추천정비</th></tr>
+    <tr>
+      <td class="dp-lbl">엔진</td><td><input class="dp-inp" data-field="dp_6_1_1_0_item" type="text" value="\${E(v('dp_6_1_1_0_item'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_0_0" type="text" value="\${E(v('dp_6_1_1_0_0'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_0_1" type="text" value="\${E(v('dp_6_1_1_0_1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_0_2" type="text" value="\${E(v('dp_6_1_1_0_2'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_0_3" type="text" value="\${E(v('dp_6_1_1_0_3'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_0_4" type="text" value="\${E(v('dp_6_1_1_0_4'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_0_note" type="text" value="\${E(v('dp_6_1_1_0_note'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">점화장치</td><td><input class="dp-inp" data-field="dp_6_1_1_1_item" type="text" value="\${E(v('dp_6_1_1_1_item'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_1_0" type="text" value="\${E(v('dp_6_1_1_1_0'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_1_1" type="text" value="\${E(v('dp_6_1_1_1_1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_1_2" type="text" value="\${E(v('dp_6_1_1_1_2'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_1_3" type="text" value="\${E(v('dp_6_1_1_1_3'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_1_4" type="text" value="\${E(v('dp_6_1_1_1_4'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_1_note" type="text" value="\${E(v('dp_6_1_1_1_note'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">샤시</td><td><input class="dp-inp" data-field="dp_6_1_1_2_item" type="text" value="\${E(v('dp_6_1_1_2_item'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_2_0" type="text" value="\${E(v('dp_6_1_1_2_0'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_2_1" type="text" value="\${E(v('dp_6_1_1_2_1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_2_2" type="text" value="\${E(v('dp_6_1_1_2_2'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_2_3" type="text" value="\${E(v('dp_6_1_1_2_3'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_2_4" type="text" value="\${E(v('dp_6_1_1_2_4'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_2_note" type="text" value="\${E(v('dp_6_1_1_2_note'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">기타</td><td><input class="dp-inp" data-field="dp_6_1_1_3_item" type="text" value="\${E(v('dp_6_1_1_3_item'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_3_0" type="text" value="\${E(v('dp_6_1_1_3_0'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_3_1" type="text" value="\${E(v('dp_6_1_1_3_1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_3_2" type="text" value="\${E(v('dp_6_1_1_3_2'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_3_3" type="text" value="\${E(v('dp_6_1_1_3_3'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_3_4" type="text" value="\${E(v('dp_6_1_1_3_4'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_1_1_3_note" type="text" value="\${E(v('dp_6_1_1_3_note'))}"></td>
+    </tr>
+    <tr><th class="dp-sub-th" colspan="8">6.1.2.&#8202;비정기정비</th></tr>
+    <tr>
+      <td class="dp-lbl" colspan="2">A.&nbsp;엔진 :</td>
+      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_1_2_0" rows="2" placeholder="엔진 내용">\${E(v('dp_6_1_2_0'))}</textarea></div></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl" colspan="2">B.&nbsp;점화장치 :</td>
+      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_1_2_1" rows="2" placeholder="점화장치 내용">\${E(v('dp_6_1_2_1'))}</textarea></div></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl" colspan="2">C.&nbsp;샤시 :</td>
+      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_1_2_2" rows="2" placeholder="샤시 내용">\${E(v('dp_6_1_2_2'))}</textarea></div></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl" colspan="2">D.&nbsp;기타 :</td>
+      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_1_2_3" rows="2" placeholder="기타 내용">\${E(v('dp_6_1_2_3'))}</textarea></div></td>
+    </tr>
+    <tr><th class="dp-sub-th" colspan="8">6.2.&#8194;차량구입자에 대한 추천정비</th></tr>
     <tr>
       <th class="dp-th">구분</th><th class="dp-th">항목</th>
-      \${[0,1,2,3,4].map(ki=>\`<th class="dp-th"><input class="dp-inp" data-field="dp_6_2_km_\${ki}" type="text" value="\${E(v(\`dp_6_2_km_\${ki}\`))}" placeholder="km" style="text-align:center;width:100%;"></th>\`).join('')}
+      <th class="dp-th"><input class="dp-inp" data-field="dp_6_2_km_0" type="text" value="\${E(v('dp_6_2_km_0'))}" placeholder="km" style="text-align:center;width:100%;"></th>
+      <th class="dp-th"><input class="dp-inp" data-field="dp_6_2_km_1" type="text" value="\${E(v('dp_6_2_km_1'))}" placeholder="km" style="text-align:center;width:100%;"></th>
+      <th class="dp-th"><input class="dp-inp" data-field="dp_6_2_km_2" type="text" value="\${E(v('dp_6_2_km_2'))}" placeholder="km" style="text-align:center;width:100%;"></th>
+      <th class="dp-th"><input class="dp-inp" data-field="dp_6_2_km_3" type="text" value="\${E(v('dp_6_2_km_3'))}" placeholder="km" style="text-align:center;width:100%;"></th>
+      <th class="dp-th"><input class="dp-inp" data-field="dp_6_2_km_4" type="text" value="\${E(v('dp_6_2_km_4'))}" placeholder="km" style="text-align:center;width:100%;"></th>
       <th class="dp-th">비고</th>
     </tr>
-    \${['엔진','점화장치','샤시','기타'].map((cat,ci)=>\`<tr>
-      <td class="dp-lbl">\${cat}</td><td class="dp-lbl"></td>
-      \${[0,1,2,3,4].map(ki=>\`<td><input class="dp-inp" data-field="dp_6_2_\${ci}_\${ki}" type="text" value="\${E(v(\`dp_6_2_\${ci}_\${ki}\`))}"></td>\`).join('')}
-      <td><input class="dp-inp" data-field="dp_6_2_\${ci}_note" type="text" value="\${E(v(\`dp_6_2_\${ci}_note\`))}"></td>
-    </tr>\`).join('')}
-    <tr><th class="dp-sub-th" colspan="8">6.3. 보증에 관한 설명</th></tr>
-    \${['6.3.1. 보증내용','6.3.2. 보증기간','6.3.3. 보증에서 제외되는 사항','6.3.4. 차량소유자의 의무'].map((lbl,li)=>\`<tr>
-      <td class="dp-lbl">\${lbl}</td><td class="dp-lbl"></td>
-      <td colspan="6">
-        <div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_3_\${li}" rows="2" placeholder="\${lbl} 내용">\${E(v(\`dp_6_3_\${li}\`))}</textarea></div>
-      </td>
-    </tr>\`).join('')}
+    <tr>
+      <td class="dp-lbl">엔진</td><td><input class="dp-inp" data-field="dp_6_2_0_item" type="text" value="\${E(v('dp_6_2_0_item'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_0_0" type="text" value="\${E(v('dp_6_2_0_0'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_0_1" type="text" value="\${E(v('dp_6_2_0_1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_0_2" type="text" value="\${E(v('dp_6_2_0_2'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_0_3" type="text" value="\${E(v('dp_6_2_0_3'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_0_4" type="text" value="\${E(v('dp_6_2_0_4'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_0_note" type="text" value="\${E(v('dp_6_2_0_note'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">점화장치</td><td><input class="dp-inp" data-field="dp_6_2_1_item" type="text" value="\${E(v('dp_6_2_1_item'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_1_0" type="text" value="\${E(v('dp_6_2_1_0'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_1_1" type="text" value="\${E(v('dp_6_2_1_1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_1_2" type="text" value="\${E(v('dp_6_2_1_2'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_1_3" type="text" value="\${E(v('dp_6_2_1_3'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_1_4" type="text" value="\${E(v('dp_6_2_1_4'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_1_note" type="text" value="\${E(v('dp_6_2_1_note'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">샤시</td><td><input class="dp-inp" data-field="dp_6_2_2_item" type="text" value="\${E(v('dp_6_2_2_item'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_2_0" type="text" value="\${E(v('dp_6_2_2_0'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_2_1" type="text" value="\${E(v('dp_6_2_2_1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_2_2" type="text" value="\${E(v('dp_6_2_2_2'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_2_3" type="text" value="\${E(v('dp_6_2_2_3'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_2_4" type="text" value="\${E(v('dp_6_2_2_4'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_2_note" type="text" value="\${E(v('dp_6_2_2_note'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">기타</td><td><input class="dp-inp" data-field="dp_6_2_3_item" type="text" value="\${E(v('dp_6_2_3_item'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_3_0" type="text" value="\${E(v('dp_6_2_3_0'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_3_1" type="text" value="\${E(v('dp_6_2_3_1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_3_2" type="text" value="\${E(v('dp_6_2_3_2'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_3_3" type="text" value="\${E(v('dp_6_2_3_3'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_3_4" type="text" value="\${E(v('dp_6_2_3_4'))}"></td>
+      <td><input class="dp-inp" data-field="dp_6_2_3_note" type="text" value="\${E(v('dp_6_2_3_note'))}"></td>
+    </tr>
+    <tr><th class="dp-sub-th" colspan="8">6.3.&#8194;보증에 관한 설명</th></tr>
+    <tr>
+      <td class="dp-lbl" colspan="2">6.3.1.&#8202;보증내용 :</td>
+      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_3_0" rows="2" placeholder="보증내용">\${E(v('dp_6_3_0'))}</textarea></div></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl" colspan="2">6.3.2.&#8202;보증기간 :</td>
+      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_3_1" rows="2" placeholder="보증기간">\${E(v('dp_6_3_1'))}</textarea></div></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl" colspan="2">6.3.3.&#8202;보증에서 제외되는 사항 :</td>
+      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_3_2" rows="2" placeholder="보증에서 제외되는 사항">\${E(v('dp_6_3_2'))}</textarea></div></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl" colspan="2">6.3.4.&#8202;차량소유자의 의무 :</td>
+      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_3_3" rows="2" placeholder="차량소유자의 의무">\${E(v('dp_6_3_3'))}</textarea></div></td>
+    </tr>
   </tbody>
 </table>
 

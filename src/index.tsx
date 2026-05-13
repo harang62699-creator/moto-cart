@@ -6027,16 +6027,21 @@ if (formType==='detail_plan') return \`
 </table>
 
 <!-- ══ 10. 동일차종(원동기) ══ -->
+<!-- ── 10.1 배출가스 및 소음 동일차종(원동기) 설명 (5컬럼) ── -->
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
-  <colgroup><col style="width:35%;"><col style="width:32.5%;"><col style="width:32.5%;"></colgroup>
+  <colgroup>
+    <col style="width:18%;"><col style="width:13%;"><col style="width:22%;">
+    <col style="width:23.5%;"><col style="width:23.5%;">
+  </colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="3">10.  동일차종(원동기)</th></tr>
-    <tr><th class="dp-sub-th" colspan="3">10.1. 배출가스 및 소음 동일차종(원동기) 설명</th></tr>
+    <tr><th class="dp-sec-th" colspan="5">10.  동일차종(원동기)</th></tr>
+    <tr><th class="dp-sub-th" colspan="5">10.1. 배출가스 및 소음 동일차종(원동기) 설명</th></tr>
     <tr>
-      <th class="dp-th">구 분</th>
+      <th class="dp-th" colspan="3">구 분</th>
       <th class="dp-th">기본 차종</th>
-      <th class="dp-th">배출가스 및 소음 동일차종</th>
+      <th class="dp-th">배출가스 및 소음<br>동일차종</th>
     </tr>
+    <!-- 단순 1행 항목들 -->
     \${[
       ['차명','dp_10_1_carname'],['자동차 형식','dp_10_1_type'],['차체형상','dp_10_1_body'],
       ['승차인원','dp_10_1_passenger'],['사용연료','dp_10_1_fuel'],['배기량(cc)','dp_10_1_disp'],
@@ -6044,53 +6049,204 @@ if (formType==='detail_plan') return \`
       ['최대토크(kg-m/rpm)','dp_10_1_maxtq'],['보어*스트로크(mm)','dp_10_1_bore'],['압축비','dp_10_1_compress'],
       ['실린더 보어 중심간의 거리(mm)','dp_10_1_cyl_dist'],['실린더 블록 형상','dp_10_1_block'],
       ['실린더 배열','dp_10_1_cylarr'],['실린더 헤드 방식','dp_10_1_head'],
-      ['흡입포트크기','dp_10_1_inport'],['흡기 매니폴드 흡입포트 형상','dp_10_1_inshape'],
-      ['배기포트크기','dp_10_1_export'],['배기 매니폴드 배기포트 형상','dp_10_1_exshape'],
-      ['흡기 열기(밸브)','dp_10_1_in_open'],['흡기 닫기(밸브)','dp_10_1_in_close'],
-      ['배기 열기(밸브)','dp_10_1_ex_open'],['배기 닫기(밸브)','dp_10_1_ex_close'],
-      ['기통별 밸브수 흡기','dp_10_1_valve_in'],['기통별 밸브수 배기','dp_10_1_valve_ex'],
-      ['밸브크기 흡기','dp_10_1_vsize_in'],['밸브크기 배기','dp_10_1_vsize_ex'],
-      ['공기 흡입 방식','dp_10_1_airtype'],
-      ['촉매 종류','dp_10_1_cat_type'],['귀금속 성분','dp_10_1_cat_pm'],
-      ['귀금속량(g)','dp_10_1_cat_pmg'],['용량(㎤)','dp_10_1_cat_vol'],
-      ['귀금속물질비(Pt:Pd:Rh)','dp_10_1_cat_ratio'],
-      ['크랭크 축~캠축 중심선 거리(mm)','dp_10_1_crank_cam'],
-      ['크랭크 축~실린더 블록 헤드 면 상부까지 거리(mm)','dp_10_1_crank_head'],
-      ['TDC 상태 연소실 표면적 체적비율','dp_10_1_tdc'],
-      ['연료 공급 방식','dp_10_1_fuel_supply'],['분사 시기 제어범위','dp_10_1_inj_range'],
-      ['캠축타이밍','dp_10_1_cam_timing'],['등가관성 중량','dp_10_1_inertia'],['도로부하마력','dp_10_1_roadload'],
     ].map(([lbl,fld])=>\`<tr>
-      <td class="dp-lbl">\${lbl}</td>
-      <td><input class="dp-inp" data-field="\${fld}_base" type="text" value="\${E(v('\${fld}_base'))}"></td>
-      <td><input class="dp-inp" data-field="\${fld}_same" type="text" value="\${E(v('\${fld}_same'))}"></td>
+      <td class="dp-lbl" colspan="3">\${lbl}</td>
+      <td><input class="dp-inp" data-field="\${fld}_base" type="text" value="\${E(v(\`\${fld}_base\`))}"></td>
+      <td><input class="dp-inp" data-field="\${fld}_same" type="text" value="\${E(v(\`\${fld}_same\`))}"></td>
+    </tr>\`).join('')}
+    <!-- 흡기 매니폴드 rowspan=2 -->
+    <tr>
+      <td class="dp-lbl" colspan="2" rowspan="2">흡기 매니폴드</td>
+      <td class="dp-lbl">흡입포트크기</td>
+      <td><input class="dp-inp" data-field="dp_10_1_inport_base" type="text" value="\${E(v('dp_10_1_inport_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_inport_same" type="text" value="\${E(v('dp_10_1_inport_same'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">흡입포트 형상</td>
+      <td><input class="dp-inp" data-field="dp_10_1_inshape_base" type="text" value="\${E(v('dp_10_1_inshape_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_inshape_same" type="text" value="\${E(v('dp_10_1_inshape_same'))}"></td>
+    </tr>
+    <!-- 배기 매니폴드 rowspan=2 -->
+    <tr>
+      <td class="dp-lbl" colspan="2" rowspan="2">배기 매니폴드</td>
+      <td class="dp-lbl">배기포트크기</td>
+      <td><input class="dp-inp" data-field="dp_10_1_export_base" type="text" value="\${E(v('dp_10_1_export_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_export_same" type="text" value="\${E(v('dp_10_1_export_same'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">배기포트 형상</td>
+      <td><input class="dp-inp" data-field="dp_10_1_exshape_base" type="text" value="\${E(v('dp_10_1_exshape_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_exshape_same" type="text" value="\${E(v('dp_10_1_exshape_same'))}"></td>
+    </tr>
+    <!-- 흡배기폐기시 rowspan=4 -->
+    <tr>
+      <td class="dp-lbl" rowspan="4">흡배기폐기시</td>
+      <td class="dp-lbl" rowspan="2">흡입<br>밸브</td>
+      <td class="dp-lbl">열기</td>
+      <td><input class="dp-inp" data-field="dp_10_1_in_open_base" type="text" value="\${E(v('dp_10_1_in_open_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_in_open_same" type="text" value="\${E(v('dp_10_1_in_open_same'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">닫기</td>
+      <td><input class="dp-inp" data-field="dp_10_1_in_close_base" type="text" value="\${E(v('dp_10_1_in_close_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_in_close_same" type="text" value="\${E(v('dp_10_1_in_close_same'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl" rowspan="2">배기<br>밸브</td>
+      <td class="dp-lbl">열기</td>
+      <td><input class="dp-inp" data-field="dp_10_1_ex_open_base" type="text" value="\${E(v('dp_10_1_ex_open_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_ex_open_same" type="text" value="\${E(v('dp_10_1_ex_open_same'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">닫기</td>
+      <td><input class="dp-inp" data-field="dp_10_1_ex_close_base" type="text" value="\${E(v('dp_10_1_ex_close_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_ex_close_same" type="text" value="\${E(v('dp_10_1_ex_close_same'))}"></td>
+    </tr>
+    <!-- 기통별 밸브수 rowspan=2 -->
+    <tr>
+      <td class="dp-lbl" colspan="2" rowspan="2">기통별 밸브수</td>
+      <td class="dp-lbl">흡기</td>
+      <td><input class="dp-inp" data-field="dp_10_1_valve_in_base" type="text" value="\${E(v('dp_10_1_valve_in_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_valve_in_same" type="text" value="\${E(v('dp_10_1_valve_in_same'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">배기</td>
+      <td><input class="dp-inp" data-field="dp_10_1_valve_ex_base" type="text" value="\${E(v('dp_10_1_valve_ex_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_valve_ex_same" type="text" value="\${E(v('dp_10_1_valve_ex_same'))}"></td>
+    </tr>
+    <!-- 밸브크기 rowspan=2 -->
+    <tr>
+      <td class="dp-lbl" colspan="2" rowspan="2">밸브크기</td>
+      <td class="dp-lbl">흡기</td>
+      <td><input class="dp-inp" data-field="dp_10_1_vsize_in_base" type="text" value="\${E(v('dp_10_1_vsize_in_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_vsize_in_same" type="text" value="\${E(v('dp_10_1_vsize_in_same'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">배기</td>
+      <td><input class="dp-inp" data-field="dp_10_1_vsize_ex_base" type="text" value="\${E(v('dp_10_1_vsize_ex_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_vsize_ex_same" type="text" value="\${E(v('dp_10_1_vsize_ex_same'))}"></td>
+    </tr>
+    <!-- 공기 흡입 방식 -->
+    <tr>
+      <td class="dp-lbl" colspan="3">공기 흡입 방식</td>
+      <td><input class="dp-inp" data-field="dp_10_1_airtype_base" type="text" value="\${E(v('dp_10_1_airtype_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_airtype_same" type="text" value="\${E(v('dp_10_1_airtype_same'))}"></td>
+    </tr>
+    <!-- 촉매 rowspan=5 (Page2 이어짐) -->
+    <tr>
+      <td class="dp-lbl" colspan="2" rowspan="5">촉매</td>
+      <td class="dp-lbl">종류</td>
+      <td><input class="dp-inp" data-field="dp_10_1_cat_type_base" type="text" value="\${E(v('dp_10_1_cat_type_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_cat_type_same" type="text" value="\${E(v('dp_10_1_cat_type_same'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">귀금속 성분</td>
+      <td><input class="dp-inp" data-field="dp_10_1_cat_pm_base" type="text" value="\${E(v('dp_10_1_cat_pm_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_cat_pm_same" type="text" value="\${E(v('dp_10_1_cat_pm_same'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">귀금속량(g)</td>
+      <td><input class="dp-inp" data-field="dp_10_1_cat_pmg_base" type="text" value="\${E(v('dp_10_1_cat_pmg_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_cat_pmg_same" type="text" value="\${E(v('dp_10_1_cat_pmg_same'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">용량(㎤)</td>
+      <td><input class="dp-inp" data-field="dp_10_1_cat_vol_base" type="text" value="\${E(v('dp_10_1_cat_vol_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_cat_vol_same" type="text" value="\${E(v('dp_10_1_cat_vol_same'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">귀금속물질비(Pt:Pd:Rh)</td>
+      <td><input class="dp-inp" data-field="dp_10_1_cat_ratio_base" type="text" value="\${E(v('dp_10_1_cat_ratio_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_1_cat_ratio_same" type="text" value="\${E(v('dp_10_1_cat_ratio_same'))}"></td>
+    </tr>
+    <!-- 단순 1행 항목들 (Page2 나머지) -->
+    \${[
+      ['크랭크 축 중심선에서 캠축 중심선까지의 거리(mm)','dp_10_1_crank_cam'],
+      ['크랭크 축 중심선에서 실린더 블록 헤드 면 상부까지의 거리(mm)','dp_10_1_crank_head'],
+      ['TDC 상태에서 연소실 표면적 체적비율','dp_10_1_tdc'],
+      ['연료 공급 방식','dp_10_1_fuel_supply'],
+      ['분사 시기 제어범위','dp_10_1_inj_range'],
+      ['캠축타이밍','dp_10_1_cam_timing'],
+      ['등가관성 중량','dp_10_1_inertia'],
+      ['도로부하마력','dp_10_1_roadload'],
+    ].map(([lbl,fld])=>\`<tr>
+      <td class="dp-lbl" colspan="3">\${lbl}</td>
+      <td><input class="dp-inp" data-field="\${fld}_base" type="text" value="\${E(v(\`\${fld}_base\`))}"></td>
+      <td><input class="dp-inp" data-field="\${fld}_same" type="text" value="\${E(v(\`\${fld}_same\`))}"></td>
     </tr>\`).join('')}
   </tbody>
 </table>
 
 <!-- ══ 10.2. 증발가스 동일차종 ══ -->
+<!-- ── 10.2 증발가스 동일차종 설명 (4컬럼, 캐니스터 설계특성 rowspan=5) ── -->
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
-  <colgroup><col style="width:35%;"><col style="width:32.5%;"><col style="width:32.5%;"></colgroup>
+  <colgroup>
+    <col style="width:18%;"><col style="width:22%;"><col style="width:30%;"><col style="width:30%;">
+  </colgroup>
   <tbody>
-    <tr><th class="dp-sub-th" colspan="3">10.2. 증발가스 동일차종 설명</th></tr>
+    <tr><th class="dp-sub-th" colspan="4">10.2. 증발가스 동일차종 설명</th></tr>
     <tr>
-      <th class="dp-th">구 분</th>
+      <th class="dp-th" colspan="2">구 분</th>
       <th class="dp-th">기본 차종</th>
       <th class="dp-th">증발가스 동일차종</th>
     </tr>
+    <!-- 단순 1행 항목들 -->
     \${[
       ['배출가스 인증번호','dp_10_2_certno'],['자동차 명칭','dp_10_2_carname'],
       ['자동차 형식','dp_10_2_type'],['원동기 형식','dp_10_2_eng'],
       ['차종','dp_10_2_cartype'],['사용연료','dp_10_2_fuel'],
-      ['증발가스 저장형식','dp_10_2_evap_type'],['증발가스 흡수용량','dp_10_2_evap_cap'],
-      ['캐니스터 개수 및 연결방법','dp_10_2_can_cnt'],['캐니스터 형상','dp_10_2_can_shape'],
-      ['캐니스터 구조','dp_10_2_can_struct'],['캐니스터 재질','dp_10_2_can_mat'],
-      ['연료시스템 주유관 밀폐구조','dp_10_2_fuel_seal'],
+      ['증발가스 저장형식','dp_10_2_evap_type'],
+    ].map(([lbl,fld])=>\`<tr>
+      <td class="dp-lbl" colspan="2">\${lbl}</td>
+      <td><input class="dp-inp" data-field="\${fld}_base" type="text" value="\${E(v(\`\${fld}_base\`))}"></td>
+      <td><input class="dp-inp" data-field="\${fld}_same" type="text" value="\${E(v(\`\${fld}_same\`))}"></td>
+    </tr>\`).join('')}
+    <!-- 캐니스터 설계 특성 rowspan=5 -->
+    <tr>
+      <td class="dp-lbl" rowspan="5">캐니스터<br>설계 특성</td>
+      <td class="dp-lbl">증발가스 흡수용량</td>
+      <td><input class="dp-inp" data-field="dp_10_2_evap_cap_base" type="text" value="\${E(v('dp_10_2_evap_cap_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_2_evap_cap_same" type="text" value="\${E(v('dp_10_2_evap_cap_same'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">캐니스터 개수 및 연결방법</td>
+      <td><input class="dp-inp" data-field="dp_10_2_can_cnt_base" type="text" value="\${E(v('dp_10_2_can_cnt_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_2_can_cnt_same" type="text" value="\${E(v('dp_10_2_can_cnt_same'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">캐니스터 형상</td>
+      <td><input class="dp-inp" data-field="dp_10_2_can_shape_base" type="text" value="\${E(v('dp_10_2_can_shape_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_2_can_shape_same" type="text" value="\${E(v('dp_10_2_can_shape_same'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">캐니스터 구조</td>
+      <td><input class="dp-inp" data-field="dp_10_2_can_struct_base" type="text" value="\${E(v('dp_10_2_can_struct_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_2_can_struct_same" type="text" value="\${E(v('dp_10_2_can_struct_same'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl">캐니스터 재질</td>
+      <td><input class="dp-inp" data-field="dp_10_2_can_mat_base" type="text" value="\${E(v('dp_10_2_can_mat_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_2_can_mat_same" type="text" value="\${E(v('dp_10_2_can_mat_same'))}"></td>
+    </tr>
+    <!-- 연료시스템 / 주유관 밀폐구조 (별도 행) -->
+    <tr>
+      <td class="dp-lbl" colspan="2">연료시스템</td>
+      <td><input class="dp-inp" data-field="dp_10_2_fuel_sys_base" type="text" value="\${E(v('dp_10_2_fuel_sys_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_2_fuel_sys_same" type="text" value="\${E(v('dp_10_2_fuel_sys_same'))}"></td>
+    </tr>
+    <tr>
+      <td class="dp-lbl" colspan="2">주유관 밀폐구조</td>
+      <td><input class="dp-inp" data-field="dp_10_2_fuel_seal_base" type="text" value="\${E(v('dp_10_2_fuel_seal_base'))}"></td>
+      <td><input class="dp-inp" data-field="dp_10_2_fuel_seal_same" type="text" value="\${E(v('dp_10_2_fuel_seal_same'))}"></td>
+    </tr>
+    <!-- 나머지 항목 -->
+    \${[
       ['증발가스 제어시스템','dp_10_2_ctrl'],['퍼지제어 시스템','dp_10_2_purge'],
       ['증발가스 호스 재질','dp_10_2_hose_mat'],['연료탱크 재질','dp_10_2_tank_mat'],
     ].map(([lbl,fld])=>\`<tr>
-      <td class="dp-lbl">\${lbl}</td>
-      <td><input class="dp-inp" data-field="\${fld}_base" type="text" value="\${E(v('\${fld}_base'))}"></td>
-      <td><input class="dp-inp" data-field="\${fld}_same" type="text" value="\${E(v('\${fld}_same'))}"></td>
+      <td class="dp-lbl" colspan="2">\${lbl}</td>
+      <td><input class="dp-inp" data-field="\${fld}_base" type="text" value="\${E(v(\`\${fld}_base\`))}"></td>
+      <td><input class="dp-inp" data-field="\${fld}_same" type="text" value="\${E(v(\`\${fld}_same\`))}"></td>
     </tr>\`).join('')}
   </tbody>
 </table>

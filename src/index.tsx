@@ -3797,27 +3797,29 @@ function buildFormHTML(formType, saved) {
   // cert_type → 구분 기본값: 저장값이 없으면 현재 신청서의 cert_type 한글 라벨로 자동 채움
   const _certDefault = getCertLabel(currentApplication?.cert_type) || '';
   const v   = (k,def='') => {
+    // ── 신청서 메타 자동채움 우선 적용 (저장값이 빈 문자열이어도 메타값 사용) ──
+    // detail_plan 헤더 4개 필드
+    if (k==='dp_importer')  { const mv=currentApplication?.importer;    if(mv) return mv; }
+    if (k==='dp_cert_year') { const mv=currentApplication?.cert_year;   if(mv) return mv; }
+    if (k==='dp_disp')      { const mv=currentApplication?.displacement; if(mv) return mv; }
+    if (k==='dp_fam_code')  { const mv=currentApplication?.family_code;  if(mv) return mv; }
+    // 나머지 폼 공통 메타 필드도 동일하게 우선 적용
+    if (k==='importer')     { const mv=currentApplication?.importer;    if(mv) return mv; }
+    if (k==='cert_year')    { const mv=currentApplication?.cert_year;   if(mv) return mv; }
+    if (k==='displacement') { const mv=currentApplication?.displacement; if(mv) return mv; }
+    if (k==='family_code')  { const mv=currentApplication?.family_code;  if(mv) return mv; }
+    if (/^(en|em|ev|nt)_importer$/.test(k))  { const mv=currentApplication?.importer;    if(mv) return mv; }
+    if (/^(en|em|ev|nt)_cert_year$/.test(k)) { const mv=currentApplication?.cert_year;   if(mv) return mv; }
+    if (/^(en|em|ev)_disp$/.test(k))         { const mv=currentApplication?.displacement; if(mv) return mv; }
+    if (/^(en|em|ev|nt)_fam_code$/.test(k))  { const mv=currentApplication?.family_code;  if(mv) return mv; }
+    if (k==='obd_header_importer') { const mv=currentApplication?.importer;    if(mv) return mv; }
+    if (k==='obd_header_year')     { const mv=currentApplication?.cert_year;   if(mv) return mv; }
+    if (k==='obd_header_cc')       { const mv=currentApplication?.displacement; if(mv) return mv; }
+    if (k==='obd_header_code')     { const mv=currentApplication?.family_code;  if(mv) return mv; }
+    if (k==='displacement_cc')     { const mv=currentApplication?.displacement; if(mv) return mv; }
+    // ── 저장값 반환 (위 메타 우선 처리 후) ──
     if (saved[k]!==undefined) return saved[k];
     if (k==='appl_div') return _certDefault;
-    // 수입사/인증연도/배기량/동일차종기호: 저장값 없으면 신청서 메타에서 자동채움
-    if (k==='importer')    return currentApplication?.importer    || def;
-    if (k==='cert_year')   return currentApplication?.cert_year   || def;
-    if (k==='displacement') return currentApplication?.displacement || def;
-    if (k==='family_code') return currentApplication?.family_code  || def;
-    // 각 폼별 prefix 필드도 동일하게 자동채움
-    if (/^(en|em|ev|nt)_importer$/.test(k))  return currentApplication?.importer    || def;
-    if (/^(en|em|ev|nt)_cert_year$/.test(k)) return currentApplication?.cert_year   || def;
-    if (/^(en|em|ev)_disp$/.test(k))         return currentApplication?.displacement || def;
-    if (/^(en|em|ev|nt)_fam_code$/.test(k))  return currentApplication?.family_code  || def;
-    if (k==='obd_header_importer') return currentApplication?.importer    || def;
-    if (k==='obd_header_year')     return currentApplication?.cert_year   || def;
-    if (k==='obd_header_cc')       return currentApplication?.displacement || def;
-    if (k==='obd_header_code')     return currentApplication?.family_code  || def;
-    if (k==='displacement_cc')     return currentApplication?.displacement || def;
-    if (k==='dp_importer')   return currentApplication?.importer     || def;
-    if (k==='dp_cert_year')   return currentApplication?.cert_year    || def;
-    if (k==='dp_disp')        return currentApplication?.displacement  || def;
-    if (k==='dp_fam_code')    return currentApplication?.family_code   || def;
     return def;
   };
   const E   = esc;

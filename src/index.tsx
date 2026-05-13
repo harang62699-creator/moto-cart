@@ -5953,47 +5953,69 @@ if (formType==='detail_plan') return \`
 </table>
 
 <!-- ══ 9. 증발가스 및 브로바이 가스 ══ -->
+<!-- Table 1: 9.1 저장장치 3컬럼 -->
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
-  <colgroup><col style="width:20%;"><col style="width:20%;"><col style="width:20%;"><col style="width:40%;"></colgroup>
+  <colgroup>
+    <col style="width:25%;"><col style="width:25%;"><col style="width:50%;">
+  </colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="4">9.  증발가스 및 브로바이 가스</th></tr>
-    <tr><th class="dp-sub-th" colspan="4">9.1. 증발가스 제어장치 설명</th></tr>
+    <tr><th class="dp-sec-th" colspan="3">9.  증발가스 및 브로바이 가스</th></tr>
+    <tr><th class="dp-sub-th" colspan="3">9.1. 증발가스 제어장치 설명</th></tr>
     <tr>
       <th class="dp-th">저장 장치</th>
       <th class="dp-th">흡수용량(C)</th>
       <th class="dp-th">크기(㎤)/매체</th>
-      <th class="dp-th">설명</th>
     </tr>
     \${['캐니스터','에어클리너','크랭크케이스','기타'].map((dev,di)=>\`<tr>
       <td class="dp-lbl">\${dev}</td>
       <td><input class="dp-inp" data-field="dp_9_1_\${di}_cap" type="text" value="\${E(v(\`dp_9_1_\${di}_cap\`))}"></td>
       <td><input class="dp-inp" data-field="dp_9_1_\${di}_size" type="text" value="\${E(v(\`dp_9_1_\${di}_size\`))}"></td>
-      <td><input class="dp-inp" data-field="dp_9_1_\${di}_desc" type="text" value="\${E(v(\`dp_9_1_\${di}_desc\`))}"></td>
     </tr>\`).join('')}
-    <tr><th class="dp-sub-th" colspan="4">증발가스 제어장치 부품리스트</th></tr>
+  </tbody>
+</table>
+<!-- Table 2: 부품리스트 5컬럼 -->
+<table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
+  <colgroup>
+    <col style="width:18%;"><col style="width:16%;"><col style="width:22%;">
+    <col style="width:26%;"><col style="width:18%;">
+  </colgroup>
+  <tbody>
+    <tr><th class="dp-sub-th" colspan="5">증발가스 제어장치 부품리스트(보조배출가스 제어장치 포함)</th></tr>
     <tr>
       <th class="dp-th">증발가스Code</th>
+      <th class="dp-th">공칭탱크<br>용량(L)</th>
+      <th class="dp-th">40%연료시 탱크의<br>최대 증발가스 용량</th>
+      <th class="dp-th">기화기/연료분사장치의<br>reservoir의 최대용량</th>
       <th class="dp-th">적용차명</th>
-      <th class="dp-th">공칭탱크 용량(L)</th>
-      <th class="dp-th">40%연료시 탱크의 최대 증발가스 용량</th>
     </tr>
     \${[0,1,2].map(i=>\`<tr>
       <td><input class="dp-inp" data-field="dp_9_1_list_\${i}_code" type="text" value="\${E(v(\`dp_9_1_list_\${i}_code\`))}"></td>
-      <td><input class="dp-inp" data-field="dp_9_1_list_\${i}_car" type="text" value="\${E(v(\`dp_9_1_list_\${i}_car\`))}"></td>
       <td><input class="dp-inp" data-field="dp_9_1_list_\${i}_vol" type="text" value="\${E(v(\`dp_9_1_list_\${i}_vol\`))}"></td>
       <td><input class="dp-inp" data-field="dp_9_1_list_\${i}_evap" type="text" value="\${E(v(\`dp_9_1_list_\${i}_evap\`))}"></td>
+      <td><input class="dp-inp" data-field="dp_9_1_list_\${i}_res" type="text" value="\${E(v(\`dp_9_1_list_\${i}_res\`))}"></td>
+      <td><input class="dp-inp" data-field="dp_9_1_list_\${i}_car" type="text" value="\${E(v(\`dp_9_1_list_\${i}_car\`))}"></td>
     </tr>\`).join('')}
+  </tbody>
+</table>
+<!-- Table 3: 9.2 제어장치 구성도 -->
+<table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
+  <colgroup><col style="width:100%;"></colgroup>
+  <tbody>
     <tr>
-      <td class="dp-lbl" colspan="4" style="padding-top:6px;">
+      <td class="dp-lbl" style="padding-top:6px;">
         <strong>9.2. 제어장치 구성도</strong>
       </td>
     </tr>
     <tr>
-      <td colspan="4">
+      <td>
         <div class="dp-field">
           <textarea class="dp-field-text" data-field="dp_9_2" rows="3" placeholder="제어장치 구성도 설명">\${E(v('dp_9_2'))}</textarea>
           <input type="hidden" id="dp_9_2_imgs" data-field="dp_9_2_imgs" value="\${E(v('dp_9_2_imgs'))}">
-          <div class="dp-drop" id="dp_9_2_drop" onclick="document.getElementById('dp_9_2_fi').click();" ondragover="event.preventDefault();this.classList.add('drag-over');" ondragleave="this.classList.remove('drag-over');" ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('dp_9_2_imgs','dp_9_2_drop',event.dataTransfer.files);">
+          <div class="dp-drop" id="dp_9_2_drop"
+            onclick="document.getElementById('dp_9_2_fi').click();"
+            ondragover="event.preventDefault();this.classList.add('drag-over');"
+            ondragleave="this.classList.remove('drag-over');"
+            ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('dp_9_2_imgs','dp_9_2_drop',event.dataTransfer.files);">
             <input type="file" id="dp_9_2_fi" accept="image/*" multiple onchange="dpAddFiles('dp_9_2_imgs','dp_9_2_drop',this.files);this.value='';">
             <div class="dp-drop-hint"><i class="fas fa-image"></i> 구성도 이미지 클릭 또는 드래그</div>
             <div class="dp-img-list" id="dp_9_2_imgs_list"></div>

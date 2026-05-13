@@ -3814,6 +3814,10 @@ function buildFormHTML(formType, saved) {
     if (k==='obd_header_cc')       return currentApplication?.displacement || def;
     if (k==='obd_header_code')     return currentApplication?.family_code  || def;
     if (k==='displacement_cc')     return currentApplication?.displacement || def;
+    if (k==='dp_importer')   return currentApplication?.importer     || def;
+    if (k==='dp_cert_year')   return currentApplication?.cert_year    || def;
+    if (k==='dp_disp')        return currentApplication?.displacement  || def;
+    if (k==='dp_fam_code')    return currentApplication?.family_code   || def;
     return def;
   };
   const E   = esc;
@@ -5693,7 +5697,7 @@ if (formType==='detail_plan') return \`
       <th class="dp-th">배출가스 저감효과</th>
     </tr>
     \${rows.map((row,ri)=>\`<tr>
-      <td class="dp-lbl">\${row}</td><td class="dp-lbl"></td>
+      <td class="dp-lbl">\${row}</td><td><input class="dp-inp" data-field="\${pfx}_\${ri}_sub" type="text" value="\${E(v(\`\${pfx}_\${ri}_sub\`))}"></td>
       <td><input class="dp-inp" data-field="\${pfx}_\${ri}_struct" type="text" value="\${E(v(\`\${pfx}_\${ri}_struct\`))}"></td>
       <td><input class="dp-inp" data-field="\${pfx}_\${ri}_ctrl" type="text" value="\${E(v(\`\${pfx}_\${ri}_ctrl\`))}"></td>
       <td><input class="dp-inp" data-field="\${pfx}_\${ri}_eff" type="text" value="\${E(v(\`\${pfx}_\${ri}_eff\`))}"></td>
@@ -5776,7 +5780,7 @@ if (formType==='detail_plan') return \`
       <th class="dp-th">배출가스 저감효과</th>
     </tr>
     \${['공급계','제어계','분사계','충전경고 시스템'].map((row,ri)=>\`<tr>
-      <td class="dp-lbl">\${row}</td><td class="dp-lbl"></td>
+      <td class="dp-lbl">\${row}</td><td><input class="dp-inp" data-field="dp_8_12_\${ri}_sub" type="text" value="\${E(v(\`dp_8_12_\${ri}_sub\`))}"></td>
       <td><input class="dp-inp" data-field="dp_8_12_\${ri}_struct" type="text" value="\${E(v(\`dp_8_12_\${ri}_struct\`))}"></td>
       <td><input class="dp-inp" data-field="dp_8_12_\${ri}_ctrl" type="text" value="\${E(v(\`dp_8_12_\${ri}_ctrl\`))}"></td>
       <td><input class="dp-inp" data-field="dp_8_12_\${ri}_eff" type="text" value="\${E(v(\`dp_8_12_\${ri}_eff\`))}"></td>
@@ -5812,9 +5816,29 @@ if (formType==='detail_plan') return \`
     <tr><th class="dp-sub-th" colspan="2">8.14. 전기자동차 제어장치</th></tr>
     <tr><td class="dp-lbl">8.14.1. 전동기 및 전동기 제어장치</td><td>
       <div class="dp-field"><textarea class="dp-field-text" data-field="dp_8_14_1" rows="2" placeholder="전동기 및 전동기 제어장치 설명">\${E(v('dp_8_14_1'))}</textarea></div>
+      <input type="hidden" id="dp_8_14_1_imgs" data-field="dp_8_14_1_imgs" value="\${E(v('dp_8_14_1_imgs'))}">
+      <div class="dp-drop" id="dp_8_14_1_drop"
+        onclick="document.getElementById('dp_8_14_1_fi').click();"
+        ondragover="event.preventDefault();this.classList.add('drag-over');"
+        ondragleave="this.classList.remove('drag-over');"
+        ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('dp_8_14_1_imgs','dp_8_14_1_drop',event.dataTransfer.files);">
+        <input type="file" id="dp_8_14_1_fi" accept="image/*" multiple onchange="dpAddFiles('dp_8_14_1_imgs','dp_8_14_1_drop',this.files);this.value='';">
+        <div class="dp-drop-hint"><i class="fas fa-image"></i> 이미지 클릭 또는 드래그</div>
+        <div class="dp-img-list" id="dp_8_14_1_imgs_list"></div>
+      </div>
     </td></tr>
     <tr><td class="dp-lbl">8.14.2. 축전지 및 축전지 제어장치</td><td>
       <div class="dp-field"><textarea class="dp-field-text" data-field="dp_8_14_2" rows="2" placeholder="축전지 및 축전지 제어장치 설명">\${E(v('dp_8_14_2'))}</textarea></div>
+      <input type="hidden" id="dp_8_14_2_imgs" data-field="dp_8_14_2_imgs" value="\${E(v('dp_8_14_2_imgs'))}">
+      <div class="dp-drop" id="dp_8_14_2_drop"
+        onclick="document.getElementById('dp_8_14_2_fi').click();"
+        ondragover="event.preventDefault();this.classList.add('drag-over');"
+        ondragleave="this.classList.remove('drag-over');"
+        ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('dp_8_14_2_imgs','dp_8_14_2_drop',event.dataTransfer.files);">
+        <input type="file" id="dp_8_14_2_fi" accept="image/*" multiple onchange="dpAddFiles('dp_8_14_2_imgs','dp_8_14_2_drop',this.files);this.value='';">
+        <div class="dp-drop-hint"><i class="fas fa-image"></i> 이미지 클릭 또는 드래그</div>
+        <div class="dp-img-list" id="dp_8_14_2_imgs_list"></div>
+      </div>
     </td></tr>
   </tbody>
 </table>
@@ -10493,6 +10517,8 @@ function showToast(msg, type='info') {
       ['dp_7_2_imgs','dp_7_2_drop'],
       ['dp_9_2_imgs','dp_9_2_drop'],
       ['dp_13_imgs','dp_13_drop'],
+      ['dp_8_14_1_imgs','dp_8_14_1_drop'],
+      ['dp_8_14_2_imgs','dp_8_14_2_drop'],
     ].forEach(function(pair){ dpRenderDrop(pair[0], pair[1]); });
     // 8.x diagram 복원
     ['dp_8_1','dp_8_2','dp_8_3','dp_8_4','dp_8_5','dp_8_6','dp_8_7','dp_8_8','dp_8_9'].forEach(function(pfx){

@@ -3595,10 +3595,10 @@ function printWithQR() {
 // ── 목차인쇄 (detail_plan 전용) ──────────────────────────────────────────
 function printDetailPlanToc() {
   // 헤더 메타값 수집
-  const importer  = (document.querySelector('[data-field="dp_importer"]')  as HTMLInputElement)?.value  || (currentApplication?.importer    || '');
-  const certYear  = (document.querySelector('[data-field="dp_cert_year"]') as HTMLInputElement)?.value  || (currentApplication?.cert_year   || '');
-  const disp      = (document.querySelector('[data-field="dp_disp"]')      as HTMLInputElement)?.value  || (currentApplication?.displacement || '');
-  const famCode   = (document.querySelector('[data-field="dp_fam_code"]')  as HTMLInputElement)?.value  || (currentApplication?.family_code  || '');
+  const importer  = (document.querySelector('[data-field="dp_importer"]')  || {}).value  || (currentApplication && currentApplication.importer    || '');
+  const certYear  = (document.querySelector('[data-field="dp_cert_year"]') || {}).value  || (currentApplication && currentApplication.cert_year   || '');
+  const disp      = (document.querySelector('[data-field="dp_disp"]')      || {}).value  || (currentApplication && currentApplication.displacement || '');
+  const famCode   = (document.querySelector('[data-field="dp_fam_code"]')  || {}).value  || (currentApplication && currentApplication.family_code  || '');
 
   const tocItems = [
     { no:'1.',    title:'인증 소개' },

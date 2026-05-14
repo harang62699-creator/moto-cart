@@ -4179,6 +4179,10 @@ function buildFormHTML(formType, saved) {
     if (k==='obd_header_cc')       { const mv=currentApplication?.displacement; if(mv) return mv; }
     if (k==='obd_header_code')     { const mv=currentApplication?.family_code;  if(mv) return mv; }
     if (k==='displacement_cc')     { const mv=currentApplication?.displacement; if(mv) return mv; }
+    if (k==='oo_importer')  { const mv=currentApplication?.importer;    if(mv) return mv; }
+    if (k==='oo_cert_year') { const mv=currentApplication?.cert_year;   if(mv) return mv; }
+    if (k==='oo_disp')      { const mv=currentApplication?.displacement; if(mv) return mv; }
+    if (k==='oo_fam_code')  { const mv=currentApplication?.family_code;  if(mv) return mv; }
     // ── 저장값 반환 (위 메타 우선 처리 후) ──
     if (saved[k]!==undefined) return saved[k];
     if (k==='appl_div') return _certDefault;
@@ -9749,6 +9753,27 @@ if (formType==='detail_plan') return \`
 </style>
 
 <div class="obd-wrap">
+  <!-- ── 상단 헤더: 수입사 / 인증연도 / 배기량 / 동일차종기호 ── -->
+  <table class="obd-tbl" style="margin-bottom:10px;">
+    <colgroup><col style="width:25%;"><col style="width:25%;"><col style="width:25%;"><col style="width:25%;"></colgroup>
+    <thead>
+      <tr>
+        <th class="obd-th">\${BL('importer')}</th>
+        <th class="obd-th">\${BL('cert_year')}</th>
+        <th class="obd-th">\${BL('displacement')}</th>
+        <th class="obd-th">\${BL('family_code')}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="height:28px;">
+        <td><input data-field="oo_importer"  class="obd-inp" type="text" placeholder="\${BL('ph_importer')}"    value="\${E(v('oo_importer'))}"></td>
+        <td><input data-field="oo_cert_year" class="obd-inp" type="text" placeholder="\${BL('ph_cert_year')}"  value="\${E(v('oo_cert_year'))}"></td>
+        <td><input data-field="oo_disp"      class="obd-inp" type="text" placeholder="\${BL('ph_displacement')}" value="\${E(v('oo_disp'))}"></td>
+        <td><input data-field="oo_fam_code"  class="obd-inp" type="text" placeholder="\${BL('ph_family_code')}" value="\${E(v('oo_fam_code'))}"></td>
+      </tr>
+    </tbody>
+  </table>
+
   <div class="obd-doc-tag">[별지 제26호서식]</div>
   <div class="obd-main-title">\${BL('oo_main_title')}</div>
 

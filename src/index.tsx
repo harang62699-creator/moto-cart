@@ -5389,11 +5389,11 @@ function buildFormHTML(formType, saved) {
         <td><input class="en-inp" data-field="g_obd_r1_co" type="text" value="\${E(v('g_obd_r1_co'))}"></td>
         <td><input class="en-inp" data-field="g_obd_r1_nox" type="text" value="\${E(v('g_obd_r1_nox'))}"></td>
         <td><input class="en-inp" data-field="g_obd_r1_hc"  type="text" value="\${E(v('g_obd_r1_hc'))}"></td>
-        <td style="text-align:center;">유무</td>
+        <td><input class="en-inp" data-field="g_obd_r1_led" type="text" placeholder="유/무" value="\${E(v('g_obd_r1_led'))}"></td>
         <td><input class="en-inp" data-field="g_obd_c1_co"  type="text" value="\${E(v('g_obd_c1_co'))}"></td>
         <td><input class="en-inp" data-field="g_obd_c1_nox" type="text" value="\${E(v('g_obd_c1_nox'))}"></td>
         <td><input class="en-inp" data-field="g_obd_c1_hc"  type="text" value="\${E(v('g_obd_c1_hc'))}"></td>
-        <td style="text-align:center;">유무</td>
+        <td><input class="en-inp" data-field="g_obd_r1_judg" type="text" placeholder="적합/부적합" value="\${E(v('g_obd_r1_judg'))}"></td>
       </tr>
       <tr>
         <td class="en-lbl">O₂센서</td>
@@ -5401,11 +5401,11 @@ function buildFormHTML(formType, saved) {
         <td><input class="en-inp" data-field="g_obd_r2_co" type="text" value="\${E(v('g_obd_r2_co'))}"></td>
         <td><input class="en-inp" data-field="g_obd_r2_nox" type="text" value="\${E(v('g_obd_r2_nox'))}"></td>
         <td><input class="en-inp" data-field="g_obd_r2_hc"  type="text" value="\${E(v('g_obd_r2_hc'))}"></td>
-        <td style="text-align:center;">유무</td>
+        <td><input class="en-inp" data-field="g_obd_r2_led" type="text" placeholder="유/무" value="\${E(v('g_obd_r2_led'))}"></td>
         <td><input class="en-inp" data-field="g_obd_c2_co"  type="text" value="\${E(v('g_obd_c2_co'))}"></td>
         <td><input class="en-inp" data-field="g_obd_c2_nox" type="text" value="\${E(v('g_obd_c2_nox'))}"></td>
         <td><input class="en-inp" data-field="g_obd_c2_hc"  type="text" value="\${E(v('g_obd_c2_hc'))}"></td>
-        <td style="text-align:center;">유무</td>
+        <td><input class="en-inp" data-field="g_obd_r2_judg" type="text" placeholder="적합/부적합" value="\${E(v('g_obd_r2_judg'))}"></td>
       </tr>
     </tbody>
   </table>
@@ -5445,14 +5445,11 @@ function buildFormHTML(formType, saved) {
       <tr>
         <td class="en-lbl" style="text-align:center;">2</td>
         <td class="en-lbl">증발가스</td>
-        <td style="padding:4px 6px; font-size:8.5pt;">
-          <div class="g-chk-row">
-            
-            <span>증발가스 대표/동일 여부</span>
-          </div>
-          <div class="g-chk-row">
-            
-            <span>블로바이가스 제어장치</span>
+        <td style="padding:2px 4px;">
+          <div class="en-field">
+            <textarea class="en-field-text" data-field="g_evap_content" rows="3" placeholder="증발가스 대표/동일 여부 및 관련 내용">\${E(v('g_evap_content'))}</textarea>
+            <input type="hidden" data-field="g_evap_content_imgs" value="\${E(v('g_evap_content_imgs'))}">
+            <div class="en-drop" data-field-img="g_evap_content"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -5464,6 +5461,8 @@ function buildFormHTML(formType, saved) {
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="g_blowby_detail" rows="2" placeholder="블로바이가스 제어장치 내용">\${E(v('g_blowby_detail'))}</textarea>
+            <input type="hidden" data-field="g_blowby_detail_imgs" value="\${E(v('g_blowby_detail_imgs'))}">
+            <div class="en-drop" data-field-img="g_blowby_detail"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -5473,13 +5472,11 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl" style="text-align:center; vertical-align:top; padding-top:8px;">4</td>
         <td class="en-lbl" style="vertical-align:top; padding-top:8px;">배출가스자기진단장치<br>(OBD2)</td>
         <td style="padding:4px 6px;">
-          <div class="g-chk-row">
-            
-            <span>OBD2 대표/동일 여부</span>
-          </div>
-          <div class="g-chk-row">
-            
-            <span>배출가스자기진단장치 기준</span>
+          <!-- OBD2 대표/동일 여부 -->
+          <div class="en-field" style="margin-bottom:6px;">
+            <textarea class="en-field-text" data-field="g_obd_rep_detail" rows="2" placeholder="OBD2 대표/동일 여부 및 관련 내용">\${E(v('g_obd_rep_detail'))}</textarea>
+            <input type="hidden" data-field="g_obd_rep_detail_imgs" value="\${E(v('g_obd_rep_detail_imgs'))}">
+            <div class="en-drop" data-field-img="g_obd_rep_detail"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
 
           <!-- OBD 기준 테이블 -->
@@ -5492,34 +5489,32 @@ function buildFormHTML(formType, saved) {
             </thead>
             <tbody>
               <tr><td>휘발유 2006년 OBD 기준</td>
-                  <td style="text-align:center;"> 해당</td></tr>
+                  <td><input class="en-inp" data-field="g_obd_std1" type="text" placeholder="해당/미해당" value="\${E(v('g_obd_std1'))}"></td></tr>
               <tr><td>휘발유 2013년 OBD IUPR 1st 기준</td>
-                  <td style="text-align:center;"> 해당</td></tr>
+                  <td><input class="en-inp" data-field="g_obd_std2" type="text" placeholder="해당/미해당" value="\${E(v('g_obd_std2'))}"></td></tr>
               <tr><td>휘발유 2013년 OBD IUPR 2nd(2016년 1월) 기준</td>
-                  <td style="text-align:center;"> 해당</td></tr>
+                  <td><input class="en-inp" data-field="g_obd_std3" type="text" placeholder="해당/미해당" value="\${E(v('g_obd_std3'))}"></td></tr>
               <tr><td>휘발유 EURO6 OBD IUPR 2nd 기준</td>
-                  <td style="text-align:center;"> 해당</td></tr>
+                  <td><input class="en-inp" data-field="g_obd_std4" type="text" placeholder="해당/미해당" value="\${E(v('g_obd_std4'))}"></td></tr>
               <tr><td>휘발유 EURO5 OBD 이륜자동차 기준(OBD Stage 2)</td>
-                  <td style="text-align:center;"> 해당</td></tr>
+                  <td><input class="en-inp" data-field="g_obd_std5" type="text" placeholder="해당/미해당" value="\${E(v('g_obd_std5'))}"></td></tr>
               <tr><td>경유 2006년 OBD 기준</td>
-                  <td style="text-align:center;"> 해당</td></tr>
+                  <td><input class="en-inp" data-field="g_obd_std6" type="text" placeholder="해당/미해당" value="\${E(v('g_obd_std6'))}"></td></tr>
               <tr><td>경유 2012년 OBD IUPR 1st 기준</td>
-                  <td style="text-align:center;"> 해당</td></tr>
+                  <td><input class="en-inp" data-field="g_obd_std7" type="text" placeholder="해당/미해당" value="\${E(v('g_obd_std7'))}"></td></tr>
               <tr><td>경유 2014년 9월 OBD IUPR 2nd 기준</td>
-                  <td style="text-align:center;"> 해당</td></tr>
+                  <td><input class="en-inp" data-field="g_obd_std8" type="text" placeholder="해당/미해당" value="\${E(v('g_obd_std8'))}"></td></tr>
             </tbody>
           </table>
 
-          <div class="g-chk-row">
-            
-            <span>OBD2 오작동 판정기준</span>
+          <!-- OBD2 오작동 판정기준 -->
+          <div class="en-field" style="margin-bottom:6px;">
+            <textarea class="en-field-text" data-field="g_obd_mal_detail" rows="2" placeholder="OBD2 오작동 판정기준 관련 내용">\${E(v('g_obd_mal_detail'))}</textarea>
+            <input type="hidden" data-field="g_obd_mal_detail_imgs" value="\${E(v('g_obd_mal_detail_imgs'))}">
+            <div class="en-drop" data-field-img="g_obd_mal_detail"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
 
-          <!-- OBD 감시항목별 시험여부 -->
-          <div class="g-chk-row" style="margin-top:4px;">
-            
-            <span>OBD2 감시항목별 시험여부</span>
-          </div>
+          <!-- OBD2 감시항목별 시험여부 -->
           <table class="en-tbl" style="margin:6px 0; font-size:8pt;">
             <thead>
               <tr>
@@ -5554,10 +5549,6 @@ function buildFormHTML(formType, saved) {
           </table>
 
           <!-- IUPR 적용내역 -->
-          <div class="g-chk-row">
-            
-            <span>IUPR 적용내역</span>
-          </div>
           <table class="en-tbl" style="margin:6px 0; font-size:8pt;">
             <thead>
               <tr>
@@ -5617,17 +5608,11 @@ function buildFormHTML(formType, saved) {
       <tr>
         <td class="en-lbl" style="text-align:center;">7</td>
         <td class="en-lbl">배출가스 시험</td>
-        <td style="padding:4px 6px; font-size:8.5pt;">
-          <div class="g-chk-row">
-            
-            <span>배출가스 시험모드 및 시험 회수</span>
-          </div>
-          <div class="g-chk-row">
-            
-            <span>배출가스 자체시험 성적서 제출 내역</span>
-          </div>
-          <div style="margin-top:4px;">
-            <textarea class="en-field-text" data-field="g_em_test_detail" rows="2" placeholder="배출가스 시험 상세 내용">\${E(v('g_em_test_detail'))}</textarea>
+        <td style="padding:2px 4px;">
+          <div class="en-field">
+            <textarea class="en-field-text" data-field="g_em_test_detail" rows="3" placeholder="배출가스 시험모드, 시험 회수, 자체시험 성적서 제출 내역 등">\${E(v('g_em_test_detail'))}</textarea>
+            <input type="hidden" data-field="g_em_test_imgs" value="\${E(v('g_em_test_imgs'))}">
+            <div class="en-drop" data-field-img="g_em_test"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -5636,13 +5621,11 @@ function buildFormHTML(formType, saved) {
       <tr>
         <td class="en-lbl" style="text-align:center;">8</td>
         <td class="en-lbl">증발가스 시험</td>
-        <td style="padding:4px 6px; font-size:8.5pt;">
-          <div class="g-chk-row">
-            
-            <span>증발가스 자체시험 성적서 제출 내역</span>
-          </div>
-          <div style="margin-top:4px;">
-            <textarea class="en-field-text" data-field="g_evap_test_detail" rows="2" placeholder="증발가스 시험 상세 내용">\${E(v('g_evap_test_detail'))}</textarea>
+        <td style="padding:2px 4px;">
+          <div class="en-field">
+            <textarea class="en-field-text" data-field="g_evap_test_detail" rows="3" placeholder="증발가스 자체시험 성적서 제출 내역 등">\${E(v('g_evap_test_detail'))}</textarea>
+            <input type="hidden" data-field="g_evap_test_imgs" value="\${E(v('g_evap_test_imgs'))}">
+            <div class="en-drop" data-field-img="g_evap_test"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
@@ -5707,7 +5690,9 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl">주기적재생지수<br>(ki) 시험</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="g_ki_test" rows="2" placeholder="주기적재생지수(ki) 시험 내용">\${E(v('g_ki_test'))}</textarea>
+            <textarea class="en-field-text" data-field="g_ki_test" rows="3" placeholder="주기적재생지수(ki) 시험 내용">\${E(v('g_ki_test'))}</textarea>
+            <input type="hidden" data-field="g_ki_test_imgs" value="\${E(v('g_ki_test_imgs'))}">
+            <div class="en-drop" data-field-img="g_ki_test"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>

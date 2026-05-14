@@ -3773,8 +3773,7 @@ function initAutoGrow(container) {
   // 3) cf-warranty-subject-inp (보증내용 주어)
   container.querySelectorAll('input[type="text"].cf-warranty-subject-inp').forEach(replaceWithTextarea);
 
-  // 4) cf-header-inp (확인서 헤더 입력 - 수입사, 연도 등 짧은 고정폭 제외)
-  container.querySelectorAll('input[type="text"].cf-header-inp').forEach(replaceWithTextarea);
+  // 4) cf-header-inp 삭제: en-inp 공유 클래스로 통일 (en-inp는 헤더 싨청용 단일행 input이므로 replaceWithTextarea 불필요)
 
   // 5) cf-sign-inp 제외 (서명란 - 너무 작아 자동 확장 불필요)
 
@@ -4220,32 +4219,7 @@ function buildFormHTML(formType, saved) {
   box-sizing:border-box;
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
 }
-/* ── 상단 헤더 4칸 테이블 ── */
-.sv-header-tbl {
-  width:100%; border-collapse:collapse;
-  border:1px solid #888;
-}
-.sv-header-lbl-cell {
-  border:1px solid #888;
-  padding:4px 8px; vertical-align:middle;
-  background:rgba(79,142,247,.08);
-}
-.sv-header-val-cell {
-  border:1px solid #888;
-  padding:4px 8px; vertical-align:middle;
-}
-.sv-header-lbl {
-  display:block; font-size:.72rem; font-weight:700;
-  color:var(--c-text2); margin-bottom:0;
-  letter-spacing:.02em; text-align:center;
-}
-.sv-header-inp {
-  width:100%; background:transparent;
-  border:none; border-bottom:1px solid var(--c-border);
-  color:var(--c-text); font-size:.9rem;
-  padding:3px 0; outline:none;
-}
-.sv-header-inp:focus { border-bottom-color:var(--c-accent); }
+/* ── 상단 헤더: emission_noise와 동일 en-tbl/en-th/en-inp 공유 클래스 사용 ── */
 
 /* ── 제목 ── */
 .sv-title {
@@ -4354,11 +4328,8 @@ function buildFormHTML(formType, saved) {
 }
 
 @media screen {
-  .sv-header-lbl-cell { border-color:var(--c-border); }
-  .sv-header-val-cell { border-color:var(--c-border); }
   .sv-tbl thead th  { background:rgba(79,142,247,.10); color:var(--c-text); border-color:var(--c-border); }
   .sv-tbl th, .sv-tbl td { border-color:var(--c-border); }
-  .sv-header-tbl    { border-color:var(--c-border); }
   .sv-title {
     background:rgba(79,142,247,.06);
     border-color:var(--c-border2); color:var(--c-text);
@@ -4380,35 +4351,7 @@ function buildFormHTML(formType, saved) {
     -webkit-print-color-adjust:exact; print-color-adjust:exact;
   }
 
-  /* ── 상단 헤더 테이블 ── */
-  .sv-header-tbl {
-    border:1px solid #555 !important;
-    width:100% !important; border-collapse:collapse !important;
-  }
-  .sv-header-lbl-cell {
-    border:1px solid #555 !important;
-    padding:3px 6px !important;
-    background:#cdd5e8 !important;
-    text-align:center !important;
-    -webkit-print-color-adjust:exact; print-color-adjust:exact;
-  }
-  .sv-header-val-cell {
-    border:1px solid #555 !important;
-    padding:3px 6px !important;
-    background:#fff !important;
-  }
-  .sv-header-lbl {
-    font-size:8.5pt !important; font-weight:700 !important;
-    color:#000 !important; display:block;
-    letter-spacing:0 !important; text-transform:none !important;
-    text-align:center !important;
-  }
-  .sv-header-inp {
-    font-size:8.5pt !important; color:#000 !important;
-    border:none !important; border-bottom:1px solid #888 !important;
-    background:transparent !important; padding:1px 0 !important;
-    width:100% !important; font-family:inherit !important;
-  }
+  /* ── 상단 헤더: en-tbl/en-th/en-inp 공유 (emission_noise와 동일) ── */
 
   /* ── 제목 ── */
   .sv-title {
@@ -4497,23 +4440,25 @@ function buildFormHTML(formType, saved) {
 </style>
 
 <div class="sv-wrap">
-  <!-- ① 상단 헤더 테이블 (4칸 균등 · PDF 동일 2행 구조) -->
-  <table class="sv-header-tbl">
+  <!-- ① 상단 헤더 (emission_noise와 동일: en-tbl thead/tbody 구조) -->
+  <table class="en-tbl" style="margin-bottom:12px; table-layout:fixed;">
     <colgroup><col style="width:35%;"><col style="width:12%;"><col style="width:13%;"><col style="width:40%;"></colgroup>
-    <!-- 레이블 행 (배경색) -->
-    <tr class="sv-header-row-lbl">
-      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">\${BL('importer')}</span></td>
-      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">\${BL('cert_year')}</span></td>
-      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">\${BL('displacement')}</span></td>
-      <td class="sv-header-lbl-cell"><span class="sv-header-lbl">\${BL('family_code')}</span></td>
-    </tr>
-    <!-- 입력값 행 -->
-    <tr class="sv-header-row-val">
-      <td class="sv-header-val-cell"><input data-field="importer" class="sv-header-inp" type="text" placeholder="\${BL('ph_importer')}" value="\${E(v('importer'))}"></td>
-      <td class="sv-header-val-cell"><input data-field="cert_year" class="sv-header-inp" type="text" placeholder="\${BL('ph_cert_year')}" value="\${E(v('cert_year'))}"></td>
-      <td class="sv-header-val-cell"><input data-field="displacement" class="sv-header-inp" type="text" placeholder="\${BL('ph_displacement')}" value="\${E(v('displacement'))}"></td>
-      <td class="sv-header-val-cell"><input data-field="family_code" class="sv-header-inp" type="text" placeholder="\${BL('ph_family_code')}" value="\${E(v('family_code'))}"></td>
-    </tr>
+    <thead>
+      <tr>
+        <th class="en-th">\${BL('importer')}</th>
+        <th class="en-th">\${BL('cert_year')}</th>
+        <th class="en-th">\${BL('displacement')}</th>
+        <th class="en-th">\${BL('family_code')}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="height:26px;">
+        <td><input data-field="importer"     class="en-inp" type="text" placeholder="\${BL('ph_importer')}"    value="\${E(v('importer'))}"></td>
+        <td><input data-field="cert_year"    class="en-inp" type="text" placeholder="\${BL('ph_cert_year')}"  value="\${E(v('cert_year'))}"></td>
+        <td><input data-field="displacement" class="en-inp" type="text" placeholder="\${BL('ph_displacement')}" value="\${E(v('displacement'))}"></td>
+        <td><input data-field="family_code"  class="en-inp" type="text" placeholder="\${BL('ph_family_code')}" value="\${E(v('family_code'))}"></td>
+      </tr>
+    </tbody>
   </table>
 
   <!-- ② 제목 -->
@@ -4683,14 +4628,7 @@ function buildFormHTML(formType, saved) {
     text-align:center; padding:10px 16px; font-size:10pt; font-weight:800;
     border-bottom:1px solid var(--c-border2); background:rgba(79,142,247,.06);
   }
-  .g-header-grid {
-    display:grid; grid-template-columns:35% 12% 13% 40%;
-    border-bottom:1px solid var(--c-border2);
-  }
-  .g-header-cell { padding:4px 6px; border-right:1px solid var(--c-border); }
-  .g-header-cell:last-child { border-right:none; }
-  /* 기본(신청개요 제외) 섹션: 10pt */
-  .g-header-label { font-size:10pt; font-weight:700; color:var(--c-text3); display:block; margin-bottom:2px; }
+  /* ── 상단 헤더: en-tbl/en-th/en-inp 공유 (emission_noise와 동일) ── */
   .g-sec-title {
     font-size:10pt; font-weight:800; color:var(--c-accent);
     padding:6px 14px; border-bottom:1px solid var(--c-border2);
@@ -4738,18 +4676,7 @@ function buildFormHTML(formType, saved) {
     text-align:center; font-size:11pt; font-weight:bold;
     padding:4px 0; border-bottom:2px solid #000; margin-bottom:3px;
   }
-  .g-header-grid {
-    display:table; width:100%; border:1px solid #000; margin-bottom:3px;
-  }
-  .g-header-cell {
-    display:table-cell; padding:2px 5px; border-right:1px solid #000;
-  }
-  .g-header-cell:nth-child(1) { width:35%; }
-  .g-header-cell:nth-child(2) { width:12%; }
-  .g-header-cell:nth-child(3) { width:13%; }
-  .g-header-cell:nth-child(4) { width:40%; }
-  .g-header-cell:last-child { border-right:none; }
-  .g-header-label { font-size:6pt; color:#444; display:block; }
+  /* ── 상단 헤더 인쇄: en-tbl/en-th/en-inp 공유 (emission_noise와 동일) ── */
   .g-sec-title {
     font-weight:bold; font-size:8pt; margin:4px 0 2px;
     padding:0; background:none; color:#000; display:block;
@@ -4822,24 +4749,26 @@ function buildFormHTML(formType, saved) {
 <!-- ■ 제목 + 헤더 -->
 <div class="form-section g-wrap" style="padding:0;overflow:hidden;">
   <div class="g-form-title">\${BL('gasoline_title')}</div>
-  <div class="g-header-grid">
-    <div class="g-header-cell">
-      <span class="g-header-label">\${BL('importer')}</span>
-      <input data-field="importer" class="input g-inp" type="text" placeholder="\${BL('ph_importer')}" value="\${E(v('importer'))}" style="width:100%;">
-    </div>
-    <div class="g-header-cell">
-      <span class="g-header-label">\${BL('cert_year')}</span>
-      <input data-field="cert_year" class="input g-inp" type="text" placeholder="\${BL('ph_cert_year')}" value="\${E(v('cert_year'))}" style="width:100%;">
-    </div>
-    <div class="g-header-cell">
-      <span class="g-header-label">\${BL('displacement')}</span>
-      <input data-field="displacement_cc" class="input g-inp" type="text" placeholder="\${BL('ph_displacement')}" value="\${E(v('displacement_cc'))}" style="width:100%;">
-    </div>
-    <div class="g-header-cell">
-      <span class="g-header-label">\${BL('family_code')}</span>
-      <input data-field="family_code" class="input g-inp" type="text" placeholder="\${BL('ph_family_code')}" value="\${E(v('family_code'))}" style="width:100%;">
-    </div>
-  </div>
+  <!-- 상단 헤더 (emission_noise와 동일: en-tbl thead/tbody 구조) -->
+  <table class="en-tbl" style="margin-bottom:0; table-layout:fixed; border-top:none;">
+    <colgroup><col style="width:35%;"><col style="width:12%;"><col style="width:13%;"><col style="width:40%;"></colgroup>
+    <thead>
+      <tr>
+        <th class="en-th">\${BL('importer')}</th>
+        <th class="en-th">\${BL('cert_year')}</th>
+        <th class="en-th">\${BL('displacement')}</th>
+        <th class="en-th">\${BL('family_code')}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="height:26px;">
+        <td><input data-field="importer"      class="en-inp" type="text" placeholder="\${BL('ph_importer')}"    value="\${E(v('importer'))}"></td>
+        <td><input data-field="cert_year"     class="en-inp" type="text" placeholder="\${BL('ph_cert_year')}"  value="\${E(v('cert_year'))}"></td>
+        <td><input data-field="displacement_cc" class="en-inp" type="text" placeholder="\${BL('ph_displacement')}" value="\${E(v('displacement_cc'))}"></td>
+        <td><input data-field="family_code"   class="en-inp" type="text" placeholder="\${BL('ph_family_code')}" value="\${E(v('family_code'))}"></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <!-- ■ PAGE 1 : 신청 개요 -->
@@ -10796,32 +10725,7 @@ if (formType==='detail_plan') return \`
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
 }
 
-/* ── 상단 헤더 (요약서와 동일) ── */
-.cf-header-tbl {
-  width:100%; border-collapse:collapse;
-  border:1px solid #888;
-}
-.cf-header-lbl-cell {
-  width:25%; border:1px solid #888;
-  padding:4px 8px; vertical-align:middle;
-  background:rgba(79,142,247,.08);
-  text-align:center;
-}
-.cf-header-val-cell {
-  width:25%; border:1px solid #888;
-  padding:4px 8px; vertical-align:middle;
-}
-.cf-header-lbl {
-  display:block; font-size:.72rem; font-weight:700;
-  color:var(--c-text2); letter-spacing:.02em; text-align:center;
-}
-.cf-header-inp {
-  width:100%; background:transparent;
-  border:none; border-bottom:1px solid var(--c-border);
-  color:var(--c-text); font-size:.9rem;
-  padding:3px 0; outline:none;
-}
-.cf-header-inp:focus { border-bottom-color:var(--c-accent); }
+/* ── 상단 헤더: emission_noise와 동일 en-tbl/en-th/en-inp 공유 클래스 사용 ── */
 
 /* ── 제목 셀 ── */
 .cf-title {
@@ -10953,9 +10857,6 @@ if (formType==='detail_plan') return \`
 }
 
 @media screen {
-  .cf-header-lbl-cell { border-color:var(--c-border); }
-  .cf-header-val-cell { border-color:var(--c-border); }
-  .cf-header-tbl { border-color:var(--c-border); }
   .cf-title { background:rgba(79,142,247,.06); border-color:var(--c-border2); color:var(--c-text); }
   .cf-body-tbl { border-color:var(--c-border); }
   .cf-body-tbl td { border-color:var(--c-border); }
@@ -10975,12 +10876,7 @@ if (formType==='detail_plan') return \`
     -webkit-print-color-adjust:exact; print-color-adjust:exact;
   }
 
-  /* 상단 헤더 */
-  .cf-header-tbl { border:1px solid #555 !important; border-collapse:collapse !important; width:100% !important; }
-  .cf-header-lbl-cell { border:1px solid #555 !important; padding:3px 6px !important; background:#cdd5e8 !important; text-align:center !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .cf-header-val-cell { border:1px solid #555 !important; padding:3px 6px !important; background:#fff !important; }
-  .cf-header-lbl { font-size:8.5pt !important; font-weight:700 !important; color:#000 !important; display:block; text-align:center !important; }
-  .cf-header-inp { font-size:8.5pt !important; color:#000 !important; border:none !important; border-bottom:1px solid #888 !important; background:transparent !important; padding:1px 0 !important; width:100% !important; font-family:inherit !important; }
+  /* 상단 헤더: en-tbl/en-th/en-inp 공유 (emission_noise와 동일) */
 
   /* 제목 */
   .cf-title { font-size:14pt !important; font-weight:900 !important; color:#000 !important; background:#fff !important; border:1px solid #555 !important; border-top:none !important; padding:10px 8px !important; text-align:center !important; letter-spacing:.08em !important; }
@@ -11032,21 +10928,25 @@ if (formType==='detail_plan') return \`
 
 <div class="cf-wrap">
 
-  <!-- ① 상단 헤더 (요약서와 동일 2행 구조) -->
-  <table class="cf-header-tbl">
+  <!-- ① 상단 헤더 (emission_noise와 동일: en-tbl thead/tbody 구조) -->
+  <table class="en-tbl" style="margin-bottom:12px; table-layout:fixed;">
     <colgroup><col style="width:35%;"><col style="width:12%;"><col style="width:13%;"><col style="width:40%;"></colgroup>
-    <tr>
-      <td class="cf-header-lbl-cell"><span class="cf-header-lbl">\${BL('importer')}</span></td>
-      <td class="cf-header-lbl-cell"><span class="cf-header-lbl">\${BL('cert_year')}</span></td>
-      <td class="cf-header-lbl-cell"><span class="cf-header-lbl">\${BL('displacement')}</span></td>
-      <td class="cf-header-lbl-cell"><span class="cf-header-lbl">\${BL('family_code')}</span></td>
-    </tr>
-    <tr>
-      <td class="cf-header-val-cell"><input data-field="importer"     class="cf-header-inp" type="text" placeholder="\${BL('ph_importer')}"    value="\${E(v('importer'))}"></td>
-      <td class="cf-header-val-cell"><input data-field="cert_year"    class="cf-header-inp" type="text" placeholder="\${BL('ph_cert_year')}"   value="\${E(v('cert_year'))}"></td>
-      <td class="cf-header-val-cell"><input data-field="displacement" class="cf-header-inp" type="text" placeholder="\${BL('ph_displacement')}" value="\${E(v('displacement'))}"></td>
-      <td class="cf-header-val-cell"><input data-field="family_code"  class="cf-header-inp" type="text" placeholder="\${BL('ph_family_code')}"  value="\${E(v('family_code'))}"></td>
-    </tr>
+    <thead>
+      <tr>
+        <th class="en-th">\${BL('importer')}</th>
+        <th class="en-th">\${BL('cert_year')}</th>
+        <th class="en-th">\${BL('displacement')}</th>
+        <th class="en-th">\${BL('family_code')}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="height:26px;">
+        <td><input data-field="importer"     class="en-inp" type="text" placeholder="\${BL('ph_importer')}"    value="\${E(v('importer'))}"></td>
+        <td><input data-field="cert_year"    class="en-inp" type="text" placeholder="\${BL('ph_cert_year')}"   value="\${E(v('cert_year'))}"></td>
+        <td><input data-field="displacement" class="en-inp" type="text" placeholder="\${BL('ph_displacement')}" value="\${E(v('displacement'))}"></td>
+        <td><input data-field="family_code"  class="en-inp" type="text" placeholder="\${BL('ph_family_code')}"  value="\${E(v('family_code'))}"></td>
+      </tr>
+    </tbody>
   </table>
 
   <!-- ② 제목 (PDF 원본: 전체 너비 단독 셀) -->

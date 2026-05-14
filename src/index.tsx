@@ -5635,9 +5635,11 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl" style="text-align:center; vertical-align:top; padding-top:8px;">9</td>
         <td class="en-lbl" style="vertical-align:top; padding-top:8px;">보증기간 및 열화계수</td>
         <td style="padding:4px 6px;">
-          <div class="g-chk-row">
-            
-            <span>보증기간 및 열화계수 적용 내역</span>
+          <!-- 보증기간 및 열화계수 적용 내역 -->
+          <div class="en-field" style="margin-bottom:6px;">
+            <textarea class="en-field-text" data-field="g_warranty_detail" rows="2" placeholder="보증기간 및 열화계수 적용 내역">\${E(v('g_warranty_detail'))}</textarea>
+            <input type="hidden" data-field="g_warranty_detail_imgs" value="\${E(v('g_warranty_detail_imgs'))}">
+            <div class="en-drop" data-field-img="g_warranty_detail"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
           <div style="padding:2px 6px; font-size:8.5pt;">
             보증기간(km) : <input class="g-chk-inp" data-field="g_warranty_km" type="text" value="\${E(v('g_warranty_km'))}" style="width:120px;">

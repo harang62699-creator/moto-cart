@@ -5389,11 +5389,11 @@ function buildFormHTML(formType, saved) {
         <td><input class="en-inp" data-field="g_obd_r1_co" type="text" value="\${E(v('g_obd_r1_co'))}"></td>
         <td><input class="en-inp" data-field="g_obd_r1_nox" type="text" value="\${E(v('g_obd_r1_nox'))}"></td>
         <td><input class="en-inp" data-field="g_obd_r1_hc"  type="text" value="\${E(v('g_obd_r1_hc'))}"></td>
-        <td style="text-align:center;">유□ 무□</td>
+        <td style="text-align:center;">유무</td>
         <td><input class="en-inp" data-field="g_obd_c1_co"  type="text" value="\${E(v('g_obd_c1_co'))}"></td>
         <td><input class="en-inp" data-field="g_obd_c1_nox" type="text" value="\${E(v('g_obd_c1_nox'))}"></td>
         <td><input class="en-inp" data-field="g_obd_c1_hc"  type="text" value="\${E(v('g_obd_c1_hc'))}"></td>
-        <td style="text-align:center;">유□ 무□</td>
+        <td style="text-align:center;">유무</td>
       </tr>
       <tr>
         <td class="en-lbl">O₂센서</td>
@@ -5401,11 +5401,11 @@ function buildFormHTML(formType, saved) {
         <td><input class="en-inp" data-field="g_obd_r2_co" type="text" value="\${E(v('g_obd_r2_co'))}"></td>
         <td><input class="en-inp" data-field="g_obd_r2_nox" type="text" value="\${E(v('g_obd_r2_nox'))}"></td>
         <td><input class="en-inp" data-field="g_obd_r2_hc"  type="text" value="\${E(v('g_obd_r2_hc'))}"></td>
-        <td style="text-align:center;">유□ 무□</td>
+        <td style="text-align:center;">유무</td>
         <td><input class="en-inp" data-field="g_obd_c2_co"  type="text" value="\${E(v('g_obd_c2_co'))}"></td>
         <td><input class="en-inp" data-field="g_obd_c2_nox" type="text" value="\${E(v('g_obd_c2_nox'))}"></td>
         <td><input class="en-inp" data-field="g_obd_c2_hc"  type="text" value="\${E(v('g_obd_c2_hc'))}"></td>
-        <td style="text-align:center;">유□ 무□</td>
+        <td style="text-align:center;">유무</td>
       </tr>
     </tbody>
   </table>
@@ -5448,11 +5448,11 @@ function buildFormHTML(formType, saved) {
         <td style="padding:4px 6px; font-size:8.5pt;">
           <div class="g-chk-row">
             <input type="checkbox" data-field="g_evap_rep_chk" \${v('g_evap_rep_chk')==='1'?'checked':''}>
-            <span>□ 증발가스 대표/동일 여부</span>
+            <span>증발가스 대표/동일 여부</span>
           </div>
           <div class="g-chk-row">
             <input type="checkbox" data-field="g_blowby_chk" \${v('g_blowby_chk')==='1'?'checked':''}>
-            <span>□ 블로바이가스 제어장치</span>
+            <span>블로바이가스 제어장치</span>
           </div>
         </td>
       </tr>
@@ -5475,11 +5475,11 @@ function buildFormHTML(formType, saved) {
         <td style="padding:4px 6px;">
           <div class="g-chk-row">
             <input type="checkbox" data-field="g_obd_rep_chk" \${v('g_obd_rep_chk')==='1'?'checked':''}>
-            <span>□ OBD2 대표/동일 여부</span>
+            <span>OBD2 대표/동일 여부</span>
           </div>
           <div class="g-chk-row">
             <input type="checkbox" data-field="g_obd_std_chk" \${v('g_obd_std_chk')==='1'?'checked':''}>
-            <span>□ 배출가스자기진단장치 기준</span>
+            <span>배출가스자기진단장치 기준</span>
           </div>
 
           <!-- OBD 기준 테이블 -->
@@ -5512,13 +5512,13 @@ function buildFormHTML(formType, saved) {
 
           <div class="g-chk-row">
             <input type="checkbox" data-field="g_obd_misfunc_chk" \${v('g_obd_misfunc_chk')==='1'?'checked':''}>
-            <span>□ OBD2 오작동 판정기준</span>
+            <span>OBD2 오작동 판정기준</span>
           </div>
 
           <!-- OBD 감시항목별 시험여부 -->
           <div class="g-chk-row" style="margin-top:4px;">
             <input type="checkbox" data-field="g_obd_monitor_chk" \${v('g_obd_monitor_chk')==='1'?'checked':''}>
-            <span>□ OBD2 감시항목별 시험여부</span>
+            <span>OBD2 감시항목별 시험여부</span>
           </div>
           <table class="en-tbl" style="margin:6px 0; font-size:8pt;">
             <thead>
@@ -5556,7 +5556,7 @@ function buildFormHTML(formType, saved) {
           <!-- IUPR 적용내역 -->
           <div class="g-chk-row">
             <input type="checkbox" data-field="g_iupr_chk" \${v('g_iupr_chk')==='1'?'checked':''}>
-            <span>□ IUPR 적용내역</span>
+            <span>IUPR 적용내역</span>
           </div>
           <table class="en-tbl" style="margin:6px 0; font-size:8pt;">
             <thead>
@@ -5591,7 +5591,7 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl">시험시설</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="g_test_facility" rows="2" placeholder="□ 자체시험을 실시한 시설에 대한 시설확인 내역">\${E(v('g_test_facility'))}</textarea>
+            <textarea class="en-field-text" data-field="g_test_facility" rows="2" placeholder="자체시험을 실시한 시설에 대한 시설확인 내역">\${E(v('g_test_facility'))}</textarea>
             <input type="hidden" data-field="g_test_facility_imgs" value="\${E(v('g_test_facility_imgs'))}">
             <div class="en-drop" data-field-img="g_test_facility"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
@@ -5603,7 +5603,7 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl" style="text-align:center; vertical-align:top; padding-top:8px;">6</td>
         <td class="en-lbl" style="vertical-align:top; padding-top:8px;">시험차 선정근거</td>
         <td style="padding:4px 6px; font-size:8.5pt; line-height:1.7;">
-          <div>□ 시험자동차 선정근거</div>
+          <div>시험자동차 선정근거</div>
           <div>- 배출가스 시험차량 : 「제작자동차 인증 및 검사방법과 절차 등에 관한 규정」 제11조(배출가스시험자동차의 선정)에 따라 시험차량 선정</div>
           <div>- 소음 시험차량 : 「제작자동차 인증 및 검사방법과 절차 등에 관한 규정」 제12조(소음인증시험자동차의 선정)에 따라 시험차량 선정</div>
           <div>- OBD 시험차량 : 「제작자동차 인증 및 검사방법과 절차 등에 관한 규정」 제23조(OBD인증시험자동차의 선정)에 따라 시험차량 선정</div>
@@ -5620,11 +5620,11 @@ function buildFormHTML(formType, saved) {
         <td style="padding:4px 6px; font-size:8.5pt;">
           <div class="g-chk-row">
             <input type="checkbox" data-field="g_em_mode_chk" \${v('g_em_mode_chk')==='1'?'checked':''}>
-            <span>□ 배출가스 시험모드 및 시험 회수</span>
+            <span>배출가스 시험모드 및 시험 회수</span>
           </div>
           <div class="g-chk-row">
             <input type="checkbox" data-field="g_em_report_chk" \${v('g_em_report_chk')==='1'?'checked':''}>
-            <span>□ 배출가스 자체시험 성적서 제출 내역</span>
+            <span>배출가스 자체시험 성적서 제출 내역</span>
           </div>
           <div style="margin-top:4px;">
             <textarea class="en-field-text" data-field="g_em_test_detail" rows="2" placeholder="배출가스 시험 상세 내용">\${E(v('g_em_test_detail'))}</textarea>
@@ -5639,7 +5639,7 @@ function buildFormHTML(formType, saved) {
         <td style="padding:4px 6px; font-size:8.5pt;">
           <div class="g-chk-row">
             <input type="checkbox" data-field="g_evap_report_chk" \${v('g_evap_report_chk')==='1'?'checked':''}>
-            <span>□ 증발가스 자체시험 성적서 제출 내역</span>
+            <span>증발가스 자체시험 성적서 제출 내역</span>
           </div>
           <div style="margin-top:4px;">
             <textarea class="en-field-text" data-field="g_evap_test_detail" rows="2" placeholder="증발가스 시험 상세 내용">\${E(v('g_evap_test_detail'))}</textarea>
@@ -5654,7 +5654,7 @@ function buildFormHTML(formType, saved) {
         <td style="padding:4px 6px;">
           <div class="g-chk-row">
             <input type="checkbox" data-field="g_warranty_chk" \${v('g_warranty_chk')==='1'?'checked':''}>
-            <span>□ 보증기간 및 열화계수 적용 내역</span>
+            <span>보증기간 및 열화계수 적용 내역</span>
           </div>
           <div style="padding:2px 6px; font-size:8.5pt;">
             보증기간(km) : <input class="g-chk-inp" data-field="g_warranty_km" type="text" value="\${E(v('g_warranty_km'))}" style="width:120px;">
@@ -5719,11 +5719,11 @@ function buildFormHTML(formType, saved) {
         <td style="padding:4px 6px; font-size:8.5pt;">
           <div class="g-chk-row">
             <input type="checkbox" data-field="g_noise_report_chk" \${v('g_noise_report_chk')==='1'?'checked':''}>
-            <span>□ 소음시험 성적서 제출 내역</span>
+            <span>소음시험 성적서 제출 내역</span>
           </div>
           <div class="g-chk-row">
             <input type="checkbox" data-field="g_noise_method_chk" \${v('g_noise_method_chk')==='1'?'checked':''}>
-            <span>□ 소음 시험방법</span>
+            <span>소음 시험방법</span>
           </div>
           <div style="padding:2px 8px; font-size:8.5pt; line-height:2.0;">
             - 가속주행소음 : <input class="g-chk-inp" data-field="g_noise_accel" type="text" value="\${E(v('g_noise_accel'))}" style="width:200px;"><br>

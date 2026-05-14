@@ -4215,11 +4215,20 @@ function buildFormHTML(formType, saved) {
   if (formType==='summary') return \`
 <style>
 /* ══════════ summary 전용 스타일 ══════════ */
-.sv-wrap {
+.en-wrap {
   box-sizing:border-box;
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  font-size:9pt;
+  padding:10px 2px;
+  background:#fff;
+  color:#111;
+  border-radius:8px;
 }
-/* ── 상단 헤더 테이블 (emission_noise와 동일 구조) ── */
+.en-doc-tag { font-size:8.5pt; font-weight:700; color:#444; margin:10px 0 4px; }
+.en-main-title {
+  font-size:13pt; font-weight:900; text-align:center;
+  margin:4px 0 14px; letter-spacing:.03em; color:#111;
+}
 .en-tbl {
   width:100%; border-collapse:collapse;
   font-size:8.5pt; margin-bottom:0;
@@ -4230,11 +4239,80 @@ function buildFormHTML(formType, saved) {
   vertical-align:middle;
   color:#111;
 }
+.en-sec-th {
+  background:#d6e4f7;
+  font-weight:700; text-align:left;
+  padding:4px 6px; font-size:8.5pt; color:#111;
+}
+.en-sub-th {
+  background:#eef3fa;
+  font-weight:700; text-align:left;
+  padding:3px 6px; font-size:8.5pt; color:#111;
+}
 .en-th {
   background:#eef3fa;
   font-weight:600; text-align:center;
   font-size:8pt; color:#111;
 }
+.en-lbl {
+  background:#f5f8ff;
+  font-weight:600; color:#111;
+  vertical-align:middle;
+}
+/* ── 복합 입력 필드 (텍스트 + 이미지) ── */
+.en-field {
+  display:flex; flex-direction:column; gap:4px;
+  padding:3px 4px; box-sizing:border-box; width:100%;
+}
+.en-field-text {
+  width:100%; font-size:8.5pt; font-family:inherit;
+  border:none; background:transparent; padding:2px 0;
+  box-sizing:border-box; resize:vertical; color:#111;
+  min-height:36px; line-height:1.5;
+}
+.en-field-text::placeholder { color:#aaa; }
+.en-field-text:focus { outline:none; border-bottom:1px dashed #4e90d8; }
+/* 이미지 드롭존 */
+.en-drop {
+  border:1.5px dashed #b0c4de;
+  border-radius:5px;
+  background:#f8faff;
+  padding:6px 8px;
+  cursor:pointer;
+  transition:border-color .15s, background .15s;
+  position:relative;
+  min-height:36px;
+}
+.en-drop:hover { border-color:#4e90d8; background:#eef3fa; }
+.en-drop.drag-over { border-color:#2563eb; background:#dbeafe; }
+.en-drop-hint {
+  color:#aaa; font-size:7.5pt; text-align:center;
+  pointer-events:none; user-select:none;
+  display:flex; align-items:center; justify-content:center; gap:4px;
+}
+.en-drop input[type=file] { display:none; }
+/* 이미지 미리보기 목록 */
+.en-img-list {
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;
+}
+.en-img-item {
+  position:relative; display:inline-block;
+}
+.en-img-item img {
+  max-width:140px; max-height:100px;
+  border:1px solid #ccc; border-radius:3px;
+  display:block; object-fit:contain; background:#fff;
+}
+.en-img-item-del {
+  position:absolute; top:-6px; right:-6px;
+  width:16px; height:16px; border-radius:50%;
+  background:#ef4444; color:#fff; font-size:10px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; line-height:1; border:none;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+.en-img-item-del:hover { background:#dc2626; }
+/* 헤더 셀의 텍스트 입력 (수입사 등 단순 1행 셀) */
 .en-inp {
   border:none; background:transparent;
   width:100%; font-size:8.5pt;
@@ -4243,7 +4321,78 @@ function buildFormHTML(formType, saved) {
 }
 .en-inp::placeholder { color:#aaa; }
 .en-inp:focus { outline:none; border-bottom:1px solid #4e90d8; }
+@media print {
+  /* ── 전체 래퍼 ── */
+  .en-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; }
 
+  /* ── 테이블 셀: 내용에 맞춰 높이 자동 확장, 잘림 방지 ── */
+  .en-tbl { table-layout:fixed !important; width:100% !important; }
+  .en-tbl th, .en-tbl td {
+    border:1px solid #333 !important; color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important; overflow-wrap:break-word !important;
+  }
+
+  /* ── en-field: 인쇄 시 flex 유지, 높이 자동 ── */
+  .en-field { height:auto !important; overflow:visible !important; display:flex !important; flex-direction:column !important; }
+
+  /* ── textarea: 내용 전체 표시, 스크롤 없이 ── */
+  textarea.en-field-text {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    height:auto !important; min-height:0 !important; max-height:none !important;
+    overflow:visible !important; resize:none !important;
+    white-space:pre-wrap !important; word-break:break-word !important;
+    overflow-wrap:break-word !important;
+    display:block !important; box-sizing:border-box !important;
+    -webkit-appearance:none !important; appearance:none !important;
+    padding:2px 0 !important;
+  }
+
+  /* ── 단순 1행 input ── */
+  .en-inp {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important;
+  }
+
+  /* ── hidden input 완전 숨김 ── */
+  input[type=hidden] { display:none !important; }
+
+  /* ── 이미지 드롭존: 테두리/배경 제거, 힌트/삭제버튼 숨김 ── */
+  .en-drop {
+    border:none !important; background:transparent !important;
+    padding:0 !important; min-height:unset !important;
+    height:auto !important; overflow:visible !important;
+  }
+  .en-drop-hint { display:none !important; }
+  .en-img-item-del { display:none !important; }
+  .en-img-list { gap:4px !important; margin-top:2px !important; }
+  .en-img-item img {
+    max-width:100% !important; max-height:none !important;
+    page-break-inside:avoid;
+  }
+  /* 이미지가 없는 빈 en-drop은 공간 차지 안 함 */
+  .en-drop:not(:has(img)) { display:none !important; }
+
+  /* ── 섹션 헤더 배경색 유지 ── */
+  .en-sec-th { background:#d6e4f7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-sub-th { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-th     { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-lbl    { background:#f5f8ff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+  /* ── 페이지 분리 방지 (행 단위) ── */
+  .en-tbl tr { page-break-inside:avoid; }
+}
+
+.sv-wrap {
+  box-sizing:border-box;
+  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+}
 /* ── 제목 ── */
 .sv-title {
   text-align:center;
@@ -4351,12 +4500,7 @@ function buildFormHTML(formType, saved) {
 }
 
 @media screen {
-  /* 상단 헤더 screen 오버라이드 */
-  .en-tbl th { color:var(--c-text); border-color:var(--c-border); }
-  .en-tbl td { color:var(--c-text); border-color:var(--c-border); }
-  .en-th { background:rgba(79,142,247,.10); color:var(--c-text); }
-  .en-inp { color:var(--c-text); }
-  .sv-tbl thead th  { background:rgba(79,142,247,.10); color:var(--c-text); border-color:var(--c-border); }
+      .sv-tbl thead th  { background:rgba(79,142,247,.10); color:var(--c-text); border-color:var(--c-border); }
   .sv-tbl th, .sv-tbl td { border-color:var(--c-border); }
   .sv-title {
     background:rgba(79,142,247,.06);
@@ -4379,13 +4523,7 @@ function buildFormHTML(formType, saved) {
     -webkit-print-color-adjust:exact; print-color-adjust:exact;
   }
 
-  /* ── 상단 헤더 인쇄: en-tbl/en-th/en-inp ── */
-  .en-tbl { border-collapse:collapse !important; width:100% !important; table-layout:fixed !important; }
-  .en-tbl th, .en-tbl td { border:1px solid #555 !important; color:#000 !important; padding:3px 5px !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .en-th { background:#eef3fa !important; font-weight:700 !important; text-align:center !important; font-size:8pt !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .en-inp { border:none !important; background:transparent !important; color:#000 !important; font-size:8.5pt !important; font-family:inherit !important; width:100% !important; padding:0 2px !important; }
-
-  /* ── 제목 ── */
+            /* ── 제목 ── */
   .sv-title {
     font-size:14pt !important; font-weight:900 !important;
     color:#000 !important; background:#fff !important;
@@ -4641,7 +4779,20 @@ function buildFormHTML(formType, saved) {
   if (formType==='gasoline') return \`
 <style>
 /* ══════════ gasoline 전용 스타일 ══════════ */
-/* ── 상단 헤더 테이블 (emission_noise와 동일 구조) ── */
+.en-wrap {
+  box-sizing:border-box;
+  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  font-size:9pt;
+  padding:10px 2px;
+  background:#fff;
+  color:#111;
+  border-radius:8px;
+}
+.en-doc-tag { font-size:8.5pt; font-weight:700; color:#444; margin:10px 0 4px; }
+.en-main-title {
+  font-size:13pt; font-weight:900; text-align:center;
+  margin:4px 0 14px; letter-spacing:.03em; color:#111;
+}
 .en-tbl {
   width:100%; border-collapse:collapse;
   font-size:8.5pt; margin-bottom:0;
@@ -4652,11 +4803,80 @@ function buildFormHTML(formType, saved) {
   vertical-align:middle;
   color:#111;
 }
+.en-sec-th {
+  background:#d6e4f7;
+  font-weight:700; text-align:left;
+  padding:4px 6px; font-size:8.5pt; color:#111;
+}
+.en-sub-th {
+  background:#eef3fa;
+  font-weight:700; text-align:left;
+  padding:3px 6px; font-size:8.5pt; color:#111;
+}
 .en-th {
   background:#eef3fa;
   font-weight:600; text-align:center;
   font-size:8pt; color:#111;
 }
+.en-lbl {
+  background:#f5f8ff;
+  font-weight:600; color:#111;
+  vertical-align:middle;
+}
+/* ── 복합 입력 필드 (텍스트 + 이미지) ── */
+.en-field {
+  display:flex; flex-direction:column; gap:4px;
+  padding:3px 4px; box-sizing:border-box; width:100%;
+}
+.en-field-text {
+  width:100%; font-size:8.5pt; font-family:inherit;
+  border:none; background:transparent; padding:2px 0;
+  box-sizing:border-box; resize:vertical; color:#111;
+  min-height:36px; line-height:1.5;
+}
+.en-field-text::placeholder { color:#aaa; }
+.en-field-text:focus { outline:none; border-bottom:1px dashed #4e90d8; }
+/* 이미지 드롭존 */
+.en-drop {
+  border:1.5px dashed #b0c4de;
+  border-radius:5px;
+  background:#f8faff;
+  padding:6px 8px;
+  cursor:pointer;
+  transition:border-color .15s, background .15s;
+  position:relative;
+  min-height:36px;
+}
+.en-drop:hover { border-color:#4e90d8; background:#eef3fa; }
+.en-drop.drag-over { border-color:#2563eb; background:#dbeafe; }
+.en-drop-hint {
+  color:#aaa; font-size:7.5pt; text-align:center;
+  pointer-events:none; user-select:none;
+  display:flex; align-items:center; justify-content:center; gap:4px;
+}
+.en-drop input[type=file] { display:none; }
+/* 이미지 미리보기 목록 */
+.en-img-list {
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;
+}
+.en-img-item {
+  position:relative; display:inline-block;
+}
+.en-img-item img {
+  max-width:140px; max-height:100px;
+  border:1px solid #ccc; border-radius:3px;
+  display:block; object-fit:contain; background:#fff;
+}
+.en-img-item-del {
+  position:absolute; top:-6px; right:-6px;
+  width:16px; height:16px; border-radius:50%;
+  background:#ef4444; color:#fff; font-size:10px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; line-height:1; border:none;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+.en-img-item-del:hover { background:#dc2626; }
+/* 헤더 셀의 텍스트 입력 (수입사 등 단순 1행 셀) */
 .en-inp {
   border:none; background:transparent;
   width:100%; font-size:8.5pt;
@@ -4665,6 +4885,73 @@ function buildFormHTML(formType, saved) {
 }
 .en-inp::placeholder { color:#aaa; }
 .en-inp:focus { outline:none; border-bottom:1px solid #4e90d8; }
+@media print {
+  /* ── 전체 래퍼 ── */
+  .en-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; }
+
+  /* ── 테이블 셀: 내용에 맞춰 높이 자동 확장, 잘림 방지 ── */
+  .en-tbl { table-layout:fixed !important; width:100% !important; }
+  .en-tbl th, .en-tbl td {
+    border:1px solid #333 !important; color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important; overflow-wrap:break-word !important;
+  }
+
+  /* ── en-field: 인쇄 시 flex 유지, 높이 자동 ── */
+  .en-field { height:auto !important; overflow:visible !important; display:flex !important; flex-direction:column !important; }
+
+  /* ── textarea: 내용 전체 표시, 스크롤 없이 ── */
+  textarea.en-field-text {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    height:auto !important; min-height:0 !important; max-height:none !important;
+    overflow:visible !important; resize:none !important;
+    white-space:pre-wrap !important; word-break:break-word !important;
+    overflow-wrap:break-word !important;
+    display:block !important; box-sizing:border-box !important;
+    -webkit-appearance:none !important; appearance:none !important;
+    padding:2px 0 !important;
+  }
+
+  /* ── 단순 1행 input ── */
+  .en-inp {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important;
+  }
+
+  /* ── hidden input 완전 숨김 ── */
+  input[type=hidden] { display:none !important; }
+
+  /* ── 이미지 드롭존: 테두리/배경 제거, 힌트/삭제버튼 숨김 ── */
+  .en-drop {
+    border:none !important; background:transparent !important;
+    padding:0 !important; min-height:unset !important;
+    height:auto !important; overflow:visible !important;
+  }
+  .en-drop-hint { display:none !important; }
+  .en-img-item-del { display:none !important; }
+  .en-img-list { gap:4px !important; margin-top:2px !important; }
+  .en-img-item img {
+    max-width:100% !important; max-height:none !important;
+    page-break-inside:avoid;
+  }
+  /* 이미지가 없는 빈 en-drop은 공간 차지 안 함 */
+  .en-drop:not(:has(img)) { display:none !important; }
+
+  /* ── 섹션 헤더 배경색 유지 ── */
+  .en-sec-th { background:#d6e4f7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-sub-th { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-th     { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-lbl    { background:#f5f8ff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+  /* ── 페이지 분리 방지 (행 단위) ── */
+  .en-tbl tr { page-break-inside:avoid; }
+}
 
 .g-wrap { box-sizing:border-box; }
 .g-tbl  { width:100%; border-collapse:collapse; font-size:7pt; }
@@ -4685,12 +4972,7 @@ function buildFormHTML(formType, saved) {
     text-align:center; padding:10px 16px; font-size:10pt; font-weight:800;
     border-bottom:1px solid var(--c-border2); background:rgba(79,142,247,.06);
   }
-  /* ── 상단 헤더 screen: en-tbl/en-th/en-inp ── */
-  .en-tbl th { color:var(--c-text); }
-  .en-tbl td { color:var(--c-text); }
-  .en-th { background:rgba(79,142,247,.10); color:var(--c-text); }
-  .en-inp { color:var(--c-text); }
-  .g-sec-title {
+        .g-sec-title {
     font-size:10pt; font-weight:800; color:var(--c-accent);
     padding:6px 14px; border-bottom:1px solid var(--c-border2);
     background:rgba(79,142,247,.04); display:flex; align-items:center; gap:5px;
@@ -4737,12 +5019,7 @@ function buildFormHTML(formType, saved) {
     text-align:center; font-size:11pt; font-weight:bold;
     padding:4px 0; border-bottom:2px solid #000; margin-bottom:3px;
   }
-  /* ── 상단 헤더 인쇄: en-tbl/en-th/en-inp ── */
-  .en-tbl { border-collapse:collapse !important; width:100% !important; table-layout:fixed !important; }
-  .en-tbl th, .en-tbl td { border:1px solid #555 !important; color:#000 !important; padding:3px 5px !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .en-th { background:#eef3fa !important; font-weight:700 !important; text-align:center !important; font-size:8pt !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .en-inp { border:none !important; background:transparent !important; color:#000 !important; font-size:8.5pt !important; font-family:inherit !important; width:100% !important; padding:0 2px !important; }
-  .g-sec-title {
+            .g-sec-title {
     font-weight:bold; font-size:8pt; margin:4px 0 2px;
     padding:0; background:none; color:#000; display:block;
   }
@@ -7784,6 +8061,180 @@ if (formType==='detail_plan') return \`
   if (formType==='obd_config') return \`
 <style>
 /* ══════ obd_config 전용 스타일 ══════ */
+.en-wrap {
+  box-sizing:border-box;
+  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  font-size:9pt;
+  padding:10px 2px;
+  background:#fff;
+  color:#111;
+  border-radius:8px;
+}
+.en-doc-tag { font-size:8.5pt; font-weight:700; color:#444; margin:10px 0 4px; }
+.en-main-title {
+  font-size:13pt; font-weight:900; text-align:center;
+  margin:4px 0 14px; letter-spacing:.03em; color:#111;
+}
+.en-tbl {
+  width:100%; border-collapse:collapse;
+  font-size:8.5pt; margin-bottom:0;
+}
+.en-tbl th, .en-tbl td {
+  border:1px solid #888;
+  padding:3px 5px;
+  vertical-align:middle;
+  color:#111;
+}
+.en-sec-th {
+  background:#d6e4f7;
+  font-weight:700; text-align:left;
+  padding:4px 6px; font-size:8.5pt; color:#111;
+}
+.en-sub-th {
+  background:#eef3fa;
+  font-weight:700; text-align:left;
+  padding:3px 6px; font-size:8.5pt; color:#111;
+}
+.en-th {
+  background:#eef3fa;
+  font-weight:600; text-align:center;
+  font-size:8pt; color:#111;
+}
+.en-lbl {
+  background:#f5f8ff;
+  font-weight:600; color:#111;
+  vertical-align:middle;
+}
+/* ── 복합 입력 필드 (텍스트 + 이미지) ── */
+.en-field {
+  display:flex; flex-direction:column; gap:4px;
+  padding:3px 4px; box-sizing:border-box; width:100%;
+}
+.en-field-text {
+  width:100%; font-size:8.5pt; font-family:inherit;
+  border:none; background:transparent; padding:2px 0;
+  box-sizing:border-box; resize:vertical; color:#111;
+  min-height:36px; line-height:1.5;
+}
+.en-field-text::placeholder { color:#aaa; }
+.en-field-text:focus { outline:none; border-bottom:1px dashed #4e90d8; }
+/* 이미지 드롭존 */
+.en-drop {
+  border:1.5px dashed #b0c4de;
+  border-radius:5px;
+  background:#f8faff;
+  padding:6px 8px;
+  cursor:pointer;
+  transition:border-color .15s, background .15s;
+  position:relative;
+  min-height:36px;
+}
+.en-drop:hover { border-color:#4e90d8; background:#eef3fa; }
+.en-drop.drag-over { border-color:#2563eb; background:#dbeafe; }
+.en-drop-hint {
+  color:#aaa; font-size:7.5pt; text-align:center;
+  pointer-events:none; user-select:none;
+  display:flex; align-items:center; justify-content:center; gap:4px;
+}
+.en-drop input[type=file] { display:none; }
+/* 이미지 미리보기 목록 */
+.en-img-list {
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;
+}
+.en-img-item {
+  position:relative; display:inline-block;
+}
+.en-img-item img {
+  max-width:140px; max-height:100px;
+  border:1px solid #ccc; border-radius:3px;
+  display:block; object-fit:contain; background:#fff;
+}
+.en-img-item-del {
+  position:absolute; top:-6px; right:-6px;
+  width:16px; height:16px; border-radius:50%;
+  background:#ef4444; color:#fff; font-size:10px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; line-height:1; border:none;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+.en-img-item-del:hover { background:#dc2626; }
+/* 헤더 셀의 텍스트 입력 (수입사 등 단순 1행 셀) */
+.en-inp {
+  border:none; background:transparent;
+  width:100%; font-size:8.5pt;
+  font-family:inherit; padding:0 2px;
+  box-sizing:border-box; color:#111;
+}
+.en-inp::placeholder { color:#aaa; }
+.en-inp:focus { outline:none; border-bottom:1px solid #4e90d8; }
+@media print {
+  /* ── 전체 래퍼 ── */
+  .en-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; }
+
+  /* ── 테이블 셀: 내용에 맞춰 높이 자동 확장, 잘림 방지 ── */
+  .en-tbl { table-layout:fixed !important; width:100% !important; }
+  .en-tbl th, .en-tbl td {
+    border:1px solid #333 !important; color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important; overflow-wrap:break-word !important;
+  }
+
+  /* ── en-field: 인쇄 시 flex 유지, 높이 자동 ── */
+  .en-field { height:auto !important; overflow:visible !important; display:flex !important; flex-direction:column !important; }
+
+  /* ── textarea: 내용 전체 표시, 스크롤 없이 ── */
+  textarea.en-field-text {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    height:auto !important; min-height:0 !important; max-height:none !important;
+    overflow:visible !important; resize:none !important;
+    white-space:pre-wrap !important; word-break:break-word !important;
+    overflow-wrap:break-word !important;
+    display:block !important; box-sizing:border-box !important;
+    -webkit-appearance:none !important; appearance:none !important;
+    padding:2px 0 !important;
+  }
+
+  /* ── 단순 1행 input ── */
+  .en-inp {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important;
+  }
+
+  /* ── hidden input 완전 숨김 ── */
+  input[type=hidden] { display:none !important; }
+
+  /* ── 이미지 드롭존: 테두리/배경 제거, 힌트/삭제버튼 숨김 ── */
+  .en-drop {
+    border:none !important; background:transparent !important;
+    padding:0 !important; min-height:unset !important;
+    height:auto !important; overflow:visible !important;
+  }
+  .en-drop-hint { display:none !important; }
+  .en-img-item-del { display:none !important; }
+  .en-img-list { gap:4px !important; margin-top:2px !important; }
+  .en-img-item img {
+    max-width:100% !important; max-height:none !important;
+    page-break-inside:avoid;
+  }
+  /* 이미지가 없는 빈 en-drop은 공간 차지 안 함 */
+  .en-drop:not(:has(img)) { display:none !important; }
+
+  /* ── 섹션 헤더 배경색 유지 ── */
+  .en-sec-th { background:#d6e4f7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-sub-th { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-th     { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-lbl    { background:#f5f8ff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+  /* ── 페이지 분리 방지 (행 단위) ── */
+  .en-tbl tr { page-break-inside:avoid; }
+}
+
 .obd-wrap {
   box-sizing:border-box;
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
@@ -8617,6 +9068,180 @@ if (formType==='detail_plan') return \`
   if (formType==='emission_test') return \`
 <style>
 /* ══════ emission_test 전용 스타일 ══════ */
+.en-wrap {
+  box-sizing:border-box;
+  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  font-size:9pt;
+  padding:10px 2px;
+  background:#fff;
+  color:#111;
+  border-radius:8px;
+}
+.en-doc-tag { font-size:8.5pt; font-weight:700; color:#444; margin:10px 0 4px; }
+.en-main-title {
+  font-size:13pt; font-weight:900; text-align:center;
+  margin:4px 0 14px; letter-spacing:.03em; color:#111;
+}
+.en-tbl {
+  width:100%; border-collapse:collapse;
+  font-size:8.5pt; margin-bottom:0;
+}
+.en-tbl th, .en-tbl td {
+  border:1px solid #888;
+  padding:3px 5px;
+  vertical-align:middle;
+  color:#111;
+}
+.en-sec-th {
+  background:#d6e4f7;
+  font-weight:700; text-align:left;
+  padding:4px 6px; font-size:8.5pt; color:#111;
+}
+.en-sub-th {
+  background:#eef3fa;
+  font-weight:700; text-align:left;
+  padding:3px 6px; font-size:8.5pt; color:#111;
+}
+.en-th {
+  background:#eef3fa;
+  font-weight:600; text-align:center;
+  font-size:8pt; color:#111;
+}
+.en-lbl {
+  background:#f5f8ff;
+  font-weight:600; color:#111;
+  vertical-align:middle;
+}
+/* ── 복합 입력 필드 (텍스트 + 이미지) ── */
+.en-field {
+  display:flex; flex-direction:column; gap:4px;
+  padding:3px 4px; box-sizing:border-box; width:100%;
+}
+.en-field-text {
+  width:100%; font-size:8.5pt; font-family:inherit;
+  border:none; background:transparent; padding:2px 0;
+  box-sizing:border-box; resize:vertical; color:#111;
+  min-height:36px; line-height:1.5;
+}
+.en-field-text::placeholder { color:#aaa; }
+.en-field-text:focus { outline:none; border-bottom:1px dashed #4e90d8; }
+/* 이미지 드롭존 */
+.en-drop {
+  border:1.5px dashed #b0c4de;
+  border-radius:5px;
+  background:#f8faff;
+  padding:6px 8px;
+  cursor:pointer;
+  transition:border-color .15s, background .15s;
+  position:relative;
+  min-height:36px;
+}
+.en-drop:hover { border-color:#4e90d8; background:#eef3fa; }
+.en-drop.drag-over { border-color:#2563eb; background:#dbeafe; }
+.en-drop-hint {
+  color:#aaa; font-size:7.5pt; text-align:center;
+  pointer-events:none; user-select:none;
+  display:flex; align-items:center; justify-content:center; gap:4px;
+}
+.en-drop input[type=file] { display:none; }
+/* 이미지 미리보기 목록 */
+.en-img-list {
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;
+}
+.en-img-item {
+  position:relative; display:inline-block;
+}
+.en-img-item img {
+  max-width:140px; max-height:100px;
+  border:1px solid #ccc; border-radius:3px;
+  display:block; object-fit:contain; background:#fff;
+}
+.en-img-item-del {
+  position:absolute; top:-6px; right:-6px;
+  width:16px; height:16px; border-radius:50%;
+  background:#ef4444; color:#fff; font-size:10px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; line-height:1; border:none;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+.en-img-item-del:hover { background:#dc2626; }
+/* 헤더 셀의 텍스트 입력 (수입사 등 단순 1행 셀) */
+.en-inp {
+  border:none; background:transparent;
+  width:100%; font-size:8.5pt;
+  font-family:inherit; padding:0 2px;
+  box-sizing:border-box; color:#111;
+}
+.en-inp::placeholder { color:#aaa; }
+.en-inp:focus { outline:none; border-bottom:1px solid #4e90d8; }
+@media print {
+  /* ── 전체 래퍼 ── */
+  .en-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; }
+
+  /* ── 테이블 셀: 내용에 맞춰 높이 자동 확장, 잘림 방지 ── */
+  .en-tbl { table-layout:fixed !important; width:100% !important; }
+  .en-tbl th, .en-tbl td {
+    border:1px solid #333 !important; color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important; overflow-wrap:break-word !important;
+  }
+
+  /* ── en-field: 인쇄 시 flex 유지, 높이 자동 ── */
+  .en-field { height:auto !important; overflow:visible !important; display:flex !important; flex-direction:column !important; }
+
+  /* ── textarea: 내용 전체 표시, 스크롤 없이 ── */
+  textarea.en-field-text {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    height:auto !important; min-height:0 !important; max-height:none !important;
+    overflow:visible !important; resize:none !important;
+    white-space:pre-wrap !important; word-break:break-word !important;
+    overflow-wrap:break-word !important;
+    display:block !important; box-sizing:border-box !important;
+    -webkit-appearance:none !important; appearance:none !important;
+    padding:2px 0 !important;
+  }
+
+  /* ── 단순 1행 input ── */
+  .en-inp {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important;
+  }
+
+  /* ── hidden input 완전 숨김 ── */
+  input[type=hidden] { display:none !important; }
+
+  /* ── 이미지 드롭존: 테두리/배경 제거, 힌트/삭제버튼 숨김 ── */
+  .en-drop {
+    border:none !important; background:transparent !important;
+    padding:0 !important; min-height:unset !important;
+    height:auto !important; overflow:visible !important;
+  }
+  .en-drop-hint { display:none !important; }
+  .en-img-item-del { display:none !important; }
+  .en-img-list { gap:4px !important; margin-top:2px !important; }
+  .en-img-item img {
+    max-width:100% !important; max-height:none !important;
+    page-break-inside:avoid;
+  }
+  /* 이미지가 없는 빈 en-drop은 공간 차지 안 함 */
+  .en-drop:not(:has(img)) { display:none !important; }
+
+  /* ── 섹션 헤더 배경색 유지 ── */
+  .en-sec-th { background:#d6e4f7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-sub-th { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-th     { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-lbl    { background:#f5f8ff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+  /* ── 페이지 분리 방지 (행 단위) ── */
+  .en-tbl tr { page-break-inside:avoid; }
+}
+
 .em-wrap {
   box-sizing:border-box;
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
@@ -9259,6 +9884,180 @@ if (formType==='detail_plan') return \`
   if (formType==='evap_test') return \`
 <style>
 /* ══════ evap_test 전용 스타일 ══════ */
+.en-wrap {
+  box-sizing:border-box;
+  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  font-size:9pt;
+  padding:10px 2px;
+  background:#fff;
+  color:#111;
+  border-radius:8px;
+}
+.en-doc-tag { font-size:8.5pt; font-weight:700; color:#444; margin:10px 0 4px; }
+.en-main-title {
+  font-size:13pt; font-weight:900; text-align:center;
+  margin:4px 0 14px; letter-spacing:.03em; color:#111;
+}
+.en-tbl {
+  width:100%; border-collapse:collapse;
+  font-size:8.5pt; margin-bottom:0;
+}
+.en-tbl th, .en-tbl td {
+  border:1px solid #888;
+  padding:3px 5px;
+  vertical-align:middle;
+  color:#111;
+}
+.en-sec-th {
+  background:#d6e4f7;
+  font-weight:700; text-align:left;
+  padding:4px 6px; font-size:8.5pt; color:#111;
+}
+.en-sub-th {
+  background:#eef3fa;
+  font-weight:700; text-align:left;
+  padding:3px 6px; font-size:8.5pt; color:#111;
+}
+.en-th {
+  background:#eef3fa;
+  font-weight:600; text-align:center;
+  font-size:8pt; color:#111;
+}
+.en-lbl {
+  background:#f5f8ff;
+  font-weight:600; color:#111;
+  vertical-align:middle;
+}
+/* ── 복합 입력 필드 (텍스트 + 이미지) ── */
+.en-field {
+  display:flex; flex-direction:column; gap:4px;
+  padding:3px 4px; box-sizing:border-box; width:100%;
+}
+.en-field-text {
+  width:100%; font-size:8.5pt; font-family:inherit;
+  border:none; background:transparent; padding:2px 0;
+  box-sizing:border-box; resize:vertical; color:#111;
+  min-height:36px; line-height:1.5;
+}
+.en-field-text::placeholder { color:#aaa; }
+.en-field-text:focus { outline:none; border-bottom:1px dashed #4e90d8; }
+/* 이미지 드롭존 */
+.en-drop {
+  border:1.5px dashed #b0c4de;
+  border-radius:5px;
+  background:#f8faff;
+  padding:6px 8px;
+  cursor:pointer;
+  transition:border-color .15s, background .15s;
+  position:relative;
+  min-height:36px;
+}
+.en-drop:hover { border-color:#4e90d8; background:#eef3fa; }
+.en-drop.drag-over { border-color:#2563eb; background:#dbeafe; }
+.en-drop-hint {
+  color:#aaa; font-size:7.5pt; text-align:center;
+  pointer-events:none; user-select:none;
+  display:flex; align-items:center; justify-content:center; gap:4px;
+}
+.en-drop input[type=file] { display:none; }
+/* 이미지 미리보기 목록 */
+.en-img-list {
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;
+}
+.en-img-item {
+  position:relative; display:inline-block;
+}
+.en-img-item img {
+  max-width:140px; max-height:100px;
+  border:1px solid #ccc; border-radius:3px;
+  display:block; object-fit:contain; background:#fff;
+}
+.en-img-item-del {
+  position:absolute; top:-6px; right:-6px;
+  width:16px; height:16px; border-radius:50%;
+  background:#ef4444; color:#fff; font-size:10px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; line-height:1; border:none;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+.en-img-item-del:hover { background:#dc2626; }
+/* 헤더 셀의 텍스트 입력 (수입사 등 단순 1행 셀) */
+.en-inp {
+  border:none; background:transparent;
+  width:100%; font-size:8.5pt;
+  font-family:inherit; padding:0 2px;
+  box-sizing:border-box; color:#111;
+}
+.en-inp::placeholder { color:#aaa; }
+.en-inp:focus { outline:none; border-bottom:1px solid #4e90d8; }
+@media print {
+  /* ── 전체 래퍼 ── */
+  .en-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; }
+
+  /* ── 테이블 셀: 내용에 맞춰 높이 자동 확장, 잘림 방지 ── */
+  .en-tbl { table-layout:fixed !important; width:100% !important; }
+  .en-tbl th, .en-tbl td {
+    border:1px solid #333 !important; color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important; overflow-wrap:break-word !important;
+  }
+
+  /* ── en-field: 인쇄 시 flex 유지, 높이 자동 ── */
+  .en-field { height:auto !important; overflow:visible !important; display:flex !important; flex-direction:column !important; }
+
+  /* ── textarea: 내용 전체 표시, 스크롤 없이 ── */
+  textarea.en-field-text {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    height:auto !important; min-height:0 !important; max-height:none !important;
+    overflow:visible !important; resize:none !important;
+    white-space:pre-wrap !important; word-break:break-word !important;
+    overflow-wrap:break-word !important;
+    display:block !important; box-sizing:border-box !important;
+    -webkit-appearance:none !important; appearance:none !important;
+    padding:2px 0 !important;
+  }
+
+  /* ── 단순 1행 input ── */
+  .en-inp {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important;
+  }
+
+  /* ── hidden input 완전 숨김 ── */
+  input[type=hidden] { display:none !important; }
+
+  /* ── 이미지 드롭존: 테두리/배경 제거, 힌트/삭제버튼 숨김 ── */
+  .en-drop {
+    border:none !important; background:transparent !important;
+    padding:0 !important; min-height:unset !important;
+    height:auto !important; overflow:visible !important;
+  }
+  .en-drop-hint { display:none !important; }
+  .en-img-item-del { display:none !important; }
+  .en-img-list { gap:4px !important; margin-top:2px !important; }
+  .en-img-item img {
+    max-width:100% !important; max-height:none !important;
+    page-break-inside:avoid;
+  }
+  /* 이미지가 없는 빈 en-drop은 공간 차지 안 함 */
+  .en-drop:not(:has(img)) { display:none !important; }
+
+  /* ── 섹션 헤더 배경색 유지 ── */
+  .en-sec-th { background:#d6e4f7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-sub-th { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-th     { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-lbl    { background:#f5f8ff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+  /* ── 페이지 분리 방지 (행 단위) ── */
+  .en-tbl tr { page-break-inside:avoid; }
+}
+
 .ev-wrap {
   box-sizing:border-box;
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
@@ -9679,6 +10478,180 @@ if (formType==='detail_plan') return \`
   if (formType==='obd_operation') return \`
 <style>
 /* ══════ obd_operation 전용 스타일 ══════ */
+.en-wrap {
+  box-sizing:border-box;
+  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  font-size:9pt;
+  padding:10px 2px;
+  background:#fff;
+  color:#111;
+  border-radius:8px;
+}
+.en-doc-tag { font-size:8.5pt; font-weight:700; color:#444; margin:10px 0 4px; }
+.en-main-title {
+  font-size:13pt; font-weight:900; text-align:center;
+  margin:4px 0 14px; letter-spacing:.03em; color:#111;
+}
+.en-tbl {
+  width:100%; border-collapse:collapse;
+  font-size:8.5pt; margin-bottom:0;
+}
+.en-tbl th, .en-tbl td {
+  border:1px solid #888;
+  padding:3px 5px;
+  vertical-align:middle;
+  color:#111;
+}
+.en-sec-th {
+  background:#d6e4f7;
+  font-weight:700; text-align:left;
+  padding:4px 6px; font-size:8.5pt; color:#111;
+}
+.en-sub-th {
+  background:#eef3fa;
+  font-weight:700; text-align:left;
+  padding:3px 6px; font-size:8.5pt; color:#111;
+}
+.en-th {
+  background:#eef3fa;
+  font-weight:600; text-align:center;
+  font-size:8pt; color:#111;
+}
+.en-lbl {
+  background:#f5f8ff;
+  font-weight:600; color:#111;
+  vertical-align:middle;
+}
+/* ── 복합 입력 필드 (텍스트 + 이미지) ── */
+.en-field {
+  display:flex; flex-direction:column; gap:4px;
+  padding:3px 4px; box-sizing:border-box; width:100%;
+}
+.en-field-text {
+  width:100%; font-size:8.5pt; font-family:inherit;
+  border:none; background:transparent; padding:2px 0;
+  box-sizing:border-box; resize:vertical; color:#111;
+  min-height:36px; line-height:1.5;
+}
+.en-field-text::placeholder { color:#aaa; }
+.en-field-text:focus { outline:none; border-bottom:1px dashed #4e90d8; }
+/* 이미지 드롭존 */
+.en-drop {
+  border:1.5px dashed #b0c4de;
+  border-radius:5px;
+  background:#f8faff;
+  padding:6px 8px;
+  cursor:pointer;
+  transition:border-color .15s, background .15s;
+  position:relative;
+  min-height:36px;
+}
+.en-drop:hover { border-color:#4e90d8; background:#eef3fa; }
+.en-drop.drag-over { border-color:#2563eb; background:#dbeafe; }
+.en-drop-hint {
+  color:#aaa; font-size:7.5pt; text-align:center;
+  pointer-events:none; user-select:none;
+  display:flex; align-items:center; justify-content:center; gap:4px;
+}
+.en-drop input[type=file] { display:none; }
+/* 이미지 미리보기 목록 */
+.en-img-list {
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;
+}
+.en-img-item {
+  position:relative; display:inline-block;
+}
+.en-img-item img {
+  max-width:140px; max-height:100px;
+  border:1px solid #ccc; border-radius:3px;
+  display:block; object-fit:contain; background:#fff;
+}
+.en-img-item-del {
+  position:absolute; top:-6px; right:-6px;
+  width:16px; height:16px; border-radius:50%;
+  background:#ef4444; color:#fff; font-size:10px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; line-height:1; border:none;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+.en-img-item-del:hover { background:#dc2626; }
+/* 헤더 셀의 텍스트 입력 (수입사 등 단순 1행 셀) */
+.en-inp {
+  border:none; background:transparent;
+  width:100%; font-size:8.5pt;
+  font-family:inherit; padding:0 2px;
+  box-sizing:border-box; color:#111;
+}
+.en-inp::placeholder { color:#aaa; }
+.en-inp:focus { outline:none; border-bottom:1px solid #4e90d8; }
+@media print {
+  /* ── 전체 래퍼 ── */
+  .en-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; }
+
+  /* ── 테이블 셀: 내용에 맞춰 높이 자동 확장, 잘림 방지 ── */
+  .en-tbl { table-layout:fixed !important; width:100% !important; }
+  .en-tbl th, .en-tbl td {
+    border:1px solid #333 !important; color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important; overflow-wrap:break-word !important;
+  }
+
+  /* ── en-field: 인쇄 시 flex 유지, 높이 자동 ── */
+  .en-field { height:auto !important; overflow:visible !important; display:flex !important; flex-direction:column !important; }
+
+  /* ── textarea: 내용 전체 표시, 스크롤 없이 ── */
+  textarea.en-field-text {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    height:auto !important; min-height:0 !important; max-height:none !important;
+    overflow:visible !important; resize:none !important;
+    white-space:pre-wrap !important; word-break:break-word !important;
+    overflow-wrap:break-word !important;
+    display:block !important; box-sizing:border-box !important;
+    -webkit-appearance:none !important; appearance:none !important;
+    padding:2px 0 !important;
+  }
+
+  /* ── 단순 1행 input ── */
+  .en-inp {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important;
+  }
+
+  /* ── hidden input 완전 숨김 ── */
+  input[type=hidden] { display:none !important; }
+
+  /* ── 이미지 드롭존: 테두리/배경 제거, 힌트/삭제버튼 숨김 ── */
+  .en-drop {
+    border:none !important; background:transparent !important;
+    padding:0 !important; min-height:unset !important;
+    height:auto !important; overflow:visible !important;
+  }
+  .en-drop-hint { display:none !important; }
+  .en-img-item-del { display:none !important; }
+  .en-img-list { gap:4px !important; margin-top:2px !important; }
+  .en-img-item img {
+    max-width:100% !important; max-height:none !important;
+    page-break-inside:avoid;
+  }
+  /* 이미지가 없는 빈 en-drop은 공간 차지 안 함 */
+  .en-drop:not(:has(img)) { display:none !important; }
+
+  /* ── 섹션 헤더 배경색 유지 ── */
+  .en-sec-th { background:#d6e4f7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-sub-th { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-th     { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-lbl    { background:#f5f8ff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+  /* ── 페이지 분리 방지 (행 단위) ── */
+  .en-tbl tr { page-break-inside:avoid; }
+}
+
 .obd-wrap {
   box-sizing:border-box;
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
@@ -9987,6 +10960,180 @@ if (formType==='detail_plan') return \`
   if (formType==='noise_test') return \`
 <style>
 /* ══════ noise_test 전용 스타일 ══════ */
+.en-wrap {
+  box-sizing:border-box;
+  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  font-size:9pt;
+  padding:10px 2px;
+  background:#fff;
+  color:#111;
+  border-radius:8px;
+}
+.en-doc-tag { font-size:8.5pt; font-weight:700; color:#444; margin:10px 0 4px; }
+.en-main-title {
+  font-size:13pt; font-weight:900; text-align:center;
+  margin:4px 0 14px; letter-spacing:.03em; color:#111;
+}
+.en-tbl {
+  width:100%; border-collapse:collapse;
+  font-size:8.5pt; margin-bottom:0;
+}
+.en-tbl th, .en-tbl td {
+  border:1px solid #888;
+  padding:3px 5px;
+  vertical-align:middle;
+  color:#111;
+}
+.en-sec-th {
+  background:#d6e4f7;
+  font-weight:700; text-align:left;
+  padding:4px 6px; font-size:8.5pt; color:#111;
+}
+.en-sub-th {
+  background:#eef3fa;
+  font-weight:700; text-align:left;
+  padding:3px 6px; font-size:8.5pt; color:#111;
+}
+.en-th {
+  background:#eef3fa;
+  font-weight:600; text-align:center;
+  font-size:8pt; color:#111;
+}
+.en-lbl {
+  background:#f5f8ff;
+  font-weight:600; color:#111;
+  vertical-align:middle;
+}
+/* ── 복합 입력 필드 (텍스트 + 이미지) ── */
+.en-field {
+  display:flex; flex-direction:column; gap:4px;
+  padding:3px 4px; box-sizing:border-box; width:100%;
+}
+.en-field-text {
+  width:100%; font-size:8.5pt; font-family:inherit;
+  border:none; background:transparent; padding:2px 0;
+  box-sizing:border-box; resize:vertical; color:#111;
+  min-height:36px; line-height:1.5;
+}
+.en-field-text::placeholder { color:#aaa; }
+.en-field-text:focus { outline:none; border-bottom:1px dashed #4e90d8; }
+/* 이미지 드롭존 */
+.en-drop {
+  border:1.5px dashed #b0c4de;
+  border-radius:5px;
+  background:#f8faff;
+  padding:6px 8px;
+  cursor:pointer;
+  transition:border-color .15s, background .15s;
+  position:relative;
+  min-height:36px;
+}
+.en-drop:hover { border-color:#4e90d8; background:#eef3fa; }
+.en-drop.drag-over { border-color:#2563eb; background:#dbeafe; }
+.en-drop-hint {
+  color:#aaa; font-size:7.5pt; text-align:center;
+  pointer-events:none; user-select:none;
+  display:flex; align-items:center; justify-content:center; gap:4px;
+}
+.en-drop input[type=file] { display:none; }
+/* 이미지 미리보기 목록 */
+.en-img-list {
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;
+}
+.en-img-item {
+  position:relative; display:inline-block;
+}
+.en-img-item img {
+  max-width:140px; max-height:100px;
+  border:1px solid #ccc; border-radius:3px;
+  display:block; object-fit:contain; background:#fff;
+}
+.en-img-item-del {
+  position:absolute; top:-6px; right:-6px;
+  width:16px; height:16px; border-radius:50%;
+  background:#ef4444; color:#fff; font-size:10px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; line-height:1; border:none;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+.en-img-item-del:hover { background:#dc2626; }
+/* 헤더 셀의 텍스트 입력 (수입사 등 단순 1행 셀) */
+.en-inp {
+  border:none; background:transparent;
+  width:100%; font-size:8.5pt;
+  font-family:inherit; padding:0 2px;
+  box-sizing:border-box; color:#111;
+}
+.en-inp::placeholder { color:#aaa; }
+.en-inp:focus { outline:none; border-bottom:1px solid #4e90d8; }
+@media print {
+  /* ── 전체 래퍼 ── */
+  .en-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; }
+
+  /* ── 테이블 셀: 내용에 맞춰 높이 자동 확장, 잘림 방지 ── */
+  .en-tbl { table-layout:fixed !important; width:100% !important; }
+  .en-tbl th, .en-tbl td {
+    border:1px solid #333 !important; color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important; overflow-wrap:break-word !important;
+  }
+
+  /* ── en-field: 인쇄 시 flex 유지, 높이 자동 ── */
+  .en-field { height:auto !important; overflow:visible !important; display:flex !important; flex-direction:column !important; }
+
+  /* ── textarea: 내용 전체 표시, 스크롤 없이 ── */
+  textarea.en-field-text {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    height:auto !important; min-height:0 !important; max-height:none !important;
+    overflow:visible !important; resize:none !important;
+    white-space:pre-wrap !important; word-break:break-word !important;
+    overflow-wrap:break-word !important;
+    display:block !important; box-sizing:border-box !important;
+    -webkit-appearance:none !important; appearance:none !important;
+    padding:2px 0 !important;
+  }
+
+  /* ── 단순 1행 input ── */
+  .en-inp {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important;
+  }
+
+  /* ── hidden input 완전 숨김 ── */
+  input[type=hidden] { display:none !important; }
+
+  /* ── 이미지 드롭존: 테두리/배경 제거, 힌트/삭제버튼 숨김 ── */
+  .en-drop {
+    border:none !important; background:transparent !important;
+    padding:0 !important; min-height:unset !important;
+    height:auto !important; overflow:visible !important;
+  }
+  .en-drop-hint { display:none !important; }
+  .en-img-item-del { display:none !important; }
+  .en-img-list { gap:4px !important; margin-top:2px !important; }
+  .en-img-item img {
+    max-width:100% !important; max-height:none !important;
+    page-break-inside:avoid;
+  }
+  /* 이미지가 없는 빈 en-drop은 공간 차지 안 함 */
+  .en-drop:not(:has(img)) { display:none !important; }
+
+  /* ── 섹션 헤더 배경색 유지 ── */
+  .en-sec-th { background:#d6e4f7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-sub-th { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-th     { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-lbl    { background:#f5f8ff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+  /* ── 페이지 분리 방지 (행 단위) ── */
+  .en-tbl tr { page-break-inside:avoid; }
+}
+
 .nt-wrap {
   box-sizing:border-box;
   font-family:'Malgun Gothic',sans-serif;
@@ -10780,17 +11927,20 @@ if (formType==='detail_plan') return \`
   if (formType==='confirmation') return \`
 <style>
 /* ══════════ confirmation 전용 스타일 ══════════
-   PDF 원본 구조: 상단헤더(4칸) + 제목셀 + 단일 본문셀(1~5항목 + 확인문구 + 서명란)
-   인증신청 요약서와 달리 3열(구분/항목/내용) 구조 없음
-   ══════════════════════════════════════════════ */
-
-/* ── 전체 래퍼 ── */
-.cf-wrap {
+.en-wrap {
   box-sizing:border-box;
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  font-size:9pt;
+  padding:10px 2px;
+  background:#fff;
+  color:#111;
+  border-radius:8px;
 }
-
-/* ── 상단 헤더 테이블 (emission_noise와 동일 구조) ── */
+.en-doc-tag { font-size:8.5pt; font-weight:700; color:#444; margin:10px 0 4px; }
+.en-main-title {
+  font-size:13pt; font-weight:900; text-align:center;
+  margin:4px 0 14px; letter-spacing:.03em; color:#111;
+}
 .en-tbl {
   width:100%; border-collapse:collapse;
   font-size:8.5pt; margin-bottom:0;
@@ -10801,11 +11951,80 @@ if (formType==='detail_plan') return \`
   vertical-align:middle;
   color:#111;
 }
+.en-sec-th {
+  background:#d6e4f7;
+  font-weight:700; text-align:left;
+  padding:4px 6px; font-size:8.5pt; color:#111;
+}
+.en-sub-th {
+  background:#eef3fa;
+  font-weight:700; text-align:left;
+  padding:3px 6px; font-size:8.5pt; color:#111;
+}
 .en-th {
   background:#eef3fa;
   font-weight:600; text-align:center;
   font-size:8pt; color:#111;
 }
+.en-lbl {
+  background:#f5f8ff;
+  font-weight:600; color:#111;
+  vertical-align:middle;
+}
+/* ── 복합 입력 필드 (텍스트 + 이미지) ── */
+.en-field {
+  display:flex; flex-direction:column; gap:4px;
+  padding:3px 4px; box-sizing:border-box; width:100%;
+}
+.en-field-text {
+  width:100%; font-size:8.5pt; font-family:inherit;
+  border:none; background:transparent; padding:2px 0;
+  box-sizing:border-box; resize:vertical; color:#111;
+  min-height:36px; line-height:1.5;
+}
+.en-field-text::placeholder { color:#aaa; }
+.en-field-text:focus { outline:none; border-bottom:1px dashed #4e90d8; }
+/* 이미지 드롭존 */
+.en-drop {
+  border:1.5px dashed #b0c4de;
+  border-radius:5px;
+  background:#f8faff;
+  padding:6px 8px;
+  cursor:pointer;
+  transition:border-color .15s, background .15s;
+  position:relative;
+  min-height:36px;
+}
+.en-drop:hover { border-color:#4e90d8; background:#eef3fa; }
+.en-drop.drag-over { border-color:#2563eb; background:#dbeafe; }
+.en-drop-hint {
+  color:#aaa; font-size:7.5pt; text-align:center;
+  pointer-events:none; user-select:none;
+  display:flex; align-items:center; justify-content:center; gap:4px;
+}
+.en-drop input[type=file] { display:none; }
+/* 이미지 미리보기 목록 */
+.en-img-list {
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;
+}
+.en-img-item {
+  position:relative; display:inline-block;
+}
+.en-img-item img {
+  max-width:140px; max-height:100px;
+  border:1px solid #ccc; border-radius:3px;
+  display:block; object-fit:contain; background:#fff;
+}
+.en-img-item-del {
+  position:absolute; top:-6px; right:-6px;
+  width:16px; height:16px; border-radius:50%;
+  background:#ef4444; color:#fff; font-size:10px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; line-height:1; border:none;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+.en-img-item-del:hover { background:#dc2626; }
+/* 헤더 셀의 텍스트 입력 (수입사 등 단순 1행 셀) */
 .en-inp {
   border:none; background:transparent;
   width:100%; font-size:8.5pt;
@@ -10814,6 +12033,83 @@ if (formType==='detail_plan') return \`
 }
 .en-inp::placeholder { color:#aaa; }
 .en-inp:focus { outline:none; border-bottom:1px solid #4e90d8; }
+@media print {
+  /* ── 전체 래퍼 ── */
+  .en-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; }
+
+  /* ── 테이블 셀: 내용에 맞춰 높이 자동 확장, 잘림 방지 ── */
+  .en-tbl { table-layout:fixed !important; width:100% !important; }
+  .en-tbl th, .en-tbl td {
+    border:1px solid #333 !important; color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important; overflow-wrap:break-word !important;
+  }
+
+  /* ── en-field: 인쇄 시 flex 유지, 높이 자동 ── */
+  .en-field { height:auto !important; overflow:visible !important; display:flex !important; flex-direction:column !important; }
+
+  /* ── textarea: 내용 전체 표시, 스크롤 없이 ── */
+  textarea.en-field-text {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    height:auto !important; min-height:0 !important; max-height:none !important;
+    overflow:visible !important; resize:none !important;
+    white-space:pre-wrap !important; word-break:break-word !important;
+    overflow-wrap:break-word !important;
+    display:block !important; box-sizing:border-box !important;
+    -webkit-appearance:none !important; appearance:none !important;
+    padding:2px 0 !important;
+  }
+
+  /* ── 단순 1행 input ── */
+  .en-inp {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8.5pt !important;
+    font-family:'Malgun Gothic',sans-serif !important;
+    height:auto !important; overflow:visible !important;
+    word-break:break-word !important;
+  }
+
+  /* ── hidden input 완전 숨김 ── */
+  input[type=hidden] { display:none !important; }
+
+  /* ── 이미지 드롭존: 테두리/배경 제거, 힌트/삭제버튼 숨김 ── */
+  .en-drop {
+    border:none !important; background:transparent !important;
+    padding:0 !important; min-height:unset !important;
+    height:auto !important; overflow:visible !important;
+  }
+  .en-drop-hint { display:none !important; }
+  .en-img-item-del { display:none !important; }
+  .en-img-list { gap:4px !important; margin-top:2px !important; }
+  .en-img-item img {
+    max-width:100% !important; max-height:none !important;
+    page-break-inside:avoid;
+  }
+  /* 이미지가 없는 빈 en-drop은 공간 차지 안 함 */
+  .en-drop:not(:has(img)) { display:none !important; }
+
+  /* ── 섹션 헤더 배경색 유지 ── */
+  .en-sec-th { background:#d6e4f7 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-sub-th { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-th     { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .en-lbl    { background:#f5f8ff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+  /* ── 페이지 분리 방지 (행 단위) ── */
+  .en-tbl tr { page-break-inside:avoid; }
+}
+
+   PDF 원본 구조: 상단헤더(4칸) + 제목셀 + 단일 본문셀(1~5항목 + 확인문구 + 서명란)
+   인증신청 요약서와 달리 3열(구분/항목/내용) 구조 없음
+   ══════════════════════════════════════════════ */
+
+/* ── 전체 래퍼 ── */
+.cf-wrap {
+  box-sizing:border-box;
+  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+}
 
 /* ── 제목 셀 ── */
 .cf-title {
@@ -10945,12 +12241,7 @@ if (formType==='detail_plan') return \`
 }
 
 @media screen {
-  /* 상단 헤더 screen 오버라이드 */
-  .en-tbl th { color:var(--c-text); border-color:var(--c-border); }
-  .en-tbl td { color:var(--c-text); border-color:var(--c-border); }
-  .en-th { background:rgba(79,142,247,.10); color:var(--c-text); }
-  .en-inp { color:var(--c-text); }
-  .cf-title { background:rgba(79,142,247,.06); border-color:var(--c-border2); color:var(--c-text); }
+      .cf-title { background:rgba(79,142,247,.06); border-color:var(--c-border2); color:var(--c-text); }
   .cf-body-tbl { border-color:var(--c-border); }
   .cf-body-tbl td { border-color:var(--c-border); }
   .cf-sign-head { background:rgba(79,142,247,.06); border-color:var(--c-border); }
@@ -10969,13 +12260,7 @@ if (formType==='detail_plan') return \`
     -webkit-print-color-adjust:exact; print-color-adjust:exact;
   }
 
-  /* 상단 헤더 인쇄: en-tbl/en-th/en-inp */
-  .en-tbl { border-collapse:collapse !important; width:100% !important; table-layout:fixed !important; }
-  .en-tbl th, .en-tbl td { border:1px solid #555 !important; color:#000 !important; padding:3px 5px !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .en-th { background:#eef3fa !important; font-weight:700 !important; text-align:center !important; font-size:8pt !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .en-inp { border:none !important; background:transparent !important; color:#000 !important; font-size:8.5pt !important; font-family:inherit !important; width:100% !important; padding:0 2px !important; }
-
-  /* 제목 */
+          /* 제목 */
   .cf-title { font-size:14pt !important; font-weight:900 !important; color:#000 !important; background:#fff !important; border:1px solid #555 !important; border-top:none !important; padding:10px 8px !important; text-align:center !important; letter-spacing:.08em !important; }
 
   /* 본문 테이블 */

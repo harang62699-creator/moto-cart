@@ -5035,7 +5035,7 @@ function buildFormHTML(formType, saved) {
       <tr>
         <td style="padding:4px 8px;">
           <div class="g-chk-row">
-            <input type="checkbox" data-field="g_type_euro5" \${v('g_type_euro5')==='1'?'checked':''}>
+            
             <span>2.1. EURO–5 기준 적용 휘발유 이륜자동차 인증신청, 대표차종 :</span>
             <input class="g-chk-inp" data-field="g_euro5_rep" type="text" value="\${E(v('g_euro5_rep'))}">
           </div>
@@ -5081,32 +5081,32 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl" rowspan="4" style="text-align:center;">휘발유</td>
         <td>* 13년 휘발유 기준2의 나</td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_em_std1" \${v('g_em_std1')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
       <tr>
         <td>* 13년 휘발유 기준1의 나</td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_em_std2" \${v('g_em_std2')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
       <tr>
         <td>* 16년 휘발유 기준</td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_em_std3" \${v('g_em_std3')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
       <tr>
         <td>* 20년 1월 이륜자동차(130km/h 이하) 기준</td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_em_std4" \${v('g_em_std4')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
       <tr>
         <td class="en-lbl" style="text-align:center;">경유</td>
         <td>* 14년 9월 경유 소형승용 기준</td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_em_std5" \${v('g_em_std5')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
 
@@ -5116,7 +5116,7 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl" rowspan="5" style="text-align:center;">휘발유</td>
         <td>* OBD2 휘발유 기준 적용 대표(IUPR 1st 기준)</td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_obd_std1" \${v('g_obd_std1')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
       <tr>
@@ -5125,13 +5125,13 @@ function buildFormHTML(formType, saved) {
           <input class="g-chk-inp" data-field="g_obd_std2_rep" type="text" value="\${E(v('g_obd_std2_rep'))}" style="width:90px;">
         </td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_obd_std2" \${v('g_obd_std2')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
       <tr>
         <td>* OBD2 휘발유 EURO6 기준 적용 대표(IUPR 2nd 기준)</td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_obd_std3" \${v('g_obd_std3')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
       <tr>
@@ -5140,20 +5140,20 @@ function buildFormHTML(formType, saved) {
           <input class="g-chk-inp" data-field="g_obd_std4_rep" type="text" value="\${E(v('g_obd_std4_rep'))}" style="width:90px;">
         </td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_obd_std4" \${v('g_obd_std4')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
       <tr>
         <td>* OBD2 휘발유 EURO5 이륜자동차 기준 적용 대표(OBD Stage 2)</td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_obd_std5" \${v('g_obd_std5')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
       <tr>
         <td class="en-lbl" rowspan="2" style="text-align:center;">경유</td>
         <td>* OBD2 경유 (다)기준 적용 대표 (IUPR 2nd 기준)</td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_obd_std6" \${v('g_obd_std6')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
       <tr>
@@ -5162,7 +5162,7 @@ function buildFormHTML(formType, saved) {
           <input class="g-chk-inp" data-field="g_obd_std7_rep" type="text" value="\${E(v('g_obd_std7_rep'))}" style="width:90px;">
         </td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_obd_std7" \${v('g_obd_std7')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
 
@@ -5172,7 +5172,7 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl" rowspan="2" style="text-align:center;"> </td>
         <td>* 증발가스 대표</td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_evap_std1" \${v('g_evap_std1')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
       <tr>
@@ -5181,7 +5181,7 @@ function buildFormHTML(formType, saved) {
           <input class="g-chk-inp" data-field="g_evap_std2_rep" type="text" value="\${E(v('g_evap_std2_rep'))}" style="width:120px;">
         </td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_evap_std2" \${v('g_evap_std2')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
 
@@ -5191,38 +5191,38 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl" rowspan="5" style="text-align:center;">휘발유</td>
         <td>* 보증기간 : 10년 / 19만2천km</td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_wrt_std1" \${v('g_wrt_std1')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
       <tr>
         <td>* 보증기간 : 10년 / 24만km</td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_wrt_std2" \${v('g_wrt_std2')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
       <tr>
         <td>* 보증기간 : 15년 / 24만km</td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_wrt_std3" \${v('g_wrt_std3')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
       <tr>
         <td>* 보증기간 : 02년 / 3.5만km</td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_wrt_std4" \${v('g_wrt_std4')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
       <tr>
         <td>* 보증기간 : 02년 / 2만km</td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_wrt_std5" \${v('g_wrt_std5')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
       <tr>
         <td class="en-lbl" style="text-align:center;">경유</td>
         <td>* 보증기간 : 10년 / 16만km</td>
         <td style="text-align:center;">
-          <input type="checkbox" data-field="g_wrt_std6" \${v('g_wrt_std6')==='1'?'checked':''}> 해당
+           해당
         </td>
       </tr>
 
@@ -5447,11 +5447,11 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl">증발가스</td>
         <td style="padding:4px 6px; font-size:8.5pt;">
           <div class="g-chk-row">
-            <input type="checkbox" data-field="g_evap_rep_chk" \${v('g_evap_rep_chk')==='1'?'checked':''}>
+            
             <span>증발가스 대표/동일 여부</span>
           </div>
           <div class="g-chk-row">
-            <input type="checkbox" data-field="g_blowby_chk" \${v('g_blowby_chk')==='1'?'checked':''}>
+            
             <span>블로바이가스 제어장치</span>
           </div>
         </td>
@@ -5474,11 +5474,11 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl" style="vertical-align:top; padding-top:8px;">배출가스자기진단장치<br>(OBD2)</td>
         <td style="padding:4px 6px;">
           <div class="g-chk-row">
-            <input type="checkbox" data-field="g_obd_rep_chk" \${v('g_obd_rep_chk')==='1'?'checked':''}>
+            
             <span>OBD2 대표/동일 여부</span>
           </div>
           <div class="g-chk-row">
-            <input type="checkbox" data-field="g_obd_std_chk" \${v('g_obd_std_chk')==='1'?'checked':''}>
+            
             <span>배출가스자기진단장치 기준</span>
           </div>
 
@@ -5492,32 +5492,32 @@ function buildFormHTML(formType, saved) {
             </thead>
             <tbody>
               <tr><td>휘발유 2006년 OBD 기준</td>
-                  <td style="text-align:center;"><input type="checkbox" data-field="g_obd_k1" \${v('g_obd_k1')==='1'?'checked':''}> 해당</td></tr>
+                  <td style="text-align:center;"> 해당</td></tr>
               <tr><td>휘발유 2013년 OBD IUPR 1st 기준</td>
-                  <td style="text-align:center;"><input type="checkbox" data-field="g_obd_k2" \${v('g_obd_k2')==='1'?'checked':''}> 해당</td></tr>
+                  <td style="text-align:center;"> 해당</td></tr>
               <tr><td>휘발유 2013년 OBD IUPR 2nd(2016년 1월) 기준</td>
-                  <td style="text-align:center;"><input type="checkbox" data-field="g_obd_k3" \${v('g_obd_k3')==='1'?'checked':''}> 해당</td></tr>
+                  <td style="text-align:center;"> 해당</td></tr>
               <tr><td>휘발유 EURO6 OBD IUPR 2nd 기준</td>
-                  <td style="text-align:center;"><input type="checkbox" data-field="g_obd_k4" \${v('g_obd_k4')==='1'?'checked':''}> 해당</td></tr>
+                  <td style="text-align:center;"> 해당</td></tr>
               <tr><td>휘발유 EURO5 OBD 이륜자동차 기준(OBD Stage 2)</td>
-                  <td style="text-align:center;"><input type="checkbox" data-field="g_obd_k5" \${v('g_obd_k5')==='1'?'checked':''}> 해당</td></tr>
+                  <td style="text-align:center;"> 해당</td></tr>
               <tr><td>경유 2006년 OBD 기준</td>
-                  <td style="text-align:center;"><input type="checkbox" data-field="g_obd_k6" \${v('g_obd_k6')==='1'?'checked':''}> 해당</td></tr>
+                  <td style="text-align:center;"> 해당</td></tr>
               <tr><td>경유 2012년 OBD IUPR 1st 기준</td>
-                  <td style="text-align:center;"><input type="checkbox" data-field="g_obd_k7" \${v('g_obd_k7')==='1'?'checked':''}> 해당</td></tr>
+                  <td style="text-align:center;"> 해당</td></tr>
               <tr><td>경유 2014년 9월 OBD IUPR 2nd 기준</td>
-                  <td style="text-align:center;"><input type="checkbox" data-field="g_obd_k8" \${v('g_obd_k8')==='1'?'checked':''}> 해당</td></tr>
+                  <td style="text-align:center;"> 해당</td></tr>
             </tbody>
           </table>
 
           <div class="g-chk-row">
-            <input type="checkbox" data-field="g_obd_misfunc_chk" \${v('g_obd_misfunc_chk')==='1'?'checked':''}>
+            
             <span>OBD2 오작동 판정기준</span>
           </div>
 
           <!-- OBD 감시항목별 시험여부 -->
           <div class="g-chk-row" style="margin-top:4px;">
-            <input type="checkbox" data-field="g_obd_monitor_chk" \${v('g_obd_monitor_chk')==='1'?'checked':''}>
+            
             <span>OBD2 감시항목별 시험여부</span>
           </div>
           <table class="en-tbl" style="margin:6px 0; font-size:8pt;">
@@ -5555,7 +5555,7 @@ function buildFormHTML(formType, saved) {
 
           <!-- IUPR 적용내역 -->
           <div class="g-chk-row">
-            <input type="checkbox" data-field="g_iupr_chk" \${v('g_iupr_chk')==='1'?'checked':''}>
+            
             <span>IUPR 적용내역</span>
           </div>
           <table class="en-tbl" style="margin:6px 0; font-size:8pt;">
@@ -5619,11 +5619,11 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl">배출가스 시험</td>
         <td style="padding:4px 6px; font-size:8.5pt;">
           <div class="g-chk-row">
-            <input type="checkbox" data-field="g_em_mode_chk" \${v('g_em_mode_chk')==='1'?'checked':''}>
+            
             <span>배출가스 시험모드 및 시험 회수</span>
           </div>
           <div class="g-chk-row">
-            <input type="checkbox" data-field="g_em_report_chk" \${v('g_em_report_chk')==='1'?'checked':''}>
+            
             <span>배출가스 자체시험 성적서 제출 내역</span>
           </div>
           <div style="margin-top:4px;">
@@ -5638,7 +5638,7 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl">증발가스 시험</td>
         <td style="padding:4px 6px; font-size:8.5pt;">
           <div class="g-chk-row">
-            <input type="checkbox" data-field="g_evap_report_chk" \${v('g_evap_report_chk')==='1'?'checked':''}>
+            
             <span>증발가스 자체시험 성적서 제출 내역</span>
           </div>
           <div style="margin-top:4px;">
@@ -5653,7 +5653,7 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl" style="vertical-align:top; padding-top:8px;">보증기간 및 열화계수</td>
         <td style="padding:4px 6px;">
           <div class="g-chk-row">
-            <input type="checkbox" data-field="g_warranty_chk" \${v('g_warranty_chk')==='1'?'checked':''}>
+            
             <span>보증기간 및 열화계수 적용 내역</span>
           </div>
           <div style="padding:2px 6px; font-size:8.5pt;">
@@ -5718,11 +5718,11 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl">소음시험</td>
         <td style="padding:4px 6px; font-size:8.5pt;">
           <div class="g-chk-row">
-            <input type="checkbox" data-field="g_noise_report_chk" \${v('g_noise_report_chk')==='1'?'checked':''}>
+            
             <span>소음시험 성적서 제출 내역</span>
           </div>
           <div class="g-chk-row">
-            <input type="checkbox" data-field="g_noise_method_chk" \${v('g_noise_method_chk')==='1'?'checked':''}>
+            
             <span>소음 시험방법</span>
           </div>
           <div style="padding:2px 8px; font-size:8.5pt; line-height:2.0;">

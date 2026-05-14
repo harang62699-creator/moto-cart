@@ -5081,32 +5081,32 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl" rowspan="4" style="text-align:center;">휘발유</td>
         <td>* 13년 휘발유 기준2의 나</td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_em1" type="text" placeholder="해당/미해당" value="\${E(v('g_app_em1'))}" style="width:100%;">
         </td>
       </tr>
       <tr>
         <td>* 13년 휘발유 기준1의 나</td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_em2" type="text" placeholder="해당/미해당" value="\${E(v('g_app_em2'))}" style="width:100%;">
         </td>
       </tr>
       <tr>
         <td>* 16년 휘발유 기준</td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_em3" type="text" placeholder="해당/미해당" value="\${E(v('g_app_em3'))}" style="width:100%;">
         </td>
       </tr>
       <tr>
         <td>* 20년 1월 이륜자동차(130km/h 이하) 기준</td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_em4" type="text" placeholder="해당/미해당" value="\${E(v('g_app_em4'))}" style="width:100%;">
         </td>
       </tr>
       <tr>
         <td class="en-lbl" style="text-align:center;">경유</td>
         <td>* 14년 9월 경유 소형승용 기준</td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_em5" type="text" placeholder="해당/미해당" value="\${E(v('g_app_em5'))}" style="width:100%;">
         </td>
       </tr>
 
@@ -5116,7 +5116,7 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl" rowspan="5" style="text-align:center;">휘발유</td>
         <td>* OBD2 휘발유 기준 적용 대표(IUPR 1st 기준)</td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_obd1" type="text" placeholder="해당/미해당" value="\${E(v('g_app_obd1'))}" style="width:100%;">
         </td>
       </tr>
       <tr>
@@ -5125,13 +5125,13 @@ function buildFormHTML(formType, saved) {
           <input class="g-chk-inp" data-field="g_obd_std2_rep" type="text" value="\${E(v('g_obd_std2_rep'))}" style="width:90px;">
         </td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_obd2" type="text" placeholder="해당/미해당" value="\${E(v('g_app_obd2'))}" style="width:100%;">
         </td>
       </tr>
       <tr>
         <td>* OBD2 휘발유 EURO6 기준 적용 대표(IUPR 2nd 기준)</td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_obd3" type="text" placeholder="해당/미해당" value="\${E(v('g_app_obd3'))}" style="width:100%;">
         </td>
       </tr>
       <tr>
@@ -5140,20 +5140,20 @@ function buildFormHTML(formType, saved) {
           <input class="g-chk-inp" data-field="g_obd_std4_rep" type="text" value="\${E(v('g_obd_std4_rep'))}" style="width:90px;">
         </td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_obd4" type="text" placeholder="해당/미해당" value="\${E(v('g_app_obd4'))}" style="width:100%;">
         </td>
       </tr>
       <tr>
         <td>* OBD2 휘발유 EURO5 이륜자동차 기준 적용 대표(OBD Stage 2)</td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_obd5" type="text" placeholder="해당/미해당" value="\${E(v('g_app_obd5'))}" style="width:100%;">
         </td>
       </tr>
       <tr>
         <td class="en-lbl" rowspan="2" style="text-align:center;">경유</td>
         <td>* OBD2 경유 (다)기준 적용 대표 (IUPR 2nd 기준)</td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_obd6" type="text" placeholder="해당/미해당" value="\${E(v('g_app_obd6'))}" style="width:100%;">
         </td>
       </tr>
       <tr>
@@ -5162,7 +5162,7 @@ function buildFormHTML(formType, saved) {
           <input class="g-chk-inp" data-field="g_obd_std7_rep" type="text" value="\${E(v('g_obd_std7_rep'))}" style="width:90px;">
         </td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_obd7" type="text" placeholder="해당/미해당" value="\${E(v('g_app_obd7'))}" style="width:100%;">
         </td>
       </tr>
 
@@ -5172,7 +5172,7 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl" rowspan="2" style="text-align:center;"> </td>
         <td>* 증발가스 대표</td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_evap1" type="text" placeholder="해당/미해당" value="\${E(v('g_app_evap1'))}" style="width:100%;">
         </td>
       </tr>
       <tr>
@@ -5181,7 +5181,7 @@ function buildFormHTML(formType, saved) {
           <input class="g-chk-inp" data-field="g_evap_std2_rep" type="text" value="\${E(v('g_evap_std2_rep'))}" style="width:120px;">
         </td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_evap2" type="text" placeholder="해당/미해당" value="\${E(v('g_app_evap2'))}" style="width:100%;">
         </td>
       </tr>
 
@@ -5191,38 +5191,38 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl" rowspan="5" style="text-align:center;">휘발유</td>
         <td>* 보증기간 : 10년 / 19만2천km</td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_war1" type="text" placeholder="해당/미해당" value="\${E(v('g_app_war1'))}" style="width:100%;">
         </td>
       </tr>
       <tr>
         <td>* 보증기간 : 10년 / 24만km</td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_war2" type="text" placeholder="해당/미해당" value="\${E(v('g_app_war2'))}" style="width:100%;">
         </td>
       </tr>
       <tr>
         <td>* 보증기간 : 15년 / 24만km</td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_war3" type="text" placeholder="해당/미해당" value="\${E(v('g_app_war3'))}" style="width:100%;">
         </td>
       </tr>
       <tr>
         <td>* 보증기간 : 02년 / 3.5만km</td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_war4" type="text" placeholder="해당/미해당" value="\${E(v('g_app_war4'))}" style="width:100%;">
         </td>
       </tr>
       <tr>
         <td>* 보증기간 : 02년 / 2만km</td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_war5" type="text" placeholder="해당/미해당" value="\${E(v('g_app_war5'))}" style="width:100%;">
         </td>
       </tr>
       <tr>
         <td class="en-lbl" style="text-align:center;">경유</td>
         <td>* 보증기간 : 10년 / 16만km</td>
         <td style="text-align:center;">
-           해당
+<input class="en-inp" data-field="g_app_war6" type="text" placeholder="해당/미해당" value="\${E(v('g_app_war6'))}" style="width:100%;">
         </td>
       </tr>
 

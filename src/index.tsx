@@ -11338,11 +11338,7 @@ if (formType==='detail_plan') return \`
 .nt-attach-item-size { color:#666; white-space:nowrap; font-size:8pt; }
 .nt-attach-item-del { color:#ef4444; cursor:pointer; padding:1px 5px; border-radius:3px; font-size:10pt; line-height:1; }
 .nt-attach-item-del:hover { background:rgba(239,68,68,.12); }
-/* 첨부문서 인쇄 미리보기 */
-.nt-attach-print-wrap { display:none; margin-top:10px; }
-.nt-attach-print-page { page-break-before:always; margin-top:20px; }
-.nt-attach-print-page img { max-width:100%; height:auto; display:block; }
-.nt-attach-print-page .nt-attach-pdf-frame { width:100%; min-height:600px; border:none; }
+/* 첨부문서: 인쇄 미리보기 기능 제거됨 (업로드/다운로드 전용) */
 
 @media print {
   .nt-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; font-family:'Malgun Gothic',sans-serif !important; }
@@ -11363,10 +11359,8 @@ if (formType==='detail_plan') return \`
   .nt-inline-inp { color:#000 !important; border:none !important; border-bottom:1px solid #888 !important; background:transparent !important; }
   .nt-sign-lbl { color:#000 !important; }
   .nt-sign-inp { color:#000 !important; border:none !important; border-bottom:1px solid #888 !important; background:transparent !important; }
-  .nt-attach-section .nt-attach-drop { display:none !important; }
-  .nt-attach-section .nt-attach-list { display:none !important; }
-  .nt-attach-print-wrap { display:block !important; }
-  .nt-attach-print-page { page-break-before:always; }
+  /* 첨부문서 영역 인쇄 시 완전 숨김 */
+  .nt-attach-section { display:none !important; }
 }
 </style>
 
@@ -12028,20 +12022,17 @@ if (formType==='detail_plan') return \`
 </div>
 <div style="font-size:9pt; margin-top:8px; color:var(--c-text2);">\${BL('nt_raw_data_note')}</div>
 
-<!-- 첨부문서 업로드 -->
+<!-- 첨부문서 업로드/다운로드 (인쇄 제외) -->
 <div class="nt-attach-section no-print">
   <div class="nt-attach-title"><i class="fas fa-paperclip"></i> 첨부문서 (자체시험성적서 / RAW DATA)</div>
-  <div class="nt-attach-note">이미지(JPG, PNG) 또는 PDF 파일을 첨부하면 인쇄 시 함께 출력됩니다.</div>
+  <div class="nt-attach-note">이미지(JPG, PNG) 또는 PDF 파일을 업로드하세요. 첨부파일은 인쇄 시 출력되지 않습니다.</div>
   <div class="nt-attach-drop" id="nt-drop-zone" onclick="document.getElementById('nt-file-input').click()">
     <input type="file" id="nt-file-input" multiple accept="image/*,.pdf">
     <i class="fas fa-cloud-upload-alt" style="font-size:20pt;margin-bottom:6px;display:block;"></i>
-    클릭하거나 파일을 드래그하여 첨부
+    클릭하거나 파일을 드래그하여 업로드
   </div>
   <div class="nt-attach-list" id="nt-attach-list"></div>
 </div>
-
-<!-- 인쇄용 첨부문서 미리보기 (화면에서는 숨김) -->
-<div class="nt-attach-print-wrap" id="nt-attach-print-wrap"></div>
 
 </div>
 
@@ -13033,7 +13024,6 @@ function initNoiseAttach() {
   var dropZone  = document.getElementById('nt-drop-zone');
   var fileInput = document.getElementById('nt-file-input');
   var listEl    = document.getElementById('nt-attach-list');
-  var printWrap = document.getElementById('nt-attach-print-wrap');
   if (!dropZone) return;
 
   dropZone.addEventListener('dragover', function(e){ e.preventDefault(); dropZone.style.borderColor='var(--c-accent)'; });
@@ -13066,38 +13056,15 @@ function initNoiseAttach() {
         '<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:var(--c-accent);"></i>' +
         '<span class="nt-attach-item-name">'+esc(f.name)+'</span>' +
         '<span class="nt-attach-item-size">'+fmtSize(f.size)+'</span>' +
+        '<a class="nt-attach-item-dl" title="다운로드" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:var(--c-accent);padding:1px 6px;border-radius:3px;font-size:10pt;line-height:1;"><i class="fas fa-download"></i></a>' +
         '<span class="nt-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
       listEl.appendChild(div);
     });
     listEl.querySelectorAll('.nt-attach-item-del').forEach(function(btn){
       btn.addEventListener('click', function(){
         ntAttachFiles.splice(parseInt(this.dataset.idx),1);
-        renderNtList(); renderNtPrint();
+        renderNtList();
       });
-    });
-  }
-
-  function renderNtPrint(){
-    printWrap.innerHTML = '';
-    ntAttachFiles.forEach(function(f){
-      var page = document.createElement('div');
-      page.className = 'nt-attach-print-page';
-      var label = document.createElement('div');
-      label.style.cssText = 'font-size:9pt;font-weight:700;margin-bottom:6px;';
-      label.textContent = '첨부: ' + f.name;
-      page.appendChild(label);
-      if (f.type === 'application/pdf') {
-        var iframe = document.createElement('iframe');
-        iframe.src = f.dataUrl;
-        iframe.style.cssText = 'width:100%;min-height:700px;border:none;';
-        page.appendChild(iframe);
-      } else {
-        var img = document.createElement('img');
-        img.src = f.dataUrl;
-        img.style.cssText = 'max-width:100%;height:auto;display:block;';
-        page.appendChild(img);
-      }
-      printWrap.appendChild(page);
     });
   }
 }

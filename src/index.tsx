@@ -4657,7 +4657,7 @@ function buildFormHTML(formType, saved) {
 }
 </style>
 
-<div class="sv-wrap">
+<div class="en-wrap">
   <!-- ① 상단 헤더 (emission_noise와 동일 구조) -->
   <table class="en-tbl" style="margin-bottom:12px; table-layout:fixed;">
     <colgroup><col style="width:35%;"><col style="width:12%;"><col style="width:13%;"><col style="width:40%;"></colgroup>

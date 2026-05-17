@@ -12051,7 +12051,7 @@ if (formType==='detail_plan') return \`
 
   if (formType==='confirmation') return \`
 <style>
-/* ══════════ confirmation 전용 스타일 ══════════
+/* ══════════ confirmation 전용 스타일 ══════════ */
 .en-wrap {
   box-sizing:border-box;
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
@@ -12226,14 +12226,8 @@ if (formType==='detail_plan') return \`
   .en-tbl tr { page-break-inside:avoid; }
 }
 
-   PDF 원본 구조: 상단헤더(4칸) + 제목셀 + 단일 본문셀(1~5항목 + 확인문구 + 서명란)
-   인증신청 요약서와 달리 3열(구분/항목/내용) 구조 없음
-   ══════════════════════════════════════════════ */
-
-/* ── 전체 래퍼 ── */
-/* cf-wrap은 en-wrap으로 대체됨 */
-
-/* cf-title은 en-main-title로 대체됨 */
+/* PDF 원본 구조: 상단헤더(4칸) + 제목 + 단일 본문셀(1~5항목 + 확인문구 + 서명란) */
+/* cf-wrap → en-wrap, cf-title → en-main-title 으로 대체됨 */
 
 /* ── 본문 테이블 ── */
 .cf-body-tbl {

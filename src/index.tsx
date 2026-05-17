@@ -12231,24 +12231,14 @@ if (formType==='detail_plan') return \`
    ══════════════════════════════════════════════ */
 
 /* ── 전체 래퍼 ── */
-.cf-wrap {
-  box-sizing:border-box;
-  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
-}
+/* cf-wrap은 en-wrap으로 대체됨 */
 
-/* ── 제목 셀 ── */
-.cf-title {
-  text-align:center;
-  font-size:14pt; font-weight:800;
-  letter-spacing:.08em;
-  padding:14px 10px;
-  border:1px solid #888; border-top:none;
-}
+/* cf-title은 en-main-title로 대체됨 */
 
-/* ── 본문 테이블 (단일 셀 구조 - PDF 원본과 동일) ── */
+/* ── 본문 테이블 ── */
 .cf-body-tbl {
   width:100%; border-collapse:collapse;
-  border:1px solid #888; border-top:none;
+  border:1px solid #888;
 }
 .cf-body-tbl td {
   border:1px solid #888;
@@ -12260,7 +12250,7 @@ if (formType==='detail_plan') return \`
 .cf-item-row {
   display:flex; align-items:flex-start;
   padding:10px 14px;
-  border-bottom:1px solid var(--c-border);
+  border-bottom:1px solid #ddd;
   min-height:40px;
   gap:0;
 }
@@ -12268,7 +12258,7 @@ if (formType==='detail_plan') return \`
 .cf-item-lbl {
   font-size:10pt; font-weight:600;
   white-space:nowrap;
-  color:var(--c-text);
+  color:#111;
   min-width:110px;
   flex-shrink:0;
   padding-top:3px;
@@ -12278,12 +12268,12 @@ if (formType==='detail_plan') return \`
 }
 .cf-item-inp {
   width:100%; background:transparent;
-  border:none; border-bottom:1px solid var(--c-border);
-  color:var(--c-text); font-size:10pt;
+  border:none; border-bottom:1px solid #ccc;
+  color:#111; font-size:10pt;
   padding:2px 4px; outline:none;
 }
-.cf-item-inp:focus { border-bottom-color:var(--c-accent); }
-.cf-item-inp::placeholder { color:var(--c-text3); font-style:italic; }
+.cf-item-inp:focus { border-bottom-color:#4e90d8; }
+.cf-item-inp::placeholder { color:#aaa; font-style:italic; }
 
 /* 주소 TEL/FAX 행 */
 .cf-tel-fax {
@@ -12291,13 +12281,13 @@ if (formType==='detail_plan') return \`
 }
 .cf-tel-fax-lbl {
   font-size:10pt; white-space:nowrap;
-  color:var(--c-text3); font-weight:600;
+  color:#555; font-weight:600;
 }
 
 /* ── 5. 보증내용 ── */
 .cf-warranty-row {
   padding:10px 14px;
-  border-bottom:1px solid var(--c-border);
+  border-bottom:1px solid #ddd;
 }
 .cf-warranty-top {
   display:flex; align-items:flex-start; gap:0; margin-bottom:8px;
@@ -12305,20 +12295,20 @@ if (formType==='detail_plan') return \`
 .cf-warranty-lbl {
   font-size:10pt; font-weight:600;
   white-space:nowrap; min-width:110px; flex-shrink:0;
-  padding-top:3px; color:var(--c-text);
+  padding-top:3px; color:#111;
 }
 .cf-warranty-subject-inp {
   flex:1; min-width:0;
   background:transparent;
-  border:none; border-bottom:1px solid var(--c-border);
-  color:var(--c-text); font-size:10pt;
+  border:none; border-bottom:1px solid #ccc;
+  color:#111; font-size:10pt;
   padding:2px 4px; outline:none;
 }
-.cf-warranty-subject-inp:focus { border-bottom-color:var(--c-accent); }
-.cf-warranty-subject-inp::placeholder { color:var(--c-text3); font-style:italic; }
+.cf-warranty-subject-inp:focus { border-bottom-color:#4e90d8; }
+.cf-warranty-subject-inp::placeholder { color:#aaa; font-style:italic; }
 .cf-warranty-body {
   font-size:10pt; line-height:1.85;
-  color:var(--c-text2);
+  color:#333;
   word-break:keep-all; text-align:justify;
   padding-left:110px;
 }
@@ -12327,16 +12317,16 @@ if (formType==='detail_plan') return \`
 .cf-confirm-stmt {
   text-align:center; font-size:10pt; font-weight:600;
   padding:16px 14px;
-  border-bottom:1px solid var(--c-border);
-  color:var(--c-text);
+  border-bottom:1px solid #ddd;
+  color:#111;
 }
 
 /* ── 제작사 확인 헤더 ── */
 .cf-sign-head {
   text-align:center; font-size:10pt; font-weight:700;
   padding:8px 14px; letter-spacing:.08em;
-  border-bottom:1px solid var(--c-border);
-  background:rgba(79,142,247,.08);
+  border-bottom:1px solid #ddd;
+  background:#d6e4f7; color:#111;
 }
 
 /* ── 서명란 (Signed at / Date, Name / Title) ── */
@@ -12350,27 +12340,22 @@ if (formType==='detail_plan') return \`
 .cf-sign-lbl {
   font-size:10pt; font-weight:700;
   white-space:nowrap; width:90px;
-  color:var(--c-text);
+  color:#111;
 }
 .cf-sign-inp {
   width:100%; background:transparent;
-  border:none; border-bottom:1.5px solid var(--c-border);
-  color:var(--c-text); font-size:10pt;
+  border:none; border-bottom:1.5px solid #ccc;
+  color:#111; font-size:10pt;
   padding:4px 2px; outline:none;
 }
-.cf-sign-inp:focus { border-bottom-color:var(--c-accent); }
-.cf-sign-inp::placeholder { color:var(--c-text3); font-style:italic; }
+.cf-sign-inp:focus { border-bottom-color:#4e90d8; }
+.cf-sign-inp::placeholder { color:#aaa; font-style:italic; }
 .cf-sign-divider {
-  border:none; border-right:1px solid var(--c-border);
+  border:none; border-right:1px solid #ddd;
   padding:0; width:1px;
 }
 
-@media screen {
-      .cf-title { background:rgba(79,142,247,.06); border-color:var(--c-border2); color:var(--c-text); }
-  .cf-body-tbl { border-color:var(--c-border); }
-  .cf-body-tbl td { border-color:var(--c-border); }
-  .cf-sign-head { background:rgba(79,142,247,.06); border-color:var(--c-border); }
-}
+/* @media screen 오버라이드 불필요 - 고정값 사용 */
 
 @media print {
   @page { size:A4 portrait; margin:18mm 15mm; }
@@ -12433,7 +12418,7 @@ if (formType==='detail_plan') return \`
 }
 </style>
 
-<div class="cf-wrap">
+<div class="en-wrap">
 
   <!-- ① 상단 헤더 (emission_noise와 동일: en-tbl thead/tbody 구조) -->
   <table class="en-tbl" style="margin-bottom:12px; table-layout:fixed;">
@@ -12456,8 +12441,8 @@ if (formType==='detail_plan') return \`
     </tbody>
   </table>
 
-  <!-- ② 제목 (PDF 원본: 전체 너비 단독 셀) -->
-  <div class="cf-title">\${BL('cf_title')}</div>
+  <!-- ② 제목 (emission_noise와 동일 구조) -->
+  <div class="en-main-title">\${BL('cf_title')}</div>
 
   <!-- ③ 본문 — PDF 원본: 단일 셀 안에 1~5번 항목 나열 (3열 구조 없음) -->
   <table class="cf-body-tbl">

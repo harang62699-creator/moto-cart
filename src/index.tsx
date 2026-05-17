@@ -11434,7 +11434,7 @@ if (formType==='detail_plan') return \`
     <tr>
       <td class="nt-lbl">\${BL('nt_eng_type')}</td>
       <td class="nt-val"><input data-field="nt_engine_type" class="nt-inp" type="text" value="\${E(v('nt_engine_type'))}"></td>
-      <td class="nt-lbl" style="font-size:6.5pt;">\${BL('nt_max_power')}</td>
+      <td class="nt-lbl">\${BL('nt_max_power')}</td>
       <td class="nt-val"><input data-field="nt_max_power"   class="nt-inp" type="text" value="\${E(v('nt_max_power'))}"></td>
     </tr>
     <tr>
@@ -11446,13 +11446,13 @@ if (formType==='detail_plan') return \`
     <tr>
       <td class="nt-lbl">\${BL('nt_displacement')}</td>
       <td class="nt-val"><input data-field="nt_disp_cc"     class="nt-inp" type="text" value="\${E(v('nt_disp_cc'))}"></td>
-      <td class="nt-lbl" style="font-size:6.5pt;">\${BL('nt_rpm_34')}</td>
+      <td class="nt-lbl">\${BL('nt_rpm_34')}</td>
       <td class="nt-val"><input data-field="nt_rpm_34"      class="nt-inp" type="text" value="\${E(v('nt_rpm_34'))}"></td>
     </tr>
     <tr>
       <td class="nt-lbl">\${BL('nt_model_year')}</td>
       <td class="nt-val"><input data-field="nt_model_year"  class="nt-inp" type="text" value="\${E(v('nt_model_year'))}"></td>
-      <td class="nt-lbl" style="font-size:6.5pt;">\${BL('nt_rpm_12')}</td>
+      <td class="nt-lbl">\${BL('nt_rpm_12')}</td>
       <td class="nt-val"><input data-field="nt_rpm_12"      class="nt-inp" type="text" value="\${E(v('nt_rpm_12'))}"></td>
     </tr>
     <tr>
@@ -11488,7 +11488,7 @@ if (formType==='detail_plan') return \`
     <tr>
       <td class="nt-lbl">\${BL('nt_test_weight')}</td>
       <td class="nt-val"><input data-field="nt_test_wt"     class="nt-inp" type="text" value="\${E(v('nt_test_wt'))}"></td>
-      <td class="nt-lbl" style="font-size:6.5pt;">\${BL('nt_pmr')}</td>
+      <td class="nt-lbl">\${BL('nt_pmr')}</td>
       <td class="nt-val"><input data-field="nt_pmr"         class="nt-inp" type="text" value="\${E(v('nt_pmr'))}"></td>
     </tr>
     <tr>
@@ -11697,29 +11697,29 @@ if (formType==='detail_plan') return \`
   <tbody>
     <!-- ① 상단 요약 4행 (수직선 없음 → 좌6칸/우6칸 균등 분할) -->
     <tr>
-      <td class="nt-lbl" colspan="5" style="font-size:6pt;">\${BL('nt_test_weight_kg')}</td>
+      <td class="nt-lbl" colspan="5">\${BL('nt_test_weight_kg')}</td>
       <td class="nt-val"><input data-field="nt_acc_test_wt" class="nt-inp" type="text" value="\${E(v('nt_acc_test_wt'))}"></td>
-      <td class="nt-lbl" colspan="5" style="font-size:6pt;">\${BL('nt_load_kg')}</td>
+      <td class="nt-lbl" colspan="5">\${BL('nt_load_kg')}</td>
       <td class="nt-val"><input data-field="nt_acc_load_wt" class="nt-inp" type="text" value="\${E(v('nt_acc_load_wt'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl" colspan="5" style="font-size:6pt;">\${BL('nt_gear_1')}</td>
+      <td class="nt-lbl" colspan="5">\${BL('nt_gear_1')}</td>
       <td class="nt-val"><input data-field="nt_gear_i" class="nt-inp" type="text" value="\${E(v('nt_gear_i'))}"></td>
-      <td class="nt-lbl" colspan="5" style="font-size:6pt;">\${BL('nt_gear_2')}</td>
+      <td class="nt-lbl" colspan="5">\${BL('nt_gear_2')}</td>
       <td class="nt-val"><input data-field="nt_gear_i1" class="nt-inp" type="text" value="\${E(v('nt_gear_i1'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl" colspan="5" style="font-size:6pt;">\${BL('nt_a_urban')}</td>
+      <td class="nt-lbl" colspan="5">\${BL('nt_a_urban')}</td>
       <td class="nt-val"><input data-field="nt_aurban" class="nt-inp" type="text" value="\${E(v('nt_aurban'))}"></td>
-      <td class="nt-lbl" colspan="5" style="font-size:6pt;">\${BL('nt_a_wotref')}</td>
+      <td class="nt-lbl" colspan="5">\${BL('nt_a_wotref')}</td>
       <td class="nt-val"><input data-field="nt_awotref" class="nt-inp" type="text" value="\${E(v('nt_awotref'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl" colspan="5" style="font-size:6pt;">\${BL('nt_a_wot')}</td>
+      <td class="nt-lbl" colspan="5">\${BL('nt_a_wot')}</td>
       <td class="nt-val"><input data-field="nt_awot_meas" class="nt-inp" type="text" value="\${E(v('nt_awot_meas'))}"></td>
-      <td class="nt-lbl" colspan="3" style="font-size:6pt;">\${BL('nt_kp_col')}</td>
+      <td class="nt-lbl" colspan="3">\${BL('nt_kp_col')}</td>
       <td class="nt-val"><input data-field="nt_kp2" class="nt-inp" type="text" value="\${E(v('nt_kp2'))}"></td>
-      <td class="nt-lbl" style="font-size:5.5pt;">\${BL('nt_k_weight')}</td>
+      <td class="nt-lbl">\${BL('nt_k_weight')}</td>
       <td class="nt-val"><input data-field="nt_k" class="nt-inp" type="text" value="\${E(v('nt_k'))}"></td>
     </tr>
     <!-- ② 헤더: 1행=가속/정속 구분, 2행=컬럼명, 3행=단위 (사용변속기어·구분은 rowspan=4) -->
@@ -11911,8 +11911,7 @@ if (formType==='detail_plan') return \`
     <tr>
       <td class="nt-lbl" style="font-size:6pt; text-align:center;">\${BL('nt_final_result')}</td>
       <td class="nt-lbl" colspan="3" style="font-size:5pt; text-align:center;">L (dB(A))</td>
-      <td class="nt-val"><input data-field="nt_final_L" class="nt-inp" type="text" value="\${E(v('nt_final_L'))}"></td>
-      <td colspan="3"></td>
+      <td class="nt-val" colspan="4"><input data-field="nt_final_L" class="nt-inp" type="text" value="\${E(v('nt_final_L'))}"></td>
       <td class="nt-lbl" colspan="3" style="font-size:5pt; text-align:center;">\${BL('nt_std_val')}</td>
       <td class="nt-val"><input data-field="nt_limit" class="nt-inp" type="text" value="\${E(v('nt_limit'))}"></td>
     </tr>

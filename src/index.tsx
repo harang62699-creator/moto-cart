@@ -4679,8 +4679,9 @@ function buildFormHTML(formType, saved) {
     </tbody>
   </table>
 
-  <!-- ② 제목 (PDF: "배출가스 및 소음 인증신청 요약") -->
-  <div class="sv-title">\${BL('sv_title')}</div>
+  <!-- ② 제목 (emission_noise와 동일 구조: doc-tag + main-title) -->
+  <div class="en-doc-tag">[인증신청 요약서]</div>
+  <div class="en-main-title">\${BL('sv_title')}</div>
 
   <!-- ③ 본문 테이블 -->
   <table class="sv-tbl">

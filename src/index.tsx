@@ -1362,6 +1362,17 @@ textarea.auto-grow {
       <div class="appl-hero-meta" id="appl-meta"></div>
     </div>
     <div class="appl-hero-right">
+      <!-- 서류 언어 변경 -->
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+        <span style="font-size:8pt;color:var(--c-text3);white-space:nowrap;">서류 언어</span>
+        <select id="appl-lang-sel" class="input" style="font-size:8.5pt;padding:2px 6px;height:auto;width:auto;"
+          onchange="onApplLangChange(this.value)">
+          <option value="ko">🇰🇷 한국어</option>
+          <option value="en">🇺🇸 English</option>
+          <option value="ja">🇯🇵 日本語</option>
+          <option value="zh">🇨🇳 中文</option>
+        </select>
+      </div>
       <div id="appl-pct-label-el" class="appl-pct-label">전체 진행률</div>
       <div class="appl-pct" id="appl-progress-pct">0%</div>
       <div class="progress-track" style="width:140px;height:6px;margin-top:10px;">
@@ -1721,13 +1732,13 @@ const LANG_DICT = {
     address:'주소', phone:'전화번호', model_name:'차종명', engine_no:'엔진번호',
     // summary
     summary_title:'인증신청 요약서',
-    sv_title:'인증신청 요약서',
-    sv_th_div:'구분', sv_th_item:'항목', sv_th_content:'내용',
+    sv_title:'배출가스 및 소음 인증신청 요약',
+    sv_th_div:'구분', sv_th_item:'항 목', sv_th_content:'내 용',
     sv_maker:'제작사(제작국)', sv_vehicle_name:'시험자동차 명칭(형식)', sv_vehicle_name_simple:'자동차 명칭',
-    sv_fuel:'사용연료', sv_std:'적용기준', sv_emission:'배출가스', sv_noise_simple:'소음',
-    sv_foreign_std:'외국 기준', sv_foreign_std_note:'(해당되는 경우)',
+    sv_fuel:'사용연료', sv_std:'적용 기준', sv_emission:'배출가스', sv_noise_simple:'소음',
+    sv_foreign_std:'외국 기준', sv_foreign_std_note:'(유럽 또는 미국 기준)',
     sv_evap_rep_title:'증발가스 대표차 여부 및', sv_obd_rep_title:'OBD 대표차 여부 및',
-    sv_rep_vehicle:'대표/비대표', sv_model_type:'차종 형식',
+    sv_vehicle_name_lbl:'자동차 명칭', sv_type_lbl:'형식', sv_rep_vehicle_lbl:'대표차량',
     sv_warranty:'보증 기간', sv_self_test:'자체시험실시 내역', sv_key_tech:'대표 기술',
     unit_year:'년', fuel_gasoline:'휘발유', fuel_diesel:'경유',
     // gasoline
@@ -2136,13 +2147,13 @@ const LANG_DICT = {
     appl_div:'Type', appl_no:'Cert. No.', cert_date:'Cert. Date', representative:'Representative',
     address:'Address', phone:'Phone', model_name:'Model Name', engine_no:'Engine No.',
     summary_title:'Certification Application Summary',
-    sv_title:'Certification Application Summary',
+    sv_title:'Emission & Noise Certification Application Summary',
     sv_th_div:'No.', sv_th_item:'Item', sv_th_content:'Content',
     sv_maker:'Manufacturer (Country)', sv_vehicle_name:'Test Vehicle Name (Type)', sv_vehicle_name_simple:'Vehicle Name',
     sv_fuel:'Fuel Type', sv_std:'Applicable Standard', sv_emission:'Emission', sv_noise_simple:'Noise',
-    sv_foreign_std:'Foreign Standard', sv_foreign_std_note:'(if applicable)',
+    sv_foreign_std:'Foreign Standard', sv_foreign_std_note:'(Europe or USA Standard)',
     sv_evap_rep_title:'Evap. Representative Vehicle &', sv_obd_rep_title:'OBD Representative Vehicle &',
-    sv_rep_vehicle:'Rep./Non-rep.', sv_model_type:'Vehicle Type',
+    sv_vehicle_name_lbl:'Vehicle Name', sv_type_lbl:'Type', sv_rep_vehicle_lbl:'Rep. Vehicle',
     sv_warranty:'Warranty Period', sv_self_test:'In-house Test Records', sv_key_tech:'Key Technology',
     unit_year:'yr', fuel_gasoline:'Gasoline', fuel_diesel:'Diesel',
     gasoline_title:'Gasoline Vehicle Certification Key Information',
@@ -2538,13 +2549,13 @@ const LANG_DICT = {
     appl_div:'区分', appl_no:'認証番号', cert_date:'認証日', representative:'代表者',
     address:'住所', phone:'電話番号', model_name:'車種名', engine_no:'エンジン番号',
     summary_title:'認証申請概要書',
-    sv_title:'認証申請概要書',
+    sv_title:'排出ガス及び騒音 認証申請概要',
     sv_th_div:'区分', sv_th_item:'項目', sv_th_content:'内容',
     sv_maker:'製造社(製造国)', sv_vehicle_name:'試験自動車名称(形式)', sv_vehicle_name_simple:'自動車名称',
     sv_fuel:'使用燃料', sv_std:'適用基準', sv_emission:'排出ガス', sv_noise_simple:'騒音',
-    sv_foreign_std:'外国基準', sv_foreign_std_note:'(該当する場合)',
+    sv_foreign_std:'外国基準', sv_foreign_std_note:'(欧州または米国基準)',
     sv_evap_rep_title:'蒸発ガス代表車有無及び', sv_obd_rep_title:'OBD代表車有無及び',
-    sv_rep_vehicle:'代表/非代表', sv_model_type:'車種形式',
+    sv_vehicle_name_lbl:'自動車名称', sv_type_lbl:'形式', sv_rep_vehicle_lbl:'代表車両',
     sv_warranty:'保証期間', sv_self_test:'自社試験実施内訳', sv_key_tech:'代表技術',
     unit_year:'年', fuel_gasoline:'ガソリン', fuel_diesel:'軽油',
     gasoline_title:'ガソリン車認証申請主要内容',
@@ -2940,13 +2951,13 @@ const LANG_DICT = {
     appl_div:'类别', appl_no:'认证编号', cert_date:'认证日期', representative:'代表人',
     address:'地址', phone:'电话', model_name:'车型名称', engine_no:'发动机编号',
     summary_title:'认证申请概要书',
-    sv_title:'认证申请概要书',
+    sv_title:'排放及噪声 认证申请概要',
     sv_th_div:'序号', sv_th_item:'项目', sv_th_content:'内容',
     sv_maker:'制造商（制造国）', sv_vehicle_name:'试验车辆名称（型式）', sv_vehicle_name_simple:'车辆名称',
     sv_fuel:'使用燃料', sv_std:'适用标准', sv_emission:'排放', sv_noise_simple:'噪声',
-    sv_foreign_std:'外国标准', sv_foreign_std_note:'（如适用）',
+    sv_foreign_std:'外国标准', sv_foreign_std_note:'（欧洲或美国标准）',
     sv_evap_rep_title:'蒸发排放代表车辆及', sv_obd_rep_title:'OBD代表车辆及',
-    sv_rep_vehicle:'代表/非代表', sv_model_type:'车型型式',
+    sv_vehicle_name_lbl:'车辆名称', sv_type_lbl:'型式', sv_rep_vehicle_lbl:'代表车辆',
     sv_warranty:'保修期', sv_self_test:'自检实施内容', sv_key_tech:'核心技术',
     unit_year:'年', fuel_gasoline:'汽油', fuel_diesel:'柴油',
     gasoline_title:'汽油车认证申请主要内容',
@@ -3612,6 +3623,8 @@ function renderApplicationPage() {
   sb.textContent = lt(statusKey) || getStatusLabel(a.status);
   // ── 제목 / 메타 ──
   document.getElementById('appl-title').textContent = a.title;
+  const langSel = document.getElementById('appl-lang-sel');
+  if (langSel) (langSel as HTMLSelectElement).value = lang;
   const yearSfx = lang==='ko'?'년':lang==='ja'?'年':'';
   document.getElementById('appl-meta').textContent  = [a.importer,a.cert_year?a.cert_year+yearSfx:'',a.displacement?a.displacement+'cc':''].filter(Boolean).join(' · ');
   const done  = currentForms.filter(f=>f.completed).length;
@@ -4103,6 +4116,41 @@ function onNewCertTypeChange() {
 }
 function onNewLangChange() {
   currentLang = document.getElementById('new-lang').value;
+}
+
+// 신청서 상세 페이지에서 언어 변경 → DB 저장 + 폼 재렌더
+async function onApplLangChange(newLang) {
+  if (!currentApplicationId || !['ko','en','ja','zh'].includes(newLang)) return;
+  currentLang = newLang;
+  if (currentApplication) currentApplication.lang = newLang;
+  try {
+    const token = localStorage.getItem('auth_token');
+    await fetch('/api/applications/' + currentApplicationId, {
+      method:'PUT',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body: JSON.stringify({
+        title: currentApplication.title,
+        importer: currentApplication.importer,
+        cert_year: currentApplication.cert_year,
+        displacement: currentApplication.displacement,
+        family_code: currentApplication.family_code,
+        lang: newLang,
+        status: currentApplication.status
+      })
+    });
+  } catch(e) { console.warn('lang save failed', e); }
+  // 현재 열려있는 폼이 있으면 재렌더
+  if (currentFormType) {
+    const fd = currentForms.find(f=>f.form_type===currentFormType);
+    let saved = {};
+    try { saved = JSON.parse(fd?.data||'{}'); } catch {}
+    document.getElementById('form-content').innerHTML = buildFormHTML(currentFormType, saved);
+    setTimeout(() => initAutoGrow(document.getElementById('form-content')), 50);
+    setTimeout(() => generateFormQR(currentFormType, getFormTitle(FORM_META.find(m=>m.type===currentFormType))), 100);
+    if (currentFormType==='emission_noise') setTimeout(()=>initEnFields(),150);
+    if (currentFormType==='obd_config') setTimeout(()=>initObdImgDrops(),150);
+    if (currentFormType==='detail_plan') setTimeout(()=>{ if(typeof window.dpRestoreAll==='function') window.dpRestoreAll(); },200);
+  }
 }
 document.getElementById('modal-new-app').addEventListener('click', function(e){ if(e.target===this)closeNewAppModal(); });
 
@@ -4610,7 +4658,7 @@ function buildFormHTML(formType, saved) {
 </style>
 
 <div class="sv-wrap">
-  <!-- ① 상단 헤더 (emission_noise와 동일: en-tbl thead/tbody 구조) -->
+  <!-- ① 상단 헤더 (emission_noise와 동일 구조) -->
   <table class="en-tbl" style="margin-bottom:12px; table-layout:fixed;">
     <colgroup><col style="width:35%;"><col style="width:12%;"><col style="width:13%;"><col style="width:40%;"></colgroup>
     <thead>
@@ -4623,15 +4671,15 @@ function buildFormHTML(formType, saved) {
     </thead>
     <tbody>
       <tr style="height:26px;">
-        <td><input data-field="importer"     class="en-inp" type="text" placeholder="\${BL('ph_importer')}"    value="\${E(v('importer'))}"></td>
-        <td><input data-field="cert_year"    class="en-inp" type="text" placeholder="\${BL('ph_cert_year')}"  value="\${E(v('cert_year'))}"></td>
+        <td><input data-field="importer"     class="en-inp" type="text" placeholder="\${BL('ph_importer')}"     value="\${E(v('importer'))}"></td>
+        <td><input data-field="cert_year"    class="en-inp" type="text" placeholder="\${BL('ph_cert_year')}"   value="\${E(v('cert_year'))}"></td>
         <td><input data-field="displacement" class="en-inp" type="text" placeholder="\${BL('ph_displacement')}" value="\${E(v('displacement'))}"></td>
-        <td><input data-field="family_code"  class="en-inp" type="text" placeholder="\${BL('ph_family_code')}" value="\${E(v('family_code'))}"></td>
+        <td><input data-field="family_code"  class="en-inp" type="text" placeholder="\${BL('ph_family_code')}"  value="\${E(v('family_code'))}"></td>
       </tr>
     </tbody>
   </table>
 
-  <!-- ② 제목 -->
+  <!-- ② 제목 (PDF: "배출가스 및 소음 인증신청 요약") -->
   <div class="sv-title">\${BL('sv_title')}</div>
 
   <!-- ③ 본문 테이블 -->
@@ -4649,127 +4697,184 @@ function buildFormHTML(formType, saved) {
       </tr>
     </thead>
     <tbody>
+
       <!-- 1. 제작사(제작국) -->
       <tr>
         <td class="sv-num">1</td>
         <td class="sv-lbl">\${BL('sv_maker')}</td>
         <td class="sv-val">
-          <input data-field="maker" class="sv-inp" type="text" placeholder="예) PIAGGIO C.S.P.A(이태리)" value="\${E(v('maker'))}">
+          <input data-field="maker" class="sv-inp" type="text"
+            placeholder="예) PIAGGIO C.S.P.A(이태리)"
+            value="\${E(v('maker'))}">
         </td>
       </tr>
+
       <!-- 2. 시험자동차 명칭(형식) -->
       <tr>
         <td class="sv-num">2</td>
         <td class="sv-lbl">\${BL('sv_vehicle_name')}</td>
         <td class="sv-val">
-          <input data-field="vehicle_name" class="sv-inp" type="text" placeholder="예) RSV4 1000 RR" value="\${E(v('vehicle_name'))}">
+          <input data-field="vehicle_name" class="sv-inp" type="text"
+            placeholder="예) RSV4 1000 RR"
+            value="\${E(v('vehicle_name'))}">
         </td>
       </tr>
+
       <!-- 3. 사용연료 -->
       <tr>
         <td class="sv-num">3</td>
         <td class="sv-lbl">\${BL('sv_fuel')}</td>
         <td class="sv-val">
-          <select data-field="fuel" class="sv-sel">
-            <option value="" \${!v('fuel')?'selected':''}>선택</option>
-            <option value="휘발유" \${v('fuel')==='휘발유'?'selected':''}>\${BL('fuel_gasoline')}</option>
-            <option value="경유"   \${v('fuel')==='경유'?'selected':''}>\${BL('fuel_diesel')}</option>
-            <option value="전기"   \${v('fuel')==='전기'?'selected':''}>전기</option>
-            <option value="LPG"   \${v('fuel')==='LPG'?'selected':''}>LPG</option>
-          </select>
+          <input data-field="fuel" class="sv-inp" type="text"
+            placeholder="예) 휘발유, 경유, LPG"
+            value="\${E(v('fuel'))}">
         </td>
       </tr>
-      <!-- 4. 적용 기준 (배출가스 / 소음 2분할) -->
+
+      <!-- 4. 적용 기준 : 배출가스 / 소음 2행 분리 -->
       <tr>
         <td class="sv-num" rowspan="2">4</td>
         <td class="sv-lbl" rowspan="2">\${BL('sv_std')}</td>
-        <td style="padding:0;">
+        <td style="padding:0; border-bottom:1px solid #ccc;">
           <div class="sv-sub-row">
             <span class="sv-sub-lbl">\${BL('sv_emission')}</span>
-            <input data-field="emission_std" class="sv-inp" type="text" placeholder="예) EURO 5" value="\${E(v('emission_std'))}" style="flex:1;min-width:0;">
+            <input data-field="emission_std" class="sv-inp" type="text"
+              placeholder="예) EURO 5"
+              value="\${E(v('emission_std'))}" style="flex:1;min-width:0;">
           </div>
         </td>
       </tr>
       <tr>
         <td style="padding:0;">
-          <div class="sv-sub-row" style="border-top:1px solid var(--c-border);">
+          <div class="sv-sub-row">
             <span class="sv-sub-lbl">\${BL('sv_noise_simple')}</span>
-            <input data-field="noise_std" class="sv-inp" type="text" placeholder="예) ECE R41-04" value="\${E(v('noise_std'))}" style="flex:1;min-width:0;">
+            <input data-field="noise_std" class="sv-inp" type="text"
+              placeholder="예) ECE R41-04"
+              value="\${E(v('noise_std'))}" style="flex:1;min-width:0;">
           </div>
         </td>
       </tr>
-      <!-- 5. 외국 기준 -->
+
+      <!-- 5. 외국 기준 (유럽 또는 미국 기준) -->
       <tr>
         <td class="sv-num">5</td>
-        <td class="sv-lbl">\${BL('sv_foreign_std')}<br><span style="font-weight:400;font-size:.88em;opacity:.7;">\${BL('sv_foreign_std_note')}</span></td>
+        <td class="sv-lbl">
+          \${BL('sv_foreign_std')}<br>
+          <span style="font-weight:400; font-size:.88em; opacity:.75;">\${BL('sv_foreign_std_note')}</span>
+        </td>
         <td class="sv-val">
-          <input data-field="foreign_std" class="sv-inp" type="text" placeholder="예) EURO 5" value="\${E(v('foreign_std'))}">
+          <input data-field="foreign_std" class="sv-inp" type="text"
+            placeholder="예) EURO 5"
+            value="\${E(v('foreign_std'))}">
         </td>
       </tr>
-      <!-- 6. 증발가스 대표차 여부 및 자동차 명칭 -->
+
+      <!-- 6. 증발가스 대표차 여부 및 자동차 명칭/형식 (2행 분리) -->
       <tr>
-        <td class="sv-num">6</td>
-        <td class="sv-lbl">\${BL('sv_evap_rep_title')}<br>\${BL('sv_vehicle_name_simple')}</td>
-        <td style="padding:0;">
-          <div class="sv-rep-inline">
-            <div class="sv-rep-item">
-              <span class="sv-rep-item-lbl">\${BL('sv_rep_vehicle')}</span>
-              <input data-field="evap_is_rep" class="sv-rep-item-inp" type="text" placeholder="대표/비대표" value="\${E(v('evap_is_rep'))}" style="width:90px;">
-            </div>
-            <div class="sv-rep-item">
-              <span class="sv-rep-item-lbl">\${BL('sv_model_type')}</span>
-              <input data-field="evap_rep_model" class="sv-rep-item-inp" type="text" placeholder="차종 형식" value="\${E(v('evap_rep_model'))}" style="width:120px;">
-            </div>
+        <td class="sv-num" rowspan="3">6</td>
+        <td class="sv-lbl" rowspan="3">\${BL('sv_evap_rep_title')}<br>\${BL('sv_vehicle_name_simple')}</td>
+        <td style="padding:0; border-bottom:1px solid #ccc;">
+          <div class="sv-sub-row">
+            <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_rep_vehicle_lbl')}</span>
+            <input data-field="evap_is_rep" class="sv-inp" type="text"
+              placeholder="대표/비대표"
+              value="\${E(v('evap_is_rep'))}" style="flex:1;min-width:0;">
           </div>
         </td>
       </tr>
-      <!-- 7. OBD 대표차 여부 및 자동차 명칭 -->
       <tr>
-        <td class="sv-num">7</td>
-        <td class="sv-lbl">\${BL('sv_obd_rep_title')}<br>\${BL('sv_vehicle_name_simple')}</td>
-        <td style="padding:0;">
-          <div class="sv-rep-inline">
-            <div class="sv-rep-item">
-              <span class="sv-rep-item-lbl">\${BL('sv_rep_vehicle')}</span>
-              <input data-field="obd_is_rep" class="sv-rep-item-inp" type="text" placeholder="대표/비대표" value="\${E(v('obd_is_rep'))}" style="width:90px;">
-            </div>
-            <div class="sv-rep-item">
-              <span class="sv-rep-item-lbl">\${BL('sv_model_type')}</span>
-              <input data-field="obd_rep_model" class="sv-rep-item-inp" type="text" placeholder="차종 형식" value="\${E(v('obd_rep_model'))}" style="width:120px;">
-            </div>
+        <td style="padding:0; border-bottom:1px solid #ccc;">
+          <div class="sv-sub-row">
+            <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_vehicle_name_lbl')}</span>
+            <input data-field="evap_rep_name" class="sv-inp" type="text"
+              placeholder="예) RSV4 1000 RR"
+              value="\${E(v('evap_rep_name'))}" style="flex:1;min-width:0;">
           </div>
         </td>
       </tr>
+      <tr>
+        <td style="padding:0;">
+          <div class="sv-sub-row">
+            <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_type_lbl')}</span>
+            <input data-field="evap_rep_type" class="sv-inp" type="text"
+              placeholder="예) ABC-123"
+              value="\${E(v('evap_rep_type'))}" style="flex:1;min-width:0;">
+          </div>
+        </td>
+      </tr>
+
+      <!-- 7. OBD 대표차 여부 및 자동차 명칭/형식 (2행 분리) -->
+      <tr>
+        <td class="sv-num" rowspan="3">7</td>
+        <td class="sv-lbl" rowspan="3">\${BL('sv_obd_rep_title')}<br>\${BL('sv_vehicle_name_simple')}</td>
+        <td style="padding:0; border-bottom:1px solid #ccc;">
+          <div class="sv-sub-row">
+            <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_rep_vehicle_lbl')}</span>
+            <input data-field="obd_is_rep" class="sv-inp" type="text"
+              placeholder="대표/비대표"
+              value="\${E(v('obd_is_rep'))}" style="flex:1;min-width:0;">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:0; border-bottom:1px solid #ccc;">
+          <div class="sv-sub-row">
+            <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_vehicle_name_lbl')}</span>
+            <input data-field="obd_rep_name" class="sv-inp" type="text"
+              placeholder="예) RSV4 1000 RR"
+              value="\${E(v('obd_rep_name'))}" style="flex:1;min-width:0;">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:0;">
+          <div class="sv-sub-row">
+            <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_type_lbl')}</span>
+            <input data-field="obd_rep_type" class="sv-inp" type="text"
+              placeholder="예) ABC-123"
+              value="\${E(v('obd_rep_type'))}" style="flex:1;min-width:0;">
+          </div>
+        </td>
+      </tr>
+
       <!-- 8. 보증 기간 -->
       <tr>
         <td class="sv-num">8</td>
         <td class="sv-lbl">\${BL('sv_warranty')}</td>
         <td style="padding:0;">
           <div class="sv-warranty-row">
-            <input data-field="warranty_year" class="sv-rep-item-inp" type="text" placeholder="년" value="\${E(v('warranty_year'))}" style="width:50px;text-align:right;">
+            <input data-field="warranty_year" class="sv-rep-item-inp" type="text"
+              placeholder="년" value="\${E(v('warranty_year'))}" style="width:50px;text-align:right;">
             <span style="font-size:10pt;">\${BL('unit_year')}</span>
             <span style="font-size:10pt;">&nbsp;/&nbsp;</span>
-            <input data-field="warranty_km" class="sv-rep-item-inp" type="text" placeholder="km" value="\${E(v('warranty_km'))}" style="width:90px;text-align:right;">
+            <input data-field="warranty_km" class="sv-rep-item-inp" type="text"
+              placeholder="km" value="\${E(v('warranty_km'))}" style="width:90px;text-align:right;">
             <span style="font-size:10pt;">km</span>
           </div>
         </td>
       </tr>
+
       <!-- 9. 자체시험실시 내역 -->
       <tr>
         <td class="sv-num">9</td>
         <td class="sv-lbl">\${BL('sv_self_test')}</td>
         <td class="sv-val">
-          <input data-field="self_test" class="sv-inp" type="text" placeholder="예) OBD, 소음, 증발가스" value="\${E(v('self_test'))}">
+          <input data-field="self_test" class="sv-inp" type="text"
+            placeholder="예) OBD, 소음, 증발가스"
+            value="\${E(v('self_test'))}">
         </td>
       </tr>
+
       <!-- 10. 대표 기술 -->
       <tr>
         <td class="sv-num">10</td>
         <td class="sv-lbl">\${BL('sv_key_tech')}</td>
         <td class="sv-val">
-          <textarea data-field="key_tech" class="sv-ta" rows="3" placeholder="예) 산소센서, 삼원촉매, OBD, ECU, Idle control, 전자식 연료주입">\${E(v('key_tech'))}</textarea>
+          <textarea data-field="key_tech" class="sv-ta" rows="3"
+            placeholder="예) 산소센서, 삼원촉매, OBD, ECU, Idle control, 전자식 연료주입">\${E(v('key_tech'))}</textarea>
         </td>
       </tr>
+
     </tbody>
   </table>
 </div>

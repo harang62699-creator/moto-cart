@@ -3624,7 +3624,7 @@ function renderApplicationPage() {
   // ── 제목 / 메타 ──
   document.getElementById('appl-title').textContent = a.title;
   const langSel = document.getElementById('appl-lang-sel');
-  if (langSel) (langSel as HTMLSelectElement).value = lang;
+  if (langSel) langSel.value = lang;
   const yearSfx = lang==='ko'?'년':lang==='ja'?'年':'';
   document.getElementById('appl-meta').textContent  = [a.importer,a.cert_year?a.cert_year+yearSfx:'',a.displacement?a.displacement+'cc':''].filter(Boolean).join(' · ');
   const done  = currentForms.filter(f=>f.completed).length;

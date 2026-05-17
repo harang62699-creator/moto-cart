@@ -11399,7 +11399,7 @@ if (formType==='detail_plan') return \`
 </div>
 
 <!-- 3. 시험자동차 제원 -->
-<div class="nt-sec-title" style="margin-top:16px;">3. \${BL('nt_sec3')}</div>
+<div class="nt-sec-title" style="margin-top:16px;">\${BL('nt_sec3')}</div>
 <table class="nt-tbl">
   <colgroup>
     <col style="width:18%;"><col style="width:14%;"><col style="width:22%;"><col style="width:14%;">
@@ -11529,7 +11529,7 @@ if (formType==='detail_plan') return \`
 </table>
 
 <!-- 4. 시험장 주변조건 -->
-<div class="nt-sec-title" style="margin-top:16px;">4. \${BL('nt_sec4')}</div>
+<div class="nt-sec-title" style="margin-top:16px;">\${BL('nt_sec4')}</div>
 <table class="nt-tbl">
   <colgroup>
     <col style="width:18%;"><col style="width:14%;"><col style="width:22%;"><col style="width:14%;">
@@ -11571,7 +11571,7 @@ if (formType==='detail_plan') return \`
 </table>
 
 <!-- 5. 소음측정장비 -->
-<div class="nt-sec-title" style="margin-top:16px;">5. \${BL('nt_sec5')}</div>
+<div class="nt-sec-title" style="margin-top:16px;">\${BL('nt_sec5')}</div>
 <table class="nt-tbl">
   <colgroup>
     <col style="width:18%;"><col style="width:20%;"><col style="width:18%;"><col style="width:18%;"><col style="width:14%;">
@@ -11678,7 +11678,7 @@ if (formType==='detail_plan') return \`
   최종결과 행: col0=최종결과 + col1~col5=L값 + col6~col7=기준치라벨 + col8~col11=기준값
               (수직선: [55,96,360,395,429,468,504,540])
 -->
-<div class="nt-sec-title" style="margin-top:18px;">6. \${BL('nt_sec6')}</div>
+<div class="nt-sec-title" style="margin-top:18px;">\${BL('nt_sec6')}</div>
 <table class="nt-tbl" style="table-layout:fixed;">
   <colgroup>
     <col style="width:8%;">   <!-- col0: 사용변속기어 -->
@@ -11697,29 +11697,29 @@ if (formType==='detail_plan') return \`
   <tbody>
     <!-- ① 상단 요약 4행 (수직선 없음 → 좌6칸/우6칸 균등 분할) -->
     <tr>
-      <td class="nt-lbl" colspan="5">\${BL('nt_test_weight_kg')}</td>
+      <td class="nt-lbl" colspan="5" style="font-size:6pt;">\${BL('nt_test_weight_kg')}</td>
       <td class="nt-val"><input data-field="nt_acc_test_wt" class="nt-inp" type="text" value="\${E(v('nt_acc_test_wt'))}"></td>
-      <td class="nt-lbl" colspan="5">\${BL('nt_load_kg')}</td>
+      <td class="nt-lbl" colspan="5" style="font-size:6pt;">\${BL('nt_load_kg')}</td>
       <td class="nt-val"><input data-field="nt_acc_load_wt" class="nt-inp" type="text" value="\${E(v('nt_acc_load_wt'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl" colspan="5">\${BL('nt_gear_1')}</td>
+      <td class="nt-lbl" colspan="5" style="font-size:6pt;">\${BL('nt_gear_1')}</td>
       <td class="nt-val"><input data-field="nt_gear_i" class="nt-inp" type="text" value="\${E(v('nt_gear_i'))}"></td>
-      <td class="nt-lbl" colspan="5">\${BL('nt_gear_2')}</td>
+      <td class="nt-lbl" colspan="5" style="font-size:6pt;">\${BL('nt_gear_2')}</td>
       <td class="nt-val"><input data-field="nt_gear_i1" class="nt-inp" type="text" value="\${E(v('nt_gear_i1'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl" colspan="5">\${BL('nt_a_urban')}</td>
+      <td class="nt-lbl" colspan="5" style="font-size:6pt;">\${BL('nt_a_urban')}</td>
       <td class="nt-val"><input data-field="nt_aurban" class="nt-inp" type="text" value="\${E(v('nt_aurban'))}"></td>
-      <td class="nt-lbl" colspan="5">\${BL('nt_a_wotref')}</td>
+      <td class="nt-lbl" colspan="5" style="font-size:6pt;">\${BL('nt_a_wotref')}</td>
       <td class="nt-val"><input data-field="nt_awotref" class="nt-inp" type="text" value="\${E(v('nt_awotref'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl" colspan="5">\${BL('nt_a_wot')}</td>
+      <td class="nt-lbl" colspan="5" style="font-size:6pt;">\${BL('nt_a_wot')}</td>
       <td class="nt-val"><input data-field="nt_awot_meas" class="nt-inp" type="text" value="\${E(v('nt_awot_meas'))}"></td>
-      <td class="nt-lbl" colspan="3">\${BL('nt_kp_col')}</td>
+      <td class="nt-lbl" colspan="3" style="font-size:6pt;">\${BL('nt_kp_col')}</td>
       <td class="nt-val"><input data-field="nt_kp2" class="nt-inp" type="text" value="\${E(v('nt_kp2'))}"></td>
-      <td class="nt-lbl">\${BL('nt_k_weight')}</td>
+      <td class="nt-lbl" style="font-size:6pt;">\${BL('nt_k_weight')}</td>
       <td class="nt-val"><input data-field="nt_k" class="nt-inp" type="text" value="\${E(v('nt_k'))}"></td>
     </tr>
     <!-- ② 헤더: 1행=가속/정속 구분, 2행=컬럼명, 3행=단위 (사용변속기어·구분은 rowspan=4) -->
@@ -11892,11 +11892,11 @@ if (formType==='detail_plan') return \`
     -->
     <tr>
       <td class="nt-lbl" style="font-size:6pt; text-align:center;">\${BL('nt_test_result')}</td>
-      <td class="nt-lbl" colspan="3" style="font-size:5pt; text-align:center; line-height:1.5;">가속주행소음<br>(L<sub>WOTrep</sub>, dB(A))</td>
+      <td class="nt-lbl" colspan="3" style="font-size:6pt; text-align:center; line-height:1.5;">가속주행소음<br>(L<sub>WOTrep</sub>, dB(A))</td>
       <td class="nt-val"><input data-field="nt_lwot" class="nt-inp" type="text" value="\${E(v('nt_lwot'))}"></td>
-      <td class="nt-lbl" colspan="3" style="font-size:5pt; text-align:center; line-height:1.5;">정속주행소음<br>(L<sub>CRSrep</sub>, dB(A))</td>
+      <td class="nt-lbl" colspan="3" style="font-size:6pt; text-align:center; line-height:1.5;">정속주행소음<br>(L<sub>CRSrep</sub>, dB(A))</td>
       <td class="nt-val"><input data-field="nt_lcrs" class="nt-inp" type="text" value="\${E(v('nt_lcrs'))}"></td>
-      <td class="nt-lbl" colspan="2" style="font-size:5pt; text-align:center; line-height:1.5;">(L<sub>URBAN</sub>, dB(A))</td>
+      <td class="nt-lbl" colspan="2" style="font-size:6pt; text-align:center; line-height:1.5;">(L<sub>URBAN</sub>, dB(A))</td>
       <td class="nt-val"><input data-field="nt_lurban" class="nt-inp" type="text" value="\${E(v('nt_lurban'))}"></td>
     </tr>
     <!-- ⑥ 최종결과 행 — PDF 이미지 직접 확인 기준
@@ -11910,16 +11910,16 @@ if (formType==='detail_plan') return \`
     -->
     <tr>
       <td class="nt-lbl" style="font-size:6pt; text-align:center;">\${BL('nt_final_result')}</td>
-      <td class="nt-lbl" colspan="3" style="font-size:5pt; text-align:center;">L (dB(A))</td>
+      <td class="nt-lbl" colspan="3" style="font-size:6pt; text-align:center;">L (dB(A))</td>
       <td class="nt-val" colspan="4"><input data-field="nt_final_L" class="nt-inp" type="text" value="\${E(v('nt_final_L'))}"></td>
-      <td class="nt-lbl" colspan="3" style="font-size:5pt; text-align:center;">\${BL('nt_std_val')}</td>
+      <td class="nt-lbl" colspan="3" style="font-size:6pt; text-align:center;">\${BL('nt_std_val')}</td>
       <td class="nt-val"><input data-field="nt_limit" class="nt-inp" type="text" value="\${E(v('nt_limit'))}"></td>
     </tr>
   </tbody>
 </table>
 
 <!-- 7. 배기소음측정결과 -->
-<div class="nt-sec-title" style="margin-top:16px;">7. \${BL('nt_sec7')}</div>
+<div class="nt-sec-title" style="margin-top:16px;">\${BL('nt_sec7')}</div>
 <table class="nt-tbl">
   <colgroup>
     <col style="width:8%;"><col style="width:8%;"><col style="width:18%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;">
@@ -11966,7 +11966,7 @@ if (formType==='detail_plan') return \`
 </table>
 
 <!-- 8. 경적소음측정결과 -->
-<div class="nt-sec-title" style="margin-top:16px;">8. \${BL('nt_sec8')}</div>
+<div class="nt-sec-title" style="margin-top:16px;">\${BL('nt_sec8')}</div>
 <table class="nt-tbl">
   <colgroup>
     <col style="width:8%;"><col style="width:10%;"><col style="width:12%;"><col style="width:10%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:10%;">
@@ -12019,7 +12019,6 @@ if (formType==='detail_plan') return \`
     <input data-field="nt_confirmer" class="nt-sign-inp" type="text" placeholder="성명" value="\${E(v('nt_confirmer'))}">
   </div>
 </div>
-<div style="font-size:9pt; margin-top:8px; color:var(--c-text2);">\${BL('nt_raw_data_note')}</div>
 
 <!-- 첨부문서 업로드/다운로드 (인쇄 제외) -->
 <div class="nt-attach-section no-print">

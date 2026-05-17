@@ -11927,7 +11927,7 @@ if (formType==='detail_plan') return \`
   <thead>
     <tr>
       <th rowspan="2" colspan="2">배기<br>\${BL('sv_noise_simple')}<br>시험</th>
-      <th rowspan="2">원동기 최고 출력<br>회전속도의<br><input data-field="nt_ex_pct" class="nt-inp" type="text" style="width:2.2em;text-align:right;" value="\${E(v('nt_ex_pct'))}">% 회전속도(rpm)</th>
+      <th rowspan="2" style="line-height:1.8;">원동기 최고 출력<br>회전속도의<br><input data-field="nt_ex_pct" class="nt-inp" type="text" style="width:3.5em;text-align:center;border-bottom:1px solid #888;" value="\${E(v('nt_ex_pct'))}">% 회전속도(rpm)</th>
       <th rowspan="2">\${BL('nt_bg_noise_a')}</th>
       <th colspan="2">\${BL('nt_exhaust_noise_val')}</th>
       <th rowspan="2">\${BL('nt_score_a')}</th>

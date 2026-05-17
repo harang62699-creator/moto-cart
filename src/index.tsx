@@ -4680,7 +4680,6 @@ function buildFormHTML(formType, saved) {
   </table>
 
   <!-- ② 제목 (emission_noise와 동일 구조: doc-tag + main-title) -->
-  <div class="en-doc-tag">[인증신청 요약서]</div>
   <div class="en-main-title">\${BL('sv_title')}</div>
 
   <!-- ③ 본문 테이블 -->

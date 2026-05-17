@@ -4474,40 +4474,40 @@ function buildFormHTML(formType, saved) {
 .sv-num {
   text-align:center; font-size:10pt; font-weight:600;
   padding:8px 4px;
-  background:rgba(255,255,255,.02);
+  background:#f5f8ff; color:#111;
 }
 .sv-lbl {
   font-size:10pt; font-weight:500;
   padding:8px 10px; line-height:1.4;
   word-break:keep-all;
-  background:rgba(255,255,255,.02);
+  background:#f5f8ff; color:#111;
 }
 .sv-val {
   padding:5px 10px;
 }
 .sv-val .sv-inp {
   width:100%; background:transparent;
-  border:none; border-bottom:1px solid var(--c-border);
-  color:var(--c-text); font-size:10pt;
+  border:none; border-bottom:1px solid #ccc;
+  color:#111; font-size:10pt;
   padding:4px 2px; outline:none;
 }
-.sv-val .sv-inp:focus { border-bottom-color:var(--c-accent); }
+.sv-val .sv-inp:focus { border-bottom-color:#4e90d8; }
 .sv-val .sv-sel {
   width:100%; background:transparent;
-  border:1px solid var(--c-border);
-  color:var(--c-text); font-size:10pt;
+  border:1px solid #ccc;
+  color:#111; font-size:10pt;
   padding:3px 4px; outline:none;
   border-radius:3px;
 }
-.sv-val .sv-sel:focus { border-color:var(--c-accent); }
+.sv-val .sv-sel:focus { border-color:#4e90d8; }
 .sv-val .sv-ta {
   width:100%; background:transparent;
-  border:1px solid var(--c-border);
-  color:var(--c-text); font-size:10pt;
+  border:1px solid #ccc;
+  color:#111; font-size:10pt;
   padding:4px 6px; outline:none; resize:vertical;
   border-radius:3px; min-height:52px;
 }
-.sv-val .sv-ta:focus { border-color:var(--c-accent); }
+.sv-val .sv-ta:focus { border-color:#4e90d8; }
 
 /* 4번 적용기준 구분선 */
 .sv-sub-row {
@@ -4515,10 +4515,10 @@ function buildFormHTML(formType, saved) {
   padding:5px 10px;
 }
 .sv-sub-row + .sv-sub-row {
-  border-top:1px solid var(--c-border);
+  border-top:1px solid #e0e0e0;
 }
 .sv-sub-lbl {
-  font-size:10pt; color:var(--c-text3);
+  font-size:10pt; color:#555;
   width:56px; flex-shrink:0; font-weight:500;
 }
 
@@ -4532,14 +4532,14 @@ function buildFormHTML(formType, saved) {
   display:flex; align-items:center; gap:4px;
   white-space:nowrap;
 }
-.sv-rep-item-lbl { font-size:10pt; color:var(--c-text); white-space:nowrap; }
+.sv-rep-item-lbl { font-size:10pt; color:#111; white-space:nowrap; }
 .sv-rep-item-inp {
   background:transparent;
-  border:none; border-bottom:1px solid var(--c-border);
-  color:var(--c-text); font-size:10pt;
+  border:none; border-bottom:1px solid #ccc;
+  color:#111; font-size:10pt;
   padding:2px 2px; outline:none; min-width:80px;
 }
-.sv-rep-item-inp:focus { border-bottom-color:var(--c-accent); }
+.sv-rep-item-inp:focus { border-bottom-color:#4e90d8; }
 
 /* 8번 보증기간 인라인 */
 .sv-warranty-row {
@@ -4548,12 +4548,8 @@ function buildFormHTML(formType, saved) {
 }
 
 @media screen {
-      .sv-tbl thead th  { background:rgba(79,142,247,.10); color:var(--c-text); border-color:var(--c-border); }
-  .sv-tbl th, .sv-tbl td { border-color:var(--c-border); }
-  .sv-title {
-    background:rgba(79,142,247,.06);
-    border-color:var(--c-border2); color:var(--c-text);
-  }
+  .sv-tbl thead th  { background:#d8e0f0; color:#111; border-color:#888; }
+  .sv-tbl th, .sv-tbl td { border-color:#888; }
 }
 
 @media print {

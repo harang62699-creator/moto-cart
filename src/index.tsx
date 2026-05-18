@@ -9069,63 +9069,63 @@ if (formType==='detail_plan') return \`
 <!-- 2.3 OBD 동일차종 설명 -->
 <div style="font-size:8pt; font-weight:600; padding:6px 2px 2px; color:#333;">2.3. 배출가스자기진단장치 동일차종 설명</div>
 <table class="obd-tbl">
-  <colgroup><col style="width:22%"><col style="width:28%"><col style="width:50%"></colgroup>
+  <colgroup><col style="width:18%"><col style="width:32%"><col style="width:25%"><col style="width:25%"></colgroup>
   <tr>
     <th class="obd-th" colspan="2">\${BL('th_item')}</th>
-    <th class="obd-th">배출가스자기진단장치 동일차종</th>
+    <th class="obd-th" colspan="2">배출가스자기진단장치 동일차종</th>
   </tr>
   <tr>
-    <td class="obd-lbl" colspan="2">차명(동일차명)</td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_name" placeholder="차명(동일차명)"></textarea></td>
+    <td class="obd-lbl" colspan="2" style="text-align:center;">차명(동일차명)</td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_name_1" placeholder="차명"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_name_2" placeholder="동일차명"></textarea></td>
   </tr>
   <tr>
-    <td class="obd-lbl" rowspan="2">엔진</td>
+    <td class="obd-lbl" rowspan="2" style="text-align:center; vertical-align:middle;">엔진</td>
     <td class="obd-lbl">연소과정<br><small style="font-weight:400;">(불꽃점화, 압축착화, 2행정, 4행정 등)</small></td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_combustion" placeholder="예) 불꽃점화, 4행정"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_combustion_1" placeholder="예) 불꽃점화, 4행정"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_combustion_2" placeholder="예) 불꽃점화, 4행정"></textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl">연료공급 방법<br><small style="font-weight:400;">(기화기식, 연료분사식 등)</small></td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_fuel_supply" placeholder="예) 연료분사식(EFI)"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_fuel_supply_1" placeholder="예) 연료분사식(EFI)"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_fuel_supply_2" placeholder="예) 연료분사식(EFI)"></textarea></td>
   </tr>
   <tr>
-    <td class="obd-lbl" rowspan="4">\${BL('sv_emission')}<br>제어장치</td>
+    <td class="obd-lbl" rowspan="4" style="text-align:center; vertical-align:middle;">\${BL('sv_emission')}<br>제어장치</td>
     <td class="obd-lbl">촉매전환기의 형식<br><small style="font-weight:400;">(산화촉매, 삼원촉매, 가열식촉매 등)</small></td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_cat_type" placeholder="예) 삼원촉매"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_cat_type_1" placeholder="예) 삼원촉매"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_cat_type_2" placeholder="예) 삼원촉매"></textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl">매연여과장치의 형식</td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_dpf" placeholder="해당없음 또는 형식 입력"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_dpf_1" placeholder="해당없음 또는 형식 입력"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_dpf_2" placeholder="해당없음 또는 형식 입력"></textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl">2차공기 분사의 유무</td>
-    <td>
-      <div class="obd-check-row">
-        <label><input type="checkbox" data-field="obd_2_3_air2_y"> 유</label>
-        <label><input type="checkbox" data-field="obd_2_3_air2_n"> 무</label>
-      </div>
-    </td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_air2_1" placeholder="유 / 무"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_air2_2" placeholder="유 / 무"></textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl">배출가스 재순환장치의 유무</td>
-    <td>
-      <div class="obd-check-row">
-        <label><input type="checkbox" data-field="obd_2_3_egr_y"> 유</label>
-        <label><input type="checkbox" data-field="obd_2_3_egr_n"> 무</label>
-      </div>
-    </td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_egr_1" placeholder="유 / 무"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_egr_2" placeholder="유 / 무"></textarea></td>
   </tr>
   <tr>
-    <td class="obd-lbl" rowspan="3">\${BL('sv_emission')}<br>자기진단장치의<br>구성 및 기능</td>
+    <td class="obd-lbl" rowspan="3" style="text-align:center; vertical-align:middle;">\${BL('sv_emission')}<br>자기진단장치의<br>구성 및 기능</td>
     <td class="obd-lbl">배출가스 자기진단장치의 작동방법</td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_obd_method" placeholder="작동방법 입력"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_obd_method_1" placeholder="작동방법 입력"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_obd_method_2" placeholder="작동방법 입력"></textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl">감시장치의 오작동 확인 방법</td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_obd_check" placeholder="오작동 확인 방법 입력"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_obd_check_1" placeholder="오작동 확인 방법 입력"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_obd_check_2" placeholder="오작동 확인 방법 입력"></textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl">오작동 표시방법</td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_obd_display" placeholder="오작동 표시방법 입력"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_obd_display_1" placeholder="오작동 표시방법 입력"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_obd_display_2" placeholder="오작동 표시방법 입력"></textarea></td>
   </tr>
 </table>
 

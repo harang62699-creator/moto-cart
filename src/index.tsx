@@ -9871,9 +9871,9 @@ if (formType==='detail_plan') return \`
       <tr>
         <th class="em-th" style="text-align:center; font-size:7.5pt;">\${BL('em_mass')}</th>
         <th class="em-th" style="text-align:center;">g/km</th>
-        <th class="em-th" style="text-align:center; font-size:7.5pt;">배출질량<br>(g/test)</th>
+        <th class="em-th" style="text-align:center; font-size:7.5pt;">\${BL('em_mass')}</th>
         <th class="em-th" style="text-align:center;">g/km</th>
-        <th class="em-th" style="text-align:center; font-size:7.5pt;">배출질량<br>(g/test)</th>
+        <th class="em-th" style="text-align:center; font-size:7.5pt;">\${BL('em_mass')}</th>
         <th class="em-th" style="text-align:center;">g/km</th>
       </tr>
     </thead>

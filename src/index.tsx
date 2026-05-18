@@ -11659,7 +11659,7 @@ if (formType==='detail_plan') return \`
               (수직선: [55,96,360,395,429,468,504,540])
 -->
 <div class="nt-sec-title" style="margin-top:18px;">\${BL('nt_sec6')}</div>
-<div style="padding:2px 8px 6px 20px; font-size:9pt;">\${BL('nt_sec6_2')}</div>
+<div class="nt-sec-title" style="margin-top:12px; font-size:10pt;">\${BL('nt_sec6_1')}</div>
 <table class="nt-tbl" style="table-layout:fixed;">
   <colgroup>
     <col style="width:8%;">   <!-- col0: 사용변속기어 -->

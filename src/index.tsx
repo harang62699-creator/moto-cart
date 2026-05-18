@@ -701,11 +701,10 @@ textarea.auto-grow {
 .logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
 .logo-icon {
   width:34px; height:34px; border-radius:9px;
-  background:var(--grad-accent);
   display:flex; align-items:center; justify-content:center;
-  font-size:15px; color:#fff;
-  box-shadow:0 4px 12px rgba(79,142,247,.4);
+  overflow:hidden; flex-shrink:0;
 }
+.logo-icon img { width:100%; height:100%; object-fit:cover; border-radius:9px; }
 .logo-text { font-size:.95rem; font-weight:800; color:var(--c-text); letter-spacing:-.02em; }
 .logo-sub { font-size:.7rem; color:var(--c-text3); font-weight:500; }
 
@@ -775,6 +774,37 @@ textarea.auto-grow {
 }
 .dash-title { font-size:1.4rem; font-weight:800; letter-spacing:-.03em; }
 .dash-sub { font-size:.85rem; color:var(--c-text2); margin-top:4px; }
+
+/* ── 검색창 ── */
+.dash-search-wrap { margin-bottom:20px; }
+.dash-search-box {
+  position:relative; display:flex; align-items:center;
+  background:var(--c-surface); border:1.5px solid var(--c-border);
+  border-radius:12px; padding:0 14px; gap:10px;
+  transition:border-color .2s, box-shadow .2s;
+}
+.dash-search-box:focus-within {
+  border-color:var(--c-accent);
+  box-shadow:0 0 0 3px rgba(79,142,247,.15);
+}
+.dash-search-icon { color:var(--c-text3); font-size:.9rem; flex-shrink:0; }
+.dash-search-input {
+  flex:1; border:none; outline:none; background:transparent;
+  font-size:.92rem; color:var(--c-text); padding:12px 0;
+  font-family:inherit;
+}
+.dash-search-input::placeholder { color:var(--c-text3); }
+.dash-search-clear {
+  background:none; border:none; cursor:pointer;
+  color:var(--c-text3); padding:4px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .15s;
+}
+.dash-search-clear:hover { background:var(--c-border); color:var(--c-text); }
+.dash-search-result {
+  font-size:.82rem; color:var(--c-text3); margin-top:8px; padding:0 4px;
+}
+
 .stats-grid {
   display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
   margin-bottom:28px;
@@ -1202,7 +1232,7 @@ textarea.auto-grow {
 <header id="app-header" class="no-print">
   <div class="header-inner">
     <div class="logo">
-      <div class="logo-icon"><i class="fas fa-motorcycle"></i></div>
+      <div class="logo-icon"><img src="https://www.genspark.ai/api/files/s/NOlEfCY7" alt="logo"></div>
       <div>
         <div class="logo-text">MotoCart</div>
         <div class="logo-sub">수입이륜차 인증신청 지원</div>
@@ -1303,6 +1333,20 @@ textarea.auto-grow {
     <button id="btn-new-appl" class="btn btn-primary" onclick="showNewAppModal()">
       <i class="fas fa-plus"></i>새 신청서 작성
     </button>
+  </div>
+
+  <!-- 검색창 -->
+  <div class="dash-search-wrap">
+    <div class="dash-search-box">
+      <i class="fas fa-search dash-search-icon"></i>
+      <input id="dash-search-input" class="dash-search-input" type="text"
+        placeholder="신청서 제목, 수입사, 연도로 검색..."
+        oninput="filterAppList(this.value)">
+      <button class="dash-search-clear" id="dash-search-clear" onclick="clearSearch()" style="display:none;" title="초기화">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div id="dash-search-result" class="dash-search-result" style="display:none;"></div>
   </div>
 
   <!-- 통계 카드 -->
@@ -3515,6 +3559,13 @@ async function doLogout() {
 async function showDashboard() {
   updateHeader(); showPage('page-dashboard');
   document.getElementById('dash-subtitle').textContent = '';
+  // 검색창 초기화
+  const inp = document.getElementById('dash-search-input');
+  if (inp) inp.value = '';
+  const clearBtn = document.getElementById('dash-search-clear');
+  if (clearBtn) clearBtn.style.display = 'none';
+  const resultEl = document.getElementById('dash-search-result');
+  if (resultEl) resultEl.style.display = 'none';
   await loadApplications();
 }
 
@@ -3598,6 +3649,114 @@ function renderAppList() {
       </div>
     \`;
   }).join('');
+}
+
+// ================================================================
+// 검색 필터
+// ================================================================
+function filterAppList(query) {
+  const q = (query || '').trim().toLowerCase();
+  const clearBtn = document.getElementById('dash-search-clear');
+  const resultEl = document.getElementById('dash-search-result');
+  if (clearBtn) clearBtn.style.display = q ? 'flex' : 'none';
+
+  const listEl  = document.getElementById('app-list');
+  const emptyEl = document.getElementById('app-empty');
+  if (!currentApplications.length) return;
+
+  if (!q) {
+    // 검색어 없으면 전체 표시
+    if (resultEl) resultEl.style.display = 'none';
+    renderAppList();
+    return;
+  }
+
+  const filtered = currentApplications.filter(a => {
+    const fields = [
+      a.title || '',
+      a.importer || '',
+      String(a.cert_year || ''),
+      String(a.displacement || ''),
+      a.family_code || '',
+      a.cert_type || '',
+    ].join(' ').toLowerCase();
+    return fields.includes(q);
+  });
+
+  if (resultEl) {
+    resultEl.style.display = 'block';
+    resultEl.textContent = \`검색 결과: \${filtered.length}건\`;
+  }
+
+  if (!filtered.length) {
+    listEl.innerHTML = '';
+    emptyEl.style.display = 'block';
+    const emptyTitle = document.getElementById('empty-title');
+    if (emptyTitle) emptyTitle.textContent = '검색 결과가 없습니다';
+    return;
+  }
+
+  emptyEl.style.display = 'none';
+  const localeMap = { ko:'ko-KR', en:'en-US', ja:'ja-JP', zh:'zh-CN' };
+  const certLabelFor   = (lang,type) => (LANG_DICT[lang]||LANG_DICT.ko)['cert_'+type]   || (LANG_DICT.ko['cert_'+type]||type);
+  const statusLabelFor = (lang,st)   => { const k={draft:'status_draft',in_progress:'status_inprogress',completed:'status_completed'}[st]||st; return (LANG_DICT[lang]||LANG_DICT.ko)[k]||(LANG_DICT.ko[k]||st); };
+  const modifiedFor    = (lang)      => (LANG_DICT[lang]||LANG_DICT.ko)['meta_modified'] || (LANG_DICT.ko['meta_modified']||'수정');
+  listEl.innerHTML = filtered.map(a => {
+    const lang    = (a.lang && ['ko','en','ja','zh'].includes(a.lang)) ? a.lang : 'ko';
+    const locale  = localeMap[lang] || 'ko-KR';
+    const done_f  = a.completed_forms || 0;
+    const total_f = a.total_forms || 10;
+    const pct     = Math.round(done_f/total_f*100);
+    const date    = new Date(a.updated_at).toLocaleDateString(locale,{month:'short',day:'numeric'});
+    const yearSfx = lang==='ko' ? '년' : lang==='ja' ? '年' : '';
+    const metaStr = [a.importer,a.cert_year?(a.cert_year+yearSfx):'',a.displacement?(a.displacement+'cc'):''].filter(Boolean).join(' ');
+    const certBadge = { basic:'badge-blue', change:'badge-violet', report:'badge-yellow' }[a.cert_type] || 'badge-gray';
+    // 검색어 하이라이트 헬퍼
+    const hl = (str) => {
+      if (!str) return '';
+      const escaped = esc(str);
+      const idx = escaped.toLowerCase().indexOf(q);
+      if (idx < 0) return escaped;
+      return escaped.slice(0,idx) + '<mark style="background:#fff3cd;border-radius:2px;">' + escaped.slice(idx,idx+q.length) + '</mark>' + escaped.slice(idx+q.length);
+    };
+    return \`
+      <div class="app-item">
+        <div class="app-item-icon"><i class="fas fa-file-alt"></i></div>
+        <div class="app-item-body">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
+            <span class="badge \${certBadge}">\${certLabelFor(lang,a.cert_type)}</span>
+            <span class="badge \${STATUS_BADGE[a.status]||'badge-gray'}">\${statusLabelFor(lang,a.status)}</span>
+          </div>
+          <div class="app-item-title">\${hl(a.title)}</div>
+          <div class="app-item-meta">\${hl(metaStr)} &nbsp;·&nbsp; \${date} \${modifiedFor(lang)}</div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="progress-track" style="flex:1;height:4px;">
+              <div class="progress-fill" style="height:4px;background:var(--grad-accent);width:\${pct}%;"></div>
+            </div>
+            <span style="font-size:10pt;color:var(--c-text3);flex-shrink:0;">\${done_f}/\${total_f}</span>
+          </div>
+        </div>
+        <div class="app-item-actions">
+          <button class="btn btn-primary btn-sm" onclick="openApplication(\${a.id})">
+            <i class="fas fa-edit"></i>\${(LANG_DICT[lang]||LANG_DICT.ko)['btn_write']||LL('btn_write')}
+          </button>
+          <button class="btn btn-danger btn-sm btn-icon" onclick="deleteApplication(event,\${a.id})" title="\${(LANG_DICT[lang]||LANG_DICT.ko)['btn_delete']||LL('btn_delete')}">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+      </div>
+    \`;
+  }).join('');
+}
+
+function clearSearch() {
+  const inp = document.getElementById('dash-search-input');
+  if (inp) { inp.value = ''; inp.focus(); }
+  const clearBtn = document.getElementById('dash-search-clear');
+  if (clearBtn) clearBtn.style.display = 'none';
+  const resultEl = document.getElementById('dash-search-result');
+  if (resultEl) resultEl.style.display = 'none';
+  renderAppList();
 }
 
 // ================================================================

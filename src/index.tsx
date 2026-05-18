@@ -2046,6 +2046,7 @@ const LANG_DICT = {
     nt_std_a:'기준치(dB(A))',
     nt_measured:'측정치',
     nt_corrected:'보정치',
+    nt_meas_count:'측정회수',
     nt_horn_form:'경음기 형식',
     nt_horn_count:'경음기 수',
     nt_bg_noise_c:'암소음(dB(C))',
@@ -2449,6 +2450,7 @@ const LANG_DICT = {
     nt_std_a:'Standard(dB(A))',
     nt_measured:'Measured',
     nt_corrected:'Corrected',
+    nt_meas_count:'Measurement No.',
     nt_horn_form:'Horn Type',
     nt_horn_count:'Horn Count',
     nt_bg_noise_c:'Background Noise(dB(C))',
@@ -2851,6 +2853,7 @@ const LANG_DICT = {
     nt_std_a:'基準値(dB(A))',
     nt_measured:'測定値',
     nt_corrected:'補正値',
+    nt_meas_count:'測定回数',
     nt_horn_form:'警笛形式',
     nt_horn_count:'警笛数',
     nt_bg_noise_c:'暗騒音(dB(C))',
@@ -3253,6 +3256,7 @@ const LANG_DICT = {
     nt_std_a:'标准值(dB(A))',
     nt_measured:'测量值',
     nt_corrected:'修正值',
+    nt_meas_count:'测定次数',
     nt_horn_form:'喇叭型式',
     nt_horn_count:'喇叭数',
     nt_bg_noise_c:'本底噪声(dB(C))',
@@ -11894,7 +11898,8 @@ if (formType==='detail_plan') return \`
   </colgroup>
   <thead>
     <tr>
-      <th rowspan="2" colspan="2">배기<br>\${BL('sv_noise_simple')}<br>시험</th>
+      <th rowspan="2">배기<br>\${BL('sv_noise_simple')}<br>시험</th>
+      <th rowspan="2">\${BL('nt_meas_count')}</th>
       <th rowspan="2" style="line-height:1.8;">원동기 최고 출력<br>회전속도의<br><input data-field="nt_ex_pct" class="nt-inp" type="text" style="width:3.5em;text-align:center;border-bottom:1px solid #888;" value="\${E(v('nt_ex_pct'))}">% 회전속도(rpm)</th>
       <th rowspan="2">\${BL('nt_bg_noise_a')}</th>
       <th colspan="2">\${BL('nt_exhaust_noise_val')}</th>
@@ -11941,7 +11946,8 @@ if (formType==='detail_plan') return \`
   </colgroup>
   <thead>
     <tr>
-      <th rowspan="2" colspan="2">경적<br>\${BL('sv_noise_simple')}<br>시험</th>
+      <th rowspan="2">경적<br>\${BL('sv_noise_simple')}<br>시험</th>
+      <th rowspan="2">\${BL('nt_meas_count')}</th>
       <th rowspan="2">\${BL('nt_horn_form')}</th>
       <th rowspan="2">\${BL('nt_horn_count')}</th>
       <th rowspan="2">\${BL('nt_bg_noise_c')}</th>

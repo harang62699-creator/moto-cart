@@ -2931,13 +2931,13 @@ const LANG_DICT = {
     dp_11_2_sel_lbl:'내구성 시험차량 선정',
     dp_11_2_note_ph:'내구성 시험차량 선정 내용을 기재하세요',
     dp_11_3_title:'11.3. 배출가스 시험차량 선정',
-    dp_11_3_a_case:'A. 차대 동력계를 사용하는 경우 :',
+    dp_11_3_a_case:'${BL('dp_11_3_a_case')}',
     dp_11_3_a_0_lbl:'동일차종 중 등가관성중량이 가장 큰 것',
     dp_11_3_a_1_lbl:'상기 조건 내에서 도로 부하력이 가장 큰 것',
     dp_11_3_a_2_lbl:'상기 조건 내에서 배기량이 가장 큰 것',
     dp_11_3_a_3_lbl:'상기 조건 내에서 가장 높은 최종기어비를 갖는 변속기',
     dp_11_3_a_4_lbl:'상기 조건 내에서 연료탱크 용량이 가장 큰 것',
-    dp_11_3_b_case:'B. 원동기동력계를 사용하는 경우 :',
+    dp_11_3_b_case:'${BL('dp_11_3_b_case')}',
     dp_11_3_b_0_lbl:'최고 토오크 시 속도에서 행정당 연료배분율이 가장 큰 원동기',
     dp_11_3_b_1_lbl:'최고 속도 시 행정당 연료배분율이 가장 큰 원동기',
     dp_11_4_title:'11.4. 소음 시험차량 선정',
@@ -3069,6 +3069,26 @@ const LANG_DICT = {
     lbl_warranty_content:'5. 보증내용 :',
     nt_attach_title:'첨부문서 (자체시험성적서 / RAW DATA)',
     nt_inspector_ph2:'성명',
+// 8.x 부품 섹션 및 하위 항목
+    dp_s8_1:'8.1. 연료장치',
+    dp_s8_2:'8.2. 흡배기장치',
+    dp_s8_3:'8.3. 점화장치',
+    dp_s8_4:'8.4. 크랭크케이스제어장치',
+    dp_s8_5:'8.5. 엔진',
+    dp_s8_6:'8.6. 촉매전환기',
+    dp_s8_7:'8.7. 배출가스 재순환장치(EGR)',
+    dp_s8_8:'8.8. 전자제어장치',
+    dp_s8_9:'8.9. 기타 배출가스 제어장치',
+    dp_8_1_0:'연료공급계', dp_8_1_1:'연료제어계', dp_8_1_2:'연료분사계',
+    dp_8_2_0:'흡기장치', dp_8_2_1:'배기장치',
+    dp_8_3_0:'점화장치',
+    dp_8_4_0:'크랭크케이스제어장치',
+    dp_8_5_0:'엔진',
+    dp_8_6_0:'촉매형식', dp_8_6_1:'촉매물질 구성', dp_8_6_2:'체적', dp_8_6_3:'촉매무게',
+    dp_8_7_0:'배출가스재순환장치',
+    dp_8_8_0:'장치/제원/입출력신호', dp_8_8_1:'엔진토크 산출방법과 적합성 자료',
+    dp_8_9_0:'기타 장치',
+    dp_5_4_lbl:'5.4. 소음 시험 계획',
     cf_ph_address:'제작사 주소',
     cf_ph_phone:'전화번호',
     cf_ph_fax:'팩스번호',
@@ -4357,6 +4377,25 @@ const LANG_DICT = {
     lbl_warranty_content:'5. Warranty Content:',
     nt_attach_title:'Attachments (Self-test Report / RAW DATA)',
     nt_inspector_ph2:'Name',
+dp_s8_1:'8.1. Fuel System',
+    dp_s8_2:'8.2. Intake/Exhaust',
+    dp_s8_3:'8.3. Ignition',
+    dp_s8_4:'8.4. Crankcase Control',
+    dp_s8_5:'8.5. Engine',
+    dp_s8_6:'8.6. Catalytic Converter',
+    dp_s8_7:'8.7. EGR',
+    dp_s8_8:'8.8. Electronic Control',
+    dp_s8_9:'8.9. Other Emission Control',
+    dp_8_1_0:'Fuel Supply', dp_8_1_1:'Fuel Control', dp_8_1_2:'Fuel Injection',
+    dp_8_2_0:'Intake', dp_8_2_1:'Exhaust',
+    dp_8_3_0:'Ignition',
+    dp_8_4_0:'Crankcase Control',
+    dp_8_5_0:'Engine',
+    dp_8_6_0:'Catalyst Type', dp_8_6_1:'Catalyst Composition', dp_8_6_2:'Volume', dp_8_6_3:'Catalyst Weight',
+    dp_8_7_0:'EGR Device',
+    dp_8_8_0:'Device/Spec/I-O Signal', dp_8_8_1:'Engine Torque Calculation & Compliance',
+    dp_8_9_0:'Other Device',
+    dp_5_4_lbl:'5.4. Noise Test Plan',
     cf_ph_address:'Manufacturer Address',
     cf_ph_phone:'Phone Number',
     cf_ph_fax:'Fax Number',
@@ -5642,6 +5681,25 @@ const LANG_DICT = {
     lbl_warranty_content:'5. 保証内容：',
     nt_attach_title:'添付書類（自体試験成績書 / RAW DATA）',
     nt_inspector_ph2:'氏名',
+dp_s8_1:'8.1. 燃料装置',
+    dp_s8_2:'8.2. 吸排気装置',
+    dp_s8_3:'8.3. 点火装置',
+    dp_s8_4:'8.4. クランクケース制御装置',
+    dp_s8_5:'8.5. エンジン',
+    dp_s8_6:'8.6. 触媒変換器',
+    dp_s8_7:'8.7. 排出ガス再循環装置(EGR)',
+    dp_s8_8:'8.8. 電子制御装置',
+    dp_s8_9:'8.9. その他排出ガス制御装置',
+    dp_8_1_0:'燃料供給系', dp_8_1_1:'燃料制御系', dp_8_1_2:'燃料噴射系',
+    dp_8_2_0:'吸気装置', dp_8_2_1:'排気装置',
+    dp_8_3_0:'点火装置',
+    dp_8_4_0:'クランクケース制御装置',
+    dp_8_5_0:'エンジン',
+    dp_8_6_0:'触媒形式', dp_8_6_1:'触媒物質組成', dp_8_6_2:'体積', dp_8_6_3:'触媒重量',
+    dp_8_7_0:'排出ガス再循環装置',
+    dp_8_8_0:'装置/仕様/入出力信号', dp_8_8_1:'エンジントルク算出方法と適合性資料',
+    dp_8_9_0:'その他装置',
+    dp_5_4_lbl:'5.4. 騒音試験計画',
     cf_ph_address:'製造社住所',
     cf_ph_phone:'電話番号',
     cf_ph_fax:'ファックス番号',
@@ -6924,6 +6982,25 @@ const LANG_DICT = {
     lbl_warranty_content:'5. 保证内容：',
     nt_attach_title:'附件（自测报告 / RAW DATA）',
     nt_inspector_ph2:'姓名',
+dp_s8_1:'8.1. 燃油系统',
+    dp_s8_2:'8.2. 进排气装置',
+    dp_s8_3:'8.3. 点火装置',
+    dp_s8_4:'8.4. 曲轴箱控制装置',
+    dp_s8_5:'8.5. 发动机',
+    dp_s8_6:'8.6. 催化转化器',
+    dp_s8_7:'8.7. 排放气体再循环装置(EGR)',
+    dp_s8_8:'8.8. 电子控制装置',
+    dp_s8_9:'8.9. 其他排放控制装置',
+    dp_8_1_0:'燃油供应系', dp_8_1_1:'燃油控制系', dp_8_1_2:'燃油喷射系',
+    dp_8_2_0:'进气装置', dp_8_2_1:'排气装置',
+    dp_8_3_0:'点火装置',
+    dp_8_4_0:'曲轴箱控制装置',
+    dp_8_5_0:'发动机',
+    dp_8_6_0:'催化形式', dp_8_6_1:'催化物质组成', dp_8_6_2:'体积', dp_8_6_3:'催化重量',
+    dp_8_7_0:'排放气体再循环装置',
+    dp_8_8_0:'装置/规格/输入输出信号', dp_8_8_1:'发动机转矩计算方法与适合性资料',
+    dp_8_9_0:'其他装置',
+    dp_5_4_lbl:'5.4. 噪声试验计划',
     cf_ph_address:'制造商地址',
     cf_ph_phone:'电话号码',
     cf_ph_fax:'传真号码',
@@ -10262,15 +10339,15 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sec-th" colspan="5">\${BL('dp_s8')}</th></tr>
     \${[
-      ['8.1. 연료장치','dp_8_1',['연료공급계','연료제어계','연료분사계']],
-      ['8.2. 흡배기장치','dp_8_2',['흡기장치','배기장치']],
-      ['8.3. 점화장치','dp_8_3',['점화장치']],
-      ['8.4. 크랭크케이스제어장치','dp_8_4',['크랭크케이스제어장치']],
-      ['8.5. 엔진','dp_8_5',['엔진']],
-      ['8.6. 촉매전환기','dp_8_6',['촉매형식','촉매물질 구성','체적','촉매무게']],
-      ['8.7. 배출가스 재순환장치(EGR)','dp_8_7',['배출가스재순환장치']],
-      ['8.8. 전자제어장치','dp_8_8',['장치/제원/입출력신호','엔진토크 산출방법과 적합성 자료']],
-      ['8.9. 기타 배출가스 제어장치','dp_8_9',['기타 장치']],
+      [BL('dp_s8_1'),'dp_8_1',[BL('dp_8_1_0'),BL('dp_8_1_1'),BL('dp_8_1_2')]],
+      [BL('dp_s8_2'),'dp_8_2',[BL('dp_8_2_0'),BL('dp_8_2_1')]],
+      [BL('dp_s8_3'),'dp_8_3',[BL('dp_8_3_0')]],
+      [BL('dp_s8_4'),'dp_8_4',[BL('dp_8_4_0')]],
+      [BL('dp_s8_5'),'dp_8_5',[BL('dp_8_5_0')]],
+      [BL('dp_s8_6'),'dp_8_6',[BL('dp_8_6_0'),BL('dp_8_6_1'),BL('dp_8_6_2'),BL('dp_8_6_3')]],
+      [BL('dp_s8_7'),'dp_8_7',[BL('dp_8_7_0')]],
+      [BL('dp_s8_8'),'dp_8_8',[BL('dp_8_8_0'),BL('dp_8_8_1')]],
+      [BL('dp_s8_9'),'dp_8_9',[BL('dp_8_9_0')]],
     ].map(([sec,pfx,rows])=>\`
     <tr><th class="dp-sub-th" colspan="5">\${sec}</th></tr>
     <tr>
@@ -10643,14 +10720,14 @@ function buildFormHTML(formType, saved) {
     </tr>
     <!-- 단순 1행 항목들 (Page2 나머지) -->
     \${[
-      ['크랭크 축 중심선에서 캠축 중심선까지의 거리(mm)','dp_10_1_crank_cam'],
-      ['크랭크 축 중심선에서 실린더 블록 헤드 면 상부까지의 거리(mm)','dp_10_1_crank_head'],
-      ['TDC 상태에서 연소실 표면적 체적비율','dp_10_1_tdc'],
-      ['연료 공급 방식','dp_10_1_fuel_supply'],
-      ['분사 시기 제어범위','dp_10_1_inj_range'],
-      ['캠축타이밍','dp_10_1_cam_timing'],
-      ['등가관성 중량','dp_10_1_inertia'],
-      ['도로부하마력','dp_10_1_roadload'],
+      [BL('dp_10_1_crank_cam_lbl'),'dp_10_1_crank_cam'],
+      [BL('dp_10_1_crank_head_lbl'),'dp_10_1_crank_head'],
+      [BL('dp_10_1_tdc_lbl'),'dp_10_1_tdc'],
+      [BL('dp_10_1_fuel_supply_lbl'),'dp_10_1_fuel_supply'],
+      [BL('dp_10_1_inj_range_lbl'),'dp_10_1_inj_range'],
+      [BL('dp_10_1_cam_timing_lbl'),'dp_10_1_cam_timing'],
+      [BL('dp_10_1_inertia_lbl'),'dp_10_1_inertia'],
+      [BL('dp_10_1_roadload_lbl'),'dp_10_1_roadload'],
     ].map(([lbl,fld])=>\`<tr>
       <td class="dp-lbl" colspan="3">\${lbl}</td>
       <td><input class="dp-inp" data-field="\${fld}_base" type="text" value="\${E(v(\`\${fld}_base\`))}"></td>
@@ -10674,10 +10751,10 @@ function buildFormHTML(formType, saved) {
     </tr>
     <!-- 단순 1행 항목들 -->
     \${[
-      ['배출가스 인증번호','dp_10_2_certno'],['자동차 명칭','dp_10_2_carname'],
-      ['자동차 형식','dp_10_2_type'],['원동기 형식','dp_10_2_eng'],
-      ['차종','dp_10_2_cartype'],['사용연료','dp_10_2_fuel'],
-      ['증발가스 저장형식','dp_10_2_evap_type'],
+      [BL('dp_10_2_certno_lbl'),'dp_10_2_certno'],[BL('dp_10_2_carname_lbl'),'dp_10_2_carname'],
+      [BL('dp_10_2_type_lbl'),'dp_10_2_type'],[BL('dp_10_2_eng_lbl'),'dp_10_2_eng'],
+      [BL('dp_10_2_cartype_lbl'),'dp_10_2_cartype'],[BL('dp_10_2_fuel_lbl'),'dp_10_2_fuel'],
+      [BL('dp_10_2_evap_type_lbl'),'dp_10_2_evap_type'],
     ].map(([lbl,fld])=>\`<tr>
       <td class="dp-lbl" colspan="2">\${lbl}</td>
       <td><input class="dp-inp" data-field="\${fld}_base" type="text" value="\${E(v(\`\${fld}_base\`))}"></td>
@@ -10723,8 +10800,8 @@ function buildFormHTML(formType, saved) {
     </tr>
     <!-- 나머지 항목 -->
     \${[
-      ['증발가스 제어시스템','dp_10_2_ctrl'],['퍼지제어 시스템','dp_10_2_purge'],
-      ['증발가스 호스 재질','dp_10_2_hose_mat'],['연료탱크 재질','dp_10_2_tank_mat'],
+      [BL('dp_10_2_ctrl_lbl'),'dp_10_2_ctrl'],[BL('dp_10_2_purge_lbl'),'dp_10_2_purge'],
+      [BL('dp_10_2_hose_mat_lbl'),'dp_10_2_hose_mat'],[BL('dp_10_2_tank_mat_lbl'),'dp_10_2_tank_mat'],
     ].map(([lbl,fld])=>\`<tr>
       <td class="dp-lbl" colspan="2">\${lbl}</td>
       <td><input class="dp-inp" data-field="\${fld}_base" type="text" value="\${E(v(\`\${fld}_base\`))}"></td>
@@ -10744,13 +10821,13 @@ function buildFormHTML(formType, saved) {
       <th class="dp-th">${BL('dp_th_obd_equiv')}</th>
     </tr>
     \${[
-      ['배출가스 인증번호','dp_10_3_certno'],['자동차 명칭','dp_10_3_carname'],
-      ['자동차 형식','dp_10_3_type'],['원동기 형식','dp_10_3_eng'],
-      ['차종','dp_10_3_cartype'],['사용연료','dp_10_3_fuel'],
-      ['배출가스 자가진단 장치의 작동법','dp_10_3_obd_op'],['배출가스 허용기준','dp_10_3_std'],
-      ['연소싸이클','dp_10_3_cycle'],['연료공급방식','dp_10_3_fuel_supply'],
-      ['촉매전환장치 형태','dp_10_3_cat'],['입자상물질 포집장치 형태','dp_10_3_dpf'],
-      ['2차 공기 분사 유무','dp_10_3_air2'],['배출가스 재순환장치 유무','dp_10_3_egr'],
+      [BL('dp_10_3_certno_lbl'),'dp_10_3_certno'],[BL('dp_10_3_carname_lbl'),'dp_10_3_carname'],
+      [BL('dp_10_3_type_lbl'),'dp_10_3_type'],[BL('dp_10_3_eng_lbl'),'dp_10_3_eng'],
+      [BL('dp_10_3_cartype_lbl'),'dp_10_3_cartype'],[BL('dp_10_3_fuel_lbl'),'dp_10_3_fuel'],
+      [BL('dp_10_3_obd_op_lbl'),'dp_10_3_obd_op'],[BL('dp_10_3_std_lbl'),'dp_10_3_std'],
+      [BL('dp_10_3_cycle_lbl'),'dp_10_3_cycle'],[BL('dp_10_3_fuel_supply_lbl'),'dp_10_3_fuel_supply'],
+      [BL('dp_10_3_cat_lbl'),'dp_10_3_cat'],[BL('dp_10_3_dpf_lbl'),'dp_10_3_dpf'],
+      [BL('dp_10_3_air2_lbl'),'dp_10_3_air2'],[BL('dp_10_3_egr_lbl'),'dp_10_3_egr'],
     ].map(([lbl,fld])=>\`<tr>
       <td class="dp-lbl">\${lbl}</td>
       <td><input class="dp-inp" data-field="\${fld}_base" type="text" value="\${E(v('\${fld}_base'))}"></td>
@@ -10775,9 +10852,9 @@ function buildFormHTML(formType, saved) {
     </tr>
     <!-- 단순 1행 항목들 -->
     \${[
-      ['차대번호(엔진번호)','dp_11_1_vin'],['배기량(cc)','dp_11_1_disp'],
-      ['엔진코드','dp_11_1_eng_code'],['증발가스 코드','dp_11_1_evap_code'],
-      ['촉매코드','dp_11_1_cat_code'],
+      [BL('dp_11_1_vin_lbl'),'dp_11_1_vin'],[BL('dp_11_1_disp_lbl'),'dp_11_1_disp'],
+      [BL('dp_11_1_eng_code_lbl'),'dp_11_1_eng_code'],[BL('dp_11_1_evap_code_lbl'),'dp_11_1_evap_code'],
+      [BL('dp_11_1_cat_code_lbl'),'dp_11_1_cat_code'],
     ].map(([lbl,fld])=>\`<tr>
       <td class="dp-lbl" colspan="2">\${lbl}</td>
       <td><input class="dp-inp" data-field="\${fld}_dur" type="text" value="\${E(v(\`\${fld}_dur\`))}"></td>
@@ -10797,11 +10874,11 @@ function buildFormHTML(formType, saved) {
     </tr>
     <!-- 나머지 단순 항목들 -->
     \${[
-      ['모델명','dp_11_1_model'],['변속기 형태','dp_11_1_trans'],
-      ['변속 절차','dp_11_1_trans_proc'],['등가관성 중량(kg)','dp_11_1_inertia'],
-      ['종 감속기','dp_11_1_final_red'],['N/V 비, RRM/KPH','dp_11_1_nv'],
-      ['타이어','dp_11_1_tire'],
-      ['비고','dp_11_1_note'],
+      [BL('dp_11_1_model_lbl'),'dp_11_1_model'],[BL('dp_11_1_trans_lbl'),'dp_11_1_trans'],
+      [BL('dp_11_1_trans_proc_lbl'),'dp_11_1_trans_proc'],[BL('dp_11_1_inertia_lbl'),'dp_11_1_inertia'],
+      [BL('dp_11_1_final_red_lbl'),'dp_11_1_final_red'],[BL('dp_11_1_nv_lbl'),'dp_11_1_nv'],
+      [BL('dp_11_1_tire_lbl'),'dp_11_1_tire'],
+      [BL('dp_11_1_note_lbl'),'dp_11_1_note'],
     ].map(([lbl,fld])=>\`<tr>
       <td class="dp-lbl" colspan="2">\${lbl}</td>
       <td><input class="dp-inp" data-field="\${fld}_dur" type="text" value="\${E(v(\`\${fld}_dur\`))}"></td>
@@ -10814,17 +10891,17 @@ function buildFormHTML(formType, saved) {
       <td><input class="dp-inp" data-field="dp_11_1_sub_hdr2" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_1_sub_hdr2'))}"></td>
     </tr>
     \${[
-      ['자동차 명','dp_11_1_sub_name'],
-      ['자동차 형식','dp_11_1_sub_type'],
-      ['변속기','dp_11_1_sub_trans'],
-      ['원동기 형식','dp_11_1_sub_eng'],
-      ['배기량','dp_11_1_sub_disp'],
-      ['공차중량','dp_11_1_sub_weight'],
-      ['등가관성중량','dp_11_1_sub_inertia'],
-      ['도로부하마력','dp_11_1_sub_roadload'],
-      ['연료탱크용량','dp_11_1_sub_tankvol'],
-      ['종 감속비(제1감속비)','dp_11_1_sub_finalred'],
-      ['판매대수','dp_11_1_sub_sales'],
+      [BL('dp_11_1_sub_name_lbl'),'dp_11_1_sub_name'],
+      [BL('dp_11_1_sub_type_lbl'),'dp_11_1_sub_type'],
+      [BL('dp_11_1_sub_trans_lbl'),'dp_11_1_sub_trans'],
+      [BL('dp_11_1_sub_eng_lbl'),'dp_11_1_sub_eng'],
+      [BL('dp_11_1_sub_disp_lbl'),'dp_11_1_sub_disp'],
+      [BL('dp_11_1_sub_weight_lbl'),'dp_11_1_sub_weight'],
+      [BL('dp_11_1_sub_inertia_lbl'),'dp_11_1_sub_inertia'],
+      [BL('dp_11_1_sub_roadload_lbl'),'dp_11_1_sub_roadload'],
+      [BL('dp_11_1_sub_tankvol_lbl'),'dp_11_1_sub_tankvol'],
+      [BL('dp_11_1_sub_finalred_lbl'),'dp_11_1_sub_finalred'],
+      [BL('dp_11_1_sub_sales_lbl'),'dp_11_1_sub_sales'],
     ].map(([lbl,fld])=>\`<tr>
       <td class="dp-lbl" colspan="2">\${lbl}</td>
       <td><input class="dp-inp" data-field="\${fld}_1" type="text" value="\${E(v(\`\${fld}_1\`))}"></td>
@@ -10865,7 +10942,7 @@ function buildFormHTML(formType, saved) {
     <!-- A. 차대 동력계 -->
     <tr>
       <td class="dp-lbl" colspan="3" style="font-weight:600; background:#f5f5f5;">
-        A. 차대 동력계를 사용하는 경우 :
+        ${BL('dp_11_3_a_case')}
       </td>
     </tr>
     <tr>
@@ -10874,12 +10951,12 @@ function buildFormHTML(formType, saved) {
       <td><input class="dp-inp" data-field="dp_11_3_a_hdr2" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_3_a_hdr2'))}"></td>
     </tr>
     \${[
-      ['자동차 형식','dp_11_3_a_type'],
-      ['동일차종 중 등가관성중량이 가장 큰 것','dp_11_3_a_0'],
-      ['상기 조건 내에서 도로 부하력이 가장 큰 것','dp_11_3_a_1'],
-      ['상기 조건 내에서 배기량이 가장 큰 것','dp_11_3_a_2'],
-      ['상기 조건 내에서 가장 높은 최종기어비를 갖는 변속기','dp_11_3_a_3'],
-      ['상기 조건 내에서 연료탱크 용량이 가장 큰 것','dp_11_3_a_4'],
+      [BL('dp_11_1_sub_hdr_ph'),'dp_11_3_a_type'],
+      [BL('dp_11_3_a_0_lbl'),'dp_11_3_a_0'],
+      [BL('dp_11_3_a_1_lbl'),'dp_11_3_a_1'],
+      [BL('dp_11_3_a_2_lbl'),'dp_11_3_a_2'],
+      [BL('dp_11_3_a_3_lbl'),'dp_11_3_a_3'],
+      [BL('dp_11_3_a_4_lbl'),'dp_11_3_a_4'],
     ].map(([lbl,fld])=>\`<tr>
       <td class="dp-lbl">\${lbl}</td>
       <td><input class="dp-inp" data-field="\${fld}_1" type="text" value="\${E(v(\`\${fld}_1\`))}"></td>
@@ -10888,7 +10965,7 @@ function buildFormHTML(formType, saved) {
     <!-- B. 원동기 동력계 -->
     <tr>
       <td class="dp-lbl" colspan="3" style="font-weight:600; background:#f5f5f5;">
-        B. 원동기동력계를 사용하는 경우 :
+        ${BL('dp_11_3_b_case')}
       </td>
     </tr>
     <tr>
@@ -10897,8 +10974,8 @@ function buildFormHTML(formType, saved) {
       <td><input class="dp-inp" data-field="dp_11_3_b_hdr2" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_3_b_hdr2'))}"></td>
     </tr>
     \${[
-      ['최고 토오크 시 속도에서 행정당 연료배분율이 가장 큰 원동기','dp_11_3_b_0'],
-      ['최고 속도 시 행정당 연료배분율이 가장 큰 원동기','dp_11_3_b_1'],
+      [BL('dp_11_3_b_0_lbl'),'dp_11_3_b_0'],
+      [BL('dp_11_3_b_1_lbl'),'dp_11_3_b_1'],
     ].map(([lbl,fld])=>\`<tr>
       <td class="dp-lbl">\${lbl}</td>
       <td><input class="dp-inp" data-field="\${fld}_1" type="text" value="\${E(v(\`\${fld}_1\`))}"></td>
@@ -10920,10 +10997,10 @@ function buildFormHTML(formType, saved) {
       <td><input class="dp-inp" data-field="dp_11_4_hdr2" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_4_hdr2'))}"></td>
     </tr>
     \${[
-      ['공차중량이 가장 무거운 자동차','dp_11_4_0'],
-      ['배기량이 가장 큰 자동차','dp_11_4_1'],
-      ['최종기어비율(오버드라이브를 포함한다)이 가장 높은 변속기를 장착한 자동차','dp_11_4_2'],
-      ['차축비가 가장 높은 자동차','dp_11_4_3'],
+      [BL('dp_11_4_0_lbl'),'dp_11_4_0'],
+      [BL('dp_11_4_1_lbl'),'dp_11_4_1'],
+      [BL('dp_11_4_2_lbl'),'dp_11_4_2'],
+      [BL('dp_11_4_3_lbl'),'dp_11_4_3'],
     ].map(([lbl,fld])=>\`<tr>
       <td class="dp-lbl">\${lbl}</td>
       <td><input class="dp-inp" data-field="\${fld}_1" type="text" value="\${E(v(\`\${fld}_1\`))}"></td>

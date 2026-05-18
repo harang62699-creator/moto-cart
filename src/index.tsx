@@ -4257,6 +4257,11 @@ function buildFormHTML(formType, saved) {
     if (k==='oo_cert_year') { const mv=currentApplication?.cert_year;   if(mv) return mv; }
     if (k==='oo_disp')      { const mv=currentApplication?.displacement; if(mv) return mv; }
     if (k==='oo_fam_code')  { const mv=currentApplication?.family_code;  if(mv) return mv; }
+    // gasoline 헤더 4개 필드 자동채움
+    if (k==='g_importer')  { const mv=currentApplication?.importer;    if(mv) return mv; }
+    if (k==='g_cert_year') { const mv=currentApplication?.cert_year;   if(mv) return mv; }
+    if (k==='g_disp')      { const mv=currentApplication?.displacement; if(mv) return mv; }
+    if (k==='g_fam_code')  { const mv=currentApplication?.family_code;  if(mv) return mv; }
     // ── 저장값 반환 (위 메타 우선 처리 후) ──
     if (saved[k]!==undefined) return saved[k];
     if (k==='appl_div') return _certDefault;
@@ -5091,10 +5096,10 @@ function buildFormHTML(formType, saved) {
     </thead>
     <tbody>
       <tr style="height:26px;">
-        <td><input data-field="g_importer"  class="en-inp" type="text" placeholder="\${BL('ph_importer')}"    value="\${E(v('g_importer'))}"></td>
-        <td><input data-field="g_cert_year" class="en-inp" type="text" placeholder="\${BL('ph_cert_year')}"   value="\${E(v('g_cert_year'))}"></td>
-        <td><input data-field="g_disp"      class="en-inp" type="text" placeholder="\${BL('ph_displacement')}" value="\${E(v('g_disp'))}"></td>
-        <td><input data-field="g_fam_code"  class="en-inp" type="text" placeholder="\${BL('ph_family_code')}" value="\${E(v('g_fam_code'))}"></td>
+        <td><input data-field="g_importer"  class="en-inp" type="text" readonly style="background:#f5f8ff;pointer-events:none;cursor:default;" value="\${E(v('g_importer'))}"></td>
+        <td><input data-field="g_cert_year" class="en-inp" type="text" readonly style="background:#f5f8ff;pointer-events:none;cursor:default;" value="\${E(v('g_cert_year'))}"></td>
+        <td><input data-field="g_disp"      class="en-inp" type="text" readonly style="background:#f5f8ff;pointer-events:none;cursor:default;" value="\${E(v('g_disp'))}"></td>
+        <td><input data-field="g_fam_code"  class="en-inp" type="text" readonly style="background:#f5f8ff;pointer-events:none;cursor:default;" value="\${E(v('g_fam_code'))}"></td>
       </tr>
     </tbody>
   </table>

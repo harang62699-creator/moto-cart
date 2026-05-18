@@ -3105,6 +3105,20 @@ img_click_to_zoom:'클릭하여 크게 보기',
     cf_ph_address:'제작사 주소',
     cf_ph_phone:'전화번호',
     cf_ph_fax:'팩스번호',
+    msg_popup_blocked:'팝업이 차단되었습니다. 팝업 허용 후 다시 시도하세요.',
+    msg_qr_generating:'진위확인 코드 생성 중...',
+    msg_network_error:'네트워크 오류',
+    dp_ph_year_ex:'예) 2025',
+    dp_ph_disp_ex:'예) 125cc',
+    dp_lbl_count:'수',
+    dp_lbl_gear2:'2단',
+    dp_lbl_gear3:'3단',
+    dp_lbl_gear4:'4단',
+    dp_lbl_gear5:'5단',
+    dp_lbl_gear6:'6단',
+    dp_lbl_gear7:'7단',
+    dp_lbl_nv_ratio:'N/V 비',
+    dp_lbl_rear:'후',
     dp_lbl_category:'구분',
     dp_lbl_item:'항목',
     dp_lbl_car_name:'차명',
@@ -4667,6 +4681,20 @@ img_click_to_zoom:'Click to zoom',
     cf_ph_address:'Manufacturer Address',
     cf_ph_phone:'Phone Number',
     cf_ph_fax:'Fax Number',
+    msg_popup_blocked:'Popup is blocked. Please allow popups and try again.',
+    msg_qr_generating:'Generating verification code...',
+    msg_network_error:'Network error',
+    dp_ph_year_ex:'e.g. 2025',
+    dp_ph_disp_ex:'e.g. 125cc',
+    dp_lbl_count:'Count',
+    dp_lbl_gear2:'2nd',
+    dp_lbl_gear3:'3rd',
+    dp_lbl_gear4:'4th',
+    dp_lbl_gear5:'5th',
+    dp_lbl_gear6:'6th',
+    dp_lbl_gear7:'7th',
+    dp_lbl_nv_ratio:'N/V Ratio',
+    dp_lbl_rear:'Rear',
     dp_lbl_category:'Category',
     dp_lbl_item:'Item',
     dp_lbl_car_name:'Vehicle Name',
@@ -6226,6 +6254,20 @@ img_click_to_zoom:'クリックして拡大',
     cf_ph_address:'製造社住所',
     cf_ph_phone:'電話番号',
     cf_ph_fax:'ファックス番号',
+    msg_popup_blocked:'ポップアップがブロックされました。ポップアップを許可してから再試行してください。',
+    msg_qr_generating:'真正確認コード生成中...',
+    msg_network_error:'ネットワークエラー',
+    dp_ph_year_ex:'例) 2025',
+    dp_ph_disp_ex:'例) 125cc',
+    dp_lbl_count:'数',
+    dp_lbl_gear2:'2速',
+    dp_lbl_gear3:'3速',
+    dp_lbl_gear4:'4速',
+    dp_lbl_gear5:'5速',
+    dp_lbl_gear6:'6速',
+    dp_lbl_gear7:'7速',
+    dp_lbl_nv_ratio:'N/V 比',
+    dp_lbl_rear:'後',
     dp_lbl_category:'区分',
     dp_lbl_item:'項目',
     dp_lbl_car_name:'車名',
@@ -7782,6 +7824,20 @@ img_click_to_zoom:'点击放大',
     cf_ph_address:'制造商地址',
     cf_ph_phone:'电话号码',
     cf_ph_fax:'传真号码',
+    msg_popup_blocked:'弹出窗口被阻止。请允许弹出窗口后重试。',
+    msg_qr_generating:'正在生成验证码...',
+    msg_network_error:'网络错误',
+    dp_ph_year_ex:'例) 2025',
+    dp_ph_disp_ex:'例) 125cc',
+    dp_lbl_count:'数量',
+    dp_lbl_gear2:'2挡',
+    dp_lbl_gear3:'3挡',
+    dp_lbl_gear4:'4挡',
+    dp_lbl_gear5:'5挡',
+    dp_lbl_gear6:'6挡',
+    dp_lbl_gear7:'7挡',
+    dp_lbl_nv_ratio:'N/V 比',
+    dp_lbl_rear:'后',
     dp_lbl_category:'分类',
     dp_lbl_item:'项目',
     dp_lbl_car_name:'车名',
@@ -8759,7 +8815,7 @@ function printDetailPlanToc() {
     + '</body></html>';
 
   var w = window.open('', '_blank', 'width=800,height=900');
-  if (!w) { alert('팝업이 차단되었습니다. 팝업 허용 후 다시 시도하세요.'); return; }
+  if (!w) { alert(BL('msg_popup_blocked')); return; }
   w.document.open();
   w.document.write(html);
   w.document.close();
@@ -8775,7 +8831,7 @@ async function generateFormQR(formType, formTitle) {
 
   // 로딩 표시
   allWraps.forEach(({el}) => {
-    el.innerHTML = '<div class="qr-footer-pending"><i class="fas fa-spinner fa-spin"></i> 진위확인 코드 생성 중...</div>';
+    el.innerHTML = ('<div class="qr-footer-pending"><i class="fas fa-spinner fa-spin"></i> '+BL('msg_qr_generating')+'</div>');
   });
 
   // 1) 서버에서 서명된 토큰 발급
@@ -8859,7 +8915,7 @@ async function saveForm() {
       const idx = currentForms.findIndex(f=>f.form_type===currentFormType);
       if (idx>=0) { currentForms[idx].data=JSON.stringify(data); currentForms[idx].completed=completed?1:0; }
     } else { showToast(BL('msg_save_fail'),'error'); }
-  } catch { showToast('네트워크 오류','error'); }
+  } catch { showToast(BL('msg_network_error'),'error'); }
   finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-save"></i>'+BL('btn_save'); }
 }
 
@@ -10838,8 +10894,8 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr style="height:26px;">
       <td><input data-field="dp_importer"  class="dp-inp" type="text" placeholder="\${BL('dp_h_importer')}" value="\${E(v('dp_importer'))}"></td>
-      <td><input data-field="dp_cert_year" class="dp-inp" type="text" placeholder="예) 2025" value="\${E(v('dp_cert_year'))}"></td>
-      <td><input data-field="dp_disp"      class="dp-inp" type="text" placeholder="예) 125cc" value="\${E(v('dp_disp'))}"></td>
+      <td><input data-field="dp_cert_year" class="dp-inp" type="text" placeholder="${BL('dp_ph_year_ex')}" value="\${E(v('dp_cert_year'))}"></td>
+      <td><input data-field="dp_disp"      class="dp-inp" type="text" placeholder="${BL('dp_ph_disp_ex')}" value="\${E(v('dp_disp'))}"></td>
       <td><input data-field="dp_fam_code"  class="dp-inp" type="text" placeholder="\${BL('dp_h_famcode')}" value="\${E(v('dp_fam_code'))}"></td>
     </tr>
   </tbody>
@@ -10973,7 +11029,7 @@ function buildFormHTML(formType, saved) {
     <tr><td class="dp-lbl">\${BL('dp_lbl_position')}</td><td><input class="dp-inp" data-field="dp_1_4_tank_pos" type="text" value="\${E(v('dp_1_4_tank_pos'))}"></td></tr>
     <tr><td class="dp-lbl">\${BL('dp_lbl_material')}</td><td><input class="dp-inp" data-field="dp_1_4_tank_mat" type="text" value="\${E(v('dp_1_4_tank_mat'))}"></td></tr>
     <tr><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_air_cleaner')}</td><td class="dp-lbl">\${BL('dp_lbl_form_type')}</td><td><input class="dp-inp" data-field="dp_1_4_air_type" type="text" value="\${E(v('dp_1_4_air_type'))}"></td></tr>
-    <tr><td class="dp-lbl">수</td><td><input class="dp-inp" data-field="dp_1_4_filter_cnt" type="text" value="\${E(v('dp_1_4_filter_cnt'))}"></td></tr>
+    <tr><td class="dp-lbl">${BL('dp_lbl_count')}</td><td><input class="dp-inp" data-field="dp_1_4_filter_cnt" type="text" value="\${E(v('dp_1_4_filter_cnt'))}"></td></tr>
   </tbody>
 </table>
 
@@ -10987,16 +11043,16 @@ function buildFormHTML(formType, saved) {
     <tr><td class="dp-lbl">\${BL('dp_lbl_reverse')}</td><td><input class="dp-inp" data-field="dp_1_4_trans_rev" type="text" value="\${E(v('dp_1_4_trans_rev'))}"></td></tr>
     <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_operation')}</td><td><input class="dp-inp" data-field="dp_1_4_trans_op" type="text" value="\${E(v('dp_1_4_trans_op'))}"></td></tr>
     <tr><td class="dp-lbl" rowspan="8">\${BL('dp_lbl_gear_ratio')}</td><td class="dp-lbl">\${BL('dp_lbl_gear_1')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_1" type="text" value="\${E(v('dp_1_4_gear_1'))}"></td></tr>
-    <tr><td class="dp-lbl">2단</td><td><input class="dp-inp" data-field="dp_1_4_gear_2" type="text" value="\${E(v('dp_1_4_gear_2'))}"></td></tr>
-    <tr><td class="dp-lbl">3단</td><td><input class="dp-inp" data-field="dp_1_4_gear_3" type="text" value="\${E(v('dp_1_4_gear_3'))}"></td></tr>
-    <tr><td class="dp-lbl">4단</td><td><input class="dp-inp" data-field="dp_1_4_gear_4" type="text" value="\${E(v('dp_1_4_gear_4'))}"></td></tr>
-    <tr><td class="dp-lbl">5단</td><td><input class="dp-inp" data-field="dp_1_4_gear_5" type="text" value="\${E(v('dp_1_4_gear_5'))}"></td></tr>
-    <tr><td class="dp-lbl">6단</td><td><input class="dp-inp" data-field="dp_1_4_gear_6" type="text" value="\${E(v('dp_1_4_gear_6'))}"></td></tr>
-    <tr><td class="dp-lbl">7단</td><td><input class="dp-inp" data-field="dp_1_4_gear_7" type="text" value="\${E(v('dp_1_4_gear_7'))}"></td></tr>
+    <tr><td class="dp-lbl">${BL('dp_lbl_gear2')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_2" type="text" value="\${E(v('dp_1_4_gear_2'))}"></td></tr>
+    <tr><td class="dp-lbl">${BL('dp_lbl_gear3')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_3" type="text" value="\${E(v('dp_1_4_gear_3'))}"></td></tr>
+    <tr><td class="dp-lbl">${BL('dp_lbl_gear4')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_4" type="text" value="\${E(v('dp_1_4_gear_4'))}"></td></tr>
+    <tr><td class="dp-lbl">${BL('dp_lbl_gear5')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_5" type="text" value="\${E(v('dp_1_4_gear_5'))}"></td></tr>
+    <tr><td class="dp-lbl">${BL('dp_lbl_gear6')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_6" type="text" value="\${E(v('dp_1_4_gear_6'))}"></td></tr>
+    <tr><td class="dp-lbl">${BL('dp_lbl_gear7')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_7" type="text" value="\${E(v('dp_1_4_gear_7'))}"></td></tr>
     <tr><td class="dp-lbl">\${BL('dp_lbl_reverse')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_8" type="text" value="\${E(v('dp_1_4_gear_8'))}"></td></tr>
     <tr><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_red_ratio')}</td><td class="dp-lbl" colspan="2">\${BL('dp_lbl_red1')}</td><td><input class="dp-inp" data-field="dp_1_4_red1" type="text" value="\${E(v('dp_1_4_red1'))}"></td></tr>
     <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_red2')}</td><td><input class="dp-inp" data-field="dp_1_4_red2" type="text" value="\${E(v('dp_1_4_red2'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="3">N/V 비</td><td><input class="dp-inp" data-field="dp_1_4_nv" type="text" value="\${E(v('dp_1_4_nv'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="3">${BL('dp_lbl_nv_ratio')}</td><td><input class="dp-inp" data-field="dp_1_4_nv" type="text" value="\${E(v('dp_1_4_nv'))}"></td></tr>
     <tr><td class="dp-lbl" rowspan="4">\${BL('dp_lbl_ev_spec')}</td><td class="dp-lbl" colspan="3">\${BL('dp_lbl_motor_type')}</td><td><input class="dp-inp" data-field="dp_1_4_ev_motor" type="text" value="\${E(v('dp_1_4_ev_motor'))}"></td></tr>
     <tr><td class="dp-lbl" colspan="3">\${BL('dp_lbl_batt_cap')}</td><td><input class="dp-inp" data-field="dp_1_4_ev_batt" type="text" value="\${E(v('dp_1_4_ev_batt'))}"></td></tr>
     <tr><td class="dp-lbl" colspan="3">\${BL('dp_lbl_motor_power')}</td><td><input class="dp-inp" data-field="dp_1_4_ev_pow" type="text" value="\${E(v('dp_1_4_ev_pow'))}"></td></tr>
@@ -11004,9 +11060,9 @@ function buildFormHTML(formType, saved) {
     <tr><td class="dp-lbl" rowspan="6">\${BL('dp_lbl_tire')}</td><td class="dp-lbl" colspan="3">\${BL('dp_lbl_tire_maker')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_maker" type="text" value="\${E(v('dp_1_4_tire_maker'))}"></td></tr>
     <tr><td class="dp-lbl" colspan="3">\${BL('dp_lbl_tire_struct')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_struct" type="text" value="\${E(v('dp_1_4_tire_struct'))}"></td></tr>
     <tr><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_tire_size')}</td><td class="dp-lbl" colspan="2">\${BL('dp_lbl_front')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_fsize" type="text" value="\${E(v('dp_1_4_tire_fsize'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">후</td><td><input class="dp-inp" data-field="dp_1_4_tire_rsize" type="text" value="\${E(v('dp_1_4_tire_rsize'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">${BL('dp_lbl_rear')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_rsize" type="text" value="\${E(v('dp_1_4_tire_rsize'))}"></td></tr>
     <tr><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_tire_pres')}</td><td class="dp-lbl" colspan="2">\${BL('dp_lbl_front')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_fpres" type="text" value="\${E(v('dp_1_4_tire_fpres'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">후</td><td><input class="dp-inp" data-field="dp_1_4_tire_rpres" type="text" value="\${E(v('dp_1_4_tire_rpres'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">${BL('dp_lbl_rear')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_rpres" type="text" value="\${E(v('dp_1_4_tire_rpres'))}"></td></tr>
   </tbody>
 </table>
 
@@ -18514,7 +18570,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
       <div class="form-group">
         <label class="label">\${BL('pw_lbl_confirm')} <span style="color:var(--c-danger);">*</span></label>
-        <input id="cpw-new2" class="input" type="password" placeholder="재입력" autocomplete="new-password"
+        <input id="cpw-new2" class="input" type="password" placeholder="${BL('pw_ph_confirm')}" autocomplete="new-password"
           onkeydown="if(event.key==='Enter')doChangePw()">
       </div>
       <div id="cpw-error" class="auth-error" style="display:none;"></div>

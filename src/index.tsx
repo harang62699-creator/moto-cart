@@ -10020,6 +10020,7 @@ if (formType==='detail_plan') return \`
     </div>
     <div class="em-attach-list" id="em-list-raw"></div>
     <div class="em-attach-print-wrap" id="em-print-raw" style="display:none;"></div>
+    <input type="hidden" id="em-attach-raw-data" data-field="em_attach_raw_data" value="\${E(v('em_attach_raw_data'))}">
   </div>
 
   <div id="qr-footer-wrap" style="margin-top:12px;"></div>
@@ -10600,6 +10601,7 @@ if (formType==='detail_plan') return \`
       <div style="font-size:8.5pt;color:var(--c-text2);">\${BL('attach_hint')}</div>
     </div>
     <div class="ev-attach-list" id="ev-list-raw"></div>
+    <input type="hidden" id="ev-attach-raw-data" data-field="ev_attach_raw_data" value="\${E(v('ev_attach_raw_data'))}">
   </div>
   <div class="ev-attach-print-wrap" id="ev-print-raw"></div>
 
@@ -11131,6 +11133,7 @@ if (formType==='detail_plan') return \`
       클릭하거나 파일을 드래그하여 업로드
     </div>
     <div class="obd-attach-list" id="obd-attach-list"></div>
+    <input type="hidden" id="obd-attach-data" data-field="obd_attach_data" value="\${E(v('obd_attach_data'))}">
   </div>
 
 </div>
@@ -12268,6 +12271,7 @@ if (formType==='detail_plan') return \`
     클릭하거나 파일을 드래그하여 업로드
   </div>
   <div class="nt-attach-list" id="nt-attach-list"></div>
+  <input type="hidden" id="nt-attach-data" data-field="nt_attach_data" value="\${E(v('nt_attach_data'))}">
 </div>
 
 </div>
@@ -13005,8 +13009,15 @@ function initObdImgDrops() {
 }
 
 function initEmissionAttach() {
-  function makeAttach(dropId, fileInputId, listId, printWrapId) {
+  function makeAttach(dropId, fileInputId, listId, printWrapId, hiddenId) {
+    var hiddenInput = hiddenId ? document.getElementById(hiddenId) : null;
     var files = [];
+    // 저장된 데이터 복원
+    try {
+      var saved = hiddenInput && hiddenInput.value ? JSON.parse(hiddenInput.value) : [];
+      if (Array.isArray(saved) && saved.length > 0) files = saved;
+    } catch(e) {}
+
     var dropZone  = document.getElementById(dropId);
     var fileInput = document.getElementById(fileInputId);
     var listEl    = document.getElementById(listId);
@@ -13019,12 +13030,15 @@ function initEmissionAttach() {
     dropZone.addEventListener('click',     function(){ fileInput.click(); });
     fileInput.addEventListener('change',   function(){ handleFiles(this.files); this.value=''; });
 
+    function syncHidden() {
+      if (hiddenInput) hiddenInput.value = JSON.stringify(files);
+    }
     function handleFiles(flist) {
       Array.from(flist).forEach(function(file){
         var reader = new FileReader();
         reader.onload = function(ev){
           files.push({ name:file.name, size:file.size, type:file.type, dataUrl:ev.target.result });
-          renderList(); renderPrint();
+          syncHidden(); renderList(); renderPrint();
         };
         reader.readAsDataURL(file);
       });
@@ -13036,8 +13050,9 @@ function initEmissionAttach() {
         var div=document.createElement('div');
         div.className='em-attach-item';
         div.innerHTML='<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:var(--c-accent);"></i>'+
-          '<span class="em-attach-item-name">'+f.name+'</span>'+
+          '<span class="em-attach-item-name">'+esc(f.name)+'</span>'+
           '<span class="em-attach-item-size">'+fmtSize(f.size)+'</span>'+
+          '<a title="다운로드" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:var(--c-accent);padding:1px 6px;font-size:10pt;"><i class="fas fa-download"></i></a>'+
           '<span class="em-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
         listEl.appendChild(div);
       });
@@ -13045,7 +13060,7 @@ function initEmissionAttach() {
         btn.addEventListener('click',function(e){
           e.stopPropagation();
           files.splice(parseInt(this.dataset.idx),1);
-          renderList(); renderPrint();
+          syncHidden(); renderList(); renderPrint();
         });
       });
     }
@@ -13076,14 +13091,23 @@ function initEmissionAttach() {
         printWrap.appendChild(page);
       });
     }
+    // 복원된 파일이 있으면 즉시 렌더링
+    if (files.length > 0) { renderList(); renderPrint(); }
   }
   // 자체 배출가스 시험 성적서 / RAW DATA
-  makeAttach('em-drop-raw','em-file-raw','em-list-raw','em-print-raw');
+  makeAttach('em-drop-raw','em-file-raw','em-list-raw','em-print-raw','em-attach-raw-data');
 }
 
 function initEvapAttach() {
-  function makeAttach(dropId, fileInputId, listId, printWrapId) {
+  function makeAttach(dropId, fileInputId, listId, printWrapId, hiddenId) {
+    var hiddenInput = hiddenId ? document.getElementById(hiddenId) : null;
     var files = [];
+    // 저장된 데이터 복원
+    try {
+      var saved = hiddenInput && hiddenInput.value ? JSON.parse(hiddenInput.value) : [];
+      if (Array.isArray(saved) && saved.length > 0) files = saved;
+    } catch(e) {}
+
     var dropZone  = document.getElementById(dropId);
     var fileInput = document.getElementById(fileInputId);
     var listEl    = document.getElementById(listId);
@@ -13095,12 +13119,15 @@ function initEvapAttach() {
     dropZone.addEventListener('drop',      function(e){ e.preventDefault(); dropZone.style.borderColor=''; handleFiles(e.dataTransfer.files); });
     fileInput.addEventListener('change',   function(){ handleFiles(this.files); this.value=''; });
 
+    function syncHidden() {
+      if (hiddenInput) hiddenInput.value = JSON.stringify(files);
+    }
     function handleFiles(flist) {
       Array.from(flist).forEach(function(file){
         var reader = new FileReader();
         reader.onload = function(ev){
           files.push({ name:file.name, size:file.size, type:file.type, dataUrl:ev.target.result });
-          renderList(); renderPrint();
+          syncHidden(); renderList(); renderPrint();
         };
         reader.readAsDataURL(file);
       });
@@ -13112,19 +13139,21 @@ function initEvapAttach() {
         var div=document.createElement('div');
         div.className='ev-attach-item';
         div.innerHTML='<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:var(--c-accent);"></i>'+
-          '<span class="ev-attach-item-name">'+f.name+'</span>'+
+          '<span class="ev-attach-item-name">'+esc(f.name)+'</span>'+
           '<span class="ev-attach-item-size">'+fmtSize(f.size)+'</span>'+
+          '<a title="다운로드" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:var(--c-accent);padding:1px 6px;font-size:10pt;"><i class="fas fa-download"></i></a>'+
           '<span class="ev-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
         listEl.appendChild(div);
       });
       listEl.querySelectorAll('.ev-attach-item-del').forEach(function(btn){
         btn.addEventListener('click',function(){
           files.splice(parseInt(this.dataset.idx),1);
-          renderList(); renderPrint();
+          syncHidden(); renderList(); renderPrint();
         });
       });
     }
     function renderPrint(){
+      if (!printWrap) return;
       printWrap.innerHTML='';
       files.forEach(function(f){
         var page=document.createElement('div');
@@ -13147,11 +13176,13 @@ function initEvapAttach() {
         printWrap.appendChild(page);
       });
     }
+    // 복원된 파일이 있으면 즉시 렌더링
+    if (files.length > 0) { renderList(); renderPrint(); }
   }
   // 자체시험성적서 / RAW DATA
-  makeAttach('ev-drop-raw','ev-file-raw','ev-list-raw','ev-print-raw');
-  // 제작사의 확인서
-  makeAttach('ev-drop-mfr','ev-file-mfr','ev-list-mfr','ev-print-mfr');
+  makeAttach('ev-drop-raw','ev-file-raw','ev-list-raw','ev-print-raw','ev-attach-raw-data');
+  // 제작사의 확인서 (별도 hidden input 없음 — 필요 시 추가)
+  makeAttach('ev-drop-mfr','ev-file-mfr','ev-list-mfr','ev-print-mfr',null);
 }
 
 // ================================================================
@@ -13256,7 +13287,14 @@ function initEnFields() {
 }
 
 function initObdAttach() {
+  var hiddenInput = document.getElementById('obd-attach-data');
   var obdAttachFiles = [];
+  // 저장된 데이터 복원
+  try {
+    var saved = hiddenInput && hiddenInput.value ? JSON.parse(hiddenInput.value) : [];
+    if (Array.isArray(saved) && saved.length > 0) obdAttachFiles = saved;
+  } catch(e) {}
+
   var dropZone  = document.getElementById('obd-drop-zone');
   var fileInput = document.getElementById('obd-file-input');
   var listEl    = document.getElementById('obd-attach-list');
@@ -13270,12 +13308,16 @@ function initObdAttach() {
   });
   fileInput.addEventListener('change', function(){ handleObdFiles(this.files); this.value=''; });
 
+  function syncHidden() {
+    if (hiddenInput) hiddenInput.value = JSON.stringify(obdAttachFiles);
+  }
+
   function handleObdFiles(files) {
     Array.from(files).forEach(function(file){
       var reader = new FileReader();
       reader.onload = function(ev){
         obdAttachFiles.push({ name: file.name, size: file.size, type: file.type, dataUrl: ev.target.result });
-        renderObdList();
+        syncHidden(); renderObdList();
       };
       reader.readAsDataURL(file);
     });
@@ -13290,23 +13332,32 @@ function initObdAttach() {
       div.className = 'obd-attach-item';
       div.innerHTML =
         '<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:#4e90d8;"></i>' +
-        '<span class="obd-attach-item-name">'+f.name+'</span>' +
+        '<span class="obd-attach-item-name">'+esc(f.name)+'</span>' +
         '<span class="obd-attach-item-size">'+fmtSize(f.size)+'</span>' +
-        '<a class="obd-attach-item-dl" title="\ub2e4\uc6b4\ub85c\ub4dc" href="'+f.dataUrl+'" download="'+f.name+'" style="color:#4e90d8;padding:1px 6px;border-radius:3px;font-size:10pt;line-height:1;"><i class="fas fa-download"></i></a>' +
+        '<a class="obd-attach-item-dl" title="\ub2e4\uc6b4\ub85c\ub4dc" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:#4e90d8;padding:1px 6px;border-radius:3px;font-size:10pt;line-height:1;"><i class="fas fa-download"></i></a>' +
         '<span class="obd-attach-item-del" title="\uc0ad\uc81c" data-idx="'+idx+'">\xd7</span>';
       listEl.appendChild(div);
     });
     listEl.querySelectorAll('.obd-attach-item-del').forEach(function(btn){
       btn.addEventListener('click', function(){
         obdAttachFiles.splice(parseInt(this.dataset.idx),1);
-        renderObdList();
+        syncHidden(); renderObdList();
       });
     });
   }
+  // 복원된 파일이 있으면 즉시 렌더링
+  if (obdAttachFiles.length > 0) renderObdList();
 }
 
 function initNoiseAttach() {
+  var hiddenInput = document.getElementById('nt-attach-data');
   var ntAttachFiles = [];
+  // 저장된 데이터 복원
+  try {
+    var saved = hiddenInput && hiddenInput.value ? JSON.parse(hiddenInput.value) : [];
+    if (Array.isArray(saved) && saved.length > 0) ntAttachFiles = saved;
+  } catch(e) {}
+
   var dropZone  = document.getElementById('nt-drop-zone');
   var fileInput = document.getElementById('nt-file-input');
   var listEl    = document.getElementById('nt-attach-list');
@@ -13320,12 +13371,16 @@ function initNoiseAttach() {
   });
   fileInput.addEventListener('change', function(){ handleNtFiles(this.files); this.value=''; });
 
+  function syncHidden() {
+    if (hiddenInput) hiddenInput.value = JSON.stringify(ntAttachFiles);
+  }
+
   function handleNtFiles(files) {
     Array.from(files).forEach(function(file){
       var reader = new FileReader();
       reader.onload = function(ev){
         ntAttachFiles.push({ name: file.name, size: file.size, type: file.type, dataUrl: ev.target.result });
-        renderNtList(); renderNtPrint();
+        syncHidden(); renderNtList();
       };
       reader.readAsDataURL(file);
     });
@@ -13349,10 +13404,12 @@ function initNoiseAttach() {
     listEl.querySelectorAll('.nt-attach-item-del').forEach(function(btn){
       btn.addEventListener('click', function(){
         ntAttachFiles.splice(parseInt(this.dataset.idx),1);
-        renderNtList();
+        syncHidden(); renderNtList();
       });
     });
   }
+  // 복원된 파일이 있으면 즉시 렌더링
+  if (ntAttachFiles.length > 0) renderNtList();
 }
 
 // ================================================================

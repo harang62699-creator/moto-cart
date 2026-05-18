@@ -1965,8 +1965,8 @@ const LANG_DICT = {
     nt_sec7:'7. 배기소음 측정결과',
     nt_sec8:'8. 경적소음 측정결과',
     nt_col_form:'형식',
-    nt_col_serial:'제조번호',
-    nt_col_cal_date:'교정일자',
+    nt_col_serial:'기기번호',
+    nt_col_cal_date:'검·교정일',
     nt_car_name:'차 명',
     nt_maker_country:'제작사(국)',
     nt_car_type:'차종',
@@ -2010,10 +2010,10 @@ const LANG_DICT = {
     nt_air_temp:'대기온도',
     nt_sound_meter:'소음계',
     nt_calibrator:'교정기',
-    nt_speedometer:'속도계',
-    nt_rpm_meter:'회전수계',
-    nt_weather_eq:'기상장비',
-    nt_track:'시험로',
+    nt_speedometer:'차속계',
+    nt_rpm_meter:'엔진속도측정기',
+    nt_weather_eq:'기상관측장비(풍속,온도)',
+    nt_track:'기록계',
     nt_test_weight_kg:'시험중량(kg)',
     nt_load_kg:'하중(kg)',
     nt_gear_1:'1단',
@@ -2368,8 +2368,8 @@ const LANG_DICT = {
     nt_sec7:'7. Exhaust Noise Results',
     nt_sec8:'8. Horn Noise Results',
     nt_col_form:'Type',
-    nt_col_serial:'Serial No.',
-    nt_col_cal_date:'Calibration Date',
+    nt_col_serial:'Device No.',
+    nt_col_cal_date:'Insp./Cal. Date',
     nt_car_name:'Vehicle Name',
     nt_maker_country:'Manufacturer(Country)',
     nt_car_type:'Vehicle Type',
@@ -2413,10 +2413,10 @@ const LANG_DICT = {
     nt_air_temp:'Atm. Temperature',
     nt_sound_meter:'Sound Level Meter',
     nt_calibrator:'Calibrator',
-    nt_speedometer:'Speedometer',
-    nt_rpm_meter:'RPM Meter',
-    nt_weather_eq:'Weather Equipment',
-    nt_track:'Test Track',
+    nt_speedometer:'Vehicle Speed Meter',
+    nt_rpm_meter:'Engine Speed Meter',
+    nt_weather_eq:'Meteorological Equip.(Wind/Temp)',
+    nt_track:'Data Recorder',
     nt_test_weight_kg:'Test Weight(kg)',
     nt_load_kg:'Load(kg)',
     nt_gear_1:'1st Gear',
@@ -2771,8 +2771,8 @@ const LANG_DICT = {
     nt_sec7:'7. 排気騒音測定結果',
     nt_sec8:'8. 警笛騒音測定結果',
     nt_col_form:'形式',
-    nt_col_serial:'製造番号',
-    nt_col_cal_date:'校正日',
+    nt_col_serial:'機器番号',
+    nt_col_cal_date:'検・校正日',
     nt_car_name:'自動車名称',
     nt_maker_country:'製造社(国)',
     nt_car_type:'車種',
@@ -2815,10 +2815,10 @@ const LANG_DICT = {
     nt_air_temp:'大気温度',
     nt_sound_meter:'騒音計',
     nt_calibrator:'校正器',
-    nt_speedometer:'速度計',
-    nt_rpm_meter:'回転数計',
-    nt_weather_eq:'気象装置',
-    nt_track:'試験路',
+    nt_speedometer:'車速計',
+    nt_rpm_meter:'エンジン回転数計',
+    nt_weather_eq:'気象観測装置(風速,温度)',
+    nt_track:'記録計',
     nt_test_weight_kg:'試験重量(kg)',
     nt_load_kg:'荷重(kg)',
     nt_gear_1:'1速',
@@ -3173,8 +3173,8 @@ const LANG_DICT = {
     nt_sec7:'7. 排气噪声测量结果',
     nt_sec8:'8. 喇叭噪声测量结果',
     nt_col_form:'型式',
-    nt_col_serial:'序列号',
-    nt_col_cal_date:'校准日期',
+    nt_col_serial:'设备编号',
+    nt_col_cal_date:'检·校准日',
     nt_car_name:'车辆名称',
     nt_maker_country:'制造商(国)',
     nt_car_type:'车型',
@@ -3217,10 +3217,10 @@ const LANG_DICT = {
     nt_air_temp:'大气温度',
     nt_sound_meter:'声级计',
     nt_calibrator:'校准器',
-    nt_speedometer:'速度计',
-    nt_rpm_meter:'转速计',
-    nt_weather_eq:'气象设备',
-    nt_track:'试验跑道',
+    nt_speedometer:'车速计',
+    nt_rpm_meter:'发动机转速计',
+    nt_weather_eq:'气象观测设备(风速,温度)',
+    nt_track:'记录仪',
     nt_test_weight_kg:'试验质量(kg)',
     nt_load_kg:'载荷(kg)',
     nt_gear_1:'1挡',
@@ -11592,19 +11592,12 @@ if (formType==='detail_plan') return \`
       <td class="nt-val"><input data-field="nt_eq2_no"    class="nt-inp" type="text" value="\${E(v('nt_eq2_no'))}"></td>
       <td class="nt-val"><input data-field="nt_eq2_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq2_cal'))}"></td>
     </tr>
-    <!-- 차속계: 구분 셀은 rowspan=2, 오른쪽 4칸은 2개 행으로 분리 (PDF 구조 반영) -->
     <tr>
-      <td class="nt-lbl" rowspan="2">\${BL('nt_speedometer')}</td>
+      <td class="nt-lbl">\${BL('nt_speedometer')}</td>
       <td class="nt-val"><input data-field="nt_eq3a_maker" class="nt-inp" type="text" value="\${E(v('nt_eq3a_maker'))}"></td>
       <td class="nt-val"><input data-field="nt_eq3a_type"  class="nt-inp" type="text" value="\${E(v('nt_eq3a_type'))}"></td>
       <td class="nt-val"><input data-field="nt_eq3a_no"    class="nt-inp" type="text" value="\${E(v('nt_eq3a_no'))}"></td>
       <td class="nt-val"><input data-field="nt_eq3a_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq3a_cal'))}"></td>
-    </tr>
-    <tr>
-      <td class="nt-val"><input data-field="nt_eq3b_maker" class="nt-inp" type="text" value="\${E(v('nt_eq3b_maker'))}"></td>
-      <td class="nt-val"><input data-field="nt_eq3b_type"  class="nt-inp" type="text" value="\${E(v('nt_eq3b_type'))}"></td>
-      <td class="nt-val"><input data-field="nt_eq3b_no"    class="nt-inp" type="text" value="\${E(v('nt_eq3b_no'))}"></td>
-      <td class="nt-val"><input data-field="nt_eq3b_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq3b_cal'))}"></td>
     </tr>
     <tr>
       <td class="nt-lbl">\${BL('nt_rpm_meter')}</td>
@@ -11613,40 +11606,19 @@ if (formType==='detail_plan') return \`
       <td class="nt-val"><input data-field="nt_eq4_no"    class="nt-inp" type="text" value="\${E(v('nt_eq4_no'))}"></td>
       <td class="nt-val"><input data-field="nt_eq4_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq4_cal'))}"></td>
     </tr>
-    <!-- 기상관측장비: 구분 셀은 rowspan=2, 오른쪽 4칸은 2개 행으로 분리 (PDF 구조 반영) -->
     <tr>
-      <td class="nt-lbl" rowspan="2">\${BL('nt_weather_eq')}</td>
+      <td class="nt-lbl">\${BL('nt_weather_eq')}</td>
       <td class="nt-val"><input data-field="nt_eq5a_maker" class="nt-inp" type="text" value="\${E(v('nt_eq5a_maker'))}"></td>
       <td class="nt-val"><input data-field="nt_eq5a_type"  class="nt-inp" type="text" value="\${E(v('nt_eq5a_type'))}"></td>
       <td class="nt-val"><input data-field="nt_eq5a_no"    class="nt-inp" type="text" value="\${E(v('nt_eq5a_no'))}"></td>
       <td class="nt-val"><input data-field="nt_eq5a_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq5a_cal'))}"></td>
     </tr>
     <tr>
-      <td class="nt-val"><input data-field="nt_eq5b_maker" class="nt-inp" type="text" value="\${E(v('nt_eq5b_maker'))}"></td>
-      <td class="nt-val"><input data-field="nt_eq5b_type"  class="nt-inp" type="text" value="\${E(v('nt_eq5b_type'))}"></td>
-      <td class="nt-val"><input data-field="nt_eq5b_no"    class="nt-inp" type="text" value="\${E(v('nt_eq5b_no'))}"></td>
-      <td class="nt-val"><input data-field="nt_eq5b_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq5b_cal'))}"></td>
-    </tr>
-    <tr>
       <td class="nt-lbl">\${BL('nt_track')}</td>
       <td class="nt-val"><input data-field="nt_eq6_maker" class="nt-inp" type="text" value="\${E(v('nt_eq6_maker'))}"></td>
       <td class="nt-val"><input data-field="nt_eq6_type"  class="nt-inp" type="text" value="\${E(v('nt_eq6_type'))}"></td>
       <td class="nt-val"><input data-field="nt_eq6_no"    class="nt-inp" type="text" value="\${E(v('nt_eq6_no'))}"></td>
-      <td class="nt-val"><input data-field="nt_eq6_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq6_cal'))}"></td>
-    </tr>
-    <tr>
-      <td class="nt-val"><input data-field="nt_eq7_name"  class="nt-inp" type="text" placeholder="장비명" value="\${E(v('nt_eq7_name'))}"></td>
-      <td class="nt-val"><input data-field="nt_eq7_maker" class="nt-inp" type="text" value="\${E(v('nt_eq7_maker'))}"></td>
-      <td class="nt-val"><input data-field="nt_eq7_type"  class="nt-inp" type="text" value="\${E(v('nt_eq7_type'))}"></td>
-      <td class="nt-val"><input data-field="nt_eq7_no"    class="nt-inp" type="text" value="\${E(v('nt_eq7_no'))}"></td>
-      <td class="nt-val"><input data-field="nt_eq7_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq7_cal'))}"></td>
-    </tr>
-    <tr>
-      <td class="nt-val"><input data-field="nt_eq8_name"  class="nt-inp" type="text" placeholder="장비명" value="\${E(v('nt_eq8_name'))}"></td>
-      <td class="nt-val"><input data-field="nt_eq8_maker" class="nt-inp" type="text" value="\${E(v('nt_eq8_maker'))}"></td>
-      <td class="nt-val"><input data-field="nt_eq8_type"  class="nt-inp" type="text" value="\${E(v('nt_eq8_type'))}"></td>
-      <td class="nt-val"><input data-field="nt_eq8_no"    class="nt-inp" type="text" value="\${E(v('nt_eq8_no'))}"></td>
-      <td class="nt-val"><input data-field="nt_eq8_cal"   class="nt-inp" type="text" value="\${E(v('nt_eq8_cal'))}"></td>
+      <td class="nt-lbl" style="text-align:center;">해당없음</td>
     </tr>
   </tbody>
 </table>

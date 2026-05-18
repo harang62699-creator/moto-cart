@@ -10263,30 +10263,26 @@ if (formType==='detail_plan') return \`
 .ev-chk-item { display:flex; align-items:center; gap:3px; font-size:8.5pt; cursor:pointer; }
 /* 첨부 섹션 */
 .ev-attach-section { margin-top:14px; }
-.ev-attach-title { font-size:9pt; font-weight:700; margin-bottom:6px; color:var(--c-text); }
-.ev-attach-note { font-size:8pt; color:var(--c-text3); margin-bottom:8px; }
+.ev-attach-title { font-size:9pt; font-weight:700; margin-bottom:6px; color:#111; }
+.ev-attach-note { font-size:8pt; color:#666; margin-bottom:8px; }
 .ev-attach-drop {
-  border:2px dashed var(--c-border); border-radius:8px;
+  border:2px dashed #bbb; border-radius:8px;
   padding:16px; text-align:center; cursor:pointer;
-  transition:border-color .2s, background .2s;
-  display:flex; flex-direction:column; align-items:center; gap:4px;
+  transition:.2s; color:#555; font-size:9pt; background:#fafafa;
 }
-.ev-attach-drop:hover { border-color:var(--c-accent); background:rgba(79,142,247,.04); }
+.ev-attach-drop:hover { border-color:#4e90d8; background:rgba(79,142,247,.04); }
 .ev-attach-drop input[type=file] { display:none; }
 .ev-attach-list { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
 .ev-attach-item {
   display:flex; align-items:center; gap:8px;
   padding:4px 8px; border-radius:4px;
-  background:var(--c-surface2); font-size:8.5pt;
+  background:#f0f4fa; font-size:8.5pt;
 }
-.ev-attach-item-name { flex:1; color:var(--c-text); word-break:break-all; }
-.ev-attach-item-size { color:var(--c-text3); white-space:nowrap; font-size:8pt; }
+.ev-attach-item-name { flex:1; color:#111; word-break:break-all; }
+.ev-attach-item-size { color:#666; white-space:nowrap; font-size:8pt; }
 .ev-attach-item-del { color:#ef4444; cursor:pointer; padding:1px 5px; border-radius:3px; font-size:10pt; line-height:1; }
 .ev-attach-item-del:hover { background:rgba(239,68,68,.12); }
-.ev-attach-print-wrap { margin-top:10px; }
-.ev-attach-print-page { page-break-before:always; margin-top:20px; }
-.ev-attach-print-page img { max-width:100%; height:auto; display:block; }
-.ev-attach-print-page .ev-attach-pdf-frame { width:100%; min-height:600px; border:none; }
+/* 첨부문서: 인쇄 미리보기 기능 제거됨 (업로드/다운로드 전용) */
 /* 인쇄 */
 @media print {
   .ev-wrap { background:#fff !important; color:#000 !important; border-radius:0 !important; }
@@ -10305,9 +10301,8 @@ if (formType==='detail_plan') return \`
   }
   .ev-lbl { color:#000 !important; font-weight:600 !important; }
   .ev-chk-item { color:#000 !important; }
+  /* 첨부문서 영역 인쇄 시 완전 숨김 */
   .ev-attach-section { display:none !important; }
-  .ev-attach-print-wrap { display:block !important; }
-  .ev-attach-print-page { page-break-before:always; }
 }
 </style>
 
@@ -10607,7 +10602,6 @@ if (formType==='detail_plan') return \`
     <div class="ev-attach-list" id="ev-list-raw"></div>
     <input type="hidden" id="ev-attach-raw-data" data-field="ev_attach_raw_data" value="\${E(v('ev_attach_raw_data'))}">
   </div>
-  <div class="ev-attach-print-wrap" id="ev-print-raw"></div>
 
   <div id="qr-footer-wrap" style="margin-top:16px;"></div>
 </div>
@@ -13090,88 +13084,65 @@ function initEmissionAttach() {
 }
 
 function initEvapAttach() {
-  function makeAttach(dropId, fileInputId, listId, printWrapId, hiddenId) {
-    var hiddenInput = hiddenId ? document.getElementById(hiddenId) : null;
-    var files = [];
-    // 저장된 데이터 복원
-    try {
-      var saved = hiddenInput && hiddenInput.value ? JSON.parse(hiddenInput.value) : [];
-      if (Array.isArray(saved) && saved.length > 0) files = saved;
-    } catch(e) {}
+  // 업로드/다운로드/저장 전용 (인쇄 출력 기능 없음)
+  var hiddenInput = document.getElementById('ev-attach-raw-data');
+  var evAttachFiles = [];
 
-    var dropZone  = document.getElementById(dropId);
-    var fileInput = document.getElementById(fileInputId);
-    var listEl    = document.getElementById(listId);
-    var printWrap = document.getElementById(printWrapId);
-    if (!dropZone || !fileInput) return;
+  // 저장된 데이터 복원
+  try {
+    var saved = hiddenInput && hiddenInput.value ? JSON.parse(hiddenInput.value) : [];
+    if (Array.isArray(saved) && saved.length > 0) evAttachFiles = saved;
+  } catch(e) {}
 
-    dropZone.addEventListener('dragover',  function(e){ e.preventDefault(); dropZone.style.borderColor='var(--c-accent)'; });
-    dropZone.addEventListener('dragleave', function(){ dropZone.style.borderColor=''; });
-    dropZone.addEventListener('drop',      function(e){ e.preventDefault(); dropZone.style.borderColor=''; handleFiles(e.dataTransfer.files); });
-    fileInput.addEventListener('change',   function(){ handleFiles(this.files); this.value=''; });
+  var dropZone  = document.getElementById('ev-drop-raw');
+  var fileInput = document.getElementById('ev-file-raw');
+  var listEl    = document.getElementById('ev-list-raw');
+  if (!dropZone || !fileInput) return;
 
-    function syncHidden() {
-      if (hiddenInput) hiddenInput.value = JSON.stringify(files);
-    }
-    function handleFiles(flist) {
-      Array.from(flist).forEach(function(file){
-        var reader = new FileReader();
-        reader.onload = function(ev){
-          files.push({ name:file.name, size:file.size, type:file.type, dataUrl:ev.target.result });
-          syncHidden(); renderList(); renderPrint();
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-    function fmtSize(b){ return b<1024?b+'B':b<1048576?(b/1024).toFixed(1)+'KB':(b/1048576).toFixed(1)+'MB'; }
-    function renderList(){
-      listEl.innerHTML='';
-      files.forEach(function(f,idx){
-        var div=document.createElement('div');
-        div.className='ev-attach-item';
-        div.innerHTML='<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:var(--c-accent);"></i>'+
-          '<span class="ev-attach-item-name">'+esc(f.name)+'</span>'+
-          '<span class="ev-attach-item-size">'+fmtSize(f.size)+'</span>'+
-          '<a title="다운로드" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:var(--c-accent);padding:1px 6px;font-size:10pt;"><i class="fas fa-download"></i></a>'+
-          '<span class="ev-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
-        listEl.appendChild(div);
-      });
-      listEl.querySelectorAll('.ev-attach-item-del').forEach(function(btn){
-        btn.addEventListener('click',function(){
-          files.splice(parseInt(this.dataset.idx),1);
-          syncHidden(); renderList(); renderPrint();
-        });
-      });
-    }
-    function renderPrint(){
-      if (!printWrap) return;
-      printWrap.innerHTML='';
-      files.forEach(function(f){
-        var page=document.createElement('div');
-        page.className='ev-attach-print-page';
-        var lbl=document.createElement('div');
-        lbl.style.cssText='font-size:9pt;font-weight:700;margin-bottom:6px;';
-        lbl.textContent='첨부: '+f.name;
-        page.appendChild(lbl);
-        if(f.type==='application/pdf'){
-          var iframe=document.createElement('iframe');
-          iframe.src=f.dataUrl;
-          iframe.style.cssText='width:100%;min-height:700px;border:none;';
-          page.appendChild(iframe);
-        } else {
-          var img=document.createElement('img');
-          img.src=f.dataUrl;
-          img.style.cssText='max-width:100%;height:auto;display:block;';
-          page.appendChild(img);
-        }
-        printWrap.appendChild(page);
-      });
-    }
-    // 복원된 파일이 있으면 즉시 렌더링
-    if (files.length > 0) { renderList(); renderPrint(); }
+  dropZone.addEventListener('dragover',  function(e){ e.preventDefault(); dropZone.style.borderColor='#4e90d8'; });
+  dropZone.addEventListener('dragleave', function(){ dropZone.style.borderColor=''; });
+  dropZone.addEventListener('drop',      function(e){ e.preventDefault(); dropZone.style.borderColor=''; handleEvFiles(e.dataTransfer.files); });
+  fileInput.addEventListener('change',   function(){ handleEvFiles(this.files); this.value=''; });
+
+  function syncHidden() {
+    if (hiddenInput) hiddenInput.value = JSON.stringify(evAttachFiles);
   }
-  // 자체시험성적서 / RAW DATA
-  makeAttach('ev-drop-raw','ev-file-raw','ev-list-raw','ev-print-raw','ev-attach-raw-data');
+
+  function handleEvFiles(files) {
+    Array.from(files).forEach(function(file){
+      var reader = new FileReader();
+      reader.onload = function(ev){
+        evAttachFiles.push({ name: file.name, size: file.size, type: file.type, dataUrl: ev.target.result });
+        syncHidden(); renderEvList();
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function fmtSize(b){ return b<1024?b+'B':b<1048576?(b/1024).toFixed(1)+'KB':(b/1048576).toFixed(1)+'MB'; }
+
+  function renderEvList(){
+    listEl.innerHTML = '';
+    evAttachFiles.forEach(function(f, idx){
+      var div = document.createElement('div');
+      div.className = 'ev-attach-item';
+      div.innerHTML =
+        '<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:#4e90d8;"></i>' +
+        '<span class="ev-attach-item-name">'+esc(f.name)+'</span>' +
+        '<span class="ev-attach-item-size">'+fmtSize(f.size)+'</span>' +
+        '<a class="ev-attach-item-dl" title="다운로드" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:#4e90d8;padding:1px 6px;border-radius:3px;font-size:10pt;line-height:1;"><i class="fas fa-download"></i></a>' +
+        '<span class="ev-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
+      listEl.appendChild(div);
+    });
+    listEl.querySelectorAll('.ev-attach-item-del').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        evAttachFiles.splice(parseInt(this.dataset.idx), 1);
+        syncHidden(); renderEvList();
+      });
+    });
+  }
+  // 복원된 파일이 있으면 즉시 렌더링
+  if (evAttachFiles.length > 0) renderEvList();
 }
 
 // ================================================================

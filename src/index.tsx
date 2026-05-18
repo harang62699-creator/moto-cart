@@ -8514,10 +8514,10 @@ if (formType==='detail_plan') return \`
     <th class="obd-th">\${BL('family_code')}</th>
   </tr>
   <tr>
-    <td><textarea class="obd-field-text" data-field="obd_header_importer" placeholder="\${BL('ph_importer')}"></textarea></td>
-    <td><textarea class="obd-field-text" data-field="obd_header_year" placeholder="\${BL('ph_cert_year')}"></textarea></td>
-    <td><textarea class="obd-field-text" data-field="obd_header_cc" placeholder="\${BL('ph_displacement')}"></textarea></td>
-    <td><textarea class="obd-field-text" data-field="obd_header_code" placeholder="\${BL('ph_family_code')}"></textarea></td>
+    <td><input class="obd-field-text" type="text" readonly style="background:#f5f8ff;pointer-events:none;cursor:default;" value="\${E(v('importer'))}"></td>
+    <td><input class="obd-field-text" type="text" readonly style="background:#f5f8ff;pointer-events:none;cursor:default;" value="\${E(v('cert_year'))}"></td>
+    <td><input class="obd-field-text" type="text" readonly style="background:#f5f8ff;pointer-events:none;cursor:default;" value="\${E(v('displacement'))}"></td>
+    <td><input class="obd-field-text" type="text" readonly style="background:#f5f8ff;pointer-events:none;cursor:default;" value="\${E(v('family_code'))}"></td>
   </tr>
 </table>
 
@@ -10831,18 +10831,64 @@ if (formType==='detail_plan') return \`
     -webkit-print-color-adjust:exact; print-color-adjust:exact;
   }
   .obd-th         { background:#eef3fa !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .obd-sec-th     { background:#d6e4f7 !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .obd-sub-th     { background:#eef3fa !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .obd-result-th-top { background:#d6e4f7 !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .obd-result-th-mid { background:#eef3fa !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .obd-lbl { background:#f5f8ff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .obd-inp {
     border:none !important; background:transparent !important;
     height:auto !important; overflow:visible !important;
     font-size:8.5pt !important; font-family:'맑은 고딕','Malgun Gothic',sans-serif !important;
     padding:0 2px !important; color:#000 !important;
   }
+  /* 헤더 읽기전용 input 인쇄 스타일 */
+  .obd-field-text {
+    border:none !important; background:transparent !important;
+    font-size:8.5pt !important; font-family:'맑은 고딕','Malgun Gothic',sans-serif !important;
+    color:#000 !important; padding:0 2px !important;
+    height:auto !important;
+  }
+  /* textarea: 내용 전체 표시 */
+  textarea.obd-field-text {
+    height:auto !important; min-height:0 !important; max-height:none !important;
+    overflow:visible !important; resize:none !important;
+    white-space:pre-wrap !important; word-break:break-word !important;
+    overflow-wrap:break-word !important;
+    display:block !important; box-sizing:border-box !important;
+    -webkit-appearance:none !important; appearance:none !important;
+  }
   .obd-chk-item { color:#000 !important; }
   .obd-chk-item input[type=checkbox] { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .obd-note-text {
+    border:none !important; background:transparent !important;
+    color:#000 !important; font-size:8pt !important;
+    height:auto !important; min-height:0 !important; max-height:none !important;
+    overflow:visible !important; resize:none !important;
+    white-space:pre-wrap !important; word-break:break-word !important;
+    display:block !important;
+  }
+  /* ── 이미지 드롭존: 테두리 제거, 이미지만 표시 ── */
+  .obd-drop {
+    border:none !important; background:transparent !important;
+    padding:0 !important; min-height:unset !important;
+    height:auto !important; overflow:visible !important;
+    cursor:default !important;
+  }
+  .obd-drop-hint { display:none !important; }
+  .obd-img-item-del { display:none !important; }
+  .obd-img-list { gap:4px !important; margin-top:2px !important; flex-wrap:wrap !important; }
+  .obd-img-item img {
+    max-width:100% !important; max-height:none !important;
+    height:auto !important; display:block !important;
+    page-break-inside:avoid;
+  }
+  /* 이미지가 없는 빈 드롭존은 공간 차지 안 함 */
+  .obd-drop:not(:has(img)) { display:none !important; }
   /* 첨부문서 영역 인쇄 시 완전 숨김 */
   .obd-attach-section { display:none !important; }
+  /* 행 페이지 분리 방지 */
+  .obd-tbl tr { page-break-inside:avoid; }
 }
 /* ── OBD 첨부 섹션 ── */
 .obd-attach-section { margin-top:14px; }

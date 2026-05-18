@@ -1928,14 +1928,14 @@ const LANG_DICT = {
     em_col_type:'형식',
     em_col_model:'모델명',
     em_col_approval:'형식승인번호',
-    em_col_location:'장착위치',
+    em_col_location:'설치장소',
     em_col_item:'측정항목',
     em_mass:'질량(g/km)',
     em_pressure:'대기압(kPa)',
     em_wet_temp:'습구온도(℃)',
     em_dry_temp:'건구온도(℃)',
     em_rh:'상대습도(%)',
-    em_abs_hum:'절대습도(g/m³)',
+    em_abs_hum:'비교습도 H₂Og/kg Air',
     em_emission_vol:'배출가스량',
     em_drive_dist:'주행거리(km)',
     oo_test_date:'시험일자',
@@ -2336,14 +2336,14 @@ const LANG_DICT = {
     em_col_type:'Type',
     em_col_model:'Model Name',
     em_col_approval:'Type Approval No.',
-    em_col_location:'Mounting Location',
+    em_col_location:'Installation Location',
     em_col_item:'Measurement Item',
     em_mass:'Mass(g/km)',
     em_pressure:'Atm. Pressure(kPa)',
     em_wet_temp:'Wet Bulb Temp.(℃)',
     em_dry_temp:'Dry Bulb Temp.(℃)',
     em_rh:'Relative Humidity(%)',
-    em_abs_hum:'Absolute Humidity(g/m³)',
+    em_abs_hum:'Specific Humidity H₂Og/kg Air',
     em_emission_vol:'Emission Volume',
     em_drive_dist:'Drive Distance(km)',
     oo_test_date:'Test Date',
@@ -2744,14 +2744,14 @@ const LANG_DICT = {
     em_col_type:'形式',
     em_col_model:'モデル名',
     em_col_approval:'型式承認番号',
-    em_col_location:'取付位置',
+    em_col_location:'設置場所',
     em_col_item:'測定項目',
     em_mass:'質量(g/km)',
     em_pressure:'大気圧(kPa)',
     em_wet_temp:'湿球温度(℃)',
     em_dry_temp:'乾球温度(℃)',
     em_rh:'相対湿度(%)',
-    em_abs_hum:'絶対湿度(g/m³)',
+    em_abs_hum:'比較湿度 H₂Og/kg Air',
     em_emission_vol:'排出ガス量',
     em_drive_dist:'走行距離(km)',
     oo_test_date:'試験日',
@@ -3151,14 +3151,14 @@ const LANG_DICT = {
     em_col_type:'型式',
     em_col_model:'型号名称',
     em_col_approval:'型式批准号',
-    em_col_location:'安装位置',
+    em_col_location:'安装地点',
     em_col_item:'测量项目',
     em_mass:'质量(g/km)',
     em_pressure:'大气压(kPa)',
     em_wet_temp:'湿球温度(℃)',
     em_dry_temp:'干球温度(℃)',
     em_rh:'相对湿度(%)',
-    em_abs_hum:'绝对湿度(g/m³)',
+    em_abs_hum:'比較湿度 H₂Og/kg Air',
     em_emission_vol:'排放量',
     em_drive_dist:'行驶距离(km)',
     oo_test_date:'试验日期',
@@ -9785,21 +9785,21 @@ if (formType==='detail_plan') return \`
         <td><input data-field="em_cvs_press_note" class="em-inp" type="text" value="\${E(v('em_cvs_press_note'))}"></td>
       </tr>
       <tr>
-        <td class="em-th">\${BL('em_wet_temp')} ℃</td>
+        <td class="em-th">\${BL('em_wet_temp')}</td>
         <td><input data-field="em_cvs_wet1"   class="em-inp" type="text" value="\${E(v('em_cvs_wet1'))}"></td>
         <td><input data-field="em_cvs_wet2"   class="em-inp" type="text" value="\${E(v('em_cvs_wet2'))}"></td>
         <td><input data-field="em_cvs_wet3"   class="em-inp" type="text" value="\${E(v('em_cvs_wet3'))}"></td>
         <td><input data-field="em_cvs_wet_note" class="em-inp" type="text" value="\${E(v('em_cvs_wet_note'))}"></td>
       </tr>
       <tr>
-        <td class="em-th">\${BL('em_dry_temp')} ℃</td>
+        <td class="em-th">\${BL('em_dry_temp')}</td>
         <td><input data-field="em_cvs_dry1"   class="em-inp" type="text" value="\${E(v('em_cvs_dry1'))}"></td>
         <td><input data-field="em_cvs_dry2"   class="em-inp" type="text" value="\${E(v('em_cvs_dry2'))}"></td>
         <td><input data-field="em_cvs_dry3"   class="em-inp" type="text" value="\${E(v('em_cvs_dry3'))}"></td>
         <td><input data-field="em_cvs_dry_note" class="em-inp" type="text" value="\${E(v('em_cvs_dry_note'))}"></td>
       </tr>
       <tr>
-        <td class="em-th">\${BL('em_rh')} %</td>
+        <td class="em-th">\${BL('em_rh')}</td>
         <td><input data-field="em_cvs_rh1"    class="em-inp" type="text" value="\${E(v('em_cvs_rh1'))}"></td>
         <td><input data-field="em_cvs_rh2"    class="em-inp" type="text" value="\${E(v('em_cvs_rh2'))}"></td>
         <td><input data-field="em_cvs_rh3"    class="em-inp" type="text" value="\${E(v('em_cvs_rh3'))}"></td>
@@ -9827,7 +9827,7 @@ if (formType==='detail_plan') return \`
         <td><input data-field="em_cvs_df_note" class="em-inp" type="text" value="\${E(v('em_cvs_df_note'))}"></td>
       </tr>
       <tr>
-        <td class="em-th">\${BL('em_drive_dist')} Km</td>
+        <td class="em-th">\${BL('em_drive_dist')}</td>
         <td><input data-field="em_cvs_dist1"  class="em-inp" type="text" value="\${E(v('em_cvs_dist1'))}"></td>
         <td><input data-field="em_cvs_dist2"  class="em-inp" type="text" value="\${E(v('em_cvs_dist2'))}"></td>
         <td><input data-field="em_cvs_dist3"  class="em-inp" type="text" value="\${E(v('em_cvs_dist3'))}"></td>

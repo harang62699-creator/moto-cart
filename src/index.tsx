@@ -1660,7 +1660,7 @@ textarea.auto-grow {
     _curThumb.innerHTML = '';
     _imgs.forEach(function(src) {
       var img = document.createElement('img');
-      img.src = src; img.title = '클릭하여 크게 보기';
+      img.src = src; img.title = BL('img_click_to_zoom');
       img.onclick = function() { window.open(src, '_blank'); };
       _curThumb.appendChild(img);
     });
@@ -1729,7 +1729,7 @@ textarea.auto-grow {
       th.innerHTML = '';
       imgs.forEach(function(src) {
         var img = document.createElement('img');
-        img.src = src; img.title = '클릭하여 크게 보기';
+        img.src = src; img.title = BL('img_click_to_zoom');
         img.onclick = function() { window.open(src, '_blank'); };
         th.appendChild(img);
       });
@@ -2633,14 +2633,14 @@ const LANG_DICT = {
     g_em4_txt:'* 20년 1월 이륜자동차(130km/h 이하) 기준',
     g_em5_txt:'* 14년 9월 경유 소형승용 기준',
     g_obd1_txt:'* OBD2 휘발유 기준 적용 대표(IUPR 1st 기준)',
-    g_obd2_txt:'* OBD2 휘발유 기준 적용 동일(IUPR 1st 기준), 대표차종 :',
+    g_obd2_txt:'${BL('g_obd_std2_rep_lbl')}',
     g_obd3_txt:'* OBD2 휘발유 EURO6 기준 적용 대표(IUPR 2nd 기준)',
-    g_obd4_txt:'* OBD2 휘발유 EURO6 기준 적용 동일(IUPR 2nd 기준), 대표차종 :',
+    g_obd4_txt:'${BL('g_obd_std4_rep_lbl')}',
     g_obd5_txt:'* OBD2 휘발유 EURO5 이륜자동차 기준 적용 대표(OBD Stage 2)',
     g_obd6_txt:'* OBD2 경유 (다)기준 적용 대표 (IUPR 2nd 기준)',
-    g_obd7_txt:'* OBD2 경유 (다)기준 적용 동일(IUPR 2nd 기준), 대표차종 :',
+    g_obd7_txt:'${BL('g_obd_std_die_rep_lbl')}',
     g_evap1_txt:'* 증발가스 대표',
-    g_evap2_txt:'* 증발가스 동일, 대표차종 :',
+    g_evap2_txt:'${BL('g_evap_same_rep_lbl')}',
     g_war1_txt:'* 보증기간 : 10년 / 19만2천km',
     g_war2_txt:'* 보증기간 : 10년 / 24만km',
     g_war3_txt:'* 보증기간 : 15년 / 24만km',
@@ -3089,6 +3089,19 @@ const LANG_DICT = {
     dp_8_8_0:'장치/제원/입출력신호', dp_8_8_1:'엔진토크 산출방법과 적합성 자료',
     dp_8_9_0:'기타 장치',
     dp_5_4_lbl:'5.4. 소음 시험 계획',
+g_obd_std2_rep_lbl:'${BL('g_obd_std2_rep_lbl')}',
+    g_obd_std4_rep_lbl:'${BL('g_obd_std4_rep_lbl')}',
+    g_obd_std_die_rep_lbl:'${BL('g_obd_std_die_rep_lbl')}',
+    g_evap_same_rep_lbl:'${BL('g_evap_same_rep_lbl')}',
+img_click_to_zoom:'클릭하여 크게 보기',
+    pw_err_required:'모든 항목을 입력해주세요.',
+    pw_err_too_short:'새 비밀번호는 4자 이상이어야 합니다.',
+    pw_err_mismatch:'새 비밀번호가 일치하지 않습니다.',
+    err_occurred:'오류가 발생했습니다.',
+    err_network:'네트워크 오류가 발생했습니다.',
+    btn_processing:'처리중...',
+    btn_change:'변경',
+    pw_changed_ok:'비밀번호가 변경되었습니다.',
     cf_ph_address:'제작사 주소',
     cf_ph_phone:'전화번호',
     cf_ph_fax:'팩스번호',
@@ -4396,6 +4409,19 @@ dp_s8_1:'8.1. Fuel System',
     dp_8_8_0:'Device/Spec/I-O Signal', dp_8_8_1:'Engine Torque Calculation & Compliance',
     dp_8_9_0:'Other Device',
     dp_5_4_lbl:'5.4. Noise Test Plan',
+g_obd_std2_rep_lbl:'* OBD2 Gasoline (IUPR 1st) Same, Rep. Vehicle:',
+    g_obd_std4_rep_lbl:'* OBD2 Gasoline EURO6 (IUPR 2nd) Same, Rep. Vehicle:',
+    g_obd_std_die_rep_lbl:'* OBD2 Diesel (c) (IUPR 2nd) Same, Rep. Vehicle:',
+    g_evap_same_rep_lbl:'* Evap. Same, Rep. Vehicle:',
+img_click_to_zoom:'Click to zoom',
+    pw_err_required:'Please fill in all fields.',
+    pw_err_too_short:'New password must be at least 4 characters.',
+    pw_err_mismatch:'New passwords do not match.',
+    err_occurred:'An error occurred.',
+    err_network:'Network error occurred.',
+    btn_processing:'Processing...',
+    btn_change:'Change',
+    pw_changed_ok:'Password changed successfully.',
     cf_ph_address:'Manufacturer Address',
     cf_ph_phone:'Phone Number',
     cf_ph_fax:'Fax Number',
@@ -5700,6 +5726,19 @@ dp_s8_1:'8.1. 燃料装置',
     dp_8_8_0:'装置/仕様/入出力信号', dp_8_8_1:'エンジントルク算出方法と適合性資料',
     dp_8_9_0:'その他装置',
     dp_5_4_lbl:'5.4. 騒音試験計画',
+g_obd_std2_rep_lbl:'* OBD2 ガソリン基準適用同一(IUPR 1st基準)、代表車種：',
+    g_obd_std4_rep_lbl:'* OBD2 ガソリンEURO6基準適用同一(IUPR 2nd基準)、代表車種：',
+    g_obd_std_die_rep_lbl:'* OBD2 軽油(ハ)基準適用同一(IUPR 2nd基準)、代表車種：',
+    g_evap_same_rep_lbl:'* 蒸発ガス同一、代表車種：',
+img_click_to_zoom:'クリックして拡大',
+    pw_err_required:'すべての項目を入力してください。',
+    pw_err_too_short:'新しいパスワードは4文字以上必要です。',
+    pw_err_mismatch:'新しいパスワードが一致しません。',
+    err_occurred:'エラーが発生しました。',
+    err_network:'ネットワークエラーが発生しました。',
+    btn_processing:'処理中...',
+    btn_change:'変更',
+    pw_changed_ok:'パスワードが変更されました。',
     cf_ph_address:'製造社住所',
     cf_ph_phone:'電話番号',
     cf_ph_fax:'ファックス番号',
@@ -7001,6 +7040,19 @@ dp_s8_1:'8.1. 燃油系统',
     dp_8_8_0:'装置/规格/输入输出信号', dp_8_8_1:'发动机转矩计算方法与适合性资料',
     dp_8_9_0:'其他装置',
     dp_5_4_lbl:'5.4. 噪声试验计划',
+g_obd_std2_rep_lbl:'* OBD2汽油基准适用同型(IUPR 1st基准)，代表车型：',
+    g_obd_std4_rep_lbl:'* OBD2汽油EURO6基准适用同型(IUPR 2nd基准)，代表车型：',
+    g_obd_std_die_rep_lbl:'* OBD2柴油(丙)基准适用同型(IUPR 2nd基准)，代表车型：',
+    g_evap_same_rep_lbl:'* 蒸发气体同型，代表车型：',
+img_click_to_zoom:'点击放大',
+    pw_err_required:'请填写所有字段。',
+    pw_err_too_short:'新密码至少需要4个字符。',
+    pw_err_mismatch:'新密码不匹配。',
+    err_occurred:'发生了错误。',
+    err_network:'发生了网络错误。',
+    btn_processing:'处理中...',
+    btn_change:'更改',
+    pw_changed_ok:'密码已更改成功。',
     cf_ph_address:'制造商地址',
     cf_ph_phone:'电话号码',
     cf_ph_fax:'传真号码',
@@ -7954,7 +8006,7 @@ async function createApplication() {
     closeNewAppModal();
     showToast('신청서가 생성되었습니다.','success');
     await openApplication(data.application.id);
-  } catch { errEl.textContent='네트워크 오류가 발생했습니다.'; errEl.style.display='block'; }
+  } catch { errEl.textContent=BL('err_network'); errEl.style.display='block'; }
   finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-check"></i>신청서 생성'; }
 }
 
@@ -9000,7 +9052,7 @@ function buildFormHTML(formType, saved) {
       </tr>
       <tr>
         <td style="padding:3px 5px;">
-          * OBD2 휘발유 기준 적용 동일(IUPR 1st 기준), 대표차종 :
+          ${BL('g_obd_std2_rep_lbl')}
           <input class="g-chk-inp" data-field="g_obd_std2_rep" type="text" value="\${E(v('g_obd_std2_rep'))}" style="width:90px;">
         </td>
         <td style="text-align:center;">
@@ -9015,7 +9067,7 @@ function buildFormHTML(formType, saved) {
       </tr>
       <tr>
         <td style="padding:3px 5px;">
-          * OBD2 휘발유 EURO6 기준 적용 동일(IUPR 2nd 기준), 대표차종 :
+          ${BL('g_obd_std4_rep_lbl')}
           <input class="g-chk-inp" data-field="g_obd_std4_rep" type="text" value="\${E(v('g_obd_std4_rep'))}" style="width:90px;">
         </td>
         <td style="text-align:center;">
@@ -9037,7 +9089,7 @@ function buildFormHTML(formType, saved) {
       </tr>
       <tr>
         <td style="padding:3px 5px;">
-          * OBD2 경유 (다)기준 적용 동일(IUPR 2nd 기준), 대표차종 :
+          ${BL('g_obd_std_die_rep_lbl')}
           <input class="g-chk-inp" data-field="g_obd_std7_rep" type="text" value="\${E(v('g_obd_std7_rep'))}" style="width:90px;">
         </td>
         <td style="text-align:center;">
@@ -9056,7 +9108,7 @@ function buildFormHTML(formType, saved) {
       </tr>
       <tr>
         <td style="padding:3px 5px;">
-          * 증발가스 동일, 대표차종 :
+          ${BL('g_evap_same_rep_lbl')}
           <input class="g-chk-inp" data-field="g_evap_std2_rep" type="text" value="\${E(v('g_evap_std2_rep'))}" style="width:120px;">
         </td>
         <td style="text-align:center;">
@@ -16828,7 +16880,7 @@ function showToast(msg, type='info') {
       var item = document.createElement('div');
       item.className = 'dp-img-item';
       var img = document.createElement('img');
-      img.src = src; img.title = '클릭하여 크게 보기';
+      img.src = src; img.title = BL('img_click_to_zoom');
       img.onclick = function(e){ e.stopPropagation(); window.open(src,'_blank'); };
       var del = document.createElement('button');
       del.className = 'dp-img-item-del'; del.textContent = '\xd7';
@@ -16938,7 +16990,7 @@ function initObdImgDrops() {
         var del = document.createElement('button');
         del.className = 'obd-img-item-del';
         del.innerHTML = '\xd7';
-        del.title = '삭제';
+        del.title = BL('attach_del_title');
         del.addEventListener('click', function(e) {
           e.stopPropagation();
           images.splice(idx, 1);
@@ -17045,8 +17097,8 @@ function initEmissionAttach() {
         '<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:#4e90d8;"></i>' +
         '<span class="em-attach-item-name">'+esc(f.name)+'</span>' +
         '<span class="em-attach-item-size">'+fmtSize(f.size)+'</span>' +
-        '<a class="em-attach-item-dl" title="다운로드" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:#4e90d8;padding:1px 6px;border-radius:3px;font-size:10pt;line-height:1;"><i class="fas fa-download"></i></a>' +
-        '<span class="em-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
+        '<a class="em-attach-item-dl" title="'+BL('attach_dl_title')+'" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:#4e90d8;padding:1px 6px;border-radius:3px;font-size:10pt;line-height:1;"><i class="fas fa-download"></i></a>' +
+        '<span class="em-attach-item-del" title="'+BL('attach_del_title')+'" data-idx="'+idx+'">×</span>';
       listEl.appendChild(div);
     });
     listEl.querySelectorAll('.em-attach-item-del').forEach(function(btn){
@@ -17108,8 +17160,8 @@ function initEvapAttach() {
         '<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:#4e90d8;"></i>' +
         '<span class="ev-attach-item-name">'+esc(f.name)+'</span>' +
         '<span class="ev-attach-item-size">'+fmtSize(f.size)+'</span>' +
-        '<a class="ev-attach-item-dl" title="다운로드" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:#4e90d8;padding:1px 6px;border-radius:3px;font-size:10pt;line-height:1;"><i class="fas fa-download"></i></a>' +
-        '<span class="ev-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
+        '<a class="ev-attach-item-dl" title="'+BL('attach_dl_title')+'" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:#4e90d8;padding:1px 6px;border-radius:3px;font-size:10pt;line-height:1;"><i class="fas fa-download"></i></a>' +
+        '<span class="ev-attach-item-del" title="'+BL('attach_del_title')+'" data-idx="'+idx+'">×</span>';
       listEl.appendChild(div);
     });
     listEl.querySelectorAll('.ev-attach-item-del').forEach(function(btn){
@@ -17208,7 +17260,7 @@ function initEnFields() {
         var delBtn = document.createElement('button');
         delBtn.className = 'en-img-item-del';
         delBtn.innerHTML = '&times;';
-        delBtn.title = '삭제';
+        delBtn.title = BL('attach_del_title');
         delBtn.addEventListener('click', function(e) {
           e.stopPropagation();
           images.splice(idx, 1);
@@ -17333,8 +17385,8 @@ function initObdConfigAttach() {
         '<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:#4e90d8;"></i>' +
         '<span class="oc-attach-item-name">'+esc(f.name)+'</span>' +
         '<span class="oc-attach-item-size">'+fmtSize(f.size)+'</span>' +
-        '<a class="oc-attach-item-dl" title="다운로드" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:#4e90d8;padding:1px 6px;border-radius:3px;font-size:10pt;line-height:1;"><i class="fas fa-download"></i></a>' +
-        '<span class="oc-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
+        '<a class="oc-attach-item-dl" title="'+BL('attach_dl_title')+'" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:#4e90d8;padding:1px 6px;border-radius:3px;font-size:10pt;line-height:1;"><i class="fas fa-download"></i></a>' +
+        '<span class="oc-attach-item-del" title="'+BL('attach_del_title')+'" data-idx="'+idx+'">×</span>';
       listEl.appendChild(div);
     });
     listEl.querySelectorAll('.oc-attach-item-del').forEach(function(btn){
@@ -17397,8 +17449,8 @@ function initNoiseAttach() {
         '<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:var(--c-accent);"></i>' +
         '<span class="nt-attach-item-name">'+esc(f.name)+'</span>' +
         '<span class="nt-attach-item-size">'+fmtSize(f.size)+'</span>' +
-        '<a class="nt-attach-item-dl" title="다운로드" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:var(--c-accent);padding:1px 6px;border-radius:3px;font-size:10pt;line-height:1;"><i class="fas fa-download"></i></a>' +
-        '<span class="nt-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
+        '<a class="nt-attach-item-dl" title="'+BL('attach_dl_title')+'" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:var(--c-accent);padding:1px 6px;border-radius:3px;font-size:10pt;line-height:1;"><i class="fas fa-download"></i></a>' +
+        '<span class="nt-attach-item-del" title="'+BL('attach_del_title')+'" data-idx="'+idx+'">×</span>';
       listEl.appendChild(div);
     });
     listEl.querySelectorAll('.nt-attach-item-del').forEach(function(btn){
@@ -17436,18 +17488,18 @@ async function doChangePw() {
   const nw2  = document.getElementById('cpw-new2').value;
   const errEl = document.getElementById('cpw-error');
   errEl.style.display = 'none';
-  if (!cur || !nw || !nw2) { errEl.textContent='모든 항목을 입력해주세요.'; errEl.style.display='block'; return; }
-  if (nw.length < 4) { errEl.textContent='새 비밀번호는 4자 이상이어야 합니다.'; errEl.style.display='block'; return; }
-  if (nw !== nw2) { errEl.textContent='새 비밀번호가 일치하지 않습니다.'; errEl.style.display='block'; return; }
+  if (!cur || !nw || !nw2) { errEl.textContent=BL('pw_err_required'); errEl.style.display='block'; return; }
+  if (nw.length < 4) { errEl.textContent=BL('pw_err_too_short'); errEl.style.display='block'; return; }
+  if (nw !== nw2) { errEl.textContent=BL('pw_err_mismatch'); errEl.style.display='block'; return; }
   const btn = document.getElementById('cpw-btn');
-  btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>처리중...';
+  btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'+BL('btn_processing');
   try {
     const res = await api('/api/auth/change-password', { method:'POST', body:JSON.stringify({current_password:cur, new_password:nw}) });
     const data = await res.json();
-    if (res.ok) { closeChangePwModal(); showToast('비밀번호가 변경되었습니다.', 'success'); }
-    else { errEl.textContent = data.error || '오류가 발생했습니다.'; errEl.style.display='block'; }
-  } catch { errEl.textContent='네트워크 오류가 발생했습니다.'; errEl.style.display='block'; }
-  finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-check"></i>변경'; }
+    if (res.ok) { closeChangePwModal(); showToast(BL('pw_changed_ok'), 'success'); }
+    else { errEl.textContent = data.error || BL('err_occurred'); errEl.style.display='block'; }
+  } catch { errEl.textContent=BL('err_network'); errEl.style.display='block'; }
+  finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-check"></i>'+BL('btn_change'); }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17482,7 +17534,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div id="cpw-error" class="auth-error" style="display:none;"></div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeChangePwModal()">취소</button>
+      <button class="btn btn-ghost" onclick="closeChangePwModal()">${LL('btn_cancel')}</button>
       <button id="cpw-btn" class="btn btn-primary" onclick="doChangePw()">
         <i class="fas fa-check"></i>변경
       </button>

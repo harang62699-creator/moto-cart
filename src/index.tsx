@@ -8681,59 +8681,58 @@ if (formType==='detail_plan') return \`
     </td>
   </tr>
   <tr>
-    <td class="obd-lbl" style="text-align:center; vertical-align:top; padding-top:6px; white-space:nowrap;">1.2.3.</td>
+    <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:middle; padding-top:6px;">1.2.3.</td>
+    <td style="vertical-align:middle; padding:4px 6px; font-size:8pt; color:#333; font-weight:600;">제어, 자동표시기, 인디케이터 위치 및 식별 기호</td>
+  </tr>
+  <tr>
+    <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px;">1.2.3.1.</td>
     <td>
-      <div style="font-size:8pt; padding:2px 0 4px; color:#333; font-weight:600;">제어, 자동표시기, 인디케이터 위치 및 식별 기호</div>
-      <table class="obd-tbl" style="margin-bottom:4px;">
-        <tr>
-          <td class="obd-lbl" style="width:32%; white-space:nowrap;">1.2.3.1. 왼쪽 핸들 스위치의 제어 및 기호 도면</td>
-          <td>
-            <input type="hidden" id="obd_1_2_3_1_imgs" data-field="obd_1_2_3_1_imgs" value="\${E(v('obd_1_2_3_1_imgs'))}">
-            <div class="dp-drop" id="obd_1_2_3_1_drop"
-                 onclick="document.getElementById('obd_1_2_3_1_fi').click();"
-                 ondragover="event.preventDefault();this.classList.add('drag-over');"
-                 ondragleave="this.classList.remove('drag-over');"
-                 ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('obd_1_2_3_1_imgs','obd_1_2_3_1_drop',event.dataTransfer.files);">
-              <input type="file" id="obd_1_2_3_1_fi" accept="image/*" multiple
-                     onchange="dpAddFiles('obd_1_2_3_1_imgs','obd_1_2_3_1_drop',this.files);this.value='';">
-              <div class="dp-drop-hint"><i class="fas fa-image"></i> \${BL('dp_img_hint')}</div>
-              <div class="dp-img-list" id="obd_1_2_3_1_imgs_list"></div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="obd-lbl" style="white-space:nowrap;">1.2.3.2. 오른쪽 핸들 스위치의 제어 및 기호 도면</td>
-          <td>
-            <input type="hidden" id="obd_1_2_3_2_imgs" data-field="obd_1_2_3_2_imgs" value="\${E(v('obd_1_2_3_2_imgs'))}">
-            <div class="dp-drop" id="obd_1_2_3_2_drop"
-                 onclick="document.getElementById('obd_1_2_3_2_fi').click();"
-                 ondragover="event.preventDefault();this.classList.add('drag-over');"
-                 ondragleave="this.classList.remove('drag-over');"
-                 ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('obd_1_2_3_2_imgs','obd_1_2_3_2_drop',event.dataTransfer.files);">
-              <input type="file" id="obd_1_2_3_2_fi" accept="image/*" multiple
-                     onchange="dpAddFiles('obd_1_2_3_2_imgs','obd_1_2_3_2_drop',this.files);this.value='';">
-              <div class="dp-drop-hint"><i class="fas fa-image"></i> \${BL('dp_img_hint')}</div>
-              <div class="dp-img-list" id="obd_1_2_3_2_imgs_list"></div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="obd-lbl" style="white-space:nowrap;">1.2.3.3. 키박스 도면</td>
-          <td>
-            <input type="hidden" id="obd_1_2_3_3_imgs" data-field="obd_1_2_3_3_imgs" value="\${E(v('obd_1_2_3_3_imgs'))}">
-            <div class="dp-drop" id="obd_1_2_3_3_drop"
-                 onclick="document.getElementById('obd_1_2_3_3_fi').click();"
-                 ondragover="event.preventDefault();this.classList.add('drag-over');"
-                 ondragleave="this.classList.remove('drag-over');"
-                 ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('obd_1_2_3_3_imgs','obd_1_2_3_3_drop',event.dataTransfer.files);">
-              <input type="file" id="obd_1_2_3_3_fi" accept="image/*" multiple
-                     onchange="dpAddFiles('obd_1_2_3_3_imgs','obd_1_2_3_3_drop',this.files);this.value='';">
-              <div class="dp-drop-hint"><i class="fas fa-image"></i> \${BL('dp_img_hint')}</div>
-              <div class="dp-img-list" id="obd_1_2_3_3_imgs_list"></div>
-            </div>
-          </td>
-        </tr>
-      </table>
+      <div style="font-size:8pt; padding:2px 0; color:#333; margin-bottom:4px;">왼쪽 핸들 스위치의 제어 및 기호 도면</div>
+      <input type="hidden" id="obd_1_2_3_1_imgs" data-field="obd_1_2_3_1_imgs" value="\${E(v('obd_1_2_3_1_imgs'))}">
+      <div class="dp-drop" id="obd_1_2_3_1_drop"
+           onclick="document.getElementById('obd_1_2_3_1_fi').click();"
+           ondragover="event.preventDefault();this.classList.add('drag-over');"
+           ondragleave="this.classList.remove('drag-over');"
+           ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('obd_1_2_3_1_imgs','obd_1_2_3_1_drop',event.dataTransfer.files);">
+        <input type="file" id="obd_1_2_3_1_fi" accept="image/*" multiple
+               onchange="dpAddFiles('obd_1_2_3_1_imgs','obd_1_2_3_1_drop',this.files);this.value='';">
+        <div class="dp-drop-hint"><i class="fas fa-image"></i> \${BL('dp_img_hint')}</div>
+        <div class="dp-img-list" id="obd_1_2_3_1_imgs_list"></div>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px;">1.2.3.2.</td>
+    <td>
+      <div style="font-size:8pt; padding:2px 0; color:#333; margin-bottom:4px;">오른쪽 핸들 스위치의 제어 및 기호 도면</div>
+      <input type="hidden" id="obd_1_2_3_2_imgs" data-field="obd_1_2_3_2_imgs" value="\${E(v('obd_1_2_3_2_imgs'))}">
+      <div class="dp-drop" id="obd_1_2_3_2_drop"
+           onclick="document.getElementById('obd_1_2_3_2_fi').click();"
+           ondragover="event.preventDefault();this.classList.add('drag-over');"
+           ondragleave="this.classList.remove('drag-over');"
+           ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('obd_1_2_3_2_imgs','obd_1_2_3_2_drop',event.dataTransfer.files);">
+        <input type="file" id="obd_1_2_3_2_fi" accept="image/*" multiple
+               onchange="dpAddFiles('obd_1_2_3_2_imgs','obd_1_2_3_2_drop',this.files);this.value='';">
+        <div class="dp-drop-hint"><i class="fas fa-image"></i> \${BL('dp_img_hint')}</div>
+        <div class="dp-img-list" id="obd_1_2_3_2_imgs_list"></div>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px;">1.2.3.3.</td>
+    <td>
+      <div style="font-size:8pt; padding:2px 0; color:#333; margin-bottom:4px;">키박스 도면</div>
+      <input type="hidden" id="obd_1_2_3_3_imgs" data-field="obd_1_2_3_3_imgs" value="\${E(v('obd_1_2_3_3_imgs'))}">
+      <div class="dp-drop" id="obd_1_2_3_3_drop"
+           onclick="document.getElementById('obd_1_2_3_3_fi').click();"
+           ondragover="event.preventDefault();this.classList.add('drag-over');"
+           ondragleave="this.classList.remove('drag-over');"
+           ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('obd_1_2_3_3_imgs','obd_1_2_3_3_drop',event.dataTransfer.files);">
+        <input type="file" id="obd_1_2_3_3_fi" accept="image/*" multiple
+               onchange="dpAddFiles('obd_1_2_3_3_imgs','obd_1_2_3_3_drop',this.files);this.value='';">
+        <div class="dp-drop-hint"><i class="fas fa-image"></i> \${BL('dp_img_hint')}</div>
+        <div class="dp-img-list" id="obd_1_2_3_3_imgs_list"></div>
+      </div>
     </td>
   </tr>
 </table>

@@ -9572,7 +9572,7 @@ function buildFormHTML(formType, saved) {
         <td class="sv-lbl">\${BL('sv_maker')}</td>
         <td class="sv-val">
           <input data-field="maker" class="sv-inp" type="text"
-            placeholder="${BL('g_ph_maker')}"
+            placeholder="\${BL('g_ph_maker')}"
             value="\${E(v('maker'))}">
         </td>
       </tr>
@@ -9583,7 +9583,7 @@ function buildFormHTML(formType, saved) {
         <td class="sv-lbl">\${BL('sv_vehicle_name')}</td>
         <td class="sv-val">
           <input data-field="vehicle_name" class="sv-inp" type="text"
-            placeholder="${BL('g_ph_model')}"
+            placeholder="\${BL('g_ph_model')}"
             value="\${E(v('vehicle_name'))}">
         </td>
       </tr>
@@ -9594,7 +9594,7 @@ function buildFormHTML(formType, saved) {
         <td class="sv-lbl">\${BL('sv_fuel')}</td>
         <td class="sv-val">
           <input data-field="fuel" class="sv-inp" type="text"
-            placeholder="${BL('g_ph_fuel')}"
+            placeholder="\${BL('g_ph_fuel')}"
             value="\${E(v('fuel'))}">
         </td>
       </tr>
@@ -9607,7 +9607,7 @@ function buildFormHTML(formType, saved) {
           <div class="sv-sub-row">
             <span class="sv-sub-lbl">\${BL('sv_emission')}</span>
             <input data-field="emission_std" class="sv-inp" type="text"
-              placeholder="${BL('g_ph_euro5')}"
+              placeholder="\${BL('g_ph_euro5')}"
               value="\${E(v('emission_std'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -9617,7 +9617,7 @@ function buildFormHTML(formType, saved) {
           <div class="sv-sub-row">
             <span class="sv-sub-lbl">\${BL('sv_noise_simple')}</span>
             <input data-field="noise_std" class="sv-inp" type="text"
-              placeholder="${BL('g_ph_ece_noise')}"
+              placeholder="\${BL('g_ph_ece_noise')}"
               value="\${E(v('noise_std'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -9632,7 +9632,7 @@ function buildFormHTML(formType, saved) {
         </td>
         <td class="sv-val">
           <input data-field="foreign_std" class="sv-inp" type="text"
-            placeholder="${BL('g_ph_euro5')}"
+            placeholder="\${BL('g_ph_euro5')}"
             value="\${E(v('foreign_std'))}">
         </td>
       </tr>
@@ -9645,7 +9645,7 @@ function buildFormHTML(formType, saved) {
           <div class="sv-sub-row">
             <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_rep_vehicle_lbl')}</span>
             <input data-field="evap_is_rep" class="sv-inp" type="text"
-              placeholder="${BL('g_ph_rep_nonrep')}"
+              placeholder="\${BL('g_ph_rep_nonrep')}"
               value="\${E(v('evap_is_rep'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -9655,7 +9655,7 @@ function buildFormHTML(formType, saved) {
           <div class="sv-sub-row">
             <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_vehicle_name_lbl')}</span>
             <input data-field="evap_rep_name" class="sv-inp" type="text"
-              placeholder="${BL('g_ph_model')}"
+              placeholder="\${BL('g_ph_model')}"
               value="\${E(v('evap_rep_name'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -9665,7 +9665,7 @@ function buildFormHTML(formType, saved) {
           <div class="sv-sub-row">
             <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_type_lbl')}</span>
             <input data-field="evap_rep_type" class="sv-inp" type="text"
-              placeholder="${BL('g_ph_cert_id')}"
+              placeholder="\${BL('g_ph_cert_id')}"
               value="\${E(v('evap_rep_type'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -9679,7 +9679,7 @@ function buildFormHTML(formType, saved) {
           <div class="sv-sub-row">
             <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_rep_vehicle_lbl')}</span>
             <input data-field="obd_is_rep" class="sv-inp" type="text"
-              placeholder="${BL('g_ph_rep_nonrep')}"
+              placeholder="\${BL('g_ph_rep_nonrep')}"
               value="\${E(v('obd_is_rep'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -9689,7 +9689,7 @@ function buildFormHTML(formType, saved) {
           <div class="sv-sub-row">
             <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_vehicle_name_lbl')}</span>
             <input data-field="obd_rep_name" class="sv-inp" type="text"
-              placeholder="${BL('g_ph_model')}"
+              placeholder="\${BL('g_ph_model')}"
               value="\${E(v('obd_rep_name'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -9699,7 +9699,7 @@ function buildFormHTML(formType, saved) {
           <div class="sv-sub-row">
             <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_type_lbl')}</span>
             <input data-field="obd_rep_type" class="sv-inp" type="text"
-              placeholder="${BL('g_ph_cert_id')}"
+              placeholder="\${BL('g_ph_cert_id')}"
               value="\${E(v('obd_rep_type'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -9712,7 +9712,7 @@ function buildFormHTML(formType, saved) {
         <td style="padding:0;">
           <div class="sv-warranty-row">
             <input data-field="warranty_year" class="sv-rep-item-inp" type="text"
-              placeholder="${BL('g_ph_warranty_yr')}" value="\${E(v('warranty_year'))}" style="width:50px;text-align:right;">
+              placeholder="\${BL('g_ph_warranty_yr')}" value="\${E(v('warranty_year'))}" style="width:50px;text-align:right;">
             <span style="font-size:10pt;">\${BL('unit_year')}</span>
             <span style="font-size:10pt;">&nbsp;/&nbsp;</span>
             <input data-field="warranty_km" class="sv-rep-item-inp" type="text"
@@ -9728,7 +9728,7 @@ function buildFormHTML(formType, saved) {
         <td class="sv-lbl">\${BL('sv_self_test')}</td>
         <td class="sv-val">
           <input data-field="self_test" class="sv-inp" type="text"
-            placeholder="${BL('g_ph_self_test')}"
+            placeholder="\${BL('g_ph_self_test')}"
             value="\${E(v('self_test'))}">
         </td>
       </tr>
@@ -9739,7 +9739,7 @@ function buildFormHTML(formType, saved) {
         <td class="sv-lbl">\${BL('sv_key_tech')}</td>
         <td class="sv-val">
           <textarea data-field="key_tech" class="sv-ta" rows="3"
-            placeholder="${BL('g_ph_key_tech')}">\${E(v('key_tech'))}</textarea>
+            placeholder="\${BL('g_ph_key_tech')}">\${E(v('key_tech'))}</textarea>
         </td>
       </tr>
 
@@ -10094,7 +10094,7 @@ function buildFormHTML(formType, saved) {
       </tr>
       <tr>
         <td style="padding:3px 5px;">
-          ${BL('g_obd_std2_rep_lbl')}
+          \${BL('g_obd_std2_rep_lbl')}
           <input class="g-chk-inp" data-field="g_obd_std2_rep" type="text" value="\${E(v('g_obd_std2_rep'))}" style="width:90px;">
         </td>
         <td style="text-align:center;">
@@ -10109,7 +10109,7 @@ function buildFormHTML(formType, saved) {
       </tr>
       <tr>
         <td style="padding:3px 5px;">
-          ${BL('g_obd_std4_rep_lbl')}
+          \${BL('g_obd_std4_rep_lbl')}
           <input class="g-chk-inp" data-field="g_obd_std4_rep" type="text" value="\${E(v('g_obd_std4_rep'))}" style="width:90px;">
         </td>
         <td style="text-align:center;">
@@ -10131,7 +10131,7 @@ function buildFormHTML(formType, saved) {
       </tr>
       <tr>
         <td style="padding:3px 5px;">
-          ${BL('g_obd_std_die_rep_lbl')}
+          \${BL('g_obd_std_die_rep_lbl')}
           <input class="g-chk-inp" data-field="g_obd_std7_rep" type="text" value="\${E(v('g_obd_std7_rep'))}" style="width:90px;">
         </td>
         <td style="text-align:center;">
@@ -10150,7 +10150,7 @@ function buildFormHTML(formType, saved) {
       </tr>
       <tr>
         <td style="padding:3px 5px;">
-          ${BL('g_evap_same_rep_lbl')}
+          \${BL('g_evap_same_rep_lbl')}
           <input class="g-chk-inp" data-field="g_evap_std2_rep" type="text" value="\${E(v('g_evap_std2_rep'))}" style="width:120px;">
         </td>
         <td style="text-align:center;">
@@ -10267,7 +10267,7 @@ function buildFormHTML(formType, saved) {
     </colgroup>
     <thead>
       <tr>
-        <th class="en-th" rowspan="2">${BL('g_category')}</th>
+        <th class="en-th" rowspan="2">\${BL('g_category')}</th>
         <th class="en-th" rowspan="2">\${BL('g_th_co_gkm')}</th>
         <th class="en-th" rowspan="2">NOx<br>(g/km)</th>
         <th class="en-th" colspan="3">\${BL('g_th_hc')}</th>
@@ -10894,8 +10894,8 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr style="height:26px;">
       <td><input data-field="dp_importer"  class="dp-inp" type="text" placeholder="\${BL('dp_h_importer')}" value="\${E(v('dp_importer'))}"></td>
-      <td><input data-field="dp_cert_year" class="dp-inp" type="text" placeholder="${BL('dp_ph_year_ex')}" value="\${E(v('dp_cert_year'))}"></td>
-      <td><input data-field="dp_disp"      class="dp-inp" type="text" placeholder="${BL('dp_ph_disp_ex')}" value="\${E(v('dp_disp'))}"></td>
+      <td><input data-field="dp_cert_year" class="dp-inp" type="text" placeholder="\${BL('dp_ph_year_ex')}" value="\${E(v('dp_cert_year'))}"></td>
+      <td><input data-field="dp_disp"      class="dp-inp" type="text" placeholder="\${BL('dp_ph_disp_ex')}" value="\${E(v('dp_disp'))}"></td>
       <td><input data-field="dp_fam_code"  class="dp-inp" type="text" placeholder="\${BL('dp_h_famcode')}" value="\${E(v('dp_fam_code'))}"></td>
     </tr>
   </tbody>
@@ -11029,7 +11029,7 @@ function buildFormHTML(formType, saved) {
     <tr><td class="dp-lbl">\${BL('dp_lbl_position')}</td><td><input class="dp-inp" data-field="dp_1_4_tank_pos" type="text" value="\${E(v('dp_1_4_tank_pos'))}"></td></tr>
     <tr><td class="dp-lbl">\${BL('dp_lbl_material')}</td><td><input class="dp-inp" data-field="dp_1_4_tank_mat" type="text" value="\${E(v('dp_1_4_tank_mat'))}"></td></tr>
     <tr><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_air_cleaner')}</td><td class="dp-lbl">\${BL('dp_lbl_form_type')}</td><td><input class="dp-inp" data-field="dp_1_4_air_type" type="text" value="\${E(v('dp_1_4_air_type'))}"></td></tr>
-    <tr><td class="dp-lbl">${BL('dp_lbl_count')}</td><td><input class="dp-inp" data-field="dp_1_4_filter_cnt" type="text" value="\${E(v('dp_1_4_filter_cnt'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_count')}</td><td><input class="dp-inp" data-field="dp_1_4_filter_cnt" type="text" value="\${E(v('dp_1_4_filter_cnt'))}"></td></tr>
   </tbody>
 </table>
 
@@ -11043,16 +11043,16 @@ function buildFormHTML(formType, saved) {
     <tr><td class="dp-lbl">\${BL('dp_lbl_reverse')}</td><td><input class="dp-inp" data-field="dp_1_4_trans_rev" type="text" value="\${E(v('dp_1_4_trans_rev'))}"></td></tr>
     <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_operation')}</td><td><input class="dp-inp" data-field="dp_1_4_trans_op" type="text" value="\${E(v('dp_1_4_trans_op'))}"></td></tr>
     <tr><td class="dp-lbl" rowspan="8">\${BL('dp_lbl_gear_ratio')}</td><td class="dp-lbl">\${BL('dp_lbl_gear_1')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_1" type="text" value="\${E(v('dp_1_4_gear_1'))}"></td></tr>
-    <tr><td class="dp-lbl">${BL('dp_lbl_gear2')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_2" type="text" value="\${E(v('dp_1_4_gear_2'))}"></td></tr>
-    <tr><td class="dp-lbl">${BL('dp_lbl_gear3')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_3" type="text" value="\${E(v('dp_1_4_gear_3'))}"></td></tr>
-    <tr><td class="dp-lbl">${BL('dp_lbl_gear4')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_4" type="text" value="\${E(v('dp_1_4_gear_4'))}"></td></tr>
-    <tr><td class="dp-lbl">${BL('dp_lbl_gear5')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_5" type="text" value="\${E(v('dp_1_4_gear_5'))}"></td></tr>
-    <tr><td class="dp-lbl">${BL('dp_lbl_gear6')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_6" type="text" value="\${E(v('dp_1_4_gear_6'))}"></td></tr>
-    <tr><td class="dp-lbl">${BL('dp_lbl_gear7')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_7" type="text" value="\${E(v('dp_1_4_gear_7'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_gear2')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_2" type="text" value="\${E(v('dp_1_4_gear_2'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_gear3')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_3" type="text" value="\${E(v('dp_1_4_gear_3'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_gear4')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_4" type="text" value="\${E(v('dp_1_4_gear_4'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_gear5')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_5" type="text" value="\${E(v('dp_1_4_gear_5'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_gear6')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_6" type="text" value="\${E(v('dp_1_4_gear_6'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_gear7')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_7" type="text" value="\${E(v('dp_1_4_gear_7'))}"></td></tr>
     <tr><td class="dp-lbl">\${BL('dp_lbl_reverse')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_8" type="text" value="\${E(v('dp_1_4_gear_8'))}"></td></tr>
     <tr><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_red_ratio')}</td><td class="dp-lbl" colspan="2">\${BL('dp_lbl_red1')}</td><td><input class="dp-inp" data-field="dp_1_4_red1" type="text" value="\${E(v('dp_1_4_red1'))}"></td></tr>
     <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_red2')}</td><td><input class="dp-inp" data-field="dp_1_4_red2" type="text" value="\${E(v('dp_1_4_red2'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="3">${BL('dp_lbl_nv_ratio')}</td><td><input class="dp-inp" data-field="dp_1_4_nv" type="text" value="\${E(v('dp_1_4_nv'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="3">\${BL('dp_lbl_nv_ratio')}</td><td><input class="dp-inp" data-field="dp_1_4_nv" type="text" value="\${E(v('dp_1_4_nv'))}"></td></tr>
     <tr><td class="dp-lbl" rowspan="4">\${BL('dp_lbl_ev_spec')}</td><td class="dp-lbl" colspan="3">\${BL('dp_lbl_motor_type')}</td><td><input class="dp-inp" data-field="dp_1_4_ev_motor" type="text" value="\${E(v('dp_1_4_ev_motor'))}"></td></tr>
     <tr><td class="dp-lbl" colspan="3">\${BL('dp_lbl_batt_cap')}</td><td><input class="dp-inp" data-field="dp_1_4_ev_batt" type="text" value="\${E(v('dp_1_4_ev_batt'))}"></td></tr>
     <tr><td class="dp-lbl" colspan="3">\${BL('dp_lbl_motor_power')}</td><td><input class="dp-inp" data-field="dp_1_4_ev_pow" type="text" value="\${E(v('dp_1_4_ev_pow'))}"></td></tr>
@@ -11060,9 +11060,9 @@ function buildFormHTML(formType, saved) {
     <tr><td class="dp-lbl" rowspan="6">\${BL('dp_lbl_tire')}</td><td class="dp-lbl" colspan="3">\${BL('dp_lbl_tire_maker')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_maker" type="text" value="\${E(v('dp_1_4_tire_maker'))}"></td></tr>
     <tr><td class="dp-lbl" colspan="3">\${BL('dp_lbl_tire_struct')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_struct" type="text" value="\${E(v('dp_1_4_tire_struct'))}"></td></tr>
     <tr><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_tire_size')}</td><td class="dp-lbl" colspan="2">\${BL('dp_lbl_front')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_fsize" type="text" value="\${E(v('dp_1_4_tire_fsize'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">${BL('dp_lbl_rear')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_rsize" type="text" value="\${E(v('dp_1_4_tire_rsize'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_rear')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_rsize" type="text" value="\${E(v('dp_1_4_tire_rsize'))}"></td></tr>
     <tr><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_tire_pres')}</td><td class="dp-lbl" colspan="2">\${BL('dp_lbl_front')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_fpres" type="text" value="\${E(v('dp_1_4_tire_fpres'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">${BL('dp_lbl_rear')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_rpres" type="text" value="\${E(v('dp_1_4_tire_rpres'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_rear')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_rpres" type="text" value="\${E(v('dp_1_4_tire_rpres'))}"></td></tr>
   </tbody>
 </table>
 
@@ -11268,10 +11268,10 @@ function buildFormHTML(formType, saved) {
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_1_1_km_2" type="text" value="\${E(v('dp_6_1_1_km_2'))}" placeholder="km" style="text-align:center;width:100%;"></th>
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_1_1_km_3" type="text" value="\${E(v('dp_6_1_1_km_3'))}" placeholder="km" style="text-align:center;width:100%;"></th>
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_1_1_km_4" type="text" value="\${E(v('dp_6_1_1_km_4'))}" placeholder="km" style="text-align:center;width:100%;"></th>
-      <th class="dp-th">${BL('dp_th_note')}</th>
+      <th class="dp-th">\${BL('dp_th_note')}</th>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_engine')}</td><td><input class="dp-inp" data-field="dp_6_1_1_0_item" type="text" value="\${E(v('dp_6_1_1_0_item'))}"></td>
+      <td class="dp-lbl">\${BL('dp_lbl_engine')}</td><td><input class="dp-inp" data-field="dp_6_1_1_0_item" type="text" value="\${E(v('dp_6_1_1_0_item'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_0_0" type="text" value="\${E(v('dp_6_1_1_0_0'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_0_1" type="text" value="\${E(v('dp_6_1_1_0_1'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_0_2" type="text" value="\${E(v('dp_6_1_1_0_2'))}"></td>
@@ -11280,7 +11280,7 @@ function buildFormHTML(formType, saved) {
       <td><input class="dp-inp" data-field="dp_6_1_1_0_note" type="text" value="\${E(v('dp_6_1_1_0_note'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_ignition')}</td><td><input class="dp-inp" data-field="dp_6_1_1_1_item" type="text" value="\${E(v('dp_6_1_1_1_item'))}"></td>
+      <td class="dp-lbl">\${BL('dp_lbl_ignition')}</td><td><input class="dp-inp" data-field="dp_6_1_1_1_item" type="text" value="\${E(v('dp_6_1_1_1_item'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_1_0" type="text" value="\${E(v('dp_6_1_1_1_0'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_1_1" type="text" value="\${E(v('dp_6_1_1_1_1'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_1_2" type="text" value="\${E(v('dp_6_1_1_1_2'))}"></td>
@@ -11289,7 +11289,7 @@ function buildFormHTML(formType, saved) {
       <td><input class="dp-inp" data-field="dp_6_1_1_1_note" type="text" value="\${E(v('dp_6_1_1_1_note'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_chassis')}</td><td><input class="dp-inp" data-field="dp_6_1_1_2_item" type="text" value="\${E(v('dp_6_1_1_2_item'))}"></td>
+      <td class="dp-lbl">\${BL('dp_lbl_chassis')}</td><td><input class="dp-inp" data-field="dp_6_1_1_2_item" type="text" value="\${E(v('dp_6_1_1_2_item'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_2_0" type="text" value="\${E(v('dp_6_1_1_2_0'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_2_1" type="text" value="\${E(v('dp_6_1_1_2_1'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_2_2" type="text" value="\${E(v('dp_6_1_1_2_2'))}"></td>
@@ -11331,10 +11331,10 @@ function buildFormHTML(formType, saved) {
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_2_km_2" type="text" value="\${E(v('dp_6_2_km_2'))}" placeholder="km" style="text-align:center;width:100%;"></th>
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_2_km_3" type="text" value="\${E(v('dp_6_2_km_3'))}" placeholder="km" style="text-align:center;width:100%;"></th>
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_2_km_4" type="text" value="\${E(v('dp_6_2_km_4'))}" placeholder="km" style="text-align:center;width:100%;"></th>
-      <th class="dp-th">${BL('dp_th_note')}</th>
+      <th class="dp-th">\${BL('dp_th_note')}</th>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_engine')}</td><td><input class="dp-inp" data-field="dp_6_2_0_item" type="text" value="\${E(v('dp_6_2_0_item'))}"></td>
+      <td class="dp-lbl">\${BL('dp_lbl_engine')}</td><td><input class="dp-inp" data-field="dp_6_2_0_item" type="text" value="\${E(v('dp_6_2_0_item'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_0_0" type="text" value="\${E(v('dp_6_2_0_0'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_0_1" type="text" value="\${E(v('dp_6_2_0_1'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_0_2" type="text" value="\${E(v('dp_6_2_0_2'))}"></td>
@@ -11343,7 +11343,7 @@ function buildFormHTML(formType, saved) {
       <td><input class="dp-inp" data-field="dp_6_2_0_note" type="text" value="\${E(v('dp_6_2_0_note'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_ignition')}</td><td><input class="dp-inp" data-field="dp_6_2_1_item" type="text" value="\${E(v('dp_6_2_1_item'))}"></td>
+      <td class="dp-lbl">\${BL('dp_lbl_ignition')}</td><td><input class="dp-inp" data-field="dp_6_2_1_item" type="text" value="\${E(v('dp_6_2_1_item'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_1_0" type="text" value="\${E(v('dp_6_2_1_0'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_1_1" type="text" value="\${E(v('dp_6_2_1_1'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_1_2" type="text" value="\${E(v('dp_6_2_1_2'))}"></td>
@@ -11352,7 +11352,7 @@ function buildFormHTML(formType, saved) {
       <td><input class="dp-inp" data-field="dp_6_2_1_note" type="text" value="\${E(v('dp_6_2_1_note'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_chassis')}</td><td><input class="dp-inp" data-field="dp_6_2_2_item" type="text" value="\${E(v('dp_6_2_2_item'))}"></td>
+      <td class="dp-lbl">\${BL('dp_lbl_chassis')}</td><td><input class="dp-inp" data-field="dp_6_2_2_item" type="text" value="\${E(v('dp_6_2_2_item'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_2_0" type="text" value="\${E(v('dp_6_2_2_0'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_2_1" type="text" value="\${E(v('dp_6_2_2_1'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_2_2" type="text" value="\${E(v('dp_6_2_2_2'))}"></td>
@@ -11445,10 +11445,10 @@ function buildFormHTML(formType, saved) {
     ].map(([sec,pfx,rows])=>\`
     <tr><th class="dp-sub-th" colspan="5">\${sec}</th></tr>
     <tr>
-      <th class="dp-th">${BL('dp_th_item')}</th><th class="dp-th">${BL('dp_th_sub_item')}</th>
-      <th class="dp-th">${BL('dp_th_structure')}</th>
-      <th class="dp-th">${BL('dp_th_ctrl_tech')}</th>
-      <th class="dp-th">${BL('dp_th_emission_eff')}</th>
+      <th class="dp-th">\${BL('dp_th_item')}</th><th class="dp-th">\${BL('dp_th_sub_item')}</th>
+      <th class="dp-th">\${BL('dp_th_structure')}</th>
+      <th class="dp-th">\${BL('dp_th_ctrl_tech')}</th>
+      <th class="dp-th">\${BL('dp_th_emission_eff')}</th>
     </tr>
     \${rows.map((row,ri)=>\`<tr>
       <td class="dp-lbl">\${row}</td><td><input class="dp-inp" data-field="\${pfx}_\${ri}_sub" type="text" value="\${E(v(\`\${pfx}_\${ri}_sub\`))}"></td>
@@ -11482,11 +11482,11 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sub-th" colspan="5">\${BL('dp_8_10_title')}</th></tr>
     <tr>
-      <th class="dp-th">${BL('dp_th_sensor_var')}</th>
-      <th class="dp-th">${BL('dp_th_fuel_afr')}</th>
-      <th class="dp-th">${BL('dp_th_ign_timing')}</th>
-      <th class="dp-th">${BL('dp_th_canister_purge')}</th>
-      <th class="dp-th">${BL('dp_th_note')}</th>
+      <th class="dp-th">\${BL('dp_th_sensor_var')}</th>
+      <th class="dp-th">\${BL('dp_th_fuel_afr')}</th>
+      <th class="dp-th">\${BL('dp_th_ign_timing')}</th>
+      <th class="dp-th">\${BL('dp_th_canister_purge')}</th>
+      <th class="dp-th">\${BL('dp_th_note')}</th>
     </tr>
     \${[BL('dp_sv_o2'),BL('dp_sv_air_flow'),BL('dp_sv_air_temp'),BL('dp_sv_coolant'),BL('dp_sv_throttle'),BL('dp_sv_baro'),BL('dp_sv_intake_vac'),BL('dp_sv_crank'),BL('dp_sv_cam'),BL('dp_sv_batt'),BL('dp_sv_speed'),BL('dp_sv_rpm'),BL('dp_sv_gear'),BL('dp_sv_idle'),BL('dp_sv_brake'),BL('dp_sv_ac'),BL('dp_sv_knock')].map((row,ri)=>\`<tr>
       <td class="dp-lbl">\${row}</td>
@@ -11507,15 +11507,15 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sub-th" colspan="6">\${BL('dp_8_11_title')}</th></tr>
     <tr>
-      <th class="dp-th" rowspan="2">${BL('dp_th_item')}</th>
-      <th class="dp-th" rowspan="2">${BL('dp_th_sub_item')}</th>
-      <th class="dp-th" rowspan="2">${BL('dp_th_part_no')}</th>
+      <th class="dp-th" rowspan="2">\${BL('dp_th_item')}</th>
+      <th class="dp-th" rowspan="2">\${BL('dp_th_sub_item')}</th>
+      <th class="dp-th" rowspan="2">\${BL('dp_th_part_no')}</th>
       <th class="dp-th" colspan="2">\${BL('em_lbl_maker2')}</th>
       <th class="dp-th" rowspan="2">\${BL('dp_lbl_remark')}</th>
     </tr>
     <tr>
-      <th class="dp-th">${BL('dp_th_mfr')}</th>
-      <th class="dp-th">${BL('dp_th_mfr_country')}</th>
+      <th class="dp-th">\${BL('dp_th_mfr')}</th>
+      <th class="dp-th">\${BL('dp_th_mfr_country')}</th>
     </tr>
     \${[BL('dp_8_11_ign'),BL('dp_8_11_fuel'),BL('dp_8_11_cat'),BL('dp_8_11_egr'),BL('dp_8_11_evap'),BL('dp_8_11_blow'),BL('dp_8_11_air')].map((item,ii)=>\`<tr>
       <td class="dp-lbl">\${item}</td>
@@ -11536,10 +11536,10 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sub-th" colspan="5">\${BL('dp_8_12_title')}</th></tr>
     <tr>
-      <th class="dp-th">${BL('dp_th_item')}</th><th class="dp-th">${BL('dp_th_sub_item')}</th>
-      <th class="dp-th">${BL('dp_th_structure')}</th>
-      <th class="dp-th">${BL('dp_th_ctrl_tech')}</th>
-      <th class="dp-th">${BL('dp_th_emission_eff')}</th>
+      <th class="dp-th">\${BL('dp_th_item')}</th><th class="dp-th">\${BL('dp_th_sub_item')}</th>
+      <th class="dp-th">\${BL('dp_th_structure')}</th>
+      <th class="dp-th">\${BL('dp_th_ctrl_tech')}</th>
+      <th class="dp-th">\${BL('dp_th_emission_eff')}</th>
     </tr>
     \${[BL('dp_8_12_r0'),BL('dp_8_12_r1'),BL('dp_8_12_r2'),BL('dp_8_12_r3')].map((row,ri)=>\`<tr>
       <td class="dp-lbl">\${row}</td><td><input class="dp-inp" data-field="dp_8_12_\${ri}_sub" type="text" value="\${E(v(\`dp_8_12_\${ri}_sub\`))}"></td>
@@ -11635,11 +11635,11 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sub-th" colspan="5">\${BL('dp_9_2_parts_title')}</th></tr>
     <tr>
-      <th class="dp-th">${BL('dp_th_evap_code')}</th>
-      <th class="dp-th">${BL('dp_th_nominal_tank')}</th>
-      <th class="dp-th">${BL('dp_th_max_evap')}</th>
-      <th class="dp-th">${BL('dp_th_reservoir')}</th>
-      <th class="dp-th">${BL('dp_th_model_name')}</th>
+      <th class="dp-th">\${BL('dp_th_evap_code')}</th>
+      <th class="dp-th">\${BL('dp_th_nominal_tank')}</th>
+      <th class="dp-th">\${BL('dp_th_max_evap')}</th>
+      <th class="dp-th">\${BL('dp_th_reservoir')}</th>
+      <th class="dp-th">\${BL('dp_th_model_name')}</th>
     </tr>
     \${[0,1,2].map(i=>\`<tr>
       <td><input class="dp-inp" data-field="dp_9_1_list_\${i}_code" type="text" value="\${E(v(\`dp_9_1_list_\${i}_code\`))}"></td>
@@ -11690,9 +11690,9 @@ function buildFormHTML(formType, saved) {
     <tr><th class="dp-sec-th" colspan="5">\${BL('dp_s10')}</th></tr>
     <tr><th class="dp-sub-th" colspan="5">\${BL('dp_10_1_title')}</th></tr>
     <tr>
-      <th class="dp-th" colspan="3">${BL('dp_th_category')}</th>
-      <th class="dp-th">${BL('dp_th_basic_model')}</th>
-      <th class="dp-th">${BL('dp_th_emission_equiv')}</th>
+      <th class="dp-th" colspan="3">\${BL('dp_th_category')}</th>
+      <th class="dp-th">\${BL('dp_th_basic_model')}</th>
+      <th class="dp-th">\${BL('dp_th_emission_equiv')}</th>
     </tr>
     <!-- 단순 1행 항목들 -->
     \${[
@@ -11709,106 +11709,106 @@ function buildFormHTML(formType, saved) {
     </tr>\`).join('')}
     <!-- 흡기 매니폴드 rowspan=2 -->
     <tr>
-      <td class="dp-lbl" colspan="2" rowspan="2">${BL('dp_lbl_intake_manifold')}</td>
-      <td class="dp-lbl">${BL('dp_lbl_intake_port_size')}</td>
+      <td class="dp-lbl" colspan="2" rowspan="2">\${BL('dp_lbl_intake_manifold')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_intake_port_size')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_inport_base" type="text" value="\${E(v('dp_10_1_inport_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_inport_same" type="text" value="\${E(v('dp_10_1_inport_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_intake_port_shape')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_intake_port_shape')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_inshape_base" type="text" value="\${E(v('dp_10_1_inshape_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_inshape_same" type="text" value="\${E(v('dp_10_1_inshape_same'))}"></td>
     </tr>
     <!-- 배기 매니폴드 rowspan=2 -->
     <tr>
-      <td class="dp-lbl" colspan="2" rowspan="2">${BL('dp_lbl_exhaust_manifold')}</td>
-      <td class="dp-lbl">${BL('dp_lbl_exhaust_port_size')}</td>
+      <td class="dp-lbl" colspan="2" rowspan="2">\${BL('dp_lbl_exhaust_manifold')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_exhaust_port_size')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_export_base" type="text" value="\${E(v('dp_10_1_export_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_export_same" type="text" value="\${E(v('dp_10_1_export_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_exhaust_port_shape')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_exhaust_port_shape')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_exshape_base" type="text" value="\${E(v('dp_10_1_exshape_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_exshape_same" type="text" value="\${E(v('dp_10_1_exshape_same'))}"></td>
     </tr>
     <!-- 흡배기폐기시 rowspan=4 -->
     <tr>
-      <td class="dp-lbl" rowspan="4">${BL('dp_lbl_valve_timing')}</td>
-      <td class="dp-lbl" rowspan="2">${BL('dp_lbl_intake_valve')}</td>
-      <td class="dp-lbl">${BL('dp_lbl_open')}</td>
+      <td class="dp-lbl" rowspan="4">\${BL('dp_lbl_valve_timing')}</td>
+      <td class="dp-lbl" rowspan="2">\${BL('dp_lbl_intake_valve')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_open')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_in_open_base" type="text" value="\${E(v('dp_10_1_in_open_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_in_open_same" type="text" value="\${E(v('dp_10_1_in_open_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_close')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_close')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_in_close_base" type="text" value="\${E(v('dp_10_1_in_close_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_in_close_same" type="text" value="\${E(v('dp_10_1_in_close_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl" rowspan="2">${BL('dp_lbl_exhaust_valve')}</td>
-      <td class="dp-lbl">${BL('dp_lbl_open')}</td>
+      <td class="dp-lbl" rowspan="2">\${BL('dp_lbl_exhaust_valve')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_open')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_ex_open_base" type="text" value="\${E(v('dp_10_1_ex_open_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_ex_open_same" type="text" value="\${E(v('dp_10_1_ex_open_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_close')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_close')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_ex_close_base" type="text" value="\${E(v('dp_10_1_ex_close_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_ex_close_same" type="text" value="\${E(v('dp_10_1_ex_close_same'))}"></td>
     </tr>
     <!-- 기통별 밸브수 rowspan=2 -->
     <tr>
-      <td class="dp-lbl" colspan="2" rowspan="2">${BL('dp_lbl_valve_count')}</td>
-      <td class="dp-lbl">${BL('dp_lbl_valve_intake')}</td>
+      <td class="dp-lbl" colspan="2" rowspan="2">\${BL('dp_lbl_valve_count')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_valve_intake')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_valve_in_base" type="text" value="\${E(v('dp_10_1_valve_in_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_valve_in_same" type="text" value="\${E(v('dp_10_1_valve_in_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_valve_exhaust')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_valve_exhaust')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_valve_ex_base" type="text" value="\${E(v('dp_10_1_valve_ex_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_valve_ex_same" type="text" value="\${E(v('dp_10_1_valve_ex_same'))}"></td>
     </tr>
     <!-- 밸브크기 rowspan=2 -->
     <tr>
-      <td class="dp-lbl" colspan="2" rowspan="2">${BL('dp_lbl_valve_size')}</td>
-      <td class="dp-lbl">${BL('dp_lbl_valve_intake')}</td>
+      <td class="dp-lbl" colspan="2" rowspan="2">\${BL('dp_lbl_valve_size')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_valve_intake')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_vsize_in_base" type="text" value="\${E(v('dp_10_1_vsize_in_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_vsize_in_same" type="text" value="\${E(v('dp_10_1_vsize_in_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_valve_exhaust')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_valve_exhaust')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_vsize_ex_base" type="text" value="\${E(v('dp_10_1_vsize_ex_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_vsize_ex_same" type="text" value="\${E(v('dp_10_1_vsize_ex_same'))}"></td>
     </tr>
     <!-- 공기 흡입 방식 -->
     <tr>
-      <td class="dp-lbl" colspan="3">${BL('dp_lbl_air_intake')}</td>
+      <td class="dp-lbl" colspan="3">\${BL('dp_lbl_air_intake')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_airtype_base" type="text" value="\${E(v('dp_10_1_airtype_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_airtype_same" type="text" value="\${E(v('dp_10_1_airtype_same'))}"></td>
     </tr>
     <!-- 촉매 rowspan=5 (Page2 이어짐) -->
     <tr>
       <td class="dp-lbl" colspan="2" rowspan="5">\${BL('g_lbl_catalyst2')}</td>
-      <td class="dp-lbl">${BL('dp_lbl_cat_type_lbl')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_cat_type_lbl')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_type_base" type="text" value="\${E(v('dp_10_1_cat_type_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_type_same" type="text" value="\${E(v('dp_10_1_cat_type_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_noble_metal')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_noble_metal')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_pm_base" type="text" value="\${E(v('dp_10_1_cat_pm_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_pm_same" type="text" value="\${E(v('dp_10_1_cat_pm_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_noble_amount')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_noble_amount')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_pmg_base" type="text" value="\${E(v('dp_10_1_cat_pmg_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_pmg_same" type="text" value="\${E(v('dp_10_1_cat_pmg_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_volume')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_volume')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_vol_base" type="text" value="\${E(v('dp_10_1_cat_vol_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_vol_same" type="text" value="\${E(v('dp_10_1_cat_vol_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_noble_ratio')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_noble_ratio')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_ratio_base" type="text" value="\${E(v('dp_10_1_cat_ratio_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_ratio_same" type="text" value="\${E(v('dp_10_1_cat_ratio_same'))}"></td>
     </tr>
@@ -11839,9 +11839,9 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sub-th" colspan="4">\${BL('dp_10_2_title')}</th></tr>
     <tr>
-      <th class="dp-th" colspan="2">${BL('dp_th_category')}</th>
-      <th class="dp-th">${BL('dp_th_basic_model')}</th>
-      <th class="dp-th">${BL('dp_th_evap_equiv')}</th>
+      <th class="dp-th" colspan="2">\${BL('dp_th_category')}</th>
+      <th class="dp-th">\${BL('dp_th_basic_model')}</th>
+      <th class="dp-th">\${BL('dp_th_evap_equiv')}</th>
     </tr>
     <!-- 단순 1행 항목들 -->
     \${[
@@ -11856,39 +11856,39 @@ function buildFormHTML(formType, saved) {
     </tr>\`).join('')}
     <!-- 캐니스터 설계 특성 rowspan=5 -->
     <tr>
-      <td class="dp-lbl" rowspan="5">${BL('dp_lbl_canister_design')}</td>
-      <td class="dp-lbl">${BL('dp_lbl_evap_absorp')}</td>
+      <td class="dp-lbl" rowspan="5">\${BL('dp_lbl_canister_design')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_evap_absorp')}</td>
       <td><input class="dp-inp" data-field="dp_10_2_evap_cap_base" type="text" value="\${E(v('dp_10_2_evap_cap_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_2_evap_cap_same" type="text" value="\${E(v('dp_10_2_evap_cap_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_canister_cnt')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_canister_cnt')}</td>
       <td><input class="dp-inp" data-field="dp_10_2_can_cnt_base" type="text" value="\${E(v('dp_10_2_can_cnt_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_2_can_cnt_same" type="text" value="\${E(v('dp_10_2_can_cnt_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_canister_shape')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_canister_shape')}</td>
       <td><input class="dp-inp" data-field="dp_10_2_can_shape_base" type="text" value="\${E(v('dp_10_2_can_shape_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_2_can_shape_same" type="text" value="\${E(v('dp_10_2_can_shape_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_canister_structure')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_canister_structure')}</td>
       <td><input class="dp-inp" data-field="dp_10_2_can_struct_base" type="text" value="\${E(v('dp_10_2_can_struct_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_2_can_struct_same" type="text" value="\${E(v('dp_10_2_can_struct_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_canister_material')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_canister_material')}</td>
       <td><input class="dp-inp" data-field="dp_10_2_can_mat_base" type="text" value="\${E(v('dp_10_2_can_mat_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_2_can_mat_same" type="text" value="\${E(v('dp_10_2_can_mat_same'))}"></td>
     </tr>
     <!-- 연료시스템 / 주유관 밀폐구조 (별도 행) -->
     <tr>
-      <td class="dp-lbl" colspan="2">${BL('dp_lbl_fuel_system')}</td>
+      <td class="dp-lbl" colspan="2">\${BL('dp_lbl_fuel_system')}</td>
       <td><input class="dp-inp" data-field="dp_10_2_fuel_sys_base" type="text" value="\${E(v('dp_10_2_fuel_sys_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_2_fuel_sys_same" type="text" value="\${E(v('dp_10_2_fuel_sys_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl" colspan="2">${BL('dp_lbl_filler_seal')}</td>
+      <td class="dp-lbl" colspan="2">\${BL('dp_lbl_filler_seal')}</td>
       <td><input class="dp-inp" data-field="dp_10_2_fuel_seal_base" type="text" value="\${E(v('dp_10_2_fuel_seal_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_2_fuel_seal_same" type="text" value="\${E(v('dp_10_2_fuel_seal_same'))}"></td>
     </tr>
@@ -11910,9 +11910,9 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sub-th" colspan="3">\${BL('dp_10_3_title')}</th></tr>
     <tr>
-      <th class="dp-th">${BL('dp_th_category')}</th>
-      <th class="dp-th">${BL('dp_th_basic_model')}</th>
-      <th class="dp-th">${BL('dp_th_obd_equiv')}</th>
+      <th class="dp-th">\${BL('dp_th_category')}</th>
+      <th class="dp-th">\${BL('dp_th_basic_model')}</th>
+      <th class="dp-th">\${BL('dp_th_obd_equiv')}</th>
     </tr>
     \${[
       [BL('dp_10_3_certno_lbl'),'dp_10_3_certno'],[BL('dp_10_3_carname_lbl'),'dp_10_3_carname'],
@@ -11940,9 +11940,9 @@ function buildFormHTML(formType, saved) {
     <tr><th class="dp-sec-th" colspan="4">\${BL('dp_s11')}</th></tr>
     <tr><th class="dp-sub-th" colspan="4">\${BL('dp_11_1_title')}</th></tr>
     <tr>
-      <th class="dp-th" colspan="2">${BL('dp_th_category')}</th>
-      <th class="dp-th">${BL('dp_th_dur_test')}</th>
-      <th class="dp-th">${BL('dp_th_emission_test_v')}</th>
+      <th class="dp-th" colspan="2">\${BL('dp_th_category')}</th>
+      <th class="dp-th">\${BL('dp_th_dur_test')}</th>
+      <th class="dp-th">\${BL('dp_th_emission_test_v')}</th>
     </tr>
     <!-- 단순 1행 항목들 -->
     \${[
@@ -11956,8 +11956,8 @@ function buildFormHTML(formType, saved) {
     </tr>\`).join('')}
     <!-- 배출가스 제어장치 rowspan=2 -->
     <tr>
-      <td class="dp-lbl" rowspan="2">${BL('dp_lbl_emission_ctrl')}</td>
-      <td class="dp-lbl">${BL('dp_lbl_emission_gas')}</td>
+      <td class="dp-lbl" rowspan="2">\${BL('dp_lbl_emission_ctrl')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_emission_gas')}</td>
       <td><input class="dp-inp" data-field="dp_11_1_ctrl_em_dur" type="text" value="\${E(v('dp_11_1_ctrl_em_dur'))}"></td>
       <td><input class="dp-inp" data-field="dp_11_1_ctrl_em_em" type="text" value="\${E(v('dp_11_1_ctrl_em_em'))}"></td>
     </tr>
@@ -11980,9 +11980,9 @@ function buildFormHTML(formType, saved) {
     </tr>\`).join('')}
     <!-- 비고 아래 차량제원 비교표 -->
     <tr>
-      <th class="dp-th" colspan="2">${BL('dp_th_category')}</th>
-      <td><input class="dp-inp" data-field="dp_11_1_sub_hdr1" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_1_sub_hdr1'))}"></td>
-      <td><input class="dp-inp" data-field="dp_11_1_sub_hdr2" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_1_sub_hdr2'))}"></td>
+      <th class="dp-th" colspan="2">\${BL('dp_th_category')}</th>
+      <td><input class="dp-inp" data-field="dp_11_1_sub_hdr1" type="text" placeholder="\${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_1_sub_hdr1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_1_sub_hdr2" type="text" placeholder="\${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_1_sub_hdr2'))}"></td>
     </tr>
     \${[
       [BL('dp_11_1_sub_name_lbl'),'dp_11_1_sub_name'],
@@ -12010,10 +12010,10 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sub-th" colspan="2">\${BL('dp_11_2_title')}</th></tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_lbl_dur_test_select')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_dur_test_select')}</td>
       <td>
         <div class="dp-field">
-          <textarea class="dp-field-text" data-field="dp_11_2_note" rows="4" placeholder="${BL('dp_11_2_note_ph')}">\${E(v('dp_11_2_note'))}</textarea>
+          <textarea class="dp-field-text" data-field="dp_11_2_note" rows="4" placeholder="\${BL('dp_11_2_note_ph')}">\${E(v('dp_11_2_note'))}</textarea>
           <input type="hidden" id="dp_11_2_imgs" data-field="dp_11_2_imgs" value="\${E(v('dp_11_2_imgs'))}">
           <div class="dp-drop" id="dp_11_2_drop" onclick="document.getElementById('dp_11_2_fi').click();" ondragover="event.preventDefault();this.classList.add('drag-over');" ondragleave="this.classList.remove('drag-over');" ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('dp_11_2_imgs','dp_11_2_drop',event.dataTransfer.files);">
             <input type="file" id="dp_11_2_fi" accept="image/*" multiple onchange="dpAddFiles('dp_11_2_imgs','dp_11_2_drop',this.files);this.value='';">
@@ -12036,13 +12036,13 @@ function buildFormHTML(formType, saved) {
     <!-- A. 차대 동력계 -->
     <tr>
       <td class="dp-lbl" colspan="3" style="font-weight:600; background:#f5f5f5;">
-        ${BL('dp_11_3_a_case')}
+        \${BL('dp_11_3_a_case')}
       </td>
     </tr>
     <tr>
       <th class="dp-th">\${BL('g_th_item')}</th>
-      <td><input class="dp-inp" data-field="dp_11_3_a_hdr1" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_3_a_hdr1'))}"></td>
-      <td><input class="dp-inp" data-field="dp_11_3_a_hdr2" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_3_a_hdr2'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_3_a_hdr1" type="text" placeholder="\${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_3_a_hdr1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_3_a_hdr2" type="text" placeholder="\${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_3_a_hdr2'))}"></td>
     </tr>
     \${[
       [BL('dp_11_1_sub_hdr_ph'),'dp_11_3_a_type'],
@@ -12059,13 +12059,13 @@ function buildFormHTML(formType, saved) {
     <!-- B. 원동기 동력계 -->
     <tr>
       <td class="dp-lbl" colspan="3" style="font-weight:600; background:#f5f5f5;">
-        ${BL('dp_11_3_b_case')}
+        \${BL('dp_11_3_b_case')}
       </td>
     </tr>
     <tr>
       <th class="dp-th">\${BL('g_th_item')}</th>
-      <td><input class="dp-inp" data-field="dp_11_3_b_hdr1" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_3_b_hdr1'))}"></td>
-      <td><input class="dp-inp" data-field="dp_11_3_b_hdr2" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_3_b_hdr2'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_3_b_hdr1" type="text" placeholder="\${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_3_b_hdr1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_3_b_hdr2" type="text" placeholder="\${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_3_b_hdr2'))}"></td>
     </tr>
     \${[
       [BL('dp_11_3_b_0_lbl'),'dp_11_3_b_0'],
@@ -12087,8 +12087,8 @@ function buildFormHTML(formType, saved) {
     <tr><th class="dp-sub-th" colspan="3">\${BL('dp_11_4_title')}</th></tr>
     <tr>
       <th class="dp-th">\${BL('g_th_item')}</th>
-      <td><input class="dp-inp" data-field="dp_11_4_hdr1" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_4_hdr1'))}"></td>
-      <td><input class="dp-inp" data-field="dp_11_4_hdr2" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_4_hdr2'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_4_hdr1" type="text" placeholder="\${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_4_hdr1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_4_hdr2" type="text" placeholder="\${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_4_hdr2'))}"></td>
     </tr>
     \${[
       [BL('dp_11_4_0_lbl'),'dp_11_4_0'],
@@ -12112,7 +12112,7 @@ function buildFormHTML(formType, saved) {
       \${BL('dp_durability_note')}
     </td></tr>
     <tr><td>
-      <div class="dp-field"><textarea class="dp-field-text" data-field="dp_12" rows="4" placeholder="${BL('dp_12_ph')}">\${E(v('dp_12'))}</textarea></div>
+      <div class="dp-field"><textarea class="dp-field-text" data-field="dp_12" rows="4" placeholder="\${BL('dp_12_ph')}">\${E(v('dp_12'))}</textarea></div>
     </td></tr>
   </tbody>
 </table>
@@ -12124,7 +12124,7 @@ function buildFormHTML(formType, saved) {
     <tr><th class="dp-sec-th">\${BL('dp_s13')}</th></tr>
     <tr><td>
       <div class="dp-field">
-        <textarea class="dp-field-text" data-field="dp_13" rows="3" placeholder="${BL('dp_13_ph')}">\${E(v('dp_13'))}</textarea>
+        <textarea class="dp-field-text" data-field="dp_13" rows="3" placeholder="\${BL('dp_13_ph')}">\${E(v('dp_13'))}</textarea>
         <input type="hidden" id="dp_13_imgs" data-field="dp_13_imgs" value="\${E(v('dp_13_imgs'))}">
         <div class="dp-drop" id="dp_13_drop" onclick="document.getElementById('dp_13_fi').click();" ondragover="event.preventDefault();this.classList.add('drag-over');" ondragleave="this.classList.remove('drag-over');" ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('dp_13_imgs','dp_13_drop',event.dataTransfer.files);">
           <input type="file" id="dp_13_fi" accept="image/*" multiple onchange="dpAddFiles('dp_13_imgs','dp_13_drop',this.files);this.value='';">
@@ -12829,34 +12829,34 @@ function buildFormHTML(formType, saved) {
           </div>
         </td>
       </tr>
-      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">${BL('en_4_3_1_2')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">\${BL('en_4_3_1_2')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_tank_pos" rows="2" placeholder="${BL('en_tank_pos_ph')}">\${E(v('en_tank_pos'))}</textarea>
+            <textarea class="en-field-text" data-field="en_tank_pos" rows="2" placeholder="\${BL('en_tank_pos_ph')}">\${E(v('en_tank_pos'))}</textarea>
             <input type="hidden" data-field="en_tank_pos_imgs" value="\${E(v('en_tank_pos_imgs'))}"><div class="en-drop" data-field-img="en_tank_pos"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
-      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">${BL('en_4_3_1_3')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">\${BL('en_4_3_1_3')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_tank_shape" rows="2" placeholder="${BL('en_tank_shape_ph')}">\${E(v('en_tank_shape'))}</textarea>
+            <textarea class="en-field-text" data-field="en_tank_shape" rows="2" placeholder="\${BL('en_tank_shape_ph')}">\${E(v('en_tank_shape'))}</textarea>
             <input type="hidden" data-field="en_tank_shape_imgs" value="\${E(v('en_tank_shape_imgs'))}"><div class="en-drop" data-field-img="en_tank_shape"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 4.3.2 스로틀바디 -->
-      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:12px;">${BL('en_4_3_2')}</td><td></td></tr>
-      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">${BL('en_4_3_2_1')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:12px;">\${BL('en_4_3_2')}</td><td></td></tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">\${BL('en_4_3_2_1')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_throttle_spec" rows="2" placeholder="${BL('en_throttle_spec_ph')}">\${E(v('en_throttle_spec'))}</textarea>
+            <textarea class="en-field-text" data-field="en_throttle_spec" rows="2" placeholder="\${BL('en_throttle_spec_ph')}">\${E(v('en_throttle_spec'))}</textarea>
             <input type="hidden" data-field="en_throttle_spec_imgs" value="\${E(v('en_throttle_spec_imgs'))}"><div class="en-drop" data-field-img="en_throttle_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
-      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">${BL('en_4_3_2_2')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">\${BL('en_4_3_2_2')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_throttle_dim" rows="2" placeholder="\${BL('en_ph_shape_dim')}">\${E(v('en_throttle_dim'))}</textarea>
@@ -12866,16 +12866,16 @@ function buildFormHTML(formType, saved) {
       </tr>
 
       <!-- 4.3.3 연료인젝터 -->
-      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:12px;">${BL('en_4_3_3')}</td><td></td></tr>
-      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">${BL('en_4_3_3_1')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:12px;">\${BL('en_4_3_3')}</td><td></td></tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">\${BL('en_4_3_3_1')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_injector_spec" rows="2" placeholder="${BL('en_injector_spec_ph')}">\${E(v('en_injector_spec'))}</textarea>
+            <textarea class="en-field-text" data-field="en_injector_spec" rows="2" placeholder="\${BL('en_injector_spec_ph')}">\${E(v('en_injector_spec'))}</textarea>
             <input type="hidden" data-field="en_injector_spec_imgs" value="\${E(v('en_injector_spec_imgs'))}"><div class="en-drop" data-field-img="en_injector_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
-      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">${BL('en_4_3_3_2')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">\${BL('en_4_3_3_2')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_injector_dim" rows="2" placeholder="\${BL('en_ph_shape_dim')}">\${E(v('en_injector_dim'))}</textarea>
@@ -12885,16 +12885,16 @@ function buildFormHTML(formType, saved) {
       </tr>
 
       <!-- 4.3.4 연료펌프 -->
-      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:12px;">${BL('en_4_3_4')}</td><td></td></tr>
-      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">${BL('en_4_3_4_1')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:12px;">\${BL('en_4_3_4')}</td><td></td></tr>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">\${BL('en_4_3_4_1')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_pump_spec" rows="2" placeholder="${BL('en_pump_spec_ph')}">\${E(v('en_pump_spec'))}</textarea>
+            <textarea class="en-field-text" data-field="en_pump_spec" rows="2" placeholder="\${BL('en_pump_spec_ph')}">\${E(v('en_pump_spec'))}</textarea>
             <input type="hidden" data-field="en_pump_spec_imgs" value="\${E(v('en_pump_spec_imgs'))}"><div class="en-drop" data-field-img="en_pump_spec"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
-      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">${BL('en_4_3_4_2')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px; padding-left:20px;">\${BL('en_4_3_4_2')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
             <textarea class="en-field-text" data-field="en_pump_dim" rows="2" placeholder="\${BL('en_ph_shape_dim')}">\${E(v('en_pump_dim'))}</textarea>
@@ -12904,11 +12904,11 @@ function buildFormHTML(formType, saved) {
       </tr>
 
       <!-- 4.4 연료장치 사진 -->
-      <tr><td class="en-sub-th" colspan="2">${BL('en_4_4_fuel_photo')}</td></tr>
+      <tr><td class="en-sub-th" colspan="2">\${BL('en_4_4_fuel_photo')}</td></tr>
       <tr>
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_fuel_photo" rows="2" placeholder="${BL('en_fuel_photo_ph')}">\${E(v('en_fuel_photo'))}</textarea>
+            <textarea class="en-field-text" data-field="en_fuel_photo" rows="2" placeholder="\${BL('en_fuel_photo_ph')}">\${E(v('en_fuel_photo'))}</textarea>
             <input type="hidden" data-field="en_fuel_photo_imgs" value="\${E(v('en_fuel_photo_imgs'))}"><div class="en-drop" data-field-img="en_fuel_photo"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
@@ -12922,59 +12922,59 @@ function buildFormHTML(formType, saved) {
   <table class="en-tbl" style="border-top:none; table-layout:fixed; width:100%;">
     <colgroup><col style="width:22%;"><col style="width:78%;"></colgroup>
     <tbody>
-      <tr><th class="en-sec-th" colspan="2">${BL('en_sec5')}</th></tr>
+      <tr><th class="en-sec-th" colspan="2">\${BL('en_sec5')}</th></tr>
 
       <!-- 5.1 흡기계통 -->
-      <tr><td class="en-sub-th" colspan="2">${BL('en_5_1')}</td></tr>
+      <tr><td class="en-sub-th" colspan="2">\${BL('en_5_1')}</td></tr>
 
       <!-- 5.1.1 흡기다기관 구성도 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">${BL('en_5_1_1')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${BL('en_5_1_1')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_intake_diagram" rows="2" placeholder="${BL('en_intake_diagram_ph')}">\${E(v('en_intake_diagram'))}</textarea>
+            <textarea class="en-field-text" data-field="en_intake_diagram" rows="2" placeholder="\${BL('en_intake_diagram_ph')}">\${E(v('en_intake_diagram'))}</textarea>
             <input type="hidden" data-field="en_intake_diagram_imgs" value="\${E(v('en_intake_diagram_imgs'))}"><div class="en-drop" data-field-img="en_intake_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 5.1.2 흡기메니폴드 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">${BL('en_5_1_2')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${BL('en_5_1_2')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_intake_manifold" rows="2" placeholder="${BL('en_intake_manifold_ph')}">\${E(v('en_intake_manifold'))}</textarea>
+            <textarea class="en-field-text" data-field="en_intake_manifold" rows="2" placeholder="\${BL('en_intake_manifold_ph')}">\${E(v('en_intake_manifold'))}</textarea>
             <input type="hidden" data-field="en_intake_manifold_imgs" value="\${E(v('en_intake_manifold_imgs'))}"><div class="en-drop" data-field-img="en_intake_manifold"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 5.1.3 에어필터 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">${BL('en_5_1_3')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${BL('en_5_1_3')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_air_filter" rows="2" placeholder="${BL('en_air_filter_ph')}">\${E(v('en_air_filter'))}</textarea>
+            <textarea class="en-field-text" data-field="en_air_filter" rows="2" placeholder="\${BL('en_air_filter_ph')}">\${E(v('en_air_filter'))}</textarea>
             <input type="hidden" data-field="en_air_filter_imgs" value="\${E(v('en_air_filter_imgs'))}"><div class="en-drop" data-field-img="en_air_filter"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 5.2 배기계통 -->
-      <tr><td class="en-sub-th" colspan="2">${BL('en_5_2')}</td></tr>
+      <tr><td class="en-sub-th" colspan="2">\${BL('en_5_2')}</td></tr>
 
       <!-- 5.2.1 배기다기관 구성도 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">${BL('en_5_2_1')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${BL('en_5_2_1')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_exhaust_diagram" rows="2" placeholder="${BL('en_exhaust_diagram_ph')}">\${E(v('en_exhaust_diagram'))}</textarea>
+            <textarea class="en-field-text" data-field="en_exhaust_diagram" rows="2" placeholder="\${BL('en_exhaust_diagram_ph')}">\${E(v('en_exhaust_diagram'))}</textarea>
             <input type="hidden" data-field="en_exhaust_diagram_imgs" value="\${E(v('en_exhaust_diagram_imgs'))}"><div class="en-drop" data-field-img="en_exhaust_diagram"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 5.2.2 배기메니폴드 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">${BL('en_5_2_2')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${BL('en_5_2_2')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_exhaust_manifold" rows="2" placeholder="${BL('en_exhaust_manifold_ph')}">\${E(v('en_exhaust_manifold'))}</textarea>
+            <textarea class="en-field-text" data-field="en_exhaust_manifold" rows="2" placeholder="\${BL('en_exhaust_manifold_ph')}">\${E(v('en_exhaust_manifold'))}</textarea>
             <input type="hidden" data-field="en_exhaust_manifold_imgs" value="\${E(v('en_exhaust_manifold_imgs'))}"><div class="en-drop" data-field-img="en_exhaust_manifold"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
@@ -12988,79 +12988,79 @@ function buildFormHTML(formType, saved) {
   <table class="en-tbl" style="border-top:none; table-layout:fixed; width:100%;">
     <colgroup><col style="width:22%;"><col style="width:78%;"></colgroup>
     <tbody>
-      <tr><th class="en-sec-th" colspan="2">${BL('en_sec6')}</th></tr>
+      <tr><th class="en-sec-th" colspan="2">\${BL('en_sec6')}</th></tr>
 
       <!-- 6.1 차량사진 -->
-      <tr><td class="en-sub-th" colspan="2">${BL('en_6_1')}</td></tr>
+      <tr><td class="en-sub-th" colspan="2">\${BL('en_6_1')}</td></tr>
 
       <!-- 6.1.1 차량 전면 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">${BL('en_6_1_1')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${BL('en_6_1_1')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_veh_front" rows="2" placeholder="${BL('en_veh_front_ph')}">\${E(v('en_veh_front'))}</textarea>
+            <textarea class="en-field-text" data-field="en_veh_front" rows="2" placeholder="\${BL('en_veh_front_ph')}">\${E(v('en_veh_front'))}</textarea>
             <input type="hidden" data-field="en_veh_front_imgs" value="\${E(v('en_veh_front_imgs'))}"><div class="en-drop" data-field-img="en_veh_front"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 6.1.2 차량 후면 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">${BL('en_6_1_2')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${BL('en_6_1_2')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_veh_rear" rows="2" placeholder="${BL('en_veh_rear_ph')}">\${E(v('en_veh_rear'))}</textarea>
+            <textarea class="en-field-text" data-field="en_veh_rear" rows="2" placeholder="\${BL('en_veh_rear_ph')}">\${E(v('en_veh_rear'))}</textarea>
             <input type="hidden" data-field="en_veh_rear_imgs" value="\${E(v('en_veh_rear_imgs'))}"><div class="en-drop" data-field-img="en_veh_rear"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 6.1.3 차량 측면 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">${BL('en_6_1_3')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${BL('en_6_1_3')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_veh_side" rows="2" placeholder="${BL('en_veh_side_ph')}">\${E(v('en_veh_side'))}</textarea>
+            <textarea class="en-field-text" data-field="en_veh_side" rows="2" placeholder="\${BL('en_veh_side_ph')}">\${E(v('en_veh_side'))}</textarea>
             <input type="hidden" data-field="en_veh_side_imgs" value="\${E(v('en_veh_side_imgs'))}"><div class="en-drop" data-field-img="en_veh_side"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 6.1.4 차량 상면 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">${BL('en_6_1_4')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${BL('en_6_1_4')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_veh_top" rows="2" placeholder="${BL('en_veh_top_ph')}">\${E(v('en_veh_top'))}</textarea>
+            <textarea class="en-field-text" data-field="en_veh_top" rows="2" placeholder="\${BL('en_veh_top_ph')}">\${E(v('en_veh_top'))}</textarea>
             <input type="hidden" data-field="en_veh_top_imgs" value="\${E(v('en_veh_top_imgs'))}"><div class="en-drop" data-field-img="en_veh_top"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 6.2 외형도 -->
-      <tr><td class="en-sub-th" colspan="2">${BL('en_6_2')}</td></tr>
+      <tr><td class="en-sub-th" colspan="2">\${BL('en_6_2')}</td></tr>
 
       <!-- 6.2.1 외형 측면 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">${BL('en_6_2_1')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${BL('en_6_2_1')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_ext_side" rows="2" placeholder="${BL('en_ext_side_ph')}">\${E(v('en_ext_side'))}</textarea>
+            <textarea class="en-field-text" data-field="en_ext_side" rows="2" placeholder="\${BL('en_ext_side_ph')}">\${E(v('en_ext_side'))}</textarea>
             <input type="hidden" data-field="en_ext_side_imgs" value="\${E(v('en_ext_side_imgs'))}"><div class="en-drop" data-field-img="en_ext_side"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 6.2.2 외형 상면 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">${BL('en_6_2_2')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${BL('en_6_2_2')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_ext_top" rows="2" placeholder="${BL('en_ext_top_ph')}">\${E(v('en_ext_top'))}</textarea>
+            <textarea class="en-field-text" data-field="en_ext_top" rows="2" placeholder="\${BL('en_ext_top_ph')}">\${E(v('en_ext_top'))}</textarea>
             <input type="hidden" data-field="en_ext_top_imgs" value="\${E(v('en_ext_top_imgs'))}"><div class="en-drop" data-field-img="en_ext_top"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
       </tr>
 
       <!-- 6.2.3 외형 뒷면 -->
-      <tr><td class="en-lbl" style="padding:3px 6px;">${BL('en_6_2_3')}</td>
+      <tr><td class="en-lbl" style="padding:3px 6px;">\${BL('en_6_2_3')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_ext_rear" rows="2" placeholder="${BL('en_ext_rear_ph')}">\${E(v('en_ext_rear'))}</textarea>
+            <textarea class="en-field-text" data-field="en_ext_rear" rows="2" placeholder="\${BL('en_ext_rear_ph')}">\${E(v('en_ext_rear'))}</textarea>
             <input type="hidden" data-field="en_ext_rear_imgs" value="\${E(v('en_ext_rear_imgs'))}"><div class="en-drop" data-field-img="en_ext_rear"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
@@ -13074,14 +13074,14 @@ function buildFormHTML(formType, saved) {
   <table class="en-tbl" style="border-top:none; table-layout:fixed; width:100%;">
     <colgroup><col style="width:22%;"><col style="width:78%;"></colgroup>
     <tbody>
-      <tr><th class="en-sec-th" colspan="2">${BL('en_sec7')}</th></tr>
+      <tr><th class="en-sec-th" colspan="2">\${BL('en_sec7')}</th></tr>
 
       <!-- 7.1 그 외 배출가스 및 소음 저감기술 -->
-      <tr><td class="en-sub-th" colspan="2">${BL('en_7_1')}</td></tr>
+      <tr><td class="en-sub-th" colspan="2">\${BL('en_7_1')}</td></tr>
       <tr>
         <td colspan="2" style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="en_other_tech" rows="4" placeholder="${BL('en_other_tech_ph')}">\${E(v('en_other_tech'))}</textarea>
+            <textarea class="en-field-text" data-field="en_other_tech" rows="4" placeholder="\${BL('en_other_tech_ph')}">\${E(v('en_other_tech'))}</textarea>
             <input type="hidden" data-field="en_other_tech_imgs" value="\${E(v('en_other_tech_imgs'))}"><div class="en-drop" data-field-img="en_other_tech"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
         </td>
@@ -13812,8 +13812,8 @@ function buildFormHTML(formType, saved) {
     <td><textarea class="obd-field-text" data-field="obd_1_6_2_spec1" placeholder="\${BL('obd_ph_spec')}"></textarea></td>
     <td>
       <div class="obd-check-row" style="justify-content:center;">
-        <label><input type="checkbox" data-field="obd_1_6_2_mi1_y"> ${BL('obd_yn_y')}</label>
-        <label><input type="checkbox" data-field="obd_1_6_2_mi1_n"> ${BL('obd_yn_n')}</label>
+        <label><input type="checkbox" data-field="obd_1_6_2_mi1_y"> \${BL('obd_yn_y')}</label>
+        <label><input type="checkbox" data-field="obd_1_6_2_mi1_n"> \${BL('obd_yn_n')}</label>
       </div>
     </td>
   </tr>
@@ -13825,8 +13825,8 @@ function buildFormHTML(formType, saved) {
     <td><textarea class="obd-field-text" data-field="obd_1_6_2_spec2" placeholder="\${BL('obd_ph_spec')}"></textarea></td>
     <td>
       <div class="obd-check-row" style="justify-content:center;">
-        <label><input type="checkbox" data-field="obd_1_6_2_mi2_y"> ${BL('obd_yn_y')}</label>
-        <label><input type="checkbox" data-field="obd_1_6_2_mi2_n"> ${BL('obd_yn_n')}</label>
+        <label><input type="checkbox" data-field="obd_1_6_2_mi2_y"> \${BL('obd_yn_y')}</label>
+        <label><input type="checkbox" data-field="obd_1_6_2_mi2_n"> \${BL('obd_yn_n')}</label>
       </div>
     </td>
   </tr>
@@ -13838,8 +13838,8 @@ function buildFormHTML(formType, saved) {
     <td><textarea class="obd-field-text" data-field="obd_1_6_2_spec3" placeholder="\${BL('obd_ph_spec')}"></textarea></td>
     <td>
       <div class="obd-check-row" style="justify-content:center;">
-        <label><input type="checkbox" data-field="obd_1_6_2_mi3_y"> ${BL('obd_yn_y')}</label>
-        <label><input type="checkbox" data-field="obd_1_6_2_mi3_n"> ${BL('obd_yn_n')}</label>
+        <label><input type="checkbox" data-field="obd_1_6_2_mi3_y"> \${BL('obd_yn_y')}</label>
+        <label><input type="checkbox" data-field="obd_1_6_2_mi3_n"> \${BL('obd_yn_n')}</label>
       </div>
     </td>
   </tr>
@@ -13851,8 +13851,8 @@ function buildFormHTML(formType, saved) {
     <td><textarea class="obd-field-text" data-field="obd_1_6_2_spec4" placeholder="\${BL('obd_ph_spec')}"></textarea></td>
     <td>
       <div class="obd-check-row" style="justify-content:center;">
-        <label><input type="checkbox" data-field="obd_1_6_2_mi4_y"> ${BL('obd_yn_y')}</label>
-        <label><input type="checkbox" data-field="obd_1_6_2_mi4_n"> ${BL('obd_yn_n')}</label>
+        <label><input type="checkbox" data-field="obd_1_6_2_mi4_y"> \${BL('obd_yn_y')}</label>
+        <label><input type="checkbox" data-field="obd_1_6_2_mi4_n"> \${BL('obd_yn_n')}</label>
       </div>
     </td>
   </tr>
@@ -13864,8 +13864,8 @@ function buildFormHTML(formType, saved) {
     <td><textarea class="obd-field-text" data-field="obd_1_6_2_spec5" placeholder="\${BL('obd_ph_spec')}"></textarea></td>
     <td>
       <div class="obd-check-row" style="justify-content:center;">
-        <label><input type="checkbox" data-field="obd_1_6_2_mi5_y"> ${BL('obd_yn_y')}</label>
-        <label><input type="checkbox" data-field="obd_1_6_2_mi5_n"> ${BL('obd_yn_n')}</label>
+        <label><input type="checkbox" data-field="obd_1_6_2_mi5_y"> \${BL('obd_yn_y')}</label>
+        <label><input type="checkbox" data-field="obd_1_6_2_mi5_n"> \${BL('obd_yn_n')}</label>
       </div>
     </td>
   </tr>
@@ -13934,14 +13934,14 @@ function buildFormHTML(formType, saved) {
     <td><textarea class="obd-field-text" data-field="obd_2_1_3_cat" placeholder="\${BL('obd_ph_cat_info')}"></textarea></td>
     <td>
       <div class="obd-check-row" style="justify-content:center;">
-        <label><input type="checkbox" data-field="obd_2_1_3_air_y"> ${BL('obd_yn_y')}</label>
-        <label><input type="checkbox" data-field="obd_2_1_3_air_n"> ${BL('obd_yn_n')}</label>
+        <label><input type="checkbox" data-field="obd_2_1_3_air_y"> \${BL('obd_yn_y')}</label>
+        <label><input type="checkbox" data-field="obd_2_1_3_air_n"> \${BL('obd_yn_n')}</label>
       </div>
     </td>
     <td colspan="2">
       <div class="obd-check-row" style="justify-content:center;">
-        <label><input type="checkbox" data-field="obd_2_1_3_egr_y"> ${BL('obd_yn_y')}</label>
-        <label><input type="checkbox" data-field="obd_2_1_3_egr_n"> ${BL('obd_yn_n')}</label>
+        <label><input type="checkbox" data-field="obd_2_1_3_egr_y"> \${BL('obd_yn_y')}</label>
+        <label><input type="checkbox" data-field="obd_2_1_3_egr_n"> \${BL('obd_yn_n')}</label>
       </div>
     </td>
   </tr>
@@ -13995,19 +13995,19 @@ function buildFormHTML(formType, saved) {
   <tr>
     <td class="obd-lbl" rowspan="2" style="text-align:center; vertical-align:middle;">\${BL('obd_lbl_engine')}</td>
     <td class="obd-lbl">\${BL('obd_lbl_combustion')}</td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_combustion_1" placeholder="${BL('obd_combustion_ph')}"></textarea></td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_combustion_2" placeholder="${BL('obd_combustion_ph')}"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_combustion_1" placeholder="\${BL('obd_combustion_ph')}"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_combustion_2" placeholder="\${BL('obd_combustion_ph')}"></textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl">\${BL('obd_lbl_fuel_method')}</td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_fuel_supply_1" placeholder="${BL('obd_fuel_supply_ph')}"></textarea></td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_fuel_supply_2" placeholder="${BL('obd_fuel_supply_ph')}"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_fuel_supply_1" placeholder="\${BL('obd_fuel_supply_ph')}"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_fuel_supply_2" placeholder="\${BL('obd_fuel_supply_ph')}"></textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl" rowspan="4" style="text-align:center; vertical-align:middle;">\${BL('sv_emission')}<br>\${BL('obd_lbl_ctrl_dev')}</td>
     <td class="obd-lbl">\${BL('obd_lbl_cat_type')}</td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_cat_type_1" placeholder="${BL('obd_cat_type_ph')}"></textarea></td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_cat_type_2" placeholder="${BL('obd_cat_type_ph')}"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_cat_type_1" placeholder="\${BL('obd_cat_type_ph')}"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_cat_type_2" placeholder="\${BL('obd_cat_type_ph')}"></textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl">\${BL('obd_lbl_dpf_type')}</td>
@@ -14016,13 +14016,13 @@ function buildFormHTML(formType, saved) {
   </tr>
   <tr>
     <td class="obd-lbl">\${BL('obd_lbl_2ndair_yn')}</td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_air2_1" placeholder="${BL('obd_yn_ph')}"></textarea></td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_air2_2" placeholder="${BL('obd_yn_ph')}"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_air2_1" placeholder="\${BL('obd_yn_ph')}"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_air2_2" placeholder="\${BL('obd_yn_ph')}"></textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl">\${BL('obd_lbl_egr_yn')}</td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_egr_1" placeholder="${BL('obd_yn_ph')}"></textarea></td>
-    <td><textarea class="obd-field-text" data-field="obd_2_3_egr_2" placeholder="${BL('obd_yn_ph')}"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_egr_1" placeholder="\${BL('obd_yn_ph')}"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_2_3_egr_2" placeholder="\${BL('obd_yn_ph')}"></textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl" rowspan="3" style="text-align:center; vertical-align:middle;">\${BL('sv_emission')}<br>\${BL('obd_lbl_diag_config')} 및 기능</td>
@@ -14086,81 +14086,81 @@ function buildFormHTML(formType, saved) {
     <td><textarea class="obd-field-text" data-field="obd_3_1_final_drive" placeholder="\${BL('obd_ph_final_drive')}"></textarea></td>
   </tr>
   <tr>
-    <td class="obd-lbl" colspan="2">${BL('obd_nv_lbl')}</td>
-    <td><textarea class="obd-field-text" data-field="obd_3_1_nv" placeholder="${BL('obd_nv_lbl')}"></textarea></td>
+    <td class="obd-lbl" colspan="2">\${BL('obd_nv_lbl')}</td>
+    <td><textarea class="obd-field-text" data-field="obd_3_1_nv" placeholder="\${BL('obd_nv_lbl')}"></textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl" rowspan="2">\${BL('obd_lbl_tire')}</td>
-    <td class="obd-lbl">${BL('obd_tire_f_lbl')}</td>
-    <td><textarea class="obd-field-text" data-field="obd_3_1_tire_f" placeholder="${BL('obd_tire_f_ph')}"></textarea></td>
+    <td class="obd-lbl">\${BL('obd_tire_f_lbl')}</td>
+    <td><textarea class="obd-field-text" data-field="obd_3_1_tire_f" placeholder="\${BL('obd_tire_f_ph')}"></textarea></td>
   </tr>
   <tr>
-    <td class="obd-lbl">${BL('obd_tire_r_lbl')}</td>
-    <td><textarea class="obd-field-text" data-field="obd_3_1_tire_r" placeholder="${BL('obd_tire_r_ph')}"></textarea></td>
+    <td class="obd-lbl">\${BL('obd_tire_r_lbl')}</td>
+    <td><textarea class="obd-field-text" data-field="obd_3_1_tire_r" placeholder="\${BL('obd_tire_r_ph')}"></textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl" rowspan="5">\${BL('sv_emission')}<br>제어장치</td>
-    <td class="obd-lbl">${BL('obd_cat_type_lbl')}<br><small style="font-weight:400;">${BL('obd_cat_type_sub')}</small></td>
-    <td><textarea class="obd-field-text" data-field="obd_3_1_cat" placeholder="${BL('obd_cat_type_ph')}"></textarea></td>
+    <td class="obd-lbl">\${BL('obd_cat_type_lbl')}<br><small style="font-weight:400;">\${BL('obd_cat_type_sub')}</small></td>
+    <td><textarea class="obd-field-text" data-field="obd_3_1_cat" placeholder="\${BL('obd_cat_type_ph')}"></textarea></td>
   </tr>
   <tr>
-    <td class="obd-lbl">${BL('obd_dpf_lbl')}</td>
+    <td class="obd-lbl">\${BL('obd_dpf_lbl')}</td>
     <td><textarea class="obd-field-text" data-field="obd_3_1_dpf" placeholder="\${BL('obd_ph_na_or_type')}"></textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl">\${BL('obd_lbl_2ndair_yn')}</td>
     <td>
       <div class="obd-check-row">
-        <label><input type="checkbox" data-field="obd_3_1_air2_y"> ${BL('obd_yn_y')}</label>
-        <label><input type="checkbox" data-field="obd_3_1_air2_n"> ${BL('obd_yn_n')}</label>
+        <label><input type="checkbox" data-field="obd_3_1_air2_y"> \${BL('obd_yn_y')}</label>
+        <label><input type="checkbox" data-field="obd_3_1_air2_n"> \${BL('obd_yn_n')}</label>
       </div>
     </td>
   </tr>
   <tr>
-    <td class="obd-lbl">${BL('obd_egr_lbl')}</td>
+    <td class="obd-lbl">\${BL('obd_egr_lbl')}</td>
     <td>
       <div class="obd-check-row">
-        <label><input type="checkbox" data-field="obd_3_1_egr_y"> ${BL('obd_yn_y')}</label>
-        <label><input type="checkbox" data-field="obd_3_1_egr_n"> ${BL('obd_yn_n')}</label>
+        <label><input type="checkbox" data-field="obd_3_1_egr_y"> \${BL('obd_yn_y')}</label>
+        <label><input type="checkbox" data-field="obd_3_1_egr_n"> \${BL('obd_yn_n')}</label>
       </div>
     </td>
   </tr>
   <tr>
-    <td class="obd-lbl">${BL('obd_evap_lbl')}</td>
-    <td><textarea class="obd-field-text" data-field="obd_3_1_evap" placeholder="${BL('obd_evap_ph')}"></textarea></td>
+    <td class="obd-lbl">\${BL('obd_evap_lbl')}</td>
+    <td><textarea class="obd-field-text" data-field="obd_3_1_evap" placeholder="\${BL('obd_evap_ph')}"></textarea></td>
   </tr>
   <tr>
-    <td class="obd-lbl" rowspan="4">${BL('obd_diag_lbl')}</td>
-    <td class="obd-lbl">${BL('obd_diag_op_lbl')}</td>
+    <td class="obd-lbl" rowspan="4">\${BL('obd_diag_lbl')}</td>
+    <td class="obd-lbl">\${BL('obd_diag_op_lbl')}</td>
     <td><textarea class="obd-field-text" data-field="obd_3_1_obd_method" placeholder="\${BL('obd_ph_method')}"></textarea></td>
   </tr>
   <tr>
-    <td class="obd-lbl">${BL('obd_mi_check_lbl')}</td>
-    <td><textarea class="obd-field-text" data-field="obd_3_1_obd_check" placeholder="${BL('obd_mi_check_ph')}"></textarea></td>
+    <td class="obd-lbl">\${BL('obd_mi_check_lbl')}</td>
+    <td><textarea class="obd-field-text" data-field="obd_3_1_obd_check" placeholder="\${BL('obd_mi_check_ph')}"></textarea></td>
   </tr>
   <tr>
-    <td class="obd-lbl">${BL('obd_mi_disp_lbl')}</td>
+    <td class="obd-lbl">\${BL('obd_mi_disp_lbl')}</td>
     <td><textarea class="obd-field-text" data-field="obd_3_1_obd_display" placeholder="\${BL('obd_ph_display_method')}"></textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl">\${BL('g_monitor_item')}</td>
-    <td><textarea class="obd-field-text" data-field="obd_3_1_monitor" placeholder="${BL('obd_monitor_ph')}" style="min-height:40px;"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_3_1_monitor" placeholder="\${BL('obd_monitor_ph')}" style="min-height:40px;"></textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl" colspan="2">\${BL('g_note')}</td>
-    <td><textarea class="obd-field-text" data-field="obd_3_1_note" placeholder="${BL('obd_note_ph')}" style="min-height:36px;"></textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_3_1_note" placeholder="\${BL('obd_note_ph')}" style="min-height:36px;"></textarea></td>
   </tr>
 </table>
 
 <!-- OBD TEST 사진 첨부 -->
 <div style="font-size:8pt; font-weight:600; padding:8px 2px 4px; color:#333;">
-  ${BL('obd_photo_title')}
+  \${BL('obd_photo_title')}
 </div>
 <table class="obd-tbl">
   <tr>
-    <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px; width:10%;">${BL('obd_veh_photo_lbl')}</td>
+    <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px; width:10%;">\${BL('obd_veh_photo_lbl')}</td>
     <td>
-      <div style="font-size:8pt; padding:2px 0; color:#333; margin-bottom:4px;">${BL('obd_veh_photo_desc')}</div>
+      <div style="font-size:8pt; padding:2px 0; color:#333; margin-bottom:4px;">\${BL('obd_veh_photo_desc')}</div>
       <input type="hidden" id="obd_car_imgs" data-field="obd_car_imgs" value="\${E(v('obd_car_imgs'))}">
       <div class="dp-drop" id="obd_car_imgs_drop"
            onclick="document.getElementById('obd_car_imgs_fi').click();"
@@ -14175,9 +14175,9 @@ function buildFormHTML(formType, saved) {
     </td>
   </tr>
   <tr>
-    <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px;">${BL('obd_vin_photo_lbl')}</td>
+    <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px;">\${BL('obd_vin_photo_lbl')}</td>
     <td>
-      <div style="font-size:8pt; padding:2px 0; color:#333; margin-bottom:4px;">${BL('obd_vin_photo_desc')}</div>
+      <div style="font-size:8pt; padding:2px 0; color:#333; margin-bottom:4px;">\${BL('obd_vin_photo_desc')}</div>
       <input type="hidden" id="obd_vin_imgs" data-field="obd_vin_imgs" value="\${E(v('obd_vin_imgs'))}">
       <div class="dp-drop" id="obd_vin_imgs_drop"
            onclick="document.getElementById('obd_vin_imgs_fi').click();"
@@ -14192,9 +14192,9 @@ function buildFormHTML(formType, saved) {
     </td>
   </tr>
   <tr>
-    <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px;">${BL('obd_eng_photo_lbl')}</td>
+    <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px;">\${BL('obd_eng_photo_lbl')}</td>
     <td>
-      <div style="font-size:8pt; padding:2px 0; color:#333; margin-bottom:4px;">${BL('obd_eng_photo_desc')}</div>
+      <div style="font-size:8pt; padding:2px 0; color:#333; margin-bottom:4px;">\${BL('obd_eng_photo_desc')}</div>
       <input type="hidden" id="obd_eng_imgs" data-field="obd_eng_imgs" value="\${E(v('obd_eng_imgs'))}">
       <div class="dp-drop" id="obd_eng_imgs_drop"
            onclick="document.getElementById('obd_eng_imgs_fi').click();"
@@ -14209,9 +14209,9 @@ function buildFormHTML(formType, saved) {
     </td>
   </tr>
   <tr>
-    <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px;">${BL('obd_scanner_photo_lbl')}</td>
+    <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px;">\${BL('obd_scanner_photo_lbl')}</td>
     <td>
-      <div style="font-size:8pt; padding:2px 0; color:#333; margin-bottom:4px;">${BL('obd_scanner_photo_desc')}</div>
+      <div style="font-size:8pt; padding:2px 0; color:#333; margin-bottom:4px;">\${BL('obd_scanner_photo_desc')}</div>
       <input type="hidden" id="obd_scanner_imgs" data-field="obd_scanner_imgs" value="\${E(v('obd_scanner_imgs'))}">
       <div class="dp-drop" id="obd_scanner_imgs_drop"
            onclick="document.getElementById('obd_scanner_imgs_fi').click();"
@@ -14229,12 +14229,12 @@ function buildFormHTML(formType, saved) {
 
 <!-- ── 첨부문서: 자체시험성적서 / RAW DATA ── -->
 <div class="oc-attach-section no-print" id="oc-attach-section">
-  <div class="oc-attach-title"><i class="fas fa-paperclip"></i> ${BL('obd_attach_title')}</div>
+  <div class="oc-attach-title"><i class="fas fa-paperclip"></i> \${BL('obd_attach_title')}</div>
   <div class="oc-attach-note">\${BL('ev_attach_note')}</div>
   <div class="oc-attach-drop" id="oc-drop-zone" onclick="document.getElementById('oc-file-input').click()">
     <input type="file" id="oc-file-input" multiple accept="image/*,.pdf">
     <i class="fas fa-cloud-upload-alt" style="font-size:20pt;margin-bottom:6px;display:block;"></i>
-    ${BL('obd_upload_hint')}
+    \${BL('obd_upload_hint')}
   </div>
   <div class="oc-attach-list" id="oc-attach-list"></div>
   <input type="hidden" id="oc-attach-data" data-field="obd_config_attach_data" value="\${E(v('obd_config_attach_data'))}">
@@ -14976,13 +14976,13 @@ function buildFormHTML(formType, saved) {
     </colgroup>
     <thead>
       <tr>
-        <th class="em-th" rowspan="2" style="text-align:center; vertical-align:middle;">${BL('em_item_th')}</th>
+        <th class="em-th" rowspan="2" style="text-align:center; vertical-align:middle;">\${BL('em_item_th')}</th>
         <th class="em-th" rowspan="2" style="text-align:center; vertical-align:middle;">CO</th>
         <th class="em-th" rowspan="2" style="text-align:center; vertical-align:middle;">NOx</th>
         <th class="em-th" colspan="3" style="text-align:center;">HC</th>
         <th class="em-th" rowspan="2" style="text-align:center; vertical-align:middle;">PM</th>
         <th class="em-th" rowspan="2" style="text-align:center; vertical-align:middle;">CO₂</th>
-        <th class="em-th" rowspan="2" style="text-align:center; vertical-align:middle; font-size:7.5pt;">${BL('em_fuel_econ_th')}</th>
+        <th class="em-th" rowspan="2" style="text-align:center; vertical-align:middle; font-size:7.5pt;">\${BL('em_fuel_econ_th')}</th>
       </tr>
       <tr>
         <th class="em-th" style="text-align:center; font-size:7.5pt;">\${BL('oo_th_exhaust_gas')}</th>
@@ -15025,7 +15025,7 @@ function buildFormHTML(formType, saved) {
         <td><input data-field="em_fin_fe"     class="em-inp" type="text" value="\${E(v('em_fin_fe'))}"></td>
       </tr>
       <tr>
-        <td class="em-th" style="text-align:center;">${BL('em_std_td')}</td>
+        <td class="em-th" style="text-align:center;">\${BL('em_std_td')}</td>
         <td><input data-field="em_lim_co"     class="em-inp" type="text" value="\${E(v('em_lim_co'))}"></td>
         <td><input data-field="em_lim_nox"    class="em-inp" type="text" value="\${E(v('em_lim_nox'))}"></td>
         <td><input data-field="em_lim_hc"     class="em-inp" type="text" value="\${E(v('em_lim_hc'))}"></td>
@@ -15361,7 +15361,7 @@ function buildFormHTML(formType, saved) {
   <table class="ev-tbl">
     <tbody>
       <tr>
-        <th class="ev-sec-th" colspan="6">${BL('ev_gen_section')}</th>
+        <th class="ev-sec-th" colspan="6">\${BL('ev_gen_section')}</th>
       </tr>
       <!-- 인증차명(rowspan=2) / 시험차명 / 시험일시 -->
       <tr>
@@ -16068,15 +16068,15 @@ function buildFormHTML(formType, saved) {
         <td colspan="2" style="text-align:center; padding:5px 8px;">
           <div style="font-weight:600; margin-bottom:5px;">\${BL('oo_secondary_air')}</div>
           <div class="obd-chk-row" style="justify-content:center; gap:14px;">
-            <label class="obd-chk-item"><input type="checkbox" data-field="obd_air2_y" \${v('obd_air2_y')?'checked':''}>&nbsp;${BL('oo_yn_y')}</label>
-            <label class="obd-chk-item"><input type="checkbox" data-field="obd_air2_n" \${v('obd_air2_n')?'checked':''}>&nbsp;${BL('oo_yn_n')}</label>
+            <label class="obd-chk-item"><input type="checkbox" data-field="obd_air2_y" \${v('obd_air2_y')?'checked':''}>&nbsp;\${BL('oo_yn_y')}</label>
+            <label class="obd-chk-item"><input type="checkbox" data-field="obd_air2_n" \${v('obd_air2_n')?'checked':''}>&nbsp;\${BL('oo_yn_n')}</label>
           </div>
         </td>
         <td colspan="2" style="text-align:center; padding:5px 8px;">
           <div style="font-weight:600; margin-bottom:5px;">\${BL('oo_egr')}</div>
           <div class="obd-chk-row" style="justify-content:center; gap:14px;">
-            <label class="obd-chk-item"><input type="checkbox" data-field="obd_egr_y" \${v('obd_egr_y')?'checked':''}>&nbsp;${BL('oo_yn_y')}</label>
-            <label class="obd-chk-item"><input type="checkbox" data-field="obd_egr_n" \${v('obd_egr_n')?'checked':''}>&nbsp;${BL('oo_yn_n')}</label>
+            <label class="obd-chk-item"><input type="checkbox" data-field="obd_egr_y" \${v('obd_egr_y')?'checked':''}>&nbsp;\${BL('oo_yn_y')}</label>
+            <label class="obd-chk-item"><input type="checkbox" data-field="obd_egr_n" \${v('obd_egr_n')?'checked':''}>&nbsp;\${BL('oo_yn_n')}</label>
           </div>
         </td>
       </tr>
@@ -16517,13 +16517,13 @@ function buildFormHTML(formType, saved) {
 <!-- 1. 시험관련 규정 -->
 <div class="nt-sec-title">\${BL('nt_sec1')}</div>
 <div style="padding:4px 8px;">
-  <input data-field="nt_reg_note" class="nt-inline-inp" type="text" style="width:100%; font-size:9pt;" placeholder="${BL('nt_reg_note_ph')}" value="\${E(v('nt_reg_note'))}">
+  <input data-field="nt_reg_note" class="nt-inline-inp" type="text" style="width:100%; font-size:9pt;" placeholder="\${BL('nt_reg_note_ph')}" value="\${E(v('nt_reg_note'))}">
 </div>
 
 <!-- 2. 시험일 -->
 <div class="nt-inline" style="margin-top:10px;">
   <span class="nt-inline-lbl">\${BL('nt_test_date_lbl')}</span>
-  <input data-field="nt_test_date" class="nt-inline-inp" type="text" placeholder="${BL('nt_test_date_ph')}" value="\${E(v('nt_test_date'))}">
+  <input data-field="nt_test_date" class="nt-inline-inp" type="text" placeholder="\${BL('nt_test_date_ph')}" value="\${E(v('nt_test_date'))}">
 </div>
 
 <!-- 3. 시험자동차 제원 -->
@@ -17034,7 +17034,7 @@ function buildFormHTML(formType, saved) {
   </colgroup>
   <thead>
     <tr>
-      <th rowspan="3">${BL('nt_div_th')}</th>
+      <th rowspan="3">\${BL('nt_div_th')}</th>
       <th rowspan="3">\${BL('nt_th_gear')}</th>
       <th rowspan="3">\${BL('nt_th_entry_speed')}</th>
       <th colspan="2">\${BL('nt_th_test_speed')}</th>
@@ -17072,7 +17072,7 @@ function buildFormHTML(formType, saved) {
       <td class="nt-val"><input data-field="ks_s1_1_limit" class="nt-inp" type="text" value="\${E(v('ks_s1_1_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl">${BL('nt_2nd_lbl')}</td>
+      <td class="nt-lbl">\${BL('nt_2nd_lbl')}</td>
       <td class="nt-val"><input data-field="ks_s1_2_gear" class="nt-inp" type="text" value="\${E(v('ks_s1_2_gear'))}"></td>
       <td class="nt-val"><input data-field="ks_s1_2_entry" class="nt-inp" type="text" value="\${E(v('ks_s1_2_entry'))}"></td>
       <td class="nt-val"><input data-field="ks_s1_2_vs0" class="nt-inp" type="text" value="\${E(v('ks_s1_2_vs0'))}"></td>
@@ -17087,7 +17087,7 @@ function buildFormHTML(formType, saved) {
       <td class="nt-val"><input data-field="ks_s1_2_limit" class="nt-inp" type="text" value="\${E(v('ks_s1_2_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl">${BL('nt_3rd_lbl')}</td>
+      <td class="nt-lbl">\${BL('nt_3rd_lbl')}</td>
       <td class="nt-val"><input data-field="ks_s1_3_gear" class="nt-inp" type="text" value="\${E(v('ks_s1_3_gear'))}"></td>
       <td class="nt-val"><input data-field="ks_s1_3_entry" class="nt-inp" type="text" value="\${E(v('ks_s1_3_entry'))}"></td>
       <td class="nt-val"><input data-field="ks_s1_3_vs0" class="nt-inp" type="text" value="\${E(v('ks_s1_3_vs0'))}"></td>
@@ -17102,7 +17102,7 @@ function buildFormHTML(formType, saved) {
       <td class="nt-val"><input data-field="ks_s1_3_limit" class="nt-inp" type="text" value="\${E(v('ks_s1_3_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl">${BL('nt_4th_lbl')}</td>
+      <td class="nt-lbl">\${BL('nt_4th_lbl')}</td>
       <td class="nt-val"><input data-field="ks_s1_4_gear" class="nt-inp" type="text" value="\${E(v('ks_s1_4_gear'))}"></td>
       <td class="nt-val"><input data-field="ks_s1_4_entry" class="nt-inp" type="text" value="\${E(v('ks_s1_4_entry'))}"></td>
       <td class="nt-val"><input data-field="ks_s1_4_vs0" class="nt-inp" type="text" value="\${E(v('ks_s1_4_vs0'))}"></td>
@@ -17117,7 +17117,7 @@ function buildFormHTML(formType, saved) {
       <td class="nt-val"><input data-field="ks_s1_4_limit" class="nt-inp" type="text" value="\${E(v('ks_s1_4_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl" style="text-align:center;">${BL('nt_avg_lbl')}</td>
+      <td class="nt-lbl" style="text-align:center;">\${BL('nt_avg_lbl')}</td>
       <td class="nt-val"><input data-field="ks_s1_avg_gear" class="nt-inp" type="text" value="\${E(v('ks_s1_avg_gear'))}"></td>
       <td class="nt-val"><input data-field="ks_s1_avg_entry" class="nt-inp" type="text" value="\${E(v('ks_s1_avg_entry'))}"></td>
       <td class="nt-val"><input data-field="ks_s1_avg_vs0" class="nt-inp" type="text" value="\${E(v('ks_s1_avg_vs0'))}"></td>
@@ -17132,7 +17132,7 @@ function buildFormHTML(formType, saved) {
       <td class="nt-val"><input data-field="ks_s1_avg_limit" class="nt-inp" type="text" value="\${E(v('ks_s1_avg_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl" style="text-align:center;">${BL('nt_result_lbl')}</td>
+      <td class="nt-lbl" style="text-align:center;">\${BL('nt_result_lbl')}</td>
       <td class="nt-val" colspan="7"><input data-field="ks_s1_res_note" class="nt-inp" type="text" style="width:100%;" value="\${E(v('ks_s1_res_note'))}"></td>
       <td class="nt-val"><input data-field="ks_s1_res_amb" class="nt-inp" type="text" value="\${E(v('ks_s1_res_amb'))}"></td>
       <td class="nt-val"><input data-field="ks_s1_res_lL" class="nt-inp" type="text" value="\${E(v('ks_s1_res_lL'))}"></td>
@@ -17157,7 +17157,7 @@ function buildFormHTML(formType, saved) {
       <td class="nt-val"><input data-field="ks_s2_1_limit" class="nt-inp" type="text" value="\${E(v('ks_s2_1_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl">${BL('nt_2nd_lbl')}</td>
+      <td class="nt-lbl">\${BL('nt_2nd_lbl')}</td>
       <td class="nt-val"><input data-field="ks_s2_2_gear" class="nt-inp" type="text" value="\${E(v('ks_s2_2_gear'))}"></td>
       <td class="nt-val"><input data-field="ks_s2_2_entry" class="nt-inp" type="text" value="\${E(v('ks_s2_2_entry'))}"></td>
       <td class="nt-val"><input data-field="ks_s2_2_vs0" class="nt-inp" type="text" value="\${E(v('ks_s2_2_vs0'))}"></td>
@@ -17172,7 +17172,7 @@ function buildFormHTML(formType, saved) {
       <td class="nt-val"><input data-field="ks_s2_2_limit" class="nt-inp" type="text" value="\${E(v('ks_s2_2_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl">${BL('nt_3rd_lbl')}</td>
+      <td class="nt-lbl">\${BL('nt_3rd_lbl')}</td>
       <td class="nt-val"><input data-field="ks_s2_3_gear" class="nt-inp" type="text" value="\${E(v('ks_s2_3_gear'))}"></td>
       <td class="nt-val"><input data-field="ks_s2_3_entry" class="nt-inp" type="text" value="\${E(v('ks_s2_3_entry'))}"></td>
       <td class="nt-val"><input data-field="ks_s2_3_vs0" class="nt-inp" type="text" value="\${E(v('ks_s2_3_vs0'))}"></td>
@@ -17187,7 +17187,7 @@ function buildFormHTML(formType, saved) {
       <td class="nt-val"><input data-field="ks_s2_3_limit" class="nt-inp" type="text" value="\${E(v('ks_s2_3_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl">${BL('nt_4th_lbl')}</td>
+      <td class="nt-lbl">\${BL('nt_4th_lbl')}</td>
       <td class="nt-val"><input data-field="ks_s2_4_gear" class="nt-inp" type="text" value="\${E(v('ks_s2_4_gear'))}"></td>
       <td class="nt-val"><input data-field="ks_s2_4_entry" class="nt-inp" type="text" value="\${E(v('ks_s2_4_entry'))}"></td>
       <td class="nt-val"><input data-field="ks_s2_4_vs0" class="nt-inp" type="text" value="\${E(v('ks_s2_4_vs0'))}"></td>
@@ -17202,7 +17202,7 @@ function buildFormHTML(formType, saved) {
       <td class="nt-val"><input data-field="ks_s2_4_limit" class="nt-inp" type="text" value="\${E(v('ks_s2_4_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl" style="text-align:center;">${BL('nt_avg_lbl')}</td>
+      <td class="nt-lbl" style="text-align:center;">\${BL('nt_avg_lbl')}</td>
       <td class="nt-val"><input data-field="ks_s2_avg_gear" class="nt-inp" type="text" value="\${E(v('ks_s2_avg_gear'))}"></td>
       <td class="nt-val"><input data-field="ks_s2_avg_entry" class="nt-inp" type="text" value="\${E(v('ks_s2_avg_entry'))}"></td>
       <td class="nt-val"><input data-field="ks_s2_avg_vs0" class="nt-inp" type="text" value="\${E(v('ks_s2_avg_vs0'))}"></td>
@@ -17217,7 +17217,7 @@ function buildFormHTML(formType, saved) {
       <td class="nt-val"><input data-field="ks_s2_avg_limit" class="nt-inp" type="text" value="\${E(v('ks_s2_avg_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl" style="text-align:center;">${BL('nt_result_lbl')}</td>
+      <td class="nt-lbl" style="text-align:center;">\${BL('nt_result_lbl')}</td>
       <td class="nt-val" colspan="7"><input data-field="ks_s2_res_note" class="nt-inp" type="text" style="width:100%;" value="\${E(v('ks_s2_res_note'))}"></td>
       <td class="nt-val"><input data-field="ks_s2_res_amb" class="nt-inp" type="text" value="\${E(v('ks_s2_res_amb'))}"></td>
       <td class="nt-val"><input data-field="ks_s2_res_lL" class="nt-inp" type="text" value="\${E(v('ks_s2_res_lL'))}"></td>
@@ -17238,7 +17238,7 @@ function buildFormHTML(formType, saved) {
     <tr>
       <th rowspan="5">배기<br>\${BL('sv_noise_simple')}<br>시험</th>
       <th rowspan="2">\${BL('nt_meas_count')}</th>
-      <th rowspan="2" style="line-height:1.8;">${BL('nt_ex_pct_lbl')}<br><input data-field="nt_ex_pct" class="nt-inp" type="text" style="width:3.5em;text-align:center;border-bottom:1px solid #888;" value="\${E(v('nt_ex_pct'))}">% 회전속도(rpm)</th>
+      <th rowspan="2" style="line-height:1.8;">\${BL('nt_ex_pct_lbl')}<br><input data-field="nt_ex_pct" class="nt-inp" type="text" style="width:3.5em;text-align:center;border-bottom:1px solid #888;" value="\${E(v('nt_ex_pct'))}">% 회전속도(rpm)</th>
       <th rowspan="2">\${BL('nt_bg_noise_a')}</th>
       <th colspan="2">\${BL('nt_exhaust_noise_val')}</th>
       <th rowspan="2">\${BL('nt_score_a')}</th>
@@ -17322,22 +17322,22 @@ function buildFormHTML(formType, saved) {
 <div class="nt-sign-row" style="margin-top:14px;">
   <div class="nt-sign-item">
     <span class="nt-sign-lbl">\${BL('nt_tester')}:</span>
-    <input data-field="nt_inspector" class="nt-sign-inp" type="text" placeholder="${BL('nt_inspector_ph')}" value="\${E(v('nt_inspector'))}">
+    <input data-field="nt_inspector" class="nt-sign-inp" type="text" placeholder="\${BL('nt_inspector_ph')}" value="\${E(v('nt_inspector'))}">
   </div>
   <div class="nt-sign-item">
     <span class="nt-sign-lbl">\${BL('nt_verifier')}:</span>
-    <input data-field="nt_confirmer" class="nt-sign-inp" type="text" placeholder="${BL('nt_confirmer_ph')}" value="\${E(v('nt_confirmer'))}">
+    <input data-field="nt_confirmer" class="nt-sign-inp" type="text" placeholder="\${BL('nt_confirmer_ph')}" value="\${E(v('nt_confirmer'))}">
   </div>
 </div>
 
 <!-- 첨부문서 업로드/다운로드 (인쇄 제외) -->
 <div class="nt-attach-section no-print">
-  <div class="nt-attach-title"><i class="fas fa-paperclip"></i> ${BL('nt_attach_title')}</div>
+  <div class="nt-attach-title"><i class="fas fa-paperclip"></i> \${BL('nt_attach_title')}</div>
   <div class="nt-attach-note">\${BL('ev_attach_note')}</div>
   <div class="nt-attach-drop" id="nt-drop-zone" onclick="document.getElementById('nt-file-input').click()">
     <input type="file" id="nt-file-input" multiple accept="image/*,.pdf">
     <i class="fas fa-cloud-upload-alt" style="font-size:20pt;margin-bottom:6px;display:block;"></i>
-    ${BL('obd_upload_hint')}
+    \${BL('obd_upload_hint')}
   </div>
   <div class="nt-attach-list" id="nt-attach-list"></div>
   <input type="hidden" id="nt-attach-data" data-field="nt_attach_data" value="\${E(v('nt_attach_data'))}">
@@ -17749,14 +17749,14 @@ function buildFormHTML(formType, saved) {
             <span class="cf-item-lbl">\${BL('cf_maker_lbl')}</span>
             <div class="cf-item-inp-wrap">
               <input data-field="cf_maker" class="cf-item-inp" type="text"
-                placeholder="${BL('cf_maker_ph')}" value="\${E(v('cf_maker'))}">
+                placeholder="\${BL('cf_maker_ph')}" value="\${E(v('cf_maker'))}">
             </div>
           </div>
 
           <!-- 2. 주소 -->
           <div class="cf-item-row" style="flex-direction:column;align-items:flex-start;">
             <div style="display:flex;align-items:flex-start;width:100%;gap:0;">
-              <span class="cf-item-lbl">${BL('cf_addr_lbl2')}</span>
+              <span class="cf-item-lbl">\${BL('cf_addr_lbl2')}</span>
               <div class="cf-item-inp-wrap">
                 <input data-field="cf_address" class="cf-item-inp" type="text"
                   placeholder="\${BL('cf_ph_address')}" value="\${E(v('cf_address'))}">
@@ -17774,10 +17774,10 @@ function buildFormHTML(formType, saved) {
 
           <!-- 3. 모델 -->
           <div class="cf-item-row">
-            <span class="cf-item-lbl">${BL('cf_model_lbl2')}</span>
+            <span class="cf-item-lbl">\${BL('cf_model_lbl2')}</span>
             <div class="cf-item-inp-wrap">
               <input data-field="cf_model" class="cf-item-inp" type="text"
-                placeholder="${BL('cf_model_ph')}" value="\${E(v('cf_model'))}">
+                placeholder="\${BL('cf_model_ph')}" value="\${E(v('cf_model'))}">
             </div>
           </div>
 
@@ -17786,28 +17786,28 @@ function buildFormHTML(formType, saved) {
             <span class="cf-item-lbl">\${BL('cf_importer_lbl')}</span>
             <div class="cf-item-inp-wrap">
               <input data-field="cf_importer" class="cf-item-inp" type="text"
-                placeholder="${BL('cf_importer_ph')}" value="\${E(v('cf_importer'))}">
+                placeholder="\${BL('cf_importer_ph')}" value="\${E(v('cf_importer'))}">
             </div>
           </div>
 
           <!-- 5. 보증내용 -->
           <div class="cf-warranty-row">
             <div class="cf-warranty-top">
-              <span class="cf-warranty-lbl">${BL('cf_warranty_lbl2')}</span>
+              <span class="cf-warranty-lbl">\${BL('cf_warranty_lbl2')}</span>
               <input data-field="cf_warranty_subject" class="cf-warranty-subject-inp" type="text"
-                placeholder="${BL('cf_warranty_subject_ph')}" value="\${E(v('cf_warranty_subject'))}">
+                placeholder="\${BL('cf_warranty_subject_ph')}" value="\${E(v('cf_warranty_subject'))}">
             </div>
             <div class="cf-warranty-body">
-              ${BL('cf_law_text')}
-              ${BL('cf_law_period')}
-              ${BL('cf_law_obligation')}
-              ${BL('cf_law_recall')}
+              \${BL('cf_law_text')}
+              \${BL('cf_law_period')}
+              \${BL('cf_law_obligation')}
+              \${BL('cf_law_recall')}
             </div>
           </div>
 
           <!-- 당사확인 문구 -->
           <div class="cf-confirm-stmt">
-            ${BL('cf_confirm_text')}
+            \${BL('cf_confirm_text')}
           </div>
 
           <!-- 제작사 확인 헤더 -->
@@ -17827,7 +17827,7 @@ function buildFormHTML(formType, saved) {
                   <div style="display:flex;align-items:center;gap:8px;">
                     <span class="cf-sign-lbl">Signed at</span>
                     <input data-field="cf_signed_at" class="cf-sign-inp" type="text"
-                      placeholder="${BL('cf_signed_at_ph')}" value="\${E(v('cf_signed_at'))}" style="flex:1;min-width:0;">
+                      placeholder="\${BL('cf_signed_at_ph')}" value="\${E(v('cf_signed_at'))}" style="flex:1;min-width:0;">
                   </div>
                 </td>
                 <td class="cf-sign-divider"></td>
@@ -17836,7 +17836,7 @@ function buildFormHTML(formType, saved) {
                   <div style="display:flex;align-items:center;gap:8px;">
                     <span class="cf-sign-lbl">Date</span>
                     <input data-field="cf_sign_date" class="cf-sign-inp" type="text"
-                      placeholder="${BL('cf_sign_date_ph')}" value="\${E(v('cf_sign_date'))}" style="flex:1;min-width:0;">
+                      placeholder="\${BL('cf_sign_date_ph')}" value="\${E(v('cf_sign_date'))}" style="flex:1;min-width:0;">
                   </div>
                 </td>
               </tr>
@@ -17846,7 +17846,7 @@ function buildFormHTML(formType, saved) {
                   <div style="display:flex;align-items:center;gap:8px;">
                     <span class="cf-sign-lbl">Name</span>
                     <input data-field="cf_name" class="cf-sign-inp" type="text"
-                      placeholder="${BL('cf_name_ph')}" value="\${E(v('cf_name'))}" style="flex:1;min-width:0;">
+                      placeholder="\${BL('cf_name_ph')}" value="\${E(v('cf_name'))}" style="flex:1;min-width:0;">
                   </div>
                 </td>
                 <td class="cf-sign-divider"></td>
@@ -17855,7 +17855,7 @@ function buildFormHTML(formType, saved) {
                   <div style="display:flex;align-items:center;gap:8px;">
                     <span class="cf-sign-lbl">Title :</span>
                     <input data-field="cf_title" class="cf-sign-inp" type="text"
-                      placeholder="${BL('cf_title_ph')}" value="\${E(v('cf_title'))}" style="flex:1;min-width:0;">
+                      placeholder="\${BL('cf_title_ph')}" value="\${E(v('cf_title'))}" style="flex:1;min-width:0;">
                   </div>
                 </td>
               </tr>
@@ -18554,7 +18554,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div id="modal-change-pw" class="modal-backdrop hidden no-print">
   <div class="modal" onclick="event.stopPropagation()" style="max-width:420px;">
     <div class="modal-header">
-      <h3 style="font-size:14pt;font-weight:700;"><i class="fas fa-key" style="margin-right:8px;color:var(--c-primary);"></i>${BL('pw_change_title')}</h3>
+      <h3 style="font-size:14pt;font-weight:700;"><i class="fas fa-key" style="margin-right:8px;color:var(--c-primary);"></i>\${BL('pw_change_title')}</h3>
       <button class="btn btn-ghost btn-icon btn-sm" onclick="closeChangePwModal()"><i class="fas fa-times"></i></button>
     </div>
     <div class="modal-body">
@@ -18570,7 +18570,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
       <div class="form-group">
         <label class="label">\${BL('pw_lbl_confirm')} <span style="color:var(--c-danger);">*</span></label>
-        <input id="cpw-new2" class="input" type="password" placeholder="${BL('pw_ph_confirm')}" autocomplete="new-password"
+        <input id="cpw-new2" class="input" type="password" placeholder="\${BL('pw_ph_confirm')}" autocomplete="new-password"
           onkeydown="if(event.key==='Enter')doChangePw()">
       </div>
       <div id="cpw-error" class="auth-error" style="display:none;"></div>

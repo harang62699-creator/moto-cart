@@ -11394,8 +11394,8 @@ if (formType==='detail_plan') return \`
 
 <!-- 1. 시험관련 규정 -->
 <div class="nt-sec-title">\${BL('nt_sec1')}</div>
-<div style="padding:4px 8px; font-size:9pt; color:var(--c-text2);">
-  가속주행 소음시험은 ECE 시험방법으로 측정함
+<div style="padding:4px 8px;">
+  <input data-field="nt_reg_note" class="nt-inline-inp" type="text" style="width:100%; font-size:9pt;" placeholder="예) 가속주행 소음시험은 ECE 시험방법으로 측정함" value="\${E(v('nt_reg_note'))}">
 </div>
 
 <!-- 2. 시험일 -->

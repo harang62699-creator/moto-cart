@@ -10836,6 +10836,8 @@ if (formType==='detail_plan') return \`
   .obd-result-th-top { background:#d6e4f7 !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .obd-result-th-mid { background:#eef3fa !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .obd-lbl { background:#f5f8ff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  /* 이미지 포함 테이블 셀: 높이 자동, 오버플로우 허용 */
+  .obd-tbl td { height:auto !important; overflow:visible !important; }
   .obd-inp {
     border:none !important; background:transparent !important;
     height:auto !important; overflow:visible !important;
@@ -10877,10 +10879,22 @@ if (formType==='detail_plan') return \`
   }
   .obd-drop-hint { display:none !important; }
   .obd-img-item-del { display:none !important; }
-  .obd-img-list { gap:4px !important; margin-top:2px !important; flex-wrap:wrap !important; }
+  /* 이미지 목록: 세로 나열, 각 이미지 100% 폭 */
+  .obd-img-list {
+    display:flex !important; flex-direction:column !important;
+    gap:6px !important; margin-top:2px !important;
+  }
+  /* 이미지 아이템: block으로 전환, 셀 너비 꽉 채움 */
+  .obd-img-item {
+    display:block !important; width:100% !important;
+    position:static !important;
+  }
   .obd-img-item img {
+    width:100% !important; height:auto !important;
     max-width:100% !important; max-height:none !important;
-    height:auto !important; display:block !important;
+    object-fit:contain !important; display:block !important;
+    border:none !important; border-radius:0 !important;
+    background:transparent !important;
     page-break-inside:avoid;
   }
   /* 이미지가 없는 빈 드롭존은 공간 차지 안 함 */

@@ -2028,8 +2028,8 @@ const LANG_DICT = {
     nt_const_test:'정속주행시험',
     nt_v_aa:'초기 속도(V_AA)',
     nt_v_pp:'중간 속도(V_PP)',
-    nt_v_bb:'발출 속도(V_BB)',
-    nt_n_bb:'발출 엔진회전수(N_BB)',
+    nt_v_bb:'탈출 속도(V_BB)',
+    nt_n_bb:'탈출 엔진회전수(N_BB)',
     nt_accel_start:'가속 시작위치',
     nt_accel_val:'가속도(a_wot)',
     nt_trial_1:'1회',
@@ -11950,7 +11950,7 @@ if (formType==='detail_plan') return \`
       <th rowspan="2">\${BL('nt_std_c')}</th>
     </tr>
     <tr>
-      <th>측정치</th><th>보정치</th>
+      <th>${BL('nt_measured')}</th><th>${BL('nt_corrected')}</th>
     </tr>
   </thead>
   <tbody>

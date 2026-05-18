@@ -3750,8 +3750,11 @@ async function openForm(formType) {
   if (formType === 'evap_test') setTimeout(() => initEvapAttach(), 150);
   // emission_noise 복합 입력 필드 초기화
   if (formType === 'emission_noise') setTimeout(() => initEnFields(), 150);
-  // obd_config 이미지 드롭존 초기화
-  if (formType === 'obd_config') setTimeout(() => initObdImgDrops(), 150);
+  // obd_config 이미지 드롭존 초기화 + 첨부파일 기능 초기화
+  if (formType === 'obd_config') {
+    setTimeout(() => initObdImgDrops(), 150);
+    setTimeout(() => initObdAttach(), 200);
+  }
   // detail_plan 이미지 첨부 복원 (저장된 이미지 썸네일 재표시)
   // detail_plan 이미지 드롭존 복원 (dp-drop 방식)
   if (formType === 'detail_plan') setTimeout(() => {
@@ -8409,6 +8412,10 @@ if (formType==='detail_plan') return \`
     page-break-inside:avoid;
   }
   .dp-drop:not(:has(img)) { display:none !important; }
+  /* 첨부문서 영역 인쇄 시 숨김 */
+  .obd-attach-section { display:none !important; }
+  /* 행 페이지 분리 방지 */
+  .obd-tbl tr { page-break-inside:avoid; }
 }
 
 .obd-wrap {
@@ -9313,6 +9320,19 @@ if (formType==='detail_plan') return \`
     </td>
   </tr>
 </table>
+
+<!-- ── 첨부문서: 자체시험성적서 / RAW DATA ── -->
+<div class="obd-attach-section no-print" id="obd-attach-raw-section">
+  <div class="obd-attach-title"><i class="fas fa-paperclip"></i> 첨부문서 (자체시험성적서 / RAW DATA)</div>
+  <div class="obd-attach-note">이미지(JPG, PNG) 또는 PDF 파일을 업로드하세요. 첨부파일은 인쇄 시 출력되지 않습니다.</div>
+  <div class="obd-attach-drop" id="obd-drop-raw">
+    <i class="fas fa-cloud-upload-alt" style="font-size:20pt;margin-bottom:6px;display:block;"></i>
+    클릭하거나 파일을 드래그하여 업로드
+    <input type="file" id="obd-file-raw" accept="image/*,.pdf" multiple>
+  </div>
+  <div class="obd-attach-list" id="obd-list-raw"></div>
+  <input type="hidden" id="obd-attach-raw-data" data-field="obd_attach_raw_data" value="\${E(v('obd_attach_raw_data'))}">
+</div>
 
 <div id="qr-footer-wrap" style="margin-top:12px;"></div>
 </div>

@@ -14,12 +14,12 @@ const _SERVER_LL_DICT: Record<string,string> = {
   dp_s1:'1.  인증소개', dp_s2:'2.  기밀요청', dp_s3:'3.  자동차 제원',
   dp_s4:'4.  측정장비', dp_s5:'5.  시험정보', dp_s6:'6.  공차중량 측정',
   dp_s7:'7.  배출가스 시험', dp_s8:'8.  소음 시험', dp_s9:'9.  증발가스 시험',
-  dp_s10:'10. 배출가스 보증', dp_s11:'11. 내구성', dp_s12:'12. 교정정보',
+  dp_s10:'10. 배출가스 보증', dp_s11:'11. 시험차량', dp_s12:'12. 교정정보',
   dp_s13:'13. 기타',
   dp_1_1_lbl:'1.1. 인증대상 자동차 개발배경 및 특성',
   dp_1_2_lbl:'1.2. 배출가스관련 신기술 또는 주요기술',
   dp_5_1_lbl:'5.1. 배출가스 시험 정보',
-  dp_5_2_lbl:'5.2. 내구성 시험 정보',
+  dp_5_2_lbl:'5.2. 주행거리축적',
   dp_5_3_lbl:'5.3. 소음 시험 정보',
   dp_5_4_lbl:'5.4. 증발가스 시험 정보',
   dp_7_1_lbl:'7.1. 배출가스 시험 결과',
@@ -2112,7 +2112,7 @@ const LANG_DICT = {
     dp_1_4_lbl:'1.4. 인증대상자동차 제원',
     dp_2_1_lbl:'2.1. 기밀에 대한 요청',
     dp_3_lbl:'3.1. 인증시험 연료',
-    dp_5_1_lbl:'5.1. 배출가스 시험', dp_5_2_lbl:'5.2. 주행거리 축적', dp_5_3_lbl:'5.3. 소음시험',
+    dp_5_1_lbl:'5.1. 배출가스 시험', dp_5_2_lbl:'5.2. 주행거리축적', dp_5_3_lbl:'5.3. 소음시험',
     dp_6_1_lbl:'6.1. 시험차량의 정비계획(정기 정비/비 정기 정비)',
     dp_6_2_lbl:'6.2. 차량 구입자에 대한 추천 정비', dp_6_3_lbl:'6.3. 보증에 관한 설명',
     dp_7_1_lbl:'7.1. 견본(SAMPLE)', dp_7_2_lbl:'7.2. 부착위치 등',
@@ -7137,6 +7137,29 @@ if (formType==='detail_plan') return \`
       <td class="dp-lbl" colspan="2">\${lbl}</td>
       <td><input class="dp-inp" data-field="\${fld}_dur" type="text" value="\${E(v(\`\${fld}_dur\`))}"></td>
       <td><input class="dp-inp" data-field="\${fld}_em" type="text" value="\${E(v(\`\${fld}_em\`))}"></td>
+    </tr>\`).join('')}
+    <!-- 비고 아래 차량제원 비교표 -->
+    <tr>
+      <th class="dp-th" colspan="2">구 분</th>
+      <th class="dp-th">자동차 형식 1</th>
+      <th class="dp-th">자동차 형식 2</th>
+    </tr>
+    \${[
+      ['자동차 명','dp_11_1_sub_name'],
+      ['자동차 형식','dp_11_1_sub_type'],
+      ['변속기','dp_11_1_sub_trans'],
+      ['원동기 형식','dp_11_1_sub_eng'],
+      ['배기량','dp_11_1_sub_disp'],
+      ['공차중량','dp_11_1_sub_weight'],
+      ['등가관성중량','dp_11_1_sub_inertia'],
+      ['도로부하마력','dp_11_1_sub_roadload'],
+      ['연료탱크용량','dp_11_1_sub_tankvol'],
+      ['종 감속비(제1감속비)','dp_11_1_sub_finalred'],
+      ['판매대수','dp_11_1_sub_sales'],
+    ].map(([lbl,fld])=>\`<tr>
+      <td class="dp-lbl" colspan="2">\${lbl}</td>
+      <td><input class="dp-inp" data-field="\${fld}_1" type="text" value="\${E(v(\`\${fld}_1\`))}"></td>
+      <td><input class="dp-inp" data-field="\${fld}_2" type="text" value="\${E(v(\`\${fld}_2\`))}"></td>
     </tr>\`).join('')}
   </tbody>
 </table>

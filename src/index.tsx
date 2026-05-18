@@ -1967,38 +1967,39 @@ const LANG_DICT = {
     nt_col_form:'형식',
     nt_col_serial:'제조번호',
     nt_col_cal_date:'교정일자',
-    nt_car_name:'자동차 명칭',
+    nt_car_name:'차 명',
     nt_maker_country:'제작사(국)',
     nt_car_type:'차종',
     nt_vin:'차대번호',
     nt_form:'형식',
     nt_eng_no:'엔진번호',
     nt_eng_type:'엔진형식',
-    nt_max_power:'최고출력(ps/rpm)',
-    nt_chassis_type:'차체형식',
+    nt_max_power:'최고출력(PS/rpm, kW/rpm)',
+    nt_chassis_type:'차대형식',
     nt_max_torque:'최대토크(N·m/rpm)',
     nt_displacement:'배기량(cc)',
-    nt_rpm_34:'3,4단 등가변속비',
-    nt_model_year:'연식',
-    nt_rpm_12:'1,2단 등가변속비',
-    nt_trans_type:'변속기 형식',
+    nt_rpm_34:'엔진회전수(Pmax 3/4, rpm)',
+    nt_model_year:'차령연식',
+    nt_rpm_12:'엔진회전수(Pmax 1/2, rpm)',
+    nt_trans_type:'변속기종류 및 단수',
     nt_eng_pos:'엔진 위치',
-    nt_gear_ratio:'기어비',
-    nt_axle_count:'차축 수',
+    nt_gear_ratio:'변속비(또는 기어비)',
+    nt_axle_count:'축수',
     nt_decel_ratio:'감속비',
-    nt_drive_axle:'구동 차축',
-    nt_drive_shaft:'구동축',
-    nt_axle_ratio:'차축비',
+    nt_drive_axle:'구동축수',
+    nt_drive_shaft:'구동륜타이어동하중반경(m)',
+    nt_axle_ratio:'축비',
     nt_curb_weight:'공차중량(kg)',
-    nt_gvw:'최대적재중량(kg)',
+    nt_gvw:'총 중량(kg)',
     nt_test_weight:'시험중량(kg)',
-    nt_pmr:'PMR',
-    nt_veh_length:'차량 전장(mm)',
-    nt_kp:'kP값',
-    nt_muffler_info:'소음기 정보',
-    nt_tire_pressure:'타이어 공기압(kPa)',
-    nt_auto_down:'자동변속기 시프트다운 회전수(rpm)',
-    nt_horn_type:'경적 형식',
+    nt_pmr:'중량대 출력비(PMR, kW/t)',
+    nt_veh_length:'자동차의 길이(m)',
+    nt_kp:'부분출력계수(kp)',
+    nt_muffler_info:'소음기형태 및 부착위치·수량',
+    nt_tire_pressure:'타이어규격 및 트레이드깊이',
+    nt_tire_pres_kpa:'타이어 공기압력(kPa)',
+    nt_auto_down:'자동저단변속장치 작동여부',
+    nt_horn_type:'경음기형식 및 수량',
     nt_etc:'기타',
     nt_place:'시험장소',
     nt_weather:'기상조건',
@@ -2376,31 +2377,32 @@ const LANG_DICT = {
     nt_form:'Type',
     nt_eng_no:'Engine No.',
     nt_eng_type:'Engine Type',
-    nt_max_power:'Max Power(ps/rpm)',
-    nt_chassis_type:'Chassis Type',
+    nt_max_power:'Max Power(PS/rpm, kW/rpm)',
+    nt_chassis_type:'Body Type',
     nt_max_torque:'Max Torque(N·m/rpm)',
     nt_displacement:'Displacement(cc)',
-    nt_rpm_34:'3rd,4th Gear Ratio',
-    nt_model_year:'Model Year',
-    nt_rpm_12:'1st,2nd Gear Ratio',
-    nt_trans_type:'Transmission Type',
+    nt_rpm_34:'Engine Speed(Pmax 3/4, rpm)',
+    nt_model_year:'Vehicle Age/Year',
+    nt_rpm_12:'Engine Speed(Pmax 1/2, rpm)',
+    nt_trans_type:'Trans. Type & Stages',
     nt_eng_pos:'Engine Position',
-    nt_gear_ratio:'Gear Ratio',
-    nt_axle_count:'Axle Count',
+    nt_gear_ratio:'Gear Ratio (or Trans. Ratio)',
+    nt_axle_count:'No. of Axles',
     nt_decel_ratio:'Decel Ratio',
-    nt_drive_axle:'Drive Axle',
-    nt_drive_shaft:'Drive Shaft',
+    nt_drive_axle:'No. of Drive Axles',
+    nt_drive_shaft:'Dynamic Tire Radius(m)',
     nt_axle_ratio:'Axle Ratio',
     nt_curb_weight:'Curb Weight(kg)',
-    nt_gvw:'GVW(kg)',
+    nt_gvw:'Gross Weight(kg)',
     nt_test_weight:'Test Weight(kg)',
-    nt_pmr:'PMR',
-    nt_veh_length:'Vehicle Length(mm)',
-    nt_kp:'kP Value',
-    nt_muffler_info:'Muffler Info',
-    nt_tire_pressure:'Tire Pressure(kPa)',
-    nt_auto_down:'Auto Trans. Shift-Down RPM',
-    nt_horn_type:'Horn Type',
+    nt_pmr:'PMR(kW/t)',
+    nt_veh_length:'Vehicle Length(m)',
+    nt_kp:'Partial Power Factor(kp)',
+    nt_muffler_info:'Muffler Type, Position & Qty',
+    nt_tire_pressure:'Tire Spec & Tread Depth',
+    nt_tire_pres_kpa:'Tire Pressure(kPa)',
+    nt_auto_down:'Auto-Downshift Operation',
+    nt_horn_type:'Horn Type & Qty',
     nt_etc:'Other',
     nt_place:'Test Site',
     nt_weather:'Weather Condition',
@@ -2796,7 +2798,7 @@ const LANG_DICT = {
     nt_curb_weight:'空車重量(kg)',
     nt_gvw:'最大積載重量(kg)',
     nt_test_weight:'試験重量(kg)',
-    nt_pmr:'PMR',
+    nt_pmr:'PMR(kW/t)',
     nt_veh_length:'車両全長(mm)',
     nt_kp:'kP値',
     nt_muffler_info:'消音器情報',
@@ -3198,7 +3200,7 @@ const LANG_DICT = {
     nt_curb_weight:'整备质量(kg)',
     nt_gvw:'最大总质量(kg)',
     nt_test_weight:'试验质量(kg)',
-    nt_pmr:'PMR',
+    nt_pmr:'PMR(kW/t)',
     nt_veh_length:'车辆全长(mm)',
     nt_kp:'kP值',
     nt_muffler_info:'消声器信息',
@@ -11498,22 +11500,16 @@ if (formType==='detail_plan') return \`
       <td class="nt-val"><input data-field="nt_kp"          class="nt-inp" type="text" value="\${E(v('nt_kp'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl" rowspan="2">\${BL('nt_drive_shaft')}</td>
-      <td class="nt-val" rowspan="2"><input data-field="nt_tire_radius" class="nt-inp" type="text" value="\${E(v('nt_tire_radius'))}"></td>
-      <td class="nt-lbl" rowspan="2">\${BL('nt_tire_pressure')}</td>
-      <td class="nt-val"><span style="font-size:6.5pt;color:var(--c-text3);">전&nbsp;</span><input data-field="nt_tire_spec_f" class="nt-inp" type="text" style="width:calc(100% - 20px);" value="\${E(v('nt_tire_spec_f'))}"></td>
+      <td class="nt-lbl">\${BL('nt_drive_shaft')}</td>
+      <td class="nt-val"><input data-field="nt_tire_radius" class="nt-inp" type="text" value="\${E(v('nt_tire_radius'))}"></td>
+      <td class="nt-lbl">\${BL('nt_tire_pressure')}</td>
+      <td class="nt-val"><input data-field="nt_tire_spec" class="nt-inp" type="text" value="\${E(v('nt_tire_spec'))}"></td>
     </tr>
     <tr>
-      <td class="nt-val"><span style="font-size:6.5pt;color:var(--c-text3);">후&nbsp;</span><input data-field="nt_tire_spec_r" class="nt-inp" type="text" style="width:calc(100% - 20px);" value="\${E(v('nt_tire_spec_r'))}"></td>
-    </tr>
-    <tr>
-      <td class="nt-lbl" rowspan="2">\${BL('nt_muffler_info')}</td>
-      <td class="nt-val" rowspan="2"><input data-field="nt_muffler" class="nt-inp" type="text" value="\${E(v('nt_muffler'))}"></td>
-      <td class="nt-lbl" rowspan="2">\${BL('nt_tire_pressure')}</td>
-      <td class="nt-val"><span style="font-size:6.5pt;color:var(--c-text3);">전&nbsp;</span><input data-field="nt_tire_pres_f" class="nt-inp" type="text" style="width:calc(100% - 20px);" value="\${E(v('nt_tire_pres_f'))}"></td>
-    </tr>
-    <tr>
-      <td class="nt-val"><span style="font-size:6.5pt;color:var(--c-text3);">후&nbsp;</span><input data-field="nt_tire_pres_r" class="nt-inp" type="text" style="width:calc(100% - 20px);" value="\${E(v('nt_tire_pres_r'))}"></td>
+      <td class="nt-lbl">\${BL('nt_muffler_info')}</td>
+      <td class="nt-val"><input data-field="nt_muffler" class="nt-inp" type="text" value="\${E(v('nt_muffler'))}"></td>
+      <td class="nt-lbl">\${BL('nt_tire_pres_kpa')}</td>
+      <td class="nt-val"><input data-field="nt_tire_pressure" class="nt-inp" type="text" value="\${E(v('nt_tire_pressure'))}"></td>
     </tr>
     <tr>
       <td class="nt-lbl">\${BL('nt_auto_down')}</td>

@@ -17,7 +17,7 @@ const _SERVER_LL_DICT: Record<string,string> = {
   dp_s10:'10. 배출가스 보증', dp_s11:'11. 내구성', dp_s12:'12. 교정정보',
   dp_s13:'13. 기타',
   dp_1_1_lbl:'1.1. 인증대상 자동차 개발배경 및 특성',
-  dp_1_2_lbl:'1.2. 인증대상 자동차 제원 요약',
+  dp_1_2_lbl:'1.2. 배출가스관련 신기술 또는 주요기술',
   dp_5_1_lbl:'5.1. 배출가스 시험 정보',
   dp_5_2_lbl:'5.2. 내구성 시험 정보',
   dp_5_3_lbl:'5.3. 소음 시험 정보',
@@ -2107,7 +2107,7 @@ const LANG_DICT = {
     dp_s9:'9.  증발가스 및 블로바이가스', dp_s10:'10. 동일차종(원동기)',
     dp_s11:'11. 시험차량', dp_s12:'12. 교정정보 및 사후 확정정보 제출협약', dp_s13:'13. 기타',
     dp_1_1_lbl:'1.1. 인증대상 자동차 개발배경 및 특성',
-    dp_1_2_lbl:'1.2. 배출가스, 소음관련 신기술',
+    dp_1_2_lbl:'1.2. 배출가스관련 신기술 또는 주요기술',
     dp_1_3_lbl:'1.3. 개발 목표 (수입차의 경우 외국인증성적 등으로 갈음)',
     dp_1_4_lbl:'1.4. 인증대상자동차 제원',
     dp_2_1_lbl:'2.1. 기밀에 대한 요청',
@@ -2515,7 +2515,7 @@ const LANG_DICT = {
     dp_s9:'9.  Evaporative & Blow-by Gas', dp_s10:'10. Same Vehicle Type (Engine)',
     dp_s11:'11. Test Vehicles', dp_s12:'12. Calibration & Post-confirmation Agreement', dp_s13:'13. Others',
     dp_1_1_lbl:'1.1. Development Background & Features of Certified Vehicle',
-    dp_1_2_lbl:'1.2. New Emission/Noise Technology',
+    dp_1_2_lbl:'1.2. New or Key Emission-Related Technology',
     dp_1_3_lbl:'1.3. Development Goals (For imports: foreign cert. results acceptable)',
     dp_1_4_lbl:'1.4. Vehicle Specifications',
     dp_2_1_lbl:'2.1. Request for Confidentiality',
@@ -2922,7 +2922,7 @@ const LANG_DICT = {
     dp_s9:'9.  蒸発ガス及びブローバイガス', dp_s10:'10. 同一車種（原動機）',
     dp_s11:'11. 試験車両', dp_s12:'12. 校正情報及び事後確定情報提出協約', dp_s13:'13. その他',
     dp_1_1_lbl:'1.1. 認証対象自動車の開発背景及び特性',
-    dp_1_2_lbl:'1.2. 排気ガス・騒音関連新技術',
+    dp_1_2_lbl:'1.2. 排気ガス関連新技術または主要技術',
     dp_1_3_lbl:'1.3. 開発目標（輸入車の場合は外国認証成績等で代替）',
     dp_1_4_lbl:'1.4. 認証対象自動車諸元',
     dp_2_1_lbl:'2.1. 機密に関する要請',
@@ -3327,7 +3327,7 @@ const LANG_DICT = {
     dp_s9:'9.  蒸发气体及窜气', dp_s10:'10. 同一车种（发动机）',
     dp_s11:'11. 试验车辆', dp_s12:'12. 校准信息及事后确定信息提交协议', dp_s13:'13. 其他',
     dp_1_1_lbl:'1.1. 认证对象车辆开发背景及特性',
-    dp_1_2_lbl:'1.2. 排放·噪音新技术',
+    dp_1_2_lbl:'1.2. 排放相关新技术或主要技术',
     dp_1_3_lbl:'1.3. 开发目标（进口车可用外国认证成绩代替）',
     dp_1_4_lbl:'1.4. 认证对象车辆规格',
     dp_2_1_lbl:'2.1. 保密申请',
@@ -6330,6 +6330,11 @@ if (formType==='detail_plan') return \`
       <td class="dp-lbl" colspan="2">연료구입처</td>
       <td colspan="2"><input class="dp-inp" data-field="dp_f_source" type="text" value="\${E(v('dp_f_source'))}"></td>
     </tr>
+    <tr>
+      <td colspan="4" style="font-size:8pt; padding:4px 6px; border-top:1px solid #ccc; line-height:1.5;">
+        비고 : 자동차 인증시험연료는 국내에서 시판되는 자동차 연료를 원칙으로 하되, 대기규칙 별표 30 규정에 의한 자동차연료 제조기준에 해당하는 항목의 경우 이의 기재로 갈음한다.
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -6378,6 +6383,11 @@ if (formType==='detail_plan') return \`
       <td><input class="dp-inp" data-field="dp_4_2_lab_\${i}" type="text" value="\${E(v(\`dp_4_2_lab_\${i}\`))}"></td>
       <td><input class="dp-inp" data-field="dp_4_2_calib_\${i}" type="text" value="\${E(v(\`dp_4_2_calib_\${i}\`))}"></td>
     </tr>\`).join('')}
+    <tr>
+      <td colspan="7" style="font-size:8pt; padding:4px 6px; border-top:1px solid #ccc; line-height:1.5;">
+        비고 : 외국 제작자의 설비·장비를 사용하는 경우에는 해당국 설정에 부합되는 공인 검정 또는 승인번호 등을 형식승인번호에 갈음하여 기재할 수 있음
+      </td>
+    </tr>
   </tbody>
 </table>
 

@@ -3732,6 +3732,8 @@ async function openForm(formType) {
   setTimeout(() => initAutoGrow(document.getElementById('form-content')), 50);
   // QR 코드 비동기 생성 (폼 렌더 직후)
   setTimeout(() => generateFormQR(formType, formTitle), 100);
+  // obd_operation 첨부파일 기능 초기화
+  if (formType === 'obd_operation') setTimeout(() => initObdAttach(), 150);
   // noise_test 첨부파일 기능 초기화
   if (formType === 'noise_test') setTimeout(() => initNoiseAttach(), 150);
   // emission_test 첨부파일 기능 초기화
@@ -10855,7 +10857,30 @@ if (formType==='detail_plan') return \`
   }
   .obd-chk-item { color:#000 !important; }
   .obd-chk-item input[type=checkbox] { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  /* 첨부문서 영역 인쇄 시 완전 숨김 */
+  .obd-attach-section { display:none !important; }
 }
+/* ── OBD 첨부 섹션 ── */
+.obd-attach-section { margin-top:14px; }
+.obd-attach-title { font-size:9pt; font-weight:700; margin-bottom:6px; color:#111; }
+.obd-attach-note { font-size:8pt; color:#666; margin-bottom:8px; }
+.obd-attach-drop {
+  border:2px dashed #bbb; border-radius:8px;
+  padding:16px; text-align:center; cursor:pointer;
+  transition:.2s; color:#555; font-size:9pt; background:#fafafa;
+}
+.obd-attach-drop:hover { border-color:#4e90d8; background:rgba(79,142,247,.04); }
+.obd-attach-drop input[type=file] { display:none; }
+.obd-attach-list { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
+.obd-attach-item {
+  display:flex; align-items:center; gap:8px;
+  padding:4px 8px; border-radius:4px;
+  background:#f0f4fa; font-size:8.5pt;
+}
+.obd-attach-item-name { flex:1; color:#111; word-break:break-all; }
+.obd-attach-item-size { color:#666; white-space:nowrap; font-size:8pt; }
+.obd-attach-item-del { color:#ef4444; cursor:pointer; padding:1px 5px; border-radius:3px; font-size:10pt; line-height:1; }
+.obd-attach-item-del:hover { background:rgba(239,68,68,.12); }
 </style>
 
 <div class="obd-wrap">
@@ -11091,6 +11116,19 @@ if (formType==='detail_plan') return \`
   </table>
 
   <div id="qr-footer-wrap" style="margin-top:16px;"></div>
+
+  <!-- 첨부문서 섹션 -->
+  <div class="obd-attach-section no-print" id="obd-attach-section">
+    <div class="obd-attach-title"><i class="fas fa-paperclip"></i> 첨부문서 (자체시험성적서 / RAW DATA)</div>
+    <div class="obd-attach-note">이미지(JPG, PNG) 또는 PDF 파일을 업로드하세요. 첨부파일은 인쇄 시 출력되지 않습니다.</div>
+    <div class="obd-attach-drop" id="obd-drop-zone" onclick="document.getElementById('obd-file-input').click()">
+      <input type="file" id="obd-file-input" multiple accept="image/*,.pdf">
+      <i class="fas fa-cloud-upload-alt" style="font-size:20pt;margin-bottom:6px;display:block;"></i>
+      클릭하거나 파일을 드래그하여 업로드
+    </div>
+    <div class="obd-attach-list" id="obd-attach-list"></div>
+  </div>
+
 </div>
 \`;
 
@@ -13211,6 +13249,56 @@ function initEnFields() {
       if (hiddenInput) hiddenInput.value = JSON.stringify(images);
     }
   });
+}
+
+function initObdAttach() {
+  var obdAttachFiles = [];
+  var dropZone  = document.getElementById('obd-drop-zone');
+  var fileInput = document.getElementById('obd-file-input');
+  var listEl    = document.getElementById('obd-attach-list');
+  if (!dropZone) return;
+
+  dropZone.addEventListener('dragover', function(e){ e.preventDefault(); dropZone.style.borderColor='#4e90d8'; });
+  dropZone.addEventListener('dragleave', function(){ dropZone.style.borderColor=''; });
+  dropZone.addEventListener('drop', function(e){
+    e.preventDefault(); dropZone.style.borderColor='';
+    handleObdFiles(e.dataTransfer.files);
+  });
+  fileInput.addEventListener('change', function(){ handleObdFiles(this.files); this.value=''; });
+
+  function handleObdFiles(files) {
+    Array.from(files).forEach(function(file){
+      var reader = new FileReader();
+      reader.onload = function(ev){
+        obdAttachFiles.push({ name: file.name, size: file.size, type: file.type, dataUrl: ev.target.result });
+        renderObdList();
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function fmtSize(b){ return b<1024?b+'B':b<1048576?(b/1024).toFixed(1)+'KB':(b/1048576).toFixed(1)+'MB'; }
+
+  function renderObdList(){
+    listEl.innerHTML = '';
+    obdAttachFiles.forEach(function(f, idx){
+      var div = document.createElement('div');
+      div.className = 'obd-attach-item';
+      div.innerHTML =
+        '<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:#4e90d8;"></i>' +
+        '<span class="obd-attach-item-name">'+f.name+'</span>' +
+        '<span class="obd-attach-item-size">'+fmtSize(f.size)+'</span>' +
+        '<a class="obd-attach-item-dl" title="\ub2e4\uc6b4\ub85c\ub4dc" href="'+f.dataUrl+'" download="'+f.name+'" style="color:#4e90d8;padding:1px 6px;border-radius:3px;font-size:10pt;line-height:1;"><i class="fas fa-download"></i></a>' +
+        '<span class="obd-attach-item-del" title="\uc0ad\uc81c" data-idx="'+idx+'">\xd7</span>';
+      listEl.appendChild(div);
+    });
+    listEl.querySelectorAll('.obd-attach-item-del').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        obdAttachFiles.splice(parseInt(this.dataset.idx),1);
+        renderObdList();
+      });
+    });
+  }
 }
 
 function initNoiseAttach() {

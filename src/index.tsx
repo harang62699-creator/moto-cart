@@ -1963,6 +1963,7 @@ const LANG_DICT = {
     nt_sec5:'5. 시험장비',
     nt_sec6:'6. 시험결과 (가속주행소음)',
     nt_sec6_1:'6.1. ECE 가속주행소음 측정결과',
+    nt_sec6_2:'6.2. KSAISO 362 가속주행소음 측정결과',
     nt_sec7:'7. 배기소음 측정결과',
     nt_sec8:'8. 경적소음 측정결과',
     nt_col_form:'형식',
@@ -2368,6 +2369,7 @@ const LANG_DICT = {
     nt_sec5:'5. Test Equipment',
     nt_sec6:'6. Test Results (Accel. Noise)',
     nt_sec6_1:'6.1. ECE Accel. Noise Results',
+    nt_sec6_2:'6.2. KSAISO 362 Accel. Noise Results',
     nt_sec7:'7. Exhaust Noise Results',
     nt_sec8:'8. Horn Noise Results',
     nt_col_form:'Type',
@@ -2773,6 +2775,7 @@ const LANG_DICT = {
     nt_sec5:'5. 試験装置',
     nt_sec6:'6. 試験結果（加速走行騒音）',
     nt_sec6_1:'6.1. ECE 加速走行騒音測定結果',
+    nt_sec6_2:'6.2. KSAISO 362 加速走行騒音測定結果',
     nt_sec7:'7. 排気騒音測定結果',
     nt_sec8:'8. 警笛騒音測定結果',
     nt_col_form:'形式',
@@ -3177,6 +3180,7 @@ const LANG_DICT = {
     nt_sec5:'5. 试验设备',
     nt_sec6:'6. 试验结果（加速行驶噪声）',
     nt_sec6_1:'6.1. ECE 加速行驶噪声测量结果',
+    nt_sec6_2:'6.2. KSAISO 362 加速行驶噪声测量结果',
     nt_sec7:'7. 排气噪声测量结果',
     nt_sec8:'8. 喇叭噪声测量结果',
     nt_col_form:'型式',
@@ -11655,7 +11659,7 @@ if (formType==='detail_plan') return \`
               (수직선: [55,96,360,395,429,468,504,540])
 -->
 <div class="nt-sec-title" style="margin-top:18px;">\${BL('nt_sec6')}</div>
-<div style="padding:2px 8px 6px 20px; font-size:9pt;">\${BL('nt_sec6_1')}</div>
+<div style="padding:2px 8px 6px 20px; font-size:9pt;">\${BL('nt_sec6_2')}</div>
 <table class="nt-tbl" style="table-layout:fixed;">
   <colgroup>
     <col style="width:8%;">   <!-- col0: 사용변속기어 -->
@@ -11896,122 +11900,216 @@ if (formType==='detail_plan') return \`
 </table>
 
 
-<!-- 6.1. ECE 가속주행소음 측정결과 -->
-<div class="nt-sec-title" style="margin-top:16px;">\${BL('nt_sec6_1')}</div>
+<!-- 6.2. KSAISO 362 가속주행소음 측정결과 -->
+<div class="nt-sec-title" style="margin-top:16px;">\${BL('nt_sec6_2')}</div>
 <table class="nt-tbl" style="table-layout:fixed;">
   <colgroup>
-    <col style="width:14%;">  <!-- 구분 -->
-    <col style="width:12%;">  <!-- 측정회수 -->
-    <col style="width:12%;">  <!-- 좌측소음 -->
-    <col style="width:12%;">  <!-- 우측소음 -->
-    <col style="width:12%;">  <!-- 가속도awot -->
-    <col style="width:12%;">  <!-- 보정값Kp -->
-    <col style="width:13%;">  <!-- 성적 -->
-    <col style="width:13%;">  <!-- 기준치 -->
+    <col style="width:7%;">   <!-- 구분 -->
+    <col style="width:7%;">   <!-- 사용변속기어 -->
+    <col style="width:8%;">   <!-- 진입지정차속 -->
+    <col style="width:6%;">   <!-- 시험차속 가속초기 -->
+    <col style="width:6%;">   <!-- 시험차속 가속종료 -->
+    <col style="width:6%;">   <!-- 엔진회전수 가속초기 -->
+    <col style="width:6%;">   <!-- 엔진회전수 가속종료 -->
+    <col style="width:7%;">   <!-- 가속시작위치 -->
+    <col style="width:8%;">   <!-- 암소음 -->
+    <col style="width:8%;">   <!-- 측정소음 좌측 -->
+    <col style="width:8%;">   <!-- 측정소음 우측 -->
+    <col style="width:8%;">   <!-- 보정치 -->
+    <col style="width:11%;">  <!-- 기준치 -->
   </colgroup>
   <thead>
     <tr>
-      <th rowspan="2">\${BL('th_div')}</th>
-      <th rowspan="2">\${BL('nt_meas_count')}</th>
-      <th colspan="2">가속주행소음(dB(A))</th>
-      <th rowspan="2">\${BL('nt_accel_val')}<br>(m/s²)</th>
-      <th rowspan="2">보정값<br>Kp(dB(A))</th>
-      <th rowspan="2">\${BL('nt_score_a')}</th>
-      <th rowspan="2">\${BL('nt_std_a')}</th>
+      <th rowspan="3">구 분</th>
+      <th rowspan="3">사용<br>변속<br>기어</th>
+      <th rowspan="3">진입<br>지정<br>차속<br>(km/hr)</th>
+      <th colspan="2">시험차속<br>(km/hr.)</th>
+      <th colspan="2">엔진회전수<br>(rpm)</th>
+      <th rowspan="3">가속<br>시작<br>위치<br>(m)</th>
+      <th rowspan="3">암소음<br>[dB<br>(A)]</th>
+      <th colspan="2">측정소음<br>[dB(A)]</th>
+      <th rowspan="3">보정<br>치<br>[dB<br>(A)]</th>
+      <th rowspan="3">기준치<br>[dB<br>(A)]</th>
     </tr>
     <tr>
-      <th>좌측(dB(A))</th>
-      <th>우측(dB(A))</th>
+      <th>가속<br>초기</th>
+      <th>가속<br>종료</th>
+      <th>가속<br>초기</th>
+      <th>가속<br>종료</th>
+      <th>좌측</th>
+      <th>우측</th>
     </tr>
   </thead>
   <tbody>
-    <!-- 기어 I -->
+    <!-- 세트1: 1~4차시험 + 평균 + 결과 -->
     <tr>
-      <td class="nt-lbl" rowspan="5" style="text-align:center;">기어 I</td>
-      <td class="nt-lbl">1</td>
-      <td class="nt-val"><input data-field="nt_e1_1_lL" class="nt-inp" type="text" value="\${E(v('nt_e1_1_lL'))}"></td>
-      <td class="nt-val"><input data-field="nt_e1_1_lR" class="nt-inp" type="text" value="\${E(v('nt_e1_1_lR'))}"></td>
-      <td class="nt-val"><input data-field="nt_e1_1_aw" class="nt-inp" type="text" value="\${E(v('nt_e1_1_aw'))}"></td>
-      <td class="nt-val"><input data-field="nt_e1_1_kp" class="nt-inp" type="text" value="\${E(v('nt_e1_1_kp'))}"></td>
-      <td class="nt-val" rowspan="5"><input data-field="nt_e1_score" class="nt-inp" type="text" value="\${E(v('nt_e1_score'))}"></td>
-      <td class="nt-val" rowspan="5"><input data-field="nt_e1_limit" class="nt-inp" type="text" value="\${E(v('nt_e1_limit'))}"></td>
+      <td class="nt-lbl">1차시험</td>
+      <td class="nt-val"><input data-field="ks_s1_1_gear" class="nt-inp" type="text" value="\${E(v('ks_s1_1_gear'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_1_entry" class="nt-inp" type="text" value="\${E(v('ks_s1_1_entry'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_1_vs0" class="nt-inp" type="text" value="\${E(v('ks_s1_1_vs0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_1_vs1" class="nt-inp" type="text" value="\${E(v('ks_s1_1_vs1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_1_ne0" class="nt-inp" type="text" value="\${E(v('ks_s1_1_ne0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_1_ne1" class="nt-inp" type="text" value="\${E(v('ks_s1_1_ne1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_1_pos" class="nt-inp" type="text" value="\${E(v('ks_s1_1_pos'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_1_amb" class="nt-inp" type="text" value="\${E(v('ks_s1_1_amb'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_1_lL" class="nt-inp" type="text" value="\${E(v('ks_s1_1_lL'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_1_lR" class="nt-inp" type="text" value="\${E(v('ks_s1_1_lR'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_1_corr" class="nt-inp" type="text" value="\${E(v('ks_s1_1_corr'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_1_limit" class="nt-inp" type="text" value="\${E(v('ks_s1_1_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl">2</td>
-      <td class="nt-val"><input data-field="nt_e1_2_lL" class="nt-inp" type="text" value="\${E(v('nt_e1_2_lL'))}"></td>
-      <td class="nt-val"><input data-field="nt_e1_2_lR" class="nt-inp" type="text" value="\${E(v('nt_e1_2_lR'))}"></td>
-      <td class="nt-val"><input data-field="nt_e1_2_aw" class="nt-inp" type="text" value="\${E(v('nt_e1_2_aw'))}"></td>
-      <td class="nt-val"><input data-field="nt_e1_2_kp" class="nt-inp" type="text" value="\${E(v('nt_e1_2_kp'))}"></td>
+      <td class="nt-lbl">2차시험</td>
+      <td class="nt-val"><input data-field="ks_s1_2_gear" class="nt-inp" type="text" value="\${E(v('ks_s1_2_gear'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_2_entry" class="nt-inp" type="text" value="\${E(v('ks_s1_2_entry'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_2_vs0" class="nt-inp" type="text" value="\${E(v('ks_s1_2_vs0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_2_vs1" class="nt-inp" type="text" value="\${E(v('ks_s1_2_vs1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_2_ne0" class="nt-inp" type="text" value="\${E(v('ks_s1_2_ne0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_2_ne1" class="nt-inp" type="text" value="\${E(v('ks_s1_2_ne1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_2_pos" class="nt-inp" type="text" value="\${E(v('ks_s1_2_pos'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_2_amb" class="nt-inp" type="text" value="\${E(v('ks_s1_2_amb'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_2_lL" class="nt-inp" type="text" value="\${E(v('ks_s1_2_lL'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_2_lR" class="nt-inp" type="text" value="\${E(v('ks_s1_2_lR'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_2_corr" class="nt-inp" type="text" value="\${E(v('ks_s1_2_corr'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_2_limit" class="nt-inp" type="text" value="\${E(v('ks_s1_2_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl">3</td>
-      <td class="nt-val"><input data-field="nt_e1_3_lL" class="nt-inp" type="text" value="\${E(v('nt_e1_3_lL'))}"></td>
-      <td class="nt-val"><input data-field="nt_e1_3_lR" class="nt-inp" type="text" value="\${E(v('nt_e1_3_lR'))}"></td>
-      <td class="nt-val"><input data-field="nt_e1_3_aw" class="nt-inp" type="text" value="\${E(v('nt_e1_3_aw'))}"></td>
-      <td class="nt-val"><input data-field="nt_e1_3_kp" class="nt-inp" type="text" value="\${E(v('nt_e1_3_kp'))}"></td>
+      <td class="nt-lbl">3차시험</td>
+      <td class="nt-val"><input data-field="ks_s1_3_gear" class="nt-inp" type="text" value="\${E(v('ks_s1_3_gear'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_3_entry" class="nt-inp" type="text" value="\${E(v('ks_s1_3_entry'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_3_vs0" class="nt-inp" type="text" value="\${E(v('ks_s1_3_vs0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_3_vs1" class="nt-inp" type="text" value="\${E(v('ks_s1_3_vs1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_3_ne0" class="nt-inp" type="text" value="\${E(v('ks_s1_3_ne0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_3_ne1" class="nt-inp" type="text" value="\${E(v('ks_s1_3_ne1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_3_pos" class="nt-inp" type="text" value="\${E(v('ks_s1_3_pos'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_3_amb" class="nt-inp" type="text" value="\${E(v('ks_s1_3_amb'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_3_lL" class="nt-inp" type="text" value="\${E(v('ks_s1_3_lL'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_3_lR" class="nt-inp" type="text" value="\${E(v('ks_s1_3_lR'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_3_corr" class="nt-inp" type="text" value="\${E(v('ks_s1_3_corr'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_3_limit" class="nt-inp" type="text" value="\${E(v('ks_s1_3_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl">4</td>
-      <td class="nt-val"><input data-field="nt_e1_4_lL" class="nt-inp" type="text" value="\${E(v('nt_e1_4_lL'))}"></td>
-      <td class="nt-val"><input data-field="nt_e1_4_lR" class="nt-inp" type="text" value="\${E(v('nt_e1_4_lR'))}"></td>
-      <td class="nt-val"><input data-field="nt_e1_4_aw" class="nt-inp" type="text" value="\${E(v('nt_e1_4_aw'))}"></td>
-      <td class="nt-val"><input data-field="nt_e1_4_kp" class="nt-inp" type="text" value="\${E(v('nt_e1_4_kp'))}"></td>
+      <td class="nt-lbl">4차시험</td>
+      <td class="nt-val"><input data-field="ks_s1_4_gear" class="nt-inp" type="text" value="\${E(v('ks_s1_4_gear'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_4_entry" class="nt-inp" type="text" value="\${E(v('ks_s1_4_entry'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_4_vs0" class="nt-inp" type="text" value="\${E(v('ks_s1_4_vs0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_4_vs1" class="nt-inp" type="text" value="\${E(v('ks_s1_4_vs1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_4_ne0" class="nt-inp" type="text" value="\${E(v('ks_s1_4_ne0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_4_ne1" class="nt-inp" type="text" value="\${E(v('ks_s1_4_ne1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_4_pos" class="nt-inp" type="text" value="\${E(v('ks_s1_4_pos'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_4_amb" class="nt-inp" type="text" value="\${E(v('ks_s1_4_amb'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_4_lL" class="nt-inp" type="text" value="\${E(v('ks_s1_4_lL'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_4_lR" class="nt-inp" type="text" value="\${E(v('ks_s1_4_lR'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_4_corr" class="nt-inp" type="text" value="\${E(v('ks_s1_4_corr'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_4_limit" class="nt-inp" type="text" value="\${E(v('ks_s1_4_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl" style="text-align:center;">\${BL('nt_avg')}</td>
-      <td class="nt-val"><input data-field="nt_e1_avg_lL" class="nt-inp" type="text" value="\${E(v('nt_e1_avg_lL'))}"></td>
-      <td class="nt-val"><input data-field="nt_e1_avg_lR" class="nt-inp" type="text" value="\${E(v('nt_e1_avg_lR'))}"></td>
-      <td class="nt-val"><input data-field="nt_e1_avg_aw" class="nt-inp" type="text" value="\${E(v('nt_e1_avg_aw'))}"></td>
-      <td class="nt-val"><input data-field="nt_e1_avg_kp" class="nt-inp" type="text" value="\${E(v('nt_e1_avg_kp'))}"></td>
-    </tr>
-    <!-- 기어 I+1 -->
-    <tr>
-      <td class="nt-lbl" rowspan="5" style="text-align:center;">기어 I+1</td>
-      <td class="nt-lbl">1</td>
-      <td class="nt-val"><input data-field="nt_e2_1_lL" class="nt-inp" type="text" value="\${E(v('nt_e2_1_lL'))}"></td>
-      <td class="nt-val"><input data-field="nt_e2_1_lR" class="nt-inp" type="text" value="\${E(v('nt_e2_1_lR'))}"></td>
-      <td class="nt-val"><input data-field="nt_e2_1_aw" class="nt-inp" type="text" value="\${E(v('nt_e2_1_aw'))}"></td>
-      <td class="nt-val"><input data-field="nt_e2_1_kp" class="nt-inp" type="text" value="\${E(v('nt_e2_1_kp'))}"></td>
-      <td class="nt-val" rowspan="5"><input data-field="nt_e2_score" class="nt-inp" type="text" value="\${E(v('nt_e2_score'))}"></td>
-      <td class="nt-val" rowspan="5"><input data-field="nt_e2_limit" class="nt-inp" type="text" value="\${E(v('nt_e2_limit'))}"></td>
+      <td class="nt-lbl" style="text-align:center;">평 균</td>
+      <td class="nt-val"><input data-field="ks_s1_avg_gear" class="nt-inp" type="text" value="\${E(v('ks_s1_avg_gear'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_avg_entry" class="nt-inp" type="text" value="\${E(v('ks_s1_avg_entry'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_avg_vs0" class="nt-inp" type="text" value="\${E(v('ks_s1_avg_vs0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_avg_vs1" class="nt-inp" type="text" value="\${E(v('ks_s1_avg_vs1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_avg_ne0" class="nt-inp" type="text" value="\${E(v('ks_s1_avg_ne0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_avg_ne1" class="nt-inp" type="text" value="\${E(v('ks_s1_avg_ne1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_avg_pos" class="nt-inp" type="text" value="\${E(v('ks_s1_avg_pos'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_avg_amb" class="nt-inp" type="text" value="\${E(v('ks_s1_avg_amb'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_avg_lL" class="nt-inp" type="text" value="\${E(v('ks_s1_avg_lL'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_avg_lR" class="nt-inp" type="text" value="\${E(v('ks_s1_avg_lR'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_avg_corr" class="nt-inp" type="text" value="\${E(v('ks_s1_avg_corr'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_avg_limit" class="nt-inp" type="text" value="\${E(v('ks_s1_avg_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl">2</td>
-      <td class="nt-val"><input data-field="nt_e2_2_lL" class="nt-inp" type="text" value="\${E(v('nt_e2_2_lL'))}"></td>
-      <td class="nt-val"><input data-field="nt_e2_2_lR" class="nt-inp" type="text" value="\${E(v('nt_e2_2_lR'))}"></td>
-      <td class="nt-val"><input data-field="nt_e2_2_aw" class="nt-inp" type="text" value="\${E(v('nt_e2_2_aw'))}"></td>
-      <td class="nt-val"><input data-field="nt_e2_2_kp" class="nt-inp" type="text" value="\${E(v('nt_e2_2_kp'))}"></td>
+      <td class="nt-lbl" style="text-align:center;">결 과</td>
+      <td class="nt-val" colspan="7"><input data-field="ks_s1_res_note" class="nt-inp" type="text" style="width:100%;" value="\${E(v('ks_s1_res_note'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_res_amb" class="nt-inp" type="text" value="\${E(v('ks_s1_res_amb'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_res_lL" class="nt-inp" type="text" value="\${E(v('ks_s1_res_lL'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_res_lR" class="nt-inp" type="text" value="\${E(v('ks_s1_res_lR'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_res_corr" class="nt-inp" type="text" value="\${E(v('ks_s1_res_corr'))}"></td>
+      <td class="nt-val"><input data-field="ks_s1_res_limit" class="nt-inp" type="text" value="\${E(v('ks_s1_res_limit'))}"></td>
+    </tr>
+    <!-- 세트2: 1~4차시험 + 평균 + 결과 -->
+    <tr>
+      <td class="nt-lbl">1차시험</td>
+      <td class="nt-val"><input data-field="ks_s2_1_gear" class="nt-inp" type="text" value="\${E(v('ks_s2_1_gear'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_1_entry" class="nt-inp" type="text" value="\${E(v('ks_s2_1_entry'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_1_vs0" class="nt-inp" type="text" value="\${E(v('ks_s2_1_vs0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_1_vs1" class="nt-inp" type="text" value="\${E(v('ks_s2_1_vs1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_1_ne0" class="nt-inp" type="text" value="\${E(v('ks_s2_1_ne0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_1_ne1" class="nt-inp" type="text" value="\${E(v('ks_s2_1_ne1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_1_pos" class="nt-inp" type="text" value="\${E(v('ks_s2_1_pos'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_1_amb" class="nt-inp" type="text" value="\${E(v('ks_s2_1_amb'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_1_lL" class="nt-inp" type="text" value="\${E(v('ks_s2_1_lL'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_1_lR" class="nt-inp" type="text" value="\${E(v('ks_s2_1_lR'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_1_corr" class="nt-inp" type="text" value="\${E(v('ks_s2_1_corr'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_1_limit" class="nt-inp" type="text" value="\${E(v('ks_s2_1_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl">3</td>
-      <td class="nt-val"><input data-field="nt_e2_3_lL" class="nt-inp" type="text" value="\${E(v('nt_e2_3_lL'))}"></td>
-      <td class="nt-val"><input data-field="nt_e2_3_lR" class="nt-inp" type="text" value="\${E(v('nt_e2_3_lR'))}"></td>
-      <td class="nt-val"><input data-field="nt_e2_3_aw" class="nt-inp" type="text" value="\${E(v('nt_e2_3_aw'))}"></td>
-      <td class="nt-val"><input data-field="nt_e2_3_kp" class="nt-inp" type="text" value="\${E(v('nt_e2_3_kp'))}"></td>
+      <td class="nt-lbl">2차시험</td>
+      <td class="nt-val"><input data-field="ks_s2_2_gear" class="nt-inp" type="text" value="\${E(v('ks_s2_2_gear'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_2_entry" class="nt-inp" type="text" value="\${E(v('ks_s2_2_entry'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_2_vs0" class="nt-inp" type="text" value="\${E(v('ks_s2_2_vs0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_2_vs1" class="nt-inp" type="text" value="\${E(v('ks_s2_2_vs1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_2_ne0" class="nt-inp" type="text" value="\${E(v('ks_s2_2_ne0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_2_ne1" class="nt-inp" type="text" value="\${E(v('ks_s2_2_ne1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_2_pos" class="nt-inp" type="text" value="\${E(v('ks_s2_2_pos'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_2_amb" class="nt-inp" type="text" value="\${E(v('ks_s2_2_amb'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_2_lL" class="nt-inp" type="text" value="\${E(v('ks_s2_2_lL'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_2_lR" class="nt-inp" type="text" value="\${E(v('ks_s2_2_lR'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_2_corr" class="nt-inp" type="text" value="\${E(v('ks_s2_2_corr'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_2_limit" class="nt-inp" type="text" value="\${E(v('ks_s2_2_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl">4</td>
-      <td class="nt-val"><input data-field="nt_e2_4_lL" class="nt-inp" type="text" value="\${E(v('nt_e2_4_lL'))}"></td>
-      <td class="nt-val"><input data-field="nt_e2_4_lR" class="nt-inp" type="text" value="\${E(v('nt_e2_4_lR'))}"></td>
-      <td class="nt-val"><input data-field="nt_e2_4_aw" class="nt-inp" type="text" value="\${E(v('nt_e2_4_aw'))}"></td>
-      <td class="nt-val"><input data-field="nt_e2_4_kp" class="nt-inp" type="text" value="\${E(v('nt_e2_4_kp'))}"></td>
+      <td class="nt-lbl">3차시험</td>
+      <td class="nt-val"><input data-field="ks_s2_3_gear" class="nt-inp" type="text" value="\${E(v('ks_s2_3_gear'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_3_entry" class="nt-inp" type="text" value="\${E(v('ks_s2_3_entry'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_3_vs0" class="nt-inp" type="text" value="\${E(v('ks_s2_3_vs0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_3_vs1" class="nt-inp" type="text" value="\${E(v('ks_s2_3_vs1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_3_ne0" class="nt-inp" type="text" value="\${E(v('ks_s2_3_ne0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_3_ne1" class="nt-inp" type="text" value="\${E(v('ks_s2_3_ne1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_3_pos" class="nt-inp" type="text" value="\${E(v('ks_s2_3_pos'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_3_amb" class="nt-inp" type="text" value="\${E(v('ks_s2_3_amb'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_3_lL" class="nt-inp" type="text" value="\${E(v('ks_s2_3_lL'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_3_lR" class="nt-inp" type="text" value="\${E(v('ks_s2_3_lR'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_3_corr" class="nt-inp" type="text" value="\${E(v('ks_s2_3_corr'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_3_limit" class="nt-inp" type="text" value="\${E(v('ks_s2_3_limit'))}"></td>
     </tr>
     <tr>
-      <td class="nt-lbl" style="text-align:center;">\${BL('nt_avg')}</td>
-      <td class="nt-val"><input data-field="nt_e2_avg_lL" class="nt-inp" type="text" value="\${E(v('nt_e2_avg_lL'))}"></td>
-      <td class="nt-val"><input data-field="nt_e2_avg_lR" class="nt-inp" type="text" value="\${E(v('nt_e2_avg_lR'))}"></td>
-      <td class="nt-val"><input data-field="nt_e2_avg_aw" class="nt-inp" type="text" value="\${E(v('nt_e2_avg_aw'))}"></td>
-      <td class="nt-val"><input data-field="nt_e2_avg_kp" class="nt-inp" type="text" value="\${E(v('nt_e2_avg_kp'))}"></td>
+      <td class="nt-lbl">4차시험</td>
+      <td class="nt-val"><input data-field="ks_s2_4_gear" class="nt-inp" type="text" value="\${E(v('ks_s2_4_gear'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_4_entry" class="nt-inp" type="text" value="\${E(v('ks_s2_4_entry'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_4_vs0" class="nt-inp" type="text" value="\${E(v('ks_s2_4_vs0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_4_vs1" class="nt-inp" type="text" value="\${E(v('ks_s2_4_vs1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_4_ne0" class="nt-inp" type="text" value="\${E(v('ks_s2_4_ne0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_4_ne1" class="nt-inp" type="text" value="\${E(v('ks_s2_4_ne1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_4_pos" class="nt-inp" type="text" value="\${E(v('ks_s2_4_pos'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_4_amb" class="nt-inp" type="text" value="\${E(v('ks_s2_4_amb'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_4_lL" class="nt-inp" type="text" value="\${E(v('ks_s2_4_lL'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_4_lR" class="nt-inp" type="text" value="\${E(v('ks_s2_4_lR'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_4_corr" class="nt-inp" type="text" value="\${E(v('ks_s2_4_corr'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_4_limit" class="nt-inp" type="text" value="\${E(v('ks_s2_4_limit'))}"></td>
     </tr>
-    <!-- 시험결과 행 -->
     <tr>
-      <td class="nt-lbl" colspan="2" style="text-align:center;">\${BL('nt_test_result')}</td>
-      <td class="nt-val"><input data-field="nt_e_result_lL" class="nt-inp" type="text" value="\${E(v('nt_e_result_lL'))}"></td>
-      <td class="nt-val"><input data-field="nt_e_result_lR" class="nt-inp" type="text" value="\${E(v('nt_e_result_lR'))}"></td>
-      <td class="nt-val"><input data-field="nt_e_result_aw" class="nt-inp" type="text" value="\${E(v('nt_e_result_aw'))}"></td>
-      <td class="nt-val"><input data-field="nt_e_result_kp" class="nt-inp" type="text" value="\${E(v('nt_e_result_kp'))}"></td>
-      <td class="nt-val"><input data-field="nt_e_result_score" class="nt-inp" type="text" value="\${E(v('nt_e_result_score'))}"></td>
-      <td class="nt-val"><input data-field="nt_e_result_limit" class="nt-inp" type="text" value="\${E(v('nt_e_result_limit'))}"></td>
+      <td class="nt-lbl" style="text-align:center;">평 균</td>
+      <td class="nt-val"><input data-field="ks_s2_avg_gear" class="nt-inp" type="text" value="\${E(v('ks_s2_avg_gear'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_avg_entry" class="nt-inp" type="text" value="\${E(v('ks_s2_avg_entry'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_avg_vs0" class="nt-inp" type="text" value="\${E(v('ks_s2_avg_vs0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_avg_vs1" class="nt-inp" type="text" value="\${E(v('ks_s2_avg_vs1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_avg_ne0" class="nt-inp" type="text" value="\${E(v('ks_s2_avg_ne0'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_avg_ne1" class="nt-inp" type="text" value="\${E(v('ks_s2_avg_ne1'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_avg_pos" class="nt-inp" type="text" value="\${E(v('ks_s2_avg_pos'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_avg_amb" class="nt-inp" type="text" value="\${E(v('ks_s2_avg_amb'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_avg_lL" class="nt-inp" type="text" value="\${E(v('ks_s2_avg_lL'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_avg_lR" class="nt-inp" type="text" value="\${E(v('ks_s2_avg_lR'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_avg_corr" class="nt-inp" type="text" value="\${E(v('ks_s2_avg_corr'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_avg_limit" class="nt-inp" type="text" value="\${E(v('ks_s2_avg_limit'))}"></td>
+    </tr>
+    <tr>
+      <td class="nt-lbl" style="text-align:center;">결 과</td>
+      <td class="nt-val" colspan="7"><input data-field="ks_s2_res_note" class="nt-inp" type="text" style="width:100%;" value="\${E(v('ks_s2_res_note'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_res_amb" class="nt-inp" type="text" value="\${E(v('ks_s2_res_amb'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_res_lL" class="nt-inp" type="text" value="\${E(v('ks_s2_res_lL'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_res_lR" class="nt-inp" type="text" value="\${E(v('ks_s2_res_lR'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_res_corr" class="nt-inp" type="text" value="\${E(v('ks_s2_res_corr'))}"></td>
+      <td class="nt-val"><input data-field="ks_s2_res_limit" class="nt-inp" type="text" value="\${E(v('ks_s2_res_limit'))}"></td>
     </tr>
   </tbody>
 </table>

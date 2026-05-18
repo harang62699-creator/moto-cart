@@ -11898,7 +11898,7 @@ if (formType==='detail_plan') return \`
   </colgroup>
   <thead>
     <tr>
-      <th rowspan="2">배기<br>\${BL('sv_noise_simple')}<br>시험</th>
+      <th rowspan="5">배기<br>\${BL('sv_noise_simple')}<br>시험</th>
       <th rowspan="2">\${BL('nt_meas_count')}</th>
       <th rowspan="2" style="line-height:1.8;">원동기 최고 출력<br>회전속도의<br><input data-field="nt_ex_pct" class="nt-inp" type="text" style="width:3.5em;text-align:center;border-bottom:1px solid #888;" value="\${E(v('nt_ex_pct'))}">% 회전속도(rpm)</th>
       <th rowspan="2">\${BL('nt_bg_noise_a')}</th>
@@ -11912,7 +11912,6 @@ if (formType==='detail_plan') return \`
   </thead>
   <tbody>
     <tr>
-      <td class="nt-lbl" rowspan="3">배기<br>\${BL('sv_noise_simple')}<br>시험</td>
       <td class="nt-lbl">1</td>
       <td class="nt-val"><input data-field="nt_ex1_rpm"  class="nt-inp" type="text" value="\${E(v('nt_ex1_rpm'))}"></td>
       <td class="nt-val"><input data-field="nt_ex1_amb"  class="nt-inp" type="text" value="\${E(v('nt_ex1_amb'))}"></td>
@@ -11946,7 +11945,7 @@ if (formType==='detail_plan') return \`
   </colgroup>
   <thead>
     <tr>
-      <th rowspan="2">경적<br>\${BL('sv_noise_simple')}<br>시험</th>
+      <th rowspan="4">경적<br>\${BL('sv_noise_simple')}<br>시험</th>
       <th rowspan="2">\${BL('nt_meas_count')}</th>
       <th rowspan="2">\${BL('nt_horn_form')}</th>
       <th rowspan="2">\${BL('nt_horn_count')}</th>
@@ -11961,7 +11960,6 @@ if (formType==='detail_plan') return \`
   </thead>
   <tbody>
     <tr>
-      <td class="nt-lbl" rowspan="2">경적<br>\${BL('sv_noise_simple')}<br>시험</td>
       <td class="nt-lbl">1</td>
       <td class="nt-val"><input data-field="nt_horn1_type" class="nt-inp" type="text" value="\${E(v('nt_horn1_type'))}"></td>
       <td class="nt-val"><input data-field="nt_horn1_cnt"  class="nt-inp" type="text" value="\${E(v('nt_horn1_cnt'))}"></td>

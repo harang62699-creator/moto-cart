@@ -3748,8 +3748,8 @@ async function openForm(formType) {
   if (formType === 'emission_test') setTimeout(() => initEmissionAttach(), 150);
   // evap_test 첨부파일 기능 초기화
   if (formType === 'evap_test') setTimeout(() => initEvapAttach(), 150);
-  // emission_noise 복합 입력 필드 초기화
-  if (formType === 'emission_noise') setTimeout(() => initEnFields(), 150);
+  // emission_noise / gasoline 복합 입력 필드(en-drop) 초기화
+  if (formType === 'emission_noise' || formType === 'gasoline') setTimeout(() => initEnFields(), 150);
   // obd_config 이미지 드롭존 초기화 + 첨부파일 기능 초기화
   if (formType === 'obd_config') {
     setTimeout(() => initObdImgDrops(), 150);
@@ -4174,7 +4174,7 @@ async function onApplLangChange(newLang) {
     document.getElementById('form-content').innerHTML = buildFormHTML(currentFormType, saved);
     setTimeout(() => initAutoGrow(document.getElementById('form-content')), 50);
     setTimeout(() => generateFormQR(currentFormType, getFormTitle(FORM_META.find(m=>m.type===currentFormType))), 100);
-    if (currentFormType==='emission_noise') setTimeout(()=>initEnFields(),150);
+    if (currentFormType==='emission_noise' || currentFormType==='gasoline') setTimeout(()=>initEnFields(),150);
     if (currentFormType==='obd_config') setTimeout(()=>initObdImgDrops(),150);
     if (currentFormType==='detail_plan') setTimeout(()=>{ if(typeof window.dpRestoreAll==='function') window.dpRestoreAll(); },200);
   }

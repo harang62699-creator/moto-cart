@@ -5841,6 +5841,14 @@ function buildFormHTML(formType, saved) {
             
             <span>소음시험 성적서 제출 내역</span>
           </div>
+          <div style="padding:2px 4px 6px;">
+            <input type="hidden" data-field="g_noise_cert_imgs" value="\${E(v('g_noise_cert_imgs'))}">
+            <div class="en-drop" data-field-img="g_noise_cert">
+              <input type="file" accept="image/*" multiple>
+              <div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div>
+              <div class="en-img-list"></div>
+            </div>
+          </div>
           <div class="g-chk-row">
             
             <span>소음 시험방법</span>

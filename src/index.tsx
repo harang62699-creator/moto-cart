@@ -2200,6 +2200,144 @@ const LANG_DICT = {
     dp_toc_11_2:'내구성 시험차량 선정근거', dp_toc_11_3:'배출가스 시험차량 선정근거',
     dp_toc_11_4:'소음 시험차량 선정 근거',
     dp_toc_12:'교정정보 및 사후 확정정보 제출협약', dp_toc_13:'기타',
+
+    // === emission_noise 추가 섹션 ===
+    en_4_3_1_2:'4.3.1.2. 연료탱크 위치', en_tank_pos_ph:'위치 설명',
+    en_4_3_1_3:'4.3.1.3. 연료탱크 형상', en_tank_shape_ph:'형상 설명',
+    en_4_3_2:'4.3.2. 스로틀바디',
+    en_4_3_2_1:'4.3.2.1. 스로틀바디 상세제원', en_throttle_spec_ph:'스로틀바디 상세제원',
+    en_4_3_2_2:'4.3.2.2. 스로틀바디 형상 및 치수제원',
+    en_4_3_3:'4.3.3. 연료인젝터',
+    en_4_3_3_1:'4.3.3.1. 연료인젝터 상세제원', en_injector_spec_ph:'연료인젝터 상세제원',
+    en_4_3_3_2:'4.3.3.2. 연료인젝터 형상 및 치수제원',
+    en_4_3_4:'4.3.4. 연료펌프',
+    en_4_3_4_1:'4.3.4.1. 연료펌프 상세제원', en_pump_spec_ph:'연료펌프 상세제원',
+    en_4_3_4_2:'4.3.4.2. 연료펌프 형상 및 치수제원',
+    en_4_4_fuel_photo:'4.4. 연료장치 사진', en_fuel_photo_ph:'연료장치 사진 설명',
+    en_sec5:'5. 흡배기장치', en_5_1:'5.1. 흡기계통',
+    en_5_1_1:'5.1.1. 흡기다기관 구성도', en_intake_diagram_ph:'흡기다기관 구성 설명',
+    en_5_1_2:'5.1.2. 흡기메니폴드', en_intake_manifold_ph:'흡기메니폴드 제원 또는 설명',
+    en_5_1_3:'5.1.3. 에어필터', en_air_filter_ph:'에어필터 제원 또는 설명',
+    en_5_2:'5.2. 배기계통',
+    en_5_2_1:'5.2.1. 배기다기관 구성도', en_exhaust_diagram_ph:'배기다기관 구성 설명',
+    en_5_2_2:'5.2.2. 배기메니폴드', en_exhaust_manifold_ph:'배기메니폴드 제원 또는 설명',
+    en_sec6:'6. 차량외관 및 치수', en_6_1:'6.1. 차량사진',
+    en_6_1_1:'6.1.1. 차량 전면', en_veh_front_ph:'차량 전면 설명',
+    en_6_1_2:'6.1.2. 차량 후면', en_veh_rear_ph:'차량 후면 설명',
+    en_6_1_3:'6.1.3. 차량 측면', en_veh_side_ph:'차량 측면 설명',
+    en_6_1_4:'6.1.4. 차량 상면', en_veh_top_ph:'차량 상면 설명',
+    en_6_2:'6.2. 외형도',
+    en_6_2_1:'6.2.1. 외형 측면', en_ext_side_ph:'외형 측면 설명',
+    en_6_2_2:'6.2.2. 외형 상면', en_ext_top_ph:'외형 상면 설명',
+    en_6_2_3:'6.2.3. 외형 뒷면', en_ext_rear_ph:'외형 뒷면 설명',
+    en_sec7:'7. 기타', en_7_1:'7.1. 그 외 배출가스 및 소음 저감기술',
+    en_other_tech_ph:'그 외 배출가스 및 소음 저감기술을 기재하세요',
+    obd_yn_y:'유', obd_yn_n:'무',
+    obd_max_power_ph:'최대출력', obd_trans_ph:'변속기(단)',
+    obd_combustion_ph:'예) 불꽃점화, 4행정', obd_fuel_supply_ph:'예) 연료분사식(EFI)',
+    obd_cat_type_ph:'예) 삼원촉매', obd_yn_ph:'유 / 무',
+    obd_nv_lbl:'N/V비, rpm/kph', obd_tire_lbl:'타이어',
+    obd_tire_f_lbl:'전', obd_tire_r_lbl:'후',
+    obd_tire_f_ph:'전 타이어 규격', obd_tire_r_ph:'후 타이어 규격',
+    obd_cat_type_lbl:'촉매 전환기의 형식', obd_cat_type_sub:'(산화촉매, 삼원촉매, 가열식 촉매 등)',
+    obd_dpf_lbl:'매연 여과장치의 형식', obd_egr_lbl:'배출가스 재 순환 장치의 유무',
+    obd_evap_lbl:'증발가스 제어장치', obd_evap_ph:'증발가스 제어장치',
+    obd_diag_lbl:'배출가스자기진단장치의 구성 및 기능',
+    obd_diag_op_lbl:'배출가스 자기진단장치 작동방법',
+    obd_mi_check_lbl:'감시장치의 오작동 확인방법', obd_mi_check_ph:'오작동 확인방법 입력',
+    obd_mi_disp_lbl:'오작동 표시 방법',
+    obd_monitor_ph:'감시항목 입력', obd_note_ph:'비고',
+    obd_photo_title:'OBD TEST 사진 및 스캐너 사진 첨부 : 차량사진, 차대번호 사진, 엔진번호 사진 포함',
+    obd_veh_photo_lbl:'차량 사진', obd_veh_photo_desc:'차량 전체 사진 (전면/측면/후면 포함)',
+    obd_vin_photo_lbl:'차대번호 사진', obd_vin_photo_desc:'차대번호(VIN) 확인 사진',
+    obd_eng_photo_lbl:'엔진번호 사진', obd_eng_photo_desc:'엔진번호 확인 사진',
+    obd_scanner_photo_lbl:'OBD 스캐너 사진', obd_scanner_photo_desc:'OBD 스캐너 연결 및 결과 화면 사진 (복수 첨부 가능)',
+    obd_attach_title:'첨부문서 (자체시험성적서 / RAW DATA)',
+    obd_upload_hint:'클릭하거나 파일을 드래그하여 업로드',
+    em_item_th:'항&nbsp;목', em_fuel_econ_th:'연 비<br>(km/ℓ)', em_std_td:'기&nbsp;준&nbsp;치',
+    ev_gen_section:'1. &nbsp;일 반 &nbsp;사 항',
+    oo_yn_y:'유', oo_yn_n:'무',
+    nt_reg_note_ph:'예) 가속주행 소음시험은 ECE 시험방법으로 측정함',
+    nt_test_date_ph:'예) 2025. 01. 01.',
+    nt_div_th:'구 분', nt_2nd_lbl:'2차시험', nt_3rd_lbl:'3차시험',
+    nt_4th_lbl:'4차시험', nt_avg_lbl:'평 균', nt_result_lbl:'결 과',
+    nt_inspector_ph:'성명', nt_confirmer_ph:'성명',
+    nt_attach_title:'첨부문서 (자체시험성적서 / RAW DATA)',
+    nt_ex_pct_lbl:'원동기 최고 출력<br>회전속도의',
+    nt_upload_hint:'클릭하거나 파일을 드래그하여 업로드',
+    cf_maker_ph:'예) HONDA Motor Co.,Ltd(일본)',
+    cf_addr_lbl2:'2. 주&nbsp;&nbsp;&nbsp;소 :', cf_model_lbl2:'3. 모&nbsp;&nbsp;&nbsp;델 :',
+    cf_model_ph:'예) CB500F', cf_importer_ph:'예) ㈜○○모터스',
+    cf_warranty_lbl2:'5. 보증내용 :',
+    cf_warranty_subject_ph:'보증 주체명 (예: ㈜○○모터스)',
+    cf_law_text:'은 대기환경보전법 제46조, 48조, 50조, 51조 및 대기환경보전법 시행규칙 제63조 규정에 의한',
+    cf_law_period:'보증기간(130km/h이하 2년 또는 20,000km, 130km/h이상 2년 또는 35,000km) 까지 제작차 및',
+    cf_law_obligation:'운행차 배출허용기준에 만족할 수 있도록 품질관리, 사후책임 등에 관한 의무사항을 이행하며,',
+    cf_law_recall:'수시검사 및 결함검사에서 결함이 확인될 경우 제작 결함 수정(리콜)의 의무를 이행한다.',
+    cf_confirm_text:'당사는 상기보증내용에 대해, 의무사항을 이행할 것을 확인합니다.',
+    cf_signed_at_ph:'서명 장소', cf_sign_date_ph:'예) 2025. 01. 01.',
+    cf_name_ph:'서명자 성명', cf_title_ph:'직책',
+
+    // === emission_noise 내 detail_plan 섹션 헤더 ===
+    dp_th_item:'항목', dp_th_sub_item:'세부항목',
+    dp_th_structure:'구조/업체/크기/용량 등',
+    dp_th_ctrl_tech:'제어기술/제어원리', dp_th_emission_eff:'배출가스 저감효과',
+    dp_th_sensor_var:'감지변수', dp_th_fuel_afr:'연료(공연비)',
+    dp_th_ign_timing:'점화시기',
+    dp_th_canister_purge:'캐니스터 퍼지 / 공회전수 / 배출가스재순환',
+    dp_th_note:'비고',
+    dp_th_part_no:'부품번호', dp_th_mfr:'제조업체명', dp_th_mfr_country:'제조국',
+    dp_th_evap_code:'증발가스Code',
+    dp_th_nominal_tank:'공칭탱크<br>용량(L)',
+    dp_th_max_evap:'40%연료시 탱크의<br>최대 증발가스 용량',
+    dp_th_reservoir:'기화기/연료분사장치의<br>reservoir의 최대용량',
+    dp_th_model_name:'적용차명',
+    dp_th_category:'구 분', dp_th_basic_model:'기본 차종',
+    dp_th_emission_equiv:'배출가스 및 소음<br>동일차종',
+    dp_th_evap_equiv:'증발가스 동일차종',
+    dp_th_obd_equiv:'배출가스자기진단장치 동일차종',
+    dp_th_dur_test:'내구성 시험차량', dp_th_emission_test_v:'배출가스시험차량',
+    dp_lbl_intake_manifold:'흡기 매니폴드', dp_lbl_intake_port_size:'흡입포트크기',
+    dp_lbl_intake_port_shape:'흡입포트 형상',
+    dp_lbl_exhaust_manifold:'배기 매니폴드', dp_lbl_exhaust_port_size:'배기포트크기',
+    dp_lbl_exhaust_port_shape:'배기포트 형상',
+    dp_lbl_valve_timing:'흡배기폐기시',
+    dp_lbl_intake_valve:'흡입<br>밸브', dp_lbl_exhaust_valve:'배기<br>밸브',
+    dp_lbl_open:'열기', dp_lbl_close:'닫기',
+    dp_lbl_valve_count:'기통별 밸브수',
+    dp_lbl_valve_intake:'흡기', dp_lbl_valve_exhaust:'배기',
+    dp_lbl_valve_size:'밸브크기',
+    dp_lbl_air_intake:'공기 흡입 방식',
+    dp_lbl_cat_type_lbl:'종류', dp_lbl_noble_metal:'귀금속 성분',
+    dp_lbl_noble_amount:'귀금속량(g)', dp_lbl_volume:'용량(㎤)',
+    dp_lbl_noble_ratio:'귀금속물질비(Pt:Pd:Rh)',
+    dp_lbl_canister_design:'캐니스터<br>설계 특성',
+    dp_lbl_evap_absorp:'증발가스 흡수용량',
+    dp_lbl_canister_cnt:'캐니스터 개수 및 연결방법',
+    dp_lbl_canister_shape:'캐니스터 형상',
+    dp_lbl_canister_structure:'캐니스터 구조',
+    dp_lbl_canister_material:'캐니스터 재질',
+    dp_lbl_fuel_system:'연료시스템', dp_lbl_filler_seal:'주유관 밀폐구조',
+    dp_lbl_emission_ctrl:'배출가스<br>제어장치', dp_lbl_emission_gas:'배출가스',
+    dp_lbl_dur_test_select:'내구성 시험차량 선정',
+
+    // === emission_noise detail_plan 5.x 라벨 ===
+    dp_5_1_1_lbl:'5.1.1. 시험장소', dp_5_1_2_lbl:'5.1.2. 시험절차',
+    dp_5_2_1_lbl:'5.2.1. 내구성시험 주행여부', dp_5_2_2_lbl:'5.2.2. 길들이기 주행여부',
+    dp_5_2_3_lbl:'5.2.3. 주행예정 기간', dp_5_2_4_lbl:'5.2.4. 주행장소',
+    dp_5_2_5_lbl:'5.2.5. 주행절차',
+    dp_5_3_1_lbl:'5.3.1. 시험장소', dp_5_3_2_lbl:'5.3.2. 시험절차',
+    dp_5_4_1_lbl:'5.4.1. 시험장소', dp_5_4_2_lbl:'5.4.2. 시험절차',
+    dp_lbl_engine:'엔진', dp_lbl_ignition:'점화장치', dp_lbl_chassis:'샤시',
+    dp_8_14_1_lbl:'8.14.1. 전동기 및 전동기 제어장치',
+    dp_8_14_2_lbl:'8.14.2. 축전지 및 축전지 제어장치',
+    // === 비밀번호 변경 모달 ===
+    pw_change_title:'비밀번호 변경',
+    pw_current_lbl:'현재 비밀번호', pw_new_lbl:'새 비밀번호',
+    pw_confirm_lbl:'새 비밀번호 확인',
+    pw_current_ph:'현재 비밀번호를 입력하세요', pw_new_ph:'4자 이상',
+    pw_confirm_ph:'재입력',
+    pw_cancel_btn:'취소', pw_change_btn:'변경',
     qr_auth_code_lbl:'진위여부코드',
     qr_verify_title:'진위여부 확인',
     qr_doc_name:'서류명',
@@ -2686,6 +2824,251 @@ const LANG_DICT = {
     cf_addr_lbl:'2. 주   소 :',
     cf_model_lbl:'3. 모   델 :',
     cf_importer_lbl:'4. 수입자 :',
+    // gasoline/emission_noise/obd_config/emission_test/evap_test/obd_operation/noise_test/confirmation 폼 신규 키
+    g_ph_maker:'예) PIAGGIO C.S.P.A(이태리)',
+    g_ph_model:'예) RSV4 1000 RR',
+    g_ph_fuel:'예) 휘발유, 경유, LPG',
+    g_ph_euro5:'예) EURO 5',
+    g_ph_ece_noise:'예) ECE R41-04',
+    g_ph_rep_nonrep:'대표/비대표',
+    g_ph_cert_id:'예) ABC-123',
+    g_ph_warranty_yr:'년',
+    g_ph_self_test:'예) OBD, 소음, 증발가스',
+    g_ph_key_tech:'예) 산소센서, 삼원촉매, OBD, ECU, Idle control, 전자식 연료주입',
+    g_category:'구분',
+    dp_valve_close:'닫기',
+    dp_valve_per_cyl:'기통별 밸브수',
+    dp_valve_intake:'흡기',
+    dp_valve_exhaust:'배기',
+    dp_valve_size:'밸브크기',
+    dp_air_intake_type:'공기 흡입 방식',
+    dp_type:'종류',
+    dp_noble_metal:'귀금속 성분',
+    dp_noble_metal_g:'귀금속량(g)',
+    dp_capacity_cc:'용량(㎤)',
+    dp_noble_ratio:'귀금속물질비(Pt:Pd:Rh)',
+    dp_10_1_crank_cam_lbl:'크랭크 축 중심선에서 캠축 중심선까지의 거리(mm)',
+    dp_10_1_crank_head_lbl:'크랭크 축 중심선에서 실린더 블록 헤드 면 상부까지의 거리(mm)',
+    dp_10_1_tdc_lbl:'TDC 상태에서 연소실 표면적 체적비율',
+    dp_10_1_fuel_supply_lbl:'연료 공급 방식',
+    dp_10_1_inj_range_lbl:'분사 시기 제어범위',
+    dp_10_1_cam_timing_lbl:'캠축타이밍',
+    dp_10_1_inertia_lbl:'등가관성 중량',
+    dp_10_1_roadload_lbl:'도로부하마력',
+    dp_10_2_title:'10.2. 증발가스 동일차종 설명',
+    dp_10_2_category:'구 분',
+    dp_10_2_base:'기본 차종',
+    dp_10_2_same:'증발가스 동일차종',
+    dp_10_2_certno_lbl:'배출가스 인증번호',
+    dp_10_2_carname_lbl:'자동차 명칭',
+    dp_10_2_type_lbl:'자동차 형식',
+    dp_10_2_eng_lbl:'원동기 형식',
+    dp_10_2_cartype_lbl:'차종',
+    dp_10_2_fuel_lbl:'사용연료',
+    dp_10_2_evap_type_lbl:'증발가스 저장형식',
+    dp_canister_design:'캐니스터\n설계 특성',
+    dp_canister_capacity:'증발가스 흡수용량',
+    dp_canister_count:'캐니스터 개수 및 연결방법',
+    dp_canister_shape:'캐니스터 형상',
+    dp_canister_struct:'캐니스터 구조',
+    dp_canister_mat:'캐니스터 재질',
+    dp_fuel_system:'연료시스템',
+    dp_filler_seal:'주유관 밀폐구조',
+    dp_10_2_ctrl_lbl:'증발가스 제어시스템',
+    dp_10_2_purge_lbl:'퍼지제어 시스템',
+    dp_10_2_hose_mat_lbl:'증발가스 호스 재질',
+    dp_10_2_tank_mat_lbl:'연료탱크 재질',
+    dp_10_3_title:'10.3. 배출가스자기진단장치 동일차종 설명',
+    dp_10_3_category:'구 분',
+    dp_10_3_base:'기본 차종',
+    dp_10_3_same:'배출가스자기진단장치 동일차종',
+    dp_10_3_certno_lbl:'배출가스 인증번호',
+    dp_10_3_carname_lbl:'자동차 명칭',
+    dp_10_3_type_lbl:'자동차 형식',
+    dp_10_3_eng_lbl:'원동기 형식',
+    dp_10_3_cartype_lbl:'차종',
+    dp_10_3_fuel_lbl:'사용연료',
+    dp_10_3_obd_op_lbl:'배출가스 자가진단 장치의 작동법',
+    dp_10_3_std_lbl:'배출가스 허용기준',
+    dp_10_3_cycle_lbl:'연소싸이클',
+    dp_10_3_fuel_supply_lbl:'연료공급방식',
+    dp_10_3_cat_lbl:'촉매전환장치 형태',
+    dp_10_3_dpf_lbl:'입자상물질 포집장치 형태',
+    dp_10_3_air2_lbl:'2차 공기 분사 유무',
+    dp_10_3_egr_lbl:'배출가스 재순환장치 유무',
+    dp_11_1_title:'11.1. 시험차량 선정',
+    dp_11_1_category:'구 분',
+    dp_11_1_dur:'내구성 시험차량',
+    dp_11_1_emis:'배출가스시험차량',
+    dp_11_1_vin_lbl:'차대번호(엔진번호)',
+    dp_11_1_disp_lbl:'배기량(cc)',
+    dp_11_1_eng_code_lbl:'엔진코드',
+    dp_11_1_evap_code_lbl:'증발가스 코드',
+    dp_11_1_cat_code_lbl:'촉매코드',
+    dp_11_1_emis_ctrl:'배출가스\n제어장치',
+    dp_11_1_emis_gas:'배출가스',
+    dp_11_1_model_lbl:'모델명',
+    dp_11_1_trans_lbl:'변속기 형태',
+    dp_11_1_trans_proc_lbl:'변속 절차',
+    dp_11_1_inertia_lbl:'등가관성 중량(kg)',
+    dp_11_1_final_red_lbl:'종 감속기',
+    dp_11_1_nv_lbl:'N/V 비, RRM/KPH',
+    dp_11_1_tire_lbl:'타이어',
+    dp_11_1_note_lbl:'비고',
+    dp_11_1_sub_hdr_ph:'자동차 형식',
+    dp_11_1_sub_name_lbl:'자동차 명',
+    dp_11_1_sub_type_lbl:'자동차 형식',
+    dp_11_1_sub_trans_lbl:'변속기',
+    dp_11_1_sub_eng_lbl:'원동기 형식',
+    dp_11_1_sub_disp_lbl:'배기량',
+    dp_11_1_sub_weight_lbl:'공차중량',
+    dp_11_1_sub_inertia_lbl:'등가관성중량',
+    dp_11_1_sub_roadload_lbl:'도로부하마력',
+    dp_11_1_sub_tankvol_lbl:'연료탱크용량',
+    dp_11_1_sub_finalred_lbl:'종 감속비(제1감속비)',
+    dp_11_1_sub_sales_lbl:'판매대수',
+    dp_11_2_title:'11.2. 내구성 시험차량 선정',
+    dp_11_2_sel_lbl:'내구성 시험차량 선정',
+    dp_11_2_note_ph:'내구성 시험차량 선정 내용을 기재하세요',
+    dp_11_3_title:'11.3. 배출가스 시험차량 선정',
+    dp_11_3_a_case:'A. 차대 동력계를 사용하는 경우 :',
+    dp_11_3_a_0_lbl:'동일차종 중 등가관성중량이 가장 큰 것',
+    dp_11_3_a_1_lbl:'상기 조건 내에서 도로 부하력이 가장 큰 것',
+    dp_11_3_a_2_lbl:'상기 조건 내에서 배기량이 가장 큰 것',
+    dp_11_3_a_3_lbl:'상기 조건 내에서 가장 높은 최종기어비를 갖는 변속기',
+    dp_11_3_a_4_lbl:'상기 조건 내에서 연료탱크 용량이 가장 큰 것',
+    dp_11_3_b_case:'B. 원동기동력계를 사용하는 경우 :',
+    dp_11_3_b_0_lbl:'최고 토오크 시 속도에서 행정당 연료배분율이 가장 큰 원동기',
+    dp_11_3_b_1_lbl:'최고 속도 시 행정당 연료배분율이 가장 큰 원동기',
+    dp_11_4_title:'11.4. 소음 시험차량 선정',
+    dp_11_4_0_lbl:'공차중량이 가장 무거운 자동차',
+    dp_11_4_1_lbl:'배기량이 가장 큰 자동차',
+    dp_11_4_2_lbl:'최종기어비율(오버드라이브를 포함한다)이 가장 높은 변속기를 장착한 자동차',
+    dp_11_4_3_lbl:'차축비가 가장 높은 자동차',
+    dp_12_ph:'불가피한 사유 명시',
+    dp_13_ph:'기타 사항',
+    en_tank_pos_sec:'4.3.1.2. 연료탱크 위치',
+    en_tank_pos_ph:'위치 설명',
+    en_tank_shape_sec:'4.3.1.3. 연료탱크 형상',
+    en_tank_shape_ph:'형상 설명',
+    en_throttle_sec:'4.3.2. 스로틀바디',
+    en_throttle_spec_sec:'4.3.2.1. 스로틀바디 상세제원',
+    en_throttle_spec_ph:'스로틀바디 상세제원',
+    en_throttle_dim_sec:'4.3.2.2. 스로틀바디 형상 및 치수제원',
+    en_injector_sec:'4.3.3. 연료인젝터',
+    en_injector_spec_sec:'4.3.3.1. 연료인젝터 상세제원',
+    en_injector_spec_ph:'연료인젝터 상세제원',
+    en_injector_dim_sec:'4.3.3.2. 연료인젝터 형상 및 치수제원',
+    en_pump_sec:'4.3.4. 연료펌프',
+    en_pump_spec_sec:'4.3.4.1. 연료펌프 상세제원',
+    en_pump_spec_ph:'연료펌프 상세제원',
+    en_pump_dim_sec:'4.3.4.2. 연료펌프 형상 및 치수제원',
+    en_fuel_photo_sec:'4.4. 연료장치 사진',
+    en_fuel_photo_ph:'연료장치 사진 설명',
+    en_intake_sec:'5. 흡배기장치',
+    en_intake_sub:'5.1. 흡기계통',
+    en_intake_diagram_sec:'5.1.1. 흡기다기관 구성도',
+    en_intake_diagram_ph:'흡기다기관 구성 설명',
+    en_intake_manifold_sec:'5.1.2. 흡기메니폴드',
+    en_intake_manifold_ph:'흡기메니폴드 제원 또는 설명',
+    en_air_filter_sec:'5.1.3. 에어필터',
+    en_air_filter_ph:'에어필터 제원 또는 설명',
+    en_exhaust_sub:'5.2. 배기계통',
+    en_exhaust_diagram_sec:'5.2.1. 배기다기관 구성도',
+    en_exhaust_diagram_ph:'배기다기관 구성 설명',
+    en_exhaust_manifold_sec:'5.2.2. 배기메니폴드',
+    en_exhaust_manifold_ph:'배기메니폴드 제원 또는 설명',
+    en_veh_sec:'6. 차량외관 및 치수',
+    en_veh_photo_sub:'6.1. 차량사진',
+    en_veh_front_sec:'6.1.1. 차량 전면',
+    en_veh_front_ph:'차량 전면 설명',
+    en_veh_rear_sec:'6.1.2. 차량 후면',
+    en_veh_rear_ph:'차량 후면 설명',
+    en_veh_side_sec:'6.1.3. 차량 측면',
+    en_veh_side_ph:'차량 측면 설명',
+    en_veh_top_sec:'6.1.4. 차량 상면',
+    en_veh_top_ph:'차량 상면 설명',
+    en_ext_sub:'6.2. 외형도',
+    en_ext_side_sec:'6.2.1. 외형 측면',
+    en_ext_side_ph:'외형 측면 설명',
+    en_ext_top_sec:'6.2.2. 외형 상면',
+    en_ext_top_ph:'외형 상면 설명',
+    en_ext_rear_sec:'6.2.3. 외형 뒷면',
+    en_ext_rear_ph:'외형 뒷면 설명',
+    en_other_sec:'7. 기타',
+    en_other_tech_sub:'7.1. 그 외 배출가스 및 소음 저감기술',
+    en_other_tech_ph:'그 외 배출가스 및 소음 저감기술을 기재하세요',
+    obd_y:'유',
+    obd_n:'무',
+    obd_ph_max_power:'최대출력',
+    obd_ph_trans:'변속기(단)',
+    obd_ph_combustion:'예) 불꽃점화, 4행정',
+    obd_ph_fuel_supply:'예) 연료분사식(EFI)',
+    obd_ph_cat_type:'예) 삼원촉매',
+    obd_ph_yn:'유 / 무',
+    obd_nv_lbl:'N/V비, rpm/kph',
+    obd_nv_ph:'N/V비, rpm/kph',
+    obd_tire_lbl:'타이어',
+    obd_tire_f_lbl:'전',
+    obd_tire_f_ph:'전 타이어 규격',
+    obd_tire_r_lbl:'후',
+    obd_tire_r_ph:'후 타이어 규격',
+    obd_cat_lbl:'촉매 전환기의 형식',
+    obd_cat_ph:'촉매 전환기의 형식',
+    obd_dpf_lbl:'매연 여과장치의 형식',
+    obd_air2_lbl:'2차 공기 분사 장치의 유무',
+    obd_egr_lbl2:'배출가스 재 순환 장치의 유무',
+    obd_evap_lbl:'증발가스 제어장치',
+    obd_evap_ph:'증발가스 제어장치',
+    obd_obd_func_lbl:'배출가스자기진단장치의\n구성 및 기능',
+    obd_obd_op_lbl:'배출가스 자기진단장치 작동방법',
+    obd_obd_check_lbl:'감시장치의 오작동 확인방법',
+    obd_obd_check_ph:'오작동 확인방법 입력',
+    obd_mi_lbl:'오작동 표시 방법',
+    obd_monitor_ph:'감시항목 입력',
+    obd_note_ph:'비고',
+    obd_photo_title:'OBD TEST 사진 및 스캐너 사진 첨부 : 차량사진, 차대번호 사진, 엔진번호 사진 포함',
+    obd_veh_photo_lbl:'차량\n사진',
+    obd_veh_photo_desc:'차량 전체 사진 (전면/측면/후면 포함)',
+    obd_vin_photo_lbl:'차대번호\n사진',
+    obd_vin_photo_desc:'차대번호(VIN) 확인 사진',
+    obd_eng_photo_lbl:'엔진번호\n사진',
+    obd_eng_photo_desc:'엔진번호 확인 사진',
+    obd_scanner_photo_lbl:'OBD\n스캐너\n사진',
+    obd_scanner_photo_desc:'OBD 스캐너 연결 및 결과 화면 사진 (복수 첨부 가능)',
+    obd_attach_title:'첨부문서 (자체시험성적서 / RAW DATA)',
+    upload_click_drag:'클릭하거나 파일을 드래그하여 업로드',
+    em_item_hdr:'항&nbsp;목',
+    em_fuel_eff_hdr:'연 비\n(km/ℓ)',
+    em_std_lbl:'기&nbsp;준&nbsp;치',
+    ev_gen_info_hdr:'1. &nbsp;일 반 &nbsp;사 항',
+    obd_air2_y_lbl:'유',
+    obd_air2_n_lbl:'무',
+    obd_egr_y_lbl:'유',
+    obd_egr_n_lbl:'무',
+    nt_reg_note_ph:'예) 가속주행소음 시험방법 (ECE R41-04)',
+    nt_test_date_ph:'예) 2025. 01. 01.',
+    nt_inspector_ph:'성명',
+    cf_maker_ph:'예) HONDA Motor Co.,Ltd(일본)',
+    cf_model_ph:'예) CB500F',
+    cf_importer_ph:'예) ㈜○○모터스',
+    cf_warranty_subject_ph:'보증 주체명 (예: ㈜○○모터스)',
+    cf_warranty_text1:'은 대기환경보전법 제46조, 48조, 50조, 51조 및 대기환경보전법 시행규칙 제63조 규정에 의한',
+    cf_warranty_text2:'보증기간(130km/h이하 2년 또는 20,000km, 130km/h이상 2년 또는 35,000km) 까지 제작차 및',
+    cf_warranty_text3:'운행차 배출허용기준에 만족할 수 있도록 품질관리, 사후책임 등에 관한 의무사항을 이행하며,',
+    cf_warranty_text4:'수시검사 및 결함검사에서 결함이 확인될 경우 제작 결함 수정(리콜)의 의무를 이행한다.',
+    cf_warranty_confirm:'당사는 상기보증내용에 대해, 의무사항을 이행할 것을 확인합니다.',
+    cf_signed_at_ph:'서명 장소',
+    cf_sign_date_ph:'예) 2025. 01. 01.',
+    cf_name_ph:'서명자 성명',
+    cf_title_ph:'직책',
+    attach_dl_title:'다운로드',
+    attach_del_title:'삭제',
+    lbl_address:'2. 주&nbsp;&nbsp;&nbsp;소 :',
+    lbl_model_lbl:'3. 모&nbsp;&nbsp;&nbsp;델 :',
+    lbl_warranty_content:'5. 보증내용 :',
+    nt_attach_title:'첨부문서 (자체시험성적서 / RAW DATA)',
+    nt_inspector_ph2:'성명',
     cf_ph_address:'제작사 주소',
     cf_ph_phone:'전화번호',
     cf_ph_fax:'팩스번호',
@@ -3108,6 +3491,142 @@ const LANG_DICT = {
     dp_toc_11_2:'Durability Test Vehicle Selection Basis', dp_toc_11_3:'Emission Test Vehicle Selection Basis',
     dp_toc_11_4:'Noise Test Vehicle Selection Basis',
     dp_toc_12:'Calibration & Post-confirmation Agreement', dp_toc_13:'Others',
+
+    en_4_3_1_2:'4.3.1.2. Fuel Tank Location', en_tank_pos_ph:'Location description',
+    en_4_3_1_3:'4.3.1.3. Fuel Tank Shape', en_tank_shape_ph:'Shape description',
+    en_4_3_2:'4.3.2. Throttle Body',
+    en_4_3_2_1:'4.3.2.1. Throttle Body Specifications', en_throttle_spec_ph:'Throttle body specifications',
+    en_4_3_2_2:'4.3.2.2. Throttle Body Shape and Dimensions',
+    en_4_3_3:'4.3.3. Fuel Injector',
+    en_4_3_3_1:'4.3.3.1. Fuel Injector Specifications', en_injector_spec_ph:'Fuel injector specifications',
+    en_4_3_3_2:'4.3.3.2. Fuel Injector Shape and Dimensions',
+    en_4_3_4:'4.3.4. Fuel Pump',
+    en_4_3_4_1:'4.3.4.1. Fuel Pump Specifications', en_pump_spec_ph:'Fuel pump specifications',
+    en_4_3_4_2:'4.3.4.2. Fuel Pump Shape and Dimensions',
+    en_4_4_fuel_photo:'4.4. Fuel System Photos', en_fuel_photo_ph:'Fuel system photo description',
+    en_sec5:'5. Intake/Exhaust System', en_5_1:'5.1. Intake System',
+    en_5_1_1:'5.1.1. Intake Manifold Diagram', en_intake_diagram_ph:'Intake manifold description',
+    en_5_1_2:'5.1.2. Intake Manifold', en_intake_manifold_ph:'Intake manifold specs or description',
+    en_5_1_3:'5.1.3. Air Filter', en_air_filter_ph:'Air filter specs or description',
+    en_5_2:'5.2. Exhaust System',
+    en_5_2_1:'5.2.1. Exhaust Manifold Diagram', en_exhaust_diagram_ph:'Exhaust manifold description',
+    en_5_2_2:'5.2.2. Exhaust Manifold', en_exhaust_manifold_ph:'Exhaust manifold specs or description',
+    en_sec6:'6. Vehicle Exterior and Dimensions', en_6_1:'6.1. Vehicle Photos',
+    en_6_1_1:'6.1.1. Vehicle Front', en_veh_front_ph:'Vehicle front description',
+    en_6_1_2:'6.1.2. Vehicle Rear', en_veh_rear_ph:'Vehicle rear description',
+    en_6_1_3:'6.1.3. Vehicle Side', en_veh_side_ph:'Vehicle side description',
+    en_6_1_4:'6.1.4. Vehicle Top', en_veh_top_ph:'Vehicle top description',
+    en_6_2:'6.2. Exterior Drawing',
+    en_6_2_1:'6.2.1. Exterior Side View', en_ext_side_ph:'Exterior side view description',
+    en_6_2_2:'6.2.2. Exterior Top View', en_ext_top_ph:'Exterior top view description',
+    en_6_2_3:'6.2.3. Exterior Rear View', en_ext_rear_ph:'Exterior rear view description',
+    en_sec7:'7. Others', en_7_1:'7.1. Other Emission/Noise Reduction Technologies',
+    en_other_tech_ph:'Enter other emission and noise reduction technologies',
+    obd_yn_y:'Yes', obd_yn_n:'No',
+    obd_max_power_ph:'Max output', obd_trans_ph:'Transmission (gear)',
+    obd_combustion_ph:'e.g.) Spark ignition, 4-stroke', obd_fuel_supply_ph:'e.g.) Fuel injection (EFI)',
+    obd_cat_type_ph:'e.g.) Three-way catalyst', obd_yn_ph:'Yes / No',
+    obd_nv_lbl:'N/V ratio, rpm/kph', obd_tire_lbl:'Tires',
+    obd_tire_f_lbl:'Front', obd_tire_r_lbl:'Rear',
+    obd_tire_f_ph:'Front tire size', obd_tire_r_ph:'Rear tire size',
+    obd_cat_type_lbl:'Catalytic converter type', obd_cat_type_sub:'(oxidation catalyst, three-way catalyst, heated catalyst, etc.)',
+    obd_dpf_lbl:'DPF type', obd_egr_lbl:'EGR system presence',
+    obd_evap_lbl:'Evaporative emission control', obd_evap_ph:'Evaporative emission control device',
+    obd_diag_lbl:'OBD system composition and function',
+    obd_diag_op_lbl:'OBD system operation method',
+    obd_mi_check_lbl:'MIL malfunction check method', obd_mi_check_ph:'Enter malfunction check method',
+    obd_mi_disp_lbl:'Malfunction indication method',
+    obd_monitor_ph:'Enter monitoring items', obd_note_ph:'Notes',
+    obd_photo_title:'OBD TEST photos: vehicle photo, VIN photo, engine number photo',
+    obd_veh_photo_lbl:'Vehicle Photo', obd_veh_photo_desc:'Full vehicle photo (front/side/rear)',
+    obd_vin_photo_lbl:'VIN Photo', obd_vin_photo_desc:'VIN confirmation photo',
+    obd_eng_photo_lbl:'Engine No. Photo', obd_eng_photo_desc:'Engine number confirmation photo',
+    obd_scanner_photo_lbl:'OBD Scanner Photo', obd_scanner_photo_desc:'OBD scanner connection and result screen (multiple allowed)',
+    obd_attach_title:'Attachments (Self-test report / RAW DATA)',
+    obd_upload_hint:'Click or drag files to upload',
+    em_item_th:'Item', em_fuel_econ_th:'Fuel Economy<br>(km/L)', em_std_td:'Standard Value',
+    ev_gen_section:'1. &nbsp;General &nbsp;Information',
+    oo_yn_y:'Yes', oo_yn_n:'No',
+    nt_reg_note_ph:'e.g.) Acceleration noise test conducted by ECE method',
+    nt_test_date_ph:'e.g.) 2025. 01. 01.',
+    nt_div_th:'Category', nt_2nd_lbl:'2nd Test', nt_3rd_lbl:'3rd Test',
+    nt_4th_lbl:'4th Test', nt_avg_lbl:'Average', nt_result_lbl:'Result',
+    nt_inspector_ph:'Name', nt_confirmer_ph:'Name',
+    nt_attach_title:'Attachments (Self-test report / RAW DATA)',
+    nt_ex_pct_lbl:'Max Engine Output<br>Speed Ratio',
+    nt_upload_hint:'Click or drag files to upload',
+    cf_maker_ph:'e.g.) HONDA Motor Co.,Ltd (Japan)',
+    cf_addr_lbl2:'2. Address :', cf_model_lbl2:'3. Model :',
+    cf_model_ph:'e.g.) CB500F', cf_importer_ph:'e.g.) ABC Motors Co., Ltd',
+    cf_warranty_lbl2:'5. Warranty :',
+    cf_warranty_subject_ph:'Warranty provider name (e.g.) ABC Motors Co., Ltd)',
+    cf_law_text:'hereby certifies compliance with Article 46, 48, 50, 51 of the Clean Air Conservation Act and Article 63 of its Enforcement Regulations',
+    cf_law_period:'for the warranty period (2 years or 20,000km for vehicles under 130km/h, 2 years or 35,000km for vehicles at/above 130km/h) for manufactured and',
+    cf_law_obligation:'in-use vehicles to meet emission standards, fulfilling quality management and post-sale obligations,',
+    cf_law_recall:'and agrees to implement recall corrections if defects are confirmed through periodic or defect inspections.',
+    cf_confirm_text:'We confirm that we will fulfill our obligations regarding the above warranty.',
+    cf_signed_at_ph:'Signature location', cf_sign_date_ph:'e.g.) 2025. 01. 01.',
+    cf_name_ph:'Signatory name', cf_title_ph:'Title',
+
+    // === emission_noise 내 detail_plan 섹션 헤더 ===
+    dp_th_item:'Item', dp_th_sub_item:'Sub-item',
+    dp_th_structure:'Structure/Manufacturer/Size/Capacity, etc.',
+    dp_th_ctrl_tech:'Control Technology/Principle', dp_th_emission_eff:'Emission Reduction Effect',
+    dp_th_sensor_var:'Sensor Variable', dp_th_fuel_afr:'Fuel (A/F Ratio)',
+    dp_th_ign_timing:'Ignition Timing',
+    dp_th_canister_purge:'Canister Purge / Idle Speed / EGR',
+    dp_th_note:'Remarks',
+    dp_th_part_no:'Part No.', dp_th_mfr:'Manufacturer', dp_th_mfr_country:'Country',
+    dp_th_evap_code:'Evap. Code',
+    dp_th_nominal_tank:'Nominal Tank<br>Volume (L)',
+    dp_th_max_evap:'Max. Evap. Volume at 40% Fuel',
+    dp_th_reservoir:'Max. Reservoir Vol. of Carburetor/Injector',
+    dp_th_model_name:'Applicable Model',
+    dp_th_category:'Category', dp_th_basic_model:'Base Model',
+    dp_th_emission_equiv:'Emission & Noise<br>Equivalent Model',
+    dp_th_evap_equiv:'Evap. Equivalent Model',
+    dp_th_obd_equiv:'OBD Equivalent Model',
+    dp_th_dur_test:'Durability Test Vehicle', dp_th_emission_test_v:'Emission Test Vehicle',
+    dp_lbl_intake_manifold:'Intake Manifold', dp_lbl_intake_port_size:'Intake Port Size',
+    dp_lbl_intake_port_shape:'Intake Port Shape',
+    dp_lbl_exhaust_manifold:'Exhaust Manifold', dp_lbl_exhaust_port_size:'Exhaust Port Size',
+    dp_lbl_exhaust_port_shape:'Exhaust Port Shape',
+    dp_lbl_valve_timing:'Valve Open/Close',
+    dp_lbl_intake_valve:'Intake<br>Valve', dp_lbl_exhaust_valve:'Exhaust<br>Valve',
+    dp_lbl_open:'Open', dp_lbl_close:'Close',
+    dp_lbl_valve_count:'Valves per Cylinder',
+    dp_lbl_valve_intake:'Intake', dp_lbl_valve_exhaust:'Exhaust',
+    dp_lbl_valve_size:'Valve Size',
+    dp_lbl_air_intake:'Air Intake Method',
+    dp_lbl_cat_type_lbl:'Type', dp_lbl_noble_metal:'Precious Metals',
+    dp_lbl_noble_amount:'Precious Metal Amount (g)', dp_lbl_volume:'Volume (cm³)',
+    dp_lbl_noble_ratio:'Precious Metal Ratio (Pt:Pd:Rh)',
+    dp_lbl_canister_design:'Canister<br>Design Spec',
+    dp_lbl_evap_absorp:'Evap. Absorption Capacity',
+    dp_lbl_canister_cnt:'Canister Count & Connection',
+    dp_lbl_canister_shape:'Canister Shape',
+    dp_lbl_canister_structure:'Canister Structure',
+    dp_lbl_canister_material:'Canister Material',
+    dp_lbl_fuel_system:'Fuel System', dp_lbl_filler_seal:'Filler Neck Seal',
+    dp_lbl_emission_ctrl:'Emission<br>Control', dp_lbl_emission_gas:'Emissions',
+    dp_lbl_dur_test_select:'Durability Test Vehicle Selection',
+
+    dp_5_1_1_lbl:'5.1.1. Test Location', dp_5_1_2_lbl:'5.1.2. Test Procedure',
+    dp_5_2_1_lbl:'5.2.1. Durability Test Driving', dp_5_2_2_lbl:'5.2.2. Break-in Driving',
+    dp_5_2_3_lbl:'5.2.3. Planned Driving Period', dp_5_2_4_lbl:'5.2.4. Driving Location',
+    dp_5_2_5_lbl:'5.2.5. Driving Procedure',
+    dp_5_3_1_lbl:'5.3.1. Test Location', dp_5_3_2_lbl:'5.3.2. Test Procedure',
+    dp_5_4_1_lbl:'5.4.1. Test Location', dp_5_4_2_lbl:'5.4.2. Test Procedure',
+    dp_lbl_engine:'Engine', dp_lbl_ignition:'Ignition System', dp_lbl_chassis:'Chassis',
+    dp_8_14_1_lbl:'8.14.1. Motor and Motor Controller',
+    dp_8_14_2_lbl:'8.14.2. Battery and Battery Controller',
+    // === 비밀번호 변경 모달 ===
+    pw_change_title:'Change Password',
+    pw_current_lbl:'Current Password', pw_new_lbl:'New Password',
+    pw_confirm_lbl:'Confirm New Password',
+    pw_current_ph:'Enter current password', pw_new_ph:'At least 4 characters',
+    pw_confirm_ph:'Re-enter password',
+    pw_cancel_btn:'Cancel', pw_change_btn:'Change',
     qr_auth_code_lbl:'Auth Code',
     qr_verify_title:'Authenticity Verification',
     qr_doc_name:'Document',
@@ -3594,6 +4113,250 @@ const LANG_DICT = {
     cf_addr_lbl:'2. Address :',
     cf_model_lbl:'3. Model :',
     cf_importer_lbl:'4. Importer :',
+    g_ph_maker:'e.g. PIAGGIO C.S.P.A(Italy)',
+    g_ph_model:'e.g. RSV4 1000 RR',
+    g_ph_fuel:'e.g. Gasoline, Diesel, LPG',
+    g_ph_euro5:'e.g. EURO 5',
+    g_ph_ece_noise:'e.g. ECE R41-04',
+    g_ph_rep_nonrep:'Rep/Non-rep',
+    g_ph_cert_id:'e.g. ABC-123',
+    g_ph_warranty_yr:'year',
+    g_ph_self_test:'e.g. OBD, Noise, Evap',
+    g_ph_key_tech:'e.g. O2 sensor, TWC, OBD, ECU, Idle control, EFI',
+    g_category:'Category',
+    dp_valve_close:'Close',
+    dp_valve_per_cyl:'Valves per Cylinder',
+    dp_valve_intake:'Intake',
+    dp_valve_exhaust:'Exhaust',
+    dp_valve_size:'Valve Size',
+    dp_air_intake_type:'Air Intake Type',
+    dp_type:'Type',
+    dp_noble_metal:'Precious Metal',
+    dp_noble_metal_g:'Precious Metal (g)',
+    dp_capacity_cc:'Capacity (cc)',
+    dp_noble_ratio:'Noble Metal Ratio (Pt:Pd:Rh)',
+    dp_10_1_crank_cam_lbl:'Distance from crankshaft centerline to camshaft centerline (mm)',
+    dp_10_1_crank_head_lbl:'Distance from crankshaft centerline to cylinder block head top (mm)',
+    dp_10_1_tdc_lbl:'Combustion chamber surface area/volume ratio at TDC',
+    dp_10_1_fuel_supply_lbl:'Fuel supply method',
+    dp_10_1_inj_range_lbl:'Injection timing control range',
+    dp_10_1_cam_timing_lbl:'Camshaft timing',
+    dp_10_1_inertia_lbl:'Equivalent inertia mass',
+    dp_10_1_roadload_lbl:'Road load power',
+    dp_10_2_title:'10.2. Evap. Same-type Vehicle Description',
+    dp_10_2_category:'Category',
+    dp_10_2_base:'Base Vehicle',
+    dp_10_2_same:'Evap. Same-type Vehicle',
+    dp_10_2_certno_lbl:'Emission Cert. No.',
+    dp_10_2_carname_lbl:'Vehicle Name',
+    dp_10_2_type_lbl:'Vehicle Type',
+    dp_10_2_eng_lbl:'Engine Type',
+    dp_10_2_cartype_lbl:'Vehicle Class',
+    dp_10_2_fuel_lbl:'Fuel Type',
+    dp_10_2_evap_type_lbl:'Evap. Storage Type',
+    dp_canister_design:'Canister Design Characteristics',
+    dp_canister_capacity:'Evap. Absorption Capacity',
+    dp_canister_count:'Canister Count & Connection',
+    dp_canister_shape:'Canister Shape',
+    dp_canister_struct:'Canister Structure',
+    dp_canister_mat:'Canister Material',
+    dp_fuel_system:'Fuel System',
+    dp_filler_seal:'Filler Sealed Structure',
+    dp_10_2_ctrl_lbl:'Evap. Control System',
+    dp_10_2_purge_lbl:'Purge Control System',
+    dp_10_2_hose_mat_lbl:'Evap. Hose Material',
+    dp_10_2_tank_mat_lbl:'Fuel Tank Material',
+    dp_10_3_title:'10.3. OBD Same-type Vehicle Description',
+    dp_10_3_category:'Category',
+    dp_10_3_base:'Base Vehicle',
+    dp_10_3_same:'OBD Same-type Vehicle',
+    dp_10_3_certno_lbl:'Emission Cert. No.',
+    dp_10_3_carname_lbl:'Vehicle Name',
+    dp_10_3_type_lbl:'Vehicle Type',
+    dp_10_3_eng_lbl:'Engine Type',
+    dp_10_3_cartype_lbl:'Vehicle Class',
+    dp_10_3_fuel_lbl:'Fuel Type',
+    dp_10_3_obd_op_lbl:'OBD Operation Method',
+    dp_10_3_std_lbl:'Emission Limit Standard',
+    dp_10_3_cycle_lbl:'Combustion Cycle',
+    dp_10_3_fuel_supply_lbl:'Fuel Supply Method',
+    dp_10_3_cat_lbl:'Catalyst Type',
+    dp_10_3_dpf_lbl:'DPF Type',
+    dp_10_3_air2_lbl:'Secondary Air Injection',
+    dp_10_3_egr_lbl:'EGR Device',
+    dp_11_1_title:'11.1. Test Vehicle Selection',
+    dp_11_1_category:'Category',
+    dp_11_1_dur:'Durability Test Vehicle',
+    dp_11_1_emis:'Emission Test Vehicle',
+    dp_11_1_vin_lbl:'VIN (Engine No.)',
+    dp_11_1_disp_lbl:'Displacement (cc)',
+    dp_11_1_eng_code_lbl:'Engine Code',
+    dp_11_1_evap_code_lbl:'Evap. Code',
+    dp_11_1_cat_code_lbl:'Catalyst Code',
+    dp_11_1_emis_ctrl:'Emission Control Device',
+    dp_11_1_emis_gas:'Emission Gas',
+    dp_11_1_model_lbl:'Model Name',
+    dp_11_1_trans_lbl:'Transmission Type',
+    dp_11_1_trans_proc_lbl:'Shift Procedure',
+    dp_11_1_inertia_lbl:'Equivalent Inertia (kg)',
+    dp_11_1_final_red_lbl:'Final Reduction',
+    dp_11_1_nv_lbl:'N/V Ratio, RPM/KPH',
+    dp_11_1_tire_lbl:'Tires',
+    dp_11_1_note_lbl:'Remarks',
+    dp_11_1_sub_hdr_ph:'Vehicle Type',
+    dp_11_1_sub_name_lbl:'Vehicle Name',
+    dp_11_1_sub_type_lbl:'Vehicle Type',
+    dp_11_1_sub_trans_lbl:'Transmission',
+    dp_11_1_sub_eng_lbl:'Engine Type',
+    dp_11_1_sub_disp_lbl:'Displacement',
+    dp_11_1_sub_weight_lbl:'Curb Weight',
+    dp_11_1_sub_inertia_lbl:'Equiv. Inertia',
+    dp_11_1_sub_roadload_lbl:'Road Load Power',
+    dp_11_1_sub_tankvol_lbl:'Fuel Tank Volume',
+    dp_11_1_sub_finalred_lbl:'Final Reduction Ratio',
+    dp_11_1_sub_sales_lbl:'Units Sold',
+    dp_11_2_title:'11.2. Durability Test Vehicle Selection',
+    dp_11_2_sel_lbl:'Durability Test Vehicle Selection',
+    dp_11_2_note_ph:'Describe durability test vehicle selection',
+    dp_11_3_title:'11.3. Emission Test Vehicle Selection',
+    dp_11_3_a_case:'A. Using chassis dynamometer:',
+    dp_11_3_a_0_lbl:'Highest equivalent inertia among same-type vehicles',
+    dp_11_3_a_1_lbl:'Highest road load within above conditions',
+    dp_11_3_a_2_lbl:'Largest displacement within above conditions',
+    dp_11_3_a_3_lbl:'Highest final gear ratio transmission within above conditions',
+    dp_11_3_a_4_lbl:'Largest fuel tank capacity within above conditions',
+    dp_11_3_b_case:'B. Using engine dynamometer:',
+    dp_11_3_b_0_lbl:'Engine with highest fuel distribution per stroke at max torque speed',
+    dp_11_3_b_1_lbl:'Engine with highest fuel distribution per stroke at max speed',
+    dp_11_4_title:'11.4. Noise Test Vehicle Selection',
+    dp_11_4_0_lbl:'Heaviest curb weight vehicle',
+    dp_11_4_1_lbl:'Largest displacement vehicle',
+    dp_11_4_2_lbl:'Vehicle with highest final gear ratio (including overdrive)',
+    dp_11_4_3_lbl:'Vehicle with highest axle ratio',
+    dp_12_ph:'State unavoidable reason',
+    dp_13_ph:'Other matters',
+    en_tank_pos_sec:'4.3.1.2. Fuel Tank Location',
+    en_tank_pos_ph:'Location description',
+    en_tank_shape_sec:'4.3.1.3. Fuel Tank Shape',
+    en_tank_shape_ph:'Shape description',
+    en_throttle_sec:'4.3.2. Throttle Body',
+    en_throttle_spec_sec:'4.3.2.1. Throttle Body Specifications',
+    en_throttle_spec_ph:'Throttle body specifications',
+    en_throttle_dim_sec:'4.3.2.2. Throttle Body Dimensions',
+    en_injector_sec:'4.3.3. Fuel Injector',
+    en_injector_spec_sec:'4.3.3.1. Fuel Injector Specifications',
+    en_injector_spec_ph:'Fuel injector specifications',
+    en_injector_dim_sec:'4.3.3.2. Fuel Injector Dimensions',
+    en_pump_sec:'4.3.4. Fuel Pump',
+    en_pump_spec_sec:'4.3.4.1. Fuel Pump Specifications',
+    en_pump_spec_ph:'Fuel pump specifications',
+    en_pump_dim_sec:'4.3.4.2. Fuel Pump Dimensions',
+    en_fuel_photo_sec:'4.4. Fuel System Photos',
+    en_fuel_photo_ph:'Fuel system photo description',
+    en_intake_sec:'5. Intake/Exhaust System',
+    en_intake_sub:'5.1. Intake System',
+    en_intake_diagram_sec:'5.1.1. Intake Manifold Diagram',
+    en_intake_diagram_ph:'Intake manifold diagram description',
+    en_intake_manifold_sec:'5.1.2. Intake Manifold',
+    en_intake_manifold_ph:'Intake manifold spec or description',
+    en_air_filter_sec:'5.1.3. Air Filter',
+    en_air_filter_ph:'Air filter spec or description',
+    en_exhaust_sub:'5.2. Exhaust System',
+    en_exhaust_diagram_sec:'5.2.1. Exhaust Manifold Diagram',
+    en_exhaust_diagram_ph:'Exhaust manifold diagram description',
+    en_exhaust_manifold_sec:'5.2.2. Exhaust Manifold',
+    en_exhaust_manifold_ph:'Exhaust manifold spec or description',
+    en_veh_sec:'6. Vehicle Exterior & Dimensions',
+    en_veh_photo_sub:'6.1. Vehicle Photos',
+    en_veh_front_sec:'6.1.1. Front View',
+    en_veh_front_ph:'Front view description',
+    en_veh_rear_sec:'6.1.2. Rear View',
+    en_veh_rear_ph:'Rear view description',
+    en_veh_side_sec:'6.1.3. Side View',
+    en_veh_side_ph:'Side view description',
+    en_veh_top_sec:'6.1.4. Top View',
+    en_veh_top_ph:'Top view description',
+    en_ext_sub:'6.2. Exterior Drawing',
+    en_ext_side_sec:'6.2.1. Exterior Side View',
+    en_ext_side_ph:'Exterior side view description',
+    en_ext_top_sec:'6.2.2. Exterior Top View',
+    en_ext_top_ph:'Exterior top view description',
+    en_ext_rear_sec:'6.2.3. Exterior Rear View',
+    en_ext_rear_ph:'Exterior rear view description',
+    en_other_sec:'7. Other',
+    en_other_tech_sub:'7.1. Other Emission/Noise Reduction Technologies',
+    en_other_tech_ph:'Describe other emission and noise reduction technologies',
+    obd_y:'Yes',
+    obd_n:'No',
+    obd_ph_max_power:'Max Power',
+    obd_ph_trans:'Transmission (gear)',
+    obd_ph_combustion:'e.g. Spark ignition, 4-stroke',
+    obd_ph_fuel_supply:'e.g. Fuel injection (EFI)',
+    obd_ph_cat_type:'e.g. Three-way catalyst',
+    obd_ph_yn:'Yes / No',
+    obd_nv_lbl:'N/V ratio, rpm/kph',
+    obd_nv_ph:'N/V ratio, rpm/kph',
+    obd_tire_lbl:'Tires',
+    obd_tire_f_lbl:'Front',
+    obd_tire_f_ph:'Front tire spec',
+    obd_tire_r_lbl:'Rear',
+    obd_tire_r_ph:'Rear tire spec',
+    obd_cat_lbl:'Catalyst Converter Type',
+    obd_cat_ph:'Catalyst converter type',
+    obd_dpf_lbl:'DPF Type',
+    obd_air2_lbl:'Secondary Air Injection Device',
+    obd_egr_lbl2:'EGR Device',
+    obd_evap_lbl:'Evap. Control Device',
+    obd_evap_ph:'Evap. control device',
+    obd_obd_func_lbl:'OBD Composition & Function',
+    obd_obd_op_lbl:'OBD Operation Method',
+    obd_obd_check_lbl:'OBD Malfunction Verification Method',
+    obd_obd_check_ph:'Malfunction verification method',
+    obd_mi_lbl:'Malfunction Indication Method',
+    obd_monitor_ph:'Enter monitoring items',
+    obd_note_ph:'Remarks',
+    obd_photo_title:'OBD Test Photos: Include vehicle, VIN, engine number photos',
+    obd_veh_photo_lbl:'Vehicle Photo',
+    obd_veh_photo_desc:'Full vehicle photo (front/side/rear)',
+    obd_vin_photo_lbl:'VIN Photo',
+    obd_vin_photo_desc:'VIN confirmation photo',
+    obd_eng_photo_lbl:'Engine No. Photo',
+    obd_eng_photo_desc:'Engine number confirmation photo',
+    obd_scanner_photo_lbl:'OBD Scanner Photo',
+    obd_scanner_photo_desc:'OBD scanner connection and result screen photos (multiple allowed)',
+    obd_attach_title:'Attachments (Self-test Report / RAW DATA)',
+    upload_click_drag:'Click or drag files to upload',
+    em_item_hdr:'Item',
+    em_fuel_eff_hdr:'Fuel Eff.\n(km/ℓ)',
+    em_std_lbl:'Standard',
+    ev_gen_info_hdr:'1. General Information',
+    obd_air2_y_lbl:'Yes',
+    obd_air2_n_lbl:'No',
+    obd_egr_y_lbl:'Yes',
+    obd_egr_n_lbl:'No',
+    nt_reg_note_ph:'e.g. Acceleration noise test (ECE R41-04)',
+    nt_test_date_ph:'e.g. 2025. 01. 01.',
+    nt_inspector_ph:'Name',
+    cf_maker_ph:'e.g. HONDA Motor Co.,Ltd (Japan)',
+    cf_model_ph:'e.g. CB500F',
+    cf_importer_ph:'e.g. ○○ Motors Co.,Ltd',
+    cf_warranty_subject_ph:'Warranty issuer name',
+    cf_warranty_text1:'shall comply with Article 46, 48, 50, 51 of the Clean Air Conservation Act',
+    cf_warranty_text2:'within the warranty period (≤130km/h: 2yr/20,000km; >130km/h: 2yr/35,000km)',
+    cf_warranty_text3:'to meet emission standards for new and in-use vehicles,',
+    cf_warranty_text4:'and perform recall obligations if defects are confirmed.',
+    cf_warranty_confirm:'We confirm that we will fulfill the above warranty obligations.',
+    cf_signed_at_ph:'Signing location',
+    cf_sign_date_ph:'e.g. 2025. 01. 01.',
+    cf_name_ph:'Signer name',
+    cf_title_ph:'Position',
+    attach_dl_title:'Download',
+    attach_del_title:'Delete',
+    lbl_address:'2. Address:',
+    lbl_model_lbl:'3. Model:',
+    lbl_warranty_content:'5. Warranty Content:',
+    nt_attach_title:'Attachments (Self-test Report / RAW DATA)',
+    nt_inspector_ph2:'Name',
     cf_ph_address:'Manufacturer Address',
     cf_ph_phone:'Phone Number',
     cf_ph_fax:'Fax Number',
@@ -4015,6 +4778,140 @@ const LANG_DICT = {
     dp_toc_11_2:'耐久性試験車両選定根拠', dp_toc_11_3:'排気ガス試験車両選定根拠',
     dp_toc_11_4:'騒音試験車両選定根拠',
     dp_toc_12:'校正情報及び事後確定情報提出協約', dp_toc_13:'その他',
+
+    en_4_3_1_2:'4.3.1.2. 燃料タンク位置', en_tank_pos_ph:'位置の説明',
+    en_4_3_1_3:'4.3.1.3. 燃料タンク形状', en_tank_shape_ph:'形状の説明',
+    en_4_3_2:'4.3.2. スロットルボディ',
+    en_4_3_2_1:'4.3.2.1. スロットルボディ仕様', en_throttle_spec_ph:'スロットルボディ仕様',
+    en_4_3_2_2:'4.3.2.2. スロットルボディ形状・寸法',
+    en_4_3_3:'4.3.3. 燃料インジェクター',
+    en_4_3_3_1:'4.3.3.1. 燃料インジェクター仕様', en_injector_spec_ph:'燃料インジェクター仕様',
+    en_4_3_3_2:'4.3.3.2. 燃料インジェクター形状・寸法',
+    en_4_3_4:'4.3.4. 燃料ポンプ',
+    en_4_3_4_1:'4.3.4.1. 燃料ポンプ仕様', en_pump_spec_ph:'燃料ポンプ仕様',
+    en_4_3_4_2:'4.3.4.2. 燃料ポンプ形状・寸法',
+    en_4_4_fuel_photo:'4.4. 燃料系統写真', en_fuel_photo_ph:'燃料系統写真の説明',
+    en_sec5:'5. 吸排気装置', en_5_1:'5.1. 吸気系統',
+    en_5_1_1:'5.1.1. 吸気マニホールド構成図', en_intake_diagram_ph:'吸気マニホールドの説明',
+    en_5_1_2:'5.1.2. 吸気マニホールド', en_intake_manifold_ph:'吸気マニホールド仕様または説明',
+    en_5_1_3:'5.1.3. エアフィルター', en_air_filter_ph:'エアフィルター仕様または説明',
+    en_5_2:'5.2. 排気系統',
+    en_5_2_1:'5.2.1. 排気マニホールド構成図', en_exhaust_diagram_ph:'排気マニホールドの説明',
+    en_5_2_2:'5.2.2. 排気マニホールド', en_exhaust_manifold_ph:'排気マニホールド仕様または説明',
+    en_sec6:'6. 車両外観・寸法', en_6_1:'6.1. 車両写真',
+    en_6_1_1:'6.1.1. 車両前面', en_veh_front_ph:'車両前面の説明',
+    en_6_1_2:'6.1.2. 車両後面', en_veh_rear_ph:'車両後面の説明',
+    en_6_1_3:'6.1.3. 車両側面', en_veh_side_ph:'車両側面の説明',
+    en_6_1_4:'6.1.4. 車両上面', en_veh_top_ph:'車両上面の説明',
+    en_6_2:'6.2. 外形図',
+    en_6_2_1:'6.2.1. 外形側面', en_ext_side_ph:'外形側面の説明',
+    en_6_2_2:'6.2.2. 外形上面', en_ext_top_ph:'外形上面の説明',
+    en_6_2_3:'6.2.3. 外形後面', en_ext_rear_ph:'外形後面の説明',
+    en_sec7:'7. その他', en_7_1:'7.1. その他排出ガス・騒音低減技術',
+    en_other_tech_ph:'その他の排出ガス・騒音低減技術を記載してください',
+    obd_yn_y:'有', obd_yn_n:'無',
+    obd_max_power_ph:'最大出力', obd_trans_ph:'変速機（段）',
+    obd_combustion_ph:'例) 火花点火、4ストローク', obd_fuel_supply_ph:'例) 燃料噴射式(EFI)',
+    obd_cat_type_ph:'例) 三元触媒', obd_yn_ph:'有 / 無',
+    obd_nv_lbl:'N/V比、rpm/kph', obd_tire_lbl:'タイヤ',
+    obd_tire_f_lbl:'前', obd_tire_r_lbl:'後',
+    obd_tire_f_ph:'前タイヤ規格', obd_tire_r_ph:'後タイヤ規格',
+    obd_cat_type_lbl:'触媒コンバータの形式', obd_cat_type_sub:'(酸化触媒、三元触媒、加熱式触媒 等)',
+    obd_dpf_lbl:'DPF形式', obd_egr_lbl:'EGRシステムの有無',
+    obd_evap_lbl:'蒸発ガス制御装置', obd_evap_ph:'蒸発ガス制御装置',
+    obd_diag_lbl:'OBDシステムの構成および機能',
+    obd_diag_op_lbl:'OBDシステムの操作方法',
+    obd_mi_check_lbl:'MIL故障確認方法', obd_mi_check_ph:'故障確認方法を入力',
+    obd_mi_disp_lbl:'故障表示方法',
+    obd_monitor_ph:'監視項目を入力', obd_note_ph:'備考',
+    obd_photo_title:'OBD TESTの写真：車両写真、VIN写真、エンジン番号写真を含む',
+    obd_veh_photo_lbl:'車両写真', obd_veh_photo_desc:'車両全体写真（前面/側面/後面を含む）',
+    obd_vin_photo_lbl:'VIN写真', obd_vin_photo_desc:'VIN確認写真',
+    obd_eng_photo_lbl:'エンジン番号写真', obd_eng_photo_desc:'エンジン番号確認写真',
+    obd_scanner_photo_lbl:'OBDスキャナー写真', obd_scanner_photo_desc:'OBDスキャナー接続・結果画面写真（複数可）',
+    obd_attach_title:'添付書類（自己試験成績書 / RAW DATA）',
+    obd_upload_hint:'クリックまたはファイルをドラッグしてアップロード',
+    em_item_th:'項目', em_fuel_econ_th:'燃費<br>(km/ℓ)', em_std_td:'基準値',
+    ev_gen_section:'1. &nbsp;一般事項',
+    oo_yn_y:'有', oo_yn_n:'無',
+    nt_reg_note_ph:'例) 加速走行騒音試験はECE試験方法で測定',
+    nt_test_date_ph:'例) 2025. 01. 01.',
+    nt_div_th:'区分', nt_2nd_lbl:'第2回試験', nt_3rd_lbl:'第3回試験',
+    nt_4th_lbl:'第4回試験', nt_avg_lbl:'平均', nt_result_lbl:'結果',
+    nt_inspector_ph:'氏名', nt_confirmer_ph:'氏名',
+    nt_attach_title:'添付書類（自己試験成績書 / RAW DATA）',
+    nt_ex_pct_lbl:'原動機最高出力<br>回転速度の',
+    nt_upload_hint:'クリックまたはファイルをドラッグしてアップロード',
+    cf_maker_ph:'例) HONDA Motor Co.,Ltd（日本）',
+    cf_addr_lbl2:'2. 住&nbsp;&nbsp;&nbsp;所 :', cf_model_lbl2:'3. モデル :',
+    cf_model_ph:'例) CB500F', cf_importer_ph:'例) ○○モーターズ株式会社',
+    cf_warranty_lbl2:'5. 保証内容 :',
+    cf_warranty_subject_ph:'保証主体名（例）○○モーターズ株式会社）',
+    cf_law_text:'は大気環境保全法第46条、48条、50条、51条及び同法施行規則第63条の規定に基づき',
+    cf_law_period:'保証期間（130km/h以下：2年又は20,000km、130km/h以上：2年又は35,000km）まで製作車及び',
+    cf_law_obligation:'使用中の車両の排出許容基準を満足するよう、品質管理・事後責任等の義務事項を履行し、',
+    cf_law_recall:'随時検査及び欠陥検査において欠陥が確認された場合、欠陥修正（リコール）の義務を履行する。',
+    cf_confirm_text:'当社は上記保証内容について、義務事項を履行することを確認します。',
+    cf_signed_at_ph:'署名場所', cf_sign_date_ph:'例) 2025. 01. 01.',
+    cf_name_ph:'署名者氏名', cf_title_ph:'役職',
+
+    dp_th_item:'項目', dp_th_sub_item:'サブ項目',
+    dp_th_structure:'構造/メーカー/サイズ/容量等',
+    dp_th_ctrl_tech:'制御技術/制御原理', dp_th_emission_eff:'排出ガス低減効果',
+    dp_th_sensor_var:'検出変数', dp_th_fuel_afr:'燃料（A/F比）',
+    dp_th_ign_timing:'点火時期',
+    dp_th_canister_purge:'キャニスターパージ/アイドル/EGR',
+    dp_th_note:'備考',
+    dp_th_part_no:'部品番号', dp_th_mfr:'製造業者', dp_th_mfr_country:'製造国',
+    dp_th_evap_code:'蒸発ガスコード',
+    dp_th_nominal_tank:'公称タンク<br>容量(L)',
+    dp_th_max_evap:'40%燃料時の最大蒸発ガス容量',
+    dp_th_reservoir:'キャブ/インジェクターのリザーバー最大容量',
+    dp_th_model_name:'適用車名',
+    dp_th_category:'区分', dp_th_basic_model:'基本車種',
+    dp_th_emission_equiv:'排出ガス・騒音<br>同一車種',
+    dp_th_evap_equiv:'蒸発ガス同一車種',
+    dp_th_obd_equiv:'OBD同一車種',
+    dp_th_dur_test:'耐久試験車両', dp_th_emission_test_v:'排出ガス試験車両',
+    dp_lbl_intake_manifold:'吸気マニホールド', dp_lbl_intake_port_size:'吸気ポートサイズ',
+    dp_lbl_intake_port_shape:'吸気ポート形状',
+    dp_lbl_exhaust_manifold:'排気マニホールド', dp_lbl_exhaust_port_size:'排気ポートサイズ',
+    dp_lbl_exhaust_port_shape:'排気ポート形状',
+    dp_lbl_valve_timing:'バルブ開閉時期',
+    dp_lbl_intake_valve:'吸気<br>バルブ', dp_lbl_exhaust_valve:'排気<br>バルブ',
+    dp_lbl_open:'開く', dp_lbl_close:'閉じる',
+    dp_lbl_valve_count:'気筒別バルブ数',
+    dp_lbl_valve_intake:'吸気', dp_lbl_valve_exhaust:'排気',
+    dp_lbl_valve_size:'バルブサイズ',
+    dp_lbl_air_intake:'吸気方式',
+    dp_lbl_cat_type_lbl:'種類', dp_lbl_noble_metal:'貴金属成分',
+    dp_lbl_noble_amount:'貴金属量(g)', dp_lbl_volume:'容量(cm³)',
+    dp_lbl_noble_ratio:'貴金属比(Pt:Pd:Rh)',
+    dp_lbl_canister_design:'キャニスター<br>設計特性',
+    dp_lbl_evap_absorp:'蒸発ガス吸収容量',
+    dp_lbl_canister_cnt:'キャニスター数・接続方法',
+    dp_lbl_canister_shape:'キャニスター形状',
+    dp_lbl_canister_structure:'キャニスター構造',
+    dp_lbl_canister_material:'キャニスター材質',
+    dp_lbl_fuel_system:'燃料システム', dp_lbl_filler_seal:'給油口シール構造',
+    dp_lbl_emission_ctrl:'排出ガス<br>制御装置', dp_lbl_emission_gas:'排出ガス',
+    dp_lbl_dur_test_select:'耐久試験車両選定',
+
+    dp_5_1_1_lbl:'5.1.1. 試験場所', dp_5_1_2_lbl:'5.1.2. 試験手順',
+    dp_5_2_1_lbl:'5.2.1. 耐久走行の有無', dp_5_2_2_lbl:'5.2.2. 慣らし走行の有無',
+    dp_5_2_3_lbl:'5.2.3. 走行予定期間', dp_5_2_4_lbl:'5.2.4. 走行場所',
+    dp_5_2_5_lbl:'5.2.5. 走行手順',
+    dp_5_3_1_lbl:'5.3.1. 試験場所', dp_5_3_2_lbl:'5.3.2. 試験手順',
+    dp_5_4_1_lbl:'5.4.1. 試験場所', dp_5_4_2_lbl:'5.4.2. 試験手順',
+    dp_lbl_engine:'エンジン', dp_lbl_ignition:'点火装置', dp_lbl_chassis:'シャシー',
+    dp_8_14_1_lbl:'8.14.1. 電動機および電動機制御装置',
+    dp_8_14_2_lbl:'8.14.2. 蓄電池および蓄電池制御装置',
+    pw_change_title:'パスワード変更',
+    pw_current_lbl:'現在のパスワード', pw_new_lbl:'新しいパスワード',
+    pw_confirm_lbl:'新しいパスワード確認',
+    pw_current_ph:'現在のパスワードを入力', pw_new_ph:'4文字以上',
+    pw_confirm_ph:'再入力',
+    pw_cancel_btn:'キャンセル', pw_change_btn:'変更',
     qr_auth_code_lbl:'真偽確認コード',
     qr_verify_title:'真偽確認',
     qr_doc_name:'書類名',
@@ -4501,6 +5398,250 @@ const LANG_DICT = {
     cf_addr_lbl:'2. 住　　所 :',
     cf_model_lbl:'3. モ　デ　ル :',
     cf_importer_lbl:'4. 輸入者 :',
+    g_ph_maker:'例) PIAGGIO C.S.P.A(イタリア)',
+    g_ph_model:'例) RSV4 1000 RR',
+    g_ph_fuel:'例) ガソリン、軽油、LPG',
+    g_ph_euro5:'例) EURO 5',
+    g_ph_ece_noise:'例) ECE R41-04',
+    g_ph_rep_nonrep:'代表/非代表',
+    g_ph_cert_id:'例) ABC-123',
+    g_ph_warranty_yr:'年',
+    g_ph_self_test:'例) OBD、騒音、蒸発ガス',
+    g_ph_key_tech:'例) O2センサー、三元触媒、OBD、ECU、アイドル制御、電子式燃料噴射',
+    g_category:'区分',
+    dp_valve_close:'閉じる',
+    dp_valve_per_cyl:'気筒別バルブ数',
+    dp_valve_intake:'吸気',
+    dp_valve_exhaust:'排気',
+    dp_valve_size:'バルブサイズ',
+    dp_air_intake_type:'空気吸入方式',
+    dp_type:'種類',
+    dp_noble_metal:'貴金属成分',
+    dp_noble_metal_g:'貴金属量(g)',
+    dp_capacity_cc:'容量(㎤)',
+    dp_noble_ratio:'貴金属比率(Pt:Pd:Rh)',
+    dp_10_1_crank_cam_lbl:'クランク軸中心からカム軸中心までの距離(mm)',
+    dp_10_1_crank_head_lbl:'クランク軸中心からシリンダーブロックヘッド面上部までの距離(mm)',
+    dp_10_1_tdc_lbl:'TDC状態での燃焼室表面積体積比率',
+    dp_10_1_fuel_supply_lbl:'燃料供給方式',
+    dp_10_1_inj_range_lbl:'噴射時期制御範囲',
+    dp_10_1_cam_timing_lbl:'カム軸タイミング',
+    dp_10_1_inertia_lbl:'等価慣性質量',
+    dp_10_1_roadload_lbl:'道路負荷馬力',
+    dp_10_2_title:'10.2. 蒸発ガス同一車種説明',
+    dp_10_2_category:'区分',
+    dp_10_2_base:'基本車種',
+    dp_10_2_same:'蒸発ガス同一車種',
+    dp_10_2_certno_lbl:'排出ガス認証番号',
+    dp_10_2_carname_lbl:'自動車名称',
+    dp_10_2_type_lbl:'自動車型式',
+    dp_10_2_eng_lbl:'原動機型式',
+    dp_10_2_cartype_lbl:'車種',
+    dp_10_2_fuel_lbl:'使用燃料',
+    dp_10_2_evap_type_lbl:'蒸発ガス貯蔵形式',
+    dp_canister_design:'キャニスター設計特性',
+    dp_canister_capacity:'蒸発ガス吸収容量',
+    dp_canister_count:'キャニスター個数及び接続方法',
+    dp_canister_shape:'キャニスター形状',
+    dp_canister_struct:'キャニスター構造',
+    dp_canister_mat:'キャニスター材質',
+    dp_fuel_system:'燃料システム',
+    dp_filler_seal:'給油口密閉構造',
+    dp_10_2_ctrl_lbl:'蒸発ガス制御システム',
+    dp_10_2_purge_lbl:'パージ制御システム',
+    dp_10_2_hose_mat_lbl:'蒸発ガスホース材質',
+    dp_10_2_tank_mat_lbl:'燃料タンク材質',
+    dp_10_3_title:'10.3. 排出ガス自己診断装置同一車種説明',
+    dp_10_3_category:'区分',
+    dp_10_3_base:'基本車種',
+    dp_10_3_same:'排出ガス自己診断装置同一車種',
+    dp_10_3_certno_lbl:'排出ガス認証番号',
+    dp_10_3_carname_lbl:'自動車名称',
+    dp_10_3_type_lbl:'自動車型式',
+    dp_10_3_eng_lbl:'原動機型式',
+    dp_10_3_cartype_lbl:'車種',
+    dp_10_3_fuel_lbl:'使用燃料',
+    dp_10_3_obd_op_lbl:'OBD作動方法',
+    dp_10_3_std_lbl:'排出ガス許容基準',
+    dp_10_3_cycle_lbl:'燃焼サイクル',
+    dp_10_3_fuel_supply_lbl:'燃料供給方式',
+    dp_10_3_cat_lbl:'触媒変換装置形態',
+    dp_10_3_dpf_lbl:'粒子状物質捕集装置形態',
+    dp_10_3_air2_lbl:'2次空気噴射有無',
+    dp_10_3_egr_lbl:'EGR装置有無',
+    dp_11_1_title:'11.1. 試験車両選定',
+    dp_11_1_category:'区分',
+    dp_11_1_dur:'耐久性試験車両',
+    dp_11_1_emis:'排出ガス試験車両',
+    dp_11_1_vin_lbl:'車台番号(エンジン番号)',
+    dp_11_1_disp_lbl:'排気量(cc)',
+    dp_11_1_eng_code_lbl:'エンジンコード',
+    dp_11_1_evap_code_lbl:'蒸発ガスコード',
+    dp_11_1_cat_code_lbl:'触媒コード',
+    dp_11_1_emis_ctrl:'排出ガス制御装置',
+    dp_11_1_emis_gas:'排出ガス',
+    dp_11_1_model_lbl:'モデル名',
+    dp_11_1_trans_lbl:'変速機形態',
+    dp_11_1_trans_proc_lbl:'変速手順',
+    dp_11_1_inertia_lbl:'等価慣性質量(kg)',
+    dp_11_1_final_red_lbl:'最終減速機',
+    dp_11_1_nv_lbl:'N/V比, RPM/KPH',
+    dp_11_1_tire_lbl:'タイヤ',
+    dp_11_1_note_lbl:'備考',
+    dp_11_1_sub_hdr_ph:'自動車型式',
+    dp_11_1_sub_name_lbl:'自動車名',
+    dp_11_1_sub_type_lbl:'自動車型式',
+    dp_11_1_sub_trans_lbl:'変速機',
+    dp_11_1_sub_eng_lbl:'原動機型式',
+    dp_11_1_sub_disp_lbl:'排気量',
+    dp_11_1_sub_weight_lbl:'車両重量',
+    dp_11_1_sub_inertia_lbl:'等価慣性質量',
+    dp_11_1_sub_roadload_lbl:'道路負荷馬力',
+    dp_11_1_sub_tankvol_lbl:'燃料タンク容量',
+    dp_11_1_sub_finalred_lbl:'最終減速比',
+    dp_11_1_sub_sales_lbl:'販売台数',
+    dp_11_2_title:'11.2. 耐久性試験車両選定',
+    dp_11_2_sel_lbl:'耐久性試験車両選定',
+    dp_11_2_note_ph:'耐久性試験車両選定内容を記載してください',
+    dp_11_3_title:'11.3. 排出ガス試験車両選定',
+    dp_11_3_a_case:'A. シャシダイナモメータを使用する場合：',
+    dp_11_3_a_0_lbl:'同一車種中、等価慣性質量が最も大きいもの',
+    dp_11_3_a_1_lbl:'上記条件内で道路負荷力が最も大きいもの',
+    dp_11_3_a_2_lbl:'上記条件内で排気量が最も大きいもの',
+    dp_11_3_a_3_lbl:'上記条件内で最も高い最終ギア比を持つ変速機',
+    dp_11_3_a_4_lbl:'上記条件内で燃料タンク容量が最も大きいもの',
+    dp_11_3_b_case:'B. エンジンダイナモメータを使用する場合：',
+    dp_11_3_b_0_lbl:'最大トルク時速度で行程当たり燃料分配率が最も高い原動機',
+    dp_11_3_b_1_lbl:'最高速度時行程当たり燃料分配率が最も高い原動機',
+    dp_11_4_title:'11.4. 騒音試験車両選定',
+    dp_11_4_0_lbl:'車両重量が最も重い自動車',
+    dp_11_4_1_lbl:'排気量が最も大きい自動車',
+    dp_11_4_2_lbl:'最終ギア比率が最も高い変速機を搭載した自動車',
+    dp_11_4_3_lbl:'車軸比が最も高い自動車',
+    dp_12_ph:'やむを得ない事由を明示',
+    dp_13_ph:'その他事項',
+    en_tank_pos_sec:'4.3.1.2. 燃料タンク位置',
+    en_tank_pos_ph:'位置説明',
+    en_tank_shape_sec:'4.3.1.3. 燃料タンク形状',
+    en_tank_shape_ph:'形状説明',
+    en_throttle_sec:'4.3.2. スロットルボディ',
+    en_throttle_spec_sec:'4.3.2.1. スロットルボディ詳細仕様',
+    en_throttle_spec_ph:'スロットルボディ詳細仕様',
+    en_throttle_dim_sec:'4.3.2.2. スロットルボディ形状及び寸法仕様',
+    en_injector_sec:'4.3.3. 燃料インジェクター',
+    en_injector_spec_sec:'4.3.3.1. 燃料インジェクター詳細仕様',
+    en_injector_spec_ph:'燃料インジェクター詳細仕様',
+    en_injector_dim_sec:'4.3.3.2. 燃料インジェクター形状及び寸法仕様',
+    en_pump_sec:'4.3.4. 燃料ポンプ',
+    en_pump_spec_sec:'4.3.4.1. 燃料ポンプ詳細仕様',
+    en_pump_spec_ph:'燃料ポンプ詳細仕様',
+    en_pump_dim_sec:'4.3.4.2. 燃料ポンプ形状及び寸法仕様',
+    en_fuel_photo_sec:'4.4. 燃料装置写真',
+    en_fuel_photo_ph:'燃料装置写真説明',
+    en_intake_sec:'5. 吸排気装置',
+    en_intake_sub:'5.1. 吸気系統',
+    en_intake_diagram_sec:'5.1.1. 吸気マニフォールド構成図',
+    en_intake_diagram_ph:'吸気マニフォールド構成説明',
+    en_intake_manifold_sec:'5.1.2. 吸気マニフォールド',
+    en_intake_manifold_ph:'吸気マニフォールド仕様または説明',
+    en_air_filter_sec:'5.1.3. エアフィルター',
+    en_air_filter_ph:'エアフィルター仕様または説明',
+    en_exhaust_sub:'5.2. 排気系統',
+    en_exhaust_diagram_sec:'5.2.1. 排気マニフォールド構成図',
+    en_exhaust_diagram_ph:'排気マニフォールド構成説明',
+    en_exhaust_manifold_sec:'5.2.2. 排気マニフォールド',
+    en_exhaust_manifold_ph:'排気マニフォールド仕様または説明',
+    en_veh_sec:'6. 車両外観及び寸法',
+    en_veh_photo_sub:'6.1. 車両写真',
+    en_veh_front_sec:'6.1.1. 車両前面',
+    en_veh_front_ph:'車両前面説明',
+    en_veh_rear_sec:'6.1.2. 車両後面',
+    en_veh_rear_ph:'車両後面説明',
+    en_veh_side_sec:'6.1.3. 車両側面',
+    en_veh_side_ph:'車両側面説明',
+    en_veh_top_sec:'6.1.4. 車両上面',
+    en_veh_top_ph:'車両上面説明',
+    en_ext_sub:'6.2. 外形図',
+    en_ext_side_sec:'6.2.1. 外形側面',
+    en_ext_side_ph:'外形側面説明',
+    en_ext_top_sec:'6.2.2. 外形上面',
+    en_ext_top_ph:'外形上面説明',
+    en_ext_rear_sec:'6.2.3. 外形後面',
+    en_ext_rear_ph:'外形後面説明',
+    en_other_sec:'7. その他',
+    en_other_tech_sub:'7.1. その他の排出ガス及び騒音低減技術',
+    en_other_tech_ph:'その他の排出ガス及び騒音低減技術を記載してください',
+    obd_y:'有',
+    obd_n:'無',
+    obd_ph_max_power:'最大出力',
+    obd_ph_trans:'変速機(段)',
+    obd_ph_combustion:'例) 火花点火、4ストローク',
+    obd_ph_fuel_supply:'例) 燃料噴射式(EFI)',
+    obd_ph_cat_type:'例) 三元触媒',
+    obd_ph_yn:'有 / 無',
+    obd_nv_lbl:'N/V比, rpm/kph',
+    obd_nv_ph:'N/V比, rpm/kph',
+    obd_tire_lbl:'タイヤ',
+    obd_tire_f_lbl:'前',
+    obd_tire_f_ph:'前タイヤ仕様',
+    obd_tire_r_lbl:'後',
+    obd_tire_r_ph:'後タイヤ仕様',
+    obd_cat_lbl:'触媒変換器形式',
+    obd_cat_ph:'触媒変換器形式',
+    obd_dpf_lbl:'DPF形式',
+    obd_air2_lbl:'2次空気噴射装置の有無',
+    obd_egr_lbl2:'排出ガス再循環装置の有無',
+    obd_evap_lbl:'蒸発ガス制御装置',
+    obd_evap_ph:'蒸発ガス制御装置',
+    obd_obd_func_lbl:'OBD構成及び機能',
+    obd_obd_op_lbl:'OBD作動方法',
+    obd_obd_check_lbl:'OBD誤作動確認方法',
+    obd_obd_check_ph:'誤作動確認方法を入力',
+    obd_mi_lbl:'誤作動表示方法',
+    obd_monitor_ph:'監視項目を入力',
+    obd_note_ph:'備考',
+    obd_photo_title:'OBDテスト写真：車両、車台番号、エンジン番号写真を含む',
+    obd_veh_photo_lbl:'車両写真',
+    obd_veh_photo_desc:'車両全体写真（前面/側面/後面）',
+    obd_vin_photo_lbl:'車台番号写真',
+    obd_vin_photo_desc:'車台番号(VIN)確認写真',
+    obd_eng_photo_lbl:'エンジン番号写真',
+    obd_eng_photo_desc:'エンジン番号確認写真',
+    obd_scanner_photo_lbl:'OBDスキャナー写真',
+    obd_scanner_photo_desc:'OBDスキャナー接続及び結果画面写真（複数添付可）',
+    obd_attach_title:'添付書類（自体試験成績書 / RAW DATA）',
+    upload_click_drag:'クリックまたはファイルをドラッグしてアップロード',
+    em_item_hdr:'項目',
+    em_fuel_eff_hdr:'燃費\n(km/ℓ)',
+    em_std_lbl:'基準値',
+    ev_gen_info_hdr:'1.　一般事項',
+    obd_air2_y_lbl:'有',
+    obd_air2_n_lbl:'無',
+    obd_egr_y_lbl:'有',
+    obd_egr_n_lbl:'無',
+    nt_reg_note_ph:'例) 加速走行騒音試験方法（ECE R41-04）',
+    nt_test_date_ph:'例) 2025. 01. 01.',
+    nt_inspector_ph:'氏名',
+    cf_maker_ph:'例) HONDA Motor Co.,Ltd（日本）',
+    cf_model_ph:'例) CB500F',
+    cf_importer_ph:'例) ○○モーターズ（株）',
+    cf_warranty_subject_ph:'保証主体名',
+    cf_warranty_text1:'は、大気環境保全法第46条等の規定による',
+    cf_warranty_text2:'保証期間内（≤130km/h：2年/20,000km；>130km/h：2年/35,000km）',
+    cf_warranty_text3:'新車及び使用中の自動車の排出許容基準を満たすよう義務を履行し、',
+    cf_warranty_text4:'欠陥確認時はリコール義務を履行する。',
+    cf_warranty_confirm:'当社は上記保証内容について義務を履行することを確認します。',
+    cf_signed_at_ph:'署名場所',
+    cf_sign_date_ph:'例) 2025. 01. 01.',
+    cf_name_ph:'署名者氏名',
+    cf_title_ph:'役職',
+    attach_dl_title:'ダウンロード',
+    attach_del_title:'削除',
+    lbl_address:'2. 住&nbsp;&nbsp;&nbsp;所：',
+    lbl_model_lbl:'3. モデル：',
+    lbl_warranty_content:'5. 保証内容：',
+    nt_attach_title:'添付書類（自体試験成績書 / RAW DATA）',
+    nt_inspector_ph2:'氏名',
     cf_ph_address:'製造社住所',
     cf_ph_phone:'電話番号',
     cf_ph_fax:'ファックス番号',
@@ -4920,6 +6061,139 @@ const LANG_DICT = {
     dp_toc_11_2:'耐久性试验车辆选定依据', dp_toc_11_3:'排放试验车辆选定依据',
     dp_toc_11_4:'噪音试验车辆选定依据',
     dp_toc_12:'校准信息及事后确定信息提交协议', dp_toc_13:'其他',
+
+    en_4_3_1_2:'4.3.1.2. 燃油箱位置', en_tank_pos_ph:'位置说明',
+    en_4_3_1_3:'4.3.1.3. 燃油箱形状', en_tank_shape_ph:'形状说明',
+    en_4_3_2:'4.3.2. 节气门体',
+    en_4_3_2_1:'4.3.2.1. 节气门体详细规格', en_throttle_spec_ph:'节气门体规格',
+    en_4_3_2_2:'4.3.2.2. 节气门体形状及尺寸',
+    en_4_3_3:'4.3.3. 燃油喷嘴',
+    en_4_3_3_1:'4.3.3.1. 燃油喷嘴详细规格', en_injector_spec_ph:'燃油喷嘴规格',
+    en_4_3_3_2:'4.3.3.2. 燃油喷嘴形状及尺寸',
+    en_4_3_4:'4.3.4. 燃油泵',
+    en_4_3_4_1:'4.3.4.1. 燃油泵详细规格', en_pump_spec_ph:'燃油泵规格',
+    en_4_3_4_2:'4.3.4.2. 燃油泵形状及尺寸',
+    en_4_4_fuel_photo:'4.4. 燃油系统照片', en_fuel_photo_ph:'燃油系统照片说明',
+    en_sec5:'5. 进排气装置', en_5_1:'5.1. 进气系统',
+    en_5_1_1:'5.1.1. 进气歧管结构图', en_intake_diagram_ph:'进气歧管说明',
+    en_5_1_2:'5.1.2. 进气歧管', en_intake_manifold_ph:'进气歧管规格或说明',
+    en_5_1_3:'5.1.3. 空气滤清器', en_air_filter_ph:'空气滤清器规格或说明',
+    en_5_2:'5.2. 排气系统',
+    en_5_2_1:'5.2.1. 排气歧管结构图', en_exhaust_diagram_ph:'排气歧管说明',
+    en_5_2_2:'5.2.2. 排气歧管', en_exhaust_manifold_ph:'排气歧管规格或说明',
+    en_sec6:'6. 车辆外观及尺寸', en_6_1:'6.1. 车辆照片',
+    en_6_1_1:'6.1.1. 车辆正面', en_veh_front_ph:'车辆正面说明',
+    en_6_1_2:'6.1.2. 车辆后面', en_veh_rear_ph:'车辆后面说明',
+    en_6_1_3:'6.1.3. 车辆侧面', en_veh_side_ph:'车辆侧面说明',
+    en_6_1_4:'6.1.4. 车辆顶面', en_veh_top_ph:'车辆顶面说明',
+    en_6_2:'6.2. 外形图',
+    en_6_2_1:'6.2.1. 外形侧视图', en_ext_side_ph:'外形侧视图说明',
+    en_6_2_2:'6.2.2. 外形顶视图', en_ext_top_ph:'外形顶视图说明',
+    en_6_2_3:'6.2.3. 外形后视图', en_ext_rear_ph:'外形后视图说明',
+    en_sec7:'7. 其他', en_7_1:'7.1. 其他排放及噪声减排技术',
+    en_other_tech_ph:'请填写其他排放和噪声减排技术',
+    obd_yn_y:'有', obd_yn_n:'无',
+    obd_max_power_ph:'最大输出功率', obd_trans_ph:'变速箱（档）',
+    obd_combustion_ph:'例）火花点火，4冲程', obd_fuel_supply_ph:'例）燃油喷射式(EFI)',
+    obd_cat_type_ph:'例）三元催化', obd_yn_ph:'有 / 无',
+    obd_nv_lbl:'N/V比，rpm/kph', obd_tire_lbl:'轮胎',
+    obd_tire_f_lbl:'前', obd_tire_r_lbl:'后',
+    obd_tire_f_ph:'前轮胎规格', obd_tire_r_ph:'后轮胎规格',
+    obd_cat_type_lbl:'催化转化器形式', obd_cat_type_sub:'(氧化催化、三元催化、加热式催化 等)',
+    obd_dpf_lbl:'DPF形式', obd_egr_lbl:'EGR系统有无',
+    obd_evap_lbl:'蒸发排放控制装置', obd_evap_ph:'蒸发排放控制装置',
+    obd_diag_lbl:'OBD系统组成及功能', obd_diag_op_lbl:'OBD系统操作方法',
+    obd_mi_check_lbl:'MIL故障确认方法', obd_mi_check_ph:'输入故障确认方法',
+    obd_mi_disp_lbl:'故障显示方法',
+    obd_monitor_ph:'输入监控项目', obd_note_ph:'备注',
+    obd_photo_title:'OBD TEST照片：车辆照片、VIN照片、发动机号照片',
+    obd_veh_photo_lbl:'车辆照片', obd_veh_photo_desc:'整车照片（含正面/侧面/后面）',
+    obd_vin_photo_lbl:'VIN照片', obd_vin_photo_desc:'VIN确认照片',
+    obd_eng_photo_lbl:'发动机号照片', obd_eng_photo_desc:'发动机号确认照片',
+    obd_scanner_photo_lbl:'OBD扫描仪照片', obd_scanner_photo_desc:'OBD扫描仪连接及结果画面照片（可多张）',
+    obd_attach_title:'附件（自检报告 / RAW DATA）',
+    obd_upload_hint:'点击或拖拽文件上传',
+    em_item_th:'项目', em_fuel_econ_th:'燃油经济性<br>(km/ℓ)', em_std_td:'标准值',
+    ev_gen_section:'1. &nbsp;一般事项',
+    oo_yn_y:'有', oo_yn_n:'无',
+    nt_reg_note_ph:'例）加速行驶噪声试验采用ECE试验方法',
+    nt_test_date_ph:'例）2025. 01. 01.',
+    nt_div_th:'类别', nt_2nd_lbl:'第2次试验', nt_3rd_lbl:'第3次试验',
+    nt_4th_lbl:'第4次试验', nt_avg_lbl:'平均', nt_result_lbl:'结果',
+    nt_inspector_ph:'姓名', nt_confirmer_ph:'姓名',
+    nt_attach_title:'附件（自检报告 / RAW DATA）',
+    nt_ex_pct_lbl:'发动机最高输出<br>转速的',
+    nt_upload_hint:'点击或拖拽文件上传',
+    cf_maker_ph:'例）HONDA Motor Co.,Ltd（日本）',
+    cf_addr_lbl2:'2. 地&nbsp;&nbsp;&nbsp;址 :', cf_model_lbl2:'3. 型&nbsp;&nbsp;&nbsp;号 :',
+    cf_model_ph:'例）CB500F', cf_importer_ph:'例）○○汽车有限公司',
+    cf_warranty_lbl2:'5. 保证内容 :',
+    cf_warranty_subject_ph:'保证主体名称（例）○○汽车有限公司）',
+    cf_law_text:'依据大气环境保全法第46条、48条、50条、51条及其施行规则第63条之规定',
+    cf_law_period:'在保修期间（130km/h以下：2年或20,000km，130km/h以上：2年或35,000km）内，对制造车辆及',
+    cf_law_obligation:'在用车辆满足排放标准，履行质量管理、售后责任等义务，',
+    cf_law_recall:'在例行检查及缺陷检查中确认缺陷时，履行缺陷修正（召回）义务。',
+    cf_confirm_text:'本公司确认将履行上述保证内容所规定的义务。',
+    cf_signed_at_ph:'签名地点', cf_sign_date_ph:'例）2025. 01. 01.',
+    cf_name_ph:'签名人姓名', cf_title_ph:'职务',
+
+    dp_th_item:'项目', dp_th_sub_item:'子项目',
+    dp_th_structure:'结构/厂商/尺寸/容量等',
+    dp_th_ctrl_tech:'控制技术/控制原理', dp_th_emission_eff:'排放减少效果',
+    dp_th_sensor_var:'检测变量', dp_th_fuel_afr:'燃料（空燃比）',
+    dp_th_ign_timing:'点火时机',
+    dp_th_canister_purge:'碳罐净化/怠速/EGR',
+    dp_th_note:'备注',
+    dp_th_part_no:'零件号', dp_th_mfr:'制造商', dp_th_mfr_country:'制造国',
+    dp_th_evap_code:'蒸发气体代码',
+    dp_th_nominal_tank:'标称油箱<br>容量(L)',
+    dp_th_max_evap:'40%燃油时最大蒸发气体容量',
+    dp_th_reservoir:'化油器/喷油装置蓄液池最大容量',
+    dp_th_model_name:'适用车型',
+    dp_th_category:'类别', dp_th_basic_model:'基础车型',
+    dp_th_emission_equiv:'排放及噪声<br>同一车型',
+    dp_th_evap_equiv:'蒸发气体同一车型',
+    dp_th_obd_equiv:'OBD同一车型',
+    dp_th_dur_test:'耐久性试验车辆', dp_th_emission_test_v:'排放试验车辆',
+    dp_lbl_intake_manifold:'进气歧管', dp_lbl_intake_port_size:'进气口尺寸',
+    dp_lbl_intake_port_shape:'进气口形状',
+    dp_lbl_exhaust_manifold:'排气歧管', dp_lbl_exhaust_port_size:'排气口尺寸',
+    dp_lbl_exhaust_port_shape:'排气口形状',
+    dp_lbl_valve_timing:'气门开闭',
+    dp_lbl_intake_valve:'进气<br>门', dp_lbl_exhaust_valve:'排气<br>门',
+    dp_lbl_open:'开启', dp_lbl_close:'关闭',
+    dp_lbl_valve_count:'每缸气门数',
+    dp_lbl_valve_intake:'进气', dp_lbl_valve_exhaust:'排气',
+    dp_lbl_valve_size:'气门尺寸',
+    dp_lbl_air_intake:'进气方式',
+    dp_lbl_cat_type_lbl:'类型', dp_lbl_noble_metal:'贵金属成分',
+    dp_lbl_noble_amount:'贵金属量(g)', dp_lbl_volume:'容量(cm³)',
+    dp_lbl_noble_ratio:'贵金属比(Pt:Pd:Rh)',
+    dp_lbl_canister_design:'碳罐<br>设计特性',
+    dp_lbl_evap_absorp:'蒸发气体吸收容量',
+    dp_lbl_canister_cnt:'碳罐数量及连接方式',
+    dp_lbl_canister_shape:'碳罐形状',
+    dp_lbl_canister_structure:'碳罐结构',
+    dp_lbl_canister_material:'碳罐材质',
+    dp_lbl_fuel_system:'燃油系统', dp_lbl_filler_seal:'加油管密封结构',
+    dp_lbl_emission_ctrl:'排放<br>控制装置', dp_lbl_emission_gas:'排放气体',
+    dp_lbl_dur_test_select:'耐久性试验车辆选定',
+
+    dp_5_1_1_lbl:'5.1.1. 试验场所', dp_5_1_2_lbl:'5.1.2. 试验程序',
+    dp_5_2_1_lbl:'5.2.1. 耐久性试验行驶', dp_5_2_2_lbl:'5.2.2. 磨合行驶',
+    dp_5_2_3_lbl:'5.2.3. 计划行驶期间', dp_5_2_4_lbl:'5.2.4. 行驶场所',
+    dp_5_2_5_lbl:'5.2.5. 行驶程序',
+    dp_5_3_1_lbl:'5.3.1. 试验场所', dp_5_3_2_lbl:'5.3.2. 试验程序',
+    dp_5_4_1_lbl:'5.4.1. 试验场所', dp_5_4_2_lbl:'5.4.2. 试验程序',
+    dp_lbl_engine:'发动机', dp_lbl_ignition:'点火装置', dp_lbl_chassis:'底盘',
+    dp_8_14_1_lbl:'8.14.1. 电动机及电动机控制装置',
+    dp_8_14_2_lbl:'8.14.2. 蓄电池及蓄电池控制装置',
+    pw_change_title:'修改密码',
+    pw_current_lbl:'当前密码', pw_new_lbl:'新密码',
+    pw_confirm_lbl:'确认新密码',
+    pw_current_ph:'请输入当前密码', pw_new_ph:'至少4个字符',
+    pw_confirm_ph:'请重新输入',
+    pw_cancel_btn:'取消', pw_change_btn:'修改',
     qr_auth_code_lbl:'真伪确认码',
     qr_verify_title:'真伪验证',
     qr_doc_name:'文件名',
@@ -5406,6 +6680,250 @@ const LANG_DICT = {
     cf_addr_lbl:'2. 地　　址：',
     cf_model_lbl:'3. 型　　号：',
     cf_importer_lbl:'4. 进口商：',
+    g_ph_maker:'例) PIAGGIO C.S.P.A(意大利)',
+    g_ph_model:'例) RSV4 1000 RR',
+    g_ph_fuel:'例) 汽油、柴油、液化石油气',
+    g_ph_euro5:'例) EURO 5',
+    g_ph_ece_noise:'例) ECE R41-04',
+    g_ph_rep_nonrep:'代表/非代表',
+    g_ph_cert_id:'例) ABC-123',
+    g_ph_warranty_yr:'年',
+    g_ph_self_test:'例) OBD、噪声、蒸发气体',
+    g_ph_key_tech:'例) 氧传感器、三元催化剂、OBD、ECU、怠速控制、电子燃油喷射',
+    g_category:'区分',
+    dp_valve_close:'关闭',
+    dp_valve_per_cyl:'每缸气门数',
+    dp_valve_intake:'进气',
+    dp_valve_exhaust:'排气',
+    dp_valve_size:'气门尺寸',
+    dp_air_intake_type:'空气进气方式',
+    dp_type:'类型',
+    dp_noble_metal:'贵金属成分',
+    dp_noble_metal_g:'贵金属量(g)',
+    dp_capacity_cc:'容量(㎤)',
+    dp_noble_ratio:'贵金属比率(Pt:Pd:Rh)',
+    dp_10_1_crank_cam_lbl:'曲轴中心线到凸轮轴中心线距离(mm)',
+    dp_10_1_crank_head_lbl:'曲轴中心线到气缸体缸盖面上部距离(mm)',
+    dp_10_1_tdc_lbl:'TDC状态下燃烧室表面积体积比率',
+    dp_10_1_fuel_supply_lbl:'燃油供应方式',
+    dp_10_1_inj_range_lbl:'喷射正时控制范围',
+    dp_10_1_cam_timing_lbl:'凸轮轴正时',
+    dp_10_1_inertia_lbl:'等效惯性质量',
+    dp_10_1_roadload_lbl:'道路负荷功率',
+    dp_10_2_title:'10.2. 蒸发排放同型车辆说明',
+    dp_10_2_category:'区分',
+    dp_10_2_base:'基本车型',
+    dp_10_2_same:'蒸发排放同型车辆',
+    dp_10_2_certno_lbl:'排放认证编号',
+    dp_10_2_carname_lbl:'车辆名称',
+    dp_10_2_type_lbl:'车辆型式',
+    dp_10_2_eng_lbl:'发动机型式',
+    dp_10_2_cartype_lbl:'车种',
+    dp_10_2_fuel_lbl:'使用燃料',
+    dp_10_2_evap_type_lbl:'蒸发气体储存形式',
+    dp_canister_design:'碳罐设计特性',
+    dp_canister_capacity:'蒸发气体吸收容量',
+    dp_canister_count:'碳罐数量及连接方式',
+    dp_canister_shape:'碳罐形状',
+    dp_canister_struct:'碳罐结构',
+    dp_canister_mat:'碳罐材质',
+    dp_fuel_system:'燃油系统',
+    dp_filler_seal:'加油口密封结构',
+    dp_10_2_ctrl_lbl:'蒸发气体控制系统',
+    dp_10_2_purge_lbl:'吹扫控制系统',
+    dp_10_2_hose_mat_lbl:'蒸发气体软管材质',
+    dp_10_2_tank_mat_lbl:'燃油箱材质',
+    dp_10_3_title:'10.3. 排放自诊断装置同型车辆说明',
+    dp_10_3_category:'区分',
+    dp_10_3_base:'基本车型',
+    dp_10_3_same:'排放自诊断装置同型车辆',
+    dp_10_3_certno_lbl:'排放认证编号',
+    dp_10_3_carname_lbl:'车辆名称',
+    dp_10_3_type_lbl:'车辆型式',
+    dp_10_3_eng_lbl:'发动机型式',
+    dp_10_3_cartype_lbl:'车种',
+    dp_10_3_fuel_lbl:'使用燃料',
+    dp_10_3_obd_op_lbl:'OBD操作方法',
+    dp_10_3_std_lbl:'排放许可基准',
+    dp_10_3_cycle_lbl:'燃烧循环',
+    dp_10_3_fuel_supply_lbl:'燃油供应方式',
+    dp_10_3_cat_lbl:'催化转化装置形态',
+    dp_10_3_dpf_lbl:'颗粒物捕集装置形态',
+    dp_10_3_air2_lbl:'二次空气喷射有无',
+    dp_10_3_egr_lbl:'EGR装置有无',
+    dp_11_1_title:'11.1. 试验车辆选定',
+    dp_11_1_category:'区分',
+    dp_11_1_dur:'耐久性试验车辆',
+    dp_11_1_emis:'排放试验车辆',
+    dp_11_1_vin_lbl:'车架号(发动机号)',
+    dp_11_1_disp_lbl:'排量(cc)',
+    dp_11_1_eng_code_lbl:'发动机代码',
+    dp_11_1_evap_code_lbl:'蒸发气体代码',
+    dp_11_1_cat_code_lbl:'催化剂代码',
+    dp_11_1_emis_ctrl:'排放控制装置',
+    dp_11_1_emis_gas:'排放气体',
+    dp_11_1_model_lbl:'型号名称',
+    dp_11_1_trans_lbl:'变速器形态',
+    dp_11_1_trans_proc_lbl:'换挡程序',
+    dp_11_1_inertia_lbl:'等效惯性质量(kg)',
+    dp_11_1_final_red_lbl:'末级减速器',
+    dp_11_1_nv_lbl:'N/V比, RPM/KPH',
+    dp_11_1_tire_lbl:'轮胎',
+    dp_11_1_note_lbl:'备注',
+    dp_11_1_sub_hdr_ph:'车辆型式',
+    dp_11_1_sub_name_lbl:'车辆名称',
+    dp_11_1_sub_type_lbl:'车辆型式',
+    dp_11_1_sub_trans_lbl:'变速器',
+    dp_11_1_sub_eng_lbl:'发动机型式',
+    dp_11_1_sub_disp_lbl:'排量',
+    dp_11_1_sub_weight_lbl:'整备质量',
+    dp_11_1_sub_inertia_lbl:'等效惯性质量',
+    dp_11_1_sub_roadload_lbl:'道路负荷功率',
+    dp_11_1_sub_tankvol_lbl:'燃油箱容量',
+    dp_11_1_sub_finalred_lbl:'最终传动比',
+    dp_11_1_sub_sales_lbl:'销售台数',
+    dp_11_2_title:'11.2. 耐久性试验车辆选定',
+    dp_11_2_sel_lbl:'耐久性试验车辆选定',
+    dp_11_2_note_ph:'请填写耐久性试验车辆选定内容',
+    dp_11_3_title:'11.3. 排放试验车辆选定',
+    dp_11_3_a_case:'A. 使用底盘测功机的情况：',
+    dp_11_3_a_0_lbl:'同型车辆中等效惯性质量最大的',
+    dp_11_3_a_1_lbl:'上述条件下道路负荷力最大的',
+    dp_11_3_a_2_lbl:'上述条件下排量最大的',
+    dp_11_3_a_3_lbl:'上述条件下最高最终传动比变速器',
+    dp_11_3_a_4_lbl:'上述条件下燃油箱容量最大的',
+    dp_11_3_b_case:'B. 使用发动机测功机的情况：',
+    dp_11_3_b_0_lbl:'最大扭矩转速下每行程燃油分配率最高的发动机',
+    dp_11_3_b_1_lbl:'最高转速下每行程燃油分配率最高的发动机',
+    dp_11_4_title:'11.4. 噪声试验车辆选定',
+    dp_11_4_0_lbl:'整备质量最重的车辆',
+    dp_11_4_1_lbl:'排量最大的车辆',
+    dp_11_4_2_lbl:'最终传动比最高的变速器车辆',
+    dp_11_4_3_lbl:'车轴比最高的车辆',
+    dp_12_ph:'说明不可避免的理由',
+    dp_13_ph:'其他事项',
+    en_tank_pos_sec:'4.3.1.2. 燃油箱位置',
+    en_tank_pos_ph:'位置说明',
+    en_tank_shape_sec:'4.3.1.3. 燃油箱形状',
+    en_tank_shape_ph:'形状说明',
+    en_throttle_sec:'4.3.2. 节气门体',
+    en_throttle_spec_sec:'4.3.2.1. 节气门体详细规格',
+    en_throttle_spec_ph:'节气门体详细规格',
+    en_throttle_dim_sec:'4.3.2.2. 节气门体形状及尺寸规格',
+    en_injector_sec:'4.3.3. 燃油喷射器',
+    en_injector_spec_sec:'4.3.3.1. 燃油喷射器详细规格',
+    en_injector_spec_ph:'燃油喷射器详细规格',
+    en_injector_dim_sec:'4.3.3.2. 燃油喷射器形状及尺寸规格',
+    en_pump_sec:'4.3.4. 燃油泵',
+    en_pump_spec_sec:'4.3.4.1. 燃油泵详细规格',
+    en_pump_spec_ph:'燃油泵详细规格',
+    en_pump_dim_sec:'4.3.4.2. 燃油泵形状及尺寸规格',
+    en_fuel_photo_sec:'4.4. 燃油装置照片',
+    en_fuel_photo_ph:'燃油装置照片说明',
+    en_intake_sec:'5. 进排气装置',
+    en_intake_sub:'5.1. 进气系统',
+    en_intake_diagram_sec:'5.1.1. 进气歧管构成图',
+    en_intake_diagram_ph:'进气歧管构成说明',
+    en_intake_manifold_sec:'5.1.2. 进气歧管',
+    en_intake_manifold_ph:'进气歧管规格或说明',
+    en_air_filter_sec:'5.1.3. 空气滤清器',
+    en_air_filter_ph:'空气滤清器规格或说明',
+    en_exhaust_sub:'5.2. 排气系统',
+    en_exhaust_diagram_sec:'5.2.1. 排气歧管构成图',
+    en_exhaust_diagram_ph:'排气歧管构成说明',
+    en_exhaust_manifold_sec:'5.2.2. 排气歧管',
+    en_exhaust_manifold_ph:'排气歧管规格或说明',
+    en_veh_sec:'6. 车辆外观及尺寸',
+    en_veh_photo_sub:'6.1. 车辆照片',
+    en_veh_front_sec:'6.1.1. 车辆前面',
+    en_veh_front_ph:'车辆前面说明',
+    en_veh_rear_sec:'6.1.2. 车辆后面',
+    en_veh_rear_ph:'车辆后面说明',
+    en_veh_side_sec:'6.1.3. 车辆侧面',
+    en_veh_side_ph:'车辆侧面说明',
+    en_veh_top_sec:'6.1.4. 车辆上面',
+    en_veh_top_ph:'车辆上面说明',
+    en_ext_sub:'6.2. 外形图',
+    en_ext_side_sec:'6.2.1. 外形侧面',
+    en_ext_side_ph:'外形侧面说明',
+    en_ext_top_sec:'6.2.2. 外形上面',
+    en_ext_top_ph:'外形上面说明',
+    en_ext_rear_sec:'6.2.3. 外形后面',
+    en_ext_rear_ph:'外形后面说明',
+    en_other_sec:'7. 其他',
+    en_other_tech_sub:'7.1. 其他排放及噪声降低技术',
+    en_other_tech_ph:'请填写其他排放及噪声降低技术',
+    obd_y:'有',
+    obd_n:'无',
+    obd_ph_max_power:'最大功率',
+    obd_ph_trans:'变速器(档)',
+    obd_ph_combustion:'例) 火花点火，4冲程',
+    obd_ph_fuel_supply:'例) 燃油喷射式(EFI)',
+    obd_ph_cat_type:'例) 三元催化剂',
+    obd_ph_yn:'有 / 无',
+    obd_nv_lbl:'N/V比, rpm/kph',
+    obd_nv_ph:'N/V比, rpm/kph',
+    obd_tire_lbl:'轮胎',
+    obd_tire_f_lbl:'前',
+    obd_tire_f_ph:'前轮胎规格',
+    obd_tire_r_lbl:'后',
+    obd_tire_r_ph:'后轮胎规格',
+    obd_cat_lbl:'催化转化器型式',
+    obd_cat_ph:'催化转化器型式',
+    obd_dpf_lbl:'颗粒捕集器型式',
+    obd_air2_lbl:'二次空气喷射装置有无',
+    obd_egr_lbl2:'排放气体再循环装置有无',
+    obd_evap_lbl:'蒸发气体控制装置',
+    obd_evap_ph:'蒸发气体控制装置',
+    obd_obd_func_lbl:'OBD构成及功能',
+    obd_obd_op_lbl:'OBD操作方法',
+    obd_obd_check_lbl:'OBD故障确认方法',
+    obd_obd_check_ph:'输入故障确认方法',
+    obd_mi_lbl:'故障指示方法',
+    obd_monitor_ph:'输入监控项目',
+    obd_note_ph:'备注',
+    obd_photo_title:'OBD测试照片：包含车辆、车架号、发动机号照片',
+    obd_veh_photo_lbl:'车辆照片',
+    obd_veh_photo_desc:'车辆整体照片（前面/侧面/后面）',
+    obd_vin_photo_lbl:'车架号照片',
+    obd_vin_photo_desc:'车架号(VIN)确认照片',
+    obd_eng_photo_lbl:'发动机号照片',
+    obd_eng_photo_desc:'发动机号确认照片',
+    obd_scanner_photo_lbl:'OBD扫描仪照片',
+    obd_scanner_photo_desc:'OBD扫描仪连接及结果界面照片（可多张）',
+    obd_attach_title:'附件（自测报告 / RAW DATA）',
+    upload_click_drag:'点击或拖拽文件上传',
+    em_item_hdr:'项目',
+    em_fuel_eff_hdr:'燃油效率\n(km/ℓ)',
+    em_std_lbl:'基准值',
+    ev_gen_info_hdr:'1. 一般事项',
+    obd_air2_y_lbl:'有',
+    obd_air2_n_lbl:'无',
+    obd_egr_y_lbl:'有',
+    obd_egr_n_lbl:'无',
+    nt_reg_note_ph:'例) 加速行驶噪声试验方法（ECE R41-04）',
+    nt_test_date_ph:'例) 2025. 01. 01.',
+    nt_inspector_ph:'姓名',
+    cf_maker_ph:'例) HONDA Motor Co.,Ltd（日本）',
+    cf_model_ph:'例) CB500F',
+    cf_importer_ph:'例) ○○汽车有限公司',
+    cf_warranty_subject_ph:'保证主体名称',
+    cf_warranty_text1:'依据《大气环境保护法》第46、48、50、51条等规定',
+    cf_warranty_text2:'在保证期限内（≤130km/h：2年/20,000km；>130km/h：2年/35,000km）',
+    cf_warranty_text3:'确保新车及在用车辆符合排放标准，履行相关义务，',
+    cf_warranty_text4:'发现缺陷时履行召回义务。',
+    cf_warranty_confirm:'本公司确认将履行上述保证内容的义务事项。',
+    cf_signed_at_ph:'签署地点',
+    cf_sign_date_ph:'例) 2025. 01. 01.',
+    cf_name_ph:'签署者姓名',
+    cf_title_ph:'职务',
+    attach_dl_title:'下载',
+    attach_del_title:'删除',
+    lbl_address:'2. 地&nbsp;&nbsp;&nbsp;址：',
+    lbl_model_lbl:'3. 型&nbsp;&nbsp;&nbsp;号：',
+    lbl_warranty_content:'5. 保证内容：',
+    nt_attach_title:'附件（自测报告 / RAW DATA）',
+    nt_inspector_ph2:'姓名',
     cf_ph_address:'制造商地址',
     cf_ph_phone:'电话号码',
     cf_ph_fax:'传真号码',
@@ -6883,7 +8401,7 @@ function buildFormHTML(formType, saved) {
         <td class="sv-lbl">\${BL('sv_maker')}</td>
         <td class="sv-val">
           <input data-field="maker" class="sv-inp" type="text"
-            placeholder="예) PIAGGIO C.S.P.A(이태리)"
+            placeholder="${BL('g_ph_maker')}"
             value="\${E(v('maker'))}">
         </td>
       </tr>
@@ -6894,7 +8412,7 @@ function buildFormHTML(formType, saved) {
         <td class="sv-lbl">\${BL('sv_vehicle_name')}</td>
         <td class="sv-val">
           <input data-field="vehicle_name" class="sv-inp" type="text"
-            placeholder="예) RSV4 1000 RR"
+            placeholder="${BL('g_ph_model')}"
             value="\${E(v('vehicle_name'))}">
         </td>
       </tr>
@@ -6905,7 +8423,7 @@ function buildFormHTML(formType, saved) {
         <td class="sv-lbl">\${BL('sv_fuel')}</td>
         <td class="sv-val">
           <input data-field="fuel" class="sv-inp" type="text"
-            placeholder="예) 휘발유, 경유, LPG"
+            placeholder="${BL('g_ph_fuel')}"
             value="\${E(v('fuel'))}">
         </td>
       </tr>
@@ -6918,7 +8436,7 @@ function buildFormHTML(formType, saved) {
           <div class="sv-sub-row">
             <span class="sv-sub-lbl">\${BL('sv_emission')}</span>
             <input data-field="emission_std" class="sv-inp" type="text"
-              placeholder="예) EURO 5"
+              placeholder="${BL('g_ph_euro5')}"
               value="\${E(v('emission_std'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -6928,7 +8446,7 @@ function buildFormHTML(formType, saved) {
           <div class="sv-sub-row">
             <span class="sv-sub-lbl">\${BL('sv_noise_simple')}</span>
             <input data-field="noise_std" class="sv-inp" type="text"
-              placeholder="예) ECE R41-04"
+              placeholder="${BL('g_ph_ece_noise')}"
               value="\${E(v('noise_std'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -6943,7 +8461,7 @@ function buildFormHTML(formType, saved) {
         </td>
         <td class="sv-val">
           <input data-field="foreign_std" class="sv-inp" type="text"
-            placeholder="예) EURO 5"
+            placeholder="${BL('g_ph_euro5')}"
             value="\${E(v('foreign_std'))}">
         </td>
       </tr>
@@ -6956,7 +8474,7 @@ function buildFormHTML(formType, saved) {
           <div class="sv-sub-row">
             <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_rep_vehicle_lbl')}</span>
             <input data-field="evap_is_rep" class="sv-inp" type="text"
-              placeholder="대표/비대표"
+              placeholder="${BL('g_ph_rep_nonrep')}"
               value="\${E(v('evap_is_rep'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -6966,7 +8484,7 @@ function buildFormHTML(formType, saved) {
           <div class="sv-sub-row">
             <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_vehicle_name_lbl')}</span>
             <input data-field="evap_rep_name" class="sv-inp" type="text"
-              placeholder="예) RSV4 1000 RR"
+              placeholder="${BL('g_ph_model')}"
               value="\${E(v('evap_rep_name'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -6976,7 +8494,7 @@ function buildFormHTML(formType, saved) {
           <div class="sv-sub-row">
             <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_type_lbl')}</span>
             <input data-field="evap_rep_type" class="sv-inp" type="text"
-              placeholder="예) ABC-123"
+              placeholder="${BL('g_ph_cert_id')}"
               value="\${E(v('evap_rep_type'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -6990,7 +8508,7 @@ function buildFormHTML(formType, saved) {
           <div class="sv-sub-row">
             <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_rep_vehicle_lbl')}</span>
             <input data-field="obd_is_rep" class="sv-inp" type="text"
-              placeholder="대표/비대표"
+              placeholder="${BL('g_ph_rep_nonrep')}"
               value="\${E(v('obd_is_rep'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -7000,7 +8518,7 @@ function buildFormHTML(formType, saved) {
           <div class="sv-sub-row">
             <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_vehicle_name_lbl')}</span>
             <input data-field="obd_rep_name" class="sv-inp" type="text"
-              placeholder="예) RSV4 1000 RR"
+              placeholder="${BL('g_ph_model')}"
               value="\${E(v('obd_rep_name'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -7010,7 +8528,7 @@ function buildFormHTML(formType, saved) {
           <div class="sv-sub-row">
             <span class="sv-sub-lbl" style="width:64px;">\${BL('sv_type_lbl')}</span>
             <input data-field="obd_rep_type" class="sv-inp" type="text"
-              placeholder="예) ABC-123"
+              placeholder="${BL('g_ph_cert_id')}"
               value="\${E(v('obd_rep_type'))}" style="flex:1;min-width:0;">
           </div>
         </td>
@@ -7023,7 +8541,7 @@ function buildFormHTML(formType, saved) {
         <td style="padding:0;">
           <div class="sv-warranty-row">
             <input data-field="warranty_year" class="sv-rep-item-inp" type="text"
-              placeholder="년" value="\${E(v('warranty_year'))}" style="width:50px;text-align:right;">
+              placeholder="${BL('g_ph_warranty_yr')}" value="\${E(v('warranty_year'))}" style="width:50px;text-align:right;">
             <span style="font-size:10pt;">\${BL('unit_year')}</span>
             <span style="font-size:10pt;">&nbsp;/&nbsp;</span>
             <input data-field="warranty_km" class="sv-rep-item-inp" type="text"
@@ -7039,7 +8557,7 @@ function buildFormHTML(formType, saved) {
         <td class="sv-lbl">\${BL('sv_self_test')}</td>
         <td class="sv-val">
           <input data-field="self_test" class="sv-inp" type="text"
-            placeholder="예) OBD, 소음, 증발가스"
+            placeholder="${BL('g_ph_self_test')}"
             value="\${E(v('self_test'))}">
         </td>
       </tr>
@@ -7050,7 +8568,7 @@ function buildFormHTML(formType, saved) {
         <td class="sv-lbl">\${BL('sv_key_tech')}</td>
         <td class="sv-val">
           <textarea data-field="key_tech" class="sv-ta" rows="3"
-            placeholder="예) 산소센서, 삼원촉매, OBD, ECU, Idle control, 전자식 연료주입">\${E(v('key_tech'))}</textarea>
+            placeholder="${BL('g_ph_key_tech')}">\${E(v('key_tech'))}</textarea>
         </td>
       </tr>
 
@@ -7578,7 +9096,7 @@ function buildFormHTML(formType, saved) {
     </colgroup>
     <thead>
       <tr>
-        <th class="en-th" rowspan="2">구분</th>
+        <th class="en-th" rowspan="2">${BL('g_category')}</th>
         <th class="en-th" rowspan="2">\${BL('g_th_co_gkm')}</th>
         <th class="en-th" rowspan="2">NOx<br>(g/km)</th>
         <th class="en-th" colspan="3">\${BL('g_th_hc')}</th>
@@ -8579,10 +10097,10 @@ function buildFormHTML(formType, saved) {
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_1_1_km_2" type="text" value="\${E(v('dp_6_1_1_km_2'))}" placeholder="km" style="text-align:center;width:100%;"></th>
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_1_1_km_3" type="text" value="\${E(v('dp_6_1_1_km_3'))}" placeholder="km" style="text-align:center;width:100%;"></th>
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_1_1_km_4" type="text" value="\${E(v('dp_6_1_1_km_4'))}" placeholder="km" style="text-align:center;width:100%;"></th>
-      <th class="dp-th">비고</th>
+      <th class="dp-th">${BL('dp_th_note')}</th>
     </tr>
     <tr>
-      <td class="dp-lbl">엔진</td><td><input class="dp-inp" data-field="dp_6_1_1_0_item" type="text" value="\${E(v('dp_6_1_1_0_item'))}"></td>
+      <td class="dp-lbl">${BL('dp_lbl_engine')}</td><td><input class="dp-inp" data-field="dp_6_1_1_0_item" type="text" value="\${E(v('dp_6_1_1_0_item'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_0_0" type="text" value="\${E(v('dp_6_1_1_0_0'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_0_1" type="text" value="\${E(v('dp_6_1_1_0_1'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_0_2" type="text" value="\${E(v('dp_6_1_1_0_2'))}"></td>
@@ -8591,7 +10109,7 @@ function buildFormHTML(formType, saved) {
       <td><input class="dp-inp" data-field="dp_6_1_1_0_note" type="text" value="\${E(v('dp_6_1_1_0_note'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">점화장치</td><td><input class="dp-inp" data-field="dp_6_1_1_1_item" type="text" value="\${E(v('dp_6_1_1_1_item'))}"></td>
+      <td class="dp-lbl">${BL('dp_lbl_ignition')}</td><td><input class="dp-inp" data-field="dp_6_1_1_1_item" type="text" value="\${E(v('dp_6_1_1_1_item'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_1_0" type="text" value="\${E(v('dp_6_1_1_1_0'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_1_1" type="text" value="\${E(v('dp_6_1_1_1_1'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_1_2" type="text" value="\${E(v('dp_6_1_1_1_2'))}"></td>
@@ -8600,7 +10118,7 @@ function buildFormHTML(formType, saved) {
       <td><input class="dp-inp" data-field="dp_6_1_1_1_note" type="text" value="\${E(v('dp_6_1_1_1_note'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">샤시</td><td><input class="dp-inp" data-field="dp_6_1_1_2_item" type="text" value="\${E(v('dp_6_1_1_2_item'))}"></td>
+      <td class="dp-lbl">${BL('dp_lbl_chassis')}</td><td><input class="dp-inp" data-field="dp_6_1_1_2_item" type="text" value="\${E(v('dp_6_1_1_2_item'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_2_0" type="text" value="\${E(v('dp_6_1_1_2_0'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_2_1" type="text" value="\${E(v('dp_6_1_1_2_1'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_2_2" type="text" value="\${E(v('dp_6_1_1_2_2'))}"></td>
@@ -8642,10 +10160,10 @@ function buildFormHTML(formType, saved) {
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_2_km_2" type="text" value="\${E(v('dp_6_2_km_2'))}" placeholder="km" style="text-align:center;width:100%;"></th>
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_2_km_3" type="text" value="\${E(v('dp_6_2_km_3'))}" placeholder="km" style="text-align:center;width:100%;"></th>
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_2_km_4" type="text" value="\${E(v('dp_6_2_km_4'))}" placeholder="km" style="text-align:center;width:100%;"></th>
-      <th class="dp-th">비고</th>
+      <th class="dp-th">${BL('dp_th_note')}</th>
     </tr>
     <tr>
-      <td class="dp-lbl">엔진</td><td><input class="dp-inp" data-field="dp_6_2_0_item" type="text" value="\${E(v('dp_6_2_0_item'))}"></td>
+      <td class="dp-lbl">${BL('dp_lbl_engine')}</td><td><input class="dp-inp" data-field="dp_6_2_0_item" type="text" value="\${E(v('dp_6_2_0_item'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_0_0" type="text" value="\${E(v('dp_6_2_0_0'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_0_1" type="text" value="\${E(v('dp_6_2_0_1'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_0_2" type="text" value="\${E(v('dp_6_2_0_2'))}"></td>
@@ -8654,7 +10172,7 @@ function buildFormHTML(formType, saved) {
       <td><input class="dp-inp" data-field="dp_6_2_0_note" type="text" value="\${E(v('dp_6_2_0_note'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">점화장치</td><td><input class="dp-inp" data-field="dp_6_2_1_item" type="text" value="\${E(v('dp_6_2_1_item'))}"></td>
+      <td class="dp-lbl">${BL('dp_lbl_ignition')}</td><td><input class="dp-inp" data-field="dp_6_2_1_item" type="text" value="\${E(v('dp_6_2_1_item'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_1_0" type="text" value="\${E(v('dp_6_2_1_0'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_1_1" type="text" value="\${E(v('dp_6_2_1_1'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_1_2" type="text" value="\${E(v('dp_6_2_1_2'))}"></td>
@@ -8663,7 +10181,7 @@ function buildFormHTML(formType, saved) {
       <td><input class="dp-inp" data-field="dp_6_2_1_note" type="text" value="\${E(v('dp_6_2_1_note'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">샤시</td><td><input class="dp-inp" data-field="dp_6_2_2_item" type="text" value="\${E(v('dp_6_2_2_item'))}"></td>
+      <td class="dp-lbl">${BL('dp_lbl_chassis')}</td><td><input class="dp-inp" data-field="dp_6_2_2_item" type="text" value="\${E(v('dp_6_2_2_item'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_2_0" type="text" value="\${E(v('dp_6_2_2_0'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_2_1" type="text" value="\${E(v('dp_6_2_2_1'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_2_2" type="text" value="\${E(v('dp_6_2_2_2'))}"></td>
@@ -8756,10 +10274,10 @@ function buildFormHTML(formType, saved) {
     ].map(([sec,pfx,rows])=>\`
     <tr><th class="dp-sub-th" colspan="5">\${sec}</th></tr>
     <tr>
-      <th class="dp-th">항목</th><th class="dp-th">세부항목</th>
-      <th class="dp-th">구조/업체/크기/용량 등</th>
-      <th class="dp-th">제어기술/제어원리</th>
-      <th class="dp-th">배출가스 저감효과</th>
+      <th class="dp-th">${BL('dp_th_item')}</th><th class="dp-th">${BL('dp_th_sub_item')}</th>
+      <th class="dp-th">${BL('dp_th_structure')}</th>
+      <th class="dp-th">${BL('dp_th_ctrl_tech')}</th>
+      <th class="dp-th">${BL('dp_th_emission_eff')}</th>
     </tr>
     \${rows.map((row,ri)=>\`<tr>
       <td class="dp-lbl">\${row}</td><td><input class="dp-inp" data-field="\${pfx}_\${ri}_sub" type="text" value="\${E(v(\`\${pfx}_\${ri}_sub\`))}"></td>
@@ -8793,11 +10311,11 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sub-th" colspan="5">8.10. 감지변수 대 제어변수</th></tr>
     <tr>
-      <th class="dp-th">감지변수</th>
-      <th class="dp-th">연료(공연비)</th>
-      <th class="dp-th">점화시기</th>
-      <th class="dp-th">캐니스터 퍼지 / 공회전수 / 배출가스재순환</th>
-      <th class="dp-th">비고</th>
+      <th class="dp-th">${BL('dp_th_sensor_var')}</th>
+      <th class="dp-th">${BL('dp_th_fuel_afr')}</th>
+      <th class="dp-th">${BL('dp_th_ign_timing')}</th>
+      <th class="dp-th">${BL('dp_th_canister_purge')}</th>
+      <th class="dp-th">${BL('dp_th_note')}</th>
     </tr>
     \${['배출가스 중 산소농도','흡입공기 유량','흡입공기 온도','냉각수 온도','스로틀 위치','대기압','흡기부압','크랭크샤프트 위치','캠 샤프트 위치','배터리 전압','차량 속도','원동기 회전수','변속기 기어','정지 및 중립','브레이크 적용','에어컨 가동','원동기 녹킹'].map((row,ri)=>\`<tr>
       <td class="dp-lbl">\${row}</td>
@@ -8818,15 +10336,15 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sub-th" colspan="6">8.11. 부품목록</th></tr>
     <tr>
-      <th class="dp-th" rowspan="2">항목</th>
-      <th class="dp-th" rowspan="2">세부항목</th>
-      <th class="dp-th" rowspan="2">부품번호</th>
+      <th class="dp-th" rowspan="2">${BL('dp_th_item')}</th>
+      <th class="dp-th" rowspan="2">${BL('dp_th_sub_item')}</th>
+      <th class="dp-th" rowspan="2">${BL('dp_th_part_no')}</th>
       <th class="dp-th" colspan="2">\${BL('em_lbl_maker2')}</th>
       <th class="dp-th" rowspan="2">비고</th>
     </tr>
     <tr>
-      <th class="dp-th">제조업체명</th>
-      <th class="dp-th">제조국</th>
+      <th class="dp-th">${BL('dp_th_mfr')}</th>
+      <th class="dp-th">${BL('dp_th_mfr_country')}</th>
     </tr>
     \${['점화장치','연료공급장치','배출가스 전환장치','배출가스 재순환장치','연료증발가스 방지장치','브로바이가스 환원장치','2차공기 분사장치'].map((item,ii)=>\`<tr>
       <td class="dp-lbl">\${item}</td>
@@ -8847,10 +10365,10 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sub-th" colspan="5">8.12. 선택적촉매장치(SCR) 성능 및 원리 등 설명</th></tr>
     <tr>
-      <th class="dp-th">항목</th><th class="dp-th">세부항목</th>
-      <th class="dp-th">구조/업체/크기/용량 등</th>
-      <th class="dp-th">제어기술/제어원리</th>
-      <th class="dp-th">배출가스 저감효과</th>
+      <th class="dp-th">${BL('dp_th_item')}</th><th class="dp-th">${BL('dp_th_sub_item')}</th>
+      <th class="dp-th">${BL('dp_th_structure')}</th>
+      <th class="dp-th">${BL('dp_th_ctrl_tech')}</th>
+      <th class="dp-th">${BL('dp_th_emission_eff')}</th>
     </tr>
     \${['공급계','제어계','분사계','충전경고 시스템'].map((row,ri)=>\`<tr>
       <td class="dp-lbl">\${row}</td><td><input class="dp-inp" data-field="dp_8_12_\${ri}_sub" type="text" value="\${E(v(\`dp_8_12_\${ri}_sub\`))}"></td>
@@ -8946,11 +10464,11 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sub-th" colspan="5">증발가스 제어장치 부품리스트(보조배출가스 제어장치 포함)</th></tr>
     <tr>
-      <th class="dp-th">증발가스Code</th>
-      <th class="dp-th">공칭탱크<br>용량(L)</th>
-      <th class="dp-th">40%연료시 탱크의<br>최대 증발가스 용량</th>
-      <th class="dp-th">기화기/연료분사장치의<br>reservoir의 최대용량</th>
-      <th class="dp-th">적용차명</th>
+      <th class="dp-th">${BL('dp_th_evap_code')}</th>
+      <th class="dp-th">${BL('dp_th_nominal_tank')}</th>
+      <th class="dp-th">${BL('dp_th_max_evap')}</th>
+      <th class="dp-th">${BL('dp_th_reservoir')}</th>
+      <th class="dp-th">${BL('dp_th_model_name')}</th>
     </tr>
     \${[0,1,2].map(i=>\`<tr>
       <td><input class="dp-inp" data-field="dp_9_1_list_\${i}_code" type="text" value="\${E(v(\`dp_9_1_list_\${i}_code\`))}"></td>
@@ -9001,9 +10519,9 @@ function buildFormHTML(formType, saved) {
     <tr><th class="dp-sec-th" colspan="5">\${BL('dp_s10')}</th></tr>
     <tr><th class="dp-sub-th" colspan="5">10.1. 배출가스 및 소음 동일차종(원동기) 설명</th></tr>
     <tr>
-      <th class="dp-th" colspan="3">구 분</th>
-      <th class="dp-th">기본 차종</th>
-      <th class="dp-th">배출가스 및 소음<br>동일차종</th>
+      <th class="dp-th" colspan="3">${BL('dp_th_category')}</th>
+      <th class="dp-th">${BL('dp_th_basic_model')}</th>
+      <th class="dp-th">${BL('dp_th_emission_equiv')}</th>
     </tr>
     <!-- 단순 1행 항목들 -->
     \${[
@@ -9020,106 +10538,106 @@ function buildFormHTML(formType, saved) {
     </tr>\`).join('')}
     <!-- 흡기 매니폴드 rowspan=2 -->
     <tr>
-      <td class="dp-lbl" colspan="2" rowspan="2">흡기 매니폴드</td>
-      <td class="dp-lbl">흡입포트크기</td>
+      <td class="dp-lbl" colspan="2" rowspan="2">${BL('dp_lbl_intake_manifold')}</td>
+      <td class="dp-lbl">${BL('dp_lbl_intake_port_size')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_inport_base" type="text" value="\${E(v('dp_10_1_inport_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_inport_same" type="text" value="\${E(v('dp_10_1_inport_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">흡입포트 형상</td>
+      <td class="dp-lbl">${BL('dp_lbl_intake_port_shape')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_inshape_base" type="text" value="\${E(v('dp_10_1_inshape_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_inshape_same" type="text" value="\${E(v('dp_10_1_inshape_same'))}"></td>
     </tr>
     <!-- 배기 매니폴드 rowspan=2 -->
     <tr>
-      <td class="dp-lbl" colspan="2" rowspan="2">배기 매니폴드</td>
-      <td class="dp-lbl">배기포트크기</td>
+      <td class="dp-lbl" colspan="2" rowspan="2">${BL('dp_lbl_exhaust_manifold')}</td>
+      <td class="dp-lbl">${BL('dp_lbl_exhaust_port_size')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_export_base" type="text" value="\${E(v('dp_10_1_export_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_export_same" type="text" value="\${E(v('dp_10_1_export_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">배기포트 형상</td>
+      <td class="dp-lbl">${BL('dp_lbl_exhaust_port_shape')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_exshape_base" type="text" value="\${E(v('dp_10_1_exshape_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_exshape_same" type="text" value="\${E(v('dp_10_1_exshape_same'))}"></td>
     </tr>
     <!-- 흡배기폐기시 rowspan=4 -->
     <tr>
-      <td class="dp-lbl" rowspan="4">흡배기폐기시</td>
-      <td class="dp-lbl" rowspan="2">흡입<br>밸브</td>
-      <td class="dp-lbl">열기</td>
+      <td class="dp-lbl" rowspan="4">${BL('dp_lbl_valve_timing')}</td>
+      <td class="dp-lbl" rowspan="2">${BL('dp_lbl_intake_valve')}</td>
+      <td class="dp-lbl">${BL('dp_lbl_open')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_in_open_base" type="text" value="\${E(v('dp_10_1_in_open_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_in_open_same" type="text" value="\${E(v('dp_10_1_in_open_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">닫기</td>
+      <td class="dp-lbl">${BL('dp_lbl_close')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_in_close_base" type="text" value="\${E(v('dp_10_1_in_close_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_in_close_same" type="text" value="\${E(v('dp_10_1_in_close_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl" rowspan="2">배기<br>밸브</td>
-      <td class="dp-lbl">열기</td>
+      <td class="dp-lbl" rowspan="2">${BL('dp_lbl_exhaust_valve')}</td>
+      <td class="dp-lbl">${BL('dp_lbl_open')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_ex_open_base" type="text" value="\${E(v('dp_10_1_ex_open_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_ex_open_same" type="text" value="\${E(v('dp_10_1_ex_open_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">닫기</td>
+      <td class="dp-lbl">${BL('dp_lbl_close')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_ex_close_base" type="text" value="\${E(v('dp_10_1_ex_close_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_ex_close_same" type="text" value="\${E(v('dp_10_1_ex_close_same'))}"></td>
     </tr>
     <!-- 기통별 밸브수 rowspan=2 -->
     <tr>
-      <td class="dp-lbl" colspan="2" rowspan="2">기통별 밸브수</td>
-      <td class="dp-lbl">흡기</td>
+      <td class="dp-lbl" colspan="2" rowspan="2">${BL('dp_lbl_valve_count')}</td>
+      <td class="dp-lbl">${BL('dp_lbl_valve_intake')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_valve_in_base" type="text" value="\${E(v('dp_10_1_valve_in_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_valve_in_same" type="text" value="\${E(v('dp_10_1_valve_in_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">배기</td>
+      <td class="dp-lbl">${BL('dp_lbl_valve_exhaust')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_valve_ex_base" type="text" value="\${E(v('dp_10_1_valve_ex_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_valve_ex_same" type="text" value="\${E(v('dp_10_1_valve_ex_same'))}"></td>
     </tr>
     <!-- 밸브크기 rowspan=2 -->
     <tr>
-      <td class="dp-lbl" colspan="2" rowspan="2">밸브크기</td>
-      <td class="dp-lbl">흡기</td>
+      <td class="dp-lbl" colspan="2" rowspan="2">${BL('dp_lbl_valve_size')}</td>
+      <td class="dp-lbl">${BL('dp_lbl_valve_intake')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_vsize_in_base" type="text" value="\${E(v('dp_10_1_vsize_in_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_vsize_in_same" type="text" value="\${E(v('dp_10_1_vsize_in_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">배기</td>
+      <td class="dp-lbl">${BL('dp_lbl_valve_exhaust')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_vsize_ex_base" type="text" value="\${E(v('dp_10_1_vsize_ex_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_vsize_ex_same" type="text" value="\${E(v('dp_10_1_vsize_ex_same'))}"></td>
     </tr>
     <!-- 공기 흡입 방식 -->
     <tr>
-      <td class="dp-lbl" colspan="3">공기 흡입 방식</td>
+      <td class="dp-lbl" colspan="3">${BL('dp_lbl_air_intake')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_airtype_base" type="text" value="\${E(v('dp_10_1_airtype_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_airtype_same" type="text" value="\${E(v('dp_10_1_airtype_same'))}"></td>
     </tr>
     <!-- 촉매 rowspan=5 (Page2 이어짐) -->
     <tr>
       <td class="dp-lbl" colspan="2" rowspan="5">\${BL('g_lbl_catalyst2')}</td>
-      <td class="dp-lbl">종류</td>
+      <td class="dp-lbl">${BL('dp_lbl_cat_type_lbl')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_type_base" type="text" value="\${E(v('dp_10_1_cat_type_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_type_same" type="text" value="\${E(v('dp_10_1_cat_type_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">귀금속 성분</td>
+      <td class="dp-lbl">${BL('dp_lbl_noble_metal')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_pm_base" type="text" value="\${E(v('dp_10_1_cat_pm_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_pm_same" type="text" value="\${E(v('dp_10_1_cat_pm_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">귀금속량(g)</td>
+      <td class="dp-lbl">${BL('dp_lbl_noble_amount')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_pmg_base" type="text" value="\${E(v('dp_10_1_cat_pmg_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_pmg_same" type="text" value="\${E(v('dp_10_1_cat_pmg_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">용량(㎤)</td>
+      <td class="dp-lbl">${BL('dp_lbl_volume')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_vol_base" type="text" value="\${E(v('dp_10_1_cat_vol_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_vol_same" type="text" value="\${E(v('dp_10_1_cat_vol_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">귀금속물질비(Pt:Pd:Rh)</td>
+      <td class="dp-lbl">${BL('dp_lbl_noble_ratio')}</td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_ratio_base" type="text" value="\${E(v('dp_10_1_cat_ratio_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_1_cat_ratio_same" type="text" value="\${E(v('dp_10_1_cat_ratio_same'))}"></td>
     </tr>
@@ -9150,9 +10668,9 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sub-th" colspan="4">10.2. 증발가스 동일차종 설명</th></tr>
     <tr>
-      <th class="dp-th" colspan="2">구 분</th>
-      <th class="dp-th">기본 차종</th>
-      <th class="dp-th">증발가스 동일차종</th>
+      <th class="dp-th" colspan="2">${BL('dp_th_category')}</th>
+      <th class="dp-th">${BL('dp_th_basic_model')}</th>
+      <th class="dp-th">${BL('dp_th_evap_equiv')}</th>
     </tr>
     <!-- 단순 1행 항목들 -->
     \${[
@@ -9167,39 +10685,39 @@ function buildFormHTML(formType, saved) {
     </tr>\`).join('')}
     <!-- 캐니스터 설계 특성 rowspan=5 -->
     <tr>
-      <td class="dp-lbl" rowspan="5">캐니스터<br>설계 특성</td>
-      <td class="dp-lbl">증발가스 흡수용량</td>
+      <td class="dp-lbl" rowspan="5">${BL('dp_lbl_canister_design')}</td>
+      <td class="dp-lbl">${BL('dp_lbl_evap_absorp')}</td>
       <td><input class="dp-inp" data-field="dp_10_2_evap_cap_base" type="text" value="\${E(v('dp_10_2_evap_cap_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_2_evap_cap_same" type="text" value="\${E(v('dp_10_2_evap_cap_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">캐니스터 개수 및 연결방법</td>
+      <td class="dp-lbl">${BL('dp_lbl_canister_cnt')}</td>
       <td><input class="dp-inp" data-field="dp_10_2_can_cnt_base" type="text" value="\${E(v('dp_10_2_can_cnt_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_2_can_cnt_same" type="text" value="\${E(v('dp_10_2_can_cnt_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">캐니스터 형상</td>
+      <td class="dp-lbl">${BL('dp_lbl_canister_shape')}</td>
       <td><input class="dp-inp" data-field="dp_10_2_can_shape_base" type="text" value="\${E(v('dp_10_2_can_shape_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_2_can_shape_same" type="text" value="\${E(v('dp_10_2_can_shape_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">캐니스터 구조</td>
+      <td class="dp-lbl">${BL('dp_lbl_canister_structure')}</td>
       <td><input class="dp-inp" data-field="dp_10_2_can_struct_base" type="text" value="\${E(v('dp_10_2_can_struct_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_2_can_struct_same" type="text" value="\${E(v('dp_10_2_can_struct_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">캐니스터 재질</td>
+      <td class="dp-lbl">${BL('dp_lbl_canister_material')}</td>
       <td><input class="dp-inp" data-field="dp_10_2_can_mat_base" type="text" value="\${E(v('dp_10_2_can_mat_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_2_can_mat_same" type="text" value="\${E(v('dp_10_2_can_mat_same'))}"></td>
     </tr>
     <!-- 연료시스템 / 주유관 밀폐구조 (별도 행) -->
     <tr>
-      <td class="dp-lbl" colspan="2">연료시스템</td>
+      <td class="dp-lbl" colspan="2">${BL('dp_lbl_fuel_system')}</td>
       <td><input class="dp-inp" data-field="dp_10_2_fuel_sys_base" type="text" value="\${E(v('dp_10_2_fuel_sys_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_2_fuel_sys_same" type="text" value="\${E(v('dp_10_2_fuel_sys_same'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl" colspan="2">주유관 밀폐구조</td>
+      <td class="dp-lbl" colspan="2">${BL('dp_lbl_filler_seal')}</td>
       <td><input class="dp-inp" data-field="dp_10_2_fuel_seal_base" type="text" value="\${E(v('dp_10_2_fuel_seal_base'))}"></td>
       <td><input class="dp-inp" data-field="dp_10_2_fuel_seal_same" type="text" value="\${E(v('dp_10_2_fuel_seal_same'))}"></td>
     </tr>
@@ -9221,9 +10739,9 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sub-th" colspan="3">10.3. 배출가스자기진단장치 동일차종 설명</th></tr>
     <tr>
-      <th class="dp-th">구 분</th>
-      <th class="dp-th">기본 차종</th>
-      <th class="dp-th">배출가스자기진단장치 동일차종</th>
+      <th class="dp-th">${BL('dp_th_category')}</th>
+      <th class="dp-th">${BL('dp_th_basic_model')}</th>
+      <th class="dp-th">${BL('dp_th_obd_equiv')}</th>
     </tr>
     \${[
       ['배출가스 인증번호','dp_10_3_certno'],['자동차 명칭','dp_10_3_carname'],
@@ -9251,9 +10769,9 @@ function buildFormHTML(formType, saved) {
     <tr><th class="dp-sec-th" colspan="4">\${BL('dp_s11')}</th></tr>
     <tr><th class="dp-sub-th" colspan="4">11.1. 시험차량 선정</th></tr>
     <tr>
-      <th class="dp-th" colspan="2">구 분</th>
-      <th class="dp-th">내구성 시험차량</th>
-      <th class="dp-th">배출가스시험차량</th>
+      <th class="dp-th" colspan="2">${BL('dp_th_category')}</th>
+      <th class="dp-th">${BL('dp_th_dur_test')}</th>
+      <th class="dp-th">${BL('dp_th_emission_test_v')}</th>
     </tr>
     <!-- 단순 1행 항목들 -->
     \${[
@@ -9267,8 +10785,8 @@ function buildFormHTML(formType, saved) {
     </tr>\`).join('')}
     <!-- 배출가스 제어장치 rowspan=2 -->
     <tr>
-      <td class="dp-lbl" rowspan="2">배출가스<br>제어장치</td>
-      <td class="dp-lbl">배출가스</td>
+      <td class="dp-lbl" rowspan="2">${BL('dp_lbl_emission_ctrl')}</td>
+      <td class="dp-lbl">${BL('dp_lbl_emission_gas')}</td>
       <td><input class="dp-inp" data-field="dp_11_1_ctrl_em_dur" type="text" value="\${E(v('dp_11_1_ctrl_em_dur'))}"></td>
       <td><input class="dp-inp" data-field="dp_11_1_ctrl_em_em" type="text" value="\${E(v('dp_11_1_ctrl_em_em'))}"></td>
     </tr>
@@ -9291,9 +10809,9 @@ function buildFormHTML(formType, saved) {
     </tr>\`).join('')}
     <!-- 비고 아래 차량제원 비교표 -->
     <tr>
-      <th class="dp-th" colspan="2">구 분</th>
-      <td><input class="dp-inp" data-field="dp_11_1_sub_hdr1" type="text" placeholder="자동차 형식" value="\${E(v('dp_11_1_sub_hdr1'))}"></td>
-      <td><input class="dp-inp" data-field="dp_11_1_sub_hdr2" type="text" placeholder="자동차 형식" value="\${E(v('dp_11_1_sub_hdr2'))}"></td>
+      <th class="dp-th" colspan="2">${BL('dp_th_category')}</th>
+      <td><input class="dp-inp" data-field="dp_11_1_sub_hdr1" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_1_sub_hdr1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_1_sub_hdr2" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_1_sub_hdr2'))}"></td>
     </tr>
     \${[
       ['자동차 명','dp_11_1_sub_name'],
@@ -9321,10 +10839,10 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sub-th" colspan="2">11.2. 내구성 시험차량 선정</th></tr>
     <tr>
-      <td class="dp-lbl">내구성 시험차량 선정</td>
+      <td class="dp-lbl">${BL('dp_lbl_dur_test_select')}</td>
       <td>
         <div class="dp-field">
-          <textarea class="dp-field-text" data-field="dp_11_2_note" rows="4" placeholder="내구성 시험차량 선정 내용을 기재하세요">\${E(v('dp_11_2_note'))}</textarea>
+          <textarea class="dp-field-text" data-field="dp_11_2_note" rows="4" placeholder="${BL('dp_11_2_note_ph')}">\${E(v('dp_11_2_note'))}</textarea>
           <input type="hidden" id="dp_11_2_imgs" data-field="dp_11_2_imgs" value="\${E(v('dp_11_2_imgs'))}">
           <div class="dp-drop" id="dp_11_2_drop" onclick="document.getElementById('dp_11_2_fi').click();" ondragover="event.preventDefault();this.classList.add('drag-over');" ondragleave="this.classList.remove('drag-over');" ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('dp_11_2_imgs','dp_11_2_drop',event.dataTransfer.files);">
             <input type="file" id="dp_11_2_fi" accept="image/*" multiple onchange="dpAddFiles('dp_11_2_imgs','dp_11_2_drop',this.files);this.value='';">
@@ -9352,8 +10870,8 @@ function buildFormHTML(formType, saved) {
     </tr>
     <tr>
       <th class="dp-th">\${BL('g_th_item')}</th>
-      <td><input class="dp-inp" data-field="dp_11_3_a_hdr1" type="text" placeholder="자동차 형식" value="\${E(v('dp_11_3_a_hdr1'))}"></td>
-      <td><input class="dp-inp" data-field="dp_11_3_a_hdr2" type="text" placeholder="자동차 형식" value="\${E(v('dp_11_3_a_hdr2'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_3_a_hdr1" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_3_a_hdr1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_3_a_hdr2" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_3_a_hdr2'))}"></td>
     </tr>
     \${[
       ['자동차 형식','dp_11_3_a_type'],
@@ -9375,8 +10893,8 @@ function buildFormHTML(formType, saved) {
     </tr>
     <tr>
       <th class="dp-th">\${BL('g_th_item')}</th>
-      <td><input class="dp-inp" data-field="dp_11_3_b_hdr1" type="text" placeholder="자동차 형식" value="\${E(v('dp_11_3_b_hdr1'))}"></td>
-      <td><input class="dp-inp" data-field="dp_11_3_b_hdr2" type="text" placeholder="자동차 형식" value="\${E(v('dp_11_3_b_hdr2'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_3_b_hdr1" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_3_b_hdr1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_3_b_hdr2" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_3_b_hdr2'))}"></td>
     </tr>
     \${[
       ['최고 토오크 시 속도에서 행정당 연료배분율이 가장 큰 원동기','dp_11_3_b_0'],
@@ -9398,8 +10916,8 @@ function buildFormHTML(formType, saved) {
     <tr><th class="dp-sub-th" colspan="3">11.4. 소음 시험차량 선정</th></tr>
     <tr>
       <th class="dp-th">\${BL('g_th_item')}</th>
-      <td><input class="dp-inp" data-field="dp_11_4_hdr1" type="text" placeholder="자동차 형식" value="\${E(v('dp_11_4_hdr1'))}"></td>
-      <td><input class="dp-inp" data-field="dp_11_4_hdr2" type="text" placeholder="자동차 형식" value="\${E(v('dp_11_4_hdr2'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_4_hdr1" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_4_hdr1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_4_hdr2" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_4_hdr2'))}"></td>
     </tr>
     \${[
       ['공차중량이 가장 무거운 자동차','dp_11_4_0'],
@@ -9423,7 +10941,7 @@ function buildFormHTML(formType, saved) {
       내구성 시험을 실시하는 경우로서 인증신청 당시까지 세부개발계획이 확정되지 않는 등 불가피한 사유로 최초 제출하는 신청서류에 기재할 수 없는 사항이 있는 경우 그 사유를 명시하고, 내구성시험 최종보고서 제출 시 확정된 사항을 일괄적으로 제출할 수 있다.
     </td></tr>
     <tr><td>
-      <div class="dp-field"><textarea class="dp-field-text" data-field="dp_12" rows="4" placeholder="불가피한 사유 명시">\${E(v('dp_12'))}</textarea></div>
+      <div class="dp-field"><textarea class="dp-field-text" data-field="dp_12" rows="4" placeholder="${BL('dp_12_ph')}">\${E(v('dp_12'))}</textarea></div>
     </td></tr>
   </tbody>
 </table>
@@ -9435,7 +10953,7 @@ function buildFormHTML(formType, saved) {
     <tr><th class="dp-sec-th">\${BL('dp_s13')}</th></tr>
     <tr><td>
       <div class="dp-field">
-        <textarea class="dp-field-text" data-field="dp_13" rows="3" placeholder="기타 사항">\${E(v('dp_13'))}</textarea>
+        <textarea class="dp-field-text" data-field="dp_13" rows="3" placeholder="${BL('dp_13_ph')}">\${E(v('dp_13'))}</textarea>
         <input type="hidden" id="dp_13_imgs" data-field="dp_13_imgs" value="\${E(v('dp_13_imgs'))}">
         <div class="dp-drop" id="dp_13_drop" onclick="document.getElementById('dp_13_fi').click();" ondragover="event.preventDefault();this.classList.add('drag-over');" ondragleave="this.classList.remove('drag-over');" ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('dp_13_imgs','dp_13_drop',event.dataTransfer.files);">
           <input type="file" id="dp_13_fi" accept="image/*" multiple onchange="dpAddFiles('dp_13_imgs','dp_13_drop',this.files);this.value='';">
@@ -14549,7 +16067,7 @@ function buildFormHTML(formType, saved) {
     <tr>
       <th rowspan="5">배기<br>\${BL('sv_noise_simple')}<br>시험</th>
       <th rowspan="2">\${BL('nt_meas_count')}</th>
-      <th rowspan="2" style="line-height:1.8;">원동기 최고 출력<br>회전속도의<br><input data-field="nt_ex_pct" class="nt-inp" type="text" style="width:3.5em;text-align:center;border-bottom:1px solid #888;" value="\${E(v('nt_ex_pct'))}">% 회전속도(rpm)</th>
+      <th rowspan="2" style="line-height:1.8;">${BL('nt_ex_pct_lbl')}<br><input data-field="nt_ex_pct" class="nt-inp" type="text" style="width:3.5em;text-align:center;border-bottom:1px solid #888;" value="\${E(v('nt_ex_pct'))}">% 회전속도(rpm)</th>
       <th rowspan="2">\${BL('nt_bg_noise_a')}</th>
       <th colspan="2">\${BL('nt_exhaust_noise_val')}</th>
       <th rowspan="2">\${BL('nt_score_a')}</th>
@@ -14633,11 +16151,11 @@ function buildFormHTML(formType, saved) {
 <div class="nt-sign-row" style="margin-top:14px;">
   <div class="nt-sign-item">
     <span class="nt-sign-lbl">\${BL('nt_tester')}:</span>
-    <input data-field="nt_inspector" class="nt-sign-inp" type="text" placeholder="성명" value="\${E(v('nt_inspector'))}">
+    <input data-field="nt_inspector" class="nt-sign-inp" type="text" placeholder="${BL('nt_inspector_ph')}" value="\${E(v('nt_inspector'))}">
   </div>
   <div class="nt-sign-item">
     <span class="nt-sign-lbl">\${BL('nt_verifier')}:</span>
-    <input data-field="nt_confirmer" class="nt-sign-inp" type="text" placeholder="성명" value="\${E(v('nt_confirmer'))}">
+    <input data-field="nt_confirmer" class="nt-sign-inp" type="text" placeholder="${BL('nt_confirmer_ph')}" value="\${E(v('nt_confirmer'))}">
   </div>
 </div>
 
@@ -15060,7 +16578,7 @@ function buildFormHTML(formType, saved) {
             <span class="cf-item-lbl">\${BL('cf_maker_lbl')}</span>
             <div class="cf-item-inp-wrap">
               <input data-field="cf_maker" class="cf-item-inp" type="text"
-                placeholder="예) HONDA Motor Co.,Ltd(일본)" value="\${E(v('cf_maker'))}">
+                placeholder="${BL('cf_maker_ph')}" value="\${E(v('cf_maker'))}">
             </div>
           </div>
 
@@ -15088,7 +16606,7 @@ function buildFormHTML(formType, saved) {
             <span class="cf-item-lbl">${BL('cf_model_lbl2')}</span>
             <div class="cf-item-inp-wrap">
               <input data-field="cf_model" class="cf-item-inp" type="text"
-                placeholder="예) CB500F" value="\${E(v('cf_model'))}">
+                placeholder="${BL('cf_model_ph')}" value="\${E(v('cf_model'))}">
             </div>
           </div>
 
@@ -15097,7 +16615,7 @@ function buildFormHTML(formType, saved) {
             <span class="cf-item-lbl">\${BL('cf_importer_lbl')}</span>
             <div class="cf-item-inp-wrap">
               <input data-field="cf_importer" class="cf-item-inp" type="text"
-                placeholder="예) ㈜○○모터스" value="\${E(v('cf_importer'))}">
+                placeholder="${BL('cf_importer_ph')}" value="\${E(v('cf_importer'))}">
             </div>
           </div>
 
@@ -15106,7 +16624,7 @@ function buildFormHTML(formType, saved) {
             <div class="cf-warranty-top">
               <span class="cf-warranty-lbl">${BL('cf_warranty_lbl2')}</span>
               <input data-field="cf_warranty_subject" class="cf-warranty-subject-inp" type="text"
-                placeholder="보증 주체명 (예: ㈜○○모터스)" value="\${E(v('cf_warranty_subject'))}">
+                placeholder="${BL('cf_warranty_subject_ph')}" value="\${E(v('cf_warranty_subject'))}">
             </div>
             <div class="cf-warranty-body">
               ${BL('cf_law_text')}
@@ -15138,7 +16656,7 @@ function buildFormHTML(formType, saved) {
                   <div style="display:flex;align-items:center;gap:8px;">
                     <span class="cf-sign-lbl">Signed at</span>
                     <input data-field="cf_signed_at" class="cf-sign-inp" type="text"
-                      placeholder="서명 장소" value="\${E(v('cf_signed_at'))}" style="flex:1;min-width:0;">
+                      placeholder="${BL('cf_signed_at_ph')}" value="\${E(v('cf_signed_at'))}" style="flex:1;min-width:0;">
                   </div>
                 </td>
                 <td class="cf-sign-divider"></td>
@@ -15147,7 +16665,7 @@ function buildFormHTML(formType, saved) {
                   <div style="display:flex;align-items:center;gap:8px;">
                     <span class="cf-sign-lbl">Date</span>
                     <input data-field="cf_sign_date" class="cf-sign-inp" type="text"
-                      placeholder="${BL('nt_test_date_ph')}" value="\${E(v('cf_sign_date'))}" style="flex:1;min-width:0;">
+                      placeholder="${BL('cf_sign_date_ph')}" value="\${E(v('cf_sign_date'))}" style="flex:1;min-width:0;">
                   </div>
                 </td>
               </tr>
@@ -15157,7 +16675,7 @@ function buildFormHTML(formType, saved) {
                   <div style="display:flex;align-items:center;gap:8px;">
                     <span class="cf-sign-lbl">Name</span>
                     <input data-field="cf_name" class="cf-sign-inp" type="text"
-                      placeholder="서명자 성명" value="\${E(v('cf_name'))}" style="flex:1;min-width:0;">
+                      placeholder="${BL('cf_name_ph')}" value="\${E(v('cf_name'))}" style="flex:1;min-width:0;">
                   </div>
                 </td>
                 <td class="cf-sign-divider"></td>
@@ -15166,7 +16684,7 @@ function buildFormHTML(formType, saved) {
                   <div style="display:flex;align-items:center;gap:8px;">
                     <span class="cf-sign-lbl">Title :</span>
                     <input data-field="cf_title" class="cf-sign-inp" type="text"
-                      placeholder="직책" value="\${E(v('cf_title'))}" style="flex:1;min-width:0;">
+                      placeholder="${BL('cf_title_ph')}" value="\${E(v('cf_title'))}" style="flex:1;min-width:0;">
                   </div>
                 </td>
               </tr>
@@ -15865,7 +17383,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div id="modal-change-pw" class="modal-backdrop hidden no-print">
   <div class="modal" onclick="event.stopPropagation()" style="max-width:420px;">
     <div class="modal-header">
-      <h3 style="font-size:14pt;font-weight:700;"><i class="fas fa-key" style="margin-right:8px;color:var(--c-primary);"></i>비밀번호 변경</h3>
+      <h3 style="font-size:14pt;font-weight:700;"><i class="fas fa-key" style="margin-right:8px;color:var(--c-primary);"></i>${BL('pw_change_title')}</h3>
       <button class="btn btn-ghost btn-icon btn-sm" onclick="closeChangePwModal()"><i class="fas fa-times"></i></button>
     </div>
     <div class="modal-body">

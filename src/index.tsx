@@ -6035,7 +6035,7 @@ function buildFormHTML(formType, saved) {
 
 
 
-if (formType==='detail_plan') return \`
+  if (formType==='detail_plan') return \`
 <style>
 /* ══════ detail_plan 전용 스타일 (emission_noise 동일 틀) ══════ */
 .dp-wrap {

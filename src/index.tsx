@@ -9245,47 +9245,71 @@ if (formType==='detail_plan') return \`
 </div>
 <table class="obd-tbl">
   <tr>
-    <th class="obd-th" style="width:33%;">차량 사진</th>
-    <th class="obd-th" style="width:33%;">차대번호 사진</th>
-    <th class="obd-th" style="width:34%;">엔진번호 사진</th>
-  </tr>
-  <tr>
+    <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px; width:10%;">차량<br>사진</td>
     <td>
-      <div class="obd-drop" id="obd-drop-car" onclick="document.getElementById('obd-file-car').click()">
-        <div class="obd-drop-hint"><i class="fas fa-image"></i> 차량 사진 첨부</div>
-        <input type="file" id="obd-file-car" accept="image/*" multiple data-drop-id="obd-drop-car">
-        <input type="hidden" data-field="obd_car_img" value="\${E(v('obd_car_img'))}">
+      <div style="font-size:8pt; padding:2px 0; color:#333; margin-bottom:4px;">차량 전체 사진 (전면/측면/후면 포함)</div>
+      <input type="hidden" id="obd_car_imgs" data-field="obd_car_imgs" value="\${E(v('obd_car_imgs'))}">
+      <div class="dp-drop" id="obd_car_imgs_drop"
+           onclick="document.getElementById('obd_car_imgs_fi').click();"
+           ondragover="event.preventDefault();this.classList.add('drag-over');"
+           ondragleave="this.classList.remove('drag-over');"
+           ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('obd_car_imgs','obd_car_imgs_drop',event.dataTransfer.files);">
+        <input type="file" id="obd_car_imgs_fi" accept="image/*" multiple
+               onchange="dpAddFiles('obd_car_imgs','obd_car_imgs_drop',this.files);this.value='';">
+        <div class="dp-drop-hint"><i class="fas fa-image"></i> \${BL('dp_img_hint')}</div>
+        <div class="dp-img-list" id="obd_car_imgs_list"></div>
       </div>
-      <div class="obd-img-list" id="obd-imgs-car"></div>
-    </td>
-    <td>
-      <div class="obd-drop" id="obd-drop-vin" onclick="document.getElementById('obd-file-vin').click()">
-        <div class="obd-drop-hint"><i class="fas fa-image"></i> 차대번호 사진 첨부</div>
-        <input type="file" id="obd-file-vin" accept="image/*" multiple data-drop-id="obd-drop-vin">
-        <input type="hidden" data-field="obd_vin_img" value="\${E(v('obd_vin_img'))}">
-      </div>
-      <div class="obd-img-list" id="obd-imgs-vin"></div>
-    </td>
-    <td>
-      <div class="obd-drop" id="obd-drop-eng" onclick="document.getElementById('obd-file-eng').click()">
-        <div class="obd-drop-hint"><i class="fas fa-image"></i> 엔진번호 사진 첨부</div>
-        <input type="file" id="obd-file-eng" accept="image/*" multiple data-drop-id="obd-drop-eng">
-        <input type="hidden" data-field="obd_eng_img" value="\${E(v('obd_eng_img'))}">
-      </div>
-      <div class="obd-img-list" id="obd-imgs-eng"></div>
     </td>
   </tr>
   <tr>
-    <th class="obd-th" colspan="3">OBD 스캐너 사진</th>
+    <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px;">차대번호<br>사진</td>
+    <td>
+      <div style="font-size:8pt; padding:2px 0; color:#333; margin-bottom:4px;">차대번호(VIN) 확인 사진</div>
+      <input type="hidden" id="obd_vin_imgs" data-field="obd_vin_imgs" value="\${E(v('obd_vin_imgs'))}">
+      <div class="dp-drop" id="obd_vin_imgs_drop"
+           onclick="document.getElementById('obd_vin_imgs_fi').click();"
+           ondragover="event.preventDefault();this.classList.add('drag-over');"
+           ondragleave="this.classList.remove('drag-over');"
+           ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('obd_vin_imgs','obd_vin_imgs_drop',event.dataTransfer.files);">
+        <input type="file" id="obd_vin_imgs_fi" accept="image/*" multiple
+               onchange="dpAddFiles('obd_vin_imgs','obd_vin_imgs_drop',this.files);this.value='';">
+        <div class="dp-drop-hint"><i class="fas fa-image"></i> \${BL('dp_img_hint')}</div>
+        <div class="dp-img-list" id="obd_vin_imgs_list"></div>
+      </div>
+    </td>
   </tr>
   <tr>
-    <td colspan="3">
-      <div class="obd-drop" id="obd-drop-scanner" onclick="document.getElementById('obd-file-scanner').click()">
-        <div class="obd-drop-hint"><i class="fas fa-image"></i> OBD 스캐너 사진 첨부 (복수 첨부 가능)</div>
-        <input type="file" id="obd-file-scanner" accept="image/*" multiple data-drop-id="obd-drop-scanner">
-        <input type="hidden" data-field="obd_scanner_img" value="\${E(v('obd_scanner_img'))}">
+    <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px;">엔진번호<br>사진</td>
+    <td>
+      <div style="font-size:8pt; padding:2px 0; color:#333; margin-bottom:4px;">엔진번호 확인 사진</div>
+      <input type="hidden" id="obd_eng_imgs" data-field="obd_eng_imgs" value="\${E(v('obd_eng_imgs'))}">
+      <div class="dp-drop" id="obd_eng_imgs_drop"
+           onclick="document.getElementById('obd_eng_imgs_fi').click();"
+           ondragover="event.preventDefault();this.classList.add('drag-over');"
+           ondragleave="this.classList.remove('drag-over');"
+           ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('obd_eng_imgs','obd_eng_imgs_drop',event.dataTransfer.files);">
+        <input type="file" id="obd_eng_imgs_fi" accept="image/*" multiple
+               onchange="dpAddFiles('obd_eng_imgs','obd_eng_imgs_drop',this.files);this.value='';">
+        <div class="dp-drop-hint"><i class="fas fa-image"></i> \${BL('dp_img_hint')}</div>
+        <div class="dp-img-list" id="obd_eng_imgs_list"></div>
       </div>
-      <div class="obd-img-list" id="obd-imgs-scanner"></div>
+    </td>
+  </tr>
+  <tr>
+    <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px;">OBD<br>스캐너<br>사진</td>
+    <td>
+      <div style="font-size:8pt; padding:2px 0; color:#333; margin-bottom:4px;">OBD 스캐너 연결 및 결과 화면 사진 (복수 첨부 가능)</div>
+      <input type="hidden" id="obd_scanner_imgs" data-field="obd_scanner_imgs" value="\${E(v('obd_scanner_imgs'))}">
+      <div class="dp-drop" id="obd_scanner_imgs_drop"
+           onclick="document.getElementById('obd_scanner_imgs_fi').click();"
+           ondragover="event.preventDefault();this.classList.add('drag-over');"
+           ondragleave="this.classList.remove('drag-over');"
+           ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('obd_scanner_imgs','obd_scanner_imgs_drop',event.dataTransfer.files);">
+        <input type="file" id="obd_scanner_imgs_fi" accept="image/*" multiple
+               onchange="dpAddFiles('obd_scanner_imgs','obd_scanner_imgs_drop',this.files);this.value='';">
+        <div class="dp-drop-hint"><i class="fas fa-image"></i> \${BL('dp_img_hint')}</div>
+        <div class="dp-img-list" id="obd_scanner_imgs_list"></div>
+      </div>
     </td>
   </tr>
 </table>
@@ -13018,6 +13042,11 @@ function showToast(msg, type='info') {
       ['obd_1_2_3_1_imgs','obd_1_2_3_1_drop'],
       ['obd_1_2_3_2_imgs','obd_1_2_3_2_drop'],
       ['obd_1_2_3_3_imgs','obd_1_2_3_3_drop'],
+      // obd_config OBD TEST 사진 드롭존
+      ['obd_car_imgs','obd_car_imgs_drop'],
+      ['obd_vin_imgs','obd_vin_imgs_drop'],
+      ['obd_eng_imgs','obd_eng_imgs_drop'],
+      ['obd_scanner_imgs','obd_scanner_imgs_drop'],
     ].forEach(function(pair){ dpRenderDrop(pair[0], pair[1]); });
     // 8.x diagram 복원
     ['dp_8_1','dp_8_2','dp_8_3','dp_8_4','dp_8_5','dp_8_6','dp_8_7','dp_8_8','dp_8_9'].forEach(function(pfx){

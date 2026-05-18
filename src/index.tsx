@@ -6219,11 +6219,11 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:28%;"><col style="width:72%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="2">${BL('dp_s1')}</th></tr>
+    <tr><th class="dp-sec-th" colspan="2">\${BL('dp_s1')}</th></tr>
 
     <!-- 1.1 개발배경 및 특성 -->
     <tr>
-      <td class="dp-lbl">${BL('dp_1_1_lbl')}</td>
+      <td class="dp-lbl">\${BL('dp_1_1_lbl')}</td>
       <td>
         <div class="dp-field">
           <textarea class="dp-field-text" data-field="dp_1_1" rows="4" placeholder="개발배경 및 특성을 기재하세요">\${E(v('dp_1_1'))}</textarea>
@@ -6239,7 +6239,7 @@ function buildFormHTML(formType, saved) {
 
     <!-- 1.2 신기술 -->
     <tr>
-      <td class="dp-lbl">${BL('dp_1_2_lbl')}</td>
+      <td class="dp-lbl">\${BL('dp_1_2_lbl')}</td>
       <td>
         <div class="dp-field">
           <textarea class="dp-field-text" data-field="dp_1_2" rows="4" placeholder="신기술 내용을 기재하세요">\${E(v('dp_1_2'))}</textarea>
@@ -6406,7 +6406,7 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:100%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th">${BL('dp_s2')}</th></tr>
+    <tr><th class="dp-sec-th">\${BL('dp_s2')}</th></tr>
     <tr><td class="dp-sub-th">2.1. 기밀에 대한 요청</td></tr>
     <tr><td>
       <div class="dp-field">
@@ -6420,7 +6420,7 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:18%;"><col style="width:27%;"><col style="width:27%;"><col style="width:28%;"></colgroup>
   <thead>
-    <tr><th class="dp-sec-th" colspan="4">${BL('dp_s3')}</th></tr>
+    <tr><th class="dp-sec-th" colspan="4">\${BL('dp_s3')}</th></tr>
     <tr>
       <th class="dp-th">구분</th>
       <th class="dp-th">항목</th>
@@ -6493,7 +6493,7 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:22%;"><col style="width:13%;"><col style="width:13%;"><col style="width:13%;"><col style="width:16%;"><col style="width:13%;"><col style="width:10%;"></colgroup>
   <thead>
-    <tr><th class="dp-sec-th" colspan="7">${BL('dp_s4')}</th></tr>
+    <tr><th class="dp-sec-th" colspan="7">\${BL('dp_s4')}</th></tr>
     <tr><th class="dp-sub-th" colspan="7">4.1. 배출가스 측정장비</th></tr>
     <tr>
       <th class="dp-th">설비, 장비명</th>
@@ -6546,20 +6546,20 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:28%;"><col style="width:72%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="2">${BL('dp_s5')}</th></tr>
-    <tr><th class="dp-sub-th" colspan="2">${BL('dp_5_1_lbl')}</th></tr>
+    <tr><th class="dp-sec-th" colspan="2">\${BL('dp_s5')}</th></tr>
+    <tr><th class="dp-sub-th" colspan="2">\${BL('dp_5_1_lbl')}</th></tr>
     <tr><td class="dp-lbl">5.1.1. 시험장소</td><td><input class="dp-inp" data-field="dp_5_1_1" type="text" value="\${E(v('dp_5_1_1'))}"></td></tr>
     <tr><td class="dp-lbl">5.1.2. 시험절차</td><td><input class="dp-inp" data-field="dp_5_1_2" type="text" value="\${E(v('dp_5_1_2'))}"></td></tr>
-    <tr><th class="dp-sub-th" colspan="2">${BL('dp_5_2_lbl')}</th></tr>
+    <tr><th class="dp-sub-th" colspan="2">\${BL('dp_5_2_lbl')}</th></tr>
     <tr><td class="dp-lbl">5.2.1. 내구성시험 주행여부</td><td><input class="dp-inp" data-field="dp_5_2_1" type="text" value="\${E(v('dp_5_2_1'))}"></td></tr>
     <tr><td class="dp-lbl">5.2.2. 길들이기 주행여부</td><td><input class="dp-inp" data-field="dp_5_2_2" type="text" value="\${E(v('dp_5_2_2'))}"></td></tr>
     <tr><td class="dp-lbl">5.2.3. 주행예정 기간</td><td><input class="dp-inp" data-field="dp_5_2_3" type="text" value="\${E(v('dp_5_2_3'))}"></td></tr>
     <tr><td class="dp-lbl">5.2.4. 주행장소</td><td><input class="dp-inp" data-field="dp_5_2_4" type="text" value="\${E(v('dp_5_2_4'))}"></td></tr>
     <tr><td class="dp-lbl">5.2.5. 주행절차</td><td><input class="dp-inp" data-field="dp_5_2_5" type="text" value="\${E(v('dp_5_2_5'))}"></td></tr>
-    <tr><th class="dp-sub-th" colspan="2">${BL('dp_5_3_lbl')}</th></tr>
+    <tr><th class="dp-sub-th" colspan="2">\${BL('dp_5_3_lbl')}</th></tr>
     <tr><td class="dp-lbl">5.3.1. 시험장소</td><td><input class="dp-inp" data-field="dp_5_3_1" type="text" value="\${E(v('dp_5_3_1'))}"></td></tr>
     <tr><td class="dp-lbl">5.3.2. 시험절차</td><td><input class="dp-inp" data-field="dp_5_3_2" type="text" value="\${E(v('dp_5_3_2'))}"></td></tr>
-    <tr><th class="dp-sub-th" colspan="2">${BL('dp_5_4_lbl')}</th></tr>
+    <tr><th class="dp-sub-th" colspan="2">\${BL('dp_5_4_lbl')}</th></tr>
     <tr><td class="dp-lbl">5.4.1. 시험장소</td><td><input class="dp-inp" data-field="dp_5_4_1" type="text" value="\${E(v('dp_5_4_1'))}"></td></tr>
     <tr><td class="dp-lbl">5.4.2. 시험절차</td><td><input class="dp-inp" data-field="dp_5_4_2" type="text" value="\${E(v('dp_5_4_2'))}"></td></tr>
   </tbody>
@@ -6569,7 +6569,7 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:12%;"><col style="width:18%;"><col style="width:10%;"><col style="width:10%;"><col style="width:10%;"><col style="width:10%;"><col style="width:10%;"><col style="width:20%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="8">${BL('dp_s6')}</th></tr>
+    <tr><th class="dp-sec-th" colspan="8">\${BL('dp_s6')}</th></tr>
     <tr><th class="dp-sub-th" colspan="8">6.1.&#8194;시험차량의 정비계획</th></tr>
     <tr><th class="dp-sub-th" colspan="8">6.1.1.&#8202;정기정비</th></tr>
     <tr>
@@ -6704,9 +6704,9 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:28%;"><col style="width:72%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="2">${BL('dp_s7')}</th></tr>
+    <tr><th class="dp-sec-th" colspan="2">\${BL('dp_s7')}</th></tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_7_1_lbl')}</td>
+      <td class="dp-lbl">\${BL('dp_7_1_lbl')}</td>
       <td>
         <div class="dp-field">
           <textarea class="dp-field-text" data-field="dp_7_1" rows="3" placeholder="표지판 견본 설명">\${E(v('dp_7_1'))}</textarea>
@@ -6720,7 +6720,7 @@ function buildFormHTML(formType, saved) {
       </td>
     </tr>
     <tr>
-      <td class="dp-lbl">${BL('dp_7_2_lbl')}</td>
+      <td class="dp-lbl">\${BL('dp_7_2_lbl')}</td>
       <td>
         <div class="dp-field">
           <textarea class="dp-field-text" data-field="dp_7_2" rows="3" placeholder="부착위치 등 기재">\${E(v('dp_7_2'))}</textarea>
@@ -6742,7 +6742,7 @@ function buildFormHTML(formType, saved) {
     <col style="width:13%;"><col style="width:14%;"><col style="width:28%;"><col style="width:27%;"><col style="width:18%;">
   </colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="5">${BL('dp_s8')}</th></tr>
+    <tr><th class="dp-sec-th" colspan="5">\${BL('dp_s8')}</th></tr>
     \${[
       ['8.1. 연료장치','dp_8_1',['연료공급계','연료제어계','연료분사계']],
       ['8.2. 흡배기장치','dp_8_2',['흡기장치','배기장치']],
@@ -6923,7 +6923,7 @@ function buildFormHTML(formType, saved) {
     <col style="width:25%;"><col style="width:25%;"><col style="width:50%;">
   </colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="3">${BL('dp_s9')}</th></tr>
+    <tr><th class="dp-sec-th" colspan="3">\${BL('dp_s9')}</th></tr>
     <tr><th class="dp-sub-th" colspan="3">9.1. 증발가스 제어장치 설명</th></tr>
     <tr>
       <th class="dp-th">저장 장치</th>
@@ -6998,7 +6998,7 @@ function buildFormHTML(formType, saved) {
     <col style="width:23.5%;"><col style="width:23.5%;">
   </colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="5">${BL('dp_s10')}</th></tr>
+    <tr><th class="dp-sec-th" colspan="5">\${BL('dp_s10')}</th></tr>
     <tr><th class="dp-sub-th" colspan="5">10.1. 배출가스 및 소음 동일차종(원동기) 설명</th></tr>
     <tr>
       <th class="dp-th" colspan="3">구 분</th>
@@ -7248,7 +7248,7 @@ function buildFormHTML(formType, saved) {
     <col style="width:20%;"><col style="width:15%;"><col style="width:32.5%;"><col style="width:32.5%;">
   </colgroup>
   <tbody>
-    <tr><th class="dp-sec-th" colspan="4">${BL('dp_s11')}</th></tr>
+    <tr><th class="dp-sec-th" colspan="4">\${BL('dp_s11')}</th></tr>
     <tr><th class="dp-sub-th" colspan="4">11.1. 시험차량 선정</th></tr>
     <tr>
       <th class="dp-th" colspan="2">구 분</th>
@@ -7418,7 +7418,7 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:100%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th">${BL('dp_s12')}</th></tr>
+    <tr><th class="dp-sec-th">\${BL('dp_s12')}</th></tr>
     <tr><td style="font-size:7.5pt;color:#555;padding:4px 6px;">
       내구성 시험을 실시하는 경우로서 인증신청 당시까지 세부개발계획이 확정되지 않는 등 불가피한 사유로 최초 제출하는 신청서류에 기재할 수 없는 사항이 있는 경우 그 사유를 명시하고, 내구성시험 최종보고서 제출 시 확정된 사항을 일괄적으로 제출할 수 있다.
     </td></tr>
@@ -7432,7 +7432,7 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:100%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sec-th">${BL('dp_s13')}</th></tr>
+    <tr><th class="dp-sec-th">\${BL('dp_s13')}</th></tr>
     <tr><td>
       <div class="dp-field">
         <textarea class="dp-field-text" data-field="dp_13" rows="3" placeholder="기타 사항">\${E(v('dp_13'))}</textarea>

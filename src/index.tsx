@@ -3753,7 +3753,7 @@ async function openForm(formType) {
   // obd_config 이미지 드롭존 초기화 + 첨부파일 기능 초기화
   if (formType === 'obd_config') {
     setTimeout(() => initObdImgDrops(), 150);
-    setTimeout(() => initObdAttach(), 200);
+    setTimeout(() => initObdConfigAttach(), 200);
   }
   // detail_plan 이미지 첨부 복원 (저장된 이미지 썸네일 재표시)
   // detail_plan 이미지 드롭존 복원 (dp-drop 방식)
@@ -8413,10 +8413,33 @@ if (formType==='detail_plan') return \`
   }
   .dp-drop:not(:has(img)) { display:none !important; }
   /* 첨부문서 영역 인쇄 시 숨김 */
-  .obd-attach-section { display:none !important; }
+  .oc-attach-section { display:none !important; }
   /* 행 페이지 분리 방지 */
   .obd-tbl tr { page-break-inside:avoid; }
 }
+
+/* ── obd_config 첨부문서 섹션 ── */
+.oc-attach-section { margin-top:14px; }
+.oc-attach-title { font-size:9pt; font-weight:700; margin-bottom:6px; color:#111; }
+.oc-attach-note { font-size:8pt; color:#666; margin-bottom:8px; }
+.oc-attach-drop {
+  border:2px dashed #bbb; border-radius:8px;
+  padding:16px; text-align:center; cursor:pointer;
+  transition:.2s; color:#555; font-size:9pt; background:#fafafa;
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+}
+.oc-attach-drop:hover { border-color:#4e90d8; background:rgba(79,142,247,.04); }
+.oc-attach-drop input[type=file] { display:none; }
+.oc-attach-list { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
+.oc-attach-item {
+  display:flex; align-items:center; gap:8px;
+  padding:4px 8px; border-radius:4px;
+  background:#f0f4fa; font-size:8.5pt;
+}
+.oc-attach-item-name { flex:1; color:#111; word-break:break-all; }
+.oc-attach-item-size { color:#666; white-space:nowrap; font-size:8pt; }
+.oc-attach-item-del { color:#ef4444; cursor:pointer; padding:1px 5px; border-radius:3px; font-size:10pt; line-height:1; }
+.oc-attach-item-del:hover { background:rgba(239,68,68,.12); }
 
 .obd-wrap {
   box-sizing:border-box;
@@ -9322,16 +9345,16 @@ if (formType==='detail_plan') return \`
 </table>
 
 <!-- ── 첨부문서: 자체시험성적서 / RAW DATA ── -->
-<div class="obd-attach-section no-print" id="obd-attach-raw-section">
-  <div class="obd-attach-title"><i class="fas fa-paperclip"></i> 첨부문서 (자체시험성적서 / RAW DATA)</div>
-  <div class="obd-attach-note">이미지(JPG, PNG) 또는 PDF 파일을 업로드하세요. 첨부파일은 인쇄 시 출력되지 않습니다.</div>
-  <div class="obd-attach-drop" id="obd-drop-raw">
+<div class="oc-attach-section no-print" id="oc-attach-section">
+  <div class="oc-attach-title"><i class="fas fa-paperclip"></i> 첨부문서 (자체시험성적서 / RAW DATA)</div>
+  <div class="oc-attach-note">이미지(JPG, PNG) 또는 PDF 파일을 업로드하세요. 첨부파일은 인쇄 시 출력되지 않습니다.</div>
+  <div class="oc-attach-drop" id="oc-drop-zone" onclick="document.getElementById('oc-file-input').click()">
+    <input type="file" id="oc-file-input" multiple accept="image/*,.pdf">
     <i class="fas fa-cloud-upload-alt" style="font-size:20pt;margin-bottom:6px;display:block;"></i>
     클릭하거나 파일을 드래그하여 업로드
-    <input type="file" id="obd-file-raw" accept="image/*,.pdf" multiple>
   </div>
-  <div class="obd-attach-list" id="obd-list-raw"></div>
-  <input type="hidden" id="obd-attach-raw-data" data-field="obd_attach_raw_data" value="\${E(v('obd_attach_raw_data'))}">
+  <div class="oc-attach-list" id="oc-attach-list"></div>
+  <input type="hidden" id="oc-attach-data" data-field="obd_config_attach_data" value="\${E(v('obd_config_attach_data'))}">
 </div>
 
 <div id="qr-footer-wrap" style="margin-top:12px;"></div>
@@ -13472,6 +13495,68 @@ function initObdAttach() {
   }
   // 복원된 파일이 있으면 즉시 렌더링
   if (obdAttachFiles.length > 0) renderObdList();
+}
+
+function initObdConfigAttach() {
+  var hiddenInput = document.getElementById('oc-attach-data');
+  var ocAttachFiles = [];
+  // 저장된 데이터 복원
+  try {
+    var saved = hiddenInput && hiddenInput.value ? JSON.parse(hiddenInput.value) : [];
+    if (Array.isArray(saved) && saved.length > 0) ocAttachFiles = saved;
+  } catch(e) {}
+
+  var dropZone  = document.getElementById('oc-drop-zone');
+  var fileInput = document.getElementById('oc-file-input');
+  var listEl    = document.getElementById('oc-attach-list');
+  if (!dropZone || !fileInput) return;
+
+  dropZone.addEventListener('dragover',  function(e){ e.preventDefault(); dropZone.style.borderColor='#4e90d8'; });
+  dropZone.addEventListener('dragleave', function(){ dropZone.style.borderColor=''; });
+  dropZone.addEventListener('drop',      function(e){ e.preventDefault(); dropZone.style.borderColor=''; handleOcFiles(e.dataTransfer.files); });
+  fileInput.addEventListener('change',   function(){ handleOcFiles(this.files); this.value=''; });
+
+  function syncHidden() {
+    if (hiddenInput) hiddenInput.value = JSON.stringify(ocAttachFiles);
+  }
+
+  function handleOcFiles(files) {
+    Array.from(files).forEach(function(file){
+      var reader = new FileReader();
+      reader.onload = function(ev){
+        ocAttachFiles.push({ name: file.name, size: file.size, type: file.type, dataUrl: ev.target.result });
+        syncHidden(); renderOcList();
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function fmtSize(b){ return b<1024?b+'B':b<1048576?(b/1024).toFixed(1)+'KB':(b/1048576).toFixed(1)+'MB'; }
+
+  function renderOcList(){
+    if (!listEl) return;
+    listEl.innerHTML = '';
+    ocAttachFiles.forEach(function(f, idx){
+      var div = document.createElement('div');
+      div.className = 'oc-attach-item';
+      div.innerHTML =
+        '<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:#4e90d8;"></i>' +
+        '<span class="oc-attach-item-name">'+esc(f.name)+'</span>' +
+        '<span class="oc-attach-item-size">'+fmtSize(f.size)+'</span>' +
+        '<a class="oc-attach-item-dl" title="다운로드" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:#4e90d8;padding:1px 6px;border-radius:3px;font-size:10pt;line-height:1;"><i class="fas fa-download"></i></a>' +
+        '<span class="oc-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
+      listEl.appendChild(div);
+    });
+    listEl.querySelectorAll('.oc-attach-item-del').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        ocAttachFiles.splice(parseInt(this.dataset.idx), 1);
+        syncHidden(); renderOcList();
+      });
+    });
+  }
+  // 복원된 파일이 있으면 즉시 렌더링
+  if (ocAttachFiles.length > 0) renderOcList();
 }
 
 function initNoiseAttach() {

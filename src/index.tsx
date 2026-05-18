@@ -7141,8 +7141,8 @@ if (formType==='detail_plan') return \`
     <!-- 비고 아래 차량제원 비교표 -->
     <tr>
       <th class="dp-th" colspan="2">구 분</th>
-      <th class="dp-th">자동차 형식 1</th>
-      <th class="dp-th">자동차 형식 2</th>
+      <td><input class="dp-inp" data-field="dp_11_1_sub_hdr1" type="text" placeholder="자동차 형식" value="\${E(v('dp_11_1_sub_hdr1'))}"></td>
+      <td><input class="dp-inp" data-field="dp_11_1_sub_hdr2" type="text" placeholder="자동차 형식" value="\${E(v('dp_11_1_sub_hdr2'))}"></td>
     </tr>
     \${[
       ['자동차 명','dp_11_1_sub_name'],
@@ -7164,31 +7164,7 @@ if (formType==='detail_plan') return \`
   </tbody>
 </table>
 
-<!-- ── 11.2 내구성 시험차량 선정 ── -->
-<table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
-  <colgroup>
-    <col style="width:34%;"><col style="width:33%;"><col style="width:33%;">
-  </colgroup>
-  <tbody>
-    <tr><th class="dp-sub-th" colspan="3">11.2. 내구성 시험차량 선정</th></tr>
-    <tr>
-      <th class="dp-th">구 분</th>
-      <th class="dp-th">자동차 형식 1</th>
-      <th class="dp-th">자동차 형식 2</th>
-    </tr>
-    \${[
-      ['자동차 형식','dp_11_2_type'],['변속기','dp_11_2_trans'],
-      ['원동기 형식','dp_11_2_eng'],['배기량','dp_11_2_disp'],
-      ['공차중량','dp_11_2_weight'],['등가관성중량','dp_11_2_inertia'],
-      ['도로부하마력','dp_11_2_roadload'],['연료탱크용량','dp_11_2_tankVol'],
-      ['종 감속비(제1감속비)','dp_11_2_finalRed'],['판매대수','dp_11_2_sales'],
-    ].map(([lbl,fld])=>\`<tr>
-      <td class="dp-lbl">\${lbl}</td>
-      <td><input class="dp-inp" data-field="\${fld}_1" type="text" value="\${E(v(\`\${fld}_1\`))}"></td>
-      <td><input class="dp-inp" data-field="\${fld}_2" type="text" value="\${E(v(\`\${fld}_2\`))}"></td>
-    </tr>\`).join('')}
-  </tbody>
-</table>
+<!-- ── 11.2 내구성 시험차량 선정 (삭제됨 - 11.1 비고 아래 표로 통합) ── -->
 
 <!-- ── 11.3 배출가스 시험차량 선정 ── -->
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">

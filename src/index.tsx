@@ -1785,6 +1785,17 @@ const LANG_DICT = {
     unit_year:'년', fuel_gasoline:'휘발유', fuel_diesel:'경유',
     // gasoline
     gasoline_title:'휘발유차 인증신청 주요내용',
+    g_doc_tag:'[별지 제2호 서식]',
+    g_sec1:'1. 신청 개요', g_sec2:'2. 신청 유형', g_sec3:'3. 상세내역',
+    g_th_div:'구분', g_th_apply_date:'신청일', g_th_maker:'제작사',
+    g_th_model:'차명<br>(형식)', g_th_fuel_type:'차종<br>(사용연료)',
+    g_th_output:'출력(ps/rpm)<br>(배기량 cc)', g_th_std:'적용기준',
+    g_th_cert_no:'인증번호', g_th_note:'비고',
+    g_th_div2:'구분', g_th_fuel:'연료', g_th_cert_content:'인증서 기재 내용', g_th_applicable:'해당여부',
+    g_cat_emission:'배출기준', g_cat_obd:'OBD기준', g_cat_evap:'증발가스', g_cat_warranty:'보증기간',
+    g_fuel_gasoline:'휘발유', g_fuel_diesel:'경유',
+    g_emit_colon:'배출 :', g_noise_colon:'소음 :',
+    sv_applicable:'해당여부',
     maker:'제작사', engine_type:'엔진형식', fuel:'연료',
     max_power:'최고출력(ps/rpm)', max_torque:'최대토크(N·m/rpm)',
     transmission:'변속기', drive_type:'구동방식', fuel_tank:'연료탱크용량(L)',
@@ -2205,6 +2216,17 @@ const LANG_DICT = {
     sv_warranty:'Warranty Period', sv_self_test:'In-house Test Records', sv_key_tech:'Key Technology',
     unit_year:'yr', fuel_gasoline:'Gasoline', fuel_diesel:'Diesel',
     gasoline_title:'Gasoline Vehicle Certification Key Information',
+    g_doc_tag:'[Annex 2]',
+    g_sec1:'1. Application Overview', g_sec2:'2. Application Type', g_sec3:'3. Details',
+    g_th_div:'Type', g_th_apply_date:'Date', g_th_maker:'Manufacturer',
+    g_th_model:'Model<br>(Type)', g_th_fuel_type:'Category<br>(Fuel)',
+    g_th_output:'Power(ps/rpm)<br>(Disp. cc)', g_th_std:'Applicable Standard',
+    g_th_cert_no:'Cert. No.', g_th_note:'Remarks',
+    g_th_div2:'Category', g_th_fuel:'Fuel', g_th_cert_content:'Cert. Description', g_th_applicable:'Applicable',
+    g_cat_emission:'Emission Std.', g_cat_obd:'OBD Std.', g_cat_evap:'Evaporative', g_cat_warranty:'Warranty',
+    g_fuel_gasoline:'Gasoline', g_fuel_diesel:'Diesel',
+    g_emit_colon:'Emission :', g_noise_colon:'Noise :',
+    sv_applicable:'Applicable',
     maker:'Manufacturer', engine_type:'Engine Type', fuel:'Fuel',
     max_power:'Max Power(ps/rpm)', max_torque:'Max Torque(N·m/rpm)',
     transmission:'Transmission', drive_type:'Drive Type', fuel_tank:'Fuel Tank(L)',
@@ -2613,6 +2635,17 @@ const LANG_DICT = {
     sv_warranty:'保証期間', sv_self_test:'自社試験実施内訳', sv_key_tech:'代表技術',
     unit_year:'年', fuel_gasoline:'ガソリン', fuel_diesel:'軽油',
     gasoline_title:'ガソリン車認証申請主要内容',
+    g_doc_tag:'[別紙第2号様式]',
+    g_sec1:'1. 申請概要', g_sec2:'2. 申請類型', g_sec3:'3. 詳細内訳',
+    g_th_div:'区分', g_th_apply_date:'申請日', g_th_maker:'製造社',
+    g_th_model:'車名<br>(形式)', g_th_fuel_type:'車種<br>(使用燃料)',
+    g_th_output:'出力(ps/rpm)<br>(排気量 cc)', g_th_std:'適用基準',
+    g_th_cert_no:'認証番号', g_th_note:'備考',
+    g_th_div2:'区分', g_th_fuel:'燃料', g_th_cert_content:'認証書記載内容', g_th_applicable:'該当有無',
+    g_cat_emission:'排出基準', g_cat_obd:'OBD基準', g_cat_evap:'蒸発ガス', g_cat_warranty:'保証期間',
+    g_fuel_gasoline:'ガソリン', g_fuel_diesel:'軽油',
+    g_emit_colon:'排出 :', g_noise_colon:'騒音 :',
+    sv_applicable:'該当有無',
     maker:'製造社', engine_type:'エンジン形式', fuel:'燃料',
     max_power:'最高出力(ps/rpm)', max_torque:'最大トルク(N·m/rpm)',
     transmission:'変速機', drive_type:'駆動方式', fuel_tank:'燃料タンク容量(L)',
@@ -3020,6 +3053,17 @@ const LANG_DICT = {
     sv_warranty:'保修期', sv_self_test:'自检实施内容', sv_key_tech:'核心技术',
     unit_year:'年', fuel_gasoline:'汽油', fuel_diesel:'柴油',
     gasoline_title:'汽油车认证申请主要内容',
+    g_doc_tag:'[附件第2号格式]',
+    g_sec1:'1. 申请概要', g_sec2:'2. 申请类型', g_sec3:'3. 详细内容',
+    g_th_div:'区分', g_th_apply_date:'申请日', g_th_maker:'制造商',
+    g_th_model:'车名<br>(型式)', g_th_fuel_type:'车种<br>(使用燃料)',
+    g_th_output:'功率(ps/rpm)<br>(排量 cc)', g_th_std:'适用标准',
+    g_th_cert_no:'认证编号', g_th_note:'备注',
+    g_th_div2:'区分', g_th_fuel:'燃料', g_th_cert_content:'认证书记载内容', g_th_applicable:'适用与否',
+    g_cat_emission:'排放标准', g_cat_obd:'OBD标准', g_cat_evap:'蒸发气体', g_cat_warranty:'保证期间',
+    g_fuel_gasoline:'汽油', g_fuel_diesel:'柴油',
+    g_emit_colon:'排放 :', g_noise_colon:'噪音 :',
+    sv_applicable:'适用与否',
     maker:'制造商', engine_type:'发动机型式', fuel:'燃料',
     max_power:'最大功率(ps/rpm)', max_torque:'最大扭矩(N·m/rpm)',
     transmission:'变速器', drive_type:'驱动方式', fuel_tank:'油箱容量(L)',
@@ -5255,8 +5299,8 @@ function buildFormHTML(formType, saved) {
     </tbody>
   </table>
 
-  <div class="en-doc-tag">[별지 제2호 서식]</div>
-  <div class="en-main-title">휘발유차 인증신청 주요내용</div>
+  <div class="en-doc-tag">\${BL('g_doc_tag')}</div>
+  <div class="en-main-title">\${BL('gasoline_title')}</div>
 
   <!-- ══════════════════════════════════════════════════════════════ -->
   <!-- 1. 신청 개요                                                   -->
@@ -5275,18 +5319,18 @@ function buildFormHTML(formType, saved) {
     </colgroup>
     <thead>
       <tr>
-        <th class="en-sec-th" colspan="9">1. 신청 개요</th>
+        <th class="en-sec-th" colspan="9">\${BL('g_sec1')}</th>
       </tr>
       <tr>
-        <th class="en-th">구분</th>
-        <th class="en-th">신청일</th>
-        <th class="en-th">제작사</th>
-        <th class="en-th">차명<br>(형식)</th>
-        <th class="en-th">차종<br>(사용연료)</th>
-        <th class="en-th">출력(ps/rpm)<br>(배기량 cc)</th>
-        <th class="en-th">적용기준</th>
-        <th class="en-th">인증번호</th>
-        <th class="en-th">비고</th>
+        <th class="en-th">\${BL('g_th_div')}</th>
+        <th class="en-th">\${BL('g_th_apply_date')}</th>
+        <th class="en-th">\${BL('g_th_maker')}</th>
+        <th class="en-th">\${BL('g_th_model')}</th>
+        <th class="en-th">\${BL('g_th_fuel_type')}</th>
+        <th class="en-th">\${BL('g_th_output')}</th>
+        <th class="en-th">\${BL('g_th_std')}</th>
+        <th class="en-th">\${BL('g_th_cert_no')}</th>
+        <th class="en-th">\${BL('g_th_note')}</th>
       </tr>
     </thead>
     <tbody>
@@ -5298,8 +5342,8 @@ function buildFormHTML(formType, saved) {
         <td><input class="en-inp" data-field="g_vehicle_type"      type="text" value="\${E(v('g_vehicle_type'))}"></td>
         <td><input class="en-inp" data-field="g_output_disp"       type="text" value="\${E(v('g_output_disp'))}"></td>
         <td style="padding:2px 4px; font-size:8pt; line-height:1.6;">
-          배출 : <input class="en-inp" data-field="g_std_emission" type="text" value="\${E(v('g_std_emission'))}" style="width:80%;"><br>
-          소음 : <input class="en-inp" data-field="g_std_noise"    type="text" value="\${E(v('g_std_noise'))}"    style="width:80%;">
+          \${BL('g_emit_colon')} <input class="en-inp" data-field="g_std_emission" type="text" value="\${E(v('g_std_emission'))}" style="width:75%;"><br>
+          \${BL('g_noise_colon')} <input class="en-inp" data-field="g_std_noise"    type="text" value="\${E(v('g_std_noise'))}"    style="width:75%;">
         </td>
         <td><input class="en-inp" data-field="g_cert_no"           type="text" value="\${E(v('g_cert_no'))}"></td>
         <td><input class="en-inp" data-field="g_note"              type="text" value="\${E(v('g_note'))}"></td>
@@ -5313,7 +5357,7 @@ function buildFormHTML(formType, saved) {
   <table class="en-tbl" style="table-layout:fixed; width:100%; margin-bottom:10px;">
     <colgroup><col style="width:100%;"></colgroup>
     <tbody>
-      <tr><th class="en-sec-th">2. 신청 유형</th></tr>
+      <tr><th class="en-sec-th">\${BL('g_sec2')}</th></tr>
 
       <!-- 2.1 EURO-5 기준 적용 -->
       <tr>
@@ -5352,17 +5396,17 @@ function buildFormHTML(formType, saved) {
     </colgroup>
     <thead>
       <tr>
-        <th class="en-th">구분</th>
-        <th class="en-th">연료</th>
-        <th class="en-th">인증서 기재 내용</th>
-        <th class="en-th">해당여부</th>
+        <th class="en-th">\${BL('g_th_div2')}</th>
+        <th class="en-th">\${BL('g_th_fuel')}</th>
+        <th class="en-th">\${BL('g_th_cert_content')}</th>
+        <th class="en-th">\${BL('g_th_applicable')}</th>
       </tr>
     </thead>
     <tbody>
       <!-- ── 배출기준 ── -->
       <tr>
-        <td class="en-lbl" rowspan="5" style="text-align:center; font-weight:700;">배출기준</td>
-        <td class="en-lbl" rowspan="4" style="text-align:center;">휘발유</td>
+        <td class="en-lbl" rowspan="5" style="text-align:center; font-weight:700;">\${BL('g_cat_emission')}</td>
+        <td class="en-lbl" rowspan="4" style="text-align:center;">\${BL('g_fuel_gasoline')}</td>
         <td>* 13년 휘발유 기준2의 나</td>
         <td style="text-align:center;">
 <input class="en-inp" data-field="g_app_em1" type="text" placeholder="해당/미해당" value="\${E(v('g_app_em1'))}" style="width:100%;">
@@ -5503,7 +5547,7 @@ function buildFormHTML(formType, saved) {
         </td>
       </tr>
       <tr>
-        <td class="en-lbl" style="text-align:center;">경유</td>
+        <td class="en-lbl" style="text-align:center;">\${BL('g_fuel_diesel')}</td>
         <td>* 보증기간 : 10년 / 16만km</td>
         <td style="text-align:center;">
 <input class="en-inp" data-field="g_app_war6" type="text" placeholder="해당/미해당" value="\${E(v('g_app_war6'))}" style="width:100%;">
@@ -5523,7 +5567,7 @@ function buildFormHTML(formType, saved) {
       <col style="width:78%;">
     </colgroup>
     <thead>
-      <tr><th class="en-sec-th" colspan="3">3. 상세내역</th></tr>
+      <tr><th class="en-sec-th" colspan="3">\${BL('g_sec3')}</th></tr>
     </thead>
     <tbody>
 

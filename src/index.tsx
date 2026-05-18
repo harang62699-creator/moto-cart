@@ -7164,7 +7164,27 @@ if (formType==='detail_plan') return \`
   </tbody>
 </table>
 
-<!-- ── 11.2 내구성 시험차량 선정 (삭제됨 - 11.1 비고 아래 표로 통합) ── -->
+<!-- ── 11.2 내구성 시험차량 선정 ── -->
+<table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
+  <colgroup><col style="width:28%;"><col style="width:72%;"></colgroup>
+  <tbody>
+    <tr><th class="dp-sub-th" colspan="2">11.2. 내구성 시험차량 선정</th></tr>
+    <tr>
+      <td class="dp-lbl">내구성 시험차량 선정</td>
+      <td>
+        <div class="dp-field">
+          <textarea class="dp-field-text" data-field="dp_11_2_note" rows="4" placeholder="내구성 시험차량 선정 내용을 기재하세요">\${E(v('dp_11_2_note'))}</textarea>
+          <input type="hidden" id="dp_11_2_imgs" data-field="dp_11_2_imgs" value="\${E(v('dp_11_2_imgs'))}">
+          <div class="dp-drop" id="dp_11_2_drop" onclick="document.getElementById('dp_11_2_fi').click();" ondragover="event.preventDefault();this.classList.add('drag-over');" ondragleave="this.classList.remove('drag-over');" ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('dp_11_2_imgs','dp_11_2_drop',event.dataTransfer.files);">
+            <input type="file" id="dp_11_2_fi" accept="image/*" multiple onchange="dpAddFiles('dp_11_2_imgs','dp_11_2_drop',this.files);this.value='';">
+            <div class="dp-drop-hint"><i class="fas fa-image"></i> \${BL('dp_img_hint')}</div>
+            <div class="dp-img-list" id="dp_11_2_imgs_list"></div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- ── 11.3 배출가스 시험차량 선정 ── -->
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
@@ -13100,6 +13120,7 @@ function showToast(msg, type='info') {
       ['dp_7_1_imgs','dp_7_1_drop'],
       ['dp_7_2_imgs','dp_7_2_drop'],
       ['dp_9_2_imgs','dp_9_2_drop'],
+      ['dp_11_2_imgs','dp_11_2_drop'],
       ['dp_13_imgs','dp_13_drop'],
       ['dp_8_14_1_imgs','dp_8_14_1_drop'],
       ['dp_8_14_2_imgs','dp_8_14_2_drop'],

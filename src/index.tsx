@@ -10595,32 +10595,19 @@ if (formType==='detail_plan') return \`
     </tbody>
   </table>
 
-  <!-- 첨부문서 1: 자체시험성적서 / RAW DATA -->
+  <!-- 첨부문서: 자체시험성적서 / RAW DATA -->
   <div class="ev-attach-section no-print" id="ev-attach-raw-section">
-    <div class="ev-attach-title"><i class="fas fa-paperclip"></i> 첨부문서 ① – 자체시험성적서 / RAW DATA</div>
-    <div class="ev-attach-note">\${BL('attach_note')}</div>
+    <div class="ev-attach-title"><i class="fas fa-paperclip"></i> 첨부문서 (자체시험성적서 / RAW DATA)</div>
+    <div class="ev-attach-note">이미지(JPG, PNG) 또는 PDF 파일을 업로드하세요. 첨부파일은 인쇄 시 출력되지 않습니다.</div>
     <div class="ev-attach-drop" id="ev-drop-raw" onclick="document.getElementById('ev-file-raw').click()">
       <input type="file" id="ev-file-raw" multiple accept="image/*,.pdf">
-      <i class="fas fa-cloud-upload-alt" style="font-size:20px;color:var(--c-accent);margin-bottom:4px;"></i>
-      <div style="font-size:8.5pt;color:var(--c-text2);">\${BL('attach_hint')}</div>
+      <i class="fas fa-cloud-upload-alt" style="font-size:20pt;margin-bottom:6px;display:block;"></i>
+      클릭하거나 파일을 드래그하여 업로드
     </div>
     <div class="ev-attach-list" id="ev-list-raw"></div>
     <input type="hidden" id="ev-attach-raw-data" data-field="ev_attach_raw_data" value="\${E(v('ev_attach_raw_data'))}">
   </div>
   <div class="ev-attach-print-wrap" id="ev-print-raw"></div>
-
-  <!-- 첨부문서 2: 제작사의 확인서 -->
-  <div class="ev-attach-section no-print" id="ev-attach-mfr-section">
-    <div class="ev-attach-title"><i class="fas fa-paperclip"></i> 첨부문서 ② – 제작사의 확인서 <span style="font-size:8pt;font-weight:400;color:var(--c-text3);">(시험 차량이 한국 인증 차량과 상이할 경우)</span></div>
-    <div class="ev-attach-note">\${BL('attach_note')}</div>
-    <div class="ev-attach-drop" id="ev-drop-mfr" onclick="document.getElementById('ev-file-mfr').click()">
-      <input type="file" id="ev-file-mfr" multiple accept="image/*,.pdf">
-      <i class="fas fa-cloud-upload-alt" style="font-size:20px;color:var(--c-accent);margin-bottom:4px;"></i>
-      <div style="font-size:8.5pt;color:var(--c-text2);">클릭하거나 파일을 끌어다 놓으세요 (이미지 / PDF)</div>
-    </div>
-    <div class="ev-attach-list" id="ev-list-mfr"></div>
-  </div>
-  <div class="ev-attach-print-wrap" id="ev-print-mfr"></div>
 
   <div id="qr-footer-wrap" style="margin-top:16px;"></div>
 </div>
@@ -13185,8 +13172,6 @@ function initEvapAttach() {
   }
   // 자체시험성적서 / RAW DATA
   makeAttach('ev-drop-raw','ev-file-raw','ev-list-raw','ev-print-raw','ev-attach-raw-data');
-  // 제작사의 확인서 (별도 hidden input 없음 — 필요 시 추가)
-  makeAttach('ev-drop-mfr','ev-file-mfr','ev-list-mfr','ev-print-mfr',null);
 }
 
 // ================================================================

@@ -8511,6 +8511,41 @@ if (formType==='detail_plan') return \`
   cursor:pointer; line-height:1; border:none;
   box-shadow:0 1px 3px rgba(0,0,0,.3);
 }
+/* dp-drop 방식 (1.2.2, 1.2.3.x) — detail_plan과 동일한 스타일 */
+.dp-drop {
+  border:1.5px dashed #b0c4de;
+  border-radius:5px;
+  background:#f8faff;
+  padding:6px 8px;
+  cursor:pointer;
+  transition:border-color .15s, background .15s;
+  position:relative;
+  min-height:36px;
+}
+.dp-drop:hover { border-color:#4e90d8; background:#eef3fa; }
+.dp-drop.drag-over { border-color:#2563eb; background:#dbeafe; }
+.dp-drop-hint {
+  color:#aaa; font-size:7.5pt; text-align:center;
+  pointer-events:none; user-select:none;
+  display:flex; align-items:center; justify-content:center; gap:4px;
+}
+.dp-drop input[type=file] { display:none; }
+.dp-img-list { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
+.dp-img-item { position:relative; display:inline-block; }
+.dp-img-item img {
+  max-width:140px; max-height:100px;
+  border:1px solid #ccc; border-radius:3px;
+  display:block; object-fit:contain; background:#fff;
+}
+.dp-img-item-del {
+  position:absolute; top:-6px; right:-6px;
+  width:16px; height:16px; border-radius:50%;
+  background:#ef4444; color:#fff; font-size:10px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; line-height:1; border:none;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+.dp-img-item-del:hover { background:#dc2626; }
 .obd-check-row { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
 .obd-check-row label { display:flex; align-items:center; gap:3px; font-size:8.5pt; cursor:pointer; }
 .obd-check-row input[type=checkbox] { width:13px; height:13px; cursor:pointer; }

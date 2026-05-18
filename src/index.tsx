@@ -1326,10 +1326,8 @@ textarea.auto-grow {
 ════════════════════════════════════════════════ -->
 <div id="page-dashboard" class="page">
   <div class="dash-header">
-    <div>
-      <div id="dash-title" class="dash-title">인증신청 목록</div>
-      <div id="dash-subtitle" class="dash-sub"></div>
-    </div>
+    <div id="dash-title" class="dash-title" style="display:none;"></div>
+    <div id="dash-subtitle" class="dash-sub" style="display:none;"></div>
     <button id="btn-new-appl" class="btn btn-primary" onclick="showNewAppModal()">
       <i class="fas fa-plus"></i>새 신청서 작성
     </button>

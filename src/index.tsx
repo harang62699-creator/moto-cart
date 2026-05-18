@@ -1759,7 +1759,7 @@ const LANG_DICT = {
     g_accel_noise:'가속주행소음(dB(A))', g_exhaust_noise:'배기소음(dB(A))', g_horn_noise:'경적소음(dB(A))',
     g_allowable_std:'허용기준', g_test_result:'시험결과', g_compliance_rate:'적합여부',
     g_monitor_device:'모니터링 장치', g_fault_cond:'결함 조건', g_wmtc_result:'WMTC 결과',
-    g_mil_lamp:'MIL 점등', g_fault_std:'고장 기준', g_monitor_pass:'모니터 통과',
+    g_mil_lamp:'오작동표시등<br>점등여부', g_fault_std:'고장 기준', g_monitor_pass:'감시장치<br>적부판정',
     g_catalyst:'촉매장치', g_catalyst_dpf:'촉매장치(DPF)',
     g_spec_result:'기술 사양 및 시험결과',
     g_blowby:'블로바이 제어', g_obd_std_name:'OBD 기준명', g_monitor_item:'모니터 항목',
@@ -1952,11 +1952,12 @@ const LANG_DICT = {
     oo_ecu_type:'ECU 형식',
     oo_o2_type:'O2 센서 형식',
     oo_purge_type:'퍼지 밸브 형식',
-    oo_monitor_target:'모니터 대상 항목',
-    oo_verdict:'결과 판정',
-    oo_cvs75:'CVS-75 모드 기준',
-    oo_fault_std:'고장판단 기준',
+    oo_monitor_target:'시험대상 감시장치',
+    oo_verdict:'결과판정',
+    oo_cvs75:'CVS-75 모드 결과(g/km)',
+    oo_fault_std:'오작동 판기준(g/km)',
     oo_device_name:'장치명',
+    oo_fault_cond2:'오작동<br>재현조건',
     oo_eng_spec_title:'2. 엔 진 제 원',
     nt_sec3:'3. 시험자동차 제원',
     nt_sec4:'4. 시험조건',
@@ -2176,7 +2177,7 @@ const LANG_DICT = {
     g_accel_noise:'Accel. Noise(dB(A))', g_exhaust_noise:'Exhaust Noise(dB(A))', g_horn_noise:'Horn Noise(dB(A))',
     g_allowable_std:'Allowable Std.', g_test_result:'Test Result', g_compliance_rate:'Compliance',
     g_monitor_device:'Monitor Device', g_fault_cond:'Fault Condition', g_wmtc_result:'WMTC Result',
-    g_mil_lamp:'MIL Lamp', g_fault_std:'Fault Standard', g_monitor_pass:'Monitor Pass',
+    g_mil_lamp:'MIL Lamp<br>(On/Off)', g_fault_std:'Fault Standard', g_monitor_pass:'Device<br>Compliance',
     g_catalyst:'Catalyst', g_catalyst_dpf:'Catalyst(DPF)',
     g_spec_result:'Technical Spec. & Test Results',
     g_blowby:'Blow-by Control', g_obd_std_name:'OBD Standard Name', g_monitor_item:'Monitor Item',
@@ -2358,11 +2359,12 @@ const LANG_DICT = {
     oo_ecu_type:'ECU Type',
     oo_o2_type:'O2 Sensor Type',
     oo_purge_type:'Purge Valve Type',
-    oo_monitor_target:'Monitor Target Items',
+    oo_monitor_target:'Test Target Monitor',
     oo_verdict:'Verdict',
-    oo_cvs75:'CVS-75 Mode Standard',
-    oo_fault_std:'Fault Judgment Standard',
+    oo_cvs75:'CVS-75 Mode Result(g/km)',
+    oo_fault_std:'Malfunction Criterion(g/km)',
     oo_device_name:'Device Name',
+    oo_fault_cond2:'Malfunction<br>Condition',
     oo_eng_spec_title:'2. Engine Specifications',
     nt_sec3:'3. Vehicle Specifications',
     nt_sec4:'4. Test Conditions',
@@ -2582,7 +2584,7 @@ const LANG_DICT = {
     g_accel_noise:'加速走行騒音(dB(A))', g_exhaust_noise:'排気騒音(dB(A))', g_horn_noise:'警音器騒音(dB(A))',
     g_allowable_std:'許容基準', g_test_result:'試験結果', g_compliance_rate:'適合可否',
     g_monitor_device:'モニタリング装置', g_fault_cond:'故障条件', g_wmtc_result:'WMTC結果',
-    g_mil_lamp:'MIL点灯', g_fault_std:'故障基準', g_monitor_pass:'モニター通過',
+    g_mil_lamp:'誤作動表示灯<br>点灯有無', g_fault_std:'故障基準', g_monitor_pass:'監視装置<br>適否判定',
     g_catalyst:'触媒装置', g_catalyst_dpf:'触媒装置(DPF)',
     g_spec_result:'技術仕様及び試験結果',
     g_blowby:'ブローバイ制御', g_obd_std_name:'OBD基準名', g_monitor_item:'モニター項目',
@@ -2764,11 +2766,12 @@ const LANG_DICT = {
     oo_ecu_type:'ECU形式',
     oo_o2_type:'O2センサ形式',
     oo_purge_type:'パージバルブ形式',
-    oo_monitor_target:'モニター対象項目',
+    oo_monitor_target:'試験対象監視装置',
     oo_verdict:'結果判定',
-    oo_cvs75:'CVS-75モード基準',
-    oo_fault_std:'故障判断基準',
+    oo_cvs75:'CVS-75モード結果(g/km)',
+    oo_fault_std:'誤作動判定基準(g/km)',
     oo_device_name:'装置名',
+    oo_fault_cond2:'誤作動<br>再現条件',
     oo_eng_spec_title:'2. エンジン諸元',
     nt_sec3:'3. 試験自動車諸元',
     nt_sec4:'4. 試験条件',
@@ -2987,7 +2990,7 @@ const LANG_DICT = {
     g_accel_noise:'加速行驶噪声(dB(A))', g_exhaust_noise:'排气噪声(dB(A))', g_horn_noise:'喇叭噪声(dB(A))',
     g_allowable_std:'允许标准', g_test_result:'试验结果', g_compliance_rate:'合规与否',
     g_monitor_device:'监控装置', g_fault_cond:'故障条件', g_wmtc_result:'WMTC结果',
-    g_mil_lamp:'MIL点亮', g_fault_std:'故障标准', g_monitor_pass:'监控通过',
+    g_mil_lamp:'误动作指示灯<br>点亮与否', g_fault_std:'故障标准', g_monitor_pass:'监视装置<br>适否判定',
     g_catalyst:'催化装置', g_catalyst_dpf:'催化装置(DPF)',
     g_spec_result:'技术规格及试验结果',
     g_blowby:'曲轴箱通风控制', g_obd_std_name:'OBD标准名称', g_monitor_item:'监控项目',
@@ -3169,11 +3172,12 @@ const LANG_DICT = {
     oo_ecu_type:'ECU型式',
     oo_o2_type:'O2传感器型式',
     oo_purge_type:'净化阀型式',
-    oo_monitor_target:'监控目标项目',
+    oo_monitor_target:'试验对象监视装置',
     oo_verdict:'结果判定',
-    oo_cvs75:'CVS-75模式标准',
-    oo_fault_std:'故障判断标准',
+    oo_cvs75:'CVS-75模式结果(g/km)',
+    oo_fault_std:'误动作判定基准(g/km)',
     oo_device_name:'装置名称',
+    oo_fault_cond2:'误动作<br>再现条件',
     oo_eng_spec_title:'2. 发动机规格',
     nt_sec3:'3. 试验车辆规格',
     nt_sec4:'4. 试验条件',
@@ -11040,21 +11044,21 @@ if (formType==='detail_plan') return \`
     <thead>
       <!-- 1행: 대분류 -->
       <tr>
-        <th class="obd-result-th-top" colspan="2" rowspan="2" style="vertical-align:middle;">\${BL('oo_monitor_target')}</th>
+        <th class="obd-result-th-top" colspan="2">\${BL('oo_monitor_target')}</th>
         <th class="obd-result-th-top" colspan="4">\${BL('g_test_result')}</th>
         <th class="obd-result-th-top" colspan="4">\${BL('oo_verdict')}</th>
       </tr>
       <!-- 2행: 중분류 -->
       <tr>
+        <th class="obd-result-th-mid" rowspan="2" style="vertical-align:middle;">\${BL('oo_device_name')}</th>
+        <th class="obd-result-th-mid" rowspan="2" style="vertical-align:middle; font-size:7.5pt;">\${BL('oo_fault_cond2')}</th>
         <th class="obd-result-th-mid" colspan="3">\${BL('oo_cvs75')}</th>
         <th class="obd-result-th-mid" rowspan="2" style="vertical-align:middle; font-size:7pt;">\${BL('g_mil_lamp')}</th>
         <th class="obd-result-th-mid" colspan="3">\${BL('oo_fault_std')}</th>
         <th class="obd-result-th-mid" rowspan="2" style="vertical-align:middle; font-size:7pt;">\${BL('g_monitor_pass')}</th>
       </tr>
-      <!-- 3행: 장치명/재현조건 + CO·NOx·HC 소분류 — 모두 같은 행 -->
+      <!-- 3행: CO·NOx·HC 소분류 -->
       <tr>
-        <th class="obd-result-th-mid" style="vertical-align:middle;">\${BL('oo_device_name')}</th>
-        <th class="obd-result-th-mid" style="vertical-align:middle;">\${BL('g_fault_cond')}</th>
         <th class="obd-result-th-mid">CO</th>
         <th class="obd-result-th-mid">NOx</th>
         <th class="obd-result-th-mid">HC</th>

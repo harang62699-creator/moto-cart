@@ -9466,10 +9466,7 @@ if (formType==='detail_plan') return \`
 .em-attach-item-size { color:#666; white-space:nowrap; font-size:8pt; }
 .em-attach-item-del { color:#ef4444; cursor:pointer; padding:1px 5px; border-radius:3px; font-size:10pt; line-height:1; }
 .em-attach-item-del:hover { background:rgba(239,68,68,.12); }
-.em-attach-print-wrap { display:none; margin-top:10px; }
-.em-attach-print-page { page-break-before:always; margin-top:20px; }
-.em-attach-print-page img { max-width:100%; height:auto; display:block; }
-.em-attach-print-page .em-attach-pdf-frame { width:100%; min-height:1100px; border:none; }
+/* 첨부문서: 인쇄 미리보기 기능 제거됨 (업로드/다운로드 전용) */
 
 @media print {
   .em-wrap {
@@ -9503,10 +9500,8 @@ if (formType==='detail_plan') return \`
     -webkit-print-color-adjust:exact; print-color-adjust:exact;
   }
   .em-chk { color:#000 !important; }
-  /* 첨부 드롭존·목록은 숨기고 인쇄 렌더만 표시 */
+  /* 첨부문서 영역 인쇄 시 완전 숨김 */
   .em-attach-section { display:none !important; }
-  .em-attach-print-wrap { display:block !important; }
-  .em-attach-print-page { page-break-before:always; }
 }
 </style>
 
@@ -10013,17 +10008,15 @@ if (formType==='detail_plan') return \`
   </table>
 
   <!-- ── 첨부문서: 자체 배출가스 시험 성적서 / RAW DATA ── -->
-  <div class="em-attach-section" id="em-attach-raw-section">
-    <div class="em-attach-title"><i class="fas fa-paperclip"></i>&nbsp;첨부문서 – 자체 배출가스 시험 성적서 / RAW DATA</div>
-    <div class="em-attach-note">※ 이미지 또는 PDF 파일을 첨부하면 인쇄 시 자동으로 함께 인쇄됩니다.</div>
+  <div class="em-attach-section no-print" id="em-attach-raw-section">
+    <div class="em-attach-title"><i class="fas fa-paperclip"></i> 첨부문서 (자체시험성적서 / RAW DATA)</div>
+    <div class="em-attach-note">이미지(JPG, PNG) 또는 PDF 파일을 업로드하세요. 첨부파일은 인쇄 시 출력되지 않습니다.</div>
     <div class="em-attach-drop" id="em-drop-raw">
-      <i class="fas fa-cloud-upload-alt" style="font-size:20px; color:var(--c-accent);"></i>
-      <span style="font-size:8.5pt;">클릭하거나 파일을 여기에 끌어다 놓으세요</span>
-      <span style="font-size:7.5pt; color:var(--c-text3);">지원 형식: 이미지(JPG, PNG, GIF), PDF</span>
+      <i class="fas fa-cloud-upload-alt" style="font-size:20pt;margin-bottom:6px;display:block;"></i>
+      클릭하거나 파일을 드래그하여 업로드
       <input type="file" id="em-file-raw" accept="image/*,.pdf" multiple>
     </div>
     <div class="em-attach-list" id="em-list-raw"></div>
-    <div class="em-attach-print-wrap" id="em-print-raw" style="display:none;"></div>
     <input type="hidden" id="em-attach-raw-data" data-field="em_attach_raw_data" value="\${E(v('em_attach_raw_data'))}">
   </div>
 
@@ -12994,93 +12987,67 @@ function initObdImgDrops() {
 }
 
 function initEmissionAttach() {
-  function makeAttach(dropId, fileInputId, listId, printWrapId, hiddenId) {
-    var hiddenInput = hiddenId ? document.getElementById(hiddenId) : null;
-    var files = [];
-    // 저장된 데이터 복원
-    try {
-      var saved = hiddenInput && hiddenInput.value ? JSON.parse(hiddenInput.value) : [];
-      if (Array.isArray(saved) && saved.length > 0) files = saved;
-    } catch(e) {}
+  // 업로드/다운로드/저장 전용 (인쇄 출력 기능 없음)
+  var hiddenInput = document.getElementById('em-attach-raw-data');
+  var emAttachFiles = [];
 
-    var dropZone  = document.getElementById(dropId);
-    var fileInput = document.getElementById(fileInputId);
-    var listEl    = document.getElementById(listId);
-    var printWrap = document.getElementById(printWrapId);
-    if (!dropZone || !fileInput) return;
+  // 저장된 데이터 복원
+  try {
+    var saved = hiddenInput && hiddenInput.value ? JSON.parse(hiddenInput.value) : [];
+    if (Array.isArray(saved) && saved.length > 0) emAttachFiles = saved;
+  } catch(e) {}
 
-    dropZone.addEventListener('dragover',  function(e){ e.preventDefault(); dropZone.style.borderColor='var(--c-accent)'; });
-    dropZone.addEventListener('dragleave', function(){ dropZone.style.borderColor=''; });
-    dropZone.addEventListener('drop',      function(e){ e.preventDefault(); dropZone.style.borderColor=''; handleFiles(e.dataTransfer.files); });
-    dropZone.addEventListener('click',     function(){ fileInput.click(); });
-    fileInput.addEventListener('change',   function(){ handleFiles(this.files); this.value=''; });
+  var dropZone  = document.getElementById('em-drop-raw');
+  var fileInput = document.getElementById('em-file-raw');
+  var listEl    = document.getElementById('em-list-raw');
+  if (!dropZone || !fileInput) return;
 
-    function syncHidden() {
-      if (hiddenInput) hiddenInput.value = JSON.stringify(files);
-    }
-    function handleFiles(flist) {
-      Array.from(flist).forEach(function(file){
-        var reader = new FileReader();
-        reader.onload = function(ev){
-          files.push({ name:file.name, size:file.size, type:file.type, dataUrl:ev.target.result });
-          syncHidden(); renderList(); renderPrint();
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-    function fmtSize(b){ return b<1024?b+'B':b<1048576?(b/1024).toFixed(1)+'KB':(b/1048576).toFixed(1)+'MB'; }
-    function renderList(){
-      listEl.innerHTML='';
-      files.forEach(function(f,idx){
-        var div=document.createElement('div');
-        div.className='em-attach-item';
-        div.innerHTML='<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:var(--c-accent);"></i>'+
-          '<span class="em-attach-item-name">'+esc(f.name)+'</span>'+
-          '<span class="em-attach-item-size">'+fmtSize(f.size)+'</span>'+
-          '<a title="다운로드" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:var(--c-accent);padding:1px 6px;font-size:10pt;"><i class="fas fa-download"></i></a>'+
-          '<span class="em-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
-        listEl.appendChild(div);
-      });
-      listEl.querySelectorAll('.em-attach-item-del').forEach(function(btn){
-        btn.addEventListener('click',function(e){
-          e.stopPropagation();
-          files.splice(parseInt(this.dataset.idx),1);
-          syncHidden(); renderList(); renderPrint();
-        });
-      });
-    }
-    function renderPrint(){
-      if (!printWrap) return;
-      printWrap.innerHTML='';
-      if (files.length === 0) { printWrap.style.display='none'; return; }
-      printWrap.style.display='block';
-      files.forEach(function(f){
-        var page=document.createElement('div');
-        page.className='em-attach-print-page';
-        var lbl=document.createElement('div');
-        lbl.style.cssText='font-size:9pt;font-weight:700;margin-bottom:6px;color:#000;';
-        lbl.textContent='첨부: '+f.name;
-        page.appendChild(lbl);
-        if(f.type==='application/pdf'){
-          var iframe=document.createElement('iframe');
-          iframe.src=f.dataUrl;
-          iframe.className='em-attach-pdf-frame';
-          iframe.style.cssText='width:100%;min-height:700px;border:none;';
-          page.appendChild(iframe);
-        } else {
-          var img=document.createElement('img');
-          img.src=f.dataUrl;
-          img.style.cssText='max-width:100%;height:auto;display:block;';
-          page.appendChild(img);
-        }
-        printWrap.appendChild(page);
-      });
-    }
-    // 복원된 파일이 있으면 즉시 렌더링
-    if (files.length > 0) { renderList(); renderPrint(); }
+  dropZone.addEventListener('dragover',  function(e){ e.preventDefault(); dropZone.style.borderColor='#4e90d8'; });
+  dropZone.addEventListener('dragleave', function(){ dropZone.style.borderColor=''; });
+  dropZone.addEventListener('drop',      function(e){ e.preventDefault(); dropZone.style.borderColor=''; handleEmFiles(e.dataTransfer.files); });
+  dropZone.addEventListener('click',     function(){ fileInput.click(); });
+  fileInput.addEventListener('change',   function(){ handleEmFiles(this.files); this.value=''; });
+
+  function syncHidden() {
+    if (hiddenInput) hiddenInput.value = JSON.stringify(emAttachFiles);
   }
-  // 자체 배출가스 시험 성적서 / RAW DATA
-  makeAttach('em-drop-raw','em-file-raw','em-list-raw','em-print-raw','em-attach-raw-data');
+
+  function handleEmFiles(files) {
+    Array.from(files).forEach(function(file){
+      var reader = new FileReader();
+      reader.onload = function(ev){
+        emAttachFiles.push({ name: file.name, size: file.size, type: file.type, dataUrl: ev.target.result });
+        syncHidden(); renderEmList();
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function fmtSize(b){ return b<1024?b+'B':b<1048576?(b/1024).toFixed(1)+'KB':(b/1048576).toFixed(1)+'MB'; }
+
+  function renderEmList(){
+    listEl.innerHTML = '';
+    emAttachFiles.forEach(function(f, idx){
+      var div = document.createElement('div');
+      div.className = 'em-attach-item';
+      div.innerHTML =
+        '<i class="fas '+(f.type==='application/pdf'?'fa-file-pdf':'fa-file-image')+'" style="color:#4e90d8;"></i>' +
+        '<span class="em-attach-item-name">'+esc(f.name)+'</span>' +
+        '<span class="em-attach-item-size">'+fmtSize(f.size)+'</span>' +
+        '<a class="em-attach-item-dl" title="다운로드" href="'+f.dataUrl+'" download="'+esc(f.name)+'" style="color:#4e90d8;padding:1px 6px;border-radius:3px;font-size:10pt;line-height:1;"><i class="fas fa-download"></i></a>' +
+        '<span class="em-attach-item-del" title="삭제" data-idx="'+idx+'">×</span>';
+      listEl.appendChild(div);
+    });
+    listEl.querySelectorAll('.em-attach-item-del').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        emAttachFiles.splice(parseInt(this.dataset.idx), 1);
+        syncHidden(); renderEmList();
+      });
+    });
+  }
+  // 복원된 파일이 있으면 즉시 렌더링
+  if (emAttachFiles.length > 0) renderEmList();
 }
 
 function initEvapAttach() {

@@ -1930,7 +1930,7 @@ const LANG_DICT = {
     em_col_approval:'형식승인번호',
     em_col_location:'설치장소',
     em_col_item:'측정항목',
-    em_mass:'질량(g/km)',
+    em_mass:'배출질량(g/test)',
     em_pressure:'대기압(kPa)',
     em_wet_temp:'습구온도(℃)',
     em_dry_temp:'건구온도(℃)',
@@ -2338,7 +2338,7 @@ const LANG_DICT = {
     em_col_approval:'Type Approval No.',
     em_col_location:'Installation Location',
     em_col_item:'Measurement Item',
-    em_mass:'Mass(g/km)',
+    em_mass:'Emission Mass(g/test)',
     em_pressure:'Atm. Pressure(kPa)',
     em_wet_temp:'Wet Bulb Temp.(℃)',
     em_dry_temp:'Dry Bulb Temp.(℃)',
@@ -2746,7 +2746,7 @@ const LANG_DICT = {
     em_col_approval:'型式承認番号',
     em_col_location:'設置場所',
     em_col_item:'測定項目',
-    em_mass:'質量(g/km)',
+    em_mass:'排出質量(g/test)',
     em_pressure:'大気圧(kPa)',
     em_wet_temp:'湿球温度(℃)',
     em_dry_temp:'乾球温度(℃)',
@@ -3153,7 +3153,7 @@ const LANG_DICT = {
     em_col_approval:'型式批准号',
     em_col_location:'安装地点',
     em_col_item:'测量项目',
-    em_mass:'质量(g/km)',
+    em_mass:'排放质量(g/test)',
     em_pressure:'大气压(kPa)',
     em_wet_temp:'湿球温度(℃)',
     em_dry_temp:'干球温度(℃)',
@@ -9869,7 +9869,7 @@ if (formType==='detail_plan') return \`
       </tr>
       <!-- 복합 헤더 2행: 배출질량/g/km -->
       <tr>
-        <th class="em-th" style="text-align:center; font-size:7.5pt;">\${BL('em_mass')}<br>(g/test)</th>
+        <th class="em-th" style="text-align:center; font-size:7.5pt;">\${BL('em_mass')}</th>
         <th class="em-th" style="text-align:center;">g/km</th>
         <th class="em-th" style="text-align:center; font-size:7.5pt;">배출질량<br>(g/test)</th>
         <th class="em-th" style="text-align:center;">g/km</th>

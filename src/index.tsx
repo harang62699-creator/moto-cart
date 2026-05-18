@@ -1293,7 +1293,7 @@ textarea.auto-grow {
           </div>
           <div class="field-wrap">
             <label class="label">비밀번호 확인 <span style="color:var(--c-danger);">*</span></label>
-            <input id="reg-password2" class="input" type="password" placeholder="재입력" autocomplete="new-password">
+            <input id="reg-password2" class="input" type="password" placeholder="\${BL('pw_ph_confirm')}" autocomplete="new-password">
           </div>
           <div class="field-wrap" style="grid-column:1/-1;">
             <label class="label">회사명 <span style="color:var(--c-danger);">*</span></label>
@@ -2418,7 +2418,7 @@ const LANG_DICT = {
     obd_div_keybox:'키박스 도면',
     obd_txt_malfunction_test:'오작동 재현을 위한 부품 또는 오작동 모터사이클을 위한 전자 장비를 장착한 차량을 시험할 때, 오작동 판단 기준 이하에서 오작동 경고등이 점등되며 배출가스 자기진단장치는 적합한 것으로 판정됨',
     obd_txt_electrical_continuity:'배출가스 관련 부품 또는 배출가스와 관련되고 엔진 제어장치에 연결된 파워트레인 관련 부품의 전기적인 연속성을 감시하여야 함',
-    obd_ph_dtc_default:'이륜자동차에 결함코드가 확인되면 계기판에 엔진 체크등이 점등됨.',
+    obd_ph_dtc_default:'\${BL('obd_dtc_default_val')} 계기판에 엔진 체크등이 점등됨.',
     obd_ph_no_modify:'무단변경 및 배기가스제어컴퓨터의 수정을 금지하는 문구 입력',
     nt_th_gear:'사용<br>변속<br>기어',
     nt_th_entry_speed:'진입<br>지정<br>차속<br>(km/hr)',
@@ -3105,6 +3105,248 @@ img_click_to_zoom:'클릭하여 크게 보기',
     cf_ph_address:'제작사 주소',
     cf_ph_phone:'전화번호',
     cf_ph_fax:'팩스번호',
+    dp_lbl_category:'구분',
+    dp_lbl_item:'항목',
+    dp_lbl_car_name:'차명',
+    dp_lbl_car_type:'자동차 형식',
+    dp_lbl_passenger:'승차인원',
+    dp_lbl_model_year:'모델년도',
+    dp_lbl_spec_no:'제원관리번호',
+    dp_lbl_drive:'구동형태',
+    dp_lbl_car_class:'차종',
+    dp_lbl_purpose:'용도',
+    dp_lbl_trans_type:'변속기 종류',
+    dp_lbl_body_shape:'차체형상',
+    dp_lbl_curb_wt:'공차중량(kg)',
+    dp_lbl_gvw:'차량 총 중량(kg)',
+    dp_lbl_inertia_wt:'등가관성 중량(kg)',
+    dp_lbl_dyno_hp:'실제 다이나모 마력(hp)',
+    dp_lbl_dimensions:'치수',
+    dp_lbl_length:'전장(mm)',
+    dp_lbl_width:'전폭(mm)',
+    dp_lbl_height:'전고(mm)',
+    dp_lbl_manufacturer:'제작회사',
+    dp_lbl_combustion:'연소방식',
+    dp_lbl_eng_type:'원동기 형식',
+    dp_lbl_displacement:'배기량(cc)',
+    dp_lbl_eng_pos:'원동기부착위치',
+    dp_lbl_fuel_type:'사용연료',
+    dp_lbl_cyl_count:'실린더 수',
+    dp_lbl_cyl_arr:'실린더 배열',
+    dp_lbl_chamber_type:'연소실 형식',
+    dp_lbl_max_power:'최대출력(ps/rpm)',
+    dp_lbl_max_torque:'최대토크(kg-m/rpm)',
+    dp_lbl_bore_stroke:'보어*스트로크(mm)',
+    dp_lbl_idle_rpm:'공회전속도(rpm)',
+    dp_lbl_intake_method:'공기흡입방식',
+    dp_lbl_port_size:'포트크기',
+    dp_lbl_port_size_mm:'포트크기(mm)',
+    dp_lbl_port_shape:'포트형상',
+    dp_lbl_ign_timing:'점화시기(Degree)',
+    dp_lbl_fuel_tank:'연료탱크',
+    dp_lbl_capacity_l:'용량(ℓ)',
+    dp_lbl_position:'위치',
+    dp_lbl_material:'재질',
+    dp_lbl_air_cleaner:'제어공기청정기',
+    dp_lbl_form_type:'형식',
+    dp_lbl_drivetrain:'동력전달장치',
+    dp_lbl_clutch:'클러치',
+    dp_lbl_operation:'조작방식',
+    dp_lbl_gear_ratio:'변속비',
+    dp_lbl_gear_1:'1단',
+    dp_lbl_forward:'전진',
+    dp_lbl_reverse:'후진',
+    dp_lbl_red_ratio:'감속비',
+    dp_lbl_red1:'제1 감속비',
+    dp_lbl_red2:'제2 감속비',
+    dp_lbl_ev_spec:'전기자동차 관련 제원',
+    dp_lbl_motor_type:'전동기 형식',
+    dp_lbl_batt_cap:'축전지 정격전압 및 용량',
+    dp_lbl_motor_power:'전동기 최대출력',
+    dp_lbl_ev_range:'1회충전 주행거리',
+    dp_lbl_tire:'타이어',
+    dp_lbl_tire_maker:'타이어 제조회사',
+    dp_lbl_tire_struct:'타이어 구조',
+    dp_lbl_tire_size:'타이어 크기',
+    dp_lbl_front:'전',
+    dp_lbl_tire_pres:'타이어 공기압',
+    dp_lbl_precious_comp:'귀금속 성분',
+    dp_lbl_precious_g:'귀금속량(g)',
+    dp_lbl_vol_cc:'용량(㎤)',
+    dp_lbl_pm_ratio:'귀금속 물질비(Pt:Pd:Rh)',
+    dp_lbl_em_test_info:'배출가스 시험에 관한 사항',
+    dp_lbl_road_load:'실 도로 부하력(hp)',
+    dp_lbl_road_coef:'도로흡력력계수',
+    dp_lbl_coast_down:'코스트다운 시간(sec)',
+    dp_lbl_canister:'캐니스터',
+    dp_lbl_can_cap:'캐니스터의 흡수 용량',
+    dp_lbl_can_size:'캐니스터의 크기(cc)',
+    dp_lbl_can_media:'캐니스터의 매체',
+    dp_lbl_evap_cap:'40%연료시 탱크의 최대 증발가스 용량',
+    dp_lbl_muffler:'소음기',
+    dp_lbl_muf_main:'주 소음기',
+    dp_lbl_muf_sub:'보조 소음기',
+    dp_lbl_vol_l:'용량(L)',
+    dp_lbl_horn_dev:'경보장치',
+    dp_lbl_horn:'경음기',
+    dp_lbl_horn_db:'성능(dB(C))',
+    dp_lbl_ignition:'점화장치',
+    dp_lbl_chassis:'샤시',
+    dp_lbl_other:'기타',
+    dp_lbl_remark:'비고',
+    dp_lbl_left:'좌측',
+    dp_lbl_right:'우측',
+    dp_lbl_compress_ratio:'압축비',
+    dp_lbl_car_spec:'자동차 제원',
+    dp_lbl_fuel_system:'연료장치',
+    dp_lbl_type_kind:'종류',
+    dp_lbl_test_fuel:'시험용연료',
+    dp_lbl_acc_fuel:'주행거리 축적용 연료',
+    dp_lbl_gasoline:'휘발유',
+    dp_lbl_octane:'옥탄가(리서치법)',
+    dp_lbl_aromatic:'방향족화합물함량(부피%)',
+    dp_lbl_benzene:'벤젠함량(부피%)',
+    dp_lbl_oxygen:'산소함량(무게%)',
+    dp_lbl_lead:'납함량(g/ℓ)',
+    dp_lbl_phosphorus:'인함량(g/ℓ)',
+    dp_lbl_olefin:'올레핀함량(부피%)',
+    dp_lbl_vapor_p:'증기압(kPa)',
+    dp_lbl_90pct_temp:'90%유출온도(℃)',
+    dp_lbl_sulfur:'황함량(무게%)',
+    dp_lbl_diesel:'경유',
+    dp_lbl_residual_carbon:'10% 잔류탄소량(%)',
+    dp_lbl_cetane:'세탄지수',
+    dp_lbl_fuel_source:'연료구입처',
+    dp_fuel_note:'비고 : 자동차 인증시험연료는 국내에서 시판되는 자동차 연료를 원칙으로 하되, 대기규칙 별표 30 규정에 의한 자동차연료 제조기준에 해당하는 항목의 경우 이의 기재로 갈음한다.',
+    dp_4_1_title:'4.1. 배출가스 측정장비',
+    dp_4_2_title:'4.2. 소음 측정장비',
+    dp_th_equip_name:'설비, 장비명',
+    dp_th_model:'모델명',
+    dp_th_type_no:'형식승인번호',
+    dp_th_type_date:'형식승인일자',
+    dp_th_lab_name:'실험실명',
+    dp_th_calib_date:'최종정도검사일',
+    dp_equip_note:'비고 : 외국 제작자의 설비·장비를 사용하는 경우에는 해당국 설정에 부합되는 공인 검정 또는 승인번호 등을 형식승인번호에 갈음하여 기재할 수 있음',
+    dp_5_1_2_lbl:'5.1.2. 시험절차',
+    dp_5_2_2_lbl:'5.2.2. 길들이기 주행여부',
+    dp_5_2_4_lbl:'5.2.4. 주행장소',
+    dp_5_3_2_lbl:'5.3.2. 시험절차',
+    dp_5_4_2_lbl:'5.4.2. 시험절차',
+    dp_6_1_title:'6.1. 시험차량의 정비계획',
+    dp_6_1_1_title:'6.1.1. 정기정비',
+    dp_6_1_2_title:'6.1.2. 비정기정비',
+    dp_6_2_title:'6.2. 차량구입자에 대한 추천정비',
+    dp_6_3_title:'6.3. 보증에 관한 설명',
+    dp_6_3_1_lbl:'보증내용',
+    dp_6_3_2_lbl:'보증기간',
+    dp_6_3_3_lbl:'보증에서 제외되는 사항',
+    dp_6_3_4_lbl:'차량소유자의 의무',
+    dp_1_3_title:'1.3. 개발 목표 (수입차의 경우 외국인증성적 등으로 갈음)',
+    dp_1_4_title:'인증대상자동차 제원',
+    dp_1_3_r0:'허용기준',
+    dp_1_3_r1:'개발 목표치',
+    dp_1_3_r2:'현행기준 만족도(%)',
+    dp_th_formaldehyde:'포름알데히드(g/km)',
+    dp_th_smoke:'매연(%/kWh)',
+    dp_2_1_title:'2.1. 기밀에 대한 요청',
+    dp_8_10_title:'8.10. 감지변수 대 제어변수',
+    dp_8_11_title:'8.11. 부품목록',
+    dp_8_12_title:'8.12. 선택적촉매장치(SCR) 성능 및 원리 등 설명',
+    dp_8_13_title:'8.13. SCR용 요소수용액 성분분석 결과',
+    dp_8_14_title:'8.14. 전기자동차 제어장치',
+    dp_8_11_ign:'점화장치',
+    dp_8_11_fuel:'연료공급장치',
+    dp_8_11_cat:'배출가스 전환장치',
+    dp_8_11_egr:'배출가스 재순환장치',
+    dp_8_11_evap:'연료증발가스 방지장치',
+    dp_8_11_blow:'브로바이가스 환원장치',
+    dp_8_11_air:'2차공기 분사장치',
+    dp_8_12_r0:'공급계',
+    dp_8_12_r1:'제어계',
+    dp_8_12_r2:'분사계',
+    dp_8_12_r3:'충전경고 시스템',
+    dp_th_analysis_result:'분석결과',
+    dp_th_analysis_org:'분석기관',
+    dp_th_analysis_method:'분석방법',
+    dp_th_analysis_date:'분석년월일',
+    dp_th_proof_no:'증빙번호',
+    dp_sv_o2:'배출가스 중 산소농도',
+    dp_sv_air_flow:'흡입공기 유량',
+    dp_sv_air_temp:'흡입공기 온도',
+    dp_sv_coolant:'냉각수 온도',
+    dp_sv_throttle:'스로틀 위치',
+    dp_sv_baro:'대기압',
+    dp_sv_intake_vac:'흡기부압',
+    dp_sv_crank:'크랭크샤프트 위치',
+    dp_sv_cam:'캠 샤프트 위치',
+    dp_sv_batt:'배터리 전압',
+    dp_sv_speed:'차량 속도',
+    dp_sv_rpm:'원동기 회전수',
+    dp_sv_gear:'변속기 기어',
+    dp_sv_idle:'정지 및 중립',
+    dp_sv_brake:'브레이크 적용',
+    dp_sv_ac:'에어컨 가동',
+    dp_sv_knock:'원동기 녹킹',
+    dp_9_1_title:'9.1. 증발가스 제어장치 설명',
+    dp_th_storage:'저장 장치',
+    dp_th_absorb_cap:'흡수용량(C)',
+    dp_th_size_media:'크기(㎤)/매체',
+    dp_9_1_r0:'캐니스터',
+    dp_9_1_r1:'에어클리너',
+    dp_9_1_r2:'크랭크케이스',
+    dp_9_1_r3:'기타',
+    dp_9_2_title:'9.2. 제어장치 구성도',
+    dp_9_2_parts_title:'증발가스 제어장치 부품리스트(보조배출가스 제어장치 포함)',
+    dp_10_1_title:'10.1. 배출가스 및 소음 동일차종(원동기) 설명',
+    dp_10_1_cyl_dist_lbl:'실린더 보어 중심간의 거리(mm)',
+    dp_10_1_block_lbl:'실린더 블록 형상',
+    dp_10_1_head_lbl:'실린더 헤드 방식',
+    dp_durability_note:'내구성 시험을 실시하는 경우로서 인증신청 당시까지 세부개발계획이 확정되지 않는 등 불가피한 사유로 최초 제출하는 신청서류에 기재할 수 없는 사항이 있는 경우 그 사유를 명시하고, 내구성시험 최종보고서 제출 시 확정된 사항을 일괄적으로 제출할 수 있다.',
+    dp_ph_dev_bg:'개발배경 및 특성을 기재하세요',
+    dp_ph_new_tech:'신기술 내용을 기재하세요',
+    dp_ph_confidential:'기밀 요청 내용을 기재하세요',
+    dp_ph_engine_content:'엔진 내용',
+    dp_ph_ignition_content:'점화장치 내용',
+    dp_ph_chassis_content:'샤시 내용',
+    dp_ph_other_content:'기타 내용',
+    dp_ph_warranty_content:'보증내용',
+    dp_ph_warranty_period:'보증기간',
+    dp_ph_warranty_exclusion:'보증에서 제외되는 사항',
+    dp_ph_owner_duty:'차량소유자의 의무',
+    dp_ph_sign_desc:'표지판 견본 설명',
+    dp_ph_attach_pos:'부착위치 등 기재',
+    dp_ph_motor_ctrl:'전동기 및 전동기 제어장치 설명',
+    dp_ph_batt_ctrl:'축전지 및 축전지 제어장치 설명',
+    dp_ph_ctrl_diagram:'제어장치 구성도 설명',
+    dp_ph_em_detail:'적서 제출 내역 등',
+    dp_lbl_diagram_attach:'{sec} 구성도 첨부:',
+    obd_dtc_default_val:'이륜자동차에 결함코드가 확인되면',
+    obd_lbl_2nd_monitor_suffix:'등을 위한 방법을 포함한 포괄적인 설명자료',
+    obd_lbl_ctrl_dev:'제어장치',
+    obd_lbl_diag_config:'자기진단장치의 구성',
+    msg_coming_soon:'준비 중입니다.',
+    msg_qr_login_check:'QR 코드를 생성하려면 로그인 상태를 확인하세요.',
+    msg_qr_fail:'QR생성실패',
+    btn_saving:'저장 중...',
+    msg_saved:'저장되었습니다.',
+    msg_save_fail:'저장 실패',
+    btn_save:'저장',
+    btn_create_app:'신청서 생성',
+    err_title_required:'신청 제목을 입력하세요.',
+    err_cert_no_required:'기존 인증번호를 입력하세요.',
+    btn_creating:'생성 중...',
+    msg_create_fail:'생성 실패',
+    msg_app_created:'신청서가 생성되었습니다.',
+    msg_delete_confirm:'신청서를 삭제하면 모든 서류 데이터도 함께 삭제됩니다.\\n계속하시겠습니까?',
+    msg_deleted:'삭제되었습니다.',
+    msg_delete_fail:'삭제 실패',
+    pw_lbl_current:'현재 비밀번호',
+    pw_ph_current:'현재 비밀번호를 입력하세요',
+    pw_lbl_new:'새 비밀번호',
+    pw_ph_new:'4자 이상',
+    pw_lbl_confirm:'새 비밀번호 확인',
+    pw_ph_confirm:'재입력',
+    
   },
   en: {
     importer:'Importer', cert_year:'Cert. Year', displacement:'Displacement', family_code:'Family Code',
@@ -4425,6 +4667,248 @@ img_click_to_zoom:'Click to zoom',
     cf_ph_address:'Manufacturer Address',
     cf_ph_phone:'Phone Number',
     cf_ph_fax:'Fax Number',
+    dp_lbl_category:'Category',
+    dp_lbl_item:'Item',
+    dp_lbl_car_name:'Vehicle Name',
+    dp_lbl_car_type:'Vehicle Type',
+    dp_lbl_passenger:'Passengers',
+    dp_lbl_model_year:'Model Year',
+    dp_lbl_spec_no:'Spec No.',
+    dp_lbl_drive:'Drive Type',
+    dp_lbl_car_class:'Vehicle Class',
+    dp_lbl_purpose:'Purpose',
+    dp_lbl_trans_type:'Transmission Type',
+    dp_lbl_body_shape:'Body Shape',
+    dp_lbl_curb_wt:'Curb Weight(kg)',
+    dp_lbl_gvw:'GVW(kg)',
+    dp_lbl_inertia_wt:'Equiv. Inertia Wt(kg)',
+    dp_lbl_dyno_hp:'Actual Dyno Power(hp)',
+    dp_lbl_dimensions:'Dimensions',
+    dp_lbl_length:'Length(mm)',
+    dp_lbl_width:'Width(mm)',
+    dp_lbl_height:'Height(mm)',
+    dp_lbl_manufacturer:'Manufacturer',
+    dp_lbl_combustion:'Combustion Type',
+    dp_lbl_eng_type:'Engine Type',
+    dp_lbl_displacement:'Displacement(cc)',
+    dp_lbl_eng_pos:'Engine Position',
+    dp_lbl_fuel_type:'Fuel Type',
+    dp_lbl_cyl_count:'No. of Cylinders',
+    dp_lbl_cyl_arr:'Cylinder Arrangement',
+    dp_lbl_chamber_type:'Chamber Type',
+    dp_lbl_max_power:'Max Power(ps/rpm)',
+    dp_lbl_max_torque:'Max Torque(kg-m/rpm)',
+    dp_lbl_bore_stroke:'Bore*Stroke(mm)',
+    dp_lbl_idle_rpm:'Idle Speed(rpm)',
+    dp_lbl_intake_method:'Air Intake Method',
+    dp_lbl_port_size:'Port Size',
+    dp_lbl_port_size_mm:'Port Size(mm)',
+    dp_lbl_port_shape:'Port Shape',
+    dp_lbl_ign_timing:'Ignition Timing(Degree)',
+    dp_lbl_fuel_tank:'Fuel Tank',
+    dp_lbl_capacity_l:'Capacity(ℓ)',
+    dp_lbl_position:'Position',
+    dp_lbl_material:'Material',
+    dp_lbl_air_cleaner:'Air Cleaner',
+    dp_lbl_form_type:'Type',
+    dp_lbl_drivetrain:'Drivetrain',
+    dp_lbl_clutch:'Clutch',
+    dp_lbl_operation:'Operation',
+    dp_lbl_gear_ratio:'Gear Ratio',
+    dp_lbl_gear_1:'1st',
+    dp_lbl_forward:'Forward',
+    dp_lbl_reverse:'Reverse',
+    dp_lbl_red_ratio:'Reduction Ratio',
+    dp_lbl_red1:'1st Reduction Ratio',
+    dp_lbl_red2:'2nd Reduction Ratio',
+    dp_lbl_ev_spec:'EV Specifications',
+    dp_lbl_motor_type:'Motor Type',
+    dp_lbl_batt_cap:'Battery Rated Voltage & Capacity',
+    dp_lbl_motor_power:'Motor Max Power',
+    dp_lbl_ev_range:'Single Charge Range',
+    dp_lbl_tire:'Tire',
+    dp_lbl_tire_maker:'Tire Manufacturer',
+    dp_lbl_tire_struct:'Tire Structure',
+    dp_lbl_tire_size:'Tire Size',
+    dp_lbl_front:'Front',
+    dp_lbl_tire_pres:'Tire Pressure',
+    dp_lbl_precious_comp:'Precious Metal Composition',
+    dp_lbl_precious_g:'Precious Metal Amount(g)',
+    dp_lbl_vol_cc:'Volume(cc)',
+    dp_lbl_pm_ratio:'Precious Metal Ratio(Pt:Pd:Rh)',
+    dp_lbl_em_test_info:'Emission Test Info',
+    dp_lbl_road_load:'Road Load(hp)',
+    dp_lbl_road_coef:'Road Load Coeff.',
+    dp_lbl_coast_down:'Coast Down Time(sec)',
+    dp_lbl_canister:'Canister',
+    dp_lbl_can_cap:'Canister Absorption Capacity',
+    dp_lbl_can_size:'Canister Size(cc)',
+    dp_lbl_can_media:'Canister Media',
+    dp_lbl_evap_cap:'Max Evap Cap @ 40% Fuel',
+    dp_lbl_muffler:'Muffler',
+    dp_lbl_muf_main:'Main Muffler',
+    dp_lbl_muf_sub:'Sub Muffler',
+    dp_lbl_vol_l:'Volume(L)',
+    dp_lbl_horn_dev:'Warning Device',
+    dp_lbl_horn:'Horn',
+    dp_lbl_horn_db:'Performance(dB(C))',
+    dp_lbl_ignition:'Ignition',
+    dp_lbl_chassis:'Chassis',
+    dp_lbl_other:'Other',
+    dp_lbl_remark:'Remark',
+    dp_lbl_left:'Left',
+    dp_lbl_right:'Right',
+    dp_lbl_compress_ratio:'Compression Ratio',
+    dp_lbl_car_spec:'Vehicle Specifications',
+    dp_lbl_fuel_system:'Fuel System',
+    dp_lbl_type_kind:'Type',
+    dp_lbl_test_fuel:'Test Fuel',
+    dp_lbl_acc_fuel:'Mileage Accumulation Fuel',
+    dp_lbl_gasoline:'Gasoline',
+    dp_lbl_octane:'Octane No.(Research)',
+    dp_lbl_aromatic:'Aromatic Content(vol%)',
+    dp_lbl_benzene:'Benzene Content(vol%)',
+    dp_lbl_oxygen:'Oxygen Content(wt%)',
+    dp_lbl_lead:'Lead Content(g/ℓ)',
+    dp_lbl_phosphorus:'Phosphorus Content(g/ℓ)',
+    dp_lbl_olefin:'Olefin Content(vol%)',
+    dp_lbl_vapor_p:'Vapor Pressure(kPa)',
+    dp_lbl_90pct_temp:'90% Distillation Temp(℃)',
+    dp_lbl_sulfur:'Sulfur Content(wt%)',
+    dp_lbl_diesel:'Diesel',
+    dp_lbl_residual_carbon:'10% Residual Carbon(%)',
+    dp_lbl_cetane:'Cetane Index',
+    dp_lbl_fuel_source:'Fuel Source',
+    dp_fuel_note:'Note: Certification test fuel shall in principle be commercially available fuel; items meeting automobile fuel standards under Air Quality Rules Schedule 30 may be substituted.',
+    dp_4_1_title:'4.1. Emission Test Equipment',
+    dp_4_2_title:'4.2. Noise Test Equipment',
+    dp_th_equip_name:'Equipment Name',
+    dp_th_model:'Model',
+    dp_th_type_no:'Type Approval No.',
+    dp_th_type_date:'Type Approval Date',
+    dp_th_lab_name:'Lab Name',
+    dp_th_calib_date:'Last Calibration Date',
+    dp_equip_note:'Note: For foreign-manufactured equipment, authorized certification or approval numbers from the respective country may be entered in lieu of the type approval number.',
+    dp_5_1_2_lbl:'5.1.2. Test Procedure',
+    dp_5_2_2_lbl:'5.2.2. Break-in Drive',
+    dp_5_2_4_lbl:'5.2.4. Drive Location',
+    dp_5_3_2_lbl:'5.3.2. Test Procedure',
+    dp_5_4_2_lbl:'5.4.2. Test Procedure',
+    dp_6_1_title:'6.1. Test Vehicle Maintenance Plan',
+    dp_6_1_1_title:'6.1.1. Scheduled Maintenance',
+    dp_6_1_2_title:'6.1.2. Unscheduled Maintenance',
+    dp_6_2_title:'6.2. Recommended Maintenance for Buyers',
+    dp_6_3_title:'6.3. Warranty Description',
+    dp_6_3_1_lbl:'Warranty Content',
+    dp_6_3_2_lbl:'Warranty Period',
+    dp_6_3_3_lbl:'Warranty Exclusions',
+    dp_6_3_4_lbl:'Owner Obligations',
+    dp_1_3_title:'1.3. Development Target (Imported: Foreign Cert. Records)',
+    dp_1_4_title:'Certification Vehicle Specifications',
+    dp_1_3_r0:'Standard Limit',
+    dp_1_3_r1:'Dev. Target Value',
+    dp_1_3_r2:'Current Std. Compliance(%)',
+    dp_th_formaldehyde:'Formaldehyde(g/km)',
+    dp_th_smoke:'Smoke(%/kWh)',
+    dp_2_1_title:'2.1. Confidentiality Request',
+    dp_8_10_title:'8.10. Sensing vs. Control Variables',
+    dp_8_11_title:'8.11. Parts List',
+    dp_8_12_title:'8.12. SCR Performance & Principle',
+    dp_8_13_title:'8.13. SCR Urea Solution Analysis',
+    dp_8_14_title:'8.14. EV Control System',
+    dp_8_11_ign:'Ignition System',
+    dp_8_11_fuel:'Fuel Supply System',
+    dp_8_11_cat:'Emission Converter',
+    dp_8_11_egr:'EGR System',
+    dp_8_11_evap:'Evap. Control System',
+    dp_8_11_blow:'Blowby Gas Reduction',
+    dp_8_11_air:'Secondary Air Injection',
+    dp_8_12_r0:'Supply System',
+    dp_8_12_r1:'Control System',
+    dp_8_12_r2:'Injection System',
+    dp_8_12_r3:'Refill Warning System',
+    dp_th_analysis_result:'Analysis Result',
+    dp_th_analysis_org:'Analysis Organization',
+    dp_th_analysis_method:'Analysis Method',
+    dp_th_analysis_date:'Analysis Date',
+    dp_th_proof_no:'Proof No.',
+    dp_sv_o2:'O2 in Exhaust',
+    dp_sv_air_flow:'Intake Air Flow',
+    dp_sv_air_temp:'Intake Air Temp.',
+    dp_sv_coolant:'Coolant Temp.',
+    dp_sv_throttle:'Throttle Position',
+    dp_sv_baro:'Barometric Pressure',
+    dp_sv_intake_vac:'Intake Vacuum',
+    dp_sv_crank:'Crankshaft Position',
+    dp_sv_cam:'Cam Shaft Position',
+    dp_sv_batt:'Battery Voltage',
+    dp_sv_speed:'Vehicle Speed',
+    dp_sv_rpm:'Engine RPM',
+    dp_sv_gear:'Transmission Gear',
+    dp_sv_idle:'Stop & Neutral',
+    dp_sv_brake:'Brake Applied',
+    dp_sv_ac:'A/C Operation',
+    dp_sv_knock:'Engine Knock',
+    dp_9_1_title:'9.1. Evap. Control System Description',
+    dp_th_storage:'Storage Device',
+    dp_th_absorb_cap:'Absorb Capacity(C)',
+    dp_th_size_media:'Size(cc)/Media',
+    dp_9_1_r0:'Canister',
+    dp_9_1_r1:'Air Cleaner',
+    dp_9_1_r2:'Crankcase',
+    dp_9_1_r3:'Other',
+    dp_9_2_title:'9.2. Control System Diagram',
+    dp_9_2_parts_title:'Evap. Control System Parts List (incl. auxiliary)',
+    dp_10_1_title:'10.1. Emission & Noise Equivalent Model Description',
+    dp_10_1_cyl_dist_lbl:'Cylinder Bore Center Distance(mm)',
+    dp_10_1_block_lbl:'Cylinder Block Shape',
+    dp_10_1_head_lbl:'Cylinder Head Type',
+    dp_durability_note:'When conducting durability tests, if unavoidable circumstances prevent items from being recorded in the initial application, the reason shall be stated and confirmed items may be submitted together with the final durability test report.',
+    dp_ph_dev_bg:'Enter development background & characteristics',
+    dp_ph_new_tech:'Enter new technology content',
+    dp_ph_confidential:'Enter confidentiality request content',
+    dp_ph_engine_content:'Engine details',
+    dp_ph_ignition_content:'Ignition system details',
+    dp_ph_chassis_content:'Chassis details',
+    dp_ph_other_content:'Other details',
+    dp_ph_warranty_content:'Warranty content',
+    dp_ph_warranty_period:'Warranty period',
+    dp_ph_warranty_exclusion:'Warranty exclusions',
+    dp_ph_owner_duty:'Owner obligations',
+    dp_ph_sign_desc:'Sign sample description',
+    dp_ph_attach_pos:'Describe attachment position etc.',
+    dp_ph_motor_ctrl:'Motor & motor controller description',
+    dp_ph_batt_ctrl:'Battery & battery controller description',
+    dp_ph_ctrl_diagram:'Control system diagram description',
+    dp_ph_em_detail:'submission history etc.',
+    dp_lbl_diagram_attach:'{sec} Diagram Attach:',
+    obd_dtc_default_val:'If a fault code is detected in the motorcycle,',
+    obd_lbl_2nd_monitor_suffix:'and other comprehensive description including methods',
+    obd_lbl_ctrl_dev:'Control Device',
+    obd_lbl_diag_config:'OBD Configuration',
+    msg_coming_soon:'Coming soon.',
+    msg_qr_login_check:'Please verify your login status to generate QR code.',
+    msg_qr_fail:'QR generation failed',
+    btn_saving:'Saving...',
+    msg_saved:'Saved successfully.',
+    msg_save_fail:'Save failed',
+    btn_save:'Save',
+    btn_create_app:'Create Application',
+    err_title_required:'Please enter the application title.',
+    err_cert_no_required:'Please enter the existing certification number.',
+    btn_creating:'Creating...',
+    msg_create_fail:'Creation failed',
+    msg_app_created:'Application has been created.',
+    msg_delete_confirm:'Deleting the application will also delete all document data.\\nContinue?',
+    msg_deleted:'Deleted.',
+    msg_delete_fail:'Delete failed',
+    pw_lbl_current:'Current Password',
+    pw_ph_current:'Enter current password',
+    pw_lbl_new:'New Password',
+    pw_ph_new:'4+ characters',
+    pw_lbl_confirm:'Confirm New Password',
+    pw_ph_confirm:'Re-enter',
+    
   },
   ja: {
     importer:'輸入会社', cert_year:'認証年度', displacement:'排気量', family_code:'同一車種記号',
@@ -5742,6 +6226,248 @@ img_click_to_zoom:'クリックして拡大',
     cf_ph_address:'製造社住所',
     cf_ph_phone:'電話番号',
     cf_ph_fax:'ファックス番号',
+    dp_lbl_category:'区分',
+    dp_lbl_item:'項目',
+    dp_lbl_car_name:'車名',
+    dp_lbl_car_type:'自動車形式',
+    dp_lbl_passenger:'乗車定員',
+    dp_lbl_model_year:'モデル年式',
+    dp_lbl_spec_no:'諸元管理番号',
+    dp_lbl_drive:'駆動形態',
+    dp_lbl_car_class:'車種',
+    dp_lbl_purpose:'用途',
+    dp_lbl_trans_type:'変速機種類',
+    dp_lbl_body_shape:'車体形状',
+    dp_lbl_curb_wt:'車両重量(kg)',
+    dp_lbl_gvw:'車両総重量(kg)',
+    dp_lbl_inertia_wt:'等価慣性質量(kg)',
+    dp_lbl_dyno_hp:'実ダイナモ出力(hp)',
+    dp_lbl_dimensions:'寸法',
+    dp_lbl_length:'全長(mm)',
+    dp_lbl_width:'全幅(mm)',
+    dp_lbl_height:'全高(mm)',
+    dp_lbl_manufacturer:'製造会社',
+    dp_lbl_combustion:'燃焼方式',
+    dp_lbl_eng_type:'原動機形式',
+    dp_lbl_displacement:'排気量(cc)',
+    dp_lbl_eng_pos:'原動機取付位置',
+    dp_lbl_fuel_type:'使用燃料',
+    dp_lbl_cyl_count:'シリンダ数',
+    dp_lbl_cyl_arr:'シリンダ配列',
+    dp_lbl_chamber_type:'燃焼室形式',
+    dp_lbl_max_power:'最大出力(ps/rpm)',
+    dp_lbl_max_torque:'最大トルク(kg-m/rpm)',
+    dp_lbl_bore_stroke:'ボア*ストローク(mm)',
+    dp_lbl_idle_rpm:'アイドル回転数(rpm)',
+    dp_lbl_intake_method:'空気吸入方式',
+    dp_lbl_port_size:'ポートサイズ',
+    dp_lbl_port_size_mm:'ポートサイズ(mm)',
+    dp_lbl_port_shape:'ポート形状',
+    dp_lbl_ign_timing:'点火時期(Degree)',
+    dp_lbl_fuel_tank:'燃料タンク',
+    dp_lbl_capacity_l:'容量(ℓ)',
+    dp_lbl_position:'位置',
+    dp_lbl_material:'材質',
+    dp_lbl_air_cleaner:'エアクリーナー',
+    dp_lbl_form_type:'形式',
+    dp_lbl_drivetrain:'動力伝達装置',
+    dp_lbl_clutch:'クラッチ',
+    dp_lbl_operation:'操作方式',
+    dp_lbl_gear_ratio:'変速比',
+    dp_lbl_gear_1:'1速',
+    dp_lbl_forward:'前進',
+    dp_lbl_reverse:'後退',
+    dp_lbl_red_ratio:'減速比',
+    dp_lbl_red1:'第1減速比',
+    dp_lbl_red2:'第2減速比',
+    dp_lbl_ev_spec:'電気自動車関連諸元',
+    dp_lbl_motor_type:'電動機形式',
+    dp_lbl_batt_cap:'蓄電池定格電圧及び容量',
+    dp_lbl_motor_power:'電動機最大出力',
+    dp_lbl_ev_range:'一充電走行距離',
+    dp_lbl_tire:'タイヤ',
+    dp_lbl_tire_maker:'タイヤ製造会社',
+    dp_lbl_tire_struct:'タイヤ構造',
+    dp_lbl_tire_size:'タイヤサイズ',
+    dp_lbl_front:'前',
+    dp_lbl_tire_pres:'タイヤ空気圧',
+    dp_lbl_precious_comp:'貴金属成分',
+    dp_lbl_precious_g:'貴金属量(g)',
+    dp_lbl_vol_cc:'容量(㎤)',
+    dp_lbl_pm_ratio:'貴金属物質比(Pt:Pd:Rh)',
+    dp_lbl_em_test_info:'排出ガス試験に関する事項',
+    dp_lbl_road_load:'実路面負荷力(hp)',
+    dp_lbl_road_coef:'道路吸力係数',
+    dp_lbl_coast_down:'コーストダウン時間(sec)',
+    dp_lbl_canister:'キャニスター',
+    dp_lbl_can_cap:'キャニスターの吸収容量',
+    dp_lbl_can_size:'キャニスターのサイズ(cc)',
+    dp_lbl_can_media:'キャニスターの媒体',
+    dp_lbl_evap_cap:'40%燃料時タンク最大蒸発ガス容量',
+    dp_lbl_muffler:'マフラー',
+    dp_lbl_muf_main:'主マフラー',
+    dp_lbl_muf_sub:'補助マフラー',
+    dp_lbl_vol_l:'容量(L)',
+    dp_lbl_horn_dev:'警報装置',
+    dp_lbl_horn:'ホーン',
+    dp_lbl_horn_db:'性能(dB(C))',
+    dp_lbl_ignition:'点火装置',
+    dp_lbl_chassis:'シャシー',
+    dp_lbl_other:'その他',
+    dp_lbl_remark:'備考',
+    dp_lbl_left:'左側',
+    dp_lbl_right:'右側',
+    dp_lbl_compress_ratio:'圧縮比',
+    dp_lbl_car_spec:'自動車諸元',
+    dp_lbl_fuel_system:'燃料装置',
+    dp_lbl_type_kind:'種類',
+    dp_lbl_test_fuel:'試験用燃料',
+    dp_lbl_acc_fuel:'走行距離蓄積用燃料',
+    dp_lbl_gasoline:'ガソリン',
+    dp_lbl_octane:'オクタン価(リサーチ法)',
+    dp_lbl_aromatic:'芳香族化合物含量(体積%)',
+    dp_lbl_benzene:'ベンゼン含量(体積%)',
+    dp_lbl_oxygen:'酸素含量(重量%)',
+    dp_lbl_lead:'鉛含量(g/ℓ)',
+    dp_lbl_phosphorus:'リン含量(g/ℓ)',
+    dp_lbl_olefin:'オレフィン含量(体積%)',
+    dp_lbl_vapor_p:'蒸気圧(kPa)',
+    dp_lbl_90pct_temp:'90%留出温度(℃)',
+    dp_lbl_sulfur:'硫黄含量(重量%)',
+    dp_lbl_diesel:'軽油',
+    dp_lbl_residual_carbon:'10%残留炭素量(%)',
+    dp_lbl_cetane:'セタン指数',
+    dp_lbl_fuel_source:'燃料購入先',
+    dp_fuel_note:'備考：自動車認証試験燃料は国内で市販されている自動車燃料を原則とする。大気規則別表30の自動車燃料製造基準に該当する項目はこれにより記載を代えることができる。',
+    dp_4_1_title:'4.1. 排出ガス測定機器',
+    dp_4_2_title:'4.2. 騒音測定機器',
+    dp_th_equip_name:'設備・機器名',
+    dp_th_model:'モデル名',
+    dp_th_type_no:'形式承認番号',
+    dp_th_type_date:'形式承認日',
+    dp_th_lab_name:'実験室名',
+    dp_th_calib_date:'最終精度検査日',
+    dp_equip_note:'備考：外国製造者の設備・機器を使用する場合は、当該国の公認検定または承認番号等を形式承認番号に代えて記載できる。',
+    dp_5_1_2_lbl:'5.1.2. 試験手順',
+    dp_5_2_2_lbl:'5.2.2. ならし走行有無',
+    dp_5_2_4_lbl:'5.2.4. 走行場所',
+    dp_5_3_2_lbl:'5.3.2. 試験手順',
+    dp_5_4_2_lbl:'5.4.2. 試験手順',
+    dp_6_1_title:'6.1. 試験車両の整備計画',
+    dp_6_1_1_title:'6.1.1. 定期整備',
+    dp_6_1_2_title:'6.1.2. 非定期整備',
+    dp_6_2_title:'6.2. 車両購入者への推奨整備',
+    dp_6_3_title:'6.3. 保証に関する説明',
+    dp_6_3_1_lbl:'保証内容',
+    dp_6_3_2_lbl:'保証期間',
+    dp_6_3_3_lbl:'保証から除外される事項',
+    dp_6_3_4_lbl:'車両所有者の義務',
+    dp_1_3_title:'1.3. 開発目標（輸入車は外国認証成績等で代替）',
+    dp_1_4_title:'認証対象自動車諸元',
+    dp_1_3_r0:'許容基準',
+    dp_1_3_r1:'開発目標値',
+    dp_1_3_r2:'現行基準充足度(%)',
+    dp_th_formaldehyde:'ホルムアルデヒド(g/km)',
+    dp_th_smoke:'スモーク(%/kWh)',
+    dp_2_1_title:'2.1. 機密についての要請',
+    dp_8_10_title:'8.10. 感知変数対制御変数',
+    dp_8_11_title:'8.11. 部品リスト',
+    dp_8_12_title:'8.12. SCR性能・原理説明',
+    dp_8_13_title:'8.13. SCR用尿素水溶液成分分析結果',
+    dp_8_14_title:'8.14. 電気自動車制御装置',
+    dp_8_11_ign:'点火装置',
+    dp_8_11_fuel:'燃料供給装置',
+    dp_8_11_cat:'排出ガス転換装置',
+    dp_8_11_egr:'排出ガス再循環装置',
+    dp_8_11_evap:'燃料蒸発ガス防止装置',
+    dp_8_11_blow:'ブローバイガス還元装置',
+    dp_8_11_air:'2次空気噴射装置',
+    dp_8_12_r0:'供給系',
+    dp_8_12_r1:'制御系',
+    dp_8_12_r2:'噴射系',
+    dp_8_12_r3:'充填警告システム',
+    dp_th_analysis_result:'分析結果',
+    dp_th_analysis_org:'分析機関',
+    dp_th_analysis_method:'分析方法',
+    dp_th_analysis_date:'分析年月日',
+    dp_th_proof_no:'証憑番号',
+    dp_sv_o2:'排出ガス中酸素濃度',
+    dp_sv_air_flow:'吸入空気流量',
+    dp_sv_air_temp:'吸入空気温度',
+    dp_sv_coolant:'冷却水温度',
+    dp_sv_throttle:'スロットル位置',
+    dp_sv_baro:'大気圧',
+    dp_sv_intake_vac:'吸気負圧',
+    dp_sv_crank:'クランクシャフト位置',
+    dp_sv_cam:'カムシャフト位置',
+    dp_sv_batt:'バッテリー電圧',
+    dp_sv_speed:'車速',
+    dp_sv_rpm:'原動機回転数',
+    dp_sv_gear:'変速機ギア',
+    dp_sv_idle:'停止及びニュートラル',
+    dp_sv_brake:'ブレーキ適用',
+    dp_sv_ac:'エアコン作動',
+    dp_sv_knock:'エンジンノッキング',
+    dp_9_1_title:'9.1. 蒸発ガス制御装置説明',
+    dp_th_storage:'貯蔵装置',
+    dp_th_absorb_cap:'吸収容量(C)',
+    dp_th_size_media:'サイズ(㎤)/媒体',
+    dp_9_1_r0:'キャニスター',
+    dp_9_1_r1:'エアクリーナー',
+    dp_9_1_r2:'クランクケース',
+    dp_9_1_r3:'その他',
+    dp_9_2_title:'9.2. 制御装置構成図',
+    dp_9_2_parts_title:'蒸発ガス制御装置部品リスト（補助排出ガス制御装置含む）',
+    dp_10_1_title:'10.1. 排出ガス及び騒音同一車種（原動機）説明',
+    dp_10_1_cyl_dist_lbl:'シリンダーボア中心間距離(mm)',
+    dp_10_1_block_lbl:'シリンダーブロック形状',
+    dp_10_1_head_lbl:'シリンダーヘッド方式',
+    dp_durability_note:'耐久性試験を実施する場合で、認証申請当時までに詳細開発計画が確定しないなどやむを得ない理由で最初の申請書類に記載できない事項がある場合、その理由を明示し、耐久性試験最終報告書提出時に確定事項を一括提出できる。',
+    dp_ph_dev_bg:'開発背景及び特性を記載してください',
+    dp_ph_new_tech:'新技術内容を記載してください',
+    dp_ph_confidential:'機密要請内容を記載してください',
+    dp_ph_engine_content:'エンジン内容',
+    dp_ph_ignition_content:'点火装置内容',
+    dp_ph_chassis_content:'シャシー内容',
+    dp_ph_other_content:'その他内容',
+    dp_ph_warranty_content:'保証内容',
+    dp_ph_warranty_period:'保証期間',
+    dp_ph_warranty_exclusion:'保証除外事項',
+    dp_ph_owner_duty:'車両所有者の義務',
+    dp_ph_sign_desc:'標識見本説明',
+    dp_ph_attach_pos:'取付位置等を記載',
+    dp_ph_motor_ctrl:'電動機および電動機制御装置説明',
+    dp_ph_batt_ctrl:'蓄電池および蓄電池制御装置説明',
+    dp_ph_ctrl_diagram:'制御装置構成図説明',
+    dp_ph_em_detail:'適合書提出内訳等',
+    dp_lbl_diagram_attach:'{sec} 構成図添付:',
+    obd_dtc_default_val:'二輪自動車に欠陥コードが確認されたら',
+    obd_lbl_2nd_monitor_suffix:'等のための方法を含む包括的な説明資料',
+    obd_lbl_ctrl_dev:'制御装置',
+    obd_lbl_diag_config:'自己診断装置の構成',
+    msg_coming_soon:'準備中です。',
+    msg_qr_login_check:'QRコードを生成するにはログイン状態を確認してください。',
+    msg_qr_fail:'QR生成失敗',
+    btn_saving:'保存中...',
+    msg_saved:'保存されました。',
+    msg_save_fail:'保存失敗',
+    btn_save:'保存',
+    btn_create_app:'申請書作成',
+    err_title_required:'申請タイトルを入力してください。',
+    err_cert_no_required:'既存の認証番号を入力してください。',
+    btn_creating:'作成中...',
+    msg_create_fail:'作成失敗',
+    msg_app_created:'申請書が作成されました。',
+    msg_delete_confirm:'申請書を削除するとすべての書類データも削除されます。\\n続けますか？',
+    msg_deleted:'削除されました。',
+    msg_delete_fail:'削除失敗',
+    pw_lbl_current:'現在のパスワード',
+    pw_ph_current:'現在のパスワードを入力してください',
+    pw_lbl_new:'新しいパスワード',
+    pw_ph_new:'4文字以上',
+    pw_lbl_confirm:'新しいパスワード確認',
+    pw_ph_confirm:'再入力',
+    
   },
   zh: {
     importer:'进口商', cert_year:'认证年度', displacement:'排量', family_code:'同一车型代号',
@@ -7056,6 +7782,266 @@ img_click_to_zoom:'点击放大',
     cf_ph_address:'制造商地址',
     cf_ph_phone:'电话号码',
     cf_ph_fax:'传真号码',
+    dp_lbl_category:'分类',
+    dp_lbl_item:'项目',
+    dp_lbl_car_name:'车名',
+    dp_lbl_car_type:'车辆型式',
+    dp_lbl_passenger:'载客人数',
+    dp_lbl_model_year:'型号年度',
+    dp_lbl_spec_no:'规格管理编号',
+    dp_lbl_drive:'驱动形式',
+    dp_lbl_car_class:'车型',
+    dp_lbl_purpose:'用途',
+    dp_lbl_trans_type:'变速器种类',
+    dp_lbl_body_shape:'车身形状',
+    dp_lbl_curb_wt:'整备质量(kg)',
+    dp_lbl_gvw:'车辆总重量(kg)',
+    dp_lbl_inertia_wt:'等效惯性质量(kg)',
+    dp_lbl_dyno_hp:'实测测功机功率(hp)',
+    dp_lbl_dimensions:'尺寸',
+    dp_lbl_length:'全长(mm)',
+    dp_lbl_width:'全宽(mm)',
+    dp_lbl_height:'全高(mm)',
+    dp_lbl_engine:'发动机',
+    dp_lbl_manufacturer:'制造公司',
+    dp_lbl_combustion:'燃烧方式',
+    dp_lbl_eng_type:'发动机型式',
+    dp_lbl_displacement:'排量(cc)',
+    dp_lbl_eng_pos:'发动机安装位置',
+    dp_lbl_fuel_type:'使用燃料',
+    dp_lbl_cyl_count:'气缸数',
+    dp_lbl_cyl_arr:'气缸排列',
+    dp_lbl_chamber_type:'燃烧室形式',
+    dp_lbl_max_power:'最大功率(ps/rpm)',
+    dp_lbl_max_torque:'最大扭矩(kg-m/rpm)',
+    dp_lbl_bore_stroke:'缸径*冲程(mm)',
+    dp_lbl_idle_rpm:'怠速转速(rpm)',
+    dp_lbl_intake_method:'进气方式',
+    dp_lbl_intake_manifold:'进气歧管',
+    dp_lbl_exhaust_manifold:'排气歧管',
+    dp_lbl_port_size:'气口尺寸',
+    dp_lbl_port_size_mm:'气口尺寸(mm)',
+    dp_lbl_port_shape:'气口形状',
+    dp_lbl_ign_timing:'点火正时(度)',
+    dp_lbl_fuel_tank:'燃油箱',
+    dp_lbl_capacity_l:'容量(ℓ)',
+    dp_lbl_position:'位置',
+    dp_lbl_material:'材质',
+    dp_lbl_air_cleaner:'空气滤清器',
+    dp_lbl_form_type:'形式',
+    dp_lbl_drivetrain:'动力传动装置',
+    dp_lbl_clutch:'离合器',
+    dp_lbl_operation:'操作方式',
+    dp_lbl_gear_ratio:'变速比',
+    dp_lbl_gear_1:'1档',
+    dp_lbl_forward:'前进',
+    dp_lbl_reverse:'倒退',
+    dp_lbl_red_ratio:'减速比',
+    dp_lbl_red1:'第1减速比',
+    dp_lbl_red2:'第2减速比',
+    dp_lbl_ev_spec:'电动车相关规格',
+    dp_lbl_motor_type:'电机形式',
+    dp_lbl_batt_cap:'蓄电池额定电压及容量',
+    dp_lbl_motor_power:'电机最大功率',
+    dp_lbl_ev_range:'单次充电行驶距离',
+    dp_lbl_tire:'轮胎',
+    dp_lbl_tire_maker:'轮胎制造商',
+    dp_lbl_tire_struct:'轮胎结构',
+    dp_lbl_tire_size:'轮胎尺寸',
+    dp_lbl_front:'前',
+    dp_lbl_tire_pres:'轮胎气压',
+    dp_lbl_precious_comp:'贵金属成分',
+    dp_lbl_precious_g:'贵金属量(g)',
+    dp_lbl_vol_cc:'容量(㎤)',
+    dp_lbl_pm_ratio:'贵金属物质比(Pt:Pd:Rh)',
+    dp_lbl_em_test_info:'排放气体试验相关事项',
+    dp_lbl_road_load:'实际道路负荷力(hp)',
+    dp_lbl_road_coef:'道路阻力系数',
+    dp_lbl_coast_down:'滑行时间(sec)',
+    dp_lbl_canister:'碳罐',
+    dp_lbl_can_cap:'碳罐吸收容量',
+    dp_lbl_can_size:'碳罐尺寸(cc)',
+    dp_lbl_can_media:'碳罐介质',
+    dp_lbl_evap_cap:'40%燃料时油箱最大蒸发气容量',
+    dp_lbl_muffler:'消音器',
+    dp_lbl_muf_main:'主消音器',
+    dp_lbl_muf_sub:'副消音器',
+    dp_lbl_vol_l:'容量(L)',
+    dp_lbl_horn_dev:'报警装置',
+    dp_lbl_horn:'喇叭',
+    dp_lbl_horn_db:'性能(dB(C))',
+    dp_lbl_ignition:'点火装置',
+    dp_lbl_chassis:'底盘',
+    dp_lbl_other:'其他',
+    dp_lbl_remark:'备注',
+    dp_lbl_left:'左侧',
+    dp_lbl_right:'右侧',
+    dp_lbl_compress_ratio:'压缩比',
+    dp_lbl_car_spec:'汽车规格',
+    dp_lbl_fuel_system:'燃料系统',
+    dp_lbl_type_kind:'种类',
+    dp_lbl_test_fuel:'试验用燃料',
+    dp_lbl_acc_fuel:'里程累积用燃料',
+    dp_lbl_gasoline:'汽油',
+    dp_lbl_octane:'辛烷值(研究法)',
+    dp_lbl_aromatic:'芳香族化合物含量(体积%)',
+    dp_lbl_benzene:'苯含量(体积%)',
+    dp_lbl_oxygen:'氧含量(重量%)',
+    dp_lbl_lead:'铅含量(g/ℓ)',
+    dp_lbl_phosphorus:'磷含量(g/ℓ)',
+    dp_lbl_olefin:'烯烃含量(体积%)',
+    dp_lbl_vapor_p:'蒸气压(kPa)',
+    dp_lbl_90pct_temp:'90%馏出温度(℃)',
+    dp_lbl_sulfur:'硫含量(重量%)',
+    dp_lbl_diesel:'柴油',
+    dp_lbl_residual_carbon:'10%残炭量(%)',
+    dp_lbl_cetane:'十六烷值',
+    dp_lbl_fuel_source:'燃料来源',
+    dp_fuel_note:'备注：汽车认证试验燃料原则上使用国内市售汽车燃料；符合大气规则附表30汽车燃料制造标准项目的，可以此记载代替。',
+    dp_4_1_title:'4.1. 排放气体测量设备',
+    dp_4_2_title:'4.2. 噪音测量设备',
+    dp_th_equip_name:'设备、仪器名称',
+    dp_th_model:'型号名称',
+    dp_th_type_no:'型式批准编号',
+    dp_th_type_date:'型式批准日期',
+    dp_th_lab_name:'实验室名称',
+    dp_th_calib_date:'最近校准日期',
+    dp_equip_note:'备注：使用外国制造商设备时，可填写该国公认检定或批准编号等以代替型式批准编号。',
+    dp_5_1_1_lbl:'5.1.1. 试验场所',
+    dp_5_1_2_lbl:'5.1.2. 试验程序',
+    dp_5_2_1_lbl:'5.2.1. 耐久试验行驶与否',
+    dp_5_2_2_lbl:'5.2.2. 磨合行驶与否',
+    dp_5_2_3_lbl:'5.2.3. 计划行驶期间',
+    dp_5_2_4_lbl:'5.2.4. 行驶场所',
+    dp_5_2_5_lbl:'5.2.5. 行驶程序',
+    dp_5_3_1_lbl:'5.3.1. 试验场所',
+    dp_5_3_2_lbl:'5.3.2. 试验程序',
+    dp_5_4_1_lbl:'5.4.1. 试验场所',
+    dp_5_4_2_lbl:'5.4.2. 试验程序',
+    dp_6_1_title:'6.1. 试验车辆维护计划',
+    dp_6_1_1_title:'6.1.1. 定期维护',
+    dp_6_1_2_title:'6.1.2. 非定期维护',
+    dp_6_2_title:'6.2. 对购车者的推荐维护',
+    dp_6_3_title:'6.3. 保修说明',
+    dp_6_3_1_lbl:'保修内容',
+    dp_6_3_2_lbl:'保修期限',
+    dp_6_3_3_lbl:'不在保修范围内的事项',
+    dp_6_3_4_lbl:'车辆所有者义务',
+    dp_1_3_title:'1.3. 开发目标（进口车以外国认证成绩等代替）',
+    dp_1_4_title:'认证对象汽车规格',
+    dp_1_3_r0:'允许标准',
+    dp_1_3_r1:'开发目标值',
+    dp_1_3_r2:'现行标准满足度(%)',
+    dp_th_formaldehyde:'甲醛(g/km)',
+    dp_th_smoke:'烟尘(%/kWh)',
+    dp_2_1_title:'2.1. 保密申请',
+    dp_8_10_title:'8.10. 感知变量与控制变量',
+    dp_8_11_title:'8.11. 零件清单',
+    dp_8_12_title:'8.12. 选择性催化还原装置(SCR)性能及原理说明',
+    dp_8_13_title:'8.13. SCR用尿素溶液成分分析结果',
+    dp_8_14_title:'8.14. 电动汽车控制装置',
+    dp_8_14_1_lbl:'电动机及电动机控制装置',
+    dp_8_14_2_lbl:'蓄电池及蓄电池控制装置',
+    dp_8_11_ign:'点火装置',
+    dp_8_11_fuel:'燃料供给装置',
+    dp_8_11_cat:'排放气体转换装置',
+    dp_8_11_egr:'废气再循环装置',
+    dp_8_11_evap:'燃料蒸发气体防止装置',
+    dp_8_11_blow:'窜气还原装置',
+    dp_8_11_air:'二次空气喷射装置',
+    dp_8_12_r0:'供应系',
+    dp_8_12_r1:'控制系',
+    dp_8_12_r2:'喷射系',
+    dp_8_12_r3:'充注警告系统',
+    dp_th_item:'项目',
+    dp_th_analysis_result:'分析结果',
+    dp_th_analysis_org:'分析机构',
+    dp_th_analysis_method:'分析方法',
+    dp_th_analysis_date:'分析日期',
+    dp_th_proof_no:'凭证编号',
+    dp_sv_o2:'排放气体中氧浓度',
+    dp_sv_air_flow:'进气流量',
+    dp_sv_air_temp:'进气温度',
+    dp_sv_coolant:'冷却水温度',
+    dp_sv_throttle:'节气门位置',
+    dp_sv_baro:'大气压',
+    dp_sv_intake_vac:'进气真空度',
+    dp_sv_crank:'曲轴位置',
+    dp_sv_cam:'凸轮轴位置',
+    dp_sv_batt:'电池电压',
+    dp_sv_speed:'车速',
+    dp_sv_rpm:'发动机转速',
+    dp_sv_gear:'变速器档位',
+    dp_sv_idle:'停止及空挡',
+    dp_sv_brake:'制动应用',
+    dp_sv_ac:'空调运行',
+    dp_sv_knock:'发动机爆震',
+    dp_9_1_title:'9.1. 蒸发气体控制装置说明',
+    dp_th_storage:'储存装置',
+    dp_th_absorb_cap:'吸收容量(C)',
+    dp_th_size_media:'尺寸(㎤)/介质',
+    dp_9_1_r0:'碳罐',
+    dp_9_1_r1:'空气滤清器',
+    dp_9_1_r2:'曲轴箱',
+    dp_9_1_r3:'其他',
+    dp_9_2_title:'9.2. 控制装置构成图',
+    dp_9_2_parts_title:'蒸发气体控制装置零件清单（含辅助排放控制装置）',
+    dp_10_1_title:'10.1. 排放气体及噪音同类车型（发动机）说明',
+    dp_10_1_cyl_dist_lbl:'气缸孔中心距(mm)',
+    dp_10_1_block_lbl:'气缸体形状',
+    dp_10_1_head_lbl:'气缸盖方式',
+    dp_10_2_title:'10.2. 蒸发气体同类车型说明',
+    dp_10_3_title:'10.3. 排放气体自诊断装置同类车型说明',
+    dp_11_1_title:'11.1. 试验车辆选定',
+    dp_11_2_title:'11.2. 耐久试验车辆选定',
+    dp_11_3_title:'11.3. 排放气体试验车辆选定',
+    dp_11_4_title:'11.4. 噪音试验车辆选定',
+    dp_durability_note:'在进行耐久试验的情况下，如因不可避免的原因导致初次提交申请文件时无法记录某些事项，应说明原因，并可在提交耐久试验最终报告时统一提交确定事项。',
+    dp_ph_dev_bg:'请填写开发背景及特性',
+    dp_ph_new_tech:'请填写新技术内容',
+    dp_ph_confidential:'请填写保密申请内容',
+    dp_ph_engine_content:'发动机内容',
+    dp_ph_ignition_content:'点火装置内容',
+    dp_ph_chassis_content:'底盘内容',
+    dp_ph_other_content:'其他内容',
+    dp_ph_warranty_content:'保修内容',
+    dp_ph_warranty_period:'保修期限',
+    dp_ph_warranty_exclusion:'不在保修范围内的事项',
+    dp_ph_owner_duty:'车辆所有者义务',
+    dp_ph_sign_desc:'标志样本说明',
+    dp_ph_attach_pos:'填写附着位置等',
+    dp_ph_motor_ctrl:'电动机及电动机控制装置说明',
+    dp_ph_batt_ctrl:'蓄电池及蓄电池控制装置说明',
+    dp_ph_ctrl_diagram:'控制装置构成图说明',
+    dp_ph_em_detail:'提交记录等',
+    dp_lbl_diagram_attach:'{sec} 构成图附件:',
+    obd_dtc_default_val:'当摩托车检测到故障代码时，',
+    obd_lbl_2nd_monitor_suffix:'等综合说明资料，包括相关方法',
+    obd_lbl_ctrl_dev:'控制装置',
+    obd_lbl_diag_config:'自诊断装置的构成',
+    msg_coming_soon:'准备中。',
+    msg_qr_login_check:'请确认登录状态以生成QR码。',
+    msg_qr_fail:'QR生成失败',
+    btn_saving:'保存中...',
+    msg_saved:'保存成功。',
+    msg_save_fail:'保存失败',
+    btn_save:'保存',
+    btn_create_app:'创建申请',
+    err_title_required:'请输入申请标题。',
+    err_cert_no_required:'请输入现有认证编号。',
+    btn_creating:'创建中...',
+    msg_create_fail:'创建失败',
+    msg_app_created:'申请已创建。',
+    msg_delete_confirm:'删除申请将同时删除所有文件数据。\\n是否继续？',
+    msg_deleted:'已删除。',
+    msg_delete_fail:'删除失败',
+    pw_lbl_current:'当前密码',
+    pw_ph_current:'请输入当前密码',
+    pw_lbl_new:'新密码',
+    pw_ph_new:'4位以上',
+    pw_lbl_confirm:'确认新密码',
+    pw_ph_confirm:'重新输入',
+    
   },
 };
 // LANG_DICT 헬퍼: 현재 언어로 라벨 반환 (fallback: ko)
@@ -7420,7 +8406,7 @@ async function openApplication(id) {
       currentLang = 'ko';
     }
     renderApplicationPage(); showPage('page-application');
-  } catch { showToast('네트워크 오류','error'); }
+  } catch { showToast(BL('err_network'),'error'); }
 }
 
 function renderApplicationPage() {
@@ -7812,7 +8798,7 @@ async function generateFormQR(formType, formTitle) {
 
   if (!token) {
     allWraps.forEach(({el}) => {
-      el.innerHTML = '<div class="qr-footer-pending">⚠ QR 코드를 생성하려면 로그인 상태를 확인하세요.</div>';
+      el.innerHTML = ('<div class="qr-footer-pending">⚠ '+BL('msg_qr_login_check')+'</div>');
     });
     return;
   }
@@ -7839,7 +8825,7 @@ async function generateFormQR(formType, formTitle) {
       });
     } catch (e) {
       const qrEl = document.getElementById(qrDivId);
-      if (qrEl) qrEl.innerHTML = '<div style="font-size:7pt;color:#888;">QR생성실패</div>';
+      if (qrEl) qrEl.innerHTML = ('<div style="font-size:7pt;color:#888;">'+BL('msg_qr_fail')+'</div>');
     }
   });
 }
@@ -7864,17 +8850,17 @@ async function saveForm() {
   });
   const completed = document.getElementById('form-completed-chk').checked;
   const btn = document.getElementById('save-btn');
-  btn.disabled = true; btn.innerHTML = '<div class="spinner"></div>저장 중...';
+  btn.disabled = true; btn.innerHTML = ('<div class="spinner"></div>'+BL('btn_saving'));
   try {
     const res = await api('/api/applications/'+currentApplicationId+'/forms/'+currentFormType,
       { method:'PUT', body:JSON.stringify({data,completed}) });
     if (res.ok) {
-      showToast('저장되었습니다.','success');
+      showToast(BL('msg_saved'),'success');
       const idx = currentForms.findIndex(f=>f.form_type===currentFormType);
       if (idx>=0) { currentForms[idx].data=JSON.stringify(data); currentForms[idx].completed=completed?1:0; }
-    } else { showToast('저장 실패','error'); }
+    } else { showToast(BL('msg_save_fail'),'error'); }
   } catch { showToast('네트워크 오류','error'); }
-  finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-save"></i>저장'; }
+  finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-save"></i>'+BL('btn_save'); }
 }
 
 // ================================================================
@@ -7929,7 +8915,7 @@ function showNewAppModal() {
   document.getElementById('new-lang').value = currentLang || 'ko';
   document.getElementById('modal-error').style.display = 'none';
   document.getElementById('create-btn').disabled = false;
-  document.getElementById('create-btn').innerHTML = '<i class="fas fa-check"></i>신청서 생성';
+  document.getElementById('create-btn').innerHTML = '<i class="fas fa-check"></i>'+BL('btn_create_app');
   onNewCertTypeChange();
   document.getElementById('modal-new-app').classList.remove('hidden');
   setTimeout(()=>document.getElementById('new-title').focus(),150);
@@ -7990,32 +8976,32 @@ async function createApplication() {
   const prev_cert   = document.getElementById('new-prev-cert')?.value.trim()||'';
   const errEl       = document.getElementById('modal-error');
   errEl.style.display = 'none';
-  if (!title) { errEl.textContent='신청 제목을 입력하세요.'; errEl.style.display='block'; document.getElementById('new-title').focus(); return; }
+  if (!title) { errEl.textContent=BL('err_title_required'); errEl.style.display='block'; document.getElementById('new-title').focus(); return; }
   if ((cert_type==='change'||cert_type==='report')&&!prev_cert) {
-    errEl.textContent='기존 인증번호를 입력하세요.'; errEl.style.display='block'; return; }
+    errEl.textContent=BL('err_cert_no_required'); errEl.style.display='block'; return; }
   const btn = document.getElementById('create-btn');
-  btn.disabled=true; btn.innerHTML='<div class="spinner"></div>생성 중...';
+  btn.disabled=true; btn.innerHTML='<div class="spinner"></div>'+BL('btn_creating');
   try {
     const res  = await api('/api/applications',{method:'POST',body:JSON.stringify({
       title, cert_type, lang, importer, cert_year, displacement, family_code, prev_cert_number:prev_cert
     })});
     const data = await res.json();
-    if (!res.ok) { errEl.textContent=data.error||'생성 실패'; errEl.style.display='block'; return; }
+    if (!res.ok) { errEl.textContent=data.error||BL('msg_create_fail'); errEl.style.display='block'; return; }
     // 선택한 언어를 전역 상태에 반영
     currentLang = lang;
     closeNewAppModal();
-    showToast('신청서가 생성되었습니다.','success');
+    showToast(BL('msg_app_created'),'success');
     await openApplication(data.application.id);
   } catch { errEl.textContent=BL('err_network'); errEl.style.display='block'; }
-  finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-check"></i>신청서 생성'; }
+  finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-check"></i>'+BL('btn_create_app'); }
 }
 
 async function deleteApplication(e, id) {
   e.stopPropagation();
-  if (!confirm('신청서를 삭제하면 모든 서류 데이터도 함께 삭제됩니다.\\n계속하시겠습니까?')) return;
+  if (!confirm(BL('msg_delete_confirm'))) return;
   const res = await api('/api/applications/'+id,{method:'DELETE'});
-  if (res.ok) { showToast('삭제되었습니다.','info'); await loadApplications(); }
-  else showToast('삭제 실패','error');
+  if (res.ok) { showToast(BL('msg_deleted'),'info'); await loadApplications(); }
+  else showToast(BL('msg_delete_fail'),'error');
 }
 
 // ================================================================
@@ -9541,7 +10527,7 @@ function buildFormHTML(formType, saved) {
         <td class="en-lbl">\${BL('em_val_emis')}</td>
         <td style="padding:2px 4px;">
           <div class="en-field">
-            <textarea class="en-field-text" data-field="g_em_test_detail" rows="3" placeholder="\${BL('g_ph_em_mode')}적서 제출 내역 등">\${E(v('g_em_test_detail'))}</textarea>
+            <textarea class="en-field-text" data-field="g_em_test_detail" rows="3" placeholder="\${BL('g_ph_em_mode')}\${BL('dp_ph_em_detail')}">\${E(v('g_em_test_detail'))}</textarea>
             <input type="hidden" data-field="g_em_test_imgs" value="\${E(v('g_em_test_imgs'))}">
             <div class="en-drop" data-field-img="g_em_test"><input type="file" accept="image/*" multiple><div class="en-drop-hint"><i class="fas fa-image"></i> \${BL('img_hint')}</div><div class="en-img-list"></div></div>
           </div>
@@ -9873,7 +10859,7 @@ function buildFormHTML(formType, saved) {
       <td class="dp-lbl">\${BL('dp_1_1_lbl')}</td>
       <td>
         <div class="dp-field">
-          <textarea class="dp-field-text" data-field="dp_1_1" rows="4" placeholder="개발배경 및 특성을 기재하세요">\${E(v('dp_1_1'))}</textarea>
+          <textarea class="dp-field-text" data-field="dp_1_1" rows="4" placeholder="\${BL('dp_ph_dev_bg')}">\${E(v('dp_1_1'))}</textarea>
           <input type="hidden" id="dp_1_1_imgs" data-field="dp_1_1_imgs" value="\${E(v('dp_1_1_imgs'))}">
           <div class="dp-drop" id="dp_1_1_drop" onclick="document.getElementById('dp_1_1_fi').click();" ondragover="event.preventDefault();this.classList.add('drag-over');" ondragleave="this.classList.remove('drag-over');" ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('dp_1_1_imgs','dp_1_1_drop',event.dataTransfer.files);">
             <input type="file" id="dp_1_1_fi" accept="image/*" multiple onchange="dpAddFiles('dp_1_1_imgs','dp_1_1_drop',this.files);this.value='';">
@@ -9889,7 +10875,7 @@ function buildFormHTML(formType, saved) {
       <td class="dp-lbl">\${BL('dp_1_2_lbl')}</td>
       <td>
         <div class="dp-field">
-          <textarea class="dp-field-text" data-field="dp_1_2" rows="4" placeholder="신기술 내용을 기재하세요">\${E(v('dp_1_2'))}</textarea>
+          <textarea class="dp-field-text" data-field="dp_1_2" rows="4" placeholder="\${BL('dp_ph_new_tech')}">\${E(v('dp_1_2'))}</textarea>
           <input type="hidden" id="dp_1_2_imgs" data-field="dp_1_2_imgs" value="\${E(v('dp_1_2_imgs'))}">
           <div class="dp-drop" id="dp_1_2_drop" onclick="document.getElementById('dp_1_2_fi').click();" ondragover="event.preventDefault();this.classList.add('drag-over');" ondragleave="this.classList.remove('drag-over');" ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('dp_1_2_imgs','dp_1_2_drop',event.dataTransfer.files);">
             <input type="file" id="dp_1_2_fi" accept="image/*" multiple onchange="dpAddFiles('dp_1_2_imgs','dp_1_2_drop',this.files);this.value='';">
@@ -9901,7 +10887,7 @@ function buildFormHTML(formType, saved) {
     </tr>
 
     <!-- 1.3 개발 목표 -->
-    <tr><td class="dp-sub-th" colspan="2">1.3. 개발 목표 (수입차의 경우 외국인증성적 등으로 갈음)</td></tr>
+    <tr><td class="dp-sub-th" colspan="2">\${BL('dp_1_3_title')}</td></tr>
   </tbody>
 </table>
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
@@ -9910,19 +10896,19 @@ function buildFormHTML(formType, saved) {
   </colgroup>
   <thead>
     <tr>
-      <th class="dp-th">구분</th>
+      <th class="dp-th">\${BL('dp_lbl_category')}</th>
       <th class="dp-th">\${BL('g_th_co_gkm')}</th>
       <th class="dp-th">NOx<br>(g/km)</th>
       <th class="dp-th">MHHC<br>(g/km)</th>
       <th class="dp-th">\${BL('g_lbl_evap')}<br>(g/test)</th>
       <th class="dp-th">\${BL('g_th_pm_gkm')}</th>
-      <th class="dp-th">포름알데히드<br>(g/km)</th>
-      <th class="dp-th">매연<br>(%/kWh)</th>
+      <th class="dp-th">\${BL('dp_th_formaldehyde')}</th>
+      <th class="dp-th">\${BL('dp_th_smoke')}</th>
       <th class="dp-th">Cold CO<br>(g/km)</th>
     </tr>
   </thead>
   <tbody>
-    \${['허용기준','개발 목표치','현행기준 만족도(%)'].map((row,ri)=>\`
+    \${[BL('dp_1_3_r0'),BL('dp_1_3_r1'),BL('dp_1_3_r2')].map((row,ri)=>\`
     <tr>
       <td class="dp-lbl">\${row}</td>
       \${['co','nox','mhhc','evap','pm','form','smoke','cold_co'].map(col=>\`<td><input class="dp-inp" data-field="dp_1_3_\${ri}_\${col}" type="text" value="\${E(v(\`dp_1_3_\${ri}_\${col}\`))}"></td>\`).join('')}
@@ -9935,25 +10921,25 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:20%;"><col style="width:20%;"><col style="width:60%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sub-th" colspan="3">1.4.&nbsp;인증대상자동차 제원</th></tr>
-    <tr><td class="dp-lbl" colspan="2">차명</td><td><input class="dp-inp" data-field="dp_1_4_carname" type="text" value="\${E(v('dp_1_4_carname'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">자동차 형식</td><td><input class="dp-inp" data-field="dp_1_4_type" type="text" value="\${E(v('dp_1_4_type'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="13">자동차 제원</td><td class="dp-lbl">\${BL('en_1_3_3_lbl')}</td><td><input class="dp-inp" data-field="dp_1_4_maker" type="text" value="\${E(v('dp_1_4_maker'))}"></td></tr>
-    <tr><td class="dp-lbl">승차인원</td><td><input class="dp-inp" data-field="dp_1_4_passenger" type="text" value="\${E(v('dp_1_4_passenger'))}"></td></tr>
-    <tr><td class="dp-lbl">모델년도</td><td><input class="dp-inp" data-field="dp_1_4_modelyear" type="text" value="\${E(v('dp_1_4_modelyear'))}"></td></tr>
-    <tr><td class="dp-lbl">제원관리번호</td><td><input class="dp-inp" data-field="dp_1_4_specno" type="text" value="\${E(v('dp_1_4_specno'))}"></td></tr>
-    <tr><td class="dp-lbl">구동형태</td><td><input class="dp-inp" data-field="dp_1_4_drive" type="text" value="\${E(v('dp_1_4_drive'))}"></td></tr>
-    <tr><td class="dp-lbl">차종</td><td><input class="dp-inp" data-field="dp_1_4_cartype" type="text" value="\${E(v('dp_1_4_cartype'))}"></td></tr>
-    <tr><td class="dp-lbl">용도</td><td><input class="dp-inp" data-field="dp_1_4_purpose" type="text" value="\${E(v('dp_1_4_purpose'))}"></td></tr>
-    <tr><td class="dp-lbl">변속기 종류</td><td><input class="dp-inp" data-field="dp_1_4_trans" type="text" value="\${E(v('dp_1_4_trans'))}"></td></tr>
-    <tr><td class="dp-lbl">차체형상</td><td><input class="dp-inp" data-field="dp_1_4_body" type="text" value="\${E(v('dp_1_4_body'))}"></td></tr>
-    <tr><td class="dp-lbl">공차중량(kg)</td><td><input class="dp-inp" data-field="dp_1_4_curb" type="text" value="\${E(v('dp_1_4_curb'))}"></td></tr>
-    <tr><td class="dp-lbl">차량 총 중량(kg)</td><td><input class="dp-inp" data-field="dp_1_4_gvw" type="text" value="\${E(v('dp_1_4_gvw'))}"></td></tr>
-    <tr><td class="dp-lbl">등가관성 중량(kg)</td><td><input class="dp-inp" data-field="dp_1_4_inertia" type="text" value="\${E(v('dp_1_4_inertia'))}"></td></tr>
-    <tr><td class="dp-lbl">실제 다이나모 마력(hp)</td><td><input class="dp-inp" data-field="dp_1_4_dyno" type="text" value="\${E(v('dp_1_4_dyno'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="3">치수</td><td class="dp-lbl">전장(mm)</td><td><input class="dp-inp" data-field="dp_1_4_len" type="text" value="\${E(v('dp_1_4_len'))}"></td></tr>
-    <tr><td class="dp-lbl">전폭(mm)</td><td><input class="dp-inp" data-field="dp_1_4_width" type="text" value="\${E(v('dp_1_4_width'))}"></td></tr>
-    <tr><td class="dp-lbl">전고(mm)</td><td><input class="dp-inp" data-field="dp_1_4_height" type="text" value="\${E(v('dp_1_4_height'))}"></td></tr>
+    <tr><th class="dp-sub-th" colspan="3">1.4.&nbsp;\${BL('dp_1_4_title')}</th></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_car_name')}</td><td><input class="dp-inp" data-field="dp_1_4_carname" type="text" value="\${E(v('dp_1_4_carname'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_car_type')}</td><td><input class="dp-inp" data-field="dp_1_4_type" type="text" value="\${E(v('dp_1_4_type'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="13">\${BL('dp_lbl_car_spec')}</td><td class="dp-lbl">\${BL('en_1_3_3_lbl')}</td><td><input class="dp-inp" data-field="dp_1_4_maker" type="text" value="\${E(v('dp_1_4_maker'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_passenger')}</td><td><input class="dp-inp" data-field="dp_1_4_passenger" type="text" value="\${E(v('dp_1_4_passenger'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_model_year')}</td><td><input class="dp-inp" data-field="dp_1_4_modelyear" type="text" value="\${E(v('dp_1_4_modelyear'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_spec_no')}</td><td><input class="dp-inp" data-field="dp_1_4_specno" type="text" value="\${E(v('dp_1_4_specno'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_drive')}</td><td><input class="dp-inp" data-field="dp_1_4_drive" type="text" value="\${E(v('dp_1_4_drive'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_car_class')}</td><td><input class="dp-inp" data-field="dp_1_4_cartype" type="text" value="\${E(v('dp_1_4_cartype'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_purpose')}</td><td><input class="dp-inp" data-field="dp_1_4_purpose" type="text" value="\${E(v('dp_1_4_purpose'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_trans_type')}</td><td><input class="dp-inp" data-field="dp_1_4_trans" type="text" value="\${E(v('dp_1_4_trans'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_body_shape')}</td><td><input class="dp-inp" data-field="dp_1_4_body" type="text" value="\${E(v('dp_1_4_body'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_curb_wt')}</td><td><input class="dp-inp" data-field="dp_1_4_curb" type="text" value="\${E(v('dp_1_4_curb'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_gvw')}</td><td><input class="dp-inp" data-field="dp_1_4_gvw" type="text" value="\${E(v('dp_1_4_gvw'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_inertia_wt')}</td><td><input class="dp-inp" data-field="dp_1_4_inertia" type="text" value="\${E(v('dp_1_4_inertia'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_dyno_hp')}</td><td><input class="dp-inp" data-field="dp_1_4_dyno" type="text" value="\${E(v('dp_1_4_dyno'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="3">\${BL('dp_lbl_dimensions')}</td><td class="dp-lbl">\${BL('dp_lbl_length')}</td><td><input class="dp-inp" data-field="dp_1_4_len" type="text" value="\${E(v('dp_1_4_len'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_width')}</td><td><input class="dp-inp" data-field="dp_1_4_width" type="text" value="\${E(v('dp_1_4_width'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_height')}</td><td><input class="dp-inp" data-field="dp_1_4_height" type="text" value="\${E(v('dp_1_4_height'))}"></td></tr>
   </tbody>
 </table>
 
@@ -9961,32 +10947,32 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:20%;"><col style="width:20%;"><col style="width:20%;"><col style="width:40%;"></colgroup>
   <tbody>
-    <tr><td class="dp-lbl" rowspan="21">원동기</td><td class="dp-lbl" colspan="2">제작회사</td><td><input class="dp-inp" data-field="dp_1_4_eng_maker" type="text" value="\${E(v('dp_1_4_eng_maker'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">연소방식</td><td><input class="dp-inp" data-field="dp_1_4_eng_comb" type="text" value="\${E(v('dp_1_4_eng_comb'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">원동기 형식</td><td><input class="dp-inp" data-field="dp_1_4_eng_type" type="text" value="\${E(v('dp_1_4_eng_type'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">배기량(cc)</td><td><input class="dp-inp" data-field="dp_1_4_eng_disp" type="text" value="\${E(v('dp_1_4_eng_disp'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">원동기부착위치</td><td><input class="dp-inp" data-field="dp_1_4_eng_pos" type="text" value="\${E(v('dp_1_4_eng_pos'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">사용연료</td><td><input class="dp-inp" data-field="dp_1_4_eng_fuel" type="text" value="\${E(v('dp_1_4_eng_fuel'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">실린더 수</td><td><input class="dp-inp" data-field="dp_1_4_eng_cyl" type="text" value="\${E(v('dp_1_4_eng_cyl'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">실린더 배열</td><td><input class="dp-inp" data-field="dp_1_4_eng_cylarr" type="text" value="\${E(v('dp_1_4_eng_cylarr'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">연소실 형식</td><td><input class="dp-inp" data-field="dp_1_4_eng_chamber" type="text" value="\${E(v('dp_1_4_eng_chamber'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">최대출력(ps/rpm)</td><td><input class="dp-inp" data-field="dp_1_4_eng_maxpow" type="text" value="\${E(v('dp_1_4_eng_maxpow'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">최대토크(kg-m/rpm)</td><td><input class="dp-inp" data-field="dp_1_4_eng_maxtq" type="text" value="\${E(v('dp_1_4_eng_maxtq'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">보어*스트로크(mm)</td><td><input class="dp-inp" data-field="dp_1_4_eng_bore" type="text" value="\${E(v('dp_1_4_eng_bore'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">공회전속도(rpm)</td><td><input class="dp-inp" data-field="dp_1_4_eng_idle" type="text" value="\${E(v('dp_1_4_eng_idle'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="21">\${BL('dp_lbl_engine')}</td><td class="dp-lbl" colspan="2">\${BL('dp_lbl_manufacturer')}</td><td><input class="dp-inp" data-field="dp_1_4_eng_maker" type="text" value="\${E(v('dp_1_4_eng_maker'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_combustion')}</td><td><input class="dp-inp" data-field="dp_1_4_eng_comb" type="text" value="\${E(v('dp_1_4_eng_comb'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_eng_type')}</td><td><input class="dp-inp" data-field="dp_1_4_eng_type" type="text" value="\${E(v('dp_1_4_eng_type'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_displacement')}</td><td><input class="dp-inp" data-field="dp_1_4_eng_disp" type="text" value="\${E(v('dp_1_4_eng_disp'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_eng_pos')}</td><td><input class="dp-inp" data-field="dp_1_4_eng_pos" type="text" value="\${E(v('dp_1_4_eng_pos'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_fuel_type')}</td><td><input class="dp-inp" data-field="dp_1_4_eng_fuel" type="text" value="\${E(v('dp_1_4_eng_fuel'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_cyl_count')}</td><td><input class="dp-inp" data-field="dp_1_4_eng_cyl" type="text" value="\${E(v('dp_1_4_eng_cyl'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_cyl_arr')}</td><td><input class="dp-inp" data-field="dp_1_4_eng_cylarr" type="text" value="\${E(v('dp_1_4_eng_cylarr'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_chamber_type')}</td><td><input class="dp-inp" data-field="dp_1_4_eng_chamber" type="text" value="\${E(v('dp_1_4_eng_chamber'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_max_power')}</td><td><input class="dp-inp" data-field="dp_1_4_eng_maxpow" type="text" value="\${E(v('dp_1_4_eng_maxpow'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_max_torque')}</td><td><input class="dp-inp" data-field="dp_1_4_eng_maxtq" type="text" value="\${E(v('dp_1_4_eng_maxtq'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_bore_stroke')}</td><td><input class="dp-inp" data-field="dp_1_4_eng_bore" type="text" value="\${E(v('dp_1_4_eng_bore'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_idle_rpm')}</td><td><input class="dp-inp" data-field="dp_1_4_eng_idle" type="text" value="\${E(v('dp_1_4_eng_idle'))}"></td></tr>
     <tr><td class="dp-lbl" colspan="2">\${BL('em_lbl_cooling')}</td><td><input class="dp-inp" data-field="dp_1_4_eng_cool" type="text" value="\${E(v('dp_1_4_eng_cool'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">공기흡입방식</td><td><input class="dp-inp" data-field="dp_1_4_eng_intake" type="text" value="\${E(v('dp_1_4_eng_intake'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="2">흡기매니폴드</td><td class="dp-lbl">포트크기</td><td><input class="dp-inp" data-field="dp_1_4_inm_size" type="text" value="\${E(v('dp_1_4_inm_size'))}"></td></tr>
-    <tr><td class="dp-lbl">포트형상</td><td><input class="dp-inp" data-field="dp_1_4_inm_shape" type="text" value="\${E(v('dp_1_4_inm_shape'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="2">배기매니폴드</td><td class="dp-lbl">포트크기(mm)</td><td><input class="dp-inp" data-field="dp_1_4_exm_size" type="text" value="\${E(v('dp_1_4_exm_size'))}"></td></tr>
-    <tr><td class="dp-lbl">포트형상</td><td><input class="dp-inp" data-field="dp_1_4_exm_shape" type="text" value="\${E(v('dp_1_4_exm_shape'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_intake_method')}</td><td><input class="dp-inp" data-field="dp_1_4_eng_intake" type="text" value="\${E(v('dp_1_4_eng_intake'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_intake_manifold')}</td><td class="dp-lbl">\${BL('dp_lbl_port_size')}</td><td><input class="dp-inp" data-field="dp_1_4_inm_size" type="text" value="\${E(v('dp_1_4_inm_size'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_port_shape')}</td><td><input class="dp-inp" data-field="dp_1_4_inm_shape" type="text" value="\${E(v('dp_1_4_inm_shape'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_exhaust_manifold')}</td><td class="dp-lbl">\${BL('dp_lbl_port_size_mm')}</td><td><input class="dp-inp" data-field="dp_1_4_exm_size" type="text" value="\${E(v('dp_1_4_exm_size'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_port_shape')}</td><td><input class="dp-inp" data-field="dp_1_4_exm_shape" type="text" value="\${E(v('dp_1_4_exm_shape'))}"></td></tr>
     <tr><td class="dp-lbl" colspan="2">\${BL('em_lbl_comp_ratio')}</td><td><input class="dp-inp" data-field="dp_1_4_compress" type="text" value="\${E(v('dp_1_4_compress'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">점화시기(Degree)</td><td><input class="dp-inp" data-field="dp_1_4_ign_timing" type="text" value="\${E(v('dp_1_4_ign_timing'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="6">연료장치</td><td class="dp-lbl" colspan="2">\${BL('em_lbl_fuel_supply')}</td><td><input class="dp-inp" data-field="dp_1_4_fuel_supply" type="text" value="\${E(v('dp_1_4_fuel_supply'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="3">연료탱크</td><td class="dp-lbl">용량(ℓ)</td><td><input class="dp-inp" data-field="dp_1_4_tank_vol" type="text" value="\${E(v('dp_1_4_tank_vol'))}"></td></tr>
-    <tr><td class="dp-lbl">위치</td><td><input class="dp-inp" data-field="dp_1_4_tank_pos" type="text" value="\${E(v('dp_1_4_tank_pos'))}"></td></tr>
-    <tr><td class="dp-lbl">재질</td><td><input class="dp-inp" data-field="dp_1_4_tank_mat" type="text" value="\${E(v('dp_1_4_tank_mat'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="2">제어공기<br>청정기</td><td class="dp-lbl">형식</td><td><input class="dp-inp" data-field="dp_1_4_air_type" type="text" value="\${E(v('dp_1_4_air_type'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_ign_timing')}</td><td><input class="dp-inp" data-field="dp_1_4_ign_timing" type="text" value="\${E(v('dp_1_4_ign_timing'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="6">\${BL('dp_lbl_fuel_system')}</td><td class="dp-lbl" colspan="2">\${BL('em_lbl_fuel_supply')}</td><td><input class="dp-inp" data-field="dp_1_4_fuel_supply" type="text" value="\${E(v('dp_1_4_fuel_supply'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="3">\${BL('dp_lbl_fuel_tank')}</td><td class="dp-lbl">\${BL('dp_lbl_capacity_l')}</td><td><input class="dp-inp" data-field="dp_1_4_tank_vol" type="text" value="\${E(v('dp_1_4_tank_vol'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_position')}</td><td><input class="dp-inp" data-field="dp_1_4_tank_pos" type="text" value="\${E(v('dp_1_4_tank_pos'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_material')}</td><td><input class="dp-inp" data-field="dp_1_4_tank_mat" type="text" value="\${E(v('dp_1_4_tank_mat'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_air_cleaner')}</td><td class="dp-lbl">\${BL('dp_lbl_form_type')}</td><td><input class="dp-inp" data-field="dp_1_4_air_type" type="text" value="\${E(v('dp_1_4_air_type'))}"></td></tr>
     <tr><td class="dp-lbl">수</td><td><input class="dp-inp" data-field="dp_1_4_filter_cnt" type="text" value="\${E(v('dp_1_4_filter_cnt'))}"></td></tr>
   </tbody>
 </table>
@@ -9995,31 +10981,31 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:15%;"><col style="width:15%;"><col style="width:15%;"><col style="width:15%;"><col style="width:40%;"></colgroup>
   <tbody>
-    <tr><td class="dp-lbl" rowspan="16">동력전달장치</td><td class="dp-lbl" rowspan="2">클러치</td><td class="dp-lbl" colspan="2">형식</td><td><input class="dp-inp" data-field="dp_1_4_clutch_type" type="text" value="\${E(v('dp_1_4_clutch_type'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">조작방식</td><td><input class="dp-inp" data-field="dp_1_4_clutch_op" type="text" value="\${E(v('dp_1_4_clutch_op'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="11">\${BL('obd_trans_lbl')}</td><td class="dp-lbl" rowspan="2">형식</td><td class="dp-lbl">전진</td><td><input class="dp-inp" data-field="dp_1_4_trans_fwd" type="text" value="\${E(v('dp_1_4_trans_fwd'))}"></td></tr>
-    <tr><td class="dp-lbl">후진</td><td><input class="dp-inp" data-field="dp_1_4_trans_rev" type="text" value="\${E(v('dp_1_4_trans_rev'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">조작방식</td><td><input class="dp-inp" data-field="dp_1_4_trans_op" type="text" value="\${E(v('dp_1_4_trans_op'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="8">변속비</td><td class="dp-lbl">1단</td><td><input class="dp-inp" data-field="dp_1_4_gear_1" type="text" value="\${E(v('dp_1_4_gear_1'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="16">\${BL('dp_lbl_drivetrain')}</td><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_clutch')}</td><td class="dp-lbl" colspan="2">\${BL('dp_lbl_form_type')}</td><td><input class="dp-inp" data-field="dp_1_4_clutch_type" type="text" value="\${E(v('dp_1_4_clutch_type'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_operation')}</td><td><input class="dp-inp" data-field="dp_1_4_clutch_op" type="text" value="\${E(v('dp_1_4_clutch_op'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="11">\${BL('obd_trans_lbl')}</td><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_form_type')}</td><td class="dp-lbl">\${BL('dp_lbl_forward')}</td><td><input class="dp-inp" data-field="dp_1_4_trans_fwd" type="text" value="\${E(v('dp_1_4_trans_fwd'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_reverse')}</td><td><input class="dp-inp" data-field="dp_1_4_trans_rev" type="text" value="\${E(v('dp_1_4_trans_rev'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_operation')}</td><td><input class="dp-inp" data-field="dp_1_4_trans_op" type="text" value="\${E(v('dp_1_4_trans_op'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="8">\${BL('dp_lbl_gear_ratio')}</td><td class="dp-lbl">\${BL('dp_lbl_gear_1')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_1" type="text" value="\${E(v('dp_1_4_gear_1'))}"></td></tr>
     <tr><td class="dp-lbl">2단</td><td><input class="dp-inp" data-field="dp_1_4_gear_2" type="text" value="\${E(v('dp_1_4_gear_2'))}"></td></tr>
     <tr><td class="dp-lbl">3단</td><td><input class="dp-inp" data-field="dp_1_4_gear_3" type="text" value="\${E(v('dp_1_4_gear_3'))}"></td></tr>
     <tr><td class="dp-lbl">4단</td><td><input class="dp-inp" data-field="dp_1_4_gear_4" type="text" value="\${E(v('dp_1_4_gear_4'))}"></td></tr>
     <tr><td class="dp-lbl">5단</td><td><input class="dp-inp" data-field="dp_1_4_gear_5" type="text" value="\${E(v('dp_1_4_gear_5'))}"></td></tr>
     <tr><td class="dp-lbl">6단</td><td><input class="dp-inp" data-field="dp_1_4_gear_6" type="text" value="\${E(v('dp_1_4_gear_6'))}"></td></tr>
     <tr><td class="dp-lbl">7단</td><td><input class="dp-inp" data-field="dp_1_4_gear_7" type="text" value="\${E(v('dp_1_4_gear_7'))}"></td></tr>
-    <tr><td class="dp-lbl">후진</td><td><input class="dp-inp" data-field="dp_1_4_gear_8" type="text" value="\${E(v('dp_1_4_gear_8'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="2">감속비</td><td class="dp-lbl" colspan="2">제1 감속비</td><td><input class="dp-inp" data-field="dp_1_4_red1" type="text" value="\${E(v('dp_1_4_red1'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">제2 감속비</td><td><input class="dp-inp" data-field="dp_1_4_red2" type="text" value="\${E(v('dp_1_4_red2'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_reverse')}</td><td><input class="dp-inp" data-field="dp_1_4_gear_8" type="text" value="\${E(v('dp_1_4_gear_8'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_red_ratio')}</td><td class="dp-lbl" colspan="2">\${BL('dp_lbl_red1')}</td><td><input class="dp-inp" data-field="dp_1_4_red1" type="text" value="\${E(v('dp_1_4_red1'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_red2')}</td><td><input class="dp-inp" data-field="dp_1_4_red2" type="text" value="\${E(v('dp_1_4_red2'))}"></td></tr>
     <tr><td class="dp-lbl" colspan="3">N/V 비</td><td><input class="dp-inp" data-field="dp_1_4_nv" type="text" value="\${E(v('dp_1_4_nv'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="4">전기자동차 관련 제원</td><td class="dp-lbl" colspan="3">전동기 형식</td><td><input class="dp-inp" data-field="dp_1_4_ev_motor" type="text" value="\${E(v('dp_1_4_ev_motor'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="3">축전지 정격전압 및 용량</td><td><input class="dp-inp" data-field="dp_1_4_ev_batt" type="text" value="\${E(v('dp_1_4_ev_batt'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="3">전동기 최대출력</td><td><input class="dp-inp" data-field="dp_1_4_ev_pow" type="text" value="\${E(v('dp_1_4_ev_pow'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="3">1회충전 주행거리</td><td><input class="dp-inp" data-field="dp_1_4_ev_range" type="text" value="\${E(v('dp_1_4_ev_range'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="6">타이어</td><td class="dp-lbl" colspan="3">타이어 제조회사</td><td><input class="dp-inp" data-field="dp_1_4_tire_maker" type="text" value="\${E(v('dp_1_4_tire_maker'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="3">타이어 구조</td><td><input class="dp-inp" data-field="dp_1_4_tire_struct" type="text" value="\${E(v('dp_1_4_tire_struct'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="2">타이어 크기</td><td class="dp-lbl" colspan="2">전</td><td><input class="dp-inp" data-field="dp_1_4_tire_fsize" type="text" value="\${E(v('dp_1_4_tire_fsize'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="4">\${BL('dp_lbl_ev_spec')}</td><td class="dp-lbl" colspan="3">\${BL('dp_lbl_motor_type')}</td><td><input class="dp-inp" data-field="dp_1_4_ev_motor" type="text" value="\${E(v('dp_1_4_ev_motor'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="3">\${BL('dp_lbl_batt_cap')}</td><td><input class="dp-inp" data-field="dp_1_4_ev_batt" type="text" value="\${E(v('dp_1_4_ev_batt'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="3">\${BL('dp_lbl_motor_power')}</td><td><input class="dp-inp" data-field="dp_1_4_ev_pow" type="text" value="\${E(v('dp_1_4_ev_pow'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="3">\${BL('dp_lbl_ev_range')}</td><td><input class="dp-inp" data-field="dp_1_4_ev_range" type="text" value="\${E(v('dp_1_4_ev_range'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="6">\${BL('dp_lbl_tire')}</td><td class="dp-lbl" colspan="3">\${BL('dp_lbl_tire_maker')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_maker" type="text" value="\${E(v('dp_1_4_tire_maker'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="3">\${BL('dp_lbl_tire_struct')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_struct" type="text" value="\${E(v('dp_1_4_tire_struct'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_tire_size')}</td><td class="dp-lbl" colspan="2">\${BL('dp_lbl_front')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_fsize" type="text" value="\${E(v('dp_1_4_tire_fsize'))}"></td></tr>
     <tr><td class="dp-lbl" colspan="2">후</td><td><input class="dp-inp" data-field="dp_1_4_tire_rsize" type="text" value="\${E(v('dp_1_4_tire_rsize'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="2">타이어<br>공기압</td><td class="dp-lbl" colspan="2">전</td><td><input class="dp-inp" data-field="dp_1_4_tire_fpres" type="text" value="\${E(v('dp_1_4_tire_fpres'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_tire_pres')}</td><td class="dp-lbl" colspan="2">\${BL('dp_lbl_front')}</td><td><input class="dp-inp" data-field="dp_1_4_tire_fpres" type="text" value="\${E(v('dp_1_4_tire_fpres'))}"></td></tr>
     <tr><td class="dp-lbl" colspan="2">후</td><td><input class="dp-inp" data-field="dp_1_4_tire_rpres" type="text" value="\${E(v('dp_1_4_tire_rpres'))}"></td></tr>
   </tbody>
 </table>
@@ -10028,24 +11014,24 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:20%;"><col style="width:20%;"><col style="width:20%;"><col style="width:40%;"></colgroup>
   <tbody>
-    <tr><td class="dp-lbl" rowspan="5">\${BL('g_lbl_catalyst2')}</td><td class="dp-lbl" colspan="2">종류</td><td><input class="dp-inp" data-field="dp_1_4_cat_type" type="text" value="\${E(v('dp_1_4_cat_type'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">귀금속 성분</td><td><input class="dp-inp" data-field="dp_1_4_cat_pm" type="text" value="\${E(v('dp_1_4_cat_pm'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">귀금속량(g)</td><td><input class="dp-inp" data-field="dp_1_4_cat_pmg" type="text" value="\${E(v('dp_1_4_cat_pmg'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">용량(㎤)</td><td><input class="dp-inp" data-field="dp_1_4_cat_vol" type="text" value="\${E(v('dp_1_4_cat_vol'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">귀금속 물질비(Pt:Pd:Rh)</td><td><input class="dp-inp" data-field="dp_1_4_cat_ratio" type="text" value="\${E(v('dp_1_4_cat_ratio'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="3">배출가스 시험에<br>관한 사항</td><td class="dp-lbl" colspan="2">실 도로 부하력(hp)</td><td><input class="dp-inp" data-field="dp_1_4_roadload" type="text" value="\${E(v('dp_1_4_roadload'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">도로흡력력계수</td><td><input class="dp-inp" data-field="dp_1_4_roadcoef" type="text" value="\${E(v('dp_1_4_roadcoef'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">코스트다운 시간(sec)</td><td><input class="dp-inp" data-field="dp_1_4_coastdown" type="text" value="\${E(v('dp_1_4_coastdown'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="4">캐니스터</td><td class="dp-lbl" colspan="2">캐니스터의 흡수 용량</td><td><input class="dp-inp" data-field="dp_1_4_can_cap" type="text" value="\${E(v('dp_1_4_can_cap'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">캐니스터의 크기(cc)</td><td><input class="dp-inp" data-field="dp_1_4_can_size" type="text" value="\${E(v('dp_1_4_can_size'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">캐니스터의 매체</td><td><input class="dp-inp" data-field="dp_1_4_can_media" type="text" value="\${E(v('dp_1_4_can_media'))}"></td></tr>
-    <tr><td class="dp-lbl" colspan="2">40%연료시 탱크의 최대 증발가스 용량</td><td><input class="dp-inp" data-field="dp_1_4_can_evap" type="text" value="\${E(v('dp_1_4_can_evap'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="4">소음기</td><td class="dp-lbl" rowspan="2">주 소음기</td><td class="dp-lbl">재질</td><td><input class="dp-inp" data-field="dp_1_4_muf_main_mat" type="text" value="\${E(v('dp_1_4_muf_main_mat'))}"></td></tr>
-    <tr><td class="dp-lbl">용량(L)</td><td><input class="dp-inp" data-field="dp_1_4_muf_main_vol" type="text" value="\${E(v('dp_1_4_muf_main_vol'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="2">보조 소음기</td><td class="dp-lbl">재질</td><td><input class="dp-inp" data-field="dp_1_4_muf_sub_mat" type="text" value="\${E(v('dp_1_4_muf_sub_mat'))}"></td></tr>
-    <tr><td class="dp-lbl">용량(L)</td><td><input class="dp-inp" data-field="dp_1_4_muf_sub_vol" type="text" value="\${E(v('dp_1_4_muf_sub_vol'))}"></td></tr>
-    <tr><td class="dp-lbl" rowspan="2">경보장치</td><td class="dp-lbl" rowspan="2">경음기</td><td class="dp-lbl">형식</td><td><input class="dp-inp" data-field="dp_1_4_horn_type" type="text" value="\${E(v('dp_1_4_horn_type'))}"></td></tr>
-    <tr><td class="dp-lbl">성능(dB(C))</td><td><input class="dp-inp" data-field="dp_1_4_horn_db" type="text" value="\${E(v('dp_1_4_horn_db'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="5">\${BL('g_lbl_catalyst2')}</td><td class="dp-lbl" colspan="2">\${BL('dp_lbl_type_kind')}</td><td><input class="dp-inp" data-field="dp_1_4_cat_type" type="text" value="\${E(v('dp_1_4_cat_type'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_precious_comp')}</td><td><input class="dp-inp" data-field="dp_1_4_cat_pm" type="text" value="\${E(v('dp_1_4_cat_pm'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_precious_g')}</td><td><input class="dp-inp" data-field="dp_1_4_cat_pmg" type="text" value="\${E(v('dp_1_4_cat_pmg'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_vol_cc')}</td><td><input class="dp-inp" data-field="dp_1_4_cat_vol" type="text" value="\${E(v('dp_1_4_cat_vol'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_pm_ratio')}</td><td><input class="dp-inp" data-field="dp_1_4_cat_ratio" type="text" value="\${E(v('dp_1_4_cat_ratio'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="3">\${BL('dp_lbl_em_test_info')}</td><td class="dp-lbl" colspan="2">\${BL('dp_lbl_road_load')}</td><td><input class="dp-inp" data-field="dp_1_4_roadload" type="text" value="\${E(v('dp_1_4_roadload'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_road_coef')}</td><td><input class="dp-inp" data-field="dp_1_4_roadcoef" type="text" value="\${E(v('dp_1_4_roadcoef'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_coast_down')}</td><td><input class="dp-inp" data-field="dp_1_4_coastdown" type="text" value="\${E(v('dp_1_4_coastdown'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="4">\${BL('dp_lbl_canister')}</td><td class="dp-lbl" colspan="2">\${BL('dp_lbl_can_cap')}</td><td><input class="dp-inp" data-field="dp_1_4_can_cap" type="text" value="\${E(v('dp_1_4_can_cap'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_can_size')}</td><td><input class="dp-inp" data-field="dp_1_4_can_size" type="text" value="\${E(v('dp_1_4_can_size'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_can_media')}</td><td><input class="dp-inp" data-field="dp_1_4_can_media" type="text" value="\${E(v('dp_1_4_can_media'))}"></td></tr>
+    <tr><td class="dp-lbl" colspan="2">\${BL('dp_lbl_evap_cap')}</td><td><input class="dp-inp" data-field="dp_1_4_can_evap" type="text" value="\${E(v('dp_1_4_can_evap'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="4">\${BL('dp_lbl_muffler')}</td><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_muf_main')}</td><td class="dp-lbl">\${BL('dp_lbl_material')}</td><td><input class="dp-inp" data-field="dp_1_4_muf_main_mat" type="text" value="\${E(v('dp_1_4_muf_main_mat'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_vol_l')}</td><td><input class="dp-inp" data-field="dp_1_4_muf_main_vol" type="text" value="\${E(v('dp_1_4_muf_main_vol'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_muf_sub')}</td><td class="dp-lbl">\${BL('dp_lbl_material')}</td><td><input class="dp-inp" data-field="dp_1_4_muf_sub_mat" type="text" value="\${E(v('dp_1_4_muf_sub_mat'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_vol_l')}</td><td><input class="dp-inp" data-field="dp_1_4_muf_sub_vol" type="text" value="\${E(v('dp_1_4_muf_sub_vol'))}"></td></tr>
+    <tr><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_horn_dev')}</td><td class="dp-lbl" rowspan="2">\${BL('dp_lbl_horn')}</td><td class="dp-lbl">\${BL('dp_lbl_form_type')}</td><td><input class="dp-inp" data-field="dp_1_4_horn_type" type="text" value="\${E(v('dp_1_4_horn_type'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_lbl_horn_db')}</td><td><input class="dp-inp" data-field="dp_1_4_horn_db" type="text" value="\${E(v('dp_1_4_horn_db'))}"></td></tr>
   </tbody>
 </table>
 
@@ -10054,10 +11040,10 @@ function buildFormHTML(formType, saved) {
   <colgroup><col style="width:100%;"></colgroup>
   <tbody>
     <tr><th class="dp-sec-th">\${BL('dp_s2')}</th></tr>
-    <tr><td class="dp-sub-th">2.1. 기밀에 대한 요청</td></tr>
+    <tr><td class="dp-sub-th">\${BL('dp_2_1_title')}</td></tr>
     <tr><td>
       <div class="dp-field">
-        <textarea class="dp-field-text" data-field="dp_2_1" rows="3" placeholder="기밀 요청 내용을 기재하세요">\${E(v('dp_2_1'))}</textarea>
+        <textarea class="dp-field-text" data-field="dp_2_1" rows="3" placeholder="\${BL('dp_ph_confidential')}">\${E(v('dp_2_1'))}</textarea>
       </div>
     </td></tr>
   </tbody>
@@ -10069,45 +11055,45 @@ function buildFormHTML(formType, saved) {
   <thead>
     <tr><th class="dp-sec-th" colspan="4">\${BL('dp_s3')}</th></tr>
     <tr>
-      <th class="dp-th">구분</th>
-      <th class="dp-th">항목</th>
-      <th class="dp-th">시험용연료</th>
-      <th class="dp-th">주행거리 축적용 연료</th>
+      <th class="dp-th">\${BL('dp_lbl_category')}</th>
+      <th class="dp-th">\${BL('dp_lbl_item')}</th>
+      <th class="dp-th">\${BL('dp_lbl_test_fuel')}</th>
+      <th class="dp-th">\${BL('dp_lbl_acc_fuel')}</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td class="dp-lbl" rowspan="10">휘발유</td>
-      <td class="dp-lbl">옥탄가(리서치법)</td>
+      <td class="dp-lbl" rowspan="10">\${BL('dp_lbl_gasoline')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_octane')}</td>
       <td><input class="dp-inp" data-field="dp_f_gas_oct_test" type="text" value="\${E(v('dp_f_gas_oct_test'))}"></td>
       <td><input class="dp-inp" data-field="dp_f_gas_oct_acc" type="text" value="\${E(v('dp_f_gas_oct_acc'))}"></td>
     </tr>
     \${[
-      ['방향족화합물함량(부피%)','dp_f_gas_arom'],
-      ['벤젠함량(부피%)','dp_f_gas_benz'],
-      ['산소함량(무게%)','dp_f_gas_oxy'],
-      ['납함량(g/ℓ)','dp_f_gas_pb'],
-      ['인함량(g/ℓ)','dp_f_gas_p'],
-      ['올레핀함량(부피%)','dp_f_gas_olef'],
-      ['증기압(kPa)','dp_f_gas_vp'],
-      ['90%유출온도(℃)','dp_f_gas_90t'],
-      ['황함량(무게%)','dp_f_gas_s'],
+      [BL('dp_lbl_aromatic'),'dp_f_gas_arom'],
+      [BL('dp_lbl_benzene'),'dp_f_gas_benz'],
+      [BL('dp_lbl_oxygen'),'dp_f_gas_oxy'],
+      [BL('dp_lbl_lead'),'dp_f_gas_pb'],
+      [BL('dp_lbl_phosphorus'),'dp_f_gas_p'],
+      [BL('dp_lbl_olefin'),'dp_f_gas_olef'],
+      [BL('dp_lbl_vapor_p'),'dp_f_gas_vp'],
+      [BL('dp_lbl_90pct_temp'),'dp_f_gas_90t'],
+      [BL('dp_lbl_sulfur'),'dp_f_gas_s'],
     ].map(([item,fld])=>\`<tr>
       <td class="dp-lbl">\${item}</td>
       <td><input class="dp-inp" data-field="\${fld}_test" type="text" value="\${E(v('\${fld}_test'))}"></td>
       <td><input class="dp-inp" data-field="\${fld}_acc" type="text" value="\${E(v('\${fld}_acc'))}"></td>
     </tr>\`).join('')}
     <tr>
-      <td class="dp-lbl" rowspan="5">경유</td>
-      <td class="dp-lbl">10% 잔류탄소량(%)</td>
+      <td class="dp-lbl" rowspan="5">\${BL('dp_lbl_diesel')}</td>
+      <td class="dp-lbl">\${BL('dp_lbl_residual_carbon')}</td>
       <td><input class="dp-inp" data-field="dp_f_die_rc_test" type="text" value="\${E(v('dp_f_die_rc_test'))}"></td>
       <td><input class="dp-inp" data-field="dp_f_die_rc_acc" type="text" value="\${E(v('dp_f_die_rc_acc'))}"></td>
     </tr>
     \${[
-      ['황함량(무게%)','dp_f_die_s'],
-      ['세탄지수','dp_f_die_ci'],
-      ['90%유출온도(℃)','dp_f_die_90t'],
-      ['방향족화합물함량(부피%)','dp_f_die_arom'],
+      [BL('dp_lbl_sulfur'),'dp_f_die_s'],
+      [BL('dp_lbl_cetane'),'dp_f_die_ci'],
+      [BL('dp_lbl_90pct_temp'),'dp_f_die_90t'],
+      [BL('dp_lbl_aromatic'),'dp_f_die_arom'],
     ].map(([item,fld])=>\`<tr>
       <td class="dp-lbl">\${item}</td>
       <td><input class="dp-inp" data-field="\${fld}_test" type="text" value="\${E(v('\${fld}_test'))}"></td>
@@ -10115,22 +11101,22 @@ function buildFormHTML(formType, saved) {
     </tr>\`).join('')}
     <tr>
       <td class="dp-lbl" rowspan="2">LPG</td>
-      <td class="dp-lbl">10% 잔류탄소량(%)</td>
+      <td class="dp-lbl">\${BL('dp_lbl_residual_carbon')}</td>
       <td><input class="dp-inp" data-field="dp_f_lpg_rc_test" type="text" value="\${E(v('dp_f_lpg_rc_test'))}"></td>
       <td><input class="dp-inp" data-field="dp_f_lpg_rc_acc" type="text" value="\${E(v('dp_f_lpg_rc_acc'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl">황함량(무게%)</td>
+      <td class="dp-lbl">\${BL('dp_lbl_sulfur')}</td>
       <td><input class="dp-inp" data-field="dp_f_lpg_s_test" type="text" value="\${E(v('dp_f_lpg_s_test'))}"></td>
       <td><input class="dp-inp" data-field="dp_f_lpg_s_acc" type="text" value="\${E(v('dp_f_lpg_s_acc'))}"></td>
     </tr>
     <tr>
-      <td class="dp-lbl" colspan="2">연료구입처</td>
+      <td class="dp-lbl" colspan="2">\${BL('dp_lbl_fuel_source')}</td>
       <td colspan="2"><input class="dp-inp" data-field="dp_f_source" type="text" value="\${E(v('dp_f_source'))}"></td>
     </tr>
     <tr>
       <td colspan="4" style="font-size:8pt; padding:4px 6px; border-top:1px solid #ccc; line-height:1.5;">
-        비고 : 자동차 인증시험연료는 국내에서 시판되는 자동차 연료를 원칙으로 하되, 대기규칙 별표 30 규정에 의한 자동차연료 제조기준에 해당하는 항목의 경우 이의 기재로 갈음한다.
+        \${BL('dp_fuel_note')}
       </td>
     </tr>
   </tbody>
@@ -10141,15 +11127,15 @@ function buildFormHTML(formType, saved) {
   <colgroup><col style="width:22%;"><col style="width:13%;"><col style="width:13%;"><col style="width:13%;"><col style="width:16%;"><col style="width:13%;"><col style="width:10%;"></colgroup>
   <thead>
     <tr><th class="dp-sec-th" colspan="7">\${BL('dp_s4')}</th></tr>
-    <tr><th class="dp-sub-th" colspan="7">4.1. 배출가스 측정장비</th></tr>
+    <tr><th class="dp-sub-th" colspan="7">\${BL('dp_4_1_title')}</th></tr>
     <tr>
-      <th class="dp-th">설비, 장비명</th>
+      <th class="dp-th">\${BL('dp_th_equip_name')}</th>
       <th class="dp-th">\${BL('en_1_3_3_lbl')}</th>
-      <th class="dp-th">모델명</th>
-      <th class="dp-th">형식승인번호</th>
-      <th class="dp-th">형식승인일자</th>
-      <th class="dp-th">실험실명</th>
-      <th class="dp-th">최종정도검사일</th>
+      <th class="dp-th">\${BL('dp_th_model')}</th>
+      <th class="dp-th">\${BL('dp_th_type_no')}</th>
+      <th class="dp-th">\${BL('dp_th_type_date')}</th>
+      <th class="dp-th">\${BL('dp_th_lab_name')}</th>
+      <th class="dp-th">\${BL('dp_th_calib_date')}</th>
     </tr>
   </thead>
   <tbody>
@@ -10162,15 +11148,15 @@ function buildFormHTML(formType, saved) {
       <td><input class="dp-inp" data-field="dp_4_1_lab_\${i}" type="text" value="\${E(v(\`dp_4_1_lab_\${i}\`))}"></td>
       <td><input class="dp-inp" data-field="dp_4_1_calib_\${i}" type="text" value="\${E(v(\`dp_4_1_calib_\${i}\`))}"></td>
     </tr>\`).join('')}
-    <tr><th class="dp-sub-th" colspan="7">4.2. 소음 측정장비</th></tr>
+    <tr><th class="dp-sub-th" colspan="7">\${BL('dp_4_2_title')}</th></tr>
     <tr>
-      <th class="dp-th">설비, 장비명</th>
+      <th class="dp-th">\${BL('dp_th_equip_name')}</th>
       <th class="dp-th">\${BL('en_1_3_3_lbl')}</th>
-      <th class="dp-th">모델명</th>
-      <th class="dp-th">형식승인번호</th>
-      <th class="dp-th">형식승인일자</th>
-      <th class="dp-th">실험실명</th>
-      <th class="dp-th">최종정도검사일</th>
+      <th class="dp-th">\${BL('dp_th_model')}</th>
+      <th class="dp-th">\${BL('dp_th_type_no')}</th>
+      <th class="dp-th">\${BL('dp_th_type_date')}</th>
+      <th class="dp-th">\${BL('dp_th_lab_name')}</th>
+      <th class="dp-th">\${BL('dp_th_calib_date')}</th>
     </tr>
     \${[0,1,2].map(i=>\`<tr>
       <td><input class="dp-inp" data-field="dp_4_2_name_\${i}" type="text" value="\${E(v(\`dp_4_2_name_\${i}\`))}"></td>
@@ -10183,7 +11169,7 @@ function buildFormHTML(formType, saved) {
     </tr>\`).join('')}
     <tr>
       <td colspan="7" style="font-size:8pt; padding:4px 6px; border-top:1px solid #ccc; line-height:1.5;">
-        비고 : 외국 제작자의 설비·장비를 사용하는 경우에는 해당국 설정에 부합되는 공인 검정 또는 승인번호 등을 형식승인번호에 갈음하여 기재할 수 있음
+        \${BL('dp_equip_note')}
       </td>
     </tr>
   </tbody>
@@ -10195,20 +11181,20 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sec-th" colspan="2">\${BL('dp_s5')}</th></tr>
     <tr><th class="dp-sub-th" colspan="2">\${BL('dp_5_1_lbl')}</th></tr>
-    <tr><td class="dp-lbl">5.1.1. 시험장소</td><td><input class="dp-inp" data-field="dp_5_1_1" type="text" value="\${E(v('dp_5_1_1'))}"></td></tr>
-    <tr><td class="dp-lbl">5.1.2. 시험절차</td><td><input class="dp-inp" data-field="dp_5_1_2" type="text" value="\${E(v('dp_5_1_2'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_5_1_1_lbl')}</td><td><input class="dp-inp" data-field="dp_5_1_1" type="text" value="\${E(v('dp_5_1_1'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_5_1_2_lbl')}</td><td><input class="dp-inp" data-field="dp_5_1_2" type="text" value="\${E(v('dp_5_1_2'))}"></td></tr>
     <tr><th class="dp-sub-th" colspan="2">\${BL('dp_5_2_lbl')}</th></tr>
-    <tr><td class="dp-lbl">5.2.1. 내구성시험 주행여부</td><td><input class="dp-inp" data-field="dp_5_2_1" type="text" value="\${E(v('dp_5_2_1'))}"></td></tr>
-    <tr><td class="dp-lbl">5.2.2. 길들이기 주행여부</td><td><input class="dp-inp" data-field="dp_5_2_2" type="text" value="\${E(v('dp_5_2_2'))}"></td></tr>
-    <tr><td class="dp-lbl">5.2.3. 주행예정 기간</td><td><input class="dp-inp" data-field="dp_5_2_3" type="text" value="\${E(v('dp_5_2_3'))}"></td></tr>
-    <tr><td class="dp-lbl">5.2.4. 주행장소</td><td><input class="dp-inp" data-field="dp_5_2_4" type="text" value="\${E(v('dp_5_2_4'))}"></td></tr>
-    <tr><td class="dp-lbl">5.2.5. 주행절차</td><td><input class="dp-inp" data-field="dp_5_2_5" type="text" value="\${E(v('dp_5_2_5'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_5_2_1_lbl')}</td><td><input class="dp-inp" data-field="dp_5_2_1" type="text" value="\${E(v('dp_5_2_1'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_5_2_2_lbl')}</td><td><input class="dp-inp" data-field="dp_5_2_2" type="text" value="\${E(v('dp_5_2_2'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_5_2_3_lbl')}</td><td><input class="dp-inp" data-field="dp_5_2_3" type="text" value="\${E(v('dp_5_2_3'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_5_2_4_lbl')}</td><td><input class="dp-inp" data-field="dp_5_2_4" type="text" value="\${E(v('dp_5_2_4'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_5_2_5_lbl')}</td><td><input class="dp-inp" data-field="dp_5_2_5" type="text" value="\${E(v('dp_5_2_5'))}"></td></tr>
     <tr><th class="dp-sub-th" colspan="2">\${BL('dp_5_3_lbl')}</th></tr>
-    <tr><td class="dp-lbl">5.3.1. 시험장소</td><td><input class="dp-inp" data-field="dp_5_3_1" type="text" value="\${E(v('dp_5_3_1'))}"></td></tr>
-    <tr><td class="dp-lbl">5.3.2. 시험절차</td><td><input class="dp-inp" data-field="dp_5_3_2" type="text" value="\${E(v('dp_5_3_2'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_5_3_1_lbl')}</td><td><input class="dp-inp" data-field="dp_5_3_1" type="text" value="\${E(v('dp_5_3_1'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_5_3_2_lbl')}</td><td><input class="dp-inp" data-field="dp_5_3_2" type="text" value="\${E(v('dp_5_3_2'))}"></td></tr>
     <tr><th class="dp-sub-th" colspan="2">\${BL('dp_5_4_lbl')}</th></tr>
-    <tr><td class="dp-lbl">5.4.1. 시험장소</td><td><input class="dp-inp" data-field="dp_5_4_1" type="text" value="\${E(v('dp_5_4_1'))}"></td></tr>
-    <tr><td class="dp-lbl">5.4.2. 시험절차</td><td><input class="dp-inp" data-field="dp_5_4_2" type="text" value="\${E(v('dp_5_4_2'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_5_4_1_lbl')}</td><td><input class="dp-inp" data-field="dp_5_4_1" type="text" value="\${E(v('dp_5_4_1'))}"></td></tr>
+    <tr><td class="dp-lbl">\${BL('dp_5_4_2_lbl')}</td><td><input class="dp-inp" data-field="dp_5_4_2" type="text" value="\${E(v('dp_5_4_2'))}"></td></tr>
   </tbody>
 </table>
 
@@ -10217,10 +11203,10 @@ function buildFormHTML(formType, saved) {
   <colgroup><col style="width:12%;"><col style="width:18%;"><col style="width:10%;"><col style="width:10%;"><col style="width:10%;"><col style="width:10%;"><col style="width:10%;"><col style="width:20%;"></colgroup>
   <tbody>
     <tr><th class="dp-sec-th" colspan="8">\${BL('dp_s6')}</th></tr>
-    <tr><th class="dp-sub-th" colspan="8">6.1.&#8194;시험차량의 정비계획</th></tr>
-    <tr><th class="dp-sub-th" colspan="8">6.1.1.&#8202;정기정비</th></tr>
+    <tr><th class="dp-sub-th" colspan="8">\${BL('dp_6_1_title')}</th></tr>
+    <tr><th class="dp-sub-th" colspan="8">\${BL('dp_6_1_1_title')}</th></tr>
     <tr>
-      <th class="dp-th">구분</th><th class="dp-th">항목</th>
+      <th class="dp-th">\${BL('dp_lbl_category')}</th><th class="dp-th">\${BL('dp_lbl_item')}</th>
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_1_1_km_0" type="text" value="\${E(v('dp_6_1_1_km_0'))}" placeholder="km" style="text-align:center;width:100%;"></th>
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_1_1_km_1" type="text" value="\${E(v('dp_6_1_1_km_1'))}" placeholder="km" style="text-align:center;width:100%;"></th>
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_1_1_km_2" type="text" value="\${E(v('dp_6_1_1_km_2'))}" placeholder="km" style="text-align:center;width:100%;"></th>
@@ -10264,26 +11250,26 @@ function buildFormHTML(formType, saved) {
       <td><input class="dp-inp" data-field="dp_6_1_1_3_4" type="text" value="\${E(v('dp_6_1_1_3_4'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_1_1_3_note" type="text" value="\${E(v('dp_6_1_1_3_note'))}"></td>
     </tr>
-    <tr><th class="dp-sub-th" colspan="8">6.1.2.&#8202;비정기정비</th></tr>
+    <tr><th class="dp-sub-th" colspan="8">\${BL('dp_6_1_2_title')}</th></tr>
     <tr>
-      <td class="dp-lbl" colspan="2">A.&nbsp;엔진 :</td>
-      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_1_2_0" rows="2" placeholder="엔진 내용">\${E(v('dp_6_1_2_0'))}</textarea></div></td>
+      <td class="dp-lbl" colspan="2">A.&nbsp;\${BL('dp_lbl_engine')} :</td>
+      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_1_2_0" rows="2" placeholder="\${BL('dp_ph_engine_content')}">\${E(v('dp_6_1_2_0'))}</textarea></div></td>
     </tr>
     <tr>
-      <td class="dp-lbl" colspan="2">B.&nbsp;점화장치 :</td>
-      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_1_2_1" rows="2" placeholder="점화장치 내용">\${E(v('dp_6_1_2_1'))}</textarea></div></td>
+      <td class="dp-lbl" colspan="2">B.&nbsp;\${BL('dp_lbl_ignition')} :</td>
+      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_1_2_1" rows="2" placeholder="\${BL('dp_ph_ignition_content')}">\${E(v('dp_6_1_2_1'))}</textarea></div></td>
     </tr>
     <tr>
-      <td class="dp-lbl" colspan="2">C.&nbsp;샤시 :</td>
-      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_1_2_2" rows="2" placeholder="샤시 내용">\${E(v('dp_6_1_2_2'))}</textarea></div></td>
+      <td class="dp-lbl" colspan="2">C.&nbsp;\${BL('dp_lbl_chassis')} :</td>
+      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_1_2_2" rows="2" placeholder="\${BL('dp_ph_chassis_content')}">\${E(v('dp_6_1_2_2'))}</textarea></div></td>
     </tr>
     <tr>
-      <td class="dp-lbl" colspan="2">D.&nbsp;기타 :</td>
-      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_1_2_3" rows="2" placeholder="기타 내용">\${E(v('dp_6_1_2_3'))}</textarea></div></td>
+      <td class="dp-lbl" colspan="2">D.&nbsp;\${BL('dp_lbl_other')} :</td>
+      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_1_2_3" rows="2" placeholder="\${BL('dp_ph_other_content')}">\${E(v('dp_6_1_2_3'))}</textarea></div></td>
     </tr>
-    <tr><th class="dp-sub-th" colspan="8">6.2.&#8194;차량구입자에 대한 추천정비</th></tr>
+    <tr><th class="dp-sub-th" colspan="8">\${BL('dp_6_2_title')}</th></tr>
     <tr>
-      <th class="dp-th">구분</th><th class="dp-th">항목</th>
+      <th class="dp-th">\${BL('dp_lbl_category')}</th><th class="dp-th">\${BL('dp_lbl_item')}</th>
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_2_km_0" type="text" value="\${E(v('dp_6_2_km_0'))}" placeholder="km" style="text-align:center;width:100%;"></th>
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_2_km_1" type="text" value="\${E(v('dp_6_2_km_1'))}" placeholder="km" style="text-align:center;width:100%;"></th>
       <th class="dp-th"><input class="dp-inp" data-field="dp_6_2_km_2" type="text" value="\${E(v('dp_6_2_km_2'))}" placeholder="km" style="text-align:center;width:100%;"></th>
@@ -10327,22 +11313,22 @@ function buildFormHTML(formType, saved) {
       <td><input class="dp-inp" data-field="dp_6_2_3_4" type="text" value="\${E(v('dp_6_2_3_4'))}"></td>
       <td><input class="dp-inp" data-field="dp_6_2_3_note" type="text" value="\${E(v('dp_6_2_3_note'))}"></td>
     </tr>
-    <tr><th class="dp-sub-th" colspan="8">6.3.&#8194;보증에 관한 설명</th></tr>
+    <tr><th class="dp-sub-th" colspan="8">\${BL('dp_6_3_title')}</th></tr>
     <tr>
-      <td class="dp-lbl" colspan="2">6.3.1.&#8202;보증내용 :</td>
-      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_3_0" rows="2" placeholder="보증내용">\${E(v('dp_6_3_0'))}</textarea></div></td>
+      <td class="dp-lbl" colspan="2">6.3.1.&#8202;\${BL('dp_6_3_1_lbl')} :</td>
+      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_3_0" rows="2" placeholder="\${BL('dp_ph_warranty_content')}">\${E(v('dp_6_3_0'))}</textarea></div></td>
     </tr>
     <tr>
-      <td class="dp-lbl" colspan="2">6.3.2.&#8202;보증기간 :</td>
-      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_3_1" rows="2" placeholder="보증기간">\${E(v('dp_6_3_1'))}</textarea></div></td>
+      <td class="dp-lbl" colspan="2">6.3.2.&#8202;\${BL('dp_6_3_2_lbl')} :</td>
+      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_3_1" rows="2" placeholder="\${BL('dp_ph_warranty_period')}">\${E(v('dp_6_3_1'))}</textarea></div></td>
     </tr>
     <tr>
-      <td class="dp-lbl" colspan="2">6.3.3.&#8202;보증에서 제외되는 사항 :</td>
-      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_3_2" rows="2" placeholder="보증에서 제외되는 사항">\${E(v('dp_6_3_2'))}</textarea></div></td>
+      <td class="dp-lbl" colspan="2">6.3.3.&#8202;\${BL('dp_6_3_3_lbl')} :</td>
+      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_3_2" rows="2" placeholder="\${BL('dp_ph_warranty_exclusion')}">\${E(v('dp_6_3_2'))}</textarea></div></td>
     </tr>
     <tr>
-      <td class="dp-lbl" colspan="2">6.3.4.&#8202;차량소유자의 의무 :</td>
-      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_3_3" rows="2" placeholder="차량소유자의 의무">\${E(v('dp_6_3_3'))}</textarea></div></td>
+      <td class="dp-lbl" colspan="2">6.3.4.&#8202;\${BL('dp_6_3_4_lbl')} :</td>
+      <td colspan="6"><div class="dp-field"><textarea class="dp-field-text" data-field="dp_6_3_3" rows="2" placeholder="\${BL('dp_ph_owner_duty')}">\${E(v('dp_6_3_3'))}</textarea></div></td>
     </tr>
   </tbody>
 </table>
@@ -10356,7 +11342,7 @@ function buildFormHTML(formType, saved) {
       <td class="dp-lbl">\${BL('dp_7_1_lbl')}</td>
       <td>
         <div class="dp-field">
-          <textarea class="dp-field-text" data-field="dp_7_1" rows="3" placeholder="표지판 견본 설명">\${E(v('dp_7_1'))}</textarea>
+          <textarea class="dp-field-text" data-field="dp_7_1" rows="3" placeholder="\${BL('dp_ph_sign_desc')}">\${E(v('dp_7_1'))}</textarea>
           <input type="hidden" id="dp_7_1_imgs" data-field="dp_7_1_imgs" value="\${E(v('dp_7_1_imgs'))}">
           <div class="dp-drop" id="dp_7_1_drop" onclick="document.getElementById('dp_7_1_fi').click();" ondragover="event.preventDefault();this.classList.add('drag-over');" ondragleave="this.classList.remove('drag-over');" ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('dp_7_1_imgs','dp_7_1_drop',event.dataTransfer.files);">
             <input type="file" id="dp_7_1_fi" accept="image/*" multiple onchange="dpAddFiles('dp_7_1_imgs','dp_7_1_drop',this.files);this.value='';">
@@ -10370,7 +11356,7 @@ function buildFormHTML(formType, saved) {
       <td class="dp-lbl">\${BL('dp_7_2_lbl')}</td>
       <td>
         <div class="dp-field">
-          <textarea class="dp-field-text" data-field="dp_7_2" rows="3" placeholder="부착위치 등 기재">\${E(v('dp_7_2'))}</textarea>
+          <textarea class="dp-field-text" data-field="dp_7_2" rows="3" placeholder="\${BL('dp_ph_attach_pos')}">\${E(v('dp_7_2'))}</textarea>
           <input type="hidden" id="dp_7_2_imgs" data-field="dp_7_2_imgs" value="\${E(v('dp_7_2_imgs'))}">
           <div class="dp-drop" id="dp_7_2_drop" onclick="document.getElementById('dp_7_2_fi').click();" ondragover="event.preventDefault();this.classList.add('drag-over');" ondragleave="this.classList.remove('drag-over');" ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('dp_7_2_imgs','dp_7_2_drop',event.dataTransfer.files);">
             <input type="file" id="dp_7_2_fi" accept="image/*" multiple onchange="dpAddFiles('dp_7_2_imgs','dp_7_2_drop',this.files);this.value='';">
@@ -10417,7 +11403,7 @@ function buildFormHTML(formType, saved) {
     <tr>
       <td colspan="5">
         <div class="dp-field" style="flex-direction:row;align-items:flex-start;gap:6px;">
-          <span style="font-size:7.5pt;color:#666;white-space:nowrap;padding-top:6px;">\${sec.replace(/^[\d.]+\s*/,'')} 구성도 첨부:</span>
+          <span style="font-size:7.5pt;color:#666;white-space:nowrap;padding-top:6px;">\${BL('dp_lbl_diagram_attach').replace('{sec}',sec.replace(/^[\d.]+\s*/,''))}</span>
           <div style="flex:1;">
             <input type="hidden" id="\${pfx}_diagram_imgs" data-field="\${pfx}_diagram_imgs" value="\${E(v(\`\${pfx}_diagram_imgs\`))}">
             <div class="dp-drop" id="\${pfx}_diagram_drop" onclick="document.getElementById('\${pfx}_diagram_fi').click();" ondragover="event.preventDefault();this.classList.add('drag-over');" ondragleave="this.classList.remove('drag-over');" ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('\${pfx}_diagram_imgs','\${pfx}_diagram_drop',event.dataTransfer.files);">
@@ -10438,7 +11424,7 @@ function buildFormHTML(formType, saved) {
     <col style="width:22%;"><col style="width:13%;"><col style="width:13%;"><col style="width:26%;"><col style="width:26%;">
   </colgroup>
   <tbody>
-    <tr><th class="dp-sub-th" colspan="5">8.10. 감지변수 대 제어변수</th></tr>
+    <tr><th class="dp-sub-th" colspan="5">\${BL('dp_8_10_title')}</th></tr>
     <tr>
       <th class="dp-th">${BL('dp_th_sensor_var')}</th>
       <th class="dp-th">${BL('dp_th_fuel_afr')}</th>
@@ -10446,7 +11432,7 @@ function buildFormHTML(formType, saved) {
       <th class="dp-th">${BL('dp_th_canister_purge')}</th>
       <th class="dp-th">${BL('dp_th_note')}</th>
     </tr>
-    \${['배출가스 중 산소농도','흡입공기 유량','흡입공기 온도','냉각수 온도','스로틀 위치','대기압','흡기부압','크랭크샤프트 위치','캠 샤프트 위치','배터리 전압','차량 속도','원동기 회전수','변속기 기어','정지 및 중립','브레이크 적용','에어컨 가동','원동기 녹킹'].map((row,ri)=>\`<tr>
+    \${[BL('dp_sv_o2'),BL('dp_sv_air_flow'),BL('dp_sv_air_temp'),BL('dp_sv_coolant'),BL('dp_sv_throttle'),BL('dp_sv_baro'),BL('dp_sv_intake_vac'),BL('dp_sv_crank'),BL('dp_sv_cam'),BL('dp_sv_batt'),BL('dp_sv_speed'),BL('dp_sv_rpm'),BL('dp_sv_gear'),BL('dp_sv_idle'),BL('dp_sv_brake'),BL('dp_sv_ac'),BL('dp_sv_knock')].map((row,ri)=>\`<tr>
       <td class="dp-lbl">\${row}</td>
       <td><input class="dp-inp" data-field="dp_8_10_fuel_\${ri}" type="text" value="\${E(v(\`dp_8_10_fuel_\${ri}\`))}"></td>
       <td><input class="dp-inp" data-field="dp_8_10_ign_\${ri}" type="text" value="\${E(v(\`dp_8_10_ign_\${ri}\`))}"></td>
@@ -10463,19 +11449,19 @@ function buildFormHTML(formType, saved) {
     <col style="width:17%;"><col style="width:14%;"><col style="width:16%;">
   </colgroup>
   <tbody>
-    <tr><th class="dp-sub-th" colspan="6">8.11. 부품목록</th></tr>
+    <tr><th class="dp-sub-th" colspan="6">\${BL('dp_8_11_title')}</th></tr>
     <tr>
       <th class="dp-th" rowspan="2">${BL('dp_th_item')}</th>
       <th class="dp-th" rowspan="2">${BL('dp_th_sub_item')}</th>
       <th class="dp-th" rowspan="2">${BL('dp_th_part_no')}</th>
       <th class="dp-th" colspan="2">\${BL('em_lbl_maker2')}</th>
-      <th class="dp-th" rowspan="2">비고</th>
+      <th class="dp-th" rowspan="2">\${BL('dp_lbl_remark')}</th>
     </tr>
     <tr>
       <th class="dp-th">${BL('dp_th_mfr')}</th>
       <th class="dp-th">${BL('dp_th_mfr_country')}</th>
     </tr>
-    \${['점화장치','연료공급장치','배출가스 전환장치','배출가스 재순환장치','연료증발가스 방지장치','브로바이가스 환원장치','2차공기 분사장치'].map((item,ii)=>\`<tr>
+    \${[BL('dp_8_11_ign'),BL('dp_8_11_fuel'),BL('dp_8_11_cat'),BL('dp_8_11_egr'),BL('dp_8_11_evap'),BL('dp_8_11_blow'),BL('dp_8_11_air')].map((item,ii)=>\`<tr>
       <td class="dp-lbl">\${item}</td>
       <td><input class="dp-inp" data-field="dp_8_11_\${ii}_sub" type="text" value="\${E(v(\`dp_8_11_\${ii}_sub\`))}"></td>
       <td><input class="dp-inp" data-field="dp_8_11_\${ii}_partno" type="text" value="\${E(v(\`dp_8_11_\${ii}_partno\`))}"></td>
@@ -10492,14 +11478,14 @@ function buildFormHTML(formType, saved) {
     <col style="width:13%;"><col style="width:14%;"><col style="width:28%;"><col style="width:27%;"><col style="width:18%;">
   </colgroup>
   <tbody>
-    <tr><th class="dp-sub-th" colspan="5">8.12. 선택적촉매장치(SCR) 성능 및 원리 등 설명</th></tr>
+    <tr><th class="dp-sub-th" colspan="5">\${BL('dp_8_12_title')}</th></tr>
     <tr>
       <th class="dp-th">${BL('dp_th_item')}</th><th class="dp-th">${BL('dp_th_sub_item')}</th>
       <th class="dp-th">${BL('dp_th_structure')}</th>
       <th class="dp-th">${BL('dp_th_ctrl_tech')}</th>
       <th class="dp-th">${BL('dp_th_emission_eff')}</th>
     </tr>
-    \${['공급계','제어계','분사계','충전경고 시스템'].map((row,ri)=>\`<tr>
+    \${[BL('dp_8_12_r0'),BL('dp_8_12_r1'),BL('dp_8_12_r2'),BL('dp_8_12_r3')].map((row,ri)=>\`<tr>
       <td class="dp-lbl">\${row}</td><td><input class="dp-inp" data-field="dp_8_12_\${ri}_sub" type="text" value="\${E(v(\`dp_8_12_\${ri}_sub\`))}"></td>
       <td><input class="dp-inp" data-field="dp_8_12_\${ri}_struct" type="text" value="\${E(v(\`dp_8_12_\${ri}_struct\`))}"></td>
       <td><input class="dp-inp" data-field="dp_8_12_\${ri}_ctrl" type="text" value="\${E(v(\`dp_8_12_\${ri}_ctrl\`))}"></td>
@@ -10512,11 +11498,11 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:20%;"><col style="width:16%;"><col style="width:16%;"><col style="width:16%;"><col style="width:16%;"><col style="width:16%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sub-th" colspan="6">8.13. 선택적촉매장치(SCR)용 요소수용액 성분분석 결과</th></tr>
+    <tr><th class="dp-sub-th" colspan="6">\${BL('dp_8_13_title')}</th></tr>
     <tr>
-      <th class="dp-th">항목</th><th class="dp-th">분석결과</th>
-      <th class="dp-th">분석기관</th><th class="dp-th">분석방법</th>
-      <th class="dp-th">분석년월일</th><th class="dp-th">증빙번호</th>
+      <th class="dp-th">\${BL('dp_th_item')}</th><th class="dp-th">\${BL('dp_th_analysis_result')}</th>
+      <th class="dp-th">\${BL('dp_th_analysis_org')}</th><th class="dp-th">\${BL('dp_th_analysis_method')}</th>
+      <th class="dp-th">\${BL('dp_th_analysis_date')}</th><th class="dp-th">\${BL('dp_th_proof_no')}</th>
     </tr>
     \${[0,1,2].map(i=>\`<tr>
       <td><input class="dp-inp" data-field="dp_8_13_\${i}_item" type="text" value="\${E(v(\`dp_8_13_\${i}_item\`))}"></td>
@@ -10533,9 +11519,9 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:35%;"><col style="width:65%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sub-th" colspan="2">8.14. 전기자동차 제어장치</th></tr>
-    <tr><td class="dp-lbl">8.14.1. 전동기 및 전동기 제어장치</td><td>
-      <div class="dp-field"><textarea class="dp-field-text" data-field="dp_8_14_1" rows="2" placeholder="전동기 및 전동기 제어장치 설명">\${E(v('dp_8_14_1'))}</textarea></div>
+    <tr><th class="dp-sub-th" colspan="2">\${BL('dp_8_14_title')}</th></tr>
+    <tr><td class="dp-lbl">8.14.1. \${BL('dp_8_14_1_lbl')}</td><td>
+      <div class="dp-field"><textarea class="dp-field-text" data-field="dp_8_14_1" rows="2" placeholder="\${BL('dp_ph_motor_ctrl')}">\${E(v('dp_8_14_1'))}</textarea></div>
       <input type="hidden" id="dp_8_14_1_imgs" data-field="dp_8_14_1_imgs" value="\${E(v('dp_8_14_1_imgs'))}">
       <div class="dp-drop" id="dp_8_14_1_drop"
         onclick="document.getElementById('dp_8_14_1_fi').click();"
@@ -10547,8 +11533,8 @@ function buildFormHTML(formType, saved) {
         <div class="dp-img-list" id="dp_8_14_1_imgs_list"></div>
       </div>
     </td></tr>
-    <tr><td class="dp-lbl">8.14.2. 축전지 및 축전지 제어장치</td><td>
-      <div class="dp-field"><textarea class="dp-field-text" data-field="dp_8_14_2" rows="2" placeholder="축전지 및 축전지 제어장치 설명">\${E(v('dp_8_14_2'))}</textarea></div>
+    <tr><td class="dp-lbl">8.14.2. \${BL('dp_8_14_2_lbl')}</td><td>
+      <div class="dp-field"><textarea class="dp-field-text" data-field="dp_8_14_2" rows="2" placeholder="\${BL('dp_ph_batt_ctrl')}">\${E(v('dp_8_14_2'))}</textarea></div>
       <input type="hidden" id="dp_8_14_2_imgs" data-field="dp_8_14_2_imgs" value="\${E(v('dp_8_14_2_imgs'))}">
       <div class="dp-drop" id="dp_8_14_2_drop"
         onclick="document.getElementById('dp_8_14_2_fi').click();"
@@ -10571,13 +11557,13 @@ function buildFormHTML(formType, saved) {
   </colgroup>
   <tbody>
     <tr><th class="dp-sec-th" colspan="3">\${BL('dp_s9')}</th></tr>
-    <tr><th class="dp-sub-th" colspan="3">9.1. 증발가스 제어장치 설명</th></tr>
+    <tr><th class="dp-sub-th" colspan="3">\${BL('dp_9_1_title')}</th></tr>
     <tr>
-      <th class="dp-th">저장 장치</th>
-      <th class="dp-th">흡수용량(C)</th>
-      <th class="dp-th">크기(㎤)/매체</th>
+      <th class="dp-th">\${BL('dp_th_storage')}</th>
+      <th class="dp-th">\${BL('dp_th_absorb_cap')}</th>
+      <th class="dp-th">\${BL('dp_th_size_media')}</th>
     </tr>
-    \${['캐니스터','에어클리너','크랭크케이스','기타'].map((dev,di)=>\`<tr>
+    \${[BL('dp_9_1_r0'),BL('dp_9_1_r1'),BL('dp_9_1_r2'),BL('dp_9_1_r3')].map((dev,di)=>\`<tr>
       <td class="dp-lbl">\${dev}</td>
       <td><input class="dp-inp" data-field="dp_9_1_\${di}_cap" type="text" value="\${E(v(\`dp_9_1_\${di}_cap\`))}"></td>
       <td><input class="dp-inp" data-field="dp_9_1_\${di}_size" type="text" value="\${E(v(\`dp_9_1_\${di}_size\`))}"></td>
@@ -10591,7 +11577,7 @@ function buildFormHTML(formType, saved) {
     <col style="width:26%;"><col style="width:18%;">
   </colgroup>
   <tbody>
-    <tr><th class="dp-sub-th" colspan="5">증발가스 제어장치 부품리스트(보조배출가스 제어장치 포함)</th></tr>
+    <tr><th class="dp-sub-th" colspan="5">\${BL('dp_9_2_parts_title')}</th></tr>
     <tr>
       <th class="dp-th">${BL('dp_th_evap_code')}</th>
       <th class="dp-th">${BL('dp_th_nominal_tank')}</th>
@@ -10614,13 +11600,13 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr>
       <td class="dp-lbl" style="padding-top:6px;">
-        <strong>9.2. 제어장치 구성도</strong>
+        <strong>\${BL('dp_9_2_title')}</strong>
       </td>
     </tr>
     <tr>
       <td>
         <div class="dp-field">
-          <textarea class="dp-field-text" data-field="dp_9_2" rows="3" placeholder="제어장치 구성도 설명">\${E(v('dp_9_2'))}</textarea>
+          <textarea class="dp-field-text" data-field="dp_9_2" rows="3" placeholder="\${BL('dp_ph_ctrl_diagram')}">\${E(v('dp_9_2'))}</textarea>
           <input type="hidden" id="dp_9_2_imgs" data-field="dp_9_2_imgs" value="\${E(v('dp_9_2_imgs'))}">
           <div class="dp-drop" id="dp_9_2_drop"
             onclick="document.getElementById('dp_9_2_fi').click();"
@@ -10646,7 +11632,7 @@ function buildFormHTML(formType, saved) {
   </colgroup>
   <tbody>
     <tr><th class="dp-sec-th" colspan="5">\${BL('dp_s10')}</th></tr>
-    <tr><th class="dp-sub-th" colspan="5">10.1. 배출가스 및 소음 동일차종(원동기) 설명</th></tr>
+    <tr><th class="dp-sub-th" colspan="5">\${BL('dp_10_1_title')}</th></tr>
     <tr>
       <th class="dp-th" colspan="3">${BL('dp_th_category')}</th>
       <th class="dp-th">${BL('dp_th_basic_model')}</th>
@@ -10654,12 +11640,12 @@ function buildFormHTML(formType, saved) {
     </tr>
     <!-- 단순 1행 항목들 -->
     \${[
-      ['차명','dp_10_1_carname'],['자동차 형식','dp_10_1_type'],['차체형상','dp_10_1_body'],
-      ['승차인원','dp_10_1_passenger'],['사용연료','dp_10_1_fuel'],['배기량(cc)','dp_10_1_disp'],
-      ['연소방식','dp_10_1_comb'],['실린더 수','dp_10_1_cyl'],['최대출력(ps/rpm)','dp_10_1_maxpow'],
-      ['최대토크(kg-m/rpm)','dp_10_1_maxtq'],['보어*스트로크(mm)','dp_10_1_bore'],['압축비','dp_10_1_compress'],
-      ['실린더 보어 중심간의 거리(mm)','dp_10_1_cyl_dist'],['실린더 블록 형상','dp_10_1_block'],
-      ['실린더 배열','dp_10_1_cylarr'],['실린더 헤드 방식','dp_10_1_head'],
+      [BL('dp_lbl_car_name'),'dp_10_1_carname'],[BL('dp_lbl_car_type'),'dp_10_1_type'],[BL('dp_lbl_body_shape'),'dp_10_1_body'],
+      [BL('dp_lbl_passenger'),'dp_10_1_passenger'],[BL('dp_lbl_fuel_type'),'dp_10_1_fuel'],[BL('dp_lbl_displacement'),'dp_10_1_disp'],
+      [BL('dp_lbl_combustion'),'dp_10_1_comb'],[BL('dp_lbl_cyl_count'),'dp_10_1_cyl'],[BL('dp_lbl_max_power'),'dp_10_1_maxpow'],
+      [BL('dp_lbl_max_torque'),'dp_10_1_maxtq'],[BL('dp_lbl_bore_stroke'),'dp_10_1_bore'],[BL('dp_lbl_compress_ratio'),'dp_10_1_compress'],
+      [BL('dp_10_1_cyl_dist_lbl'),'dp_10_1_cyl_dist'],[BL('dp_10_1_block_lbl'),'dp_10_1_block'],
+      [BL('dp_lbl_cyl_arr'),'dp_10_1_cylarr'],[BL('dp_10_1_head_lbl'),'dp_10_1_head'],
     ].map(([lbl,fld])=>\`<tr>
       <td class="dp-lbl" colspan="3">\${lbl}</td>
       <td><input class="dp-inp" data-field="\${fld}_base" type="text" value="\${E(v(\`\${fld}_base\`))}"></td>
@@ -10795,7 +11781,7 @@ function buildFormHTML(formType, saved) {
     <col style="width:18%;"><col style="width:22%;"><col style="width:30%;"><col style="width:30%;">
   </colgroup>
   <tbody>
-    <tr><th class="dp-sub-th" colspan="4">10.2. 증발가스 동일차종 설명</th></tr>
+    <tr><th class="dp-sub-th" colspan="4">\${BL('dp_10_2_title')}</th></tr>
     <tr>
       <th class="dp-th" colspan="2">${BL('dp_th_category')}</th>
       <th class="dp-th">${BL('dp_th_basic_model')}</th>
@@ -10866,7 +11852,7 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:35%;"><col style="width:32.5%;"><col style="width:32.5%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sub-th" colspan="3">10.3. 배출가스자기진단장치 동일차종 설명</th></tr>
+    <tr><th class="dp-sub-th" colspan="3">\${BL('dp_10_3_title')}</th></tr>
     <tr>
       <th class="dp-th">${BL('dp_th_category')}</th>
       <th class="dp-th">${BL('dp_th_basic_model')}</th>
@@ -10896,7 +11882,7 @@ function buildFormHTML(formType, saved) {
   </colgroup>
   <tbody>
     <tr><th class="dp-sec-th" colspan="4">\${BL('dp_s11')}</th></tr>
-    <tr><th class="dp-sub-th" colspan="4">11.1. 시험차량 선정</th></tr>
+    <tr><th class="dp-sub-th" colspan="4">\${BL('dp_11_1_title')}</th></tr>
     <tr>
       <th class="dp-th" colspan="2">${BL('dp_th_category')}</th>
       <th class="dp-th">${BL('dp_th_dur_test')}</th>
@@ -10966,7 +11952,7 @@ function buildFormHTML(formType, saved) {
 <table class="dp-tbl" style="table-layout:fixed; width:100%; margin-bottom:0;">
   <colgroup><col style="width:28%;"><col style="width:72%;"></colgroup>
   <tbody>
-    <tr><th class="dp-sub-th" colspan="2">11.2. 내구성 시험차량 선정</th></tr>
+    <tr><th class="dp-sub-th" colspan="2">\${BL('dp_11_2_title')}</th></tr>
     <tr>
       <td class="dp-lbl">${BL('dp_lbl_dur_test_select')}</td>
       <td>
@@ -10990,7 +11976,7 @@ function buildFormHTML(formType, saved) {
     <col style="width:40%;"><col style="width:30%;"><col style="width:30%;">
   </colgroup>
   <tbody>
-    <tr><th class="dp-sub-th" colspan="3">11.3. 배출가스 시험차량 선정</th></tr>
+    <tr><th class="dp-sub-th" colspan="3">\${BL('dp_11_3_title')}</th></tr>
     <!-- A. 차대 동력계 -->
     <tr>
       <td class="dp-lbl" colspan="3" style="font-weight:600; background:#f5f5f5;">
@@ -11042,7 +12028,7 @@ function buildFormHTML(formType, saved) {
     <col style="width:40%;"><col style="width:30%;"><col style="width:30%;">
   </colgroup>
   <tbody>
-    <tr><th class="dp-sub-th" colspan="3">11.4. 소음 시험차량 선정</th></tr>
+    <tr><th class="dp-sub-th" colspan="3">\${BL('dp_11_4_title')}</th></tr>
     <tr>
       <th class="dp-th">\${BL('g_th_item')}</th>
       <td><input class="dp-inp" data-field="dp_11_4_hdr1" type="text" placeholder="${BL('dp_11_1_sub_hdr_ph')}" value="\${E(v('dp_11_4_hdr1'))}"></td>
@@ -11067,7 +12053,7 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr><th class="dp-sec-th">\${BL('dp_s12')}</th></tr>
     <tr><td style="font-size:7.5pt;color:#555;padding:4px 6px;">
-      내구성 시험을 실시하는 경우로서 인증신청 당시까지 세부개발계획이 확정되지 않는 등 불가피한 사유로 최초 제출하는 신청서류에 기재할 수 없는 사항이 있는 경우 그 사유를 명시하고, 내구성시험 최종보고서 제출 시 확정된 사항을 일괄적으로 제출할 수 있다.
+      \${BL('dp_durability_note')}
     </td></tr>
     <tr><td>
       <div class="dp-field"><textarea class="dp-field-text" data-field="dp_12" rows="4" placeholder="${BL('dp_12_ph')}">\${E(v('dp_12'))}</textarea></div>
@@ -12706,7 +13692,7 @@ function buildFormHTML(formType, saved) {
   </tr>
   <tr>
     <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px;">1.5.3.</td>
-    <td class="obd-lbl" style="vertical-align:top; padding-top:6px;">\${BL('obd_lbl_2nd_monitor')}등을 위한 방법을 포함한 포괄적인 설명자료</td>
+    <td class="obd-lbl" style="vertical-align:top; padding-top:6px;">\${BL('obd_lbl_2nd_monitor')}\${BL('obd_lbl_2nd_monitor_suffix')}</td>
     <td><textarea class="obd-field-text" data-field="obd_1_5_3_desc" placeholder="\${BL('obd_ph_content')}" style="min-height:36px;"></textarea></td>
   </tr>
 </table>
@@ -12962,7 +13948,7 @@ function buildFormHTML(formType, saved) {
     <td><textarea class="obd-field-text" data-field="obd_2_3_fuel_supply_2" placeholder="${BL('obd_fuel_supply_ph')}"></textarea></td>
   </tr>
   <tr>
-    <td class="obd-lbl" rowspan="4" style="text-align:center; vertical-align:middle;">\${BL('sv_emission')}<br>제어장치</td>
+    <td class="obd-lbl" rowspan="4" style="text-align:center; vertical-align:middle;">\${BL('sv_emission')}<br>\${BL('obd_lbl_ctrl_dev')}</td>
     <td class="obd-lbl">\${BL('obd_lbl_cat_type')}</td>
     <td><textarea class="obd-field-text" data-field="obd_2_3_cat_type_1" placeholder="${BL('obd_cat_type_ph')}"></textarea></td>
     <td><textarea class="obd-field-text" data-field="obd_2_3_cat_type_2" placeholder="${BL('obd_cat_type_ph')}"></textarea></td>
@@ -12983,7 +13969,7 @@ function buildFormHTML(formType, saved) {
     <td><textarea class="obd-field-text" data-field="obd_2_3_egr_2" placeholder="${BL('obd_yn_ph')}"></textarea></td>
   </tr>
   <tr>
-    <td class="obd-lbl" rowspan="3" style="text-align:center; vertical-align:middle;">\${BL('sv_emission')}<br>자기진단장치의<br>구성 및 기능</td>
+    <td class="obd-lbl" rowspan="3" style="text-align:center; vertical-align:middle;">\${BL('sv_emission')}<br>\${BL('obd_lbl_diag_config')} 및 기능</td>
     <td class="obd-lbl">\${BL('obd_lbl_obd_method')}</td>
     <td><textarea class="obd-field-text" data-field="obd_2_3_obd_method_1" placeholder="\${BL('obd_ph_method')}"></textarea></td>
     <td><textarea class="obd-field-text" data-field="obd_2_3_obd_method_2" placeholder="\${BL('obd_ph_method')}"></textarea></td>
@@ -15788,8 +16774,8 @@ function buildFormHTML(formType, saved) {
       <th class="nt-th">\${BL('nt_v_bb')}</th>
       <th class="nt-th">\${BL('nt_n_bb')}</th>
       <th class="nt-th">\${BL('nt_accel_start')}</th>
-      <th class="nt-th">좌측<br>\${BL('sv_noise_simple')}</th>
-      <th class="nt-th">우측<br>\${BL('sv_noise_simple')}</th>
+      <th class="nt-th">\${BL('dp_lbl_left')}<br>\${BL('sv_noise_simple')}</th>
+      <th class="nt-th">\${BL('dp_lbl_right')}<br>\${BL('sv_noise_simple')}</th>
       <th class="nt-th">\${BL('nt_accel_val')}</th>
       <th class="nt-th">좌측<br>\${BL('sv_noise_simple')}</th>
       <th class="nt-th">우측<br>\${BL('sv_noise_simple')}</th>
@@ -16829,7 +17815,7 @@ function buildFormHTML(formType, saved) {
 <div id="qr-footer-wrap" style="margin-top:12px;"></div>
 \`;
 
-  return '<div class="form-section" style="text-align:center;color:var(--c-text3);padding:40px;">준비 중입니다.</div>';
+  return '<div class="form-section" style="text-align:center;color:var(--c-text3);padding:40px;">'+BL('msg_coming_soon')+'</div>';
 }
 
 // ================================================================
@@ -17200,7 +18186,7 @@ function initEnFields() {
       try {
         var saved = JSON.parse(hiddenInput.value);
         if (Array.isArray(saved)) images = saved;
-      } catch(e) { /* 파싱 실패 시 무시 */ }
+      } catch(e) { /* parse error ignored */ }
       render();
     }
 
@@ -17517,17 +18503,17 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <label class="label">현재 비밀번호 <span style="color:var(--c-danger);">*</span></label>
-        <input id="cpw-current" class="input" type="password" placeholder="현재 비밀번호를 입력하세요" autocomplete="current-password"
+        <label class="label">\${BL('pw_lbl_current')} <span style="color:var(--c-danger);">*</span></label>
+        <input id="cpw-current" class="input" type="password" placeholder="\${BL('pw_ph_current')}" autocomplete="current-password"
           onkeydown="if(event.key==='Enter')document.getElementById('cpw-new').focus()">
       </div>
       <div class="form-group">
-        <label class="label">새 비밀번호 <span style="color:var(--c-danger);">*</span></label>
-        <input id="cpw-new" class="input" type="password" placeholder="4자 이상" autocomplete="new-password"
+        <label class="label">\${BL('pw_lbl_new')} <span style="color:var(--c-danger);">*</span></label>
+        <input id="cpw-new" class="input" type="password" placeholder="\${BL('pw_ph_new')}" autocomplete="new-password"
           onkeydown="if(event.key==='Enter')document.getElementById('cpw-new2').focus()">
       </div>
       <div class="form-group">
-        <label class="label">새 비밀번호 확인 <span style="color:var(--c-danger);">*</span></label>
+        <label class="label">\${BL('pw_lbl_confirm')} <span style="color:var(--c-danger);">*</span></label>
         <input id="cpw-new2" class="input" type="password" placeholder="재입력" autocomplete="new-password"
           onkeydown="if(event.key==='Enter')doChangePw()">
       </div>
@@ -17536,7 +18522,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeChangePwModal()">${LL('btn_cancel')}</button>
       <button id="cpw-btn" class="btn btn-primary" onclick="doChangePw()">
-        <i class="fas fa-check"></i>변경
+        <i class="fas fa-check"></i>\${BL('btn_change')}
       </button>
     </div>
   </div>

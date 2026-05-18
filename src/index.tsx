@@ -11397,7 +11397,7 @@ if (formType==='detail_plan') return \`
   </tr>
 </table>
 
-<div class="nt-form-tag">[별지 제27의2호 서식]</div>
+<div class="nt-form-tag">[별지 제27호 내지 제27호의2호 서식]</div>
 <div class="nt-main-title">\${BL('nt_main_title')}</div>
 
 <!-- 1. 시험관련 규정 -->

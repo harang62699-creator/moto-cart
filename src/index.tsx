@@ -8382,6 +8382,33 @@ if (formType==='detail_plan') return \`
 
   /* ── 페이지 분리 방지 (행 단위) ── */
   .en-tbl tr { page-break-inside:avoid; }
+
+  /* ── dp-drop 방식 인쇄 (obd_config 1.2.2, 1.2.3.x) ── */
+  .dp-drop {
+    border:none !important; background:transparent !important;
+    padding:0 !important; min-height:unset !important;
+    height:auto !important; overflow:visible !important;
+    cursor:default !important;
+  }
+  .dp-drop-hint { display:none !important; }
+  .dp-img-item-del { display:none !important; }
+  .dp-img-list {
+    display:flex !important; flex-direction:column !important;
+    gap:6px !important; margin-top:2px !important;
+  }
+  .dp-img-item {
+    display:block !important; width:100% !important;
+    position:static !important;
+  }
+  .dp-img-item img {
+    width:100% !important; height:auto !important;
+    max-width:100% !important; max-height:none !important;
+    object-fit:contain !important; display:block !important;
+    border:none !important; border-radius:0 !important;
+    background:transparent !important;
+    page-break-inside:avoid;
+  }
+  .dp-drop:not(:has(img)) { display:none !important; }
 }
 
 .obd-wrap {
@@ -8605,12 +8632,17 @@ if (formType==='detail_plan') return \`
     <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px;">1.2.2.</td>
     <td>
       <div style="font-size:8pt; padding:2px 0; color:#333; margin-bottom:4px;">오작동 표시등의 형태 및 위치 : 형태 및 위치를 알 수 있는 도면 또는 사진</div>
-      <div class="obd-drop" id="obd-drop-1_2_2" onclick="document.getElementById('obd-file-1_2_2').click()">
-        <div class="obd-drop-hint"><i class="fas fa-image"></i> 클릭하여 도면/사진 첨부</div>
-        <input type="file" id="obd-file-1_2_2" accept="image/*" multiple data-drop-id="obd-drop-1_2_2">
-        <input type="hidden" data-field="obd_1_2_2_img" value="\${E(v('obd_1_2_2_img'))}">
+      <input type="hidden" id="obd_1_2_2_imgs" data-field="obd_1_2_2_imgs" value="\${E(v('obd_1_2_2_imgs'))}">
+      <div class="dp-drop" id="obd_1_2_2_drop"
+           onclick="document.getElementById('obd_1_2_2_fi').click();"
+           ondragover="event.preventDefault();this.classList.add('drag-over');"
+           ondragleave="this.classList.remove('drag-over');"
+           ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('obd_1_2_2_imgs','obd_1_2_2_drop',event.dataTransfer.files);">
+        <input type="file" id="obd_1_2_2_fi" accept="image/*" multiple
+               onchange="dpAddFiles('obd_1_2_2_imgs','obd_1_2_2_drop',this.files);this.value='';">
+        <div class="dp-drop-hint"><i class="fas fa-image"></i> \${BL('dp_img_hint')}</div>
+        <div class="dp-img-list" id="obd_1_2_2_imgs_list"></div>
       </div>
-      <div class="obd-img-list" id="obd-imgs-1_2_2"></div>
     </td>
   </tr>
   <tr>
@@ -8621,34 +8653,49 @@ if (formType==='detail_plan') return \`
         <tr>
           <td class="obd-lbl" style="width:32%; white-space:nowrap;">1.2.3.1. 왼쪽 핸들 스위치의 제어 및 기호 도면</td>
           <td>
-            <div class="obd-drop" id="obd-drop-1_2_3_1" onclick="document.getElementById('obd-file-1_2_3_1').click()">
-              <div class="obd-drop-hint"><i class="fas fa-image"></i> 클릭하여 도면/사진 첨부</div>
-              <input type="file" id="obd-file-1_2_3_1" accept="image/*" multiple data-drop-id="obd-drop-1_2_3_1">
-              <input type="hidden" data-field="obd_1_2_3_1_img" value="\${E(v('obd_1_2_3_1_img'))}">
+            <input type="hidden" id="obd_1_2_3_1_imgs" data-field="obd_1_2_3_1_imgs" value="\${E(v('obd_1_2_3_1_imgs'))}">
+            <div class="dp-drop" id="obd_1_2_3_1_drop"
+                 onclick="document.getElementById('obd_1_2_3_1_fi').click();"
+                 ondragover="event.preventDefault();this.classList.add('drag-over');"
+                 ondragleave="this.classList.remove('drag-over');"
+                 ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('obd_1_2_3_1_imgs','obd_1_2_3_1_drop',event.dataTransfer.files);">
+              <input type="file" id="obd_1_2_3_1_fi" accept="image/*" multiple
+                     onchange="dpAddFiles('obd_1_2_3_1_imgs','obd_1_2_3_1_drop',this.files);this.value='';">
+              <div class="dp-drop-hint"><i class="fas fa-image"></i> \${BL('dp_img_hint')}</div>
+              <div class="dp-img-list" id="obd_1_2_3_1_imgs_list"></div>
             </div>
-            <div class="obd-img-list" id="obd-imgs-1_2_3_1"></div>
           </td>
         </tr>
         <tr>
           <td class="obd-lbl" style="white-space:nowrap;">1.2.3.2. 오른쪽 핸들 스위치의 제어 및 기호 도면</td>
           <td>
-            <div class="obd-drop" id="obd-drop-1_2_3_2" onclick="document.getElementById('obd-file-1_2_3_2').click()">
-              <div class="obd-drop-hint"><i class="fas fa-image"></i> 클릭하여 도면/사진 첨부</div>
-              <input type="file" id="obd-file-1_2_3_2" accept="image/*" multiple data-drop-id="obd-drop-1_2_3_2">
-              <input type="hidden" data-field="obd_1_2_3_2_img" value="\${E(v('obd_1_2_3_2_img'))}">
+            <input type="hidden" id="obd_1_2_3_2_imgs" data-field="obd_1_2_3_2_imgs" value="\${E(v('obd_1_2_3_2_imgs'))}">
+            <div class="dp-drop" id="obd_1_2_3_2_drop"
+                 onclick="document.getElementById('obd_1_2_3_2_fi').click();"
+                 ondragover="event.preventDefault();this.classList.add('drag-over');"
+                 ondragleave="this.classList.remove('drag-over');"
+                 ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('obd_1_2_3_2_imgs','obd_1_2_3_2_drop',event.dataTransfer.files);">
+              <input type="file" id="obd_1_2_3_2_fi" accept="image/*" multiple
+                     onchange="dpAddFiles('obd_1_2_3_2_imgs','obd_1_2_3_2_drop',this.files);this.value='';">
+              <div class="dp-drop-hint"><i class="fas fa-image"></i> \${BL('dp_img_hint')}</div>
+              <div class="dp-img-list" id="obd_1_2_3_2_imgs_list"></div>
             </div>
-            <div class="obd-img-list" id="obd-imgs-1_2_3_2"></div>
           </td>
         </tr>
         <tr>
           <td class="obd-lbl" style="white-space:nowrap;">1.2.3.3. 키박스 도면</td>
           <td>
-            <div class="obd-drop" id="obd-drop-1_2_3_3" onclick="document.getElementById('obd-file-1_2_3_3').click()">
-              <div class="obd-drop-hint"><i class="fas fa-image"></i> 클릭하여 도면/사진 첨부</div>
-              <input type="file" id="obd-file-1_2_3_3" accept="image/*" multiple data-drop-id="obd-drop-1_2_3_3">
-              <input type="hidden" data-field="obd_1_2_3_3_img" value="\${E(v('obd_1_2_3_3_img'))}">
+            <input type="hidden" id="obd_1_2_3_3_imgs" data-field="obd_1_2_3_3_imgs" value="\${E(v('obd_1_2_3_3_imgs'))}">
+            <div class="dp-drop" id="obd_1_2_3_3_drop"
+                 onclick="document.getElementById('obd_1_2_3_3_fi').click();"
+                 ondragover="event.preventDefault();this.classList.add('drag-over');"
+                 ondragleave="this.classList.remove('drag-over');"
+                 ondrop="event.preventDefault();this.classList.remove('drag-over');dpAddFiles('obd_1_2_3_3_imgs','obd_1_2_3_3_drop',event.dataTransfer.files);">
+              <input type="file" id="obd_1_2_3_3_fi" accept="image/*" multiple
+                     onchange="dpAddFiles('obd_1_2_3_3_imgs','obd_1_2_3_3_drop',this.files);this.value='';">
+              <div class="dp-drop-hint"><i class="fas fa-image"></i> \${BL('dp_img_hint')}</div>
+              <div class="dp-img-list" id="obd_1_2_3_3_imgs_list"></div>
             </div>
-            <div class="obd-img-list" id="obd-imgs-1_2_3_3"></div>
           </td>
         </tr>
       </table>
@@ -12932,6 +12979,11 @@ function showToast(msg, type='info') {
       ['dp_13_imgs','dp_13_drop'],
       ['dp_8_14_1_imgs','dp_8_14_1_drop'],
       ['dp_8_14_2_imgs','dp_8_14_2_drop'],
+      // obd_config 1.2.2, 1.2.3.x 드롭존
+      ['obd_1_2_2_imgs','obd_1_2_2_drop'],
+      ['obd_1_2_3_1_imgs','obd_1_2_3_1_drop'],
+      ['obd_1_2_3_2_imgs','obd_1_2_3_2_drop'],
+      ['obd_1_2_3_3_imgs','obd_1_2_3_3_drop'],
     ].forEach(function(pair){ dpRenderDrop(pair[0], pair[1]); });
     // 8.x diagram 복원
     ['dp_8_1','dp_8_2','dp_8_3','dp_8_4','dp_8_5','dp_8_6','dp_8_7','dp_8_8','dp_8_9'].forEach(function(pfx){
@@ -12942,6 +12994,9 @@ function showToast(msg, type='info') {
 
 // ── obd_config 이미지 드롭존 초기화 ─────────────────────────────────
 function initObdImgDrops() {
+  // dp-drop 방식 드롭존 복원 (1.2.2, 1.2.3.x)
+  if (typeof window.dpRestoreAll === 'function') window.dpRestoreAll();
+
   // obd-wrap 안의 모든 .obd-drop 을 자동 탐색하여 초기화
   var wrap = document.querySelector('.obd-wrap');
   if (!wrap) return;

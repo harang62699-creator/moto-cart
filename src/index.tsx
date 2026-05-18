@@ -2089,7 +2089,7 @@ const LANG_DICT = {
     // 대시보드 & 목록 다국어
     cert_basic:'기본인증', cert_change:'변경인증', cert_report:'변경보고',
     status_draft:'임시저장', status_inprogress:'작성중', status_completed:'완료',
-    dash_title:'인증신청 목록',
+    dash_title:'환경인증 신청 목록',
     stat_total_lbl:'전체 신청서', stat_prog_lbl:'작성중', stat_done_lbl:'완료', stat_draft_lbl:'임시저장',
     btn_new_appl:'새 신청서 작성', btn_first_appl:'첫 신청서 작성하기',
     btn_write:'작성', btn_delete:'삭제',
@@ -3435,11 +3435,6 @@ function updateHeader() {
   const el = document.getElementById('header-user');
   if (!currentUser) { el.innerHTML = ''; return; }
   el.innerHTML = \`
-    <div style="text-align:right;line-height:1.3;">
-      <div style="font-size:10pt;font-weight:700;color:var(--c-text);">\${esc(currentUser.company_name)}</div>
-      <div style="font-size:10pt;color:var(--c-text3);">@\${esc(currentUser.username)}</div>
-    </div>
-    <div style="width:1px;height:24px;background:var(--c-border);"></div>
     <button class="btn btn-ghost btn-sm" onclick="showChangePwModal()" title="비밀번호 변경">
       <i class="fas fa-key"></i>
     </button>
@@ -3519,8 +3514,7 @@ async function doLogout() {
 // ================================================================
 async function showDashboard() {
   updateHeader(); showPage('page-dashboard');
-  document.getElementById('dash-subtitle').textContent = currentUser
-    ? currentUser.company_name + '  ·  @' + currentUser.username : '';
+  document.getElementById('dash-subtitle').textContent = '';
   await loadApplications();
 }
 

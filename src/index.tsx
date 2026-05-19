@@ -16415,7 +16415,7 @@ function buildFormHTML(formType, saved) {
 .nt-sec-title { font-size:9.5pt; font-weight:700; margin:18px 0 8px; color:#111; }
 
 /* 공통 표 */
-.nt-tbl { width:100%; border-collapse:collapse; font-size:8.5pt; table-layout:fixed; margin-bottom:14px; }
+.nt-tbl { width:100%; border-collapse:collapse; font-size:8.5pt; table-layout:fixed; margin-bottom:14px; box-sizing:border-box; overflow:visible; }
 .nt-tbl th, .nt-tbl td {
   border:1px solid #888; padding:3px 5px;
   vertical-align:middle; word-break:keep-all;
@@ -17235,7 +17235,7 @@ function buildFormHTML(formType, saved) {
 <div class="nt-sec-title" style="margin-top:16px;">\${BL('nt_sec7')}</div>
 <table class="nt-tbl">
   <colgroup>
-    <col style="width:8%;"><col style="width:8%;"><col style="width:18%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;">
+    <col style="width:8%;"><col style="width:8%;"><col style="width:18%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:18%;"><!-- 배기소음 기준치 -->
   </colgroup>
   <thead>
     <tr>
@@ -17282,7 +17282,7 @@ function buildFormHTML(formType, saved) {
 <div class="nt-sec-title" style="margin-top:16px;">\${BL('nt_sec8')}</div>
 <table class="nt-tbl">
   <colgroup>
-    <col style="width:8%;"><col style="width:10%;"><col style="width:12%;"><col style="width:10%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:10%;">
+    <col style="width:8%;"><col style="width:10%;"><col style="width:12%;"><col style="width:10%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><!-- 경적소음 기준치 -->
   </colgroup>
   <thead>
     <tr>

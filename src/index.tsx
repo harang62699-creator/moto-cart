@@ -565,6 +565,12 @@ body {
   border:1px solid rgba(0,200,150,.3);
 }
 .btn-success:hover:not(:disabled) { background:rgba(0,200,150,.22); }
+.btn-secondary {
+  background:rgba(100,130,200,.12);
+  color:#6082c8;
+  border:1px solid rgba(100,130,200,.28);
+}
+.btn-secondary:hover:not(:disabled) { background:rgba(100,130,200,.22); }
 .btn-sm { padding:7px 14px; font-size:.8rem; border-radius:8px; }
 .btn-lg { padding:13px 28px; font-size:1rem; border-radius:var(--r-md); }
 .btn-icon { width:36px; height:36px; padding:0; border-radius:9px; }
@@ -1581,6 +1587,75 @@ textarea.auto-grow {
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════
+     MODAL: 신청서 정보 수정
+════════════════════════════════════════════════ -->
+<div id="modal-edit-app" class="modal-backdrop hidden no-print">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div style="font-size:10pt;font-weight:800;letter-spacing:-.02em;">
+        <i class="fas fa-pen" style="color:var(--c-accent);margin-right:8px;"></i><span id="edit-modal-title-lbl">신청서 정보 수정</span>
+      </div>
+      <button class="btn btn-ghost btn-icon btn-sm" onclick="closeEditAppModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="edit-app-id">
+      <div class="field-wrap">
+        <label class="label" id="edit-lbl-title">신청 제목 <span style="color:var(--c-danger);">*</span></label>
+        <input id="edit-title" class="input" type="text" placeholder="예) 2025년 Honda CB125R 기본인증">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="field-wrap">
+          <label class="label" id="edit-lbl-cert-type">인증 유형 <span style="color:var(--c-danger);">*</span></label>
+          <select id="edit-cert-type" class="input" onchange="onEditCertTypeChange()">
+            <option value="basic">기본인증 — 신규 수입이륜차</option>
+            <option value="change">변경인증 — 인증사항 중요 변경</option>
+            <option value="report">변경보고 — 경미한 사항 변경</option>
+          </select>
+        </div>
+        <div class="field-wrap">
+          <label class="label" id="edit-lbl-lang">서류 언어</label>
+          <select id="edit-lang" class="input">
+            <option value="ko">🇰🇷 한국어</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="ja">🇯🇵 日本語</option>
+            <option value="zh">🇨🇳 中文</option>
+          </select>
+        </div>
+      </div>
+      <div id="edit-prev-cert-wrap" class="field-wrap" style="display:none;">
+        <label class="label" id="edit-lbl-prev-cert">기존 인증번호 <span style="color:var(--c-danger);">*</span></label>
+        <input id="edit-prev-cert" class="input" type="text" placeholder="기존 인증번호 입력">
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 2.5fr;gap:12px;">
+        <div class="field-wrap">
+          <label class="label" id="edit-lbl-importer">수입사</label>
+          <input id="edit-importer" class="input" type="text" placeholder="Honda Korea">
+        </div>
+        <div class="field-wrap">
+          <label class="label" id="edit-lbl-cert-year">인증연도</label>
+          <input id="edit-cert-year" class="input" type="text" placeholder="2025">
+        </div>
+        <div class="field-wrap">
+          <label class="label" id="edit-lbl-displacement">배기량</label>
+          <input id="edit-displacement" class="input" type="text" placeholder="125cc">
+        </div>
+        <div class="field-wrap">
+          <label class="label" id="edit-lbl-family-code">동일차종기호 <span style="font-size:.75rem;color:var(--c-text3);font-weight:400;">(17자리)</span></label>
+          <input id="edit-family-code" class="input" type="text" placeholder="예) ABCDE12345FGHIJ67" maxlength="17">
+        </div>
+      </div>
+      <div id="edit-modal-error" class="auth-error"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeEditAppModal()" id="edit-cancel-btn">취소</button>
+      <button id="edit-update-btn" class="btn btn-primary" onclick="updateApplication()">
+        <i class="fas fa-check"></i><span id="edit-update-btn-lbl">수정 완료</span>
+      </button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ================================================================
 // 이미지 첨부 시스템 (detail_plan 지정 섹션 전용)
@@ -2145,7 +2220,8 @@ const LANG_DICT = {
     dash_title:'환경인증 신청 목록',
     stat_total_lbl:'전체 신청서', stat_prog_lbl:'작성중', stat_done_lbl:'완료', stat_draft_lbl:'임시저장',
     btn_new_appl:'새 신청서 작성', btn_first_appl:'첫 신청서 작성하기',
-    btn_write:'작성', btn_delete:'삭제',
+    btn_write:'작성', btn_delete:'삭제', btn_cancel:'취소', btn_edit_appl:'수정',
+    modal_edit_title:'신청서 정보 수정', btn_update_appl:'수정 완료', msg_update_ok:'신청서 정보가 수정되었습니다.', msg_update_fail:'수정에 실패했습니다.',
     empty_title:'아직 신청서가 없습니다',
     empty_desc:'새 신청서를 작성하여<br>인증 절차를 시작해보세요.',
     meta_modified:'수정',
@@ -3725,7 +3801,8 @@ img_click_to_zoom:'클릭하여 크게 보기',
     dash_title:'Application List',
     stat_total_lbl:'Total', stat_prog_lbl:'In Progress', stat_done_lbl:'Completed', stat_draft_lbl:'Draft',
     btn_new_appl:'New Application', btn_first_appl:'Create First Application',
-    btn_write:'Edit', btn_delete:'Delete',
+    btn_write:'Edit', btn_delete:'Delete', btn_cancel:'Cancel', btn_edit_appl:'Edit Info',
+    modal_edit_title:'Edit Application Info', btn_update_appl:'Save Changes', msg_update_ok:'Application updated successfully.', msg_update_fail:'Failed to update application.',
     empty_title:'No applications yet',
     empty_desc:'Create a new application to<br>start the certification process.',
     meta_modified:'Modified',
@@ -5301,7 +5378,8 @@ img_click_to_zoom:'Click to zoom',
     dash_title:'認証申請一覧',
     stat_total_lbl:'全申請書', stat_prog_lbl:'作成中', stat_done_lbl:'完了', stat_draft_lbl:'下書き',
     btn_new_appl:'新規申請書作成', btn_first_appl:'最初の申請書を作成',
-    btn_write:'編集', btn_delete:'削除',
+    btn_write:'編集', btn_delete:'削除', btn_cancel:'キャンセル', btn_edit_appl:'情報修正',
+    modal_edit_title:'申請書情報の修正', btn_update_appl:'修正完了', msg_update_ok:'申請書情報が修正されました。', msg_update_fail:'修正に失敗しました。',
     empty_title:'申請書がありません',
     empty_desc:'新しい申請書を作成して<br>認証手続きを開始してください。',
     meta_modified:'更新',
@@ -6873,7 +6951,8 @@ img_click_to_zoom:'クリックして拡大',
     dash_title:'认证申请列表',
     stat_total_lbl:'全部申请', stat_prog_lbl:'进行中', stat_done_lbl:'已完成', stat_draft_lbl:'草稿',
     btn_new_appl:'新建申请', btn_first_appl:'创建第一份申请',
-    btn_write:'编辑', btn_delete:'删除',
+    btn_write:'编辑', btn_delete:'删除', btn_cancel:'取消', btn_edit_appl:'修改信息',
+    modal_edit_title:'修改申请信息', btn_update_appl:'完成修改', msg_update_ok:'申请信息已修改。', msg_update_fail:'修改失败。',
     empty_title:'暂无申请书',
     empty_desc:'创建新申请书以<br>开始认证流程。',
     meta_modified:'修改',
@@ -8331,6 +8410,9 @@ function renderAppList() {
           <button class="btn btn-primary btn-sm" onclick="openApplication(\${a.id})">
             <i class="fas fa-edit"></i>\${(LANG_DICT[lang]||LANG_DICT.ko)['btn_write']||LL('btn_write')}
           </button>
+          <button class="btn btn-secondary btn-sm btn-icon" onclick="showEditAppModal(event,\${a.id})" title="\${(LANG_DICT[lang]||LANG_DICT.ko)['btn_edit_appl']||LL('btn_edit_appl')}">
+            <i class="fas fa-pen"></i>
+          </button>
           <button class="btn btn-danger btn-sm btn-icon" onclick="deleteApplication(event,\${a.id})" title="\${(LANG_DICT[lang]||LANG_DICT.ko)['btn_delete']||LL('btn_delete')}">
             <i class="fas fa-trash-alt"></i>
           </button>
@@ -8428,6 +8510,9 @@ function filterAppList(query) {
         <div class="app-item-actions">
           <button class="btn btn-primary btn-sm" onclick="openApplication(\${a.id})">
             <i class="fas fa-edit"></i>\${(LANG_DICT[lang]||LANG_DICT.ko)['btn_write']||LL('btn_write')}
+          </button>
+          <button class="btn btn-secondary btn-sm btn-icon" onclick="showEditAppModal(event,\${a.id})" title="\${(LANG_DICT[lang]||LANG_DICT.ko)['btn_edit_appl']||LL('btn_edit_appl')}">
+            <i class="fas fa-pen"></i>
           </button>
           <button class="btn btn-danger btn-sm btn-icon" onclick="deleteApplication(event,\${a.id})" title="\${(LANG_DICT[lang]||LANG_DICT.ko)['btn_delete']||LL('btn_delete')}">
             <i class="fas fa-trash-alt"></i>
@@ -9057,11 +9142,116 @@ async function createApplication() {
 
 async function deleteApplication(e, id) {
   e.stopPropagation();
-  if (!confirm(BL('msg_delete_confirm'))) return;
+  if (!confirm(LL('msg_delete_confirm'))) return;
   const res = await api('/api/applications/'+id,{method:'DELETE'});
-  if (res.ok) { showToast(BL('msg_deleted'),'info'); await loadApplications(); }
-  else showToast(BL('msg_delete_fail'),'error');
+  if (res.ok) { showToast(LL('msg_deleted'),'info'); await loadApplications(); }
+  else showToast(LL('msg_delete_fail'),'error');
 }
+
+// ================================================================
+// 신청서 정보 수정 모달
+// ================================================================
+function showEditAppModal(e, id) {
+  e.stopPropagation();
+  const app = currentApplications.find(a => a.id === id);
+  if (!app) return;
+
+  // 모달 제목·버튼 라벨 언어 적용
+  const setT = (elId, key) => { const el = document.getElementById(elId); if (el) el.textContent = LL(key); };
+  setT('edit-modal-title-lbl', 'modal_edit_title');
+  setT('edit-update-btn-lbl',  'btn_update_appl');
+  setT('edit-cancel-btn',      'btn_cancel');
+
+  // 현재 값 채우기
+  document.getElementById('edit-app-id').value          = id;
+  document.getElementById('edit-title').value           = app.title        || '';
+  document.getElementById('edit-cert-type').value       = app.cert_type    || 'basic';
+  document.getElementById('edit-lang').value            = app.lang         || 'ko';
+  document.getElementById('edit-importer').value        = app.importer     || '';
+  document.getElementById('edit-cert-year').value       = app.cert_year    || '';
+  document.getElementById('edit-displacement').value    = app.displacement  || '';
+  document.getElementById('edit-family-code').value     = app.family_code  || '';
+  document.getElementById('edit-prev-cert').value       = app.prev_cert_number || '';
+  document.getElementById('edit-modal-error').style.display = 'none';
+  document.getElementById('edit-update-btn').disabled   = false;
+
+  onEditCertTypeChange();
+  document.getElementById('modal-edit-app').classList.remove('hidden');
+  setTimeout(() => document.getElementById('edit-title').focus(), 150);
+}
+
+function closeEditAppModal() {
+  document.getElementById('modal-edit-app').classList.add('hidden');
+}
+
+function onEditCertTypeChange() {
+  const v = document.getElementById('edit-cert-type').value;
+  document.getElementById('edit-prev-cert-wrap').style.display = v === 'basic' ? 'none' : 'flex';
+}
+
+async function updateApplication() {
+  const id          = document.getElementById('edit-app-id').value;
+  const title       = document.getElementById('edit-title').value.trim();
+  const cert_type   = document.getElementById('edit-cert-type').value;
+  const lang        = document.getElementById('edit-lang').value;
+  const importer    = document.getElementById('edit-importer').value.trim();
+  const cert_year   = document.getElementById('edit-cert-year').value.trim();
+  const displacement= document.getElementById('edit-displacement').value.trim();
+  const family_code = document.getElementById('edit-family-code').value.trim();
+  const prev_cert   = document.getElementById('edit-prev-cert')?.value.trim() || '';
+  const errEl       = document.getElementById('edit-modal-error');
+  errEl.style.display = 'none';
+
+  if (!title) {
+    errEl.textContent = LL('err_title_required');
+    errEl.style.display = 'block';
+    document.getElementById('edit-title').focus();
+    return;
+  }
+  if ((cert_type === 'change' || cert_type === 'report') && !prev_cert) {
+    errEl.textContent = LL('err_cert_no_required');
+    errEl.style.display = 'block';
+    return;
+  }
+
+  const btn = document.getElementById('edit-update-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div>' + LL('btn_saving');
+
+  try {
+    const app = currentApplications.find(a => a.id == id);
+    const res = await api('/api/applications/' + id, {
+      method: 'PUT',
+      body: JSON.stringify({
+        title, cert_type, lang, importer, cert_year, displacement,
+        family_code, prev_cert_number: prev_cert,
+        status: app?.status || 'draft'
+      })
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      errEl.textContent = data.error || LL('msg_update_fail');
+      errEl.style.display = 'block';
+      return;
+    }
+    closeEditAppModal();
+    showToast(LL('msg_update_ok'), 'success');
+    // 목록 새로고침
+    await loadApplications();
+  } catch(e) {
+    console.error('updateApplication error:', e);
+    errEl.textContent = LL('msg_network_error');
+    errEl.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-check"></i>' + LL('btn_update_appl');
+  }
+}
+
+// 수정 모달 배경 클릭시 닫기
+document.getElementById('modal-edit-app').addEventListener('click', function(e) {
+  if (e.target === this) closeEditAppModal();
+});
 
 // ================================================================
 // 폼 HTML 빌더

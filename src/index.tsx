@@ -1506,7 +1506,7 @@ textarea.auto-grow {
       <button class="btn btn-ghost" onclick="printWithQR()">
         <i class="fas fa-print"></i>인쇄
       </button>
-      <button class="btn btn-success" onclick="saveForm()">
+      <button id="save-btn-bottom" class="btn btn-success" onclick="saveForm()">
         <i class="fas fa-save"></i>저장
       </button>
     </div>
@@ -8907,8 +8907,8 @@ async function saveForm() {
     data[el.dataset.field] = el.type==='checkbox' ? String(el.checked) : el.value;
   });
   const completed = document.getElementById('form-completed-chk').checked;
-  const btn = document.getElementById('save-btn');
-  btn.disabled = true; btn.innerHTML = ('<div class="spinner"></div>'+BL('btn_saving'));
+  const btns = [document.getElementById('save-btn'), document.getElementById('save-btn-bottom')].filter(Boolean);
+  btns.forEach(b => { b.disabled = true; b.innerHTML = '<div class="spinner"></div>'+BL('btn_saving'); });
   try {
     const res = await api('/api/applications/'+currentApplicationId+'/forms/'+currentFormType,
       { method:'PUT', body:JSON.stringify({data,completed}) });
@@ -8918,7 +8918,7 @@ async function saveForm() {
       if (idx>=0) { currentForms[idx].data=JSON.stringify(data); currentForms[idx].completed=completed?1:0; }
     } else { showToast(BL('msg_save_fail'),'error'); }
   } catch { showToast(BL('msg_network_error'),'error'); }
-  finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-save"></i>'+BL('btn_save'); }
+  finally { btns.forEach(b => { b.disabled=false; b.innerHTML='<i class="fas fa-save"></i>'+BL('btn_save'); }); }
 }
 
 // ================================================================

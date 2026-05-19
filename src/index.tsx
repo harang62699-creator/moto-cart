@@ -24,6 +24,38 @@ const _SERVER_LL_DICT: Record<string,string> = {
   dp_5_4_lbl:'5.4. 증발가스 시험 정보',
   dp_7_1_lbl:'7.1. 배출가스 시험 결과',
   dp_7_2_lbl:'7.2. 배출가스 시험 성적서',
+  // 회원정보 모달
+  profile_modal_title:'회원정보',
+  profile_tab_info:'기본정보 수정',
+  profile_tab_pw:'비밀번호 변경',
+  profile_lbl_username:'아이디',
+  profile_lbl_company:'회사명',
+  profile_lbl_rep:'담당자명',
+  profile_lbl_bizno:'사업자번호',
+  profile_lbl_phone:'연락처',
+  profile_ph_company:'회사명 입력',
+  profile_ph_rep:'담당자명 입력',
+  profile_ph_bizno:'사업자등록번호',
+  profile_ph_phone:'010-0000-0000',
+  profile_btn_save:'정보 저장',
+  profile_saved_ok:'회원정보가 수정되었습니다.',
+  profile_err_required:'회사명, 담당자명, 사업자번호는 필수입니다.',
+  // 비밀번호 변경
+  pw_change_title:'비밀번호 변경',
+  pw_lbl_current:'현재 비밀번호',
+  pw_lbl_new:'새 비밀번호',
+  pw_lbl_confirm:'새 비밀번호 확인',
+  pw_ph_current:'현재 비밀번호를 입력하세요',
+  pw_ph_new:'4자 이상',
+  pw_ph_confirm:'재입력',
+  pw_changed_ok:'비밀번호가 변경되었습니다.',
+  // 공통 버튼/메시지
+  btn_cancel:'취소',
+  btn_change:'변경',
+  btn_processing:'처리 중...',
+  btn_logout:'로그아웃',
+  err_occurred:'오류가 발생했습니다.',
+  err_network:'네트워크 오류가 발생했습니다.',
 };
 function LL(key: string): string {
   return _SERVER_LL_DICT[key] ?? key;
@@ -18919,44 +18951,44 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="modal-header">
       <h3 style="font-size:14pt;font-weight:700;">
         <i class="fas fa-user-circle" style="margin-right:8px;color:var(--c-primary);"></i>
-        \${LL('profile_modal_title')}
+        ${LL('profile_modal_title')}
       </h3>
       <button class="btn btn-ghost btn-icon btn-sm" onclick="closeProfileModal()"><i class="fas fa-times"></i></button>
     </div>
     <!-- 탭 버튼 -->
     <div style="display:flex;border-bottom:1px solid var(--c-border);padding:0 20px;gap:4px;background:var(--c-bg-card);">
       <button id="tab-profile-info" class="profile-tab profile-tab-active" onclick="switchProfileTab('info')">
-        <i class="fas fa-user" style="margin-right:6px;"></i>\${LL('profile_tab_info')}
+        <i class="fas fa-user" style="margin-right:6px;"></i>${LL('profile_tab_info')}
       </button>
       <button id="tab-profile-pw" class="profile-tab" onclick="switchProfileTab('pw')">
-        <i class="fas fa-lock" style="margin-right:6px;"></i>\${LL('profile_tab_pw')}
+        <i class="fas fa-lock" style="margin-right:6px;"></i>${LL('profile_tab_pw')}
       </button>
     </div>
     <!-- 기본정보 탭 패널 -->
     <div id="panel-profile-info" class="modal-body">
       <div class="form-group">
-        <label class="label">\${LL('profile_lbl_username')}</label>
+        <label class="label">${LL('profile_lbl_username')}</label>
         <input id="profile-username" class="input" type="text" readonly
           style="background:var(--c-bg);color:var(--c-text-muted);cursor:not-allowed;">
       </div>
       <div class="form-group">
-        <label class="label">\${LL('profile_lbl_company')} <span style="color:var(--c-danger);">*</span></label>
-        <input id="profile-company" class="input" type="text" placeholder="\${LL('profile_ph_company')}"
+        <label class="label">${LL('profile_lbl_company')} <span style="color:var(--c-danger);">*</span></label>
+        <input id="profile-company" class="input" type="text" placeholder="${LL('profile_ph_company')}"
           onkeydown="if(event.key==='Enter')document.getElementById('profile-rep').focus()">
       </div>
       <div class="form-group">
-        <label class="label">\${LL('profile_lbl_rep')} <span style="color:var(--c-danger);">*</span></label>
-        <input id="profile-rep" class="input" type="text" placeholder="\${LL('profile_ph_rep')}"
+        <label class="label">${LL('profile_lbl_rep')} <span style="color:var(--c-danger);">*</span></label>
+        <input id="profile-rep" class="input" type="text" placeholder="${LL('profile_ph_rep')}"
           onkeydown="if(event.key==='Enter')document.getElementById('profile-bizno').focus()">
       </div>
       <div class="form-group">
-        <label class="label">\${LL('profile_lbl_bizno')} <span style="color:var(--c-danger);">*</span></label>
-        <input id="profile-bizno" class="input" type="text" placeholder="\${LL('profile_ph_bizno')}"
+        <label class="label">${LL('profile_lbl_bizno')} <span style="color:var(--c-danger);">*</span></label>
+        <input id="profile-bizno" class="input" type="text" placeholder="${LL('profile_ph_bizno')}"
           onkeydown="if(event.key==='Enter')document.getElementById('profile-phone').focus()">
       </div>
       <div class="form-group">
-        <label class="label">\${LL('profile_lbl_phone')}</label>
-        <input id="profile-phone" class="input" type="text" placeholder="\${LL('profile_ph_phone')}"
+        <label class="label">${LL('profile_lbl_phone')}</label>
+        <input id="profile-phone" class="input" type="text" placeholder="${LL('profile_ph_phone')}"
           onkeydown="if(event.key==='Enter')doUpdateProfile()">
       </div>
       <div id="profile-info-error" class="auth-error" style="display:none;"></div>
@@ -18964,28 +18996,28 @@ document.addEventListener('DOMContentLoaded', () => {
     <!-- 비밀번호 변경 탭 패널 -->
     <div id="panel-profile-pw" class="modal-body" style="display:none;">
       <div class="form-group">
-        <label class="label">\${LL('pw_lbl_current')} <span style="color:var(--c-danger);">*</span></label>
-        <input id="profile-cpw-current" class="input" type="password" placeholder="\${LL('pw_ph_current')}" autocomplete="current-password"
+        <label class="label">${LL('pw_lbl_current')} <span style="color:var(--c-danger);">*</span></label>
+        <input id="profile-cpw-current" class="input" type="password" placeholder="${LL('pw_ph_current')}" autocomplete="current-password"
           onkeydown="if(event.key==='Enter')document.getElementById('profile-cpw-new').focus()">
       </div>
       <div class="form-group">
-        <label class="label">\${LL('pw_lbl_new')} <span style="color:var(--c-danger);">*</span></label>
-        <input id="profile-cpw-new" class="input" type="password" placeholder="\${LL('pw_ph_new')}" autocomplete="new-password"
+        <label class="label">${LL('pw_lbl_new')} <span style="color:var(--c-danger);">*</span></label>
+        <input id="profile-cpw-new" class="input" type="password" placeholder="${LL('pw_ph_new')}" autocomplete="new-password"
           onkeydown="if(event.key==='Enter')document.getElementById('profile-cpw-new2').focus()">
       </div>
       <div class="form-group">
-        <label class="label">\${LL('pw_lbl_confirm')} <span style="color:var(--c-danger);">*</span></label>
-        <input id="profile-cpw-new2" class="input" type="password" placeholder="\${LL('pw_ph_confirm')}" autocomplete="new-password"
+        <label class="label">${LL('pw_lbl_confirm')} <span style="color:var(--c-danger);">*</span></label>
+        <input id="profile-cpw-new2" class="input" type="password" placeholder="${LL('pw_ph_confirm')}" autocomplete="new-password"
           onkeydown="if(event.key==='Enter')doChangePw()">
       </div>
       <div id="profile-pw-error" class="auth-error" style="display:none;"></div>
     </div>
     <!-- 푸터: 탭에 따라 다른 버튼 -->
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeProfileModal()">\${LL('btn_cancel')}</button>
+      <button class="btn btn-ghost" onclick="closeProfileModal()">${LL('btn_cancel')}</button>
       <button id="profile-save-btn" class="btn btn-primary"
         onclick="document.getElementById('panel-profile-info').style.display!=='none'?doUpdateProfile():doChangePw()">
-        <i class="fas fa-save"></i>\${LL('profile_btn_save')}
+        <i class="fas fa-save"></i>${LL('profile_btn_save')}
       </button>
     </div>
   </div>

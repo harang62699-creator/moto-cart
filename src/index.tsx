@@ -16478,6 +16478,7 @@ function buildFormHTML(formType, saved) {
   .nt-header-lbl { color:#000 !important; }
   .nt-header-inp { color:#000 !important; border:none !important; background:transparent !important; }
   .nt-tbl th, .nt-tbl td { border:1px solid #333 !important; color:#000 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:3px 4px !important; }
+  .nt-tbl td[rowspan] { border:1px solid #333 !important; }
   .nt-th  { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .nt-tbl th { background:#eef3fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .nt-lbl { background:#f5f8ff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
@@ -17257,8 +17258,8 @@ function buildFormHTML(formType, saved) {
       <td class="nt-val"><input data-field="nt_ex1_amb"  class="nt-inp" type="text" value="\${E(v('nt_ex1_amb'))}"></td>
       <td class="nt-val"><input data-field="nt_ex1_meas" class="nt-inp" type="text" value="\${E(v('nt_ex1_meas'))}"></td>
       <td class="nt-val"><input data-field="nt_ex1_corr" class="nt-inp" type="text" value="\${E(v('nt_ex1_corr'))}"></td>
-      <td class="nt-val" rowspan="3"><input data-field="nt_ex_score" class="nt-inp" type="text" value="\${E(v('nt_ex_score'))}"></td>
-      <td class="nt-val" rowspan="3"><input data-field="nt_ex_limit" class="nt-inp" type="text" value="\${E(v('nt_ex_limit'))}"></td>
+      <td class="nt-val" rowspan="3" style="border:1px solid #888;"><input data-field="nt_ex_score" class="nt-inp" type="text" value="\${E(v('nt_ex_score'))}"></td>
+      <td class="nt-val" rowspan="3" style="border:1px solid #888;"><input data-field="nt_ex_limit" class="nt-inp" type="text" value="\${E(v('nt_ex_limit'))}"></td>
     </tr>
     <tr>
       <td class="nt-lbl">2</td>
@@ -17306,8 +17307,8 @@ function buildFormHTML(formType, saved) {
       <td class="nt-val"><input data-field="nt_horn1_amb"  class="nt-inp" type="text" value="\${E(v('nt_horn1_amb'))}"></td>
       <td class="nt-val"><input data-field="nt_horn1_meas" class="nt-inp" type="text" value="\${E(v('nt_horn1_meas'))}"></td>
       <td class="nt-val"><input data-field="nt_horn1_corr" class="nt-inp" type="text" value="\${E(v('nt_horn1_corr'))}"></td>
-      <td class="nt-val" rowspan="2"><input data-field="nt_horn_score" class="nt-inp" type="text" value="\${E(v('nt_horn_score'))}"></td>
-      <td class="nt-val" rowspan="2"><input data-field="nt_horn_limit" class="nt-inp" type="text" value="\${E(v('nt_horn_limit'))}"></td>
+      <td class="nt-val" rowspan="2" style="border:1px solid #888;"><input data-field="nt_horn_score" class="nt-inp" type="text" value="\${E(v('nt_horn_score'))}"></td>
+      <td class="nt-val" rowspan="2" style="border:1px solid #888;"><input data-field="nt_horn_limit" class="nt-inp" type="text" value="\${E(v('nt_horn_limit'))}"></td>
     </tr>
     <tr>
       <td class="nt-lbl">2</td>

@@ -8906,19 +8906,20 @@ async function saveForm() {
   document.querySelectorAll('#form-content [data-field]').forEach(el => {
     data[el.dataset.field] = el.type==='checkbox' ? String(el.checked) : el.value;
   });
-  const completed = document.getElementById('form-completed-chk').checked;
+  const completedEl = document.getElementById('form-completed-chk');
+  const completed = completedEl ? completedEl.checked : false;
   const btns = [document.getElementById('save-btn'), document.getElementById('save-btn-bottom')].filter(Boolean);
-  btns.forEach(b => { b.disabled = true; b.innerHTML = '<div class="spinner"></div>'+BL('btn_saving'); });
+  btns.forEach(b => { b.disabled = true; b.innerHTML = '<div class="spinner"></div>'+LL('btn_saving'); });
   try {
     const res = await api('/api/applications/'+currentApplicationId+'/forms/'+currentFormType,
       { method:'PUT', body:JSON.stringify({data,completed}) });
     if (res.ok) {
-      showToast(BL('msg_saved'),'success');
+      showToast(LL('msg_saved'),'success');
       const idx = currentForms.findIndex(f=>f.form_type===currentFormType);
       if (idx>=0) { currentForms[idx].data=JSON.stringify(data); currentForms[idx].completed=completed?1:0; }
-    } else { showToast(BL('msg_save_fail'),'error'); }
-  } catch { showToast(BL('msg_network_error'),'error'); }
-  finally { btns.forEach(b => { b.disabled=false; b.innerHTML='<i class="fas fa-save"></i>'+BL('btn_save'); }); }
+    } else { showToast(LL('msg_save_fail'),'error'); }
+  } catch(e) { console.error('saveForm error:', e); showToast(LL('msg_network_error'),'error'); }
+  finally { btns.forEach(b => { b.disabled=false; b.innerHTML='<i class="fas fa-save"></i>'+LL('btn_save'); }); }
 }
 
 // ================================================================

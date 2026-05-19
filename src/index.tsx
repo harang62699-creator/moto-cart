@@ -16433,6 +16433,9 @@ function buildFormHTML(formType, saved) {
 }
 .nt-inp::placeholder { color:#aaa; }
 .nt-inp:focus { border-bottom:1px solid #4e90d8; }
+/* rowspan 셀: 테두리 명시 + 세로 중앙 정렬 */
+.nt-rowspan-cell { border:1px solid #888 !important; vertical-align:middle !important; text-align:center !important; }
+.nt-rowspan-cell .nt-inp { text-align:center; }
 
 /* 텍스트 입력 (1행짜리) */
 .nt-inline { display:flex; align-items:center; gap:6px; margin:4px 0; }
@@ -17234,9 +17237,9 @@ function buildFormHTML(formType, saved) {
 
 <!-- 7. 배기소음측정결과 -->
 <div class="nt-sec-title" style="margin-top:16px;">\${BL('nt_sec7')}</div>
-<table class="nt-tbl">
+<table class="nt-tbl" style="table-layout:fixed;">
   <colgroup>
-    <col style="width:8%;"><col style="width:8%;"><col style="width:18%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:15%;"><col style="width:15%;">
+    <col style="width:7%;"><col style="width:7%;"><col style="width:18%;"><col style="width:11%;"><col style="width:11%;"><col style="width:11%;"><col style="width:17%;"><col style="width:18%;">
   </colgroup>
   <thead>
     <tr>
@@ -17256,15 +17259,17 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr>
       <td class="nt-lbl">1</td>
+      <td class="nt-val"><input data-field="nt_ex1_cnt"  class="nt-inp" type="text" value="\${E(v('nt_ex1_cnt'))}"></td>
       <td class="nt-val"><input data-field="nt_ex1_rpm"  class="nt-inp" type="text" value="\${E(v('nt_ex1_rpm'))}"></td>
       <td class="nt-val"><input data-field="nt_ex1_amb"  class="nt-inp" type="text" value="\${E(v('nt_ex1_amb'))}"></td>
       <td class="nt-val"><input data-field="nt_ex1_meas" class="nt-inp" type="text" value="\${E(v('nt_ex1_meas'))}"></td>
       <td class="nt-val"><input data-field="nt_ex1_corr" class="nt-inp" type="text" value="\${E(v('nt_ex1_corr'))}"></td>
-      <td class="nt-val" rowspan="3" style="border:1px solid #888 !important;"><input data-field="nt_ex_score" class="nt-inp" type="text" value="\${E(v('nt_ex_score'))}"></td>
-      <td class="nt-val" rowspan="3" style="border:1px solid #888 !important;"><input data-field="nt_ex_limit" class="nt-inp" type="text" value="\${E(v('nt_ex_limit'))}"></td>
+      <td class="nt-val nt-rowspan-cell" rowspan="3"><input data-field="nt_ex_score" class="nt-inp" type="text" value="\${E(v('nt_ex_score'))}"></td>
+      <td class="nt-val nt-rowspan-cell" rowspan="3"><input data-field="nt_ex_limit" class="nt-inp" type="text" value="\${E(v('nt_ex_limit'))}"></td>
     </tr>
     <tr>
       <td class="nt-lbl">2</td>
+      <td class="nt-val"><input data-field="nt_ex2_cnt"  class="nt-inp" type="text" value="\${E(v('nt_ex2_cnt'))}"></td>
       <td class="nt-val"><input data-field="nt_ex2_rpm"  class="nt-inp" type="text" value="\${E(v('nt_ex2_rpm'))}"></td>
       <td class="nt-val"><input data-field="nt_ex2_amb"  class="nt-inp" type="text" value="\${E(v('nt_ex2_amb'))}"></td>
       <td class="nt-val"><input data-field="nt_ex2_meas" class="nt-inp" type="text" value="\${E(v('nt_ex2_meas'))}"></td>
@@ -17272,6 +17277,7 @@ function buildFormHTML(formType, saved) {
     </tr>
     <tr>
       <td class="nt-lbl">3</td>
+      <td class="nt-val"><input data-field="nt_ex3_cnt"  class="nt-inp" type="text" value="\${E(v('nt_ex3_cnt'))}"></td>
       <td class="nt-val"><input data-field="nt_ex3_rpm"  class="nt-inp" type="text" value="\${E(v('nt_ex3_rpm'))}"></td>
       <td class="nt-val"><input data-field="nt_ex3_amb"  class="nt-inp" type="text" value="\${E(v('nt_ex3_amb'))}"></td>
       <td class="nt-val"><input data-field="nt_ex3_meas" class="nt-inp" type="text" value="\${E(v('nt_ex3_meas'))}"></td>
@@ -17282,9 +17288,9 @@ function buildFormHTML(formType, saved) {
 
 <!-- 8. 경적소음측정결과 -->
 <div class="nt-sec-title" style="margin-top:16px;">\${BL('nt_sec8')}</div>
-<table class="nt-tbl">
+<table class="nt-tbl" style="table-layout:fixed;">
   <colgroup>
-    <col style="width:8%;"><col style="width:8%;"><col style="width:12%;"><col style="width:10%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:13%;"><col style="width:13%;">
+    <col style="width:7%;"><col style="width:7%;"><col style="width:12%;"><col style="width:9%;"><col style="width:11%;"><col style="width:11%;"><col style="width:11%;"><col style="width:16%;"><col style="width:16%;">
   </colgroup>
   <thead>
     <tr>
@@ -17305,16 +17311,18 @@ function buildFormHTML(formType, saved) {
   <tbody>
     <tr>
       <td class="nt-lbl">1</td>
+      <td class="nt-val"><input data-field="nt_horn1_seq"  class="nt-inp" type="text" value="\${E(v('nt_horn1_seq'))}"></td>
       <td class="nt-val"><input data-field="nt_horn1_type" class="nt-inp" type="text" value="\${E(v('nt_horn1_type'))}"></td>
       <td class="nt-val"><input data-field="nt_horn1_cnt"  class="nt-inp" type="text" value="\${E(v('nt_horn1_cnt'))}"></td>
       <td class="nt-val"><input data-field="nt_horn1_amb"  class="nt-inp" type="text" value="\${E(v('nt_horn1_amb'))}"></td>
       <td class="nt-val"><input data-field="nt_horn1_meas" class="nt-inp" type="text" value="\${E(v('nt_horn1_meas'))}"></td>
       <td class="nt-val"><input data-field="nt_horn1_corr" class="nt-inp" type="text" value="\${E(v('nt_horn1_corr'))}"></td>
-      <td class="nt-val" rowspan="2" style="border:1px solid #888 !important;"><input data-field="nt_horn_score" class="nt-inp" type="text" value="\${E(v('nt_horn_score'))}"></td>
-      <td class="nt-val" rowspan="2" style="border:1px solid #888 !important;"><input data-field="nt_horn_limit" class="nt-inp" type="text" value="\${E(v('nt_horn_limit'))}"></td>
+      <td class="nt-val nt-rowspan-cell" rowspan="2"><input data-field="nt_horn_score" class="nt-inp" type="text" value="\${E(v('nt_horn_score'))}"></td>
+      <td class="nt-val nt-rowspan-cell" rowspan="2"><input data-field="nt_horn_limit" class="nt-inp" type="text" value="\${E(v('nt_horn_limit'))}"></td>
     </tr>
     <tr>
       <td class="nt-lbl">2</td>
+      <td class="nt-val"><input data-field="nt_horn2_seq"  class="nt-inp" type="text" value="\${E(v('nt_horn2_seq'))}"></td>
       <td class="nt-val"><input data-field="nt_horn2_type" class="nt-inp" type="text" value="\${E(v('nt_horn2_type'))}"></td>
       <td class="nt-val"><input data-field="nt_horn2_cnt"  class="nt-inp" type="text" value="\${E(v('nt_horn2_cnt'))}"></td>
       <td class="nt-val"><input data-field="nt_horn2_amb"  class="nt-inp" type="text" value="\${E(v('nt_horn2_amb'))}"></td>

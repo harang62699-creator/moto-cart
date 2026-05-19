@@ -17233,92 +17233,82 @@ function buildFormHTML(formType, saved) {
 
 <!-- 7. 배기소음측정결과 -->
 <div class="nt-sec-title" style="margin-top:16px;">\${BL('nt_sec7')}</div>
-<table class="nt-tbl">
+<table class="nt-tbl" style="border-collapse:collapse;width:100%;table-layout:fixed;">
   <colgroup>
-    <col style="width:8%;"><col style="width:8%;"><col style="width:18%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:18%;"><!-- 배기소음 기준치 -->
+    <col style="width:8%;"><col style="width:8%;"><col style="width:18%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:15%;"><col style="width:15%;">
   </colgroup>
-  <thead>
-    <tr>
-      <th rowspan="5">배기<br>\${BL('sv_noise_simple')}<br>시험</th>
-      <th rowspan="2">\${BL('nt_meas_count')}</th>
-      <th rowspan="2" style="line-height:1.8;">\${BL('nt_ex_pct_lbl')}<br><input data-field="nt_ex_pct" class="nt-inp" type="text" style="width:3.5em;text-align:center;border-bottom:1px solid #888;" value="\${E(v('nt_ex_pct'))}">% 회전속도(rpm)</th>
-      <th rowspan="2">\${BL('nt_bg_noise_a')}</th>
-      <th colspan="2">\${BL('nt_exhaust_noise_val')}</th>
-      <th rowspan="2">\${BL('nt_score_a')}</th>
-      <th rowspan="2">\${BL('nt_std_a')}</th>
-    </tr>
-    <tr>
-      <th>\${BL('nt_measured')}</th><th>\${BL('nt_corrected')}</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="nt-lbl">1</td>
-      <td class="nt-val"><input data-field="nt_ex1_rpm"  class="nt-inp" type="text" value="\${E(v('nt_ex1_rpm'))}"></td>
-      <td class="nt-val"><input data-field="nt_ex1_amb"  class="nt-inp" type="text" value="\${E(v('nt_ex1_amb'))}"></td>
-      <td class="nt-val"><input data-field="nt_ex1_meas" class="nt-inp" type="text" value="\${E(v('nt_ex1_meas'))}"></td>
-      <td class="nt-val"><input data-field="nt_ex1_corr" class="nt-inp" type="text" value="\${E(v('nt_ex1_corr'))}"></td>
-      <td class="nt-val" rowspan="3" style="border:1px solid #888;"><input data-field="nt_ex_score" class="nt-inp" type="text" value="\${E(v('nt_ex_score'))}"></td>
-      <td class="nt-val" rowspan="3" style="border:1px solid #888;"><input data-field="nt_ex_limit" class="nt-inp" type="text" value="\${E(v('nt_ex_limit'))}"></td>
-    </tr>
-    <tr>
-      <td class="nt-lbl">2</td>
-      <td class="nt-val"><input data-field="nt_ex2_rpm"  class="nt-inp" type="text" value="\${E(v('nt_ex2_rpm'))}"></td>
-      <td class="nt-val"><input data-field="nt_ex2_amb"  class="nt-inp" type="text" value="\${E(v('nt_ex2_amb'))}"></td>
-      <td class="nt-val"><input data-field="nt_ex2_meas" class="nt-inp" type="text" value="\${E(v('nt_ex2_meas'))}"></td>
-      <td class="nt-val"><input data-field="nt_ex2_corr" class="nt-inp" type="text" value="\${E(v('nt_ex2_corr'))}"></td>
-    </tr>
-    <tr>
-      <td class="nt-lbl">3</td>
-      <td class="nt-val"><input data-field="nt_ex3_rpm"  class="nt-inp" type="text" value="\${E(v('nt_ex3_rpm'))}"></td>
-      <td class="nt-val"><input data-field="nt_ex3_amb"  class="nt-inp" type="text" value="\${E(v('nt_ex3_amb'))}"></td>
-      <td class="nt-val"><input data-field="nt_ex3_meas" class="nt-inp" type="text" value="\${E(v('nt_ex3_meas'))}"></td>
-      <td class="nt-val"><input data-field="nt_ex3_corr" class="nt-inp" type="text" value="\${E(v('nt_ex3_corr'))}"></td>
-    </tr>
-  </tbody>
+  <tr>
+    <th rowspan="5" style="border:1px solid #888;">\${BL('sv_noise_simple')}<br>시험</th>
+    <th rowspan="2" style="border:1px solid #888;">\${BL('nt_meas_count')}</th>
+    <th rowspan="2" style="border:1px solid #888;line-height:1.8;">\${BL('nt_ex_pct_lbl')}<br><input data-field="nt_ex_pct" class="nt-inp" type="text" style="width:3.5em;text-align:center;border-bottom:1px solid #888;" value="\${E(v('nt_ex_pct'))}">% 회전속도(rpm)</th>
+    <th rowspan="2" style="border:1px solid #888;">\${BL('nt_bg_noise_a')}</th>
+    <th colspan="2" style="border:1px solid #888;">\${BL('nt_exhaust_noise_val')}</th>
+    <th rowspan="5" style="border:1px solid #888;">\${BL('nt_score_a')}</th>
+    <th rowspan="5" style="border:1px solid #888;">\${BL('nt_std_a')}</th>
+  </tr>
+  <tr>
+    <th style="border:1px solid #888;">\${BL('nt_measured')}</th>
+    <th style="border:1px solid #888;">\${BL('nt_corrected')}</th>
+  </tr>
+  <tr>
+    <td class="nt-lbl" style="border:1px solid #888;">1</td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_ex1_rpm"  class="nt-inp" type="text" value="\${E(v('nt_ex1_rpm'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_ex1_amb"  class="nt-inp" type="text" value="\${E(v('nt_ex1_amb'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_ex1_meas" class="nt-inp" type="text" value="\${E(v('nt_ex1_meas'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_ex1_corr" class="nt-inp" type="text" value="\${E(v('nt_ex1_corr'))}"></td>
+  </tr>
+  <tr>
+    <td class="nt-lbl" style="border:1px solid #888;">2</td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_ex2_rpm"  class="nt-inp" type="text" value="\${E(v('nt_ex2_rpm'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_ex2_amb"  class="nt-inp" type="text" value="\${E(v('nt_ex2_amb'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_ex2_meas" class="nt-inp" type="text" value="\${E(v('nt_ex2_meas'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_ex2_corr" class="nt-inp" type="text" value="\${E(v('nt_ex2_corr'))}"></td>
+  </tr>
+  <tr>
+    <td class="nt-lbl" style="border:1px solid #888;">3</td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_ex3_rpm"  class="nt-inp" type="text" value="\${E(v('nt_ex3_rpm'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_ex3_amb"  class="nt-inp" type="text" value="\${E(v('nt_ex3_amb'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_ex3_meas" class="nt-inp" type="text" value="\${E(v('nt_ex3_meas'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_ex3_corr" class="nt-inp" type="text" value="\${E(v('nt_ex3_corr'))}"></td>
+  </tr>
 </table>
 
 <!-- 8. 경적소음측정결과 -->
 <div class="nt-sec-title" style="margin-top:16px;">\${BL('nt_sec8')}</div>
-<table class="nt-tbl">
+<table class="nt-tbl" style="border-collapse:collapse;width:100%;table-layout:fixed;">
   <colgroup>
-    <col style="width:8%;"><col style="width:10%;"><col style="width:12%;"><col style="width:10%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><!-- 경적소음 기준치 -->
+    <col style="width:8%;"><col style="width:10%;"><col style="width:12%;"><col style="width:10%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;"><col style="width:12%;">
   </colgroup>
-  <thead>
-    <tr>
-      <th rowspan="4">경적<br>\${BL('sv_noise_simple')}<br>시험</th>
-      <th rowspan="2">\${BL('nt_meas_count')}</th>
-      <th rowspan="2">\${BL('nt_horn_form')}</th>
-      <th rowspan="2">\${BL('nt_horn_count')}</th>
-      <th rowspan="2">\${BL('nt_bg_noise_c')}</th>
-      <th colspan="2">\${BL('nt_horn_noise_val')}</th>
-      <th rowspan="2">\${BL('nt_score_c')}</th>
-      <th rowspan="2">\${BL('nt_std_c')}</th>
-    </tr>
-    <tr>
-      <th>\${BL('nt_measured')}</th><th>\${BL('nt_corrected')}</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="nt-lbl">1</td>
-      <td class="nt-val"><input data-field="nt_horn1_type" class="nt-inp" type="text" value="\${E(v('nt_horn1_type'))}"></td>
-      <td class="nt-val"><input data-field="nt_horn1_cnt"  class="nt-inp" type="text" value="\${E(v('nt_horn1_cnt'))}"></td>
-      <td class="nt-val"><input data-field="nt_horn1_amb"  class="nt-inp" type="text" value="\${E(v('nt_horn1_amb'))}"></td>
-      <td class="nt-val"><input data-field="nt_horn1_meas" class="nt-inp" type="text" value="\${E(v('nt_horn1_meas'))}"></td>
-      <td class="nt-val"><input data-field="nt_horn1_corr" class="nt-inp" type="text" value="\${E(v('nt_horn1_corr'))}"></td>
-      <td class="nt-val" rowspan="2" style="border:1px solid #888;"><input data-field="nt_horn_score" class="nt-inp" type="text" value="\${E(v('nt_horn_score'))}"></td>
-      <td class="nt-val" rowspan="2" style="border:1px solid #888;"><input data-field="nt_horn_limit" class="nt-inp" type="text" value="\${E(v('nt_horn_limit'))}"></td>
-    </tr>
-    <tr>
-      <td class="nt-lbl">2</td>
-      <td class="nt-val"><input data-field="nt_horn2_type" class="nt-inp" type="text" value="\${E(v('nt_horn2_type'))}"></td>
-      <td class="nt-val"><input data-field="nt_horn2_cnt"  class="nt-inp" type="text" value="\${E(v('nt_horn2_cnt'))}"></td>
-      <td class="nt-val"><input data-field="nt_horn2_amb"  class="nt-inp" type="text" value="\${E(v('nt_horn2_amb'))}"></td>
-      <td class="nt-val"><input data-field="nt_horn2_meas" class="nt-inp" type="text" value="\${E(v('nt_horn2_meas'))}"></td>
-      <td class="nt-val"><input data-field="nt_horn2_corr" class="nt-inp" type="text" value="\${E(v('nt_horn2_corr'))}"></td>
-    </tr>
-  </tbody>
+  <tr>
+    <th rowspan="4" style="border:1px solid #888;">\${BL('sv_noise_simple')}<br>시험</th>
+    <th rowspan="2" style="border:1px solid #888;">\${BL('nt_meas_count')}</th>
+    <th rowspan="2" style="border:1px solid #888;">\${BL('nt_horn_form')}</th>
+    <th rowspan="2" style="border:1px solid #888;">\${BL('nt_horn_count')}</th>
+    <th rowspan="2" style="border:1px solid #888;">\${BL('nt_bg_noise_c')}</th>
+    <th colspan="2" style="border:1px solid #888;">\${BL('nt_horn_noise_val')}</th>
+    <th rowspan="4" style="border:1px solid #888;">\${BL('nt_score_c')}</th>
+    <th rowspan="4" style="border:1px solid #888;">\${BL('nt_std_c')}</th>
+  </tr>
+  <tr>
+    <th style="border:1px solid #888;">\${BL('nt_measured')}</th>
+    <th style="border:1px solid #888;">\${BL('nt_corrected')}</th>
+  </tr>
+  <tr>
+    <td class="nt-lbl" style="border:1px solid #888;">1</td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_horn1_type" class="nt-inp" type="text" value="\${E(v('nt_horn1_type'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_horn1_cnt"  class="nt-inp" type="text" value="\${E(v('nt_horn1_cnt'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_horn1_amb"  class="nt-inp" type="text" value="\${E(v('nt_horn1_amb'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_horn1_meas" class="nt-inp" type="text" value="\${E(v('nt_horn1_meas'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_horn1_corr" class="nt-inp" type="text" value="\${E(v('nt_horn1_corr'))}"></td>
+  </tr>
+  <tr>
+    <td class="nt-lbl" style="border:1px solid #888;">2</td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_horn2_type" class="nt-inp" type="text" value="\${E(v('nt_horn2_type'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_horn2_cnt"  class="nt-inp" type="text" value="\${E(v('nt_horn2_cnt'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_horn2_amb"  class="nt-inp" type="text" value="\${E(v('nt_horn2_amb'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_horn2_meas" class="nt-inp" type="text" value="\${E(v('nt_horn2_meas'))}"></td>
+    <td class="nt-val" style="border:1px solid #888;"><input data-field="nt_horn2_corr" class="nt-inp" type="text" value="\${E(v('nt_horn2_corr'))}"></td>
+  </tr>
 </table>
 
 <!-- 검사담당자 / 확인자 -->

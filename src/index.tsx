@@ -158,6 +158,18 @@ app.get('/api/auth/me', authMiddleware, async (c) => {
   return c.json({ user })
 })
 
+app.put('/api/auth/profile', authMiddleware, async (c) => {
+  const payload = c.get('user') as any
+  const { company_name, representative, business_number, phone } = await c.req.json()
+  if (!company_name || !representative || !business_number)
+    return c.json({ error: '회사명, 담당자명, 사업자번호는 필수입니다.' }, 400)
+  await c.env.DB.prepare(
+    'UPDATE users SET company_name=?, representative=?, business_number=?, phone=? WHERE id=?'
+  ).bind(company_name, representative, business_number, phone || '', payload.id).run()
+  const user = await c.env.DB.prepare('SELECT id, username, company_name, representative, business_number, phone FROM users WHERE id = ?').bind(payload.id).first()
+  return c.json({ ok: true, user })
+})
+
 app.get('/api/applications', authMiddleware, async (c) => {
   const payload = c.get('user') as any
   const list = await c.env.DB.prepare(
@@ -572,6 +584,26 @@ body {
 }
 .btn-secondary:hover:not(:disabled) { background:rgba(100,130,200,.22); }
 .btn-sm { padding:7px 14px; font-size:.8rem; border-radius:8px; }
+/* 회원정보 모달 탭 */
+.profile-tab {
+  padding:10px 18px;
+  font-size:.85rem;
+  font-weight:500;
+  background:transparent;
+  border:none;
+  border-bottom:2px solid transparent;
+  color:var(--c-text-muted);
+  cursor:pointer;
+  transition:color .18s, border-color .18s;
+  outline:none;
+  margin-bottom:-1px;
+}
+.profile-tab:hover { color:var(--c-primary); }
+.profile-tab.profile-tab-active {
+  color:var(--c-primary);
+  border-bottom-color:var(--c-primary);
+  font-weight:700;
+}
 .btn-lg { padding:13px 28px; font-size:1rem; border-radius:var(--r-md); }
 .btn-icon { width:36px; height:36px; padding:0; border-radius:9px; }
 
@@ -2220,7 +2252,7 @@ const LANG_DICT = {
     dash_title:'환경인증 신청 목록',
     stat_total_lbl:'전체 신청서', stat_prog_lbl:'작성중', stat_done_lbl:'완료', stat_draft_lbl:'임시저장',
     btn_new_appl:'새 신청서 작성', btn_first_appl:'첫 신청서 작성하기',
-    btn_write:'작성', btn_delete:'삭제', btn_cancel:'취소', btn_edit_appl:'수정',
+    btn_write:'작성', btn_delete:'삭제', btn_cancel:'취소', btn_edit_appl:'수정', btn_logout:'로그아웃',
     modal_edit_title:'신청서 정보 수정', btn_update_appl:'수정 완료', msg_update_ok:'신청서 정보가 수정되었습니다.', msg_update_fail:'수정에 실패했습니다.',
     empty_title:'아직 신청서가 없습니다',
     empty_desc:'새 신청서를 작성하여<br>인증 절차를 시작해보세요.',
@@ -2407,13 +2439,32 @@ const LANG_DICT = {
     dp_lbl_engine:'엔진', dp_lbl_ignition:'점화장치', dp_lbl_chassis:'샤시',
     dp_8_14_1_lbl:'8.14.1. 전동기 및 전동기 제어장치',
     dp_8_14_2_lbl:'8.14.2. 축전지 및 축전지 제어장치',
-    // === 비밀번호 변경 모달 ===
+    // === 회원정보 / 비밀번호 모달 ===
+    profile_modal_title:'회원정보', profile_tab_info:'기본정보 수정', profile_tab_pw:'비밀번호 변경',
+    profile_lbl_username:'아이디', profile_lbl_company:'회사명', profile_lbl_rep:'담당자명',
+    profile_lbl_bizno:'사업자번호', profile_lbl_phone:'연락처',
+    profile_ph_company:'회사명 입력', profile_ph_rep:'담당자명 입력',
+    profile_ph_bizno:'사업자등록번호', profile_ph_phone:'010-0000-0000',
+    profile_btn_save:'정보 저장', profile_saved_ok:'회원정보가 수정되었습니다.',
+    profile_err_required:'회사명, 담당자명, 사업자번호는 필수입니다.',
     pw_change_title:'비밀번호 변경',
     pw_current_lbl:'현재 비밀번호', pw_new_lbl:'새 비밀번호',
     pw_confirm_lbl:'새 비밀번호 확인',
     pw_current_ph:'현재 비밀번호를 입력하세요', pw_new_ph:'4자 이상',
     pw_confirm_ph:'재입력',
     pw_cancel_btn:'취소', pw_change_btn:'변경',
+    btn_processing:'처리 중...',
+    btn_change:'변경',
+    pw_err_required:'모든 항목을 입력하세요.', pw_err_too_short:'비밀번호는 4자 이상이어야 합니다.',
+    pw_err_mismatch:'새 비밀번호가 일치하지 않습니다.', pw_changed_ok:'비밀번호가 변경되었습니다.',
+    err_occurred:'오류가 발생했습니다.', err_network:'네트워크 오류가 발생했습니다.',
+    btn_create_app:'신청서 생성', btn_creating:'생성 중...', msg_create_fail:'생성에 실패했습니다.',
+    msg_app_created:'신청서가 생성되었습니다.', err_cert_no_required:'기존 인증번호를 입력하세요.',
+    err_title_required_ko:'신청 제목을 입력하세요.',
+    msg_delete_confirm:'정말 삭제하시겠습니까?', msg_deleted:'삭제되었습니다.', msg_delete_fail:'삭제에 실패했습니다.',
+    save_error:'저장 중 오류가 발생했습니다.',
+    btn_processing:'처리 중...',
+    btn_change:'변경',
     qr_auth_code_lbl:'진위여부코드',
     qr_verify_title:'진위여부 확인',
     qr_doc_name:'서류명',
@@ -3801,7 +3852,7 @@ img_click_to_zoom:'클릭하여 크게 보기',
     dash_title:'Application List',
     stat_total_lbl:'Total', stat_prog_lbl:'In Progress', stat_done_lbl:'Completed', stat_draft_lbl:'Draft',
     btn_new_appl:'New Application', btn_first_appl:'Create First Application',
-    btn_write:'Edit', btn_delete:'Delete', btn_cancel:'Cancel', btn_edit_appl:'Edit Info',
+    btn_write:'Edit', btn_delete:'Delete', btn_cancel:'Cancel', btn_edit_appl:'Edit Info', btn_logout:'Logout',
     modal_edit_title:'Edit Application Info', btn_update_appl:'Save Changes', msg_update_ok:'Application updated successfully.', msg_update_fail:'Failed to update application.',
     empty_title:'No applications yet',
     empty_desc:'Create a new application to<br>start the certification process.',
@@ -3986,13 +4037,28 @@ img_click_to_zoom:'클릭하여 크게 보기',
     dp_lbl_engine:'Engine', dp_lbl_ignition:'Ignition System', dp_lbl_chassis:'Chassis',
     dp_8_14_1_lbl:'8.14.1. Motor and Motor Controller',
     dp_8_14_2_lbl:'8.14.2. Battery and Battery Controller',
-    // === 비밀번호 변경 모달 ===
+    // === 회원정보 / 비밀번호 모달 ===
+    profile_modal_title:'My Profile', profile_tab_info:'Edit Profile', profile_tab_pw:'Change Password',
+    profile_lbl_username:'Username', profile_lbl_company:'Company', profile_lbl_rep:'Contact Person',
+    profile_lbl_bizno:'Business No.', profile_lbl_phone:'Phone',
+    profile_ph_company:'Enter company name', profile_ph_rep:'Enter contact name',
+    profile_ph_bizno:'Business registration number', profile_ph_phone:'Phone number',
+    profile_btn_save:'Save', profile_saved_ok:'Profile updated successfully.',
+    profile_err_required:'Company, contact, and business number are required.',
     pw_change_title:'Change Password',
     pw_current_lbl:'Current Password', pw_new_lbl:'New Password',
     pw_confirm_lbl:'Confirm New Password',
     pw_current_ph:'Enter current password', pw_new_ph:'At least 4 characters',
     pw_confirm_ph:'Re-enter password',
     pw_cancel_btn:'Cancel', pw_change_btn:'Change',
+    btn_processing:'Processing...', btn_change:'Change',
+    pw_err_required:'Please fill in all fields.', pw_err_too_short:'Password must be at least 4 characters.',
+    pw_err_mismatch:'Passwords do not match.', pw_changed_ok:'Password changed successfully.',
+    err_occurred:'An error occurred.', err_network:'Network error.',
+    btn_create_app:'Create', btn_creating:'Creating...', msg_create_fail:'Failed to create.',
+    msg_app_created:'Application created.', err_cert_no_required:'Enter the existing certificate number.',
+    msg_delete_confirm:'Are you sure you want to delete?', msg_deleted:'Deleted.', msg_delete_fail:'Failed to delete.',
+    save_error:'An error occurred while saving.',
     qr_auth_code_lbl:'Auth Code',
     qr_verify_title:'Authenticity Verification',
     qr_doc_name:'Document',
@@ -5378,7 +5444,7 @@ img_click_to_zoom:'Click to zoom',
     dash_title:'認証申請一覧',
     stat_total_lbl:'全申請書', stat_prog_lbl:'作成中', stat_done_lbl:'完了', stat_draft_lbl:'下書き',
     btn_new_appl:'新規申請書作成', btn_first_appl:'最初の申請書を作成',
-    btn_write:'編集', btn_delete:'削除', btn_cancel:'キャンセル', btn_edit_appl:'情報修正',
+    btn_write:'編集', btn_delete:'削除', btn_cancel:'キャンセル', btn_edit_appl:'情報修正', btn_logout:'ログアウト',
     modal_edit_title:'申請書情報の修正', btn_update_appl:'修正完了', msg_update_ok:'申請書情報が修正されました。', msg_update_fail:'修正に失敗しました。',
     empty_title:'申請書がありません',
     empty_desc:'新しい申請書を作成して<br>認証手続きを開始してください。',
@@ -5562,12 +5628,27 @@ img_click_to_zoom:'Click to zoom',
     dp_lbl_engine:'エンジン', dp_lbl_ignition:'点火装置', dp_lbl_chassis:'シャシー',
     dp_8_14_1_lbl:'8.14.1. 電動機および電動機制御装置',
     dp_8_14_2_lbl:'8.14.2. 蓄電池および蓄電池制御装置',
+    profile_modal_title:'マイページ', profile_tab_info:'基本情報変更', profile_tab_pw:'パスワード変更',
+    profile_lbl_username:'ユーザーID', profile_lbl_company:'会社名', profile_lbl_rep:'担当者名',
+    profile_lbl_bizno:'事業者番号', profile_lbl_phone:'連絡先',
+    profile_ph_company:'会社名を入力', profile_ph_rep:'担当者名を入力',
+    profile_ph_bizno:'事業者登録番号', profile_ph_phone:'電話番号',
+    profile_btn_save:'保存', profile_saved_ok:'会員情報が更新されました。',
+    profile_err_required:'会社名・担当者名・事業者番号は必須です。',
     pw_change_title:'パスワード変更',
     pw_current_lbl:'現在のパスワード', pw_new_lbl:'新しいパスワード',
     pw_confirm_lbl:'新しいパスワード確認',
     pw_current_ph:'現在のパスワードを入力', pw_new_ph:'4文字以上',
     pw_confirm_ph:'再入力',
     pw_cancel_btn:'キャンセル', pw_change_btn:'変更',
+    btn_processing:'処理中...', btn_change:'変更',
+    pw_err_required:'すべての項目を入力してください。', pw_err_too_short:'パスワードは4文字以上にしてください。',
+    pw_err_mismatch:'新しいパスワードが一致しません。', pw_changed_ok:'パスワードが変更されました。',
+    err_occurred:'エラーが発生しました。', err_network:'ネットワークエラーが発生しました。',
+    btn_create_app:'申請書作成', btn_creating:'作成中...', msg_create_fail:'作成に失敗しました。',
+    msg_app_created:'申請書が作成されました。', err_cert_no_required:'既存認証番号を入力してください。',
+    msg_delete_confirm:'本当に削除しますか？', msg_deleted:'削除されました。', msg_delete_fail:'削除に失敗しました。',
+    save_error:'保存中にエラーが発生しました。',
     qr_auth_code_lbl:'真偽確認コード',
     qr_verify_title:'真偽確認',
     qr_doc_name:'書類名',
@@ -6951,7 +7032,7 @@ img_click_to_zoom:'クリックして拡大',
     dash_title:'认证申请列表',
     stat_total_lbl:'全部申请', stat_prog_lbl:'进行中', stat_done_lbl:'已完成', stat_draft_lbl:'草稿',
     btn_new_appl:'新建申请', btn_first_appl:'创建第一份申请',
-    btn_write:'编辑', btn_delete:'删除', btn_cancel:'取消', btn_edit_appl:'修改信息',
+    btn_write:'编辑', btn_delete:'删除', btn_cancel:'取消', btn_edit_appl:'修改信息', btn_logout:'退出登录',
     modal_edit_title:'修改申请信息', btn_update_appl:'完成修改', msg_update_ok:'申请信息已修改。', msg_update_fail:'修改失败。',
     empty_title:'暂无申请书',
     empty_desc:'创建新申请书以<br>开始认证流程。',
@@ -7134,12 +7215,27 @@ img_click_to_zoom:'クリックして拡大',
     dp_lbl_engine:'发动机', dp_lbl_ignition:'点火装置', dp_lbl_chassis:'底盘',
     dp_8_14_1_lbl:'8.14.1. 电动机及电动机控制装置',
     dp_8_14_2_lbl:'8.14.2. 蓄电池及蓄电池控制装置',
+    profile_modal_title:'会员信息', profile_tab_info:'修改基本信息', profile_tab_pw:'修改密码',
+    profile_lbl_username:'用户名', profile_lbl_company:'公司名', profile_lbl_rep:'负责人',
+    profile_lbl_bizno:'营业执照号', profile_lbl_phone:'联系方式',
+    profile_ph_company:'输入公司名称', profile_ph_rep:'输入负责人姓名',
+    profile_ph_bizno:'营业执照编号', profile_ph_phone:'联系电话',
+    profile_btn_save:'保存', profile_saved_ok:'会员信息已修改。',
+    profile_err_required:'公司名、负责人、营业执照号为必填项。',
     pw_change_title:'修改密码',
     pw_current_lbl:'当前密码', pw_new_lbl:'新密码',
     pw_confirm_lbl:'确认新密码',
     pw_current_ph:'请输入当前密码', pw_new_ph:'至少4个字符',
     pw_confirm_ph:'请重新输入',
     pw_cancel_btn:'取消', pw_change_btn:'修改',
+    btn_processing:'处理中...', btn_change:'修改',
+    pw_err_required:'请填写所有项目。', pw_err_too_short:'密码至少需要4个字符。',
+    pw_err_mismatch:'新密码不一致。', pw_changed_ok:'密码已修改成功。',
+    err_occurred:'发生错误。', err_network:'网络错误。',
+    btn_create_app:'创建申请', btn_creating:'创建中...', msg_create_fail:'创建失败。',
+    msg_app_created:'申请书已创建。', err_cert_no_required:'请输入原有认证编号。',
+    msg_delete_confirm:'确定要删除吗？', msg_deleted:'已删除。', msg_delete_fail:'删除失败。',
+    save_error:'保存时发生错误。',
     qr_auth_code_lbl:'真伪确认码',
     qr_verify_title:'真伪验证',
     qr_doc_name:'文件名',
@@ -8247,11 +8343,11 @@ function updateHeader() {
   const el = document.getElementById('header-user');
   if (!currentUser) { el.innerHTML = ''; return; }
   el.innerHTML = \`
-    <button class="btn btn-ghost btn-sm" onclick="showChangePwModal()" title="비밀번호 변경">
-      <i class="fas fa-key"></i>
+    <button class="btn btn-ghost btn-sm" onclick="showProfileModal()" title="${LL('profile_modal_title')}">
+      <i class="fas fa-user-circle"></i>
     </button>
     <button class="btn btn-ghost btn-sm" onclick="doLogout()">
-      <i class="fas fa-sign-out-alt"></i>로그아웃
+      <i class="fas fa-sign-out-alt"></i>${LL('btn_logout')}
     </button>
   \`;
 }
@@ -18716,73 +18812,180 @@ function initNoiseAttach() {
 document.addEventListener('DOMContentLoaded', init);
 
 // ================================================================
-// 비밀번호 변경 모달
+// 회원정보 모달 (기본정보 + 비밀번호 변경 탭)
 // ================================================================
-function showChangePwModal() {
-  document.getElementById('cpw-current').value = '';
-  document.getElementById('cpw-new').value = '';
-  document.getElementById('cpw-new2').value = '';
-  const errEl = document.getElementById('cpw-error');
-  errEl.style.display = 'none'; errEl.textContent = '';
-  document.getElementById('modal-change-pw').classList.remove('hidden');
+function showProfileModal() {
+  // 현재 사용자 정보 채우기
+  if (currentUser) {
+    const usernameEl = document.getElementById('profile-username');
+    const companyEl  = document.getElementById('profile-company');
+    const repEl      = document.getElementById('profile-rep');
+    const biznoEl    = document.getElementById('profile-bizno');
+    const phoneEl    = document.getElementById('profile-phone');
+    if (usernameEl) usernameEl.value = currentUser.username || '';
+    if (companyEl)  companyEl.value  = currentUser.company_name || '';
+    if (repEl)      repEl.value      = currentUser.representative || '';
+    if (biznoEl)    biznoEl.value    = currentUser.business_number || '';
+    if (phoneEl)    phoneEl.value    = currentUser.phone || '';
+  }
+  // 비밀번호 필드 초기화
+  ['profile-cpw-current','profile-cpw-new','profile-cpw-new2'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value = '';
+  });
+  // 에러 숨기기
+  ['profile-info-error','profile-pw-error'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.style.display='none'; el.textContent=''; }
+  });
+  // 기본 탭으로
+  switchProfileTab('info');
+  document.getElementById('modal-profile').classList.remove('hidden');
 }
-function closeChangePwModal() { document.getElementById('modal-change-pw').classList.add('hidden'); }
+function closeProfileModal() { document.getElementById('modal-profile').classList.add('hidden'); }
+
+function switchProfileTab(tab) {
+  const isInfo = tab === 'info';
+  document.getElementById('panel-profile-info').style.display = isInfo ? '' : 'none';
+  document.getElementById('panel-profile-pw').style.display  = isInfo ? 'none' : '';
+  document.getElementById('tab-profile-info').classList.toggle('profile-tab-active', isInfo);
+  document.getElementById('tab-profile-pw').classList.toggle('profile-tab-active', !isInfo);
+  // 저장 버튼 라벨 변경
+  const saveBtn = document.getElementById('profile-save-btn');
+  if (saveBtn) {
+    if (isInfo) {
+      saveBtn.innerHTML = '<i class="fas fa-save"></i>' + LL('profile_btn_save');
+    } else {
+      saveBtn.innerHTML = '<i class="fas fa-check"></i>' + LL('btn_change');
+    }
+    saveBtn.disabled = false;
+  }
+}
+
+async function doUpdateProfile() {
+  const company  = document.getElementById('profile-company').value.trim();
+  const rep      = document.getElementById('profile-rep').value.trim();
+  const bizno    = document.getElementById('profile-bizno').value.trim();
+  const phone    = document.getElementById('profile-phone').value.trim();
+  const errEl    = document.getElementById('profile-info-error');
+  errEl.style.display = 'none'; errEl.textContent = '';
+  if (!company || !rep || !bizno) {
+    errEl.textContent = LL('profile_err_required'); errEl.style.display = 'block'; return;
+  }
+  const btn = document.getElementById('profile-save-btn');
+  btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>' + LL('btn_processing');
+  try {
+    const res  = await api('/api/auth/profile', { method:'PUT', body:JSON.stringify({company_name:company, representative:rep, business_number:bizno, phone}) });
+    const data = await res.json();
+    if (res.ok) {
+      if (data.user) currentUser = data.user;
+      closeProfileModal();
+      showToast(LL('profile_saved_ok'), 'success');
+    } else {
+      errEl.textContent = data.error || LL('err_occurred'); errEl.style.display = 'block';
+    }
+  } catch { errEl.textContent = LL('err_network'); errEl.style.display = 'block'; }
+  finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-save"></i>' + LL('profile_btn_save'); }
+}
 
 async function doChangePw() {
-  const cur  = document.getElementById('cpw-current').value;
-  const nw   = document.getElementById('cpw-new').value;
-  const nw2  = document.getElementById('cpw-new2').value;
-  const errEl = document.getElementById('cpw-error');
-  errEl.style.display = 'none';
-  if (!cur || !nw || !nw2) { errEl.textContent=BL('pw_err_required'); errEl.style.display='block'; return; }
-  if (nw.length < 4) { errEl.textContent=BL('pw_err_too_short'); errEl.style.display='block'; return; }
-  if (nw !== nw2) { errEl.textContent=BL('pw_err_mismatch'); errEl.style.display='block'; return; }
-  const btn = document.getElementById('cpw-btn');
-  btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'+BL('btn_processing');
+  const cur  = document.getElementById('profile-cpw-current').value;
+  const nw   = document.getElementById('profile-cpw-new').value;
+  const nw2  = document.getElementById('profile-cpw-new2').value;
+  const errEl = document.getElementById('profile-pw-error');
+  errEl.style.display = 'none'; errEl.textContent = '';
+  if (!cur || !nw || !nw2) { errEl.textContent=LL('pw_err_required'); errEl.style.display='block'; return; }
+  if (nw.length < 4) { errEl.textContent=LL('pw_err_too_short'); errEl.style.display='block'; return; }
+  if (nw !== nw2) { errEl.textContent=LL('pw_err_mismatch'); errEl.style.display='block'; return; }
+  const btn = document.getElementById('profile-cpw-btn');
+  btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'+LL('btn_processing');
   try {
     const res = await api('/api/auth/change-password', { method:'POST', body:JSON.stringify({current_password:cur, new_password:nw}) });
     const data = await res.json();
-    if (res.ok) { closeChangePwModal(); showToast(BL('pw_changed_ok'), 'success'); }
-    else { errEl.textContent = data.error || BL('err_occurred'); errEl.style.display='block'; }
-  } catch { errEl.textContent=BL('err_network'); errEl.style.display='block'; }
-  finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-check"></i>'+BL('btn_change'); }
+    if (res.ok) { closeProfileModal(); showToast(LL('pw_changed_ok'), 'success'); }
+    else { errEl.textContent = data.error || LL('err_occurred'); errEl.style.display='block'; }
+  } catch { errEl.textContent=LL('err_network'); errEl.style.display='block'; }
+  finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-check"></i>'+LL('btn_change'); }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const m = document.getElementById('modal-change-pw');
-  if (m) m.addEventListener('click', function(e){ if(e.target===this)closeChangePwModal(); });
+  const m = document.getElementById('modal-profile');
+  if (m) m.addEventListener('click', function(e){ if(e.target===this)closeProfileModal(); });
 });
 </script>
 
-<!-- 비밀번호 변경 모달 -->
-<div id="modal-change-pw" class="modal-backdrop hidden no-print">
-  <div class="modal" onclick="event.stopPropagation()" style="max-width:420px;">
+<!-- 회원정보 모달 (기본정보 + 비밀번호 변경 탭) -->
+<div id="modal-profile" class="modal-backdrop hidden no-print">
+  <div class="modal" onclick="event.stopPropagation()" style="max-width:480px;">
     <div class="modal-header">
-      <h3 style="font-size:14pt;font-weight:700;"><i class="fas fa-key" style="margin-right:8px;color:var(--c-primary);"></i>\${BL('pw_change_title')}</h3>
-      <button class="btn btn-ghost btn-icon btn-sm" onclick="closeChangePwModal()"><i class="fas fa-times"></i></button>
+      <h3 style="font-size:14pt;font-weight:700;">
+        <i class="fas fa-user-circle" style="margin-right:8px;color:var(--c-primary);"></i>
+        \${LL('profile_modal_title')}
+      </h3>
+      <button class="btn btn-ghost btn-icon btn-sm" onclick="closeProfileModal()"><i class="fas fa-times"></i></button>
     </div>
-    <div class="modal-body">
+    <!-- 탭 버튼 -->
+    <div style="display:flex;border-bottom:1px solid var(--c-border);padding:0 20px;gap:4px;background:var(--c-bg-card);">
+      <button id="tab-profile-info" class="profile-tab profile-tab-active" onclick="switchProfileTab('info')">
+        <i class="fas fa-user" style="margin-right:6px;"></i>\${LL('profile_tab_info')}
+      </button>
+      <button id="tab-profile-pw" class="profile-tab" onclick="switchProfileTab('pw')">
+        <i class="fas fa-lock" style="margin-right:6px;"></i>\${LL('profile_tab_pw')}
+      </button>
+    </div>
+    <!-- 기본정보 탭 패널 -->
+    <div id="panel-profile-info" class="modal-body">
       <div class="form-group">
-        <label class="label">\${BL('pw_lbl_current')} <span style="color:var(--c-danger);">*</span></label>
-        <input id="cpw-current" class="input" type="password" placeholder="\${BL('pw_ph_current')}" autocomplete="current-password"
-          onkeydown="if(event.key==='Enter')document.getElementById('cpw-new').focus()">
+        <label class="label">\${LL('profile_lbl_username')}</label>
+        <input id="profile-username" class="input" type="text" readonly
+          style="background:var(--c-bg);color:var(--c-text-muted);cursor:not-allowed;">
       </div>
       <div class="form-group">
-        <label class="label">\${BL('pw_lbl_new')} <span style="color:var(--c-danger);">*</span></label>
-        <input id="cpw-new" class="input" type="password" placeholder="\${BL('pw_ph_new')}" autocomplete="new-password"
-          onkeydown="if(event.key==='Enter')document.getElementById('cpw-new2').focus()">
+        <label class="label">\${LL('profile_lbl_company')} <span style="color:var(--c-danger);">*</span></label>
+        <input id="profile-company" class="input" type="text" placeholder="\${LL('profile_ph_company')}"
+          onkeydown="if(event.key==='Enter')document.getElementById('profile-rep').focus()">
       </div>
       <div class="form-group">
-        <label class="label">\${BL('pw_lbl_confirm')} <span style="color:var(--c-danger);">*</span></label>
-        <input id="cpw-new2" class="input" type="password" placeholder="\${BL('pw_ph_confirm')}" autocomplete="new-password"
+        <label class="label">\${LL('profile_lbl_rep')} <span style="color:var(--c-danger);">*</span></label>
+        <input id="profile-rep" class="input" type="text" placeholder="\${LL('profile_ph_rep')}"
+          onkeydown="if(event.key==='Enter')document.getElementById('profile-bizno').focus()">
+      </div>
+      <div class="form-group">
+        <label class="label">\${LL('profile_lbl_bizno')} <span style="color:var(--c-danger);">*</span></label>
+        <input id="profile-bizno" class="input" type="text" placeholder="\${LL('profile_ph_bizno')}"
+          onkeydown="if(event.key==='Enter')document.getElementById('profile-phone').focus()">
+      </div>
+      <div class="form-group">
+        <label class="label">\${LL('profile_lbl_phone')}</label>
+        <input id="profile-phone" class="input" type="text" placeholder="\${LL('profile_ph_phone')}"
+          onkeydown="if(event.key==='Enter')doUpdateProfile()">
+      </div>
+      <div id="profile-info-error" class="auth-error" style="display:none;"></div>
+    </div>
+    <!-- 비밀번호 변경 탭 패널 -->
+    <div id="panel-profile-pw" class="modal-body" style="display:none;">
+      <div class="form-group">
+        <label class="label">\${LL('pw_lbl_current')} <span style="color:var(--c-danger);">*</span></label>
+        <input id="profile-cpw-current" class="input" type="password" placeholder="\${LL('pw_ph_current')}" autocomplete="current-password"
+          onkeydown="if(event.key==='Enter')document.getElementById('profile-cpw-new').focus()">
+      </div>
+      <div class="form-group">
+        <label class="label">\${LL('pw_lbl_new')} <span style="color:var(--c-danger);">*</span></label>
+        <input id="profile-cpw-new" class="input" type="password" placeholder="\${LL('pw_ph_new')}" autocomplete="new-password"
+          onkeydown="if(event.key==='Enter')document.getElementById('profile-cpw-new2').focus()">
+      </div>
+      <div class="form-group">
+        <label class="label">\${LL('pw_lbl_confirm')} <span style="color:var(--c-danger);">*</span></label>
+        <input id="profile-cpw-new2" class="input" type="password" placeholder="\${LL('pw_ph_confirm')}" autocomplete="new-password"
           onkeydown="if(event.key==='Enter')doChangePw()">
       </div>
-      <div id="cpw-error" class="auth-error" style="display:none;"></div>
+      <div id="profile-pw-error" class="auth-error" style="display:none;"></div>
     </div>
+    <!-- 푸터: 탭에 따라 다른 버튼 -->
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeChangePwModal()">${LL('btn_cancel')}</button>
-      <button id="cpw-btn" class="btn btn-primary" onclick="doChangePw()">
-        <i class="fas fa-check"></i>\${BL('btn_change')}
+      <button class="btn btn-ghost" onclick="closeProfileModal()">\${LL('btn_cancel')}</button>
+      <button id="profile-save-btn" class="btn btn-primary"
+        onclick="document.getElementById('panel-profile-info').style.display!=='none'?doUpdateProfile():doChangePw()">
+        <i class="fas fa-save"></i>\${LL('profile_btn_save')}
       </button>
     </div>
   </div>

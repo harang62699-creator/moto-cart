@@ -24,6 +24,8 @@ const _SERVER_LL_DICT: Record<string,string> = {
   dp_5_4_lbl:'5.4. 증발가스 시험 정보',
   dp_7_1_lbl:'7.1. 배출가스 시험 결과',
   dp_7_2_lbl:'7.2. 배출가스 시험 성적서',
+  nt_rpm_unit:'% 회전속도(rpm)',
+  obd_ph_dtc_default:'이륜자동차에 결함코드가 확인되면 계기판에 엔진 체크등이 점등됨.',
   // 회원정보 모달
   profile_modal_title:'회원정보',
   profile_tab_info:'기본정보 수정',
@@ -1542,13 +1544,13 @@ textarea.auto-grow {
     </div>
     <div class="form-page-actions">
       <button id="save-btn" class="btn btn-success" onclick="saveForm()">
-        <i class="fas fa-save"></i>저장
+        <i class="fas fa-save"></i><span id="save-btn-lbl">저장</span>
       </button>
-      <button class="btn btn-ghost" onclick="printWithQR()">
-        <i class="fas fa-print"></i>인쇄
+      <button id="print-btn-top" class="btn btn-ghost" onclick="printWithQR()">
+        <i class="fas fa-print"></i><span id="print-btn-top-lbl">인쇄</span>
       </button>
       <button id="btn-toc-print" class="btn btn-ghost" onclick="printDetailPlanToc()" style="display:none;">
-        <i class="fas fa-list-ol"></i>목차인쇄
+        <i class="fas fa-list-ol"></i><span id="toc-print-lbl">목차인쇄</span>
       </button>
     </div>
   </div>
@@ -1559,8 +1561,8 @@ textarea.auto-grow {
   <div class="complete-card no-print" id="complete-card" onclick="toggleComplete()">
     <input type="checkbox" id="form-completed-chk" class="complete-checkbox" onclick="event.stopPropagation();updateCompleteCard();">
     <div>
-      <div class="complete-label-title">이 서류 작성을 완료했습니다</div>
-      <div class="complete-label-sub">체크하면 진행률에 반영됩니다</div>
+      <div class="complete-label-title" id="complete-label-title-el">이 서류 작성을 완료했습니다</div>
+      <div class="complete-label-sub" id="complete-label-sub-el">체크하면 진행률에 반영됩니다</div>
     </div>
     <i class="fas fa-check-circle" style="margin-left:auto;font-size:10pt;color:var(--c-success);opacity:0;transition:opacity .2s;" id="complete-check-icon"></i>
   </div>
@@ -1569,15 +1571,15 @@ textarea.auto-grow {
   <div class="form-action-bar no-print">
     <div class="form-action-bar-left">
       <button class="btn btn-ghost" onclick="goBackToApplication()">
-        <i class="fas fa-arrow-left"></i>목록
+        <i class="fas fa-arrow-left"></i><span id="btn-list-lbl">목록</span>
       </button>
     </div>
     <div class="form-action-bar-right">
       <button class="btn btn-ghost" onclick="printWithQR()">
-        <i class="fas fa-print"></i>인쇄
+        <i class="fas fa-print"></i><span id="print-btn-bottom-lbl">인쇄</span>
       </button>
       <button id="save-btn-bottom" class="btn btn-success" onclick="saveForm()">
-        <i class="fas fa-save"></i>저장
+        <i class="fas fa-save"></i><span id="save-btn-bottom-lbl">저장</span>
       </button>
     </div>
   </div>
@@ -3504,6 +3506,9 @@ img_click_to_zoom:'클릭하여 크게 보기',
     msg_saved:'저장되었습니다.',
     msg_save_fail:'저장 실패',
     btn_save:'저장',
+    btn_list:'목록', btn_toc_print:'목차인쇄',
+    complete_title:'이 서류 작성을 완료했습니다', complete_sub:'체크하면 진행률에 반영됩니다',
+    nt_rpm_unit:'% 회전속도(rpm)',
     btn_create_app:'신청서 생성',
     err_title_required:'신청 제목을 입력하세요.',
     err_cert_no_required:'기존 인증번호를 입력하세요.',
@@ -5096,6 +5101,9 @@ img_click_to_zoom:'Click to zoom',
     msg_saved:'Saved successfully.',
     msg_save_fail:'Save failed',
     btn_save:'Save',
+    btn_list:'List', btn_toc_print:'Print TOC',
+    complete_title:'Document completed', complete_sub:'Check to reflect in progress',
+    nt_rpm_unit:'% Rotational Speed (rpm)',
     btn_create_app:'Create Application',
     err_title_required:'Please enter the application title.',
     err_cert_no_required:'Please enter the existing certification number.',
@@ -6686,6 +6694,9 @@ img_click_to_zoom:'クリックして拡大',
     msg_saved:'保存されました。',
     msg_save_fail:'保存失敗',
     btn_save:'保存',
+    btn_list:'一覧', btn_toc_print:'目次印刷',
+    complete_title:'この書類の作成を完了しました', complete_sub:'チェックすると進捗に反映されます',
+    nt_rpm_unit:'% 回転速度(rpm)',
     btn_create_app:'申請書作成',
     err_title_required:'申請タイトルを入力してください。',
     err_cert_no_required:'既存の認証番号を入力してください。',
@@ -8291,6 +8302,9 @@ img_click_to_zoom:'点击放大',
     msg_saved:'保存成功。',
     msg_save_fail:'保存失败',
     btn_save:'保存',
+    btn_list:'列表', btn_toc_print:'打印目录',
+    complete_title:'此文件已完成', complete_sub:'勾选后将反映在进度中',
+    nt_rpm_unit:'% 转速(rpm)',
     btn_create_app:'创建申请',
     err_title_required:'请输入申请标题。',
     err_cert_no_required:'请输入现有认证编号。',
@@ -8818,6 +8832,19 @@ async function openForm(formType) {
   // 목차인쇄 버튼: detail_plan 폼에서만 표시
   const tocBtn = document.getElementById('btn-toc-print');
   if (tocBtn) tocBtn.style.display = (formType === 'detail_plan') ? '' : 'none';
+  // ── 폼 페이지 UI 버튼/텍스트 다국어 갱신 ──
+  const setFormSpan = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  setFormSpan('save-btn-lbl',       _fLt('btn_save'));
+  setFormSpan('save-btn-bottom-lbl',_fLt('btn_save'));
+  setFormSpan('print-btn-top-lbl',  _fLt('btn_print'));
+  setFormSpan('print-btn-bottom-lbl',_fLt('btn_print'));
+  setFormSpan('btn-list-lbl',       _fLt('btn_list'));
+  setFormSpan('toc-print-lbl',      _fLt('btn_toc_print'));
+  setFormSpan('complete-label-title-el', _fLt('complete_title'));
+  setFormSpan('complete-label-sub-el',   _fLt('complete_sub'));
+  // breadcrumb 목록 버튼
+  const btnHomeForm2 = document.getElementById('btn-breadcrumb-home-form');
+  if (btnHomeForm2) btnHomeForm2.innerHTML = '<i class="fas fa-home"></i> ' + _fLt('dash_title');
 }
 
 // ── Auto-grow: input[type=text] → textarea 동적 교체 ──────────────
@@ -9132,7 +9159,10 @@ async function saveForm() {
       if (idx>=0) { currentForms[idx].data=JSON.stringify(data); currentForms[idx].completed=completed?1:0; }
     } else { showToast(LL('msg_save_fail'),'error'); }
   } catch(e) { console.error('saveForm error:', e); showToast(LL('msg_network_error'),'error'); }
-  finally { btns.forEach(b => { b.disabled=false; b.innerHTML='<i class="fas fa-save"></i>'+LL('btn_save'); }); }
+  finally {
+    const saveLbl = LL('btn_save');
+    btns.forEach(b => { b.disabled=false; b.innerHTML='<i class="fas fa-save"></i><span>'+saveLbl+'</span>'; });
+  }
 }
 
 // ================================================================
@@ -13895,7 +13925,7 @@ function buildFormHTML(formType, saved) {
 <table class="obd-tbl">
   <tr>
     <td class="obd-lbl" style="width:8%; text-align:center; white-space:nowrap;">1.2.1.</td>
-    <td><textarea class="obd-field-text" data-field="obd_1_2_1" placeholder="\${BL('obd_ph_dtc_default')}">이륜자동차에 결함코드가 확인되면 계기판에 엔진 체크등이 점등됨.</textarea></td>
+    <td><textarea class="obd-field-text" data-field="obd_1_2_1" placeholder="\${BL('obd_ph_dtc_default')}">\${E(v('obd_1_2_1')) || BL('obd_ph_dtc_default')}</textarea></td>
   </tr>
   <tr>
     <td class="obd-lbl" style="text-align:center; white-space:nowrap; vertical-align:top; padding-top:6px;">1.2.2.</td>
@@ -17563,7 +17593,7 @@ function buildFormHTML(formType, saved) {
     <tr>
       <th rowspan="2">\${BL('sv_noise_simple')}<br>시험</th>
       <th rowspan="2">\${BL('nt_meas_count')}</th>
-      <th rowspan="2" style="line-height:1.8;">\${BL('nt_ex_pct_lbl')}<br><input data-field="nt_ex_pct" class="nt-inp" type="text" style="width:3.5em;text-align:center;border-bottom:1px solid #888;" value="\${E(v('nt_ex_pct'))}">% 회전속도(rpm)</th>
+      <th rowspan="2" style="line-height:1.8;">\${BL('nt_ex_pct_lbl')}<br><input data-field="nt_ex_pct" class="nt-inp" type="text" style="width:3.5em;text-align:center;border-bottom:1px solid #888;" value="\${E(v('nt_ex_pct'))}">\${BL('nt_rpm_unit')}</th>
       <th rowspan="2">\${BL('nt_bg_noise_a')}</th>
       <th colspan="2">\${BL('nt_exhaust_noise_val')}</th>
       <th rowspan="2">\${BL('nt_score_a')}</th>

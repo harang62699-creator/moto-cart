@@ -1,11 +1,15 @@
 {
-  "name": "webapp",
+  "name": "moto-cart",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "wrangler pages dev",
-    "deploy": "npm run build && wrangler pages deploy",
+    "preview": "wrangler pages dev dist",
+    "dev:sandbox": "wrangler pages dev dist --d1=moto-cart-production --local --ip 0.0.0.0 --port 3000",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name moto-cart",
+    "db:migrate:local": "wrangler d1 migrations apply moto-cart-production --local",
+    "db:migrate:prod": "wrangler d1 migrations apply moto-cart-production --remote",
+    "db:reset": "rm -rf .wrangler/state/v3/d1 && npm run db:migrate:local",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {

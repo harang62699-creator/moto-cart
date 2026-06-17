@@ -502,7 +502,7 @@ const HTML = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Motocert — 수입이륜차 인증신청 지원</title>
+<title>MOTOCERT — 수입이륜차 인증신청 지원</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -791,59 +791,128 @@ textarea.auto-grow {
 #page-auth {
   min-height:calc(100vh - 60px);
   display:none; align-items:center; justify-content:center;
-  padding:24px;
-  background:var(--grad-hero);
+  padding:24px 16px;
+  background:#f2f4f8;
   position:relative; overflow:hidden;
 }
 #page-auth.active { display:flex; }
+/* 배경 장식 */
 #page-auth::before {
   content:'';
   position:absolute; inset:0;
   background:
-    radial-gradient(ellipse 60% 50% at 20% 40%, rgba(79,142,247,.08) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 40% at 80% 60%, rgba(108,92,231,.07) 0%, transparent 70%);
+    radial-gradient(ellipse 55% 40% at 15% 30%, rgba(255,200,0,.06) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 35% at 85% 70%, rgba(0,0,0,.04) 0%, transparent 65%);
   pointer-events:none;
 }
-.auth-wrap { position:relative; z-index:1; width:100%; max-width:420px; }
-.auth-hero { text-align:center; margin-bottom:32px; }
-.auth-logo-big {
-  width:64px; height:64px; border-radius:18px;
-  background:var(--grad-accent);
-  display:flex; align-items:center; justify-content:center;
-  font-size:26px; color:#fff; margin:0 auto 18px;
-  box-shadow:0 8px 30px rgba(79,142,247,.45);
+/* ── 카드 래퍼 ── */
+.auth-wrap {
+  position:relative; z-index:1;
+  width:100%; max-width:400px;
+  display:flex; flex-direction:column; align-items:center;
 }
-.auth-title { font-size:1.6rem; font-weight:800; letter-spacing:-.03em; margin-bottom:6px; }
-.auth-desc { font-size:.875rem; color:var(--c-text2); line-height:1.6; }
-.auth-card {
-  background:rgba(22,25,31,.9);
-  border:1px solid var(--c-border2);
-  border-radius:var(--r-xl);
-  box-shadow:var(--shadow-lg);
+/* ── 로고 히어로 영역 ── */
+.auth-hero { text-align:center; margin-bottom:24px; }
+.auth-logo-big {
+  width:76px; height:76px; border-radius:20px;
+  background:#000;
+  border:3px solid #FFC800;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 14px;
+  box-shadow:0 8px 32px rgba(0,0,0,.25);
   overflow:hidden;
 }
+.auth-logo-big img { width:100%; height:100%; object-fit:cover; border-radius:17px; }
+.auth-title {
+  font-size:1.45rem; font-weight:900; letter-spacing:.02em;
+  color:#111; margin-bottom:4px;
+}
+.auth-brand-sub {
+  font-size:.7rem; font-weight:600; letter-spacing:.12em;
+  color:#666; text-transform:uppercase;
+}
+/* ── 메인 카드 ── */
+.auth-card {
+  background:#fff;
+  border:1.5px solid #e5e8ef;
+  border-radius:20px;
+  box-shadow:0 4px 24px rgba(0,0,0,.08);
+  overflow:hidden;
+  width:100%;
+}
+/* ── 탭 버튼 ── */
 .auth-tabs {
   display:flex;
-  border-bottom:1px solid var(--c-border);
+  background:#f5f6f8;
+  padding:6px;
+  gap:4px;
+  border-bottom:none;
 }
 .auth-tab {
-  flex:1; padding:16px; font-size:.875rem; font-weight:600;
-  background:none; border:none; cursor:pointer; color:var(--c-text3);
+  flex:1; padding:11px 8px; font-size:.875rem; font-weight:700;
+  background:transparent; border:none; cursor:pointer; color:#888;
   transition:all var(--transition); position:relative;
-  font-family:inherit;
+  font-family:inherit; border-radius:12px;
 }
-.auth-tab.active { color:var(--c-accent); }
-.auth-tab.active::after {
-  content:''; position:absolute; bottom:-1px; left:0; right:0; height:2px;
-  background:var(--grad-accent); border-radius:2px 2px 0 0;
+.auth-tab.active {
+  background:#FFC800;
+  color:#111;
+  box-shadow:0 2px 8px rgba(255,200,0,.35);
 }
-.auth-form { padding:28px; display:flex; flex-direction:column; gap:16px; }
+.auth-tab.active::after { display:none; }
+/* ── 폼 영역 ── */
+.auth-form { padding:24px; display:flex; flex-direction:column; gap:14px; }
+/* ── 입력 필드 재정의 (로그인 페이지용) ── */
+#page-auth .input {
+  background:#f8f9fb;
+  border:1.5px solid #e5e8ef;
+  border-radius:12px;
+  color:#111;
+  font-size:.9rem;
+  padding:12px 14px;
+  transition:border-color .2s, box-shadow .2s;
+}
+#page-auth .input:focus {
+  border-color:#FFC800;
+  box-shadow:0 0 0 3px rgba(255,200,0,.18);
+  outline:none;
+  background:#fff;
+}
+#page-auth .input::placeholder { color:#aab; }
+#page-auth .label { color:#444; font-size:.82rem; font-weight:600; margin-bottom:5px; }
+/* ── 로그인 버튼 ── */
+#login-btn, #register-btn {
+  background:#FFC800 !important;
+  background-image:none !important;
+  color:#111 !important;
+  font-weight:800;
+  font-size:.95rem;
+  border-radius:12px;
+  box-shadow:0 4px 16px rgba(255,200,0,.4) !important;
+  transition:all .2s;
+}
+#login-btn:hover, #register-btn:hover {
+  background:#e6b400 !important;
+  transform:translateY(-1px);
+  box-shadow:0 6px 20px rgba(255,200,0,.5) !important;
+}
+#login-btn:active, #register-btn:active { transform:translateY(0); }
+/* ── 에러 메시지 ── */
 .auth-error {
-  background:rgba(255,95,109,.1); border:1px solid rgba(255,95,109,.25);
-  border-radius:var(--r-sm); padding:11px 14px;
-  font-size:.82rem; color:#ff8a92; display:none;
+  background:rgba(255,95,109,.08); border:1px solid rgba(255,95,109,.25);
+  border-radius:10px; padding:10px 13px;
+  font-size:.82rem; color:#e53e3e; display:none;
   animation:fadeIn .2s ease;
 }
+/* ── 테스트 계정 힌트 박스 ── */
+.auth-hint-box {
+  background:#eff6ff; border:1.5px solid #bfdbfe;
+  border-radius:12px; padding:11px 14px;
+  font-size:.8rem; color:#1d4ed8;
+  display:flex; align-items:flex-start; gap:8px;
+  margin-bottom:2px;
+}
+.auth-hint-box i { margin-top:1px; flex-shrink:0; }
 
 /* ── 대시보드 ───────────────────────────────── */
 #page-dashboard { max-width:1200px; width:100%; padding:36px 24px; margin:0 auto; align-self:center; box-sizing:border-box; }
@@ -1311,9 +1380,9 @@ textarea.auto-grow {
 <header id="app-header" class="no-print">
   <div class="header-inner">
     <div class="logo">
-      <div class="logo-icon"><img src="https://www.genspark.ai/api/files/s/NOlEfCY7" alt="logo"></div>
+      <div class="logo-icon"><img src="https://www.genspark.ai/api/files/s/3fp8R3IJ" alt="logo"></div>
       <div>
-        <div class="logo-text">MotoCart</div>
+        <div class="logo-text">MOTOCERT</div>
         <div class="logo-sub">수입이륜차 인증신청 지원</div>
       </div>
     </div>
@@ -1329,11 +1398,15 @@ textarea.auto-grow {
 ════════════════════════════════════════════════ -->
 <div id="page-auth" class="page active">
   <div class="auth-wrap">
+    <!-- 로고 히어로 -->
     <div class="auth-hero">
-      <div class="auth-logo-big"><i class="fas fa-motorcycle"></i></div>
-      <div class="auth-title">인증신청 지원 시스템</div>
-      <div class="auth-desc">수입이륜차 배출가스·소음 인증<br>서류 작성을 효율적으로</div>
+      <div class="auth-logo-big">
+        <img src="https://www.genspark.ai/api/files/s/3fp8R3IJ" alt="Motocert 로고">
+      </div>
+      <div class="auth-title">MOTOCERT</div>
+      <div class="auth-brand-sub">MOTORCYCLE CERTIFICATION PLATFORM</div>
     </div>
+
     <div class="auth-card">
       <div class="auth-tabs">
         <button class="auth-tab active" id="tab-login" onclick="showAuthTab('login')">로그인</button>
@@ -1342,19 +1415,33 @@ textarea.auto-grow {
 
       <!-- 로그인 폼 -->
       <div id="login-form" class="auth-form">
+        <!-- 테스트 계정 힌트 -->
+        <div class="auth-hint-box">
+          <i class="fas fa-info-circle"></i>
+          <div>
+            <strong>심사용 테스트 계정</strong><br>
+            아이디: <strong>harang2009</strong> &nbsp;|&nbsp; PW: <strong>1234</strong>
+          </div>
+        </div>
         <div class="field-wrap">
-          <label class="label"><i class="fas fa-user" style="margin-right:5px;opacity:.6;"></i>아이디</label>
+          <label class="label"><i class="fas fa-user" style="margin-right:5px;opacity:.5;"></i>아이디</label>
           <input id="login-username" class="input" type="text" placeholder="아이디를 입력하세요" autocomplete="username"
             onkeydown="if(event.key==='Enter')document.getElementById('login-password').focus()">
         </div>
         <div class="field-wrap">
-          <label class="label"><i class="fas fa-lock" style="margin-right:5px;opacity:.6;"></i>비밀번호</label>
-          <input id="login-password" class="input" type="password" placeholder="비밀번호를 입력하세요" autocomplete="current-password"
-            onkeydown="if(event.key==='Enter')doLogin()">
+          <label class="label"><i class="fas fa-lock" style="margin-right:5px;opacity:.5;"></i>비밀번호</label>
+          <div style="position:relative;">
+            <input id="login-password" class="input" type="password" placeholder="비밀번호를 입력하세요" autocomplete="current-password"
+              onkeydown="if(event.key==='Enter')doLogin()" style="width:100%;padding-right:44px;">
+            <button type="button" onclick="(function(){var i=document.getElementById('login-password');i.type=i.type==='password'?'text':'password';})()"
+              style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#aab;font-size:.9rem;padding:4px;">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
         </div>
         <div id="login-error" class="auth-error"></div>
         <button id="login-btn" class="btn btn-primary btn-lg" onclick="doLogin()" style="width:100%;margin-top:4px;">
-          <i class="fas fa-sign-in-alt"></i>로그인
+          로그인
         </button>
       </div>
 

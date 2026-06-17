@@ -58,6 +58,13 @@ const _SERVER_LL_DICT: Record<string,string> = {
   btn_logout:'로그아웃',
   err_occurred:'오류가 발생했습니다.',
   err_network:'네트워크 오류가 발생했습니다.',
+  // QR 진위확인 섹션
+  qr_auth_code_lbl:'진위여부코드',
+  qr_verify_title:'진위여부 확인',
+  qr_doc_name:'서류명',
+  qr_application:'신청서',
+  qr_issued_at:'발급일시',
+  qr_issuer:'발급기관',
 };
 function LL(key: string): string {
   return _SERVER_LL_DICT[key] ?? key;
@@ -1365,7 +1372,7 @@ textarea.auto-grow {
           </div>
           <div class="field-wrap">
             <label class="label">비밀번호 확인 <span style="color:var(--c-danger);">*</span></label>
-            <input id="reg-password2" class="input" type="password" placeholder="\${BL('pw_ph_confirm')}" autocomplete="new-password">
+            <input id="reg-password2" class="input" type="password" placeholder="${LL('pw_ph_confirm')}" autocomplete="new-password">
           </div>
           <div class="field-wrap" style="grid-column:1/-1;">
             <label class="label">회사명 <span style="color:var(--c-danger);">*</span></label>
@@ -8327,6 +8334,8 @@ img_click_to_zoom:'点击放大',
 function LL(key) {
   return (LANG_DICT[currentLang]||LANG_DICT.ko)[key] || (LANG_DICT.ko[key] || key);
 }
+// BL: buildFormHTML/buildQRBlockHTML 전용 헬퍼 — 클라이언트에서 LL과 동일 동작
+function BL(key) { return LL(key); }
 function PH(key) {
   const phKey = 'ph_'+key;
   return (LANG_DICT[currentLang]||LANG_DICT.ko)[phKey] || (LANG_DICT.ko[phKey] || '');

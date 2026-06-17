@@ -565,6 +565,8 @@ body {
 /* ── 페이지 전환 ────────────────────────────── */
 .page { display:none; animation:fadeIn .25s ease; }
 .page.active { display:block; }
+/* 로그인 페이지는 flex로 override (specificity 우선순위 확보) */
+#page-auth.active { display:flex !important; }
 @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
 /* ── 공통 컴포넌트 ──────────────────────────── */
@@ -790,12 +792,12 @@ textarea.auto-grow {
 /* ── 로그인 페이지 ──────────────────────────── */
 #page-auth {
   min-height:calc(100vh - 60px);
+  flex:1;                        /* body flex 자식으로 남은 높이 모두 차지 */
   display:none; align-items:center; justify-content:center;
   padding:24px 16px;
   background:#f2f4f8;
   position:relative; overflow:hidden;
 }
-#page-auth.active { display:flex; }
 /* 배경 장식 */
 #page-auth::before {
   content:'';

@@ -1382,7 +1382,7 @@ textarea.auto-grow {
 <header id="app-header" class="no-print">
   <div class="header-inner">
     <div class="logo">
-      <div class="logo-icon"><img src="https://www.genspark.ai/api/files/s/3fp8R3IJ" alt="logo"></div>
+      <div class="logo-icon"><img src="/static/logo.png" alt="logo"></div>
       <div>
         <div class="logo-text">MOTOCERT</div>
         <div class="logo-sub">수입이륜차 인증신청 지원</div>
@@ -1403,7 +1403,7 @@ textarea.auto-grow {
     <!-- 로고 히어로 -->
     <div class="auth-hero">
       <div class="auth-logo-big">
-        <img src="https://www.genspark.ai/api/files/s/3fp8R3IJ" alt="Motocert 로고">
+        <img src="/static/logo.png" alt="Motocert 로고">
       </div>
       <div class="auth-title">MOTOCERT</div>
       <div class="auth-brand-sub">MOTORCYCLE CERTIFICATION PLATFORM</div>
